@@ -1,0 +1,14 @@
+{
+    "name": "ctmobi/wp-ear2words",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Alessio Catania",
+            "email": "alessio.catania@ctmobi.it"
+        }
+    ],
+    "autoload": {
+        "psr-4": {"Ear2Words\\": "./includes"}
+    },
+    "require": {}
+}
