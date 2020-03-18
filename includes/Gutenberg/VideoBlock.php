@@ -24,6 +24,13 @@ class VideoBlock {
 	 */
 	public function myguten_enqueue() {
 		wp_enqueue_script( 'myguten-script', plugins_url( '../asset/js/myguten.js', __FILE__ ), array( 'wp-blocks' ), 'myguten', false );
+		wp_localize_script(
+			'myguten-script',
+			'my_ajax_object',
+			array(
+				'ajax_url'  => admin_url( 'admin-ajax.php' ),
+				'ajaxnonce' => wp_create_nonce( 'itr_ajax_nonce' ),
+			)
+		);
 	}
-
 }
