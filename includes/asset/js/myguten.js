@@ -40,9 +40,6 @@ addElement(props) {
             id: props.attributes.id,
             onClick() {
               props.setAttributes({ hasRequest: true });
-              return el(
-                wp.components.notice,
-              );
             },
           },
         ),
