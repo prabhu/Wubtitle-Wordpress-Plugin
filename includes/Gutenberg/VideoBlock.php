@@ -17,8 +17,13 @@ class VideoBlock {
 	 * Init class actions
 	 */
 	public function run() {
-		// aggiungere qui le action.
+		add_action( 'enqueue_block_editor_assets', array( $this, 'myguten_enqueue' ) );
 	}
-	// aggiungere le funzioni.
+	/**
+	 * Enqueue degli script.
+	 */
+	public function myguten_enqueue() {
+		wp_enqueue_script( 'myguten-script', plugins_url( '../asset/js/myguten.js', __FILE__ ), array( 'wp-blocks' ), 'myguten', false );
+	}
 
 }
