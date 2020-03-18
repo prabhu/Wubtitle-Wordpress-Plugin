@@ -10,5 +10,10 @@
     "autoload": {
         "psr-4": {"Ear2Words\\": "./includes"}
     },
-    "require": {}
+    "require": {},
+    "require-dev": {
+        "squizlabs/php_codesniffer": "*",
+        "phpmd/phpmd": "@stable",
+        "phpunit/phpunit": "^9"
+    }
 }
