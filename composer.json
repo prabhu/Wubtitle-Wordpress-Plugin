@@ -10,10 +10,20 @@
     "autoload": {
         "psr-4": {"Ear2Words\\": "./includes"}
     },
+    "scripts": {
+        "phpcs": "phpcs ./",
+        "fixphp": "phpcbf",
+        "phpmd": "phpmd ./ ansi ./phpmd.xml",
+        "test": "./vendor/bin/phpunit --color=always --testdox tests",
+        "check-php": ["@phpmd","@phpcs"]
+    },
     "require": {},
     "require-dev": {
         "squizlabs/php_codesniffer": "*",
         "phpmd/phpmd": "@stable",
-        "phpunit/phpunit": "^9"
+        "phpunit/phpunit": "^9",
+        "dealerdirect/phpcodesniffer-composer-installer": "^0.6.2",
+        "wp-coding-standards/wpcs": "*",
+        "phpcompatibility/phpcompatibility-wp": "*"
     }
 }

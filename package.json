@@ -11,5 +11,10 @@
     "eslint-plugin-react": "^7.19.0",
     "eslint-plugin-react-hooks": "^2.5.0",
     "husky": "^4.2.3"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "composer run-script check-php"
+    }
   }
 }
