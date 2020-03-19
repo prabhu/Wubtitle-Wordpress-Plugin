@@ -15,10 +15,6 @@ cache:
 
 PHP7.2-build:
   image: edbizarro/gitlab-ci-pipeline-php:7.2-alpine
-  only:
-    - dev
-    - staging
-    - master
   stage: build
   services:
     - mysql:5.6
@@ -28,10 +24,6 @@ PHP7.2-build:
 
 PHP7.2-lint:
   image: edbizarro/gitlab-ci-pipeline-php:7.2-alpine
-  only:
-    - dev
-    - staging
-    - master
   stage: lint
   services:
     - mysql:5.6
@@ -40,10 +32,6 @@ PHP7.2-lint:
 
 PHP7.2-test:
   image: edbizarro/gitlab-ci-pipeline-php:7.2-alpine
-  only:
-    - dev
-    - staging
-    - master
   before_script:
     - sudo apk update
     - sudo apk add subversion
