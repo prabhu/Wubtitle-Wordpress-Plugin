@@ -13,44 +13,8 @@ cache:
     - node_modules/
     - vendor/
 
-before_script:
-  # Install dependencies
-
-  # update the docker
-  - apt-get clean
-  - apt-get -yqq update
-
-  # install Composer
-
-  - curl https://getcomposer.org/composer-stable.phar --output composer.phar
-  - chmod +x composer.phar
-  - mv composer.phar /usr/local/bin/composer
-  # instll the required packages for the running CI tests
-  - apt-get -yqqf install zip unzip subversion mariadb-client libmariadbclient-dev zlib1g-dev libicu-dev g++ libpng-dev libbz2-dev libmcrypt-dev --fix-missing
-  - curl -sL https://deb.nodesource.com/setup_12.x | bash -
-  - apt-get install -y nodejs
-  # PHP extensions
-  - docker-php-ext-install mbstring mysqli pdo_mysql gd zip bz2
-  - docker-php-ext-configure intl
-  - docker-php-ext-install intl
-  - docker-php-ext-enable mbstring mysqli pdo_mysql intl gd zip bz2
-  - printf "\n" | pecl install mcrypt
-  - docker-php-ext-enable mcrypt
-
-  # Set up WordPress tests
-  - bash bin/install-wp-tests.sh wordpress_tests root mysql mysql latest true
-
-# PHP7.1-build:
-#   image: php:7.1.33-fpm-buster
-#   stage: build
-#   services:
-#     - mysql:5.6
-#   script:
-#   - phpcs
-#   - phpunit
-
 PHP7.2-build:
-  image: php:7.2.28-fpm-buster
+  image: edbizarro/gitlab-ci-pipeline-php:7.2-alpine
   stage: build
   services:
     - mysql:5.6
@@ -59,7 +23,7 @@ PHP7.2-build:
   - npm ci
 
 PHP7.2-lint:
-  image: php:7.2.28-fpm-buster
+  image: edbizarro/gitlab-ci-pipeline-php:7.2-alpine
   stage: lint
   services:
     - mysql:5.6
@@ -67,9 +31,14 @@ PHP7.2-lint:
   - composer check-php
 
 PHP7.2-test:
-  image: php:7.2.28-fpm-buster
+  image: edbizarro/gitlab-ci-pipeline-php:7.2-alpine
+  before_script:
+    - sudo apk update
+    - sudo apk add subversion
   stage: test
   services:
     - mysql:5.6
   script:
+  # Set up WordPress tests
+  - bash bin/install-wp-tests.sh wordpress_tests root mysql mysql latest true
   - composer test
