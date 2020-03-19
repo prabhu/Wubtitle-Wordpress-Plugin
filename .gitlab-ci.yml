@@ -35,7 +35,6 @@ PHP7.2-test:
   before_script:
     - sudo apk update
     - sudo apk add subversion
-  extends: .test_before_scripts
   stage: test
   services:
     - mysql:5.6
