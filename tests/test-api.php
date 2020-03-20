@@ -10,12 +10,6 @@ use Ear2Words\Api\ApiRequest;
   * Sample test.
   */
 class TestApiRequest extends WP_Ajax_UnitTestCase {
-
-  /**
-   * Setup test
-   */
-
-
   /**
    * Test che verifica che funziona con nonce
    */
