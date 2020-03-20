@@ -30,7 +30,6 @@ class ApiRequest {
 				wp_send_json_success();
 			}
 		}
-		print 'Sorry, your nonce did not verify.';
-		wp_die( '-1' );
+		wp_send_json_error();
 	}
 }

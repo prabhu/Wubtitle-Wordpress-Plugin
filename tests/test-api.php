@@ -33,7 +33,7 @@ class TestApiRequest extends WP_Ajax_UnitTestCase {
 
       // Verifica che è stata lanciata l'eccezione
       $this->assertTrue( isset( $e ) );
-      // Verifica che la richiesta non è andata a buon fine
-      $this->assertEquals( '-1', $e->getMessage() );
+      $response = json_decode( $this->_last_response );
+      $this->assertFalse( $response->success);
     }
 }
