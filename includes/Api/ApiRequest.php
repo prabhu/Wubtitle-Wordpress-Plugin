@@ -24,7 +24,8 @@ class ApiRequest {
 	 * Da qui invierò la richiesta HTTP.
 	 */
 	public function send_request() {
-		if ( isset( $_POST['_ajax_nonce'] ) && isset( $_POST['id_attachment'] ) && isset( $_POST['src_attachment'] ) && isset( $_POST['id_post'] ) ) {
+		$license_key = get_option( 'ea2words_license_key' );
+		if ( isset( $_POST['_ajax_nonce'] ) && isset( $_POST['id_attachment'] ) && isset( $_POST['src_attachment'] ) && isset( $_POST['id_post'] ) && ! empty( $license_key ) ) {
 			$nonce          = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
 			$id_attachment  = sanitize_text_field( wp_unslash( $_POST['id_attachment'] ) );
 			$src_attachment = sanitize_text_field( wp_unslash( $_POST['src_attachment'] ) );
@@ -34,15 +35,15 @@ class ApiRequest {
 				$response = wp_remote_request(
 					'#',
 					array(
-						'id'   => $id_attachment,
-						'src'  => $src_attachment,
-						'post' => $id_post,
+						'id'      => $id_attachment,
+						'src'     => $src_attachment,
+						'post'    => $id_post,
+						'license' => $license_key,
 					)
 				);
 				wp_send_json_success( $response );
 			}
 		}
-		print 'Sorry, your nonce did not verify.';
-		wp_die( '-1' );
+		wp_send_json_error();
 	}
 }
