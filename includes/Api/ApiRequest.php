@@ -24,10 +24,22 @@ class ApiRequest {
 	 * Da qui invierò la richiesta HTTP.
 	 */
 	public function send_request() {
-		if ( isset( $_POST['_ajax_nonce'] ) ) {
-			$nonce = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
+		if ( isset( $_POST['_ajax_nonce'] ) && isset( $_POST['id_attachment'] ) && isset( $_POST['src_attachment'] ) && isset( $_POST['id_post'] ) ) {
+			$nonce          = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
+			$id_attachment  = sanitize_text_field( wp_unslash( $_POST['id_attachment'] ) );
+			$src_attachment = sanitize_text_field( wp_unslash( $_POST['src_attachment'] ) );
+			$id_post        = sanitize_text_field( wp_unslash( $_POST['id_post'] ) );
 			if ( check_ajax_referer( 'itr_ajax_nonce', $nonce ) ) {
-				wp_send_json_success();
+				// Come primo parametro inserirò l'url del job.
+				$response = wp_remote_request(
+					'#',
+					array(
+						'id'   => $id_attachment,
+						'src'  => $src_attachment,
+						'post' => $id_post,
+					)
+				);
+				wp_send_json_success( $response );
 			}
 		}
 		print 'Sorry, your nonce did not verify.';
