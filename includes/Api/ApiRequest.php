@@ -30,6 +30,10 @@ class ApiRequest {
 			$id_attachment  = sanitize_text_field( wp_unslash( $_POST['id_attachment'] ) );
 			$src_attachment = sanitize_text_field( wp_unslash( $_POST['src_attachment'] ) );
 			$id_post        = sanitize_text_field( wp_unslash( $_POST['id_post'] ) );
+			$subtitle       = get_post_meta( $id_attachment, 'ear2words_subtitle_video' );
+			if ( ! empty( $subtitle ) ) {
+				wp_send_json_error( 'Errore,sottotitoli già esistenti per il video selezionato' );
+			}
 			if ( check_ajax_referer( 'itr_ajax_nonce', $nonce ) ) {
 				// Come primo parametro inserirò l'url del job.
 				$response = wp_remote_request(
@@ -44,6 +48,6 @@ class ApiRequest {
 				wp_send_json_success( $response );
 			}
 		}
-		wp_send_json_error();
+		wp_send_json_error( 'Errore, richiesta non valida' );
 	}
 }

@@ -27,7 +27,7 @@ addElement(props) {
         } else {
           wp.data.dispatch('core/notices').createNotice(
             'error',
-            'ERRORE, job non inviato correttamente',
+            response.data,
           );
         }
       }
