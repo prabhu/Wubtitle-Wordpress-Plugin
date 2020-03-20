@@ -31,6 +31,6 @@ class ApiRequest {
 			}
 		}
 		print 'Sorry, your nonce did not verify.';
-		wp_die();
+		wp_die( '-1' );
 	}
 }
