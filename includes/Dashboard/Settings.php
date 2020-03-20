@@ -1,6 +1,6 @@
 <?php
 /**
- * This file implements Video Block.
+ * This file implements Settings.
  *
  * @author     Nicola Palermo
  * @since      2020
