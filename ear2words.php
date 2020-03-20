@@ -15,7 +15,6 @@
 // Your code starts here.
 //
 defined( 'ABSPATH' ) || exit;
-
 define( 'EAR2WORDS_DIR', plugin_dir_path( __FILE__ ) );
 define( 'EAR2WORDS_URL', plugin_dir_url( __FILE__ ) );
 define( 'EAR2WORDS_VER', '1.0' );

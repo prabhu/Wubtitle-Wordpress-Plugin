@@ -42,11 +42,19 @@ addElement(props) {
               props.setAttributes({ hasRequest: true });
               const xhttp = new XMLHttpRequest();
               xhttp.onreadystatechange = function ajax() {
-                if (this.readyState === 4 && this.status === 200 && this.response === 'success') {
-                  wp.data.dispatch('core/notices').createNotice(
-                    'success',
-                    'Job inviato correttamente',
-                  );
+                if (this.readyState === 4 && this.status === 200) {
+                  const response = JSON.parse(this.response);
+                  if (response.success) {
+                    wp.data.dispatch('core/notices').createNotice(
+                      'success',
+                      'Job inviato correttamente',
+                    );
+                  } else {
+                    wp.data.dispatch('core/notices').createNotice(
+                      'error',
+                      'ERRORE, job non inviato correttamente',
+                    );
+                  }
                 }
               };
               xhttp.open('POST', my_ajax_object.ajax_url, true);

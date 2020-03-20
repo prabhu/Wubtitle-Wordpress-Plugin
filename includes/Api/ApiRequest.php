@@ -23,7 +23,6 @@ class ApiRequest {
 	 * Da qui invierò la richiesta HTTP.
 	 */
 	public function send_request() {
-		echo 'success';
-		wp_die();
+		wp_send_json_success();
 	}
 }
