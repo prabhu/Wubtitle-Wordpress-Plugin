@@ -11,10 +11,14 @@ use Ear2Words\Api\ApiRequest;
   */
 class TestApiRequest extends WP_Ajax_UnitTestCase {
   /**
-   * Test che verifica che funziona con nonce
+   * Effettua la chiamata al job correttamente
    */
    public function test_positive_send_request(){
      $_POST['_ajax_nonce'] = wp_create_nonce( 'itr_ajax_nonce' );
+     $_POST['id_attachment'] = 1;
+     $_POST['src_attachment'] = '#';
+     $_POST['id_post'] = 1;
+     add_option('ea2words_license_key','teststst');
      try {
          $this->_handleAjax( 'submitVideo' );
      } catch ( WPAjaxDieContinueException $e ) {}
@@ -22,9 +26,10 @@ class TestApiRequest extends WP_Ajax_UnitTestCase {
      $this->assertTrue( isset( $e ) );
      $response = json_decode( $this->_last_response );
      $this->assertTrue( $response->success);
+     //Una volta aggiunto l'url del job da qui verificherò la risposta del job.
    }
    /**
-    * Test che verifica che non funziona senza nonce
+    * Effuettua la chiamata senza nonce
     */
     public function test_negative_send_request(){
       try {
@@ -33,7 +38,23 @@ class TestApiRequest extends WP_Ajax_UnitTestCase {
 
       // Verifica che è stata lanciata l'eccezione
       $this->assertTrue( isset( $e ) );
-      // Verifica che la richiesta non è andata a buon fine
-      $this->assertEquals( '-1', $e->getMessage() );
+      $response = json_decode( $this->_last_response );
+      $this->assertFalse( $response->success);
     }
+    /**
+     * Effettua la chiamata senza avere una license key
+     */
+     public function test_nolicense_send_request(){
+       $_POST['_ajax_nonce'] = wp_create_nonce( 'itr_ajax_nonce' );
+       $_POST['id_attachment'] = 1;
+       $_POST['src_attachment'] = '#';
+       $_POST['id_post'] = 1;
+       try {
+           $this->_handleAjax( 'submitVideo' );
+       } catch ( WPAjaxDieContinueException $e ) {}
+       // Verifica che è stata lanciata l'eccezione
+       $this->assertTrue( isset( $e ) );
+       $response = json_decode( $this->_last_response );
+       $this->assertFalse( $response->success);
+     }
 }
