@@ -16,5 +16,13 @@
     "hooks": {
       "pre-commit": "composer run-script check-php"
     }
+  },
+  "scripts": {
+    "start": "cgb-scripts start",
+    "build": "cgb-scripts build",
+    "eject": "cgb-scripts eject"
+  },
+  "dependencies": {
+    "cgb-scripts": "1.23.0"
   }
 }
