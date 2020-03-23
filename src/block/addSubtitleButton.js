@@ -1,5 +1,4 @@
 /*  global wp,my_ajax_object  */
-const el = wp.element.createElement;
 const backgroundSettings = {
   hasRequest: {
     type: 'boolean',
@@ -8,6 +7,9 @@ const backgroundSettings = {
 
 const withInspectorControls = wp.compose.createHigherOrderComponent((BlockEdit) => function
 addElement(props) {
+  const { Fragment } = wp.element;
+  const { InspectorControls } = wp.editor;
+  const { PanelBody, Button } = wp.components;
   function onClick() {
     props.setAttributes({ hasRequest: true });
     const xhttp = new XMLHttpRequest();
@@ -32,41 +34,23 @@ addElement(props) {
     xhttp.send(`action=submitVideo&_ajax_nonce=${my_ajax_object.ajaxnonce}`);
   }
   if (props.name !== 'core/video') {
-    return el(
-      wp.element.Fragment,
-      {},
-      el(
-        BlockEdit,
-        props,
-      ),
+    return (
+      <Fragment>
+        <BlockEdit {...props} />
+      </Fragment>
     );
   }
-  return el(
-    wp.element.Fragment,
-    {},
-    el(
-      BlockEdit,
-      props,
-    ),
-    el(
-      wp.editor.InspectorControls,
-      {},
-      el(
-        wp.components.PanelBody,
-        { title: 'Ear2Words' },
-        el(
-          wp.components.Button,
-          {
-            disabled: props.attributes.hasRequest,
-            name: 'sottotitoli',
-            id: props.attributes.id,
-            isPrimary: true,
-            onClick,
-          },
-          'ATTIVA SOTTOTITOLI',
-        ),
-      ),
-    ),
+  return (
+    <Fragment>
+      <BlockEdit {...props} />
+      <InspectorControls>
+        <PanelBody title='Ear2words'>
+          <Button disabled={props.attributes.hasRequest} name='sottotitoli' id={props.attributes.id} isPrimary onClick={onClick}>
+            ATTIVA SOTTOTITOLI
+          </Button>
+        </PanelBody>
+      </InspectorControls>
+    </Fragment>
   );
 }, 'withInspectorControls');
 
