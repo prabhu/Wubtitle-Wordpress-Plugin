@@ -26,13 +26,7 @@ class Settings {
 	 * Crea un nuova voce nel menu della dashbord
 	 */
 	public function create_settings_menu() {
-
-		/**
-		 * ------- TODO --------------------------
-		 * Cambiare $icon_url e $position
-		 * (attualmente subito dopo "Impostazioni")
-		 * quando verranno date indicazioni UX
-		 */
+		// TODO: Cambiare $icon_url e $position (attualmente subito dopo "Impostazioni") quando verranno date indicazioni UX
 		add_menu_page( 'Ear2words Settings', 'Ear2words', 'manage_options', 'ear2words_settings', array( $this, 'render_settings_page' ), 'dashicons-format-status', 81 );
 	}
 
