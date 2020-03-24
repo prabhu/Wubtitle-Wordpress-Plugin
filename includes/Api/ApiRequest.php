@@ -36,7 +36,6 @@ class ApiRequest {
 				wp_send_json_error( 'Errore,sottotitoli già esistenti per il video selezionato' );
 			}
 			if ( check_ajax_referer( 'itr_ajax_nonce', $nonce ) ) {
-				// Come primo parametro inserirò l'url del job.
 				$body     = array(
 					'data' => array(
 						'article' => array(
