@@ -34,7 +34,6 @@ class Settings {
 	 * Crea la pagina dei settings
 	 */
 	public function render_settings_page() {
-		ob_start();
 		?>
 		<div class="wrap">
 			<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
@@ -47,9 +46,6 @@ class Settings {
 			</form>
 		</div>
 		<?php
-		//phpcs:disable
-		echo ob_get_clean();
-		//phpcs:enable
 	}
 
 	/**
