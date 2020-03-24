@@ -26,7 +26,7 @@ class VideoBlock {
 		wp_enqueue_script( 'add_subtitle_button-script', plugins_url( '../../dist/blocks.build.js', __FILE__ ), array( 'wp-blocks' ), 'add_subtitle_button', false );
 		wp_localize_script(
 			'add_subtitle_button-script',
-			'my_ajax_object',
+			'ear2words_button_object',
 			array(
 				'ajax_url'  => admin_url( 'admin-ajax.php' ),
 				'ajaxnonce' => wp_create_nonce( 'itr_ajax_nonce' ),

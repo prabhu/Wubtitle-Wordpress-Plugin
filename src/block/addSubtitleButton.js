@@ -1,4 +1,5 @@
-/*  global wp,my_ajax_object  */
+
+/*  global wp,ear2words_button_object  */
 const { useSelect } = wp.data;
 const backgroundSettings = {
   hasRequest: {
@@ -33,9 +34,13 @@ addElement(props) {
         }
       }
     };
-    xhttp.open('POST', my_ajax_object.ajax_url, true);
+    xhttp.open('POST', ear2words_button_object.ajax_url, true);
     xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+<<<<<<< HEAD
     xhttp.send(`action=submitVideo&_ajax_nonce=${my_ajax_object.ajaxnonce}&id_attachment=${idAttachment}&src_attachment=${srcAttachment}&id_post=${idPost}`);
+=======
+    xhttp.send(`action=submitVideo&_ajax_nonce=${ear2words_button_object.ajaxnonce}`);
+>>>>>>> alessio-01-estensione-blocco-video
   }
   if (props.name !== 'core/video') {
     return (
