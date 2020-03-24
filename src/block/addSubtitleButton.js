@@ -1,4 +1,4 @@
-/*  global wp,my_ajax_object  */
+/*  global wp,ear2words_button_object  */
 const backgroundSettings = {
   hasRequest: {
     type: 'boolean',
@@ -29,9 +29,9 @@ addElement(props) {
         }
       }
     };
-    xhttp.open('POST', my_ajax_object.ajax_url, true);
+    xhttp.open('POST', ear2words_button_object.ajax_url, true);
     xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    xhttp.send(`action=submitVideo&_ajax_nonce=${my_ajax_object.ajaxnonce}`);
+    xhttp.send(`action=submitVideo&_ajax_nonce=${ear2words_button_object.ajaxnonce}`);
   }
   if (props.name !== 'core/video') {
     return (
