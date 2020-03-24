@@ -31,7 +31,7 @@ class ApiRequest {
 			$src_attachment = sanitize_text_field( wp_unslash( $_POST['src_attachment'] ) );
 			$id_post        = sanitize_text_field( wp_unslash( $_POST['id_post'] ) );
 			$subtitle       = get_post_meta( $id_attachment, 'ear2words_subtitle_video' );
-			$domain_name  		= str_replace('http://', '', get_site_url());
+			$domain_name    = str_replace( 'http://', '', get_site_url() );
 			if ( ! empty( $subtitle ) ) {
 				wp_send_json_error( 'Errore,sottotitoli già esistenti per il video selezionato' );
 			}
