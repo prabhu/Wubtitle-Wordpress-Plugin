@@ -1,4 +1,6 @@
+
 /*  global wp,ear2words_button_object  */
+const { useSelect } = wp.data;
 const backgroundSettings = {
   hasRequest: {
     type: 'boolean',
@@ -7,11 +9,14 @@ const backgroundSettings = {
 
 const withInspectorControls = wp.compose.createHigherOrderComponent((BlockEdit) => function
 addElement(props) {
+  const idPost = useSelect((select) => select('core/editor').getCurrentPostId());
   const { Fragment } = wp.element;
   const { InspectorControls } = wp.editor;
   const { PanelBody, Button } = wp.components;
   function onClick() {
     props.setAttributes({ hasRequest: true });
+    const idAttachment = props.attributes.id;
+    const srcAttachment = props.attributes.src;
     const xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function ajax() {
       if (this.readyState === 4 && this.status === 200) {
@@ -31,7 +36,7 @@ addElement(props) {
     };
     xhttp.open('POST', ear2words_button_object.ajax_url, true);
     xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    xhttp.send(`action=submitVideo&_ajax_nonce=${ear2words_button_object.ajaxnonce}`);
+    xhttp.send(`action=submitVideo&_ajax_nonce=${ear2words_button_object.ajaxnonce}&id_attachment=${idAttachment}&src_attachment=${srcAttachment}&id_post=${idPost}`);
   }
   if (props.name !== 'core/video') {
     return (
