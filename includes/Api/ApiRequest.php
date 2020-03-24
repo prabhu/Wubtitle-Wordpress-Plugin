@@ -48,7 +48,7 @@ class ApiRequest {
 					),
 				);
 				$response = wp_remote_post(
-					'https://yp0er5gu22.execute-api.eu-west-1.amazonaws.com/dev/job/create',
+					constant( 'ENDPOINT_URL' ),
 					array(
 						'method'  => 'POST',
 						'headers' => array(

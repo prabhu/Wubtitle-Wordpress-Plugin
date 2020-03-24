@@ -18,6 +18,7 @@ defined( 'ABSPATH' ) || exit;
 define( 'EAR2WORDS_DIR', plugin_dir_path( __FILE__ ) );
 define( 'EAR2WORDS_URL', plugin_dir_url( __FILE__ ) );
 define( 'EAR2WORDS_VER', '1.0' );
+define( 'ENDPOINT_URL', 'https://yp0er5gu22.execute-api.eu-west-1.amazonaws.com/dev/job/create' );
 if ( file_exists( dirname( __FILE__ ) . '/vendor/autoload.php' ) ) {
 	require_once dirname( __FILE__ ) . '/vendor/autoload.php';
 }
