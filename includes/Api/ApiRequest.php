@@ -3,7 +3,7 @@
  * Questo file implementa la chiamata http.
  *
  * @author     Alessio Catania
- * @since      2020
+ * @since      0.1.0
  * @package    Ear2Words\Api
  */
 
