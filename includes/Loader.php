@@ -19,6 +19,7 @@ class Loader {
 		// Inserire qui le classi da istanziare.
 		$classes = array(
 			'gutenber' => Gutenberg\VideoBlock::class,
+			'settings' => Dashboard\Settings::class,
 			'request'  => Api\ApiRequest::class,
 		);
 		foreach ( $classes as $class ) {
