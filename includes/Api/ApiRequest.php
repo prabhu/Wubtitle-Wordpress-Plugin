@@ -25,7 +25,7 @@ class ApiRequest {
 	 */
 	public function send_request() {
 		$license_key = get_option( 'ear2words_license_key' );
-		if ( ! isset( $_POST['_ajax_nonce'] ) && ! isset( $_POST['id_attachment'] ) && ! isset( $_POST['src_attachment'] ) && ! isset( $_POST['id_post'] ) && empty( $license_key ) ) {
+		if ( ! isset( $_POST['_ajax_nonce'] ) || ! isset( $_POST['id_attachment'] ) || ! isset( $_POST['src_attachment'] ) || ! isset( $_POST['id_post'] ) || empty( $license_key ) ) {
 			wp_send_json_error( 'Errore, richiesta non valida' );
 		}
 			$nonce          = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
