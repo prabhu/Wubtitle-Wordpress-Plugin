@@ -52,7 +52,7 @@ class ApiRequest {
 				),
 			);
 			$response = wp_remote_post(
-				constant( 'ENDPOINT_URL' ),
+				ENDPOINT_URL,
 				array(
 					'method'  => 'POST',
 					'headers' => array(
