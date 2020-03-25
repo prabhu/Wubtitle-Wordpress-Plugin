@@ -22,8 +22,5 @@
     "start": "wp-scripts start",
     "build": "wp-scripts build",
     "fixjs": "eslint --fix ./src"
-  },
-  "dependencies": {
-    "@wordpress/block-editor": "^3.7.6"
   }
 }
