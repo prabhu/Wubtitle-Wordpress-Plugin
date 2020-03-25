@@ -22,5 +22,8 @@
     "start": "wp-scripts start",
     "build": "wp-scripts build",
     "fixjs": "eslint --fix ./src"
+  },
+  "dependencies": {
+    "@wordpress/api-fetch": "^3.11.0"
   }
 }
