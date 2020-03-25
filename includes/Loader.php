@@ -20,6 +20,7 @@ class Loader {
 		$classes = array(
 			'gutenber' => Gutenberg\VideoBlock::class,
 			'settings' => Dashboard\Settings::class,
+			'request'  => Api\ApiRequest::class,
 		);
 		foreach ( $classes as $class ) {
 			$instance = new $class();
