@@ -9,8 +9,8 @@ const Ear2WordPanel = props => {
 	const { InspectorControls } = wp.editor;
 	function onClick() {
 		props.setAttributes({ hasRequest: true });
-		const idAttachment = props.attributes.id;
-		const srcAttachment = props.attributes.src;
+		const idAttachment = props.id;
+		const srcAttachment = props.src;
 		const xhttp = new XMLHttpRequest();
 		xhttp.onreadystatechange = function ajax() {
 			if (this.readyState === 4 && this.status === 200) {
@@ -42,9 +42,9 @@ const Ear2WordPanel = props => {
 		<InspectorControls>
 			<PanelBody title="Ear2words">
 				<Button
-					disabled={props.attributes.hasRequest}
+					disabled={props.hasRequest}
 					name="sottotitoli"
-					id={props.attributes.id}
+					id={props.id}
 					isPrimary
 					onClick={onClick}
 				>

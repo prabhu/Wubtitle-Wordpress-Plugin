@@ -1,10 +1,6 @@
 import { createHigherOrderComponent } from "@wordpress/compose";
+import { addFilter } from "@wordpress/hooks";
 import Ear2WordPanel from "./Ear2WordPanel";
-const backgroundSettings = {
-	hasRequest: {
-		type: "boolean"
-	}
-};
 
 const withInspectorControls = BlockEdit => {
 	return props => {
@@ -19,7 +15,10 @@ const withInspectorControls = BlockEdit => {
 		return (
 			<Fragment>
 				<BlockEdit {...props} />
-				<Ear2WordPanel {...props} />
+				<Ear2WordPanel
+					{...props.attributes}
+					setAttributes={props.setAttributes}
+				/>
 			</Fragment>
 		);
 	};
@@ -31,19 +30,22 @@ const ExtendVideoBlock = createHigherOrderComponent(
 );
 
 function addAttributes(settings) {
-	/*  global lodash  */
-	const { assign } = lodash;
 	const options = settings;
-	options.attributes = assign(settings.attributes, backgroundSettings);
+	options.attributes = {
+		...settings.attributes,
+		hasRequest: {
+			type: "boolean"
+		}
+	};
 	return options;
 }
 
-wp.hooks.addFilter(
+addFilter(
 	"blocks.registerBlockType",
 	"ear2words/add-attributes",
 	addAttributes
 );
-wp.hooks.addFilter(
+addFilter(
 	"editor.BlockEdit",
 	"ear2words/with-inspector-controls",
 	ExtendVideoBlock
