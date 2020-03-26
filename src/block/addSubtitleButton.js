@@ -6,11 +6,7 @@ const withInspectorControls = BlockEdit => {
 	return props => {
 		const { Fragment } = wp.element;
 		if (props.name !== "core/video") {
-			return (
-				<Fragment>
-					<BlockEdit {...props} />
-				</Fragment>
-			);
+			return <BlockEdit {...props} />;
 		}
 		return (
 			<Fragment>
