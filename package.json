@@ -24,6 +24,6 @@
     "fixjs": "eslint --fix ./src"
   },
   "dependencies": {
-    "@wordpress/block-editor": "^3.7.6"
+    "@wordpress/api-fetch": "^3.11.0"
   }
 }

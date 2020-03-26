@@ -11,6 +11,18 @@ use Ear2Words\Api\ApiRequest;
   */
 class TestApiRequest extends WP_Ajax_UnitTestCase {
   /**
+   * Setup function.
+   */
+   public function SetUp(){
+     parent::setUp();
+   }
+   /**
+    * tearDown function.
+    */
+    public function tearDown(){
+      parent::tearDown();
+    }
+  /**
    * Effettua la chiamata al job correttamente
    */
    public function test_positive_send_request(){
@@ -18,7 +30,7 @@ class TestApiRequest extends WP_Ajax_UnitTestCase {
      $_POST['id_attachment'] = 1;
      $_POST['src_attachment'] = '#';
      $_POST['id_post'] = 1;
-     add_option('ea2words_license_key','teststst');
+     add_option('ear2words_license_key','teststst');
      try {
          $this->_handleAjax( 'submitVideo' );
      } catch ( WPAjaxDieContinueException $e ) {}

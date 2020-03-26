@@ -3,7 +3,7 @@
  * This file implements Settings.
  *
  * @author     Nicola Palermo
- * @since      2020
+ * @since      0.1.0
  * @package    Ear2Words\Dashboard
  */
 
