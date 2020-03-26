@@ -1,13 +1,14 @@
 /*  global ear2words_button_object  */
-import { useSelect } from "@wordpress/data";
+import { useSelect, useDispatch } from "@wordpress/data";
 import apiFetch from "@wordpress/api-fetch";
+import { PanelBody, Button } from "@wordpress/components";
+import { InspectorControls } from "@wordpress/block-editor";
 
 const Ear2WordPanel = props => {
 	const idPost = useSelect(select =>
 		select("core/editor").getCurrentPostId()
 	);
-	const { PanelBody, Button } = wp.components;
-	const { InspectorControls } = wp.editor;
+	const noticeDispatcher = useDispatch("core/notices");
 	function onClick() {
 		props.setAttributes({ hasRequest: true });
 		const idAttachment = props.id;
@@ -22,16 +23,12 @@ const Ear2WordPanel = props => {
 			body: `action=submitVideo&_ajax_nonce=${ear2words_button_object.ajaxnonce}&id_attachment=${idAttachment}&src_attachment=${srcAttachment}&id_post=${idPost}`
 		}).then(res => {
 			if (res.success) {
-				wp.data
-					.dispatch("core/notices")
-					.createNotice("success", "Job inviato correttamente");
+				noticeDispatcher.createNotice(
+					"success",
+					"Job inviato correttamente"
+				);
 			} else {
-				wp.data
-					.dispatch("core/notices")
-					.createNotice(
-						"error",
-						"ERRORE, job non inviato correttamente"
-					);
+				noticeDispatcher.createNotice("error", res.data);
 			}
 		});
 	}
