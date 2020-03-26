@@ -15,6 +15,7 @@ class TestApiRequest extends WP_Ajax_UnitTestCase {
    */
    public function SetUp(){
      parent::setUp();
+     update_option('siteurl','http://wordpress01.local');
    }
    /**
     * tearDown function.
@@ -30,15 +31,15 @@ class TestApiRequest extends WP_Ajax_UnitTestCase {
      $_POST['id_attachment'] = 1;
      $_POST['src_attachment'] = '#';
      $_POST['id_post'] = 1;
-     add_option('ear2words_license_key','teststst');
+     add_option('ear2words_license_key','05490d20d6c7b807a31722d98b3c4d72dbb5e928a0a2aa945beeeb3546a3f0aa');
      try {
          $this->_handleAjax( 'submitVideo' );
      } catch ( WPAjaxDieContinueException $e ) {}
      // Verifica che è stata lanciata l'eccezione
      $this->assertTrue( isset( $e ) );
      $response = json_decode( $this->_last_response );
-     $this->assertTrue( $response->success);
-     //Una volta aggiunto l'url del job da qui verificherò la risposta del job.
+     $this->assertTrue( $response->success );
+     $this->assertEquals( 201, $response->data );
    }
    /**
     * Effuettua la chiamata senza nonce
@@ -87,4 +88,22 @@ class TestApiRequest extends WP_Ajax_UnitTestCase {
        $response = json_decode( $this->_last_response );
        $this->assertFalse( $response->success);
      }
+     /**
+      * Effettua la chiamata al job con una license key non valida
+      */
+      public function test_invalid_license_send_request(){
+        $_POST['_ajax_nonce'] = wp_create_nonce( 'itr_ajax_nonce' );
+        $_POST['id_attachment'] = 1;
+        $_POST['src_attachment'] = '#';
+        $_POST['id_post'] = 1;
+        add_option('ear2words_license_key','licensenonvalida');
+        try {
+            $this->_handleAjax( 'submitVideo' );
+        } catch ( WPAjaxDieContinueException $e ) {}
+        // Verifica che è stata lanciata l'eccezione
+        $this->assertTrue( isset( $e ) );
+        $response = json_decode( $this->_last_response );
+        $this->assertTrue( $response->success );
+        $this->assertEquals( 403, $response->data );
+      }
 }

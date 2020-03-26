@@ -63,6 +63,6 @@ class ApiRequest {
 					'body'    => wp_json_encode( $body ),
 				)
 			);
-			wp_send_json_success( $response );
+			wp_send_json_success( $response['response']['code'] );
 	}
 }
