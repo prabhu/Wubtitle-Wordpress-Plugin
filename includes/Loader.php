@@ -18,13 +18,13 @@ class Loader {
 	public static function init() {
 		// Inserire qui le classi da istanziare.
 		$classes = array(
-			'gutenber' => Gutenberg\VideoBlock::class,
-			'settings' => Dashboard\Settings::class,
-			'request'  => Api\ApiRequest::class,
-			'license_validation'  => Api\ApiLicenseValidation::class,
-			'add_meta'  => Core\AddMeta::class,
+			'gutenber'           => Gutenberg\VideoBlock::class,
+			'settings'           => Dashboard\Settings::class,
+			'request'            => Api\ApiRequest::class,
+			'license_validation' => Api\ApiLicenseValidation::class,
+			'add_meta'           => Core\AddMeta::class,
 		);
-		
+
 		foreach ( $classes as $class ) {
 			$instance = new $class();
 			if ( method_exists( $instance, 'run' ) ) {

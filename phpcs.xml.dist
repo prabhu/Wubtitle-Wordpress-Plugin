@@ -30,6 +30,7 @@
 	<config name="minimum_supported_wp_version" value="4.6"/>
 	<rule ref="WordPress">
 		<exclude name="WordPress.Files.FileName"/>
+		<exclude name="WordPress.DB.SlowDBQuery.slow_db_query_meta_key"/>
 	</rule>
 	<rule ref="WordPress.WP.I18n">
 		<properties>
