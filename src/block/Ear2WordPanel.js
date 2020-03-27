@@ -3,11 +3,25 @@ import { useSelect, useDispatch } from "@wordpress/data";
 import apiFetch from "@wordpress/api-fetch";
 import { PanelBody, Button } from "@wordpress/components";
 import { InspectorControls } from "@wordpress/block-editor";
+import { useState, useEffect } from "@wordpress/element";
 
 const Ear2WordPanel = props => {
 	const idPost = useSelect(select =>
 		select("core/editor").getCurrentPostId()
 	);
+	const dataAttachment = useSelect(select =>
+		select("core").getEntityRecord("postType", "attachment", props.id)
+	);
+	const status =
+		dataAttachment !== undefined
+			? dataAttachment.meta.ear2words_status
+			: "";
+	const [statusValues, setStatus] = useState(status);
+	useEffect(() => {
+		if (status !== "") {
+			setStatus(status);
+		}
+	}, [status]);
 	const noticeDispatcher = useDispatch("core/notices");
 	function onClick() {
 		const idAttachment = props.id;
@@ -22,8 +36,8 @@ const Ear2WordPanel = props => {
 			body: `action=submitVideo&_ajax_nonce=${ear2words_button_object.ajaxnonce}&id_attachment=${idAttachment}&src_attachment=${srcAttachment}&id_post=${idPost}`
 		}).then(res => {
 			if (res.data === 201) {
-				props.setAttributes({ hasRequest: true });
 				noticeDispatcher.createNotice("success", "Invio corretto");
+				setStatus("pending");
 			} else {
 				noticeDispatcher.createNotice("error", res.data);
 			}
@@ -33,7 +47,7 @@ const Ear2WordPanel = props => {
 		<InspectorControls>
 			<PanelBody title="Ear2words">
 				<Button
-					disabled={props.hasRequest}
+					disabled={statusValues !== ""}
 					name="sottotitoli"
 					id={props.id}
 					isPrimary

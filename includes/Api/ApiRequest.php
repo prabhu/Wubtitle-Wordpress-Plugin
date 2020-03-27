@@ -19,6 +19,7 @@ class ApiRequest {
 	public function run() {
 		add_action( 'wp_ajax_submitVideo', array( $this, 'send_request' ) );
 		add_action( 'wp_ajax_nopriv_submitVideo', array( $this, 'send_request' ) );
+		add_action( 'init', array( $this, 'status_register_meta' ) );
 	}
 	/**
 	 * Da qui invierò la richiesta HTTP.
@@ -73,6 +74,22 @@ class ApiRequest {
 		if ( 201 !== $code_response ) {
 			wp_send_json_error( $message[ $code_response ] );
 		}
+			update_post_meta( $id_attachment, 'ear2words_status', 'pending' );
 			wp_send_json_success( $code_response );
+	}
+
+	/**
+	 * Registro post meta per lo stato.
+	 */
+	public function status_register_meta() {
+		register_post_meta(
+			'attachment',
+			'ear2words_status',
+			array(
+				'show_in_rest' => true,
+				'type'         => 'string',
+				'single'       => true,
+			)
+		);
 	}
 }
