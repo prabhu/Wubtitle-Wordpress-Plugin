@@ -103,7 +103,7 @@ class TestApiRequest extends WP_Ajax_UnitTestCase {
         // Verifica che è stata lanciata l'eccezione
         $this->assertTrue( isset( $e ) );
         $response = json_decode( $this->_last_response );
-        $this->assertTrue( $response->success );
-        $this->assertEquals( 403, $response->data );
+        $this->assertFalse( $response->success );
+        $this->assertEquals( 'Errore, licenza non valida', $response->data );
       }
 }
