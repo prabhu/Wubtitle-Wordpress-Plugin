@@ -10,7 +10,6 @@ const Ear2WordPanel = props => {
 	);
 	const noticeDispatcher = useDispatch("core/notices");
 	function onClick() {
-		props.setAttributes({ hasRequest: true });
 		const idAttachment = props.id;
 		const srcAttachment = props.src;
 		apiFetch({
@@ -23,10 +22,8 @@ const Ear2WordPanel = props => {
 			body: `action=submitVideo&_ajax_nonce=${ear2words_button_object.ajaxnonce}&id_attachment=${idAttachment}&src_attachment=${srcAttachment}&id_post=${idPost}`
 		}).then(res => {
 			if (res.data === 201) {
-				noticeDispatcher.createNotice(
-					"success",
-					"Job inviato correttamente"
-				);
+				props.setAttributes({ hasRequest: true });
+				noticeDispatcher.createNotice("success", "Invio corretto");
 			} else {
 				noticeDispatcher.createNotice("error", res.data);
 			}

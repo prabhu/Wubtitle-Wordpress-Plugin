@@ -25,8 +25,11 @@ class ApiRequest {
 	 */
 	public function send_request() {
 		$license_key = get_option( 'ear2words_license_key' );
-		if ( ! isset( $_POST['_ajax_nonce'] ) || ! isset( $_POST['id_attachment'] ) || ! isset( $_POST['src_attachment'] ) || ! isset( $_POST['id_post'] ) || empty( $license_key ) ) {
+		if ( ! isset( $_POST['_ajax_nonce'] ) || ! isset( $_POST['id_attachment'] ) || ! isset( $_POST['src_attachment'] ) || ! isset( $_POST['id_post'] ) ) {
 			wp_send_json_error( 'Errore, richiesta non valida' );
+		}
+		if ( empty( $license_key ) ) {
+			wp_send_json_error( 'Errore, licenza non presente' );
 		}
 			$nonce          = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
 			$id_attachment  = sanitize_text_field( wp_unslash( $_POST['id_attachment'] ) );
@@ -40,7 +43,7 @@ class ApiRequest {
 		if ( ! check_ajax_referer( 'itr_ajax_nonce', $nonce ) ) {
 			wp_send_json_error( 'Errore, richiesta non valida' );
 		}
-			$body     = array(
+			$body           = array(
 				'data' => array(
 					'article' => array(
 						'id' => (int) $id_post,
@@ -51,7 +54,7 @@ class ApiRequest {
 					),
 				),
 			);
-			$response = wp_remote_post(
+			$response       = wp_remote_post(
 				ENDPOINT_URL,
 				array(
 					'method'  => 'POST',
@@ -63,6 +66,13 @@ class ApiRequest {
 					'body'    => wp_json_encode( $body ),
 				)
 			);
-			wp_send_json_success( $response['response']['code'] );
+			$code_response  = $response['response']['code'];
+			$message        = array();
+			$message['401'] = 'Errore, richiesta non valida';
+			$message['403'] = 'Errore, licenza non valida';
+		if ( 201 !== $code_response ) {
+			wp_send_json_error( $message[ $code_response ] );
+		}
+			wp_send_json_success( $code_response );
 	}
 }
