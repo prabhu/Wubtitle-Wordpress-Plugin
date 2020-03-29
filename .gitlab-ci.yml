@@ -16,19 +16,62 @@ cache:
 PHP7.2-build:
   image: edbizarro/gitlab-ci-pipeline-php:7.2-alpine
   stage: build
-  services:
-    - mysql:5.6
+  only:
+    - merge_requests
   script:
-  - composer install
-  - npm ci
+  - composer install --prefer-dist --no-progress
+  - npm ci --prefer-offline --progress=false
+  - npm run build
+
+PHP7.3-build:
+  image: edbizarro/gitlab-ci-pipeline-php:7.3-alpine
+  stage: build
+  only:
+    - merge_requests
+  script:
+  - composer install --prefer-dist --no-progress
+  - npm ci --prefer-offline --progress=false
+  - npm run build
+
+PHP7.4-build:
+  image: edbizarro/gitlab-ci-pipeline-php:7.4-alpine
+  stage: build
+  only:
+    - merge_requests
+  script:
+  - composer install --prefer-dist --no-progress
+  - npm ci --prefer-offline --progress=false
+  - npm run build
 
 PHP7.2-lint:
   image: edbizarro/gitlab-ci-pipeline-php:7.2-alpine
   stage: lint
-  services:
-    - mysql:5.6
+  needs: ["php7.2-build"]
+  only:
+    - merge_requests
   script:
   - composer check-php
+  - npm run lint:js:src
+
+PHP7.3-lint:
+  image: edbizarro/gitlab-ci-pipeline-php:7.3-alpine
+  stage: lint
+  needs: ["php7.3-build"]
+  only:
+    - merge_requests
+  script:
+  - composer check-php
+  - npm run lint:js:src
+
+PHP7.4-lint:
+  image: edbizarro/gitlab-ci-pipeline-php:7.4-alpine
+  stage: lint
+  needs: ["php7.4-build"]
+  only:
+    - merge_requests
+  script:
+  - composer check-php
+  - npm run lint:js:src
 
 PHP7.2-test:
   image: edbizarro/gitlab-ci-pipeline-php:7.2-alpine
@@ -36,6 +79,41 @@ PHP7.2-test:
     - sudo apk update
     - sudo apk add subversion
   stage: test
+  only:
+    - merge_requests
+  needs: ["PHP7.2-lint"]
+  services:
+    - mysql:5.6
+  script:
+  # Set up WordPress tests
+  - bash bin/install-wp-tests.sh wordpress_tests root mysql mysql latest true
+  - composer test
+
+PHP7.3-test:
+  image: edbizarro/gitlab-ci-pipeline-php:7.3-alpine
+  before_script:
+    - sudo apk update
+    - sudo apk add subversion
+  stage: test
+  only:
+    - merge_requests
+  needs: ["PHP7.3-lint"]
+  services:
+    - mysql:5.6
+  script:
+  # Set up WordPress tests
+  - bash bin/install-wp-tests.sh wordpress_tests root mysql mysql latest true
+  - composer test
+
+PHP7.4-test:
+  image: edbizarro/gitlab-ci-pipeline-php:7.4-alpine
+  before_script:
+    - sudo apk update
+    - sudo apk add subversion
+  stage: test
+  only:
+    - merge_requests
+  needs: ["PHP7.4-lint"]
   services:
     - mysql:5.6
   script:
