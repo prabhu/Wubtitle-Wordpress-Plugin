@@ -46,7 +46,7 @@ PHP7.4-build:
 PHP7.2-lint:
   image: edbizarro/gitlab-ci-pipeline-php:7.2-alpine
   stage: lint
-  needs: ["php7.2-build"]
+  needs: ["PHP7.2-build"]
   only:
     - merge_requests
   script:
@@ -56,7 +56,7 @@ PHP7.2-lint:
 PHP7.3-lint:
   image: edbizarro/gitlab-ci-pipeline-php:7.3-alpine
   stage: lint
-  needs: ["php7.3-build"]
+  needs: ["PHP7.3-build"]
   only:
     - merge_requests
   script:
@@ -66,7 +66,7 @@ PHP7.3-lint:
 PHP7.4-lint:
   image: edbizarro/gitlab-ci-pipeline-php:7.4-alpine
   stage: lint
-  needs: ["php7.4-build"]
+  needs: ["PHP7.4-build"]
   only:
     - merge_requests
   script:
