@@ -104,6 +104,6 @@ class TestApiRequest extends WP_Ajax_UnitTestCase {
         $this->assertTrue( isset( $e ) );
         $response = json_decode( $this->_last_response );
         $this->assertFalse( $response->success );
-        $this->assertEquals( 'Errore, licenza non valida', $response->data );
+        $this->assertEquals( 'Impossibile creare i sottotitoli. La  licenza del prodotto non è valida', $response->data );
       }
 }
