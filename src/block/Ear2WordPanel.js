@@ -9,13 +9,14 @@ const Ear2WordPanel = props => {
 	const idPost = useSelect(select =>
 		select("core/editor").getCurrentPostId()
 	);
-	const dataAttachment = useSelect(select =>
-		select("core").getEntityRecord("postType", "attachment", props.id)
-	);
-	const status =
-		dataAttachment !== undefined
-			? dataAttachment.meta.ear2words_status
-			: "";
+	const status = useSelect(select => {
+		const attachment = select("core").getEntityRecord(
+			"postType",
+			"attachment",
+			props.id
+		);
+		return attachment !== undefined ? attachment.meta.ear2words_status : "";
+	});
 	const [statusValues, setStatus] = useState(status);
 	useEffect(() => {
 		if (status !== "") {
