@@ -16,7 +16,7 @@ use WP_Error;
 /**
  * Questa classe gestisce l'endpoint per la validazione della license key.
  */
-class ApiLicenseValidation extends WP_REST_Controller {
+class ApiLicenseValidation {
 	/**
 	 * Init class action.
 	 */
@@ -49,21 +49,26 @@ class ApiLicenseValidation extends WP_REST_Controller {
 		$db_license_key      = get_option( 'ear2words_license_key' );
 
 		if ( $request_license_key !== $db_license_key ) {
-			// TODO: Gestire messaggio di errore (phpcs mi da errore e si aspetta my-plugin).
-			return new WP_Error( 'code', __( 'message', 'my-plugin' ) );
+			return new WP_Error( 'invalid_license_key', __( 'Invalid license key. Check your key.', 'ear2words'), ['status' => 401] );
 		} else {
 			// query dei post che hanno uuid fra i meta.
 			$args     = array(
-				// TODO: Cambiare in "media", attualmente ho inserito manualmente il meta ai fini del test.
+				// TODO: Cambiare in "attachment"
 				'post_type' => 'post',
+				'posts_per_page' => -1,
 				'meta_key'  => 'uuid',
 			);
-			$posts    = get_posts( $args );
+			$media    = get_posts( $args );
 			$job_list = array();
-			foreach ( $posts as  $post ) {
-				$job_list[] = get_post_meta( $post->ID, 'uuid', true );
+			foreach ( $media as  $file ) {
+				$job_list[] = ["uuid" => get_post_meta( $file->ID, 'ear2words_job_uuid', true )];
 			}
-			return new WP_REST_Response( $job_list, 200 );
+			$data = array(
+				"data" => array(
+					"job_list" => $job_list
+				)
+			);			
+			return $data;
 		}
 	}
 }

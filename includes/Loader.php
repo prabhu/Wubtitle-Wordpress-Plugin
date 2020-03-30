@@ -21,8 +21,7 @@ class Loader {
 			'gutenber'           => Gutenberg\VideoBlock::class,
 			'settings'           => Dashboard\Settings::class,
 			'request'            => Api\ApiRequest::class,
-			'license_validation' => Api\ApiLicenseValidation::class,
-			'add_meta'           => Core\AddMeta::class,
+			'license_validation' => Api\ApiLicenseValidation::class
 		);
 
 		foreach ( $classes as $class ) {
