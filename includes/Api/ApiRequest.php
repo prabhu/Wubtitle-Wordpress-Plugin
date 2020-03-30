@@ -36,11 +36,7 @@ class ApiRequest {
 			$id_attachment  = sanitize_text_field( wp_unslash( $_POST['id_attachment'] ) );
 			$src_attachment = sanitize_text_field( wp_unslash( $_POST['src_attachment'] ) );
 			$id_post        = sanitize_text_field( wp_unslash( $_POST['id_post'] ) );
-			$subtitle       = get_post_meta( $id_attachment, 'ear2words_subtitle_video' );
 			$domain_name    = str_replace( 'http://', '', get_site_url() );
-		if ( ! empty( $subtitle ) ) {
-			wp_send_json_error( 'Impossibile creare i sottotitoli. Esistono già dei sottotitoli per questo video' );
-		}
 		if ( ! check_ajax_referer( 'itr_ajax_nonce', $nonce ) ) {
 			wp_send_json_error( 'Si è verificato un errore durante la creazione dei sottotitoli. Riprova di nuovo tra qualche minuto' );
 		}
