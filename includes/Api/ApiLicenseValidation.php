@@ -10,6 +10,7 @@
 namespace Ear2Words\Api;
 
 use WP_Error;
+use \Firebase\JWT\JWT;
 
 /**
  * Questa classe gestisce l'endpoint per la validazione della license key.
@@ -31,9 +32,26 @@ class ApiLicenseValidation {
 			'/job-list/(?P<licensekey>[a-zA-Z0-9-]+)',
 			array(
 				'methods'  => 'GET',
-				'callback' => array( $this, 'get_job_list' ),
+				'callback' => array( $this, 'jwt_auth' ),
 			)
 		);
+	}
+
+	/**
+	 * Autenticazione JWT.
+	 * 
+	 * @param array $request valori della richiesta.
+	 */
+	public function jwt_auth($request) {
+		$headers         = $request->get_headers();
+		$jwt             = $headers['jwt'][0];
+		$db_license_key  = get_option( 'ear2words_license_key' );		
+		try{
+			$decoded = JWT::decode($jwt, $db_license_key, array('HS256'));
+		}catch(\Exception $e){
+			return $e->getMessage();
+		}
+		return $this->get_job_list( $request );
 	}
 
 	/**
@@ -49,7 +67,7 @@ class ApiLicenseValidation {
 			return new WP_Error( 'invalid_license_key', __( 'Invalid license key. Check your key.', 'ear2words' ), array( 'status' => 401 ) );
 		}
 		$args     = array(
-			'post_type'      => 'attachment',
+			'post_type'      => 'post',
 			'posts_per_page' => -1,
 			'meta_key'       => 'ear2words_job_uuid',
 		);
