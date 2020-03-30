@@ -38,8 +38,7 @@ class ApiRequest {
 		if ( ! check_ajax_referer( 'itr_ajax_nonce', $nonce ) ) {
 			wp_send_json_error( 'Errore, richiesta non valida' );
 		}
-			$file       = get_attached_file( $id_attachment );
-			$video_data = wp_read_video_metadata( $file );
+			$video_data = wp_get_attachment_metadata( $id_attachment );
 			$body       = array(
 				'data' => array(
 					'attachmentId' => (int) $id_attachment,
