@@ -44,7 +44,7 @@ class ApiRequest {
 		if ( ! check_ajax_referer( 'itr_ajax_nonce', $nonce ) ) {
 			wp_send_json_error( 'Si è verificato un errore durante la creazione dei sottotitoli. Riprova di nuovo tra qualche minuto' );
 		}
-			$body           = array(
+			$body          = array(
 				'data' => array(
 					'article' => array(
 						'id' => (int) $id_post,
@@ -55,7 +55,7 @@ class ApiRequest {
 					),
 				),
 			);
-			$response       = wp_remote_post(
+			$response      = wp_remote_post(
 				ENDPOINT_URL,
 				array(
 					'method'  => 'POST',
@@ -67,13 +67,14 @@ class ApiRequest {
 					'body'    => wp_json_encode( $body ),
 				)
 			);
-			$code_response  = $response['response']['code'];
-			$message        = array();
-			$message['401'] = 'Si è verificato un errore durante la creazione dei sottotitoli. Riprova di nuovo tra qualche minuto';
-			$message['403'] = 'Impossibile creare i sottotitoli. La  licenza del prodotto non è valida';
-		if ( 201 !== $code_response ) {
-			wp_send_json_error( $message[ $code_response ] );
-		}
+			$code_response = $response['response']['code'];
+			$message       = array(
+				'401' => 'Si è verificato un errore durante la creazione dei sottotitoli. Riprova di nuovo tra qualche minuto',
+				'403' => 'Impossibile creare i sottotitoli. La  licenza del prodotto non è valida',
+			);
+			if ( 201 !== $code_response ) {
+				wp_send_json_error( $message[ $code_response ] );
+			}
 			update_post_meta( $id_attachment, 'ear2words_status', 'pending' );
 			wp_send_json_success( $code_response );
 	}
