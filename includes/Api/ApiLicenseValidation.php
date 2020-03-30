@@ -56,7 +56,7 @@ class ApiLicenseValidation {
 		$media    = get_posts( $args );
 		$job_list = array();
 		foreach ( $media as  $file ) {
-			$job_list[] = array( 'uuid' => get_post_meta( $file->ID, 'ear2words_job_uuid', true ) );
+			$job_list[] = get_post_meta( $file->ID, 'ear2words_job_uuid', true );
 		}
 		$data = array(
 			'data' => array(
