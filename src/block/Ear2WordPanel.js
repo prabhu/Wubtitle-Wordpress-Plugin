@@ -3,7 +3,6 @@ import { useSelect, useDispatch } from "@wordpress/data";
 import apiFetch from "@wordpress/api-fetch";
 import { PanelBody, Button } from "@wordpress/components";
 import { InspectorControls } from "@wordpress/block-editor";
-import { useState, useEffect } from "@wordpress/element";
 
 const Ear2WordPanel = props => {
 	const idPost = useSelect(select =>
@@ -15,15 +14,16 @@ const Ear2WordPanel = props => {
 			"attachment",
 			props.id
 		);
-		return attachment !== undefined ? attachment.meta.ear2words_status : "";
+		return attachment !== undefined
+			? select("core").getEditedEntityRecord(
+					"postType",
+					"attachment",
+					props.id
+			  ).meta.ear2words_status
+			: "";
 	});
-	const [statusValues, setStatus] = useState(status);
-	useEffect(() => {
-		if (status !== "") {
-			setStatus(status);
-		}
-	}, [status]);
 	const noticeDispatcher = useDispatch("core/notices");
+	const entityDispatcher = useDispatch("core");
 	function onClick() {
 		const idAttachment = props.id;
 		const srcAttachment = props.src;
@@ -41,7 +41,12 @@ const Ear2WordPanel = props => {
 					"success",
 					"Creazione dei sottotitoli avviata con successo"
 				);
-				setStatus("pending");
+				entityDispatcher.editEntityRecord(
+					"postType",
+					"attachment",
+					props.id,
+					{ meta: { ear2words_status: "pending" } }
+				);
 			} else {
 				noticeDispatcher.createNotice("error", res.data);
 			}
@@ -51,7 +56,7 @@ const Ear2WordPanel = props => {
 		<InspectorControls>
 			<PanelBody title="Ear2words">
 				<Button
-					disabled={statusValues !== ""}
+					disabled={status === "pending"}
 					name="sottotitoli"
 					id={props.id}
 					isPrimary
