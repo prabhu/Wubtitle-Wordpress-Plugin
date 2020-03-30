@@ -47,24 +47,23 @@ class ApiLicenseValidation {
 		$db_license_key      = get_option( 'ear2words_license_key' );
 		if ( $request_license_key !== $db_license_key ) {
 			return new WP_Error( 'invalid_license_key', __( 'Invalid license key. Check your key.', 'ear2words' ), array( 'status' => 401 ) );
-		} else {
-			$args     = array(
-				'post_type'      => 'attachment',
-				'posts_per_page' => -1,
-				'meta_key'       => 'ear2words_job_uuid',
-			);
-			$media    = get_posts( $args );
-			$job_list = array();
-			foreach ( $media as  $file ) {
-				$job_list[] = array( 'uuid' => get_post_meta( $file->ID, 'ear2words_job_uuid', true ) );
-			}
-			$data = array(
-				'data' => array(
-					'job_list' => $job_list,
-				),
-			);
-			return $data;
 		}
+		$args     = array(
+			'post_type'      => 'attachment',
+			'posts_per_page' => -1,
+			'meta_key'       => 'ear2words_job_uuid',
+		);
+		$media    = get_posts( $args );
+		$job_list = array();
+		foreach ( $media as  $file ) {
+			$job_list[] = array( 'uuid' => get_post_meta( $file->ID, 'ear2words_job_uuid', true ) );
+		}
+		$data = array(
+			'data' => array(
+				'job_list' => $job_list,
+			),
+		);
+		return $data;
 	}
 }
 
