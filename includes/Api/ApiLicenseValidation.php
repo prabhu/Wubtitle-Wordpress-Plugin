@@ -67,7 +67,7 @@ class ApiLicenseValidation {
 			return new WP_Error( 'invalid_license_key', __( 'Invalid license key. Check your key.', 'ear2words' ), array( 'status' => 401 ) );
 		}
 		$args     = array(
-			'post_type'      => 'post',
+			'post_type'      => 'attachment',
 			'posts_per_page' => -1,
 			'meta_key'       => 'ear2words_job_uuid',
 		);
