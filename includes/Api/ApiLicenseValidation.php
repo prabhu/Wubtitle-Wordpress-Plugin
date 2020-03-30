@@ -47,11 +47,24 @@ class ApiLicenseValidation {
 		$jwt            = $headers['jwt'][0];
 		$db_license_key = get_option( 'ear2words_license_key' );
 		try {
-			$decoded = JWT::decode( $jwt, $db_license_key, array( 'HS256' ) );
+			$this->jwt_decode( $jwt, $db_license_key, array( 'HS256' ) );
 		} catch ( \Exception $e ) {
 			return $e->getMessage();
 		}
 		return $this->get_job_list( $request );
+	}
+
+
+	/**
+	 * Risolve errore phpmd:
+	 * Avoid using static access to class '\Firebase\JWT\JWT' in method 'jwt_auth'.
+	 *
+	 * @param string $jwt ricevuto dall'headers.
+	 * @param string $license_key dal db.
+	 * @param array  $array algoritmo.
+	 */
+	public function jwt_decode( $jwt, $license_key, $array ) {
+		JWT::decode( $jwt, $license_key, $array );
 	}
 
 	/**
