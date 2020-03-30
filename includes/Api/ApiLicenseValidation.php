@@ -39,16 +39,16 @@ class ApiLicenseValidation {
 
 	/**
 	 * Autenticazione JWT.
-	 * 
+	 *
 	 * @param array $request valori della richiesta.
 	 */
-	public function jwt_auth($request) {
-		$headers         = $request->get_headers();
-		$jwt             = $headers['jwt'][0];
-		$db_license_key  = get_option( 'ear2words_license_key' );		
-		try{
-			$decoded = JWT::decode($jwt, $db_license_key, array('HS256'));
-		}catch(\Exception $e){
+	public function jwt_auth( $request ) {
+		$headers        = $request->get_headers();
+		$jwt            = $headers['jwt'][0];
+		$db_license_key = get_option( 'ear2words_license_key' );
+		try {
+			$decoded = JWT::decode( $jwt, $db_license_key, array( 'HS256' ) );
+		} catch ( \Exception $e ) {
 			return $e->getMessage();
 		}
 		return $this->get_job_list( $request );
