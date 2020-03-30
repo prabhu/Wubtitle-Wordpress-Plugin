@@ -9,8 +9,6 @@
 
 namespace Ear2Words\Api;
 
-use WP_REST_Controller;
-use WP_REST_Response;
 use WP_Error;
 
 /**
@@ -47,27 +45,24 @@ class ApiLicenseValidation {
 		$params              = $request->get_params();
 		$request_license_key = $params['licensekey'];
 		$db_license_key      = get_option( 'ear2words_license_key' );
-
 		if ( $request_license_key !== $db_license_key ) {
-			return new WP_Error( 'invalid_license_key', __( 'Invalid license key. Check your key.', 'ear2words'), ['status' => 401] );
+			return new WP_Error( 'invalid_license_key', __( 'Invalid license key. Check your key.', 'ear2words' ), array( 'status' => 401 ) );
 		} else {
-			// query dei post che hanno uuid fra i meta.
 			$args     = array(
-				// TODO: Cambiare in "attachment"
-				'post_type' => 'post',
+				'post_type'      => 'attachment',
 				'posts_per_page' => -1,
-				'meta_key'  => 'uuid',
+				'meta_key'       => 'ear2words_job_uuid',
 			);
 			$media    = get_posts( $args );
 			$job_list = array();
 			foreach ( $media as  $file ) {
-				$job_list[] = ["uuid" => get_post_meta( $file->ID, 'ear2words_job_uuid', true )];
+				$job_list[] = array( 'uuid' => get_post_meta( $file->ID, 'ear2words_job_uuid', true ) );
 			}
 			$data = array(
-				"data" => array(
-					"job_list" => $job_list
-				)
-			);			
+				'data' => array(
+					'job_list' => $job_list,
+				),
+			);
 			return $data;
 		}
 	}
