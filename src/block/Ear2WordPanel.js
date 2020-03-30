@@ -10,7 +10,9 @@ const Ear2WordPanel = props => {
 		select("core/editor").getCurrentPostId()
 	);
 	const dataAttachment = useSelect(select =>
-		select("core").getEntityRecord("postType", "attachment", props.id)
+		props.id !== undefined
+			? select("core").getEntityRecord("postType", "attachment", props.id)
+			: undefined
 	);
 	const status =
 		dataAttachment !== undefined
@@ -20,11 +22,11 @@ const Ear2WordPanel = props => {
 	useEffect(() => {
 		if (props.id !== undefined) {
 			setStatus(status);
-		} else if (props.id === undefined) {
+		} else {
 			setStatus("no_video");
 		}
-	}, [status,props.id]);
-	console.log('status', statusValues);
+	}, [status, props.id]);
+	console.log("status", statusValues);
 	const noticeDispatcher = useDispatch("core/notices");
 	function onClick() {
 		const idAttachment = props.id;
