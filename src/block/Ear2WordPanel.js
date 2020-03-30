@@ -36,7 +36,10 @@ const Ear2WordPanel = props => {
 			body: `action=submitVideo&_ajax_nonce=${ear2words_button_object.ajaxnonce}&id_attachment=${idAttachment}&src_attachment=${srcAttachment}&id_post=${idPost}`
 		}).then(res => {
 			if (res.data === 201) {
-				noticeDispatcher.createNotice("success", "Invio corretto");
+				noticeDispatcher.createNotice(
+					"success",
+					"Creazione dei sottotitoli avviata con successo"
+				);
 				setStatus("pending");
 			} else {
 				noticeDispatcher.createNotice("error", res.data);

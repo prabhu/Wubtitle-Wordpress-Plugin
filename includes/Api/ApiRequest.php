@@ -27,10 +27,10 @@ class ApiRequest {
 	public function send_request() {
 		$license_key = get_option( 'ear2words_license_key' );
 		if ( ! isset( $_POST['_ajax_nonce'] ) || ! isset( $_POST['id_attachment'] ) || ! isset( $_POST['src_attachment'] ) || ! isset( $_POST['id_post'] ) ) {
-			wp_send_json_error( 'Errore, richiesta non valida' );
+			wp_send_json_error( 'Si è verificato un errore durante la creazione dei sottotitoli. Riprova di nuovo tra qualche minuto' );
 		}
 		if ( empty( $license_key ) ) {
-			wp_send_json_error( 'Errore, licenza non presente' );
+			wp_send_json_error( 'Impossibile creare i sottotitoli. La  licenza del prodotto è assente' );
 		}
 			$nonce          = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
 			$id_attachment  = sanitize_text_field( wp_unslash( $_POST['id_attachment'] ) );
@@ -39,10 +39,10 @@ class ApiRequest {
 			$subtitle       = get_post_meta( $id_attachment, 'ear2words_subtitle_video' );
 			$domain_name    = str_replace( 'http://', '', get_site_url() );
 		if ( ! empty( $subtitle ) ) {
-			wp_send_json_error( 'Errore,sottotitoli già esistenti per il video selezionato' );
+			wp_send_json_error( 'Impossibile creare i sottotitoli. Esistono già dei sottotitoli per questo video' );
 		}
 		if ( ! check_ajax_referer( 'itr_ajax_nonce', $nonce ) ) {
-			wp_send_json_error( 'Errore, richiesta non valida' );
+			wp_send_json_error( 'Si è verificato un errore durante la creazione dei sottotitoli. Riprova di nuovo tra qualche minuto' );
 		}
 			$body           = array(
 				'data' => array(
@@ -69,8 +69,8 @@ class ApiRequest {
 			);
 			$code_response  = $response['response']['code'];
 			$message        = array();
-			$message['401'] = 'Errore, richiesta non valida';
-			$message['403'] = 'Errore, licenza non valida';
+			$message['401'] = 'Si è verificato un errore durante la creazione dei sottotitoli. Riprova di nuovo tra qualche minuto';
+			$message['403'] = 'Impossibile creare i sottotitoli. La  licenza del prodotto non è valida';
 		if ( 201 !== $code_response ) {
 			wp_send_json_error( $message[ $code_response ] );
 		}
