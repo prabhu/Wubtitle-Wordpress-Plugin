@@ -18,10 +18,13 @@ const Ear2WordPanel = props => {
 			: "";
 	const [statusValues, setStatus] = useState(status);
 	useEffect(() => {
-		if (status !== "") {
+		if (props.id !== undefined) {
 			setStatus(status);
+		} else if (props.id === undefined) {
+			setStatus("no_video");
 		}
-	}, [status]);
+	}, [status,props.id]);
+	console.log('status', statusValues);
 	const noticeDispatcher = useDispatch("core/notices");
 	function onClick() {
 		const idAttachment = props.id;
