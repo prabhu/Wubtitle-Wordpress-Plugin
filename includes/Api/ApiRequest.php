@@ -22,41 +22,80 @@ class ApiRequest {
 		add_action( 'init', array( $this, 'status_register_meta' ) );
 	}
 	/**
+	 * Get media attachment.
+	 *
+	 * @param integer $id_attachment id del video.
+	 */
+	public function get_media_metadata( $id_attachment ) {
+		return wp_get_attachment_metadata( $id_attachment );
+	}
+
+	/**
+	 * Verifica la validazione
+	 *
+	 *  @param array $array post.
+	 */
+	public function is_not_valid( $array ) {
+		if ( ! isset( $array['id_attachment'] ) || ! isset( $array['src_attachment'] ) ) {
+			$array['check'] = true;
+			return $array;
+		}
+		$array['check'] = false;
+		return $array;
+	}
+	/**
+	 *  Creo il body della richiesta.
+	 *
+	 * @param int    $id_attachment id del video.
+	 * @param string $src_attachment url del video.
+	 */
+	public function set_body_request( $id_attachment, $src_attachment ) {
+		$id_attachment = (int) $id_attachment;
+		$video_data    = $this->get_media_metadata( $id_attachment );
+		if ( ! is_numeric( $id_attachment ) || $video_data['filesize'] <= 0 || $video_data['length'] <= 0 || ! filter_var( $src_attachment, FILTER_VALIDATE_URL ) ) {
+			return false;
+		}
+		$body = array(
+			'data' => array(
+				'attachmentId' => (int) $id_attachment,
+				'url'          => $src_attachment,
+				'size'         => $video_data['filesize'],
+				'duration'     => $video_data['length'],
+			),
+		);
+		return $body;
+	}
+	/**
 	 * Da qui invierò la richiesta HTTP.
 	 */
 	public function send_request() {
 		$license_key = get_option( 'ear2words_license_key' );
-		if ( ! isset( $_POST['_ajax_nonce'] ) || ! isset( $_POST['id_attachment'] ) || ! isset( $_POST['src_attachment'] ) || ! isset( $_POST['id_post'] ) ) {
+
+		if ( ! isset( $_POST['_ajax_nonce'] ) ) {
+			wp_send_json_error( 'Si è verificato un errore durante la creazione dei sottotitoli. Riprova di nuovo tra qualche minuto' );
+		}
+		$nonce = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
+		if ( ! check_ajax_referer( 'itr_ajax_nonce', $nonce ) ) {
+			wp_send_json_error( 'Errore, richiesta non valida' );
+		}
+		$data_attachment = $this->is_not_valid( $_POST );
+		if ( $data_attachment['check'] ) {
 			wp_send_json_error( 'Si è verificato un errore durante la creazione dei sottotitoli. Riprova di nuovo tra qualche minuto' );
 		}
 		if ( empty( $license_key ) ) {
 			wp_send_json_error( 'Impossibile creare i sottotitoli. La  licenza del prodotto è assente' );
 		}
-			$nonce          = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
-			$id_attachment  = sanitize_text_field( wp_unslash( $_POST['id_attachment'] ) );
-			$src_attachment = sanitize_text_field( wp_unslash( $_POST['src_attachment'] ) );
-			$id_post        = sanitize_text_field( wp_unslash( $_POST['id_post'] ) );
-			$domain_name    = str_replace( 'http://', '', get_site_url() );
-		if ( ! check_ajax_referer( 'itr_ajax_nonce', $nonce ) ) {
+			$id_attachment  = sanitize_text_field( wp_unslash( $data_attachment['id_attachment'] ) );
+			$src_attachment = sanitize_text_field( wp_unslash( $data_attachment['src_attachment'] ) );
+			$body           = $this->set_body_request( $id_attachment, $src_attachment );
+		if ( ! $body ) {
 			wp_send_json_error( 'Si è verificato un errore durante la creazione dei sottotitoli. Riprova di nuovo tra qualche minuto' );
 		}
-			$body          = array(
-				'data' => array(
-					'article' => array(
-						'id' => (int) $id_post,
-					),
-					'video'   => array(
-						'id'  => (int) $id_attachment,
-						'url' => $src_attachment,
-					),
-				),
-			);
 			$response      = wp_remote_post(
 				ENDPOINT_URL,
 				array(
 					'method'  => 'POST',
 					'headers' => array(
-						'domainName'   => $domain_name,
 						'licenseKey'   => $license_key,
 						'Content-Type' => 'application/json; charset=utf-8',
 					),
