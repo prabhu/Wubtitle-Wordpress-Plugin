@@ -62,8 +62,8 @@ class TestApiRequest extends WP_Ajax_UnitTestCase {
         $_POST['src_attachment'] = '#';
         $_POST['id_attachment'] = 1;
         $license_key = '000';
-        $result = $this->instance->is_not_valid($_POST,$license_key);
-        $this->assertFalse($result['check']);
+        $result = $this->instance->sanitize_input($_POST,$license_key);
+        $this->assertTrue($result['check']);
       }
       /**
        * Verifica che il body è stato creato correttamente

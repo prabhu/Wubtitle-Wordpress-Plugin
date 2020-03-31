@@ -35,12 +35,13 @@ class ApiRequest {
 	 *  @param array  $array post.
 	 *  @param string $license_key licenza utente.
 	 */
-	public function is_not_valid( $array, $license_key ) {
+	public function sanitize_input( $array, $license_key ) {
 		if ( ! isset( $array['id_attachment'] ) || ! isset( $array['src_attachment'] ) || empty( $license_key ) ) {
-			$array['check'] = true;
-			return $array;
+			return false;
 		}
-		$array['check'] = false;
+		$array['id_attachment']  = sanitize_text_field( wp_unslash( $array['id_attachment'] ) );
+		$array['src_attachment'] = sanitize_text_field( wp_unslash( $array['src_attachment'] ) );
+		$array['check']          = true;
 		return $array;
 	}
 	/**
@@ -77,17 +78,15 @@ class ApiRequest {
 		if ( ! check_ajax_referer( 'itr_ajax_nonce', $nonce ) ) {
 			wp_send_json_error( 'Errore, richiesta non valida' );
 		}
-		$data_attachment = $this->is_not_valid( $_POST, $license_key );
-		if ( $data_attachment['check'] ) {
+		$data_attachment = $this->sanitize_input( $_POST, $license_key );
+		if ( ! $data_attachment ) {
 			wp_send_json_error( 'Errore, richiesta non valida' );
 		}
-			$id_attachment  = sanitize_text_field( wp_unslash( $data_attachment['id_attachment'] ) );
-			$src_attachment = sanitize_text_field( wp_unslash( $data_attachment['src_attachment'] ) );
-			$subtitle       = get_post_meta( $id_attachment, 'ear2words_subtitle_video' );
+			$subtitle = get_post_meta( $data_attachment['id_attachment'], 'ear2words_subtitle_video' );
 		if ( ! empty( $subtitle ) ) {
 			wp_send_json_error( 'Errore,sottotitoli già esistenti per il video selezionato' );
 		}
-			$body = $this->set_body_request( $id_attachment, $src_attachment );
+			$body = $this->set_body_request( $data_attachment['id_attachment'], $data_attachment['src_attachment'] );
 		if ( ! $body ) {
 			wp_send_json_error( 'Errore, richiesta non valida' );
 		}
