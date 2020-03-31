@@ -41,25 +41,23 @@ class ApiRequest {
 		}
 		$array['id_attachment']  = sanitize_text_field( wp_unslash( $array['id_attachment'] ) );
 		$array['src_attachment'] = sanitize_text_field( wp_unslash( $array['src_attachment'] ) );
-		$array['check']          = true;
 		return $array;
 	}
 	/**
 	 *  Creo il body della richiesta.
 	 *
-	 * @param int    $id_attachment id del video.
-	 * @param string $src_attachment url del video.
+	 * @param array $data contiene id_attachment e src_attachment.
 	 */
-	public function set_body_request( $id_attachment, $src_attachment ) {
-		$id_attachment = (int) $id_attachment;
+	public function set_body_request( $data ) {
+		$id_attachment = (int) $data['id_attachment'];
 		$video_data    = $this->get_media_metadata( $id_attachment );
-		if ( ! is_numeric( $id_attachment ) || $video_data['filesize'] <= 0 || $video_data['length'] <= 0 || ! filter_var( $src_attachment, FILTER_VALIDATE_URL ) ) {
+		if ( ! is_numeric( $id_attachment ) || $video_data['filesize'] <= 0 || $video_data['length'] <= 0 || ! filter_var( $data['src_attachment'], FILTER_VALIDATE_URL ) ) {
 			return false;
 		}
 		$body = array(
 			'data' => array(
-				'attachmentId' => (int) $id_attachment,
-				'url'          => $src_attachment,
+				'attachmentId' => $id_attachment,
+				'url'          => $data['src_attachment'],
 				'size'         => $video_data['filesize'],
 				'duration'     => $video_data['length'],
 			),
@@ -86,7 +84,7 @@ class ApiRequest {
 		if ( ! empty( $subtitle ) ) {
 			wp_send_json_error( 'Errore,sottotitoli già esistenti per il video selezionato' );
 		}
-			$body = $this->set_body_request( $data_attachment['id_attachment'], $data_attachment['src_attachment'] );
+			$body = $this->set_body_request( $data_attachment );
 		if ( ! $body ) {
 			wp_send_json_error( 'Errore, richiesta non valida' );
 		}
