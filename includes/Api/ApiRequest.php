@@ -33,11 +33,10 @@ class ApiRequest {
 	/**
 	 * Verifica la validazione
 	 *
-	 *  @param array  $array post.
-	 *  @param string $license_key licenza utente.
+	 *  @param array $array post.
 	 */
-	public function is_not_valid( $array, $license_key ) {
-		if ( ! isset( $array['id_attachment'] ) || ! isset( $array['src_attachment'] ) || empty( $license_key ) ) {
+	public function is_not_valid( $array ) {
+		if ( ! isset( $array['id_attachment'] ) || ! isset( $array['src_attachment'] ) ) {
 			$array['check'] = true;
 			return $array;
 		}
@@ -79,19 +78,18 @@ class ApiRequest {
 		if ( ! check_ajax_referer( 'itr_ajax_nonce', $nonce ) ) {
 			wp_send_json_error( 'Errore, richiesta non valida' );
 		}
-		$data_attachment = $this->is_not_valid( $_POST, $license_key );
+		$data_attachment = $this->is_not_valid( $_POST );
 		if ( $data_attachment['check'] ) {
 			wp_send_json_error( 'Si è verificato un errore durante la creazione dei sottotitoli. Riprova di nuovo tra qualche minuto' );
 		}
+		if ( empty( $license_key ) ) {
+			wp_send_json_error( 'Impossibile creare i sottotitoli. La  licenza del prodotto è assente' );
+		}
 			$id_attachment  = sanitize_text_field( wp_unslash( $data_attachment['id_attachment'] ) );
 			$src_attachment = sanitize_text_field( wp_unslash( $data_attachment['src_attachment'] ) );
-			$subtitle       = get_post_meta( $id_attachment, 'ear2words_subtitle_video' );
-		if ( ! empty( $subtitle ) ) {
-			wp_send_json_error( 'Errore,sottotitoli già esistenti per il video selezionato' );
-		}
-			$body = $this->set_body_request( $id_attachment, $src_attachment );
+			$body           = $this->set_body_request( $id_attachment, $src_attachment );
 		if ( ! $body ) {
-			wp_send_json_error( 'Errore, richiesta non valida' );
+			wp_send_json_error( 'Si è verificato un errore durante la creazione dei sottotitoli. Riprova di nuovo tra qualche minuto' );
 		}
 			$response      = wp_remote_post(
 				ENDPOINT_URL,
