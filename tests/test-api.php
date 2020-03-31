@@ -84,7 +84,7 @@ class TestApiRequest extends WP_Ajax_UnitTestCase {
          $attachment_id = self::factory()->attachment->create($attachment_data,'/test',1);
          wp_update_attachment_metadata( $attachment_id, $attachment_metadata );
          $result = $this->instance->set_body_request($attachment_id,$src);
-         $body       = array(
+         $expected_body = array(
     			 'data' => array(
     				 'attachmentId' => $attachment_id,
     				 'url'          => $src,
@@ -92,7 +92,7 @@ class TestApiRequest extends WP_Ajax_UnitTestCase {
     				 'duration'     => 15,
     			 ),
     		 );
-         $this->assertEqualSets($body,$result);
+         $this->assertEqualSets($expected_body,$result);
        }
        /**
         * Effettua la chiamata con un url non valida
