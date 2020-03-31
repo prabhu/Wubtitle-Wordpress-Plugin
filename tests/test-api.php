@@ -62,8 +62,9 @@ class TestApiRequest extends WP_Ajax_UnitTestCase {
         $_POST['src_attachment'] = '#';
         $_POST['id_attachment'] = 1;
         $license_key = '000';
-        $result = $this->instance->is_not_valid($_POST,$license_key);
-        $this->assertFalse($result['check']);
+        $result = $this->instance->sanitize_input($_POST,$license_key);
+        $this->assertArrayHasKey('id_attachment',$result);
+        $this->assertArrayHasKey('src_attachment',$result);
       }
       /**
        * Verifica che il body è stato creato correttamente
@@ -83,8 +84,12 @@ class TestApiRequest extends WP_Ajax_UnitTestCase {
           );
          $attachment_id = self::factory()->attachment->create($attachment_data,'/test',1);
          wp_update_attachment_metadata( $attachment_id, $attachment_metadata );
-         $result = $this->instance->set_body_request($attachment_id,$src);
-         $body       = array(
+         $data = array(
+           'id_attachment' => $attachment_id,
+           'src_attachment' => $src
+         );
+         $result = $this->instance->set_body_request($data);
+         $expected_body = array(
     			 'data' => array(
     				 'attachmentId' => $attachment_id,
     				 'url'          => $src,
@@ -92,7 +97,7 @@ class TestApiRequest extends WP_Ajax_UnitTestCase {
     				 'duration'     => 15,
     			 ),
     		 );
-         $this->assertEqualSets($body,$result);
+         $this->assertEqualSets($expected_body,$result);
        }
        /**
         * Effettua la chiamata con un url non valida
@@ -112,7 +117,11 @@ class TestApiRequest extends WP_Ajax_UnitTestCase {
            );
           $attachment_id = self::factory()->attachment->create($attachment_data,'/test',1);
           wp_update_attachment_metadata( $attachment_id, $attachment_metadata );
-          $result = $this->instance->set_body_request($attachment_id,$src);
+          $data = array(
+            'id_attachment' => $attachment_id,
+            'src_attachment' => $src
+          );
+          $result = $this->instance->set_body_request($data);
           $this->assertFalse($result);
         }
 }
