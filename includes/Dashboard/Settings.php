@@ -21,6 +21,7 @@ class Settings {
 		add_action( 'admin_init', array( $this, 'init_settings' ) );
 		add_action( 'admin_init', array( $this, 'init_settings_field' ) );
 	}
+	
 
 	/**
 	 * Crea un nuova voce nel menu della dashbord
@@ -30,6 +31,8 @@ class Settings {
 		add_menu_page( 'Ear2words Settings', 'Ear2words', 'manage_options', 'ear2words_settings', array( $this, 'render_settings_page' ), 'dashicons-format-status', 81 );
 	}
 
+
+
 	/**
 	 * Crea la pagina dei settings
 	 */
@@ -37,6 +40,7 @@ class Settings {
 		?>
 		<div class="wrap">
 			<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
+			<?php settings_errors(); ?>
 			<form action="options.php" method="post">
 				<?php
 				settings_fields( 'ear2words_settings' );
