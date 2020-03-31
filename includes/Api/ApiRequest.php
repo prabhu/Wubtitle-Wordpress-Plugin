@@ -21,6 +21,14 @@ class ApiRequest {
 		add_action( 'wp_ajax_nopriv_submitVideo', array( $this, 'send_request' ) );
 	}
 	/**
+	 * Get media attachment.
+	 *
+	 * @param integer $id_attachment id del video.
+	 */
+	public function get_media_metadata( $id_attachment ) {
+		return wp_get_attachment_metadata( $id_attachment );
+	}
+	/**
 	 * Da qui invierò la richiesta HTTP.
 	 */
 	public function send_request() {
@@ -38,7 +46,7 @@ class ApiRequest {
 		if ( ! check_ajax_referer( 'itr_ajax_nonce', $nonce ) ) {
 			wp_send_json_error( 'Errore, richiesta non valida' );
 		}
-			$video_data = wp_get_attachment_metadata( $id_attachment );
+			$video_data = $this->get_media_metadata( $id_attachment );
 			$body       = array(
 				'data' => array(
 					'attachmentId' => (int) $id_attachment,
