@@ -35,7 +35,7 @@ class ApiRequest {
 	 *
 	 *  @param array $array post.
 	 */
-	public function is_not_valid( $array ) {
+	public function sanitize_input( $array ) {
 		if ( ! isset( $array['id_attachment'] ) || ! isset( $array['src_attachment'] ) ) {
 			$array['check'] = true;
 			return $array;
