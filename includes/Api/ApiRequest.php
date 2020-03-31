@@ -63,7 +63,7 @@ class ApiRequest {
 					'body'    => wp_json_encode( $body ),
 				)
 			);
-			$uuid = $response['response']['data']['jobId'];
+			$uuid     = $response['response']['data']['jobId'];
 			add_metadata( $id_post, 'ear2words_job_uuid', $uuid, true );
 			wp_send_json_success( $response['response']['code'] );
 	}
