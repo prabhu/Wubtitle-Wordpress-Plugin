@@ -32,7 +32,7 @@ class ApiLicenseValidation {
 			'/job-list/(?P<licensekey>[a-zA-Z0-9-]+)',
 			array(
 				'methods'  => 'GET',
-				'callback' => array( $this, 'jwt_auth' ),
+				'callback' => array( $this, 'auth_and_get_job_list' ),
 			)
 		);
 	}
@@ -42,14 +42,21 @@ class ApiLicenseValidation {
 	 *
 	 * @param array $request valori della richiesta.
 	 */
-	public function jwt_auth( $request ) {
+	public function auth_and_get_job_list( $request ) {
 		$headers        = $request->get_headers();
 		$jwt            = $headers['jwt'][0];
 		$db_license_key = get_option( 'ear2words_license_key' );
 		try {
 			$this->jwt_decode( $jwt, $db_license_key, array( 'HS256' ) );
 		} catch ( \Exception $e ) {
-			return $e->getMessage();
+			$error = array(
+				'errors' => array(
+					'status' => '403',
+					'title'  => 'Authentication Failed',
+					'source' => $e->getMessage(),
+				),
+			);
+			return $error;
 		}
 		return $this->get_job_list( $request );
 	}
