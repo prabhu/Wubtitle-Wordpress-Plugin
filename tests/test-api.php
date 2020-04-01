@@ -61,8 +61,7 @@ class TestApiRequest extends WP_Ajax_UnitTestCase {
         $_POST['_ajax_nonce'] = wp_create_nonce( 'itr_ajax_nonce' );
         $_POST['src_attachment'] = '#';
         $_POST['id_attachment'] = 1;
-        $license_key = '000';
-        $result = $this->instance->sanitize_input($_POST,$license_key);
+        $result = $this->instance->sanitize_input($_POST);
         $this->assertArrayHasKey('id_attachment',$result);
         $this->assertArrayHasKey('src_attachment',$result);
       }
