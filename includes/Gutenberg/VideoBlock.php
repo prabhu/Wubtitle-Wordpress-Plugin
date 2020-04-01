@@ -23,7 +23,7 @@ class VideoBlock {
 	 * Enqueue degli script.
 	 */
 	public function add_subtitle_button_enqueue() {
-		wp_enqueue_script( 'add_subtitle_button-script', plugins_url( '../../build/index.js', __FILE__ ), array( 'wp-compose', 'wp-data', 'wp-element', 'wp-hooks', 'wp-api-fetch', 'wp-components', 'wp-block-editor' ), 'add_subtitle_button', false );
+		wp_enqueue_script( 'add_subtitle_button-script', plugins_url( '../../build/index.js', __FILE__ ), array( 'wp-compose', 'wp-data', 'wp-element', 'wp-hooks', 'wp-api-fetch', 'wp-components', 'wp-block-editor', 'wp-edit-post' ), 'add_subtitle_button', false );
 		wp_localize_script(
 			'add_subtitle_button-script',
 			'ear2words_button_object',

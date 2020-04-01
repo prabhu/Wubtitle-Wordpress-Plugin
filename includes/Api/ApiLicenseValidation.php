@@ -32,7 +32,7 @@ class ApiLicenseValidation {
 			'/job-list',
 			array(
 				'methods'  => 'GET',
-				'callback' => array( $this, 'jwt_auth' ),
+				'callback' => array( $this, 'auth_and_get_job_list' ),
 			)
 		);
 	}
@@ -42,29 +42,34 @@ class ApiLicenseValidation {
 	 *
 	 * @param array $request valori della richiesta.
 	 */
-	public function jwt_auth( $request ) {
+	public function auth_and_get_job_list( $request ) {
 		$headers        = $request->get_headers();
 		$jwt            = $headers['jwt'][0];
 		$db_license_key = get_option( 'ear2words_license_key' );
 		try {
 			JWT::decode( $jwt, $db_license_key, array( 'HS256' ) );
 		} catch ( \Exception $e ) {
-			return $e->getMessage();
+			$error = array(
+				'errors' => array(
+					'status' => '403',
+					'title'  => 'Authentication Failed',
+					'source' => $e->getMessage(),
+				),
+			);
+			return $error;
 		}
-		return $this->get_job_list( $request );
+		return $this->get_job_list();
 	}
 
 	/**
 	 * Ottiene gli uuid dei post.
-	 *
-	 * @param array $request valori della richiesta.
 	 */
-	public function get_job_list( $request ) {
-		$args     = array(
+	public function get_job_list() {
+		$args = array(
 			'post_type'      => 'attachment',
 			'posts_per_page' => -1,
 			'meta_key'       => 'ear2words_job_uuid',
-			// TODO: Filtrare per job pending dopo allineamento al lavoro di Alessio
+			// TODO: Filtrare per job pending dopo allineamento al lavoro di Alessio.
 		);
 		$media    = get_posts( $args );
 		$job_list = array();
