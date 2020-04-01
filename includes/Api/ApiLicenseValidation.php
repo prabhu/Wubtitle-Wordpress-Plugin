@@ -64,6 +64,7 @@ class ApiLicenseValidation {
 			'post_type'      => 'attachment',
 			'posts_per_page' => -1,
 			'meta_key'       => 'ear2words_job_uuid',
+			// TODO: Filtrare per job pending dopo allineamento al lavoro di Alessio
 		);
 		$media    = get_posts( $args );
 		$job_list = array();
