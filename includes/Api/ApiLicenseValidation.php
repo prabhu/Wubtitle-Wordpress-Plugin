@@ -49,7 +49,14 @@ class ApiLicenseValidation {
 		try {
 			$this->jwt_decode( $jwt, $db_license_key, array( 'HS256' ) );
 		} catch ( \Exception $e ) {
-			return $e->getMessage();
+			$error = array(
+				'errors' => array(
+					'status' => '403',
+					"title"  => "Authentication Failed",
+					'source' => $e->getMessage(),
+				),
+			);
+			return $error;
 		}
 		return $this->get_job_list( $request );
 	}
