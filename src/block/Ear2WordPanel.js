@@ -8,9 +8,23 @@ const Ear2WordPanel = props => {
 	const idPost = useSelect(select =>
 		select("core/editor").getCurrentPostId()
 	);
+	const status = useSelect(select => {
+		const attachment = select("core").getEntityRecord(
+			"postType",
+			"attachment",
+			props.id
+		);
+		return attachment !== undefined
+			? select("core").getEditedEntityRecord(
+					"postType",
+					"attachment",
+					props.id
+			  ).meta.ear2words_status
+			: "";
+	});
 	const noticeDispatcher = useDispatch("core/notices");
+	const entityDispatcher = useDispatch("core");
 	function onClick() {
-		props.setAttributes({ hasRequest: true });
 		const idAttachment = props.id;
 		const srcAttachment = props.src;
 		apiFetch({
@@ -25,7 +39,13 @@ const Ear2WordPanel = props => {
 			if (res.data === 201) {
 				noticeDispatcher.createNotice(
 					"success",
-					"Job inviato correttamente"
+					"Creazione dei sottotitoli avviata con successo"
+				);
+				entityDispatcher.editEntityRecord(
+					"postType",
+					"attachment",
+					props.id,
+					{ meta: { ear2words_status: "pending" } }
 				);
 			} else {
 				noticeDispatcher.createNotice("error", res.data);
@@ -36,7 +56,7 @@ const Ear2WordPanel = props => {
 		<InspectorControls>
 			<PanelBody title="Ear2words">
 				<Button
-					disabled={props.hasRequest}
+					disabled={status === "pending"}
 					name="sottotitoli"
 					id={props.id}
 					isPrimary

@@ -25,22 +25,6 @@ const ExtendVideoBlock = createHigherOrderComponent(
 	"withInspectorControls"
 );
 
-function addAttributes(settings) {
-	const options = settings;
-	options.attributes = {
-		...settings.attributes,
-		hasRequest: {
-			type: "boolean"
-		}
-	};
-	return options;
-}
-
-addFilter(
-	"blocks.registerBlockType",
-	"ear2words/add-attributes",
-	addAttributes
-);
 addFilter(
 	"editor.BlockEdit",
 	"ear2words/with-inspector-controls",
