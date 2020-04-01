@@ -10,6 +10,7 @@
 namespace Ear2Words\Api;
 
 use WP_Error;
+use \Firebase\JWT\JWT;
 
 /**
  * Questa classe gestisce l'endpoint per la validazione della license key.
@@ -31,9 +32,46 @@ class ApiLicenseValidation {
 			'/job-list/(?P<licensekey>[a-zA-Z0-9-]+)',
 			array(
 				'methods'  => 'GET',
-				'callback' => array( $this, 'get_job_list' ),
+				'callback' => array( $this, 'auth_and_get_job_list' ),
 			)
 		);
+	}
+
+	/**
+	 * Autenticazione JWT.
+	 *
+	 * @param array $request valori della richiesta.
+	 */
+	public function auth_and_get_job_list( $request ) {
+		$headers        = $request->get_headers();
+		$jwt            = $headers['jwt'][0];
+		$db_license_key = get_option( 'ear2words_license_key' );
+		try {
+			$this->jwt_decode( $jwt, $db_license_key, array( 'HS256' ) );
+		} catch ( \Exception $e ) {
+			$error = array(
+				'errors' => array(
+					'status' => '403',
+					'title'  => 'Authentication Failed',
+					'source' => $e->getMessage(),
+				),
+			);
+			return $error;
+		}
+		return $this->get_job_list( $request );
+	}
+
+
+	/**
+	 * Risolve errore phpmd:
+	 * Avoid using static access to class '\Firebase\JWT\JWT' in method 'jwt_auth'.
+	 *
+	 * @param string $jwt ricevuto dall'headers.
+	 * @param string $license_key dal db.
+	 * @param array  $array algoritmo.
+	 */
+	public function jwt_decode( $jwt, $license_key, $array ) {
+		JWT::decode( $jwt, $license_key, $array );
 	}
 
 	/**
