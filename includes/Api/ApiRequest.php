@@ -107,9 +107,8 @@ class ApiRequest {
 			if ( 201 !== $code_response ) {
 				wp_send_json_error( $message[ $code_response ] );
 			}
-			$uuid     = $response['response']['data']['jobId'];
-			add_metadata( $id_post, 'ear2words_job_uuid', $uuid, true );
-			update_post_meta( $data_attachment['$id_attachment'], 'ear2words_status', 'pending' );
+			update_post_meta( $data_attachment['id_attachment'], 'ear2words_job_uuid', $response['response']['data']['jobId'],  true );
+			update_post_meta( $data_attachment['id_attachment'], 'ear2words_status', 'pending' );
 			wp_send_json_success( $code_response );
 	}
 
