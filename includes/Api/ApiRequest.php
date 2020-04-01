@@ -21,42 +21,78 @@ class ApiRequest {
 		add_action( 'wp_ajax_nopriv_submitVideo', array( $this, 'send_request' ) );
 	}
 	/**
+	 * Get media attachment.
+	 *
+	 * @param integer $id_attachment id del video.
+	 */
+	public function get_media_metadata( $id_attachment ) {
+		return wp_get_attachment_metadata( $id_attachment );
+	}
+
+	/**
+	 * Verifica la validazione
+	 *
+	 *  @param array  $array post.
+	 *  @param string $license_key licenza utente.
+	 */
+	public function sanitize_input( $array, $license_key ) {
+		if ( ! isset( $array['id_attachment'] ) || ! isset( $array['src_attachment'] ) || empty( $license_key ) ) {
+			return false;
+		}
+		$array['id_attachment']  = sanitize_text_field( wp_unslash( $array['id_attachment'] ) );
+		$array['src_attachment'] = sanitize_text_field( wp_unslash( $array['src_attachment'] ) );
+		return $array;
+	}
+	/**
+	 *  Creo il body della richiesta.
+	 *
+	 * @param array $data contiene id_attachment e src_attachment.
+	 */
+	public function set_body_request( $data ) {
+		$id_attachment = (int) $data['id_attachment'];
+		$video_data    = $this->get_media_metadata( $id_attachment );
+		if ( ! is_numeric( $id_attachment ) || $video_data['filesize'] <= 0 || $video_data['length'] <= 0 || ! filter_var( $data['src_attachment'], FILTER_VALIDATE_URL ) ) {
+			return false;
+		}
+		$body = array(
+			'data' => array(
+				'attachmentId' => $id_attachment,
+				'url'          => $data['src_attachment'],
+				'size'         => $video_data['filesize'],
+				'duration'     => $video_data['length'],
+			),
+		);
+		return $body;
+	}
+	/**
 	 * Da qui invierò la richiesta HTTP.
 	 */
 	public function send_request() {
 		$license_key = get_option( 'ear2words_license_key' );
-		if ( ! isset( $_POST['_ajax_nonce'] ) || ! isset( $_POST['id_attachment'] ) || ! isset( $_POST['src_attachment'] ) || ! isset( $_POST['id_post'] ) || empty( $license_key ) ) {
+		if ( ! isset( $_POST['_ajax_nonce'] ) ) {
 			wp_send_json_error( 'Errore, richiesta non valida' );
 		}
-			$nonce          = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
-			$id_attachment  = sanitize_text_field( wp_unslash( $_POST['id_attachment'] ) );
-			$src_attachment = sanitize_text_field( wp_unslash( $_POST['src_attachment'] ) );
-			$id_post        = sanitize_text_field( wp_unslash( $_POST['id_post'] ) );
-			$subtitle       = get_post_meta( $id_attachment, 'ear2words_subtitle_video' );
-			$domain_name    = str_replace( 'http://', '', get_site_url() );
-		if ( ! empty( $subtitle ) ) {
-			wp_send_json_error( 'Errore,sottotitoli già esistenti per il video selezionato' );
-		}
+		$nonce = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
 		if ( ! check_ajax_referer( 'itr_ajax_nonce', $nonce ) ) {
 			wp_send_json_error( 'Errore, richiesta non valida' );
 		}
-			$body     = array(
-				'data' => array(
-					'article' => array(
-						'id' => (int) $id_post,
-					),
-					'video'   => array(
-						'id'  => (int) $id_attachment,
-						'url' => $src_attachment,
-					),
-				),
-			);
+		$data_attachment = $this->sanitize_input( $_POST, $license_key );
+		if ( ! $data_attachment ) {
+			wp_send_json_error( 'Errore, richiesta non valida' );
+		}
+			$subtitle = get_post_meta( $data_attachment['id_attachment'], 'ear2words_subtitle_video' );
+		if ( ! empty( $subtitle ) ) {
+			wp_send_json_error( 'Errore,sottotitoli già esistenti per il video selezionato' );
+		}
+			$body = $this->set_body_request( $data_attachment );
+		if ( ! $body ) {
+			wp_send_json_error( 'Errore, richiesta non valida' );
+		}
 			$response = wp_remote_post(
 				ENDPOINT_URL,
 				array(
 					'method'  => 'POST',
 					'headers' => array(
-						'domainName'   => $domain_name,
 						'licenseKey'   => $license_key,
 						'Content-Type' => 'application/json; charset=utf-8',
 					),
