@@ -52,7 +52,7 @@ class ApiLicenseValidation {
 			$error = array(
 				'errors' => array(
 					'status' => '403',
-					"title"  => "Authentication Failed",
+					'title'  => 'Authentication Failed',
 					'source' => $e->getMessage(),
 				),
 			);
