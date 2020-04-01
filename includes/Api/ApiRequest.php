@@ -49,7 +49,7 @@ class ApiRequest {
 	 * @param array $data contiene id_attachment e src_attachment.
 	 */
 	public function set_body_request( $data ) {
-		$languanges    = array(
+		$languanges = array(
 			'en' => 'en-US',
 			'it' => 'it-IT',
 			'de' => 'de-DE',
@@ -57,7 +57,10 @@ class ApiRequest {
 			'zn' => 'zh-CH',
 			'es' => 'es-ES',
 		);
-		$lang          = $data['lang'];
+		$lang       = $data['lang'];
+		if ( ! array_key_exists( $lang, $languanges ) ) {
+			wp_send_json_error( 'Errore, lingua selezionata non valida' );
+		}
 		$id_attachment = (int) $data['id_attachment'];
 		$video_data    = $this->get_media_metadata( $id_attachment );
 		if ( ! is_numeric( $id_attachment ) || $video_data['filesize'] <= 0 || $video_data['length'] <= 0 || ! filter_var( $data['src_attachment'], FILTER_VALIDATE_URL ) ) {
