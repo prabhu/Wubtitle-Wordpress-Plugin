@@ -37,8 +37,7 @@ class ApiRequest {
 	 */
 	public function sanitize_input( $array ) {
 		if ( ! isset( $array['id_attachment'] ) || ! isset( $array['src_attachment'] ) ) {
-			$array['check'] = true;
-			return $array;
+			return false;
 		}
 		$array['id_attachment']  = sanitize_text_field( wp_unslash( $array['id_attachment'] ) );
 		$array['src_attachment'] = sanitize_text_field( wp_unslash( $array['src_attachment'] ) );
@@ -78,7 +77,7 @@ class ApiRequest {
 		if ( ! check_ajax_referer( 'itr_ajax_nonce', $nonce ) ) {
 			wp_send_json_error( 'Errore, richiesta non valida' );
 		}
-		$data_attachment = $this->sanitize_input( $_POST, $license_key );
+		$data_attachment = $this->sanitize_input( $_POST );
 		if ( ! $data_attachment ) {
 			wp_send_json_error( 'Si è verificato un errore durante la creazione dei sottotitoli. Riprova di nuovo tra qualche minuto' );
 		}
