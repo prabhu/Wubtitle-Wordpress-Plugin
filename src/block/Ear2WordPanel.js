@@ -73,7 +73,8 @@ const Ear2WordPanel = props => {
 						{ value: "en", label: "Inglese" },
 						{ value: "es", label: "Spagnolo" },
 						{ value: "de", label: "Tedesco" },
-						{ value: "zh", label: "Cinese" }
+						{ value: "zh", label: "Cinese" },
+						{ value: "fr", label: "Francese" }
 					]}
 				/>
 				<Button

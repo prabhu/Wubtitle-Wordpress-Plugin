@@ -54,7 +54,7 @@ class ApiRequest {
 			'it' => 'it-IT',
 			'de' => 'de-DE',
 			'fr' => 'fr-FR',
-			'zn' => 'zh-CH',
+			'zn' => 'zh-CN',
 			'es' => 'es-ES',
 		);
 		$lang       = $data['lang'];
