@@ -8,12 +8,16 @@ const Ear2WordPanel = props => {
 	const idPost = useSelect(select =>
 		select("core/editor").getCurrentPostId()
 	);
+
 	const status = useSelect(select => {
-		const attachment = select("core").getEntityRecord(
-			"postType",
-			"attachment",
-			props.id
-		);
+		const attachment =
+			props.id !== undefined
+				? select("core").getEntityRecord(
+						"postType",
+						"attachment",
+						props.id
+				  )
+				: undefined;
 		return attachment !== undefined
 			? select("core").getEditedEntityRecord(
 					"postType",
@@ -24,6 +28,7 @@ const Ear2WordPanel = props => {
 	});
 	const noticeDispatcher = useDispatch("core/notices");
 	const entityDispatcher = useDispatch("core");
+	const isDisabled = status === "pending" || props.id === undefined;
 	function onClick() {
 		const idAttachment = props.id;
 		const srcAttachment = props.src;
@@ -56,7 +61,7 @@ const Ear2WordPanel = props => {
 		<InspectorControls>
 			<PanelBody title="Ear2words">
 				<Button
-					disabled={status === "pending"}
+					disabled={isDisabled}
 					name="sottotitoli"
 					id={props.id}
 					isPrimary
