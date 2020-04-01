@@ -17,7 +17,9 @@
         "test": "./vendor/bin/phpunit --color=always --testdox",
         "check-php": ["@phpmd","@phpcs"]
     },
-    "require": {},
+    "require": {
+        "firebase/php-jwt": "^5.2"
+    },
     "require-dev": {
         "squizlabs/php_codesniffer": "*",
         "phpmd/phpmd": "@stable",
