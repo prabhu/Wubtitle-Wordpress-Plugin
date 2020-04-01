@@ -1,14 +1,15 @@
 /*  global ear2words_button_object  */
 import { useSelect, useDispatch } from "@wordpress/data";
 import apiFetch from "@wordpress/api-fetch";
-import { PanelBody, Button } from "@wordpress/components";
+import { PanelBody, Button, SelectControl } from "@wordpress/components";
 import { InspectorControls } from "@wordpress/block-editor";
+import { useState } from "@wordpress/element";
 
 const Ear2WordPanel = props => {
-	const idPost = useSelect(select =>
-		select("core/editor").getCurrentPostId()
-	);
-
+	const languages = ["it", "en", "es", "de", "zh"];
+	const lang = languages.includes(ear2words_button_object.lang)
+		? ear2words_button_object.lang
+		: "en";
 	const status = useSelect(select => {
 		const attachment =
 			props.id !== undefined
@@ -28,6 +29,7 @@ const Ear2WordPanel = props => {
 	});
 	const noticeDispatcher = useDispatch("core/notices");
 	const entityDispatcher = useDispatch("core");
+	const [languageSelected, setLanguage] = useState(lang);
 	const isDisabled = status === "pending" || props.id === undefined;
 	function onClick() {
 		const idAttachment = props.id;
@@ -39,7 +41,7 @@ const Ear2WordPanel = props => {
 				"Content-Type":
 					"application/x-www-form-urlencoded; charset=utf-8"
 			},
-			body: `action=submitVideo&_ajax_nonce=${ear2words_button_object.ajaxnonce}&id_attachment=${idAttachment}&src_attachment=${srcAttachment}&id_post=${idPost}`
+			body: `action=submitVideo&_ajax_nonce=${ear2words_button_object.ajaxnonce}&id_attachment=${idAttachment}&src_attachment=${srcAttachment}&lang=${languageSelected}&`
 		}).then(res => {
 			if (res.data === 201) {
 				noticeDispatcher.createNotice(
@@ -60,6 +62,20 @@ const Ear2WordPanel = props => {
 	return (
 		<InspectorControls>
 			<PanelBody title="Ear2words">
+				<SelectControl
+					label={"Seleziona la lingua del video"}
+					value={languageSelected} // e.g: value = [ 'a', 'c' ]
+					onChange={lingua => {
+						setLanguage(lingua);
+					}}
+					options={[
+						{ value: "it", label: "Italiano" },
+						{ value: "en", label: "Inglese" },
+						{ value: "es", label: "Spagnolo" },
+						{ value: "de", label: "Tedesco" },
+						{ value: "zh", label: "Cinese" }
+					]}
+				/>
 				<Button
 					disabled={isDisabled}
 					name="sottotitoli"
