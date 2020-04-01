@@ -29,7 +29,7 @@ class ApiLicenseValidation {
 	public function register_license_validation_route() {
 		register_rest_route(
 			'ear2words/v1',
-			'/job-list/(?P<licensekey>[a-zA-Z0-9-]+)',
+			'/job-list',
 			array(
 				'methods'  => 'GET',
 				'callback' => array( $this, 'jwt_auth' ),
@@ -47,31 +47,11 @@ class ApiLicenseValidation {
 		$jwt            = $headers['jwt'][0];
 		$db_license_key = get_option( 'ear2words_license_key' );
 		try {
-			$this->jwt_decode( $jwt, $db_license_key, array( 'HS256' ) );
+			JWT::decode( $jwt, $db_license_key, array( 'HS256' ) );
 		} catch ( \Exception $e ) {
-			$error = array(
-				'errors' => array(
-					'status' => '403',
-					"title"  => "Authentication Failed",
-					'source' => $e->getMessage(),
-				),
-			);
-			return $error;
+			return $e->getMessage();
 		}
 		return $this->get_job_list( $request );
-	}
-
-
-	/**
-	 * Risolve errore phpmd:
-	 * Avoid using static access to class '\Firebase\JWT\JWT' in method 'jwt_auth'.
-	 *
-	 * @param string $jwt ricevuto dall'headers.
-	 * @param string $license_key dal db.
-	 * @param array  $array algoritmo.
-	 */
-	public function jwt_decode( $jwt, $license_key, $array ) {
-		JWT::decode( $jwt, $license_key, $array );
 	}
 
 	/**
@@ -80,12 +60,6 @@ class ApiLicenseValidation {
 	 * @param array $request valori della richiesta.
 	 */
 	public function get_job_list( $request ) {
-		$params              = $request->get_params();
-		$request_license_key = $params['licensekey'];
-		$db_license_key      = get_option( 'ear2words_license_key' );
-		if ( $request_license_key !== $db_license_key ) {
-			return new WP_Error( 'invalid_license_key', __( 'Invalid license key. Check your key.', 'ear2words' ), array( 'status' => 401 ) );
-		}
 		$args     = array(
 			'post_type'      => 'attachment',
 			'posts_per_page' => -1,
