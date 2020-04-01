@@ -4,24 +4,21 @@
   "main": "",
   "author": "CTMobi",
   "devDependencies": {
+    "@wordpress/plugins": "^2.12.0",
     "@wordpress/scripts": "^7.1.3",
     "eslint": "^6.8.0",
-    "eslint-config-airbnb": "^18.1.0",
-    "eslint-plugin-import": "^2.20.1",
-    "eslint-plugin-jsx-a11y": "^6.2.3",
-    "eslint-plugin-react": "^7.19.0",
-    "eslint-plugin-react-hooks": "^2.5.0",
     "husky": "^4.2.3"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "composer run-script check-php"
+      "pre-commit": "composer run-script check-php && npm run lint:js:src"
     }
   },
   "scripts": {
     "start": "wp-scripts start",
     "build": "wp-scripts build",
-    "fixjs": "eslint --fix ./src"
+    "fixjs": "eslint --fix ./src",
+    "lint:js:src": "wp-scripts lint-js ./src"
   },
   "dependencies": {
     "@wordpress/api-fetch": "^3.11.0"
