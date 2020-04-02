@@ -107,7 +107,7 @@ class ApiRequest {
 			if ( 201 !== $code_response ) {
 				wp_send_json_error( $message[ $code_response ] );
 			}
-			update_post_meta( $data_attachment['$id_attachment'], 'ear2words_status', 'pending' );
+			update_post_meta( $data_attachment['id_attachment'], 'ear2words_status', 'pending' );
 			wp_send_json_success( $code_response );
 	}
 
