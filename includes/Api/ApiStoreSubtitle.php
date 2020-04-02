@@ -42,7 +42,7 @@ class ApiStoreSubtitle {
 	public function auth_and_get_subtitle( $request ) {
 		$headers        = $request->get_headers();
 		$jwt            = $headers['jwt'][0];
-		$file           = $headers['file'][0];
+		$body           = $request->get_body();
 		$db_license_key = get_option( 'ear2words_license_key' );
 		try {
 			JWT::decode( $jwt, $db_license_key, array( 'HS256' ) );
@@ -56,14 +56,17 @@ class ApiStoreSubtitle {
 			);
 			return $error;
 		}
-		return $this->get_subtitle($file);
+		return $this->get_subtitle( $body );
 	}
 
 	/**
-	 * Ottiene .
+	 * Ottiene.
+	 *
+	 * @param string $body file.
 	 */
-	public function get_subtitle($file) {
-		// TODO: da fare
+	public function get_subtitle( $body ) {
+		// TODO: da fare.
+		return $body;
 	}
 }
 
