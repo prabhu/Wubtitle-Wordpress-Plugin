@@ -18,6 +18,7 @@ class VideoBlock {
 	 */
 	public function run() {
 		add_action( 'enqueue_block_editor_assets', array( $this, 'add_subtitle_button_enqueue' ) );
+		add_action( 'init', array( $this, 'gutenberg_examples_dynamic' ) );
 	}
 	/**
 	 * Enqueue degli script.
@@ -32,5 +33,38 @@ class VideoBlock {
 				'ajaxnonce' => wp_create_nonce( 'itr_ajax_nonce' ),
 			)
 		);
+	}
+	/**
+	 * Registro il block type facendo override al blocco core/video.
+	 */
+	public function gutenberg_examples_dynamic() {
+		register_block_type(
+			'core/video',
+			array(
+				'render_callback' => array( $this, 'gutenberg_examples_dynamic_render_callback' ),
+			)
+		);
+	}
+	/**
+	 * Callback che definisce il blocco dinamico.
+	 *
+	 * @param array  $attributes attributi del video (id).
+	 * @param string $content html generato da wordress per il blocco video standard.
+	 */
+	public function gutenberg_examples_dynamic_render_callback( $attributes, $content ) {
+		$subtitle = get_post_meta( $attributes['id'], 'ear2words_subtitle', true );
+		$video    = get_post_meta( $attributes['id'], '_wp_attached_file', true );
+		if ( '' === $subtitle ) {
+			return $content;
+		}
+		ob_start();
+		?>
+		<figure class="wp-block-video">
+			<video controls src= "<?php echo esc_html( wp_upload_dir()['baseurl'] . '/' . $video ); ?>">
+			<track label="Italian" kind="subtitles" srclang="it" src=" <?php echo esc_html( wp_upload_dir()['baseurl'] . '/' . $subtitle ); ?>" default>
+			</video>
+		</figure>
+		<?php
+		return ob_get_clean();
 	}
 }
