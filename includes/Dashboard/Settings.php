@@ -27,7 +27,7 @@ class Settings {
 	 */
 	public function create_settings_menu() {
 		// TODO: Cambiare $icon_url e $position (attualmente subito dopo "Impostazioni") quando verranno date indicazioni UX.
-		add_menu_page( 'Ear2words Settings', 'Ear2words', 'manage_options', 'ear2words_settings', array( $this, 'render_settings_page' ), 'dashicons-format-status', 81 );
+		add_menu_page( __('Ear2words Settings','ear2words'), __('Ear2words','ear2words'), 'manage_options', 'ear2words_settings', array( $this, 'render_settings_page' ), 'dashicons-format-status', 81 );
 	}
 
 	/**
@@ -67,17 +67,17 @@ class Settings {
 	 * Aggiunge un nuovo campo all'impostazione precedentemente creata
 	 */
 	public function init_settings_field() {
-		add_settings_section( 'ear2words-main-settings', 'Impostazioni licenza', null, 'ear2words-settings' );
+		add_settings_section( 'ear2words-main-settings', __('License settings','ear2words'), null, 'ear2words-settings' );
 		add_settings_field(
 			'ear2words-license-key',
-			'License Key',
+			__('License key','ear2words'),
 			array( $this, 'input_field' ),
 			'ear2words-settings',
 			'ear2words-main-settings',
 			array(
 				'type'        => 'text',
 				'name'        => 'ear2words_license_key',
-				'placeholder' => 'License Key',
+				'placeholder' => __('License key','ear2words'),
 			)
 		);
 	}
