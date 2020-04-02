@@ -4,6 +4,7 @@ import apiFetch from "@wordpress/api-fetch";
 import { PanelBody, Button, SelectControl } from "@wordpress/components";
 import { InspectorControls } from "@wordpress/block-editor";
 import { useState } from "@wordpress/element";
+import { __ } from "@wordpress/i18n";
 
 const Ear2WordPanel = props => {
 	const languages = ["it", "en", "es", "de", "zh"];
@@ -46,7 +47,7 @@ const Ear2WordPanel = props => {
 			if (res.data === 201) {
 				noticeDispatcher.createNotice(
 					"success",
-					"Creazione dei sottotitoli avviata con successo"
+					__("Subtitle creation started successfully", "ear2words")
 				);
 				entityDispatcher.editEntityRecord(
 					"postType",
@@ -63,18 +64,18 @@ const Ear2WordPanel = props => {
 		<InspectorControls>
 			<PanelBody title="Ear2words">
 				<SelectControl
-					label={"Seleziona la lingua del video"}
+					label={__("Select the video language", "ear2words")}
 					value={languageSelected} // e.g: value = [ 'a', 'c' ]
 					onChange={lingua => {
 						setLanguage(lingua);
 					}}
 					options={[
-						{ value: "it", label: "Italiano" },
-						{ value: "en", label: "Inglese" },
-						{ value: "es", label: "Spagnolo" },
-						{ value: "de", label: "Tedesco" },
-						{ value: "zh", label: "Cinese" },
-						{ value: "fr", label: "Francese" }
+						{ value: "it", label: __("Italian", "ear2words") },
+						{ value: "en", label: __("English", "ear2words") },
+						{ value: "es", label: __("Spanish", "ear2words") },
+						{ value: "de", label: __("German ", "ear2words") },
+						{ value: "zh", label: __("Chinese", "ear2words") },
+						{ value: "fr", label: __("French", "ear2words") }
 					]}
 				/>
 				<Button
@@ -84,7 +85,7 @@ const Ear2WordPanel = props => {
 					isPrimary
 					onClick={onClick}
 				>
-					ATTIVA SOTTOTITOLI
+					{__("TURN ON SUBTITLES", "ear2words")}
 				</Button>
 			</PanelBody>
 		</InspectorControls>
