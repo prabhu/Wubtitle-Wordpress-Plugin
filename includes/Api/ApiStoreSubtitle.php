@@ -9,6 +9,8 @@
 
 namespace Ear2Words\Api;
 
+use \Firebase\JWT\JWT;
+
 /**
  * Questa classe gestisce lo store dei file vtt.
  */
@@ -42,7 +44,8 @@ class ApiStoreSubtitle {
 	public function auth_and_get_subtitle( $request ) {
 		$headers        = $request->get_headers();
 		$jwt            = $headers['jwt'][0];
-		$body           = $request->get_body();
+		$params         = $request->get_params();		
+		$file           = $request->get_file_params();		
 		$db_license_key = get_option( 'ear2words_license_key' );
 		try {
 			JWT::decode( $jwt, $db_license_key, array( 'HS256' ) );
@@ -56,7 +59,7 @@ class ApiStoreSubtitle {
 			);
 			return $error;
 		}
-		return $this->get_subtitle( $body );
+		return $this->get_subtitle( $params, $file );
 	}
 
 	/**
@@ -64,9 +67,9 @@ class ApiStoreSubtitle {
 	 *
 	 * @param string $body file.
 	 */
-	public function get_subtitle( $body ) {
-		// TODO: da fare.
-		return $body;
+	public function get_subtitle( $params, $file ) {
+		//TODO: Implementare salvataggio file
+		wp_send_json_success( ["message" => "ciao"] );
 	}
 }
 
