@@ -22,6 +22,7 @@ class Loader {
 			'settings'           => Dashboard\Settings::class,
 			'request'            => Api\ApiRequest::class,
 			'license_validation' => Api\ApiLicenseValidation::class,
+			'store_subtitle'     => Api\ApiStoreSubtitle::class,
 		);
 
 		foreach ( $classes as $class ) {
