@@ -68,7 +68,8 @@ class ApiLicenseValidation {
 		$args     = array(
 			'post_type'      => 'attachment',
 			'posts_per_page' => -1,
-			'meta_key'       => 'ear2words_job_uuid',
+			'meta_key'       => 'ear2words_status',
+			'meta_value'     => 'pending',
 		);
 		$media    = get_posts( $args );
 		$job_list = array();
