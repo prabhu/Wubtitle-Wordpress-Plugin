@@ -31,6 +31,7 @@
 	<rule ref="WordPress">
 		<exclude name="WordPress.Files.FileName"/>
 		<exclude name="WordPress.DB.SlowDBQuery.slow_db_query_meta_key"/>
+		<exclude name="WordPress.DB.SlowDBQuery.slow_db_query_meta_value"/>
 	</rule>
 	<rule ref="WordPress.WP.I18n">
 		<properties>
