@@ -78,7 +78,8 @@ class ApiStoreSubtitle {
 
 		$file = array(
 			'name'     => basename( $url ),
-			'type'     => 'image/jpge',
+			// TODO: ho fatto il test con "image/jpg", non ho trovato vvt, dovrebbe essere text.
+			'type'     => 'text/plain',
 			'tmp_name' => $temp_file,
 			'error'    => 0,
 			'size'     => filesize( $temp_file ),
