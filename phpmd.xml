@@ -9,7 +9,9 @@
 	<description>
 		Rules for Wordpress plugin
 	</description>
-	<rule ref="rulesets/cleancode.xml"></rule>
+	<rule ref="rulesets/cleancode.xml">
+		<exclude name="StaticAccess" />
+	</rule>
 	<rule ref="rulesets/unusedcode.xml"></rule>
 	<rule ref="rulesets/codesize.xml"></rule>
 	<rule ref="rulesets/naming.xml">

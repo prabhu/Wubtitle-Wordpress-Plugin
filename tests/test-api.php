@@ -58,10 +58,11 @@ class TestApiRequest extends WP_Ajax_UnitTestCase {
       * Effettua la chiamata validando tutti i campi
       */
       public function test_validate_field(){
-        $_POST['_ajax_nonce'] = wp_create_nonce( 'itr_ajax_nonce' );
-        $_POST['src_attachment'] = '#';
-        $_POST['id_attachment'] = 1;
-        $result = $this->instance->sanitize_input($_POST);
+        $array['_ajax_nonce'] = wp_create_nonce( 'itr_ajax_nonce' );
+        $array['src_attachment'] = '#';
+        $array['id_attachment'] = 1;
+        $array['lang'] = 'en';
+        $result = $this->instance->sanitize_input($array);
         $this->assertArrayHasKey('id_attachment',$result);
         $this->assertArrayHasKey('src_attachment',$result);
       }
@@ -85,7 +86,8 @@ class TestApiRequest extends WP_Ajax_UnitTestCase {
          wp_update_attachment_metadata( $attachment_id, $attachment_metadata );
          $data = array(
            'id_attachment' => $attachment_id,
-           'src_attachment' => $src
+           'src_attachment' => $src,
+           'lang' => 'en'
          );
          $result = $this->instance->set_body_request($data);
          $expected_body = array(
@@ -94,6 +96,7 @@ class TestApiRequest extends WP_Ajax_UnitTestCase {
     				 'url'          => $src,
     				 'size'         => 123456,
     				 'duration'     => 15,
+             'lang'         => 'en-US'
     			 ),
     		 );
          $this->assertEqualSets($expected_body,$result);
@@ -118,7 +121,8 @@ class TestApiRequest extends WP_Ajax_UnitTestCase {
           wp_update_attachment_metadata( $attachment_id, $attachment_metadata );
           $data = array(
             'id_attachment' => $attachment_id,
-            'src_attachment' => $src
+            'src_attachment' => $src,
+            'lang' => 'it'
           );
           $result = $this->instance->set_body_request($data);
           $this->assertFalse($result);

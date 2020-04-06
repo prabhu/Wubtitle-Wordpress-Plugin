@@ -31,6 +31,7 @@ class VideoBlock {
 			array(
 				'ajax_url'  => admin_url( 'admin-ajax.php' ),
 				'ajaxnonce' => wp_create_nonce( 'itr_ajax_nonce' ),
+				'lang'      => explode( '_', get_locale(), 2 )[0],
 			)
 		);
 	}

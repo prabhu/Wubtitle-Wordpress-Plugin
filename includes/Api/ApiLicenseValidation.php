@@ -10,6 +10,8 @@
 namespace Ear2Words\Api;
 
 use WP_Error;
+use WP_REST_Response;
+use \Firebase\JWT\JWT;
 
 /**
  * Questa classe gestisce l'endpoint per la validazione della license key.
@@ -28,30 +30,52 @@ class ApiLicenseValidation {
 	public function register_license_validation_route() {
 		register_rest_route(
 			'ear2words/v1',
-			'/job-list/(?P<licensekey>[a-zA-Z0-9-]+)',
+			'/job-list',
 			array(
 				'methods'  => 'GET',
-				'callback' => array( $this, 'get_job_list' ),
+				'callback' => array( $this, 'auth_and_get_job_list' ),
 			)
 		);
 	}
 
 	/**
-	 * Ottiene gli uuid dei post.
+	 * Autenticazione JWT.
 	 *
 	 * @param array $request valori della richiesta.
 	 */
-	public function get_job_list( $request ) {
-		$params              = $request->get_params();
-		$request_license_key = $params['licensekey'];
-		$db_license_key      = get_option( 'ear2words_license_key' );
-		if ( $request_license_key !== $db_license_key ) {
-			return new WP_Error( 'invalid_license_key', __( 'Invalid license key. Check your key.', 'ear2words' ), array( 'status' => 401 ) );
+	public function auth_and_get_job_list( $request ) {
+		$headers        = $request->get_headers();
+		$jwt            = $headers['jwt'][0];
+		$db_license_key = get_option( 'ear2words_license_key' );
+		try {
+			JWT::decode( $jwt, $db_license_key, array( 'HS256' ) );
+		} catch ( \Exception $e ) {
+			$error = array(
+				'errors' => array(
+					'status' => '403',
+					'title'  => 'Authentication Failed',
+					'source' => $e->getMessage(),
+				),
+			);
+
+			$response = new WP_REST_Response( $error );
+
+			$response->set_status( 403 );
+
+			return $response;
 		}
+		return $this->get_job_list();
+	}
+
+	/**
+	 * Ottiene gli uuid dei post.
+	 */
+	public function get_job_list() {
 		$args     = array(
 			'post_type'      => 'attachment',
 			'posts_per_page' => -1,
-			'meta_key'       => 'ear2words_job_uuid',
+			'meta_key'       => 'ear2words_status',
+			'meta_value'     => 'pending',
 		);
 		$media    = get_posts( $args );
 		$job_list = array();
@@ -66,7 +90,3 @@ class ApiLicenseValidation {
 		return $data;
 	}
 }
-
-
-
-
