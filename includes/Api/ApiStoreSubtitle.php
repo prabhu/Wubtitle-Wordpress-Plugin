@@ -8,7 +8,7 @@
  */
 
 namespace Ear2Words\Api;
-
+use WP_REST_Response;
 use \Firebase\JWT\JWT;
 
 /**
@@ -56,7 +56,12 @@ class ApiStoreSubtitle {
 					'source' => $e->getMessage(),
 				),
 			);
-			return $error;
+
+			$response = new WP_REST_Response( $error );
+
+			$response->set_status( 403 );
+
+			return $response;
 		}
 		return $this->get_subtitle( $params );
 	}
@@ -69,17 +74,29 @@ class ApiStoreSubtitle {
 	public function get_subtitle( $params ) {
 		$url           = $params['url'];
 		$id_attachment = $params['attachmentId'];
-
 		$temp_file = download_url( $url );
-
+		
 		if ( is_wp_error( $temp_file ) ) {
 			wp_send_json_success( array( 'message' => 'invalid url' ) );
+			$error = array(
+				'errors' => array(
+					'status' => '404',
+					'title'  => 'Invalid URL',
+					'source' => 'URL not found',
+				),
+			);
+
+			$response = new WP_REST_Response( $error );
+
+			$response->set_status( 404 );
+
+			return $response;
 		}
 
 		$file = array(
 			'name'     => basename( $url ),
 			// TODO: ho fatto il test con "image/jpg", non ho trovato vvt, dovrebbe essere text.
-			'type'     => 'text/plain',
+			'type'     => 'text/vtt',
 			'tmp_name' => $temp_file,
 			'error'    => 0,
 			'size'     => filesize( $temp_file ),
@@ -92,12 +109,36 @@ class ApiStoreSubtitle {
 		$results = wp_handle_sideload( $file, $overrides );
 
 		if ( ! empty( $results['error'] ) ) {
-			wp_send_json_success( $results['error'] );
+			$error = array(
+				'errors' => array(
+					'status' => '500',
+					'title'  => 'Download Failed',
+					'source' => 'Download Failed',
+				),
+			);
+
+			$response = new WP_REST_Response( $error );
+
+			$response->set_status( 500 );
+
+			return $response;
 		}
 
 		update_post_meta( $id_attachment, 'ear2words_status', 'done' );
 
-		wp_send_json_success( array( 'message' => 'file ricevuto' ) );
+		$message = array(
+			'message' => array(
+				'status' => '200',
+				'title'  => 'Success',
+				'source' => 'File received',
+			),
+		);
+
+		$response = new WP_REST_Response( $message );
+
+		$response->set_status( 200 );
+
+		return $response;
 	}
 }
 
