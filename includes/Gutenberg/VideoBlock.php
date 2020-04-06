@@ -18,7 +18,7 @@ class VideoBlock {
 	 */
 	public function run() {
 		add_action( 'enqueue_block_editor_assets', array( $this, 'add_subtitle_button_enqueue' ) );
-		add_action( 'init', array( $this, 'gutenberg_examples_dynamic' ) );
+		add_action( 'init', array( $this, 'video_block_dynamic' ) );
 	}
 	/**
 	 * Enqueue degli script.
@@ -38,7 +38,7 @@ class VideoBlock {
 	/**
 	 * Registro il block type facendo override al blocco core/video.
 	 */
-	public function gutenberg_examples_dynamic() {
+	public function video_block_dynamic() {
 		register_block_type(
 			'core/video',
 			array(
