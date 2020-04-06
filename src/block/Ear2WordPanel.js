@@ -84,7 +84,7 @@ const Ear2WordPanel = props => {
 					isPrimary
 					onClick={onClick}
 				>
-					ATTIVA SOTTOTITOLI
+					GENERA SOTTOTITOLI
 				</Button>
 			</PanelBody>
 		</InspectorControls>
