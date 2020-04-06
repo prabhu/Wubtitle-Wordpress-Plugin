@@ -10,6 +10,7 @@
 namespace Ear2Words\Api;
 
 use WP_Error;
+use WP_REST_Response;
 use \Firebase\JWT\JWT;
 
 /**
@@ -56,7 +57,12 @@ class ApiLicenseValidation {
 					'source' => $e->getMessage(),
 				),
 			);
-			return $error;
+
+			$response = new WP_REST_Response( $error );
+
+			$response->set_status( 403 );
+
+			return $response;
 		}
 		return $this->get_job_list();
 	}

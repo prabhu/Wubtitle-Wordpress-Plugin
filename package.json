@@ -21,6 +21,7 @@
     "lint:js:src": "wp-scripts lint-js ./src"
   },
   "dependencies": {
-    "@wordpress/api-fetch": "^3.11.0"
+    "@wordpress/api-fetch": "^3.11.0",
+    "npm-install-peers": "^1.2.1"
   }
 }
