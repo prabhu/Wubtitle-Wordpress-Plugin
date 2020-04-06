@@ -112,7 +112,7 @@ class ApiRequest {
 					'body'    => wp_json_encode( $body ),
 				)
 			);
-			$code_response = is_wp_error( $response ) ? '500' : $response['response']['code'];
+			$code_response = $this->check_response( $response ) ? $response['response']['code'] : '500';
 
 			$message = array(
 				'400' => 'Si è verificato un errore durante la creazione dei sottotitoli. Riprova di nuovo tra qualche minuto',
@@ -142,5 +142,21 @@ class ApiRequest {
 				'single'       => true,
 			)
 		);
+	}
+	/**
+	 * Verifico che la chiamta non sia andata in errore.
+	 *
+	 * @param array | WP_ERROR $response risposta chiamata.
+	 */
+	private function check_response( $response ) {
+		if ( ! is_wp_error( $response ) ) {
+			return true;
+		}
+		if ( defined( 'WP_DEBUG' ) && WP_DEBUG === true ) {
+			// phpcs:disable WordPress.PHP.DevelopmentFunctions
+			error_log( print_r( $response->get_error_message(), true ) );
+			// phpcs:enable
+		}
+		return false;
 	}
 }
