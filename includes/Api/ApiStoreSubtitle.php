@@ -106,12 +106,13 @@ class ApiStoreSubtitle {
 			'size'     => filesize( $temp_file ),
 		);
 
-		$overrides = array(
-			'test_form' => false,
-		);
+		if ( ! function_exists( 'media_handle_sideload' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/media.php';
+			require_once ABSPATH . '/wp-admin/includes/image.php';
+		}
+		$results = \media_handle_sideload( $file, 0 );
 
-		$results = wp_handle_sideload( $file, $overrides );
-
+		// TODO: controllare WP_ERROR.
 		if ( ! empty( $results['error'] ) ) {
 			$error = array(
 				'errors' => array(
@@ -127,6 +128,8 @@ class ApiStoreSubtitle {
 
 			return $response;
 		}
+
+		// TODO: update post attachment - POst meta attachment true | post id metakey meta value id sottotitolo post id sottotitolo.
 
 		update_post_meta( $id_attachment, 'ear2words_status', 'done' );
 
