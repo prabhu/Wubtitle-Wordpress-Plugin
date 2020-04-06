@@ -65,11 +65,11 @@ class ApiLicenseValidation {
 	 * Ottiene gli uuid dei post.
 	 */
 	public function get_job_list() {
-		$args = array(
+		$args     = array(
 			'post_type'      => 'attachment',
 			'posts_per_page' => -1,
-			'meta_key'       => 'ear2words_job_uuid',
-			// TODO: Filtrare per job pending dopo allineamento al lavoro di Alessio.
+			'meta_key'       => 'ear2words_status',
+			'meta_value'     => 'pending',
 		);
 		$media    = get_posts( $args );
 		$job_list = array();
@@ -84,7 +84,3 @@ class ApiLicenseValidation {
 		return $data;
 	}
 }
-
-
-
-
