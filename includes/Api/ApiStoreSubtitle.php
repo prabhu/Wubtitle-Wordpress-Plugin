@@ -11,6 +11,7 @@ namespace Ear2Words\Api;
 
 use WP_REST_Response;
 use \Firebase\JWT\JWT;
+use \download_url;
 
 /**
  * Questa classe gestisce lo store dei file vtt.
@@ -73,6 +74,10 @@ class ApiStoreSubtitle {
 	 * @param array $params parametri del file.
 	 */
 	public function get_subtitle( $params ) {
+		// If the function it's not available, require it.
+		if ( ! function_exists( 'download_url' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/file.php';
+		}
 		$url           = $params['url'];
 		$id_attachment = $params['attachmentId'];
 		$temp_file     = download_url( $url );
@@ -95,7 +100,6 @@ class ApiStoreSubtitle {
 
 		$file = array(
 			'name'     => basename( $url ),
-			// TODO: ho fatto il test con "image/jpg", non ho trovato vvt, dovrebbe essere text.
 			'type'     => 'text/vtt',
 			'tmp_name' => $temp_file,
 			'error'    => 0,
