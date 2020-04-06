@@ -18,11 +18,12 @@ class Loader {
 	public static function init() {
 		// Inserire qui le classi da istanziare.
 		$classes = array(
-			'gutenber'           => Gutenberg\VideoBlock::class,
-			'settings'           => Dashboard\Settings::class,
-			'request'            => Api\ApiRequest::class,
-			'license_validation' => Api\ApiLicenseValidation::class,
-			'store_subtitle'     => Api\ApiStoreSubtitle::class,
+			'gutenber'             => Gutenberg\VideoBlock::class,
+			'settings'             => Dashboard\Settings::class,
+			'request'              => Api\ApiRequest::class,
+			'license_validation'   => Api\ApiLicenseValidation::class,
+			'custom_media_library' => MediaLibrary\ListingSubtitles::class,
+			'store_subtitle'       => Api\ApiStoreSubtitle::class,
 		);
 
 		foreach ( $classes as $class ) {

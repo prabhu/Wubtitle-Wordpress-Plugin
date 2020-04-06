@@ -15,7 +15,7 @@ Dopo aver configuato il proprio ambiente di sviluppo Wordpress ed aver clonato l
 
 * `npm install`
 
-* `npm start`
+* `npm run build
 
 
 

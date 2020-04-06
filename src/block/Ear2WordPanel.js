@@ -47,7 +47,7 @@ const Ear2WordPanel = props => {
 			if (res.data === 201) {
 				noticeDispatcher.createNotice(
 					"success",
-					__("Subtitle creation started successfully", "ear2words")
+					__("Subtitle creation successfully started", "ear2words")
 				);
 				entityDispatcher.editEntityRecord(
 					"postType",

@@ -95,7 +95,7 @@ class ApiRequest {
 			wp_send_json_error( __( 'An error occurred while creating the subtitles. Please try again in a few minutes.', 'ear2words' ) );
 		}
 		if ( empty( $license_key ) ) {
-			wp_send_json_error( __( 'Unable to create subtitles. There is no product license', 'ear2words' ) );
+			wp_send_json_error( __( 'Unable to create subtitles. The product license key is missing.', 'ear2words' ) );
 		}
 			$body = $this->set_body_request( $data_attachment );
 		if ( ! $body ) {
@@ -115,12 +115,13 @@ class ApiRequest {
 			$code_response = $response['response']['code'];
 			$message       = array(
 				'401' => __( 'An error occurred while creating the subtitles. Please try again in a few minutes', 'ear2words' ),
-				'403' => __( 'Unable to create subtitles. The product license is not valid.', 'ear2words' ),
+				'403' => __( 'Unable to create subtitles. Invalid product license.', 'ear2words' ),
 			);
 			if ( 201 !== $code_response ) {
 				wp_send_json_error( $message[ $code_response ] );
 			}
-			update_post_meta( $data_attachment['id_attachment'], 'ear2words_job_uuid', $response['response']['data']['jobId'], true );
+			$response_body = json_decode( $response['body'] );
+			update_post_meta( $data_attachment['id_attachment'], 'ear2words_job_uuid', $response_body->data->jobId );
 			update_post_meta( $data_attachment['id_attachment'], 'ear2words_status', 'pending' );
 			wp_send_json_success( $code_response );
 	}
