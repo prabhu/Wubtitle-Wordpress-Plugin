@@ -8,6 +8,7 @@
  */
 
 namespace Ear2Words\Api;
+
 use WP_REST_Response;
 use \Firebase\JWT\JWT;
 
@@ -74,10 +75,9 @@ class ApiStoreSubtitle {
 	public function get_subtitle( $params ) {
 		$url           = $params['url'];
 		$id_attachment = $params['attachmentId'];
-		$temp_file = download_url( $url );
-		
+		$temp_file     = download_url( $url );
+
 		if ( is_wp_error( $temp_file ) ) {
-			wp_send_json_success( array( 'message' => 'invalid url' ) );
 			$error = array(
 				'errors' => array(
 					'status' => '404',
