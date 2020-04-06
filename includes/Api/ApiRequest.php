@@ -84,22 +84,22 @@ class ApiRequest {
 		$license_key = get_option( 'ear2words_license_key' );
 
 		if ( ! isset( $_POST['_ajax_nonce'] ) ) {
-			wp_send_json_error( 'Si è verificato un errore durante la creazione dei sottotitoli. Riprova di nuovo tra qualche minuto' );
+			wp_send_json_error( __( 'An error occurred while creating the subtitles. Please try again in a few minutes.', 'ear2words' ) );
 		}
 		$nonce = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
 		if ( ! check_ajax_referer( 'itr_ajax_nonce', $nonce ) ) {
-			wp_send_json_error( 'Errore, richiesta non valida' );
+			wp_send_json_error( __( 'Error, invalid request', 'ear2words' ) );
 		}
 		$data_attachment = $this->sanitize_input( $_POST );
 		if ( ! $data_attachment ) {
-			wp_send_json_error( 'Si è verificato un errore durante la creazione dei sottotitoli. Riprova di nuovo tra qualche minuto' );
+			wp_send_json_error( __( 'An error occurred while creating the subtitles. Please try again in a few minutes.', 'ear2words' ) );
 		}
 		if ( empty( $license_key ) ) {
-			wp_send_json_error( 'Impossibile creare i sottotitoli. La  licenza del prodotto è assente' );
+			wp_send_json_error( __( 'Unable to create subtitles. The product license key is missing.', 'ear2words' ) );
 		}
 			$body = $this->set_body_request( $data_attachment );
 		if ( ! $body ) {
-			wp_send_json_error( 'Si è verificato un errore durante la creazione dei sottotitoli. Riprova di nuovo tra qualche minuto' );
+			wp_send_json_error( __( 'An error occurred while creating the subtitles. Please try again in a few minutes.', 'ear2words' ) );
 		}
 			$response      = wp_remote_post(
 				ENDPOINT_URL,
@@ -114,8 +114,8 @@ class ApiRequest {
 			);
 			$code_response = $response['response']['code'];
 			$message       = array(
-				'401' => 'Si è verificato un errore durante la creazione dei sottotitoli. Riprova di nuovo tra qualche minuto',
-				'403' => 'Impossibile creare i sottotitoli. La  licenza del prodotto non è valida',
+				'401' => __( 'An error occurred while creating the subtitles. Please try again in a few minutes', 'ear2words' ),
+				'403' => __( 'Unable to create subtitles. Invalid product license.', 'ear2words' ),
 			);
 			if ( 201 !== $code_response ) {
 				wp_send_json_error( $message[ $code_response ] );
