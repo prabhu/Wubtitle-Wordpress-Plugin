@@ -41,7 +41,7 @@ class VideoBlock {
 		register_block_type(
 			'core/video',
 			array(
-				'render_callback' => array( $this, 'gutenberg_examples_dynamic_render_callback' ),
+				'render_callback' => array( $this, 'video_dynamic_block_render_callback' ),
 			)
 		);
 	}
@@ -51,17 +51,18 @@ class VideoBlock {
 	 * @param array  $attributes attributi del video (id).
 	 * @param string $content html generato da wordress per il blocco video standard.
 	 */
-	public function gutenberg_examples_dynamic_render_callback( $attributes, $content ) {
-		$subtitle = get_post_meta( $attributes['id'], 'ear2words_subtitle', true );
-		$video    = get_post_meta( $attributes['id'], '_wp_attached_file', true );
+	public function video_dynamic_block_render_callback( $attributes, $content ) {
+		$subtitle     = get_post_meta( $attributes['id'], 'ear2words_subtitle', true );
+		$subtitle_src = wp_get_attachment_url( $subtitle );
+		$video_src    = wp_get_attachment_url( $attributes['id'] );
 		if ( '' === $subtitle ) {
 			return $content;
 		}
 		ob_start();
 		?>
 		<figure class="wp-block-video">
-			<video controls src= "<?php echo esc_html( wp_upload_dir()['baseurl'] . '/' . $video ); ?>">
-			<track label="Italian" kind="subtitles" srclang="it" src=" <?php echo esc_html( wp_upload_dir()['baseurl'] . '/' . $subtitle ); ?>" default>
+			<video controls src= "<?php echo esc_html( $video_src ); ?>">
+			<track label="Italian" kind="subtitles" srclang="it" src=" <?php echo esc_html( $subtitle_src ); ?>" default>
 			</video>
 		</figure>
 		<?php
