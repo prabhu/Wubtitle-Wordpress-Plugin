@@ -112,10 +112,13 @@ class ApiRequest {
 					'body'    => wp_json_encode( $body ),
 				)
 			);
-			$code_response = $response['response']['code'];
-			$message       = array(
+			$code_response = is_wp_error( $response ) ? '500' : $response['response']['code'];
+
+			$message = array(
+				'400' => 'Si è verificato un errore durante la creazione dei sottotitoli. Riprova di nuovo tra qualche minuto',
 				'401' => 'Si è verificato un errore durante la creazione dei sottotitoli. Riprova di nuovo tra qualche minuto',
 				'403' => 'Impossibile creare i sottotitoli. La  licenza del prodotto non è valida',
+				'500' => 'Impossibile contattare il server',
 			);
 			if ( 201 !== $code_response ) {
 				wp_send_json_error( $message[ $code_response ] );
