@@ -71,20 +71,59 @@ class Settings {
 	 */
 	public function check_license() {
 		$submitted_license = get_option( 'ear2words_license_key' );
-		$test              = 'test';
-		// TODO: Ottenere license Key per il dominio.
 
-		// TODO: Fare il confronto.
+		$valid_license = $this->remote_request( $submitted_license );
 
-		if ( $submitted_license === $test ) {
+		if ( ! $valid_license ) {
 			add_settings_error(
 				'ear2words_license_key',
 				esc_attr( 'invalid_license' ),
-				__( 'Invalid License', 'ear2words' ),
+				__( 'Invalid license key', 'ear2words' ),
 				'error'
 			);
+			remove_action( 'update_option_ear2words_license_key', array( $this, 'check_license' ) );
+			update_option( 'ear2words_license_key', null );
 		}
 	}
+
+	/**
+	 * Chiamata ad endpoint remoto per check license key.
+	 *
+	 * @param string $license_key license key dell'input.
+	 */
+	public function remote_request( $license_key ) {
+
+		// TODO: Aspettare che Simone completi l'issue per la creazione dell'endpoint.
+		$endpoint = 'http://sites.local/wp-api-test/wp-json/wp/v2/posts';
+
+		$headers = array(
+			'Content-Type' => 'application/json; charset=utf-8',
+		);
+
+		$body = array(
+			'data' => array(
+				'license_key' => $license_key,
+			),
+		);
+
+		$request = wp_remote_post(
+			$endpoint,
+			array(
+				'method'  => 'POST',
+				'headers' => wp_json_encode( $headers ),
+				'body'    => wp_json_encode( $body ),
+			)
+		);
+
+		$valid_license = false;
+
+		if ( 200 === $request['body']['data']['status'] ) {
+			$valid_license = true;
+		}
+
+		return $valid_license;
+	}
+
 
 	/**
 	 * Aggiunge un nuovo campo all'impostazione precedentemente creata
