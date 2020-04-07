@@ -112,7 +112,7 @@ class ApiStoreSubtitle {
 		}
 		$id_file_vtt = \media_handle_sideload( $file, 0 );
 
-		if ( is_wp_error( $results ) ) {
+		if ( is_wp_error( $id_file_vtt ) ) {
 			$error = array(
 				'errors' => array(
 					'status' => '500',
