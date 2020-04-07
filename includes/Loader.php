@@ -24,6 +24,7 @@ class Loader {
 			'license_validation'   => Api\ApiLicenseValidation::class,
 			'custom_media_library' => MediaLibrary\ListingSubtitles::class,
 			'on_delete_video'      => Core\OnDeleteVideo::class,
+			'store_subtitle'       => Api\ApiStoreSubtitle::class,
 		);
 
 		foreach ( $classes as $class ) {
