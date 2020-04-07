@@ -17,12 +17,13 @@ class OnDeleteVideo {
 	 * Init class actions
 	 */
 	public function run() {
+		add_filter( 'on_delete_video', array( $this, 'delete_subtitle' ) );
 	}
 
 	/**
 	 * Crea .
 	 */
-	public function abcd() {
+	public function delete_subtitle() {
 	}
 
 }
