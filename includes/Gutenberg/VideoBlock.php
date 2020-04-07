@@ -18,6 +18,7 @@ class VideoBlock {
 	 */
 	public function run() {
 		add_action( 'enqueue_block_editor_assets', array( $this, 'add_subtitle_button_enqueue' ) );
+		add_action( 'init', array( $this, 'video_block_dynamic' ) );
 	}
 	/**
 	 * Enqueue degli script.
@@ -33,5 +34,39 @@ class VideoBlock {
 				'lang'      => explode( '_', get_locale(), 2 )[0],
 			)
 		);
+	}
+	/**
+	 * Registro il block type facendo override al blocco core/video.
+	 */
+	public function video_block_dynamic() {
+		register_block_type(
+			'core/video',
+			array(
+				'render_callback' => array( $this, 'video_dynamic_block_render_callback' ),
+			)
+		);
+	}
+	/**
+	 * Callback che definisce il blocco dinamico.
+	 *
+	 * @param array  $attributes attributi del video (id).
+	 * @param string $content html generato da wordress per il blocco video standard.
+	 */
+	public function video_dynamic_block_render_callback( $attributes, $content ) {
+		$subtitle     = get_post_meta( $attributes['id'], 'ear2words_subtitle', true );
+		$subtitle_src = wp_get_attachment_url( $subtitle );
+		$video_src    = wp_get_attachment_url( $attributes['id'] );
+		if ( '' === $subtitle ) {
+			return $content;
+		}
+		ob_start();
+		?>
+		<figure class="wp-block-video">
+			<video controls src= "<?php echo esc_html( $video_src ); ?>">
+			<track label="Italian" kind="subtitles" srclang="it" src=" <?php echo esc_html( $subtitle_src ); ?>" default>
+			</video>
+		</figure>
+		<?php
+		return ob_get_clean();
 	}
 }

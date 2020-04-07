@@ -85,7 +85,7 @@ const Ear2WordPanel = props => {
 					isPrimary
 					onClick={onClick}
 				>
-					{__("GENERATE SUBTITLES", "ear2words")}
+					{__("TURN ON SUBTITLES", "ear2words")}
 				</Button>
 			</PanelBody>
 		</InspectorControls>
