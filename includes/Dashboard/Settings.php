@@ -9,6 +9,8 @@
 
 namespace Ear2Words\Dashboard;
 
+use WP_Error;
+
 /**
  * This class describes Settings.
  */
@@ -20,6 +22,7 @@ class Settings {
 		add_action( 'admin_menu', array( $this, 'create_settings_menu' ) );
 		add_action( 'admin_init', array( $this, 'init_settings' ) );
 		add_action( 'admin_init', array( $this, 'init_settings_field' ) );
+		add_action( 'update_option_ear2words_license_key', array( $this, 'check_license' ) );
 	}
 
 	/**
@@ -61,6 +64,26 @@ class Settings {
 				'sanitize_callback' => 'sanitize_text_field',
 			)
 		);
+	}
+
+	/**
+	 * Check license
+	 */
+	public function check_license() {
+		$submitted_license = get_option( 'ear2words_license_key' );
+		$test              = 'test';
+		// TODO: Ottenere license Key per il dominio.
+
+		// TODO: Fare il confronto.
+
+		if ( $submitted_license === $test ) {
+			add_settings_error(
+				'ear2words_license_key',
+				esc_attr( 'invalid_license' ),
+				__( 'Invalid License', 'ear2words' ),
+				'error'
+			);
+		}
 	}
 
 	/**
