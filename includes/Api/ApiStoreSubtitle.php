@@ -110,7 +110,7 @@ class ApiStoreSubtitle {
 			require_once ABSPATH . 'wp-admin/includes/media.php';
 			require_once ABSPATH . '/wp-admin/includes/image.php';
 		}
-		$results = \media_handle_sideload( $file, 0 );
+		$id_file_vtt = \media_handle_sideload( $file, 0 );
 
 		if ( is_wp_error( $results ) ) {
 			$error = array(
@@ -128,9 +128,9 @@ class ApiStoreSubtitle {
 			return $response;
 		}
 
-		// TODO: update post attachment - POst meta attachment true | post id metakey meta value id sottotitolo post id sottotitolo.
-
+		update_post_meta( $id_attachment, 'ear2words_subtitle', $id_file_vtt );
 		update_post_meta( $id_attachment, 'ear2words_status', 'done' );
+		update_post_meta( $id_file_vtt, 'is_subtitle', 'true' );
 
 		$message = array(
 			'message' => array(
