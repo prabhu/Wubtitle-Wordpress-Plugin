@@ -112,8 +112,7 @@ class ApiStoreSubtitle {
 		}
 		$results = \media_handle_sideload( $file, 0 );
 
-		// TODO: controllare WP_ERROR.
-		if ( ! empty( $results['error'] ) ) {
+		if ( is_wp_error( $results ) ) {
 			$error = array(
 				'errors' => array(
 					'status' => '500',
