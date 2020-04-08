@@ -56,8 +56,7 @@ class ListingSubtitles {
 	 * @param WP_Query $query instanza di WP_QUERY.
 	 */
 	public function ear2words_exclude_subtitle_file( $query ) {
-		global $pagenow;
-		if ( is_admin() && $query->is_main_query() && 'upload.php' === $pagenow ) {
+		if ( is_admin() && 'attachment' === $query->get( 'post_type' ) ) {
 			$query->set( 'meta_key', 'is_subtitle' );
 			$query->set( 'meta_compare', 'NOT EXISTS' );
 		}
