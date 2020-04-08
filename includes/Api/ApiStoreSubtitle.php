@@ -99,7 +99,7 @@ class ApiStoreSubtitle {
 		}
 
 		$file = array(
-			'name'     => basename( $url ),
+			'name'     => explode( '?', basename( $url ) )[0],
 			'type'     => 'text/vtt',
 			'tmp_name' => $temp_file,
 			'error'    => 0,
