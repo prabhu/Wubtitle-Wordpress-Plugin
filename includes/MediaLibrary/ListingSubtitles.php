@@ -56,16 +56,10 @@ class ListingSubtitles {
 	 * @param WP_Query $query instanza di WP_QUERY.
 	 */
 	public function ear2words_exclude_subtitle_file( $query ) {
-		if ( is_admin() && $query->is_main_query() ) {
-			$query->set(
-				'meta_query',
-				array(
-					array(
-						'key'     => 'is_subtitle',
-						'compare' => 'NOT EXISTS',
-					),
-				)
-			);
+		global $pagenow;
+		if ( is_admin() && $query->is_main_query() && 'upload.php' === $pagenow ) {
+			$query->set( 'meta_key', 'is_subtitle' );
+			$query->set( 'meta_compare', 'NOT EXISTS' );
 		}
 	}
 }
