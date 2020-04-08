@@ -23,7 +23,7 @@ class Loader {
 			'request'              => Api\ApiRequest::class,
 			'license_validation'   => Api\ApiLicenseValidation::class,
 			'custom_media_library' => MediaLibrary\ListingSubtitles::class,
-			'on_delete_video'      => Core\OnDeleteVideo::class,
+			'subtitle'             => Core\Subtitle::class,
 			'store_subtitle'       => Api\ApiStoreSubtitle::class,
 		);
 

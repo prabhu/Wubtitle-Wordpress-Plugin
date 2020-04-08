@@ -1,6 +1,6 @@
 <?php
 /**
- * This file describes the releted subtitle deletion of a deleted video.
+ * This file describes handle operation on subtitle.
  *
  * @author     Nicola Palermo
  * @since      0.1.0
@@ -10,9 +10,9 @@
 namespace Ear2Words\Core;
 
 /**
- * This class describes the releted subtitle deletion of a deleted video.
+ * This class handle subtitles.
  */
-class OnDeleteVideo {
+class Subtitle {
 	/**
 	 * Init class actions
 	 */
