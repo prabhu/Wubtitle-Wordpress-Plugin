@@ -37,10 +37,20 @@ class ListingSubtitles {
 	 * @param int    $id_media id dell'attachment.
 	 */
 	public function ear2words_status_value( $column_name, $id_media ) {
-		$status = get_post_meta( $id_media, 'ear2words_status', true );
-		$status = '' === $status ? 'None' : $status;
+		$all_status = array(
+			'pending'  => 'Creating',
+			'done'     => 'Draft',
+			'enabled'  => 'Enabled',
+			'disabled' => 'Disabled',
+			'none'     => '__',
+			'notfound' => 'No subtitles',
+		);
+		$status     = get_post_meta( $id_media, 'ear2words_status', true );
+		$status     = '' === $status ? 'notfound' : $status;
+		$mime_type  = explode( '/', get_post_mime_type( $id_media ) )[0];
+		$status     = ( 'video' !== $mime_type ) ? 'none' : $status;
 		if ( 'ear2words_status' === $column_name ) {
-			echo esc_html( $status );
+			echo esc_html( $all_status[ $status ] );
 		}
 	}
 	/**
