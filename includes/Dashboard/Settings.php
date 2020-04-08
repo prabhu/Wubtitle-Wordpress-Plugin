@@ -9,8 +9,6 @@
 
 namespace Ear2Words\Dashboard;
 
-use WP_Error;
-
 /**
  * This class describes Settings.
  */
@@ -94,7 +92,7 @@ class Settings {
 	public function remote_request( $license_key ) {
 
 		// TODO: Aspettare che Simone completi l'issue per la creazione dell'endpoint.
-		$endpoint = 'http://sites.local/wp-api-test/wp-json/wp/v2/posts';
+		$endpoint = '';
 
 		$headers = array(
 			'Content-Type' => 'application/json; charset=utf-8',
@@ -106,18 +104,18 @@ class Settings {
 			),
 		);
 
-		$request = wp_remote_post(
+		$response = wp_remote_post(
 			$endpoint,
 			array(
 				'method'  => 'POST',
-				'headers' => wp_json_encode( $headers ),
+				'headers' => $headers,
 				'body'    => wp_json_encode( $body ),
 			)
 		);
 
 		$valid_license = false;
 
-		if ( 200 === $request['body']['data']['status'] ) {
+		if ( 200 === wp_remote_retrieve_response_code( $response ) ) {
 			$valid_license = true;
 		}
 
