@@ -8,8 +8,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-04-09T13:45:34+02:00\n"
-"PO-Revision-Date: 2020-04-09 14:47+0200\n"
+"POT-Creation-Date: 2020-04-09T16:22:12+02:00\n"
+"PO-Revision-Date: 2020-04-09 16:29+0200\n"
 "X-Generator: Poedit 2.3\n"
 "X-Domain: ear2words\n"
 "Last-Translator: \n"
@@ -46,8 +46,8 @@ msgid ""
 "An error occurred while creating the subtitles. Please try again in a few "
 "minutes."
 msgstr ""
-"Si è verificato un errore durante la creazione dei sottotitoli. Riprova "
-"di nuovo tra qualche minuto."
+"Si è verificato un errore durante la creazione dei sottotitoli. Riprova di "
+"nuovo tra qualche minuto"
 
 #: includes/Api/ApiRequest.php:91
 msgid "Error, invalid request"
@@ -55,16 +55,15 @@ msgstr "Errore, richiesta non valida"
 
 #: includes/Api/ApiRequest.php:98
 msgid "Unable to create subtitles. The product license key is missing."
-msgstr ""
-"Impossibile creare i sottotitoli. La  licenza del prodotto è assente."
+msgstr "Impossibile creare i sottotitoli. La  licenza del prodotto è assente"
 
 #: includes/Api/ApiRequest.php:119 includes/Api/ApiRequest.php:120
 msgid ""
 "An error occurred while creating the subtitles. Please try again in a few "
 "minutes"
 msgstr ""
-"Si è verificato un errore durante la creazione dei sottotitoli. Riprova "
-"di nuovo tra qualche minuto"
+"Si è verificato un errore durante la creazione dei sottotitoli. Riprova di "
+"nuovo tra qualche minuto"
 
 #: includes/Api/ApiRequest.php:121
 msgid "Unable to create subtitles. Invalid product license"
@@ -75,74 +74,101 @@ msgstr ""
 msgid "Could not contact the server"
 msgstr "Impossibile contattare il server"
 
-#: includes/Dashboard/Settings.php:30
+#: includes/Dashboard/Settings.php:31
 msgid "Ear2words Settings"
 msgstr "Impostazioni Ear2words"
 
-#: includes/Dashboard/Settings.php:30
+#: includes/Dashboard/Settings.php:31
 msgid "Ear2words"
 msgstr ""
 
-#: includes/Dashboard/Settings.php:70
+#: includes/Dashboard/Settings.php:77
+msgid "Unable to update. Expired product license."
+msgstr "Impossibile aggiornare. Licenza scaduta."
+
+#: includes/Dashboard/Settings.php:78
+msgid "Unable to update. Invalid product license."
+msgstr "Impossibile aggiornare. Licenza non valida."
+
+#: includes/Dashboard/Settings.php:79
+msgid ""
+"An error occurred while updating licence. Please try again in a few minutes."
+msgstr ""
+"Si è verificato un errore durante l'aggiornamento della licenza. Riprova di "
+"nuovo tra qualche minuto"
+
+#: includes/Dashboard/Settings.php:80
+msgid "Could not contact the server."
+msgstr "Impossibile contattare il server"
+
+#: includes/Dashboard/Settings.php:81
+msgid "An error occurred."
+msgstr "Si è verificato un errore."
+
+#: includes/Dashboard/Settings.php:96
+msgid "Valid product license. Subscription plan updated."
+msgstr "Licenza del prodotto valida. Piano di abbonamento aggiornato."
+
+#: includes/Dashboard/Settings.php:152
 msgid "License settings"
 msgstr "Impostazioni licenza"
 
-#: includes/Dashboard/Settings.php:73 includes/Dashboard/Settings.php:80
+#: includes/Dashboard/Settings.php:155 includes/Dashboard/Settings.php:162
 msgid "License key"
 msgstr ""
 
-#: includes/MediaLibrary/ListingSubtitles.php:41
+#: includes/MediaLibrary/ListingSubtitles.php:42
 msgid "Creating"
 msgstr "In creazione"
 
-#: includes/MediaLibrary/ListingSubtitles.php:42
+#: includes/MediaLibrary/ListingSubtitles.php:43
 msgid "Draft"
 msgstr "In bozza"
 
-#: includes/MediaLibrary/ListingSubtitles.php:43
+#: includes/MediaLibrary/ListingSubtitles.php:44
 msgid "Enabled"
 msgstr "Attivati"
 
-#: includes/MediaLibrary/ListingSubtitles.php:44
+#: includes/MediaLibrary/ListingSubtitles.php:45
 msgid "Disabled"
-msgstr "Disattivti"
+msgstr "Disabilitati"
 
-#: includes/MediaLibrary/ListingSubtitles.php:46
+#: includes/MediaLibrary/ListingSubtitles.php:47
 msgid "No subtitles"
 msgstr "Non presenti"
 
-#: build/index.js:273 src/block/Ear2WordPanel.js:50
+#: build/index.js:315 src/block/Ear2WordPanel.js:50
 msgid "Subtitle creation successfully started"
 msgstr "Creazione dei sottotitoli avviata con successo"
 
-#: build/index.js:288 src/block/Ear2WordPanel.js:67
+#: build/index.js:330 src/block/Ear2WordPanel.js:67
 msgid "Select the video language"
 msgstr "Seleziona la lingua del video"
 
-#: build/index.js:296 src/block/Ear2WordPanel.js:73
+#: build/index.js:338 src/block/Ear2WordPanel.js:73
 msgid "Italian"
 msgstr "Italiano"
 
-#: build/index.js:299 src/block/Ear2WordPanel.js:74
+#: build/index.js:341 src/block/Ear2WordPanel.js:74
 msgid "English"
 msgstr "Inglese"
 
-#: build/index.js:302 src/block/Ear2WordPanel.js:75
+#: build/index.js:344 src/block/Ear2WordPanel.js:75
 msgid "Spanish"
 msgstr "Spagnolo"
 
-#: build/index.js:305 src/block/Ear2WordPanel.js:76
+#: build/index.js:347 src/block/Ear2WordPanel.js:76
 msgid "German "
 msgstr "Tedesco"
 
-#: build/index.js:308 src/block/Ear2WordPanel.js:77
+#: build/index.js:350 src/block/Ear2WordPanel.js:77
 msgid "Chinese"
 msgstr "Cinese"
 
-#: build/index.js:311 src/block/Ear2WordPanel.js:78
+#: build/index.js:353 src/block/Ear2WordPanel.js:78
 msgid "French"
 msgstr "Francese"
 
-#: build/index.js:319 src/block/Ear2WordPanel.js:88
+#: build/index.js:361 src/block/Ear2WordPanel.js:88
 msgid "GENERATE SUBTITLES"
 msgstr "GENERA SOTTOTITOLI"

@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-04-09T13:45:34+02:00\n"
+"POT-Creation-Date: 2020-04-09T16:22:12+02:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: ear2words\n"
@@ -65,84 +65,108 @@ msgstr ""
 msgid "Could not contact the server"
 msgstr ""
 
-#: includes/Dashboard/Settings.php:30
+#: includes/Dashboard/Settings.php:31
 msgid "Ear2words Settings"
 msgstr ""
 
-#: includes/Dashboard/Settings.php:30
+#: includes/Dashboard/Settings.php:31
 msgid "Ear2words"
 msgstr ""
 
-#: includes/Dashboard/Settings.php:70
+#: includes/Dashboard/Settings.php:77
+msgid "Unable to update. Expired product license."
+msgstr ""
+
+#: includes/Dashboard/Settings.php:78
+msgid "Unable to update. Invalid product license."
+msgstr ""
+
+#: includes/Dashboard/Settings.php:79
+msgid "An error occurred while updating licence. Please try again in a few minutes."
+msgstr ""
+
+#: includes/Dashboard/Settings.php:80
+msgid "Could not contact the server."
+msgstr ""
+
+#: includes/Dashboard/Settings.php:81
+msgid "An error occurred."
+msgstr ""
+
+#: includes/Dashboard/Settings.php:96
+msgid "Valid product license. Subscription plan updated."
+msgstr ""
+
+#: includes/Dashboard/Settings.php:152
 msgid "License settings"
 msgstr ""
 
-#: includes/Dashboard/Settings.php:73
-#: includes/Dashboard/Settings.php:80
+#: includes/Dashboard/Settings.php:155
+#: includes/Dashboard/Settings.php:162
 msgid "License key"
 msgstr ""
 
-#: includes/MediaLibrary/ListingSubtitles.php:41
+#: includes/MediaLibrary/ListingSubtitles.php:42
 msgid "Creating"
 msgstr ""
 
-#: includes/MediaLibrary/ListingSubtitles.php:42
+#: includes/MediaLibrary/ListingSubtitles.php:43
 msgid "Draft"
 msgstr ""
 
-#: includes/MediaLibrary/ListingSubtitles.php:43
+#: includes/MediaLibrary/ListingSubtitles.php:44
 msgid "Enabled"
 msgstr ""
 
-#: includes/MediaLibrary/ListingSubtitles.php:44
+#: includes/MediaLibrary/ListingSubtitles.php:45
 msgid "Disabled"
 msgstr ""
 
-#: includes/MediaLibrary/ListingSubtitles.php:46
+#: includes/MediaLibrary/ListingSubtitles.php:47
 msgid "No subtitles"
 msgstr ""
 
-#: build/index.js:273
+#: build/index.js:315
 #: src/block/Ear2WordPanel.js:50
 msgid "Subtitle creation successfully started"
 msgstr ""
 
-#: build/index.js:288
+#: build/index.js:330
 #: src/block/Ear2WordPanel.js:67
 msgid "Select the video language"
 msgstr ""
 
-#: build/index.js:296
+#: build/index.js:338
 #: src/block/Ear2WordPanel.js:73
 msgid "Italian"
 msgstr ""
 
-#: build/index.js:299
+#: build/index.js:341
 #: src/block/Ear2WordPanel.js:74
 msgid "English"
 msgstr ""
 
-#: build/index.js:302
+#: build/index.js:344
 #: src/block/Ear2WordPanel.js:75
 msgid "Spanish"
 msgstr ""
 
-#: build/index.js:305
+#: build/index.js:347
 #: src/block/Ear2WordPanel.js:76
 msgid "German "
 msgstr ""
 
-#: build/index.js:308
+#: build/index.js:350
 #: src/block/Ear2WordPanel.js:77
 msgid "Chinese"
 msgstr ""
 
-#: build/index.js:311
+#: build/index.js:353
 #: src/block/Ear2WordPanel.js:78
 msgid "French"
 msgstr ""
 
-#: build/index.js:319
+#: build/index.js:361
 #: src/block/Ear2WordPanel.js:88
 msgid "GENERATE SUBTITLES"
 msgstr ""
