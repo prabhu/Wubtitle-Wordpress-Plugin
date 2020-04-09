@@ -24,6 +24,7 @@ class Loader {
 			'license_validation'   => Api\ApiLicenseValidation::class,
 			'custom_media_library' => MediaLibrary\ListingSubtitles::class,
 			'subtitle'             => Core\Subtitle::class,
+			'edit_video'           => Core\EditVideo::class,
 			'store_subtitle'       => Api\ApiStoreSubtitle::class,
 		);
 
