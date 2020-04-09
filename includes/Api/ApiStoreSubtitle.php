@@ -79,6 +79,7 @@ class ApiStoreSubtitle {
 			require_once ABSPATH . 'wp-admin/includes/file.php';
 		}
 		$url           = $params['url'];
+		$file_name     = explode( '?', basename( $url ) )[0];
 		$id_attachment = $params['attachmentId'];
 		$temp_file     = download_url( $url );
 
@@ -99,7 +100,7 @@ class ApiStoreSubtitle {
 		}
 
 		$file = array(
-			'name'     => explode( '?', basename( $url ) )[0],
+			'name'     => $file_name,
 			'type'     => 'text/vtt',
 			'tmp_name' => $temp_file,
 			'error'    => 0,
