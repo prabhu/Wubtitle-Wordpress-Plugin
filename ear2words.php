@@ -17,6 +17,7 @@
 defined( 'ABSPATH' ) || exit;
 define( 'EAR2WORDS_DIR', plugin_dir_path( __FILE__ ) );
 define( 'EAR2WORDS_URL', plugin_dir_url( __FILE__ ) );
+define( 'EAR2WORDS_NAME', dirname( plugin_basename( __FILE__ ) ) );
 define( 'EAR2WORDS_VER', '1.0' );
 define( 'ENDPOINT_URL', 'https://u9ferhvmk9.execute-api.eu-west-1.amazonaws.com/collaudo/job/create' );
 define( 'ENDPOINT_LICENSE_VALIDATION', 'https://u9ferhvmk9.execute-api.eu-west-1.amazonaws.com/license/check' );
