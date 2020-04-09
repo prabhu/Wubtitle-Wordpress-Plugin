@@ -70,17 +70,32 @@ class Settings {
 	public function check_license() {
 		$submitted_license = get_option( 'ear2words_license_key' );
 
-		$valid_license = $this->remote_request( $submitted_license );
+		$validation = $this->remote_request( $submitted_license );
 
-		if ( ! $valid_license ) {
+		if ( $validation['error'] && ! $validation['verified'] ) {
+			$error_messages = array(
+				'EXPIRED' => __( 'Unable to update. Expired product license.', 'ear2words' ),
+				'INVALID' => __( 'Unable to update. Invalid product license.', 'ear2words' ),
+				'4xx'     => __( 'An error occurred while updating licence. Please try again in a few minutes.', 'ear2words' ),
+				'5xx'     => __( 'Could not contact the server.', 'ear2words' ),
+				'xxx'     => __( 'An error occurred.', 'ear2words' ),
+			);
+
 			add_settings_error(
 				'ear2words_license_key',
 				esc_attr( 'invalid_license' ),
-				__( 'Invalid license key', 'ear2words' ),
+				$error_messages[ $validation['error'] ],
 				'error'
 			);
 			remove_action( 'update_option_ear2words_license_key', array( $this, 'check_license' ) );
 			update_option( 'ear2words_license_key', null );
+		} elseif ( $validation['verified'] ) {
+			add_settings_error(
+				'ear2words_license_key',
+				esc_attr( 'invalid_license' ),
+				__( 'Valid product license. Subscription plan updated.', 'ear2words' ),
+				'success'
+			);
 		}
 	}
 
@@ -90,22 +105,18 @@ class Settings {
 	 * @param string $license_key license key dell'input.
 	 */
 	public function remote_request( $license_key ) {
-
-		// TODO: Aspettare che Simone completi l'issue per la creazione dell'endpoint.
-		$endpoint = '';
-
 		$headers = array(
 			'Content-Type' => 'application/json; charset=utf-8',
 		);
 
 		$body = array(
 			'data' => array(
-				'license_key' => $license_key,
+				'licenseKey' => $license_key,
 			),
 		);
 
 		$response = wp_remote_post(
-			$endpoint,
+			ENDPOINT_LICENSE_VALIDATION,
 			array(
 				'method'  => 'POST',
 				'headers' => $headers,
@@ -113,13 +124,24 @@ class Settings {
 			)
 		);
 
-		$valid_license = false;
+		$retrieved = json_decode( wp_remote_retrieve_body( $response ), true );
+		$status    = wp_remote_retrieve_response_code( $response );
 
-		if ( 200 === wp_remote_retrieve_response_code( $response ) ) {
-			$valid_license = true;
+		$validation = array();
+
+		$validation['verified'] = $retrieved['data']['verified'];
+
+		// xxx indica un errore da gestire con un messaggio generico, 4xx e 5xx tutti gli errori 400 o 500.
+		$validation['error'] = 'xxx';
+		if ( 200 === $status && ! $validation['verified'] ) {
+			$validation['error'] = $retrieved['data']['errorType'];
+		} elseif ( 500 <= $status && 600 > $status ) {
+			$validation['error'] = '5xx';
+		} elseif ( 400 <= $status && 500 > $status ) {
+			$validation['error'] = '4xx';
 		}
 
-		return $valid_license;
+		return $validation;
 	}
 
 
