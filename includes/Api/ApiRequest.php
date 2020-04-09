@@ -102,7 +102,7 @@ class ApiRequest {
 			wp_send_json_error( __( 'An error occurred while creating the subtitles. Please try again in a few minutes.', 'ear2words' ) );
 		}
 			$response = wp_remote_post(
-				ENDPOINT_URL,
+				ENDPOINT . 'job/create',
 				array(
 					'method'  => 'POST',
 					'headers' => array(
