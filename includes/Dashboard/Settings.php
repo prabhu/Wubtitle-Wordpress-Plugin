@@ -116,7 +116,7 @@ class Settings {
 		);
 
 		$response = wp_remote_post(
-			ENDPOINT_LICENSE_VALIDATION,
+			ENDPOINT . 'license/check',
 			array(
 				'method'  => 'POST',
 				'headers' => $headers,
