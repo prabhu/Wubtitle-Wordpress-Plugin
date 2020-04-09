@@ -38,12 +38,12 @@ class ListingSubtitles {
 	 */
 	public function ear2words_status_value( $column_name, $id_media ) {
 		$all_status = array(
-			'pending'  => 'Creating',
-			'done'     => 'Draft',
-			'enabled'  => 'Enabled',
-			'disabled' => 'Disabled',
+			'pending'  => __( 'Creating', 'ear2words' ),
+			'done'     => __( 'Draft', 'ear2words' ),
+			'enabled'  => __( 'Enabled', 'ear2words' ),
+			'disabled' => __( 'Disabled', 'ear2words' ),
 			'none'     => '__',
-			'notfound' => 'No subtitles',
+			'notfound' => __( 'No subtitles', 'ear2words' ),
 		);
 		$status     = get_post_meta( $id_media, 'ear2words_status', true );
 		$status     = '' === $status ? 'notfound' : $status;
