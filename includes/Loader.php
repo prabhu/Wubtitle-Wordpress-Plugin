@@ -16,7 +16,7 @@ class Loader {
 	 * Istanzia le classi Principali
 	 */
 	public static function init() {
-		// Inserire qui le classi da istanziare.
+		load_plugin_textdomain( 'ear2words', false, EAR2WORDS_NAME . '/languages' );
 		$classes = array(
 			'gutenber'             => Gutenberg\VideoBlock::class,
 			'settings'             => Dashboard\Settings::class,
