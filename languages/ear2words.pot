@@ -2,17 +2,17 @@
 # This file is distributed under the same license as the Ear2Words plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Ear2Words 0.1.0"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ear2words"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>"
-"Language-Team: LANGUAGE <LL@li.org>"
-"MIME-Version: 1.0"
-"Content-Type: text/plain; charset=UTF-8"
-"Content-Transfer-Encoding: 8bit"
-"POT-Creation-Date: 2020-04-02T10:02:24+00:00"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE"
-"X-Generator: WP-CLI 2.4.0"
-"X-Domain: ear2words"
+"Project-Id-Version: Ear2Words 0.1.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-ear2words\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2020-04-09T11:01:37+02:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.4.0\n"
+"X-Domain: ear2words\n"
 
 #. Plugin Name of the plugin
 msgid "Ear2Words"
@@ -34,6 +34,10 @@ msgstr ""
 msgid "YOUR SITE HERE"
 msgstr ""
 
+#: includes/Api/ApiRequest.php:62
+msgid "Error, invalid language selected"
+msgstr ""
+
 #: includes/Api/ApiRequest.php:87
 #: includes/Api/ApiRequest.php:95
 #: includes/Api/ApiRequest.php:102
@@ -45,15 +49,20 @@ msgid "Error, invalid request"
 msgstr ""
 
 #: includes/Api/ApiRequest.php:98
-msgid "Unable to create subtitles. There is no product license"
+msgid "Unable to create subtitles. The product license key is missing."
 msgstr ""
 
-#: includes/Api/ApiRequest.php:117
+#: includes/Api/ApiRequest.php:119
+#: includes/Api/ApiRequest.php:120
 msgid "An error occurred while creating the subtitles. Please try again in a few minutes"
 msgstr ""
 
-#: includes/Api/ApiRequest.php:118
-msgid "Unable to create subtitles. The product license is not valid."
+#: includes/Api/ApiRequest.php:121
+msgid "Unable to create subtitles. Invalid product license"
+msgstr ""
+
+#: includes/Api/ApiRequest.php:122
+msgid "Could not contact the server"
 msgstr ""
 
 #: includes/Dashboard/Settings.php:30
@@ -73,47 +82,70 @@ msgstr ""
 msgid "License key"
 msgstr ""
 
-#: build/index.js:315
-#: src/block/Ear2WordPanel.js:50
-msgid "Subtitle creation started successfully"
+#: includes/MediaLibrary/ListingSubtitles.php:41
+msgid "Creating"
 msgstr ""
 
-#: build/index.js:330
+#: includes/MediaLibrary/ListingSubtitles.php:42
+msgid "Draft"
+msgstr ""
+
+#: includes/MediaLibrary/ListingSubtitles.php:43
+msgid "Enabled"
+msgstr ""
+
+#: includes/MediaLibrary/ListingSubtitles.php:44
+msgid "Disabled"
+msgstr ""
+
+#: includes/MediaLibrary/ListingSubtitles.php:46
+msgid "No subtitles"
+msgstr ""
+
+#: build/index.js:273
+#: src/block/Ear2WordPanel.js:50
+msgid "Subtitle creation successfully started"
+msgstr ""
+
+#: build/index.js:288
 #: src/block/Ear2WordPanel.js:67
 msgid "Select the video language"
 msgstr ""
 
-#: build/index.js:338
+#: build/index.js:296
 #: src/block/Ear2WordPanel.js:73
 msgid "Italian"
 msgstr ""
 
-#: build/index.js:341
+#: build/index.js:299
 #: src/block/Ear2WordPanel.js:74
 msgid "English"
 msgstr ""
 
-#: build/index.js:344
+#: build/index.js:302
 #: src/block/Ear2WordPanel.js:75
 msgid "Spanish"
 msgstr ""
 
-#: build/index.js:347
+#: build/index.js:305
 #: src/block/Ear2WordPanel.js:76
 msgid "German "
 msgstr ""
 
-#: build/index.js:350
+#: build/index.js:308
 #: src/block/Ear2WordPanel.js:77
 msgid "Chinese"
 msgstr ""
 
-#: build/index.js:353
+#: build/index.js:311
 #: src/block/Ear2WordPanel.js:78
 msgid "French"
 msgstr ""
 
-#: build/index.js:361
-#: src/block/Ear2WordPanel.js:88
+#: build/index.js:319
 msgid "TURN ON SUBTITLES"
+msgstr ""
+
+#: src/block/Ear2WordPanel.js:88
+msgid "GENERATE SUBTITLES"
 msgstr ""
