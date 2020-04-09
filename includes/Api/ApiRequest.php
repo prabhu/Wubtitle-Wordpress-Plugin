@@ -59,7 +59,7 @@ class ApiRequest {
 		);
 		$lang       = $data['lang'];
 		if ( ! array_key_exists( $lang, $languanges ) ) {
-			wp_send_json_error( 'Errore, lingua selezionata non valida' );
+			wp_send_json_error( __( 'Error, invalid language selected', 'ear2words' ) );
 		}
 		$id_attachment = (int) $data['id_attachment'];
 		$video_data    = $this->get_media_metadata( $id_attachment );
@@ -116,10 +116,10 @@ class ApiRequest {
 			$code_response = $this->check_response( $response ) ? $response['response']['code'] : '500';
 
 			$message = array(
-				'400' => 'Si è verificato un errore durante la creazione dei sottotitoli. Riprova di nuovo tra qualche minuto',
-				'401' => 'Si è verificato un errore durante la creazione dei sottotitoli. Riprova di nuovo tra qualche minuto',
-				'403' => 'Impossibile creare i sottotitoli. La  licenza del prodotto non è valida',
-				'500' => 'Impossibile contattare il server',
+				'400' => __( 'An error occurred while creating the subtitles. Please try again in a few minutes', 'ear2words' ),
+				'401' => __( 'An error occurred while creating the subtitles. Please try again in a few minutes', 'ear2words' ),
+				'403' => __( 'Unable to create subtitles. Invalid product license', 'ear2words' ),
+				'500' => __( 'Could not contact the server', 'ear2words' ),
 			);
 			if ( 201 !== $code_response ) {
 				wp_send_json_error( $message[ $code_response ] );
