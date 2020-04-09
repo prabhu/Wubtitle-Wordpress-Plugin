@@ -20,6 +20,7 @@ class ListingSubtitles {
 		add_filter( 'manage_media_columns', array( $this, 'ear2words_status_column' ) );
 		add_action( 'manage_media_custom_column', array( $this, 'ear2words_status_value' ), 10, 2 );
 		add_action( 'admin_print_styles-upload.php', array( $this, 'ear2words_column_width' ) );
+		add_action( 'pre_get_posts', array( $this, 'ear2words_exclude_subtitle_file' ) );
 	}
 	/**
 	 * Aggiungo una colonna
@@ -48,5 +49,16 @@ class ListingSubtitles {
 	 */
 	public function ear2words_column_width() {
 		wp_enqueue_style( 'ear2words_column_style', plugins_url( '../../src/css/columnStyle.css', __FILE__ ), null, true );
+	}
+	/**
+	 * Esclude i file sottotitoli dalla libreria media.
+	 *
+	 * @param WP_Query $query instanza di WP_QUERY.
+	 */
+	public function ear2words_exclude_subtitle_file( $query ) {
+		if ( is_admin() && 'attachment' === $query->get( 'post_type' ) ) {
+			$query->set( 'meta_key', 'is_subtitle' );
+			$query->set( 'meta_compare', 'NOT EXISTS' );
+		}
 	}
 }
