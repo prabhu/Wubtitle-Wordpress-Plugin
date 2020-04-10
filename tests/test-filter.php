@@ -21,22 +21,23 @@
           'guid'           => 'http://wordpress01.local/wp-content/uploads/2020/04/sottotitoli.vtt',
           'post_mime_type' => 'text/vtt',
           'post_title'     => 'sottotitoli',
-          'post_name'      => 'sottotitoli',
           'post_content'   => '',
-          'post_status'    => 'inherit'
+          'meta_input'     => array(
+            'is_subtitle'    => 'true',
+          )
         );
         //error_log(print_r($attachment_data,true));
-        $attachment_id = $this->factory()->attachment->create($attachment_data,'/sottotitoli.vtt',1);
-        //setto il flag is subtitle a true
-        add_post_meta($attachment_id,'is_subtitle','true');
+        $subtitle_id = $this->factory()->attachment->create($attachment_data,'/sottotitoli.vtt',1);
+        $this->expected = $subtitle_id;
         //aggiungo un'attachment per il video
         $attachment_data = array(
            'guid'           => 'http://wordpress01.local/wp-content/uploads/2020/04/video.mp4',
            'post_mime_type' => 'video/mp4',
            'post_title'     => 'video',
-           'post_name'      => 'video',
            'post_content'   => '',
-           'post_status'    => 'inherit'
+           'meta_input'     => array(
+             'ear2words_subtitle' => $subtitle_id
+           )
          );
          $attachment_id = $this->factory()->attachment->create($attachment_data,'/video.mp4',2);
      }
@@ -50,11 +51,17 @@
        * Verifica che vengono correttamente filtrati i sottotitoli.
        */
        public function test_filter_attachment(){
-          $media = get_posts(array(
-            'post_type' => 'attachment'
+          $query = new WP_Query(array(
+            'post_type' => 'attachment',
+            'post_mime_type' => 'video/mp4',
+            'post_status'    => 'any'
           ));
+          $media = $query->posts;
+          $subtitle_id = $this->expected;
+          $result_id = get_post_meta($media[0]->ID,'ear2words_subtitle',true);
           $this->assertEqualSets(1,count($media));
           $this->assertEqualSets('video',$media[0]->post_title);
-          //asserzioni, 1 solo elemento, elemento
+          $this->assertEqualSets($subtitle_id,$result_id);
+          $this->assertInstanceOf('WP_Post',get_post($subtitle_id));
        }
   }
