@@ -18,13 +18,14 @@ class Loader {
 	public static function init() {
 		load_plugin_textdomain( 'ear2words', false, EAR2WORDS_NAME . '/languages' );
 		$classes = array(
-			'gutenber'             => Gutenberg\VideoBlock::class,
-			'settings'             => Dashboard\Settings::class,
-			'request'              => Api\ApiRequest::class,
-			'license_validation'   => Api\ApiLicenseValidation::class,
-			'custom_media_library' => MediaLibrary\ListingSubtitles::class,
-			'subtitle'             => Core\Subtitle::class,
-			'store_subtitle'       => Api\ApiStoreSubtitle::class,
+			'gutenber'               => Gutenberg\VideoBlock::class,
+			'settings'               => Dashboard\Settings::class,
+			'request'                => Api\ApiRequest::class,
+			'license_validation'     => Api\ApiLicenseValidation::class,
+			'custom_media_library'   => MediaLibrary\ListingSubtitles::class,
+			'subtitle'               => Core\Subtitle::class,
+			'store_subtitle'         => Api\ApiStoreSubtitle::class,
+			'extented_media_library' => MediaLibrary\MediaLibraryExtented::class,
 		);
 
 		foreach ( $classes as $class ) {
