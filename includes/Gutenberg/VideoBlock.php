@@ -57,6 +57,10 @@ class VideoBlock {
 		$subtitle     = get_post_meta( $attributes['id'], 'ear2words_subtitle', true );
 		$subtitle_src = wp_get_attachment_url( $subtitle );
 		$video_src    = wp_get_attachment_url( $attributes['id'] );
+		if ( ! is_ssl() ) {
+			$subtitle_src = str_replace( 'https://', 'http://', $subtitle_src );
+			$video_src    = str_replace( 'https://', 'http://', $video_src );
+		}
 		if ( '' === $subtitle ) {
 			return $content;
 		}
