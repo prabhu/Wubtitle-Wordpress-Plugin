@@ -17,14 +17,14 @@ class Payment {
 	 * Init class actions
 	 */
 	public function run() {
-		//TODO: hook.
+		// TODO: hook.
 	}
 
 	/**
 	 * Handle payment.
 	 */
 	public function handle_payment() {
-        //TODO: payment.
+		// TODO: payment.
 	}
 
 }
