@@ -10,7 +10,7 @@ use Ear2Words\Core\Subtitle;
 /**
  * Subtitle test case.
  */
-class TestSubtitle extends WP_Ajax_UnitTestCase {
+class TestSubtitle extends WP_UnitTestCase {
 
 	/**
 	 * Setup del test
@@ -21,24 +21,27 @@ class TestSubtitle extends WP_Ajax_UnitTestCase {
 		$this->instance->run();
 		$attachment_data = array(
 			'guid'           => 'http://wordpress01.local/wp-content/uploads/2020/04/sottotitoli.vtt',
+			'file'           => '/sottotitoli.vtt',
 			'post_mime_type' => 'text/vtt',
 			'post_title'     => 'sottotitoli',
 			'post_content'   => '',
-			'meta_input'     => array(
-				'is_subtitle'    => 'true',
-			)
+			'post_parent'    => '0',
+			'post_status'    => 'inherit'
 		);
-		$this->subtitle_id = $this->factory()->attachment->create($attachment_data,'/sottotitoli.vtt',1);
+		$this->subtitle_id = $this->factory()->attachment->create($attachment_data);
+
 		$attachment_data = array(
 			'guid'           => 'http://wordpress01.local/wp-content/uploads/2020/04/video.mp4',
 			'post_mime_type' => 'video/mp4',
+			'file'           => '/video.mp4',
 			'post_title'     => 'video',
 			'post_content'   => '',
+			'post_parent'    => '0',
 			'meta_input'     => array(
 				'ear2words_subtitle' => $this->subtitle_id
 			)
 		);
-		$this->video_id = $this->factory()->attachment->create($attachment_data,'/video.mp4',2);		
+		$this->video_id = $this->factory()->attachment->create($attachment_data);		
 	}
 	
 	public function test_delete_attachment_and_subtitle() {
