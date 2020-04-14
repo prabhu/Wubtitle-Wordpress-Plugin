@@ -9,6 +9,7 @@
 
 namespace Ear2Words\MediaLibrary;
 
+use Ear2Words\Loader;
 /**
  * Classe che estende la media library
  */
@@ -19,6 +20,7 @@ class MediaLibraryExtented {
 	public function run() {
 		if ( ! $this->is_gutenberg_active() ) {
 			add_action( 'attachment_fields_to_edit', array( $this, 'add_generate_subtitle_button' ), 99, 2 );
+			add_filter( 'attachment_fields_to_save', array( $this, 'video_attachment_fields_to_save' ), null, 2 );
 		}
 	}
 	/**
@@ -68,13 +70,46 @@ class MediaLibraryExtented {
 		if ( ! wp_attachment_is( 'video', $post ) ) {
 			return $form_fields;
 		}
-		$form_fields['regenerate_thumbnails'] = array(
-			'label'         => '',
-			'input'         => 'html',
-			'html'          => '<a href="#" class="button-secondary button-large" title="' . esc_attr( 'Generate Subtitles' ) . '">Generate Subtitles</a>',
-			'show_in_modal' => true,
-			'show_in_edit'  => false,
+		$form_fields['button'] = array(
+			'label' => 'Ear2Words',
+			'input' => 'html',
+			'html'  => '<label for="attachments-' . $post->ID . '-button"> <input type="checkbox" id="attachments-' . $post->ID . '-button" name="attachments[' . $post->ID . '][button]" value="' . $post->ID . '"/> Generate subtitles</label>  ',
+			'value' => $post->ID,
+			'helps' => 'Check for generate subtitles',
 		);
 		return $form_fields;
+	}
+	/**
+	 * Esegue la chiamata all'endpoint e salva uuid e stato.
+	 *
+	 * @param array $post contiene i dati dell'attachment.
+	 * @param array $attachment contiene i dati degli input custom.
+	 */
+	public function video_attachment_fields_to_save( $post, $attachment ) {
+		if ( isset( $attachment['button'] ) ) {
+			$data['lang']           = 'en';
+			$data['id_attachment']  = $post['ID'];
+			$data['src_attachment'] = wp_get_attachment_url( $post['ID'] );
+			$data                   = Loader::get( 'request' )->sanitize_input( $data );
+			if ( ! $data ) {
+				// TODO restituire il messaggio di errore.
+				return;
+			}
+			$body = Loader::get( 'request' )->set_body_request( $data );
+			if ( ! $body ) {
+				// TODO restituire il messaggio di errore.
+				return;
+			}
+			$license_key = get_option( 'ear2words_license_key' );
+			if ( empty( $license_key ) ) {
+				// TODO restituire il messaggio di errore.
+				return;
+			}
+			$response = Loader::get( 'request' )->remote_post_endpoint( $body, $license_key );
+			if ( 201 === $response['response']['code'] ) {
+				$response_body = json_decode( $response['body'] );
+				Loader::get( 'request' )->success_request_function( $post['ID'], $response_body->data->jobId );
+			}
+		}
 	}
 }
