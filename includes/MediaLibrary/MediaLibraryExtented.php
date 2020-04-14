@@ -67,13 +67,32 @@ class MediaLibraryExtented {
 	 * @param array $post attachment.
 	 */
 	public function add_generate_subtitle_button( $form_fields, $post ) {
+		$all_status = array(
+			'pending'  => __( 'Creating', 'ear2words' ),
+			'done'     => __( 'Draft', 'ear2words' ),
+			'enabled'  => __( 'Enabled', 'ear2words' ),
+			'disabled' => __( 'Disabled', 'ear2words' ),
+			'none'     => '__',
+			'notfound' => __( 'No subtitles', 'ear2words' ),
+		);
 		if ( ! wp_attachment_is( 'video', $post ) ) {
 			return $form_fields;
 		}
+		if ( empty( get_post_meta( $post->ID, 'ear2words_status' ) ) ) {
+			$form_fields['button'] = array(
+				'label' => 'Ear2Words',
+				'input' => 'html',
+				'html'  => '<label for="attachments-' . $post->ID . '-button"> <input type="checkbox" id="attachments-' . $post->ID . '-button" name="attachments[' . $post->ID . '][button]" value="' . $post->ID . '"/> Generate subtitles</label>  ',
+				'value' => $post->ID,
+				'helps' => 'Check for generate subtitles',
+			);
+			return $form_fields;
+		}
+		$status                = get_post_meta( $post->ID, 'ear2words_status', true );
 		$form_fields['button'] = array(
 			'label' => 'Ear2Words',
 			'input' => 'html',
-			'html'  => '<label for="attachments-' . $post->ID . '-button"> <input type="checkbox" id="attachments-' . $post->ID . '-button" name="attachments[' . $post->ID . '][button]" value="' . $post->ID . '"/> Generate subtitles</label>  ',
+			'html'  => '<label for="attachments-' . $post->ID . '-button">' . $all_status[ $status ] . '</label>  ',
 			'value' => $post->ID,
 			'helps' => 'Check for generate subtitles',
 		);
