@@ -72,20 +72,27 @@ class MediaLibraryExtented {
 			'done'     => __( 'Draft', 'ear2words' ),
 			'enabled'  => __( 'Enabled', 'ear2words' ),
 			'disabled' => __( 'Disabled', 'ear2words' ),
-			'none'     => '__',
-			'notfound' => __( 'No subtitles', 'ear2words' ),
 		);
 		if ( ! wp_attachment_is( 'video', $post ) ) {
 			return $form_fields;
 		}
 		if ( empty( get_post_meta( $post->ID, 'ear2words_status' ) ) ) {
-			$form_fields['button'] = array(
+			$form_fields['button']          = array(
 				'label' => 'Ear2Words',
 				'input' => 'html',
-				'html'  => '<label for="attachments-' . $post->ID . '-button"> <input type="checkbox" id="attachments-' . $post->ID . '-button" name="attachments[' . $post->ID . '][button]" value="' . $post->ID . '"/> Generate subtitles</label>  ',
+				'html'  => '<label for="attachments-' . $post->ID . '-button"> <input type="checkbox" id="attachments-' . $post->ID . '-button" name="attachments[' . $post->ID . '][button]" value="' . $post->ID . '"/> Generate subtitles</label>',
 				'value' => $post->ID,
 				'helps' => 'Check for generate subtitles',
 			);
+			$lang                           = explode( '_', get_locale(), 2 )[0];
+			$form_fields['button']['html'] .= '<select name="attachments[' . $post->ID . '][select-lang]" id="Profile Image Select">';
+			$form_fields['button']['html'] .= '<option ' . selected( $lang, 'it', false ) . 'value="it">' . __( 'Italian', 'ear2words' ) . '</option>';
+			$form_fields['button']['html'] .= '<option ' . selected( $lang, 'en', false ) . ' value="en">' . __( 'English', 'ear2words' ) . '</option>';
+			$form_fields['button']['html'] .= '<option ' . selected( $lang, 'es', false ) . 'value="es">' . __( 'Spanish', 'ear2words' ) . '</option>';
+			$form_fields['button']['html'] .= '<option ' . selected( $lang, 'de', false ) . 'value="de">' . __( 'German ', 'ear2words' ) . '</option>';
+			$form_fields['button']['html'] .= '<option ' . selected( $lang, 'zh', false ) . 'value="zh">' . __( 'Chinese', 'ear2words' ) . '</option>';
+			$form_fields['button']['html'] .= '<option ' . selected( $lang, 'fr', false ) . 'value="fr">' . __( 'French', 'ear2words' ) . '</option>';
+			$form_fields['button']['html'] .= '</select>';
 			return $form_fields;
 		}
 		$status                = get_post_meta( $post->ID, 'ear2words_status', true );
@@ -106,7 +113,7 @@ class MediaLibraryExtented {
 	 */
 	public function video_attachment_fields_to_save( $post, $attachment ) {
 		if ( isset( $attachment['button'] ) ) {
-			$data['lang']           = 'en';
+			$data['lang']           = $attachment['select-lang'];
 			$data['id_attachment']  = $post['ID'];
 			$data['src_attachment'] = wp_get_attachment_url( $post['ID'] );
 			$data                   = Loader::get( 'request' )->sanitize_input( $data );
