@@ -11,7 +11,12 @@ namespace Ear2Words;
  * This class describes the plugin loader.
  */
 class Loader {
-
+	/**
+	 * L'array che contiene il nome e l'instanza della classe.
+	 *
+	 * @var array
+	 */
+	private static $services = array();
 	/**
 	 * Istanzia le classi Principali
 	 */
@@ -28,11 +33,33 @@ class Loader {
 			'extented_media_library' => MediaLibrary\MediaLibraryExtented::class,
 		);
 
-		foreach ( $classes as $class ) {
+		foreach ( $classes as $key => $class ) {
 			$instance = new $class();
+			self::bind( $key, $instance );
 			if ( method_exists( $instance, 'run' ) ) {
 				$instance->run();
 			}
 		}
+	}
+	/**
+	 *  Crea una singola instanza della classe.
+	 *
+	 * @param string $key nome instanza.
+	 * @param class  $item instanza della classe.
+	 */
+	public static function bind( $key, $item ) {
+		( self::$services )[ $key ] = $item;
+	}
+	/**
+	 * Restituisce l'istanza della classe.
+	 *
+	 * @param string $key nome instanza.
+	 */
+	public static function get( $key ) {
+		if ( ! isset( self::$services[ $key ] ) ) {
+			return false;
+		}
+
+		return ( self::$services )[ $key ];
 	}
 }
