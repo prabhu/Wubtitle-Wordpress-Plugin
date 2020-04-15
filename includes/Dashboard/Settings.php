@@ -179,9 +179,10 @@ class Settings {
 	}
 
 	/**
-	 * Includo gli script
+	 * Includo gli script.
 	 */
 	public function enqueue_stripe_scripts() {
-		wp_enqueue_script( 'stripe_checkout_js', plugins_url( '../../src/payment/stripeCheckout.js', __FILE__ ), '0.1.0', true, true );
+		wp_enqueue_script( 'stripe_checkout_js', plugins_url( '../../src/payment/stripeCheckout.js', __FILE__ ), '0.1.0', true, array( 'jquery' ) );
+		wp_localize_script( 'stripe_checkout_js', 'my_ajax_object', array( 'ajax_url' => admin_url( 'admin-ajax.php' ) ) );
 	}
 }

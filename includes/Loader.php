@@ -25,6 +25,7 @@ class Loader {
 			'custom_media_library' => MediaLibrary\ListingSubtitles::class,
 			'subtitle'             => Core\Subtitle::class,
 			'store_subtitle'       => Api\ApiStoreSubtitle::class,
+			'payment_template'     => Dashboard\PaymentTemplate::class,
 		);
 
 		foreach ( $classes as $class ) {
