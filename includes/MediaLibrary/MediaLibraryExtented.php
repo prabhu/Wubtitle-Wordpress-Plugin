@@ -21,6 +21,7 @@ class MediaLibraryExtented {
 		if ( ! $this->is_gutenberg_active() ) {
 			add_action( 'attachment_fields_to_edit', array( $this, 'add_generate_subtitle_button' ), 99, 2 );
 			add_filter( 'attachment_fields_to_save', array( $this, 'video_attachment_fields_to_save' ), null, 2 );
+			add_filter( 'wp_video_shortcode_override', array( $this, 'ear2words_video_shortcode' ), 10, 4 );
 		}
 	}
 	/**
@@ -53,11 +54,9 @@ class MediaLibraryExtented {
 		if ( ! function_exists( 'is_plugin_active' ) ) {
 			include_once ABSPATH . 'wp-admin/includes/plugin.php';
 		}
-
 		if ( is_plugin_active( 'classic-editor/classic-editor.php' ) ) {
 			return true;
 		}
-
 		return false;
 	}
 	/**
@@ -137,5 +136,23 @@ class MediaLibraryExtented {
 				Loader::get( 'request' )->success_request_function( $post['ID'], $response_body->data->jobId );
 			}
 		}
+	}
+	/**
+	 * Sovrascrive lo shortcode video aggiungendo i sottotitoli come file_get_content
+	 *
+	 * @param string $html html generato dallo shortcode.
+	 * @param array  $attr attributi dello shortcode.
+	 */
+	public function ear2words_video_shortcode( $html, $attr ) {
+		remove_filter( 'wp_video_shortcode_override', array( $this, 'ear2words_video_shortcode' ), 10 );
+		$id_video = attachment_url_to_postid( $attr['mp4'] );
+		$subtitle = get_post_meta( $id_video, 'ear2words_subtitle', true );
+		// TODO quando si implementa l'editor si dovrà verificare che lo stato sia enabled.
+		if ( '' !== $subtitle ) {
+			$content = '<track srclang="it" label="Italian" kind="subtitles" src="' . wp_get_attachment_url( $subtitle ) . '" default>';
+			$html    = wp_video_shortcode( $attr, $content );
+		}
+		add_filter( 'wp_video_shortcode_override', array( $this, 'ear2words_video_shortcode' ), 10, 4 );
+		return $html;
 	}
 }
