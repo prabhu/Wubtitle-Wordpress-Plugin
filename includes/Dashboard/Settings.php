@@ -49,6 +49,9 @@ class Settings {
 				<?php
 				settings_fields( 'ear2words_settings' );
 				do_settings_sections( 'ear2words-settings' );
+				echo '<p> ';
+				esc_html_e( 'Please enter the license key you received after successful checkout', 'ear2words' );
+				echo '</p>';
 				submit_button();
 				?>
 			</form>
@@ -155,10 +158,10 @@ class Settings {
 	 * Aggiunge un nuovo campo all'impostazione precedentemente creata
 	 */
 	public function init_settings_field() {
-		add_settings_section( 'ear2words-main-settings', __( 'License settings', 'ear2words' ), null, 'ear2words-settings' );
+		add_settings_section( 'ear2words-main-settings', null, null, 'ear2words-settings' );
 		add_settings_field(
 			'ear2words-license-key',
-			__( 'License key', 'ear2words' ),
+			__( 'License Number', 'ear2words' ),
 			array( $this, 'input_field' ),
 			'ear2words-settings',
 			'ear2words-main-settings',
@@ -178,7 +181,7 @@ class Settings {
 	public function input_field( $args ) {
 		$option = get_option( $args['name'], '' );
 		?>
-		<input class="large-text" type="<?php echo esc_attr( $args['type'] ); ?>" name="<?php echo esc_attr( $args['name'] ); ?>" value="<?php echo esc_attr( $option ); ?>" placeholder="<?php echo esc_attr( $args['placeholder'] ); ?>">
+		<input class="regular-text" type="<?php echo esc_attr( $args['type'] ); ?>" name="<?php echo esc_attr( $args['name'] ); ?>" value="<?php echo esc_attr( $option ); ?>" placeholder="<?php echo esc_attr( $args['placeholder'] ); ?>">
 		<?php
 	}
 }
