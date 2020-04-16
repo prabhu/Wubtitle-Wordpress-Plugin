@@ -1,0 +1,21 @@
+.wrap-e2w {
+  margin-top: 16px;
+  background-color: #fff;
+  content:' ';
+  display:block;
+  border:.5px solid black;
+}
+.title-settings-e2w{
+  --margin-left: 8px;
+  margin-top: 4px;
+  line-height: 1.5em;
+  color: black;
+}
+.title-settings-e2w:after {
+  content:' ';
+  display:block;
+  border:.5px solid black;
+}
+.text-e2w{
+  margin-left: 8px;
+}

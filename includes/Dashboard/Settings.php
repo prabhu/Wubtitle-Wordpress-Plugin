@@ -21,6 +21,7 @@ class Settings {
 		add_action( 'admin_init', array( $this, 'init_settings' ) );
 		add_action( 'admin_init', array( $this, 'init_settings_field' ) );
 		add_action( 'update_option_ear2words_license_key', array( $this, 'check_license' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'ear2words_settings_style' ) );
 	}
 
 	/**
@@ -28,16 +29,21 @@ class Settings {
 	 */
 	public function create_settings_menu() {
 		// TODO: Cambiare $icon_url e $position (attualmente subito dopo "Impostazioni") quando verranno date indicazioni UX.
-		add_menu_page( __( 'Ear2words Settings', 'ear2words' ), __( 'Ear2words', 'ear2words' ), 'manage_options', 'ear2words_settings', array( $this, 'render_settings_page' ), 'dashicons-format-status', 81 );
+		add_menu_page( __( 'Licensing', 'ear2words' ), __( 'Ear2words', 'ear2words' ), 'manage_options', 'ear2words_settings', array( $this, 'render_settings_page' ), 'dashicons-format-status', 81 );
 	}
-
+	/**
+	 *  Faccio l'enqueue dello style per i settings.
+	 */
+	public function ear2words_settings_style() {
+		wp_enqueue_style( 'ear2words_settings_style', plugins_url( '../../src/css/settingsStyle.css', __FILE__ ), null, true );
+	}
 	/**
 	 * Crea la pagina dei settings
 	 */
 	public function render_settings_page() {
 		?>
-		<div class="wrap">
-			<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
+		<div class="wrap-e2w">
+			<h3 class="title-settings-e2w"><span class="text-e2w"><?php echo esc_html( get_admin_page_title() ); ?></span></h3>
 			<?php settings_errors(); ?>
 			<form action="options.php" method="post">
 				<?php
