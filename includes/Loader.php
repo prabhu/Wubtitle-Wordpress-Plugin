@@ -26,6 +26,7 @@ class Loader {
 			'subtitle'             => Core\Subtitle::class,
 			'store_subtitle'       => Api\ApiStoreSubtitle::class,
 			'payment_template'     => Dashboard\PaymentTemplate::class,
+			'send_pricing_plan'    => Api\ApiPricingPlan::class,
 		);
 
 		foreach ( $classes as $class ) {
