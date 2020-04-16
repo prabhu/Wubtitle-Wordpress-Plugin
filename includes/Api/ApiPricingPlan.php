@@ -1,6 +1,6 @@
 <?php
 /**
- * Questo file implementa la chiamata http per la scelta del pricing Plan.
+ * Questo file implementa le funzioni relative a stripe.
  *
  * @author     Alessio Catania
  * @since      0.1.0
@@ -10,7 +10,7 @@
 namespace Ear2Words\Api;
 
 /**
- * Questa classe implementa la chiamata all'endpoint per il pricing Plan
+ * Questa classe implementa le funzioni relative a stripe
  */
 class ApiPricingPlan {
 	/**
@@ -29,13 +29,12 @@ class ApiPricingPlan {
 		if ( ! is_string( $pricing_plan ) || ! filter_var( $site_url, FILTER_VALIDATE_URL ) ) {
 			return false;
 		}
-		$body = array(
+		return array(
 			'data' => array(
 				'planId'    => $pricing_plan,
 				'domainUrl' => $site_url,
 			),
 		);
-		return $body;
 	}
 	/**
 	 * Riceve i dati da javascript e li invia all'endpoint.
@@ -62,34 +61,19 @@ class ApiPricingPlan {
 				'body'    => wp_json_encode( $body ),
 			)
 		);
-		$code_response = $this->check_response( $response ) ? $response['response']['code'] : '500';
+		$code_response = wp_remote_retrieve_response_code( $response );
 		$message       = array(
 			'400' => __( 'An error occurred. Please try again in a few minutes', 'ear2words' ),
 			'401' => __( 'An error occurred. Please try again in a few minutes', 'ear2words' ),
 			'403' => __( 'Access denied', 'ear2words' ),
 			'500' => __( 'Could not contact the server', 'ear2words' ),
+			''    => __( 'Could not contact the server', 'ear2words' ),
 		);
 		if ( 201 !== $code_response ) {
 			wp_send_json_error( $message[ $code_response ] );
 		}
-		$response_body = json_decode( $response['body'] );
+		$response_body = json_decode( wp_remote_retrieve_body( $response ) );
 		$session_id    = $response_body->data->sessionId;
 		wp_send_json_success( $session_id );
-	}
-	/**
-	 * Verifico che la chiamta non sia andata in errore.
-	 *
-	 * @param array | WP_ERROR $response risposta chiamata.
-	 */
-	private function check_response( $response ) {
-		if ( ! is_wp_error( $response ) ) {
-			return true;
-		}
-		if ( defined( 'WP_DEBUG' ) && WP_DEBUG === true ) {
-		  // phpcs:disable WordPress.PHP.DevelopmentFunctions
-			error_log( print_r( $response->get_error_message(), true ) );
-		  // phpcs:enable
-		}
-		return false;
 	}
 }

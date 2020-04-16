@@ -113,18 +113,19 @@ class ApiRequest {
 				)
 			);
 
-			$code_response = $this->check_response( $response ) ? $response['response']['code'] : '500';
+			$code_response = wp_remote_retrieve_response_code( $response );
 
 			$message = array(
 				'400' => __( 'An error occurred while creating the subtitles. Please try again in a few minutes', 'ear2words' ),
 				'401' => __( 'An error occurred while creating the subtitles. Please try again in a few minutes', 'ear2words' ),
 				'403' => __( 'Unable to create subtitles. Invalid product license', 'ear2words' ),
 				'500' => __( 'Could not contact the server', 'ear2words' ),
+				''    => __( 'Could not contact the server', 'ear2words' ),
 			);
 			if ( 201 !== $code_response ) {
 				wp_send_json_error( $message[ $code_response ] );
 			}
-			$response_body = json_decode( $response['body'] );
+			$response_body = json_decode( wp_remote_retrieve_body( $response ) );
 			update_post_meta( $data_attachment['id_attachment'], 'ear2words_job_uuid', $response_body->data->jobId );
 			update_post_meta( $data_attachment['id_attachment'], 'ear2words_status', 'pending' );
 			wp_send_json_success( $code_response );
@@ -143,21 +144,5 @@ class ApiRequest {
 				'single'       => true,
 			)
 		);
-	}
-	/**
-	 * Verifico che la chiamta non sia andata in errore.
-	 *
-	 * @param array | WP_ERROR $response risposta chiamata.
-	 */
-	private function check_response( $response ) {
-		if ( ! is_wp_error( $response ) ) {
-			return true;
-		}
-		if ( defined( 'WP_DEBUG' ) && WP_DEBUG === true ) {
-			// phpcs:disable WordPress.PHP.DevelopmentFunctions
-			error_log( print_r( $response->get_error_message(), true ) );
-			// phpcs:enable
-		}
-		return false;
 	}
 }
