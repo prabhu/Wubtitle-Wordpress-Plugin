@@ -29,7 +29,6 @@
 	</form> 
 
 	<script>
-
 	document.addEventListener("DOMContentLoaded", function() {
 
 		var stripe = Stripe('pk_test_nfUYjFiwdkzYpPOfCZkVZiMK00lOAFcAK7');
