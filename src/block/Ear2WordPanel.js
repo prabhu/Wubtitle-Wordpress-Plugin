@@ -78,15 +78,21 @@ const Ear2WordPanel = props => {
 						{ value: "fr", label: __("French", "ear2words") }
 					]}
 				/>
-				<Button
-					disabled={isDisabled}
-					name="sottotitoli"
-					id={props.id}
-					isPrimary
-					onClick={onClick}
-				>
-					{__("GENERATE SUBTITLES", "ear2words")}
-				</Button>
+
+				{isDisabled ? (
+					__("Status: ", "ear2words") + status
+				) : (
+					<Button
+						disabled={isDisabled}
+						name="sottotitoli"
+						id={props.id}
+						isPrimary
+						onClick={onClick}
+					>
+						{__("GENERATE SUBTITLES", "ear2words")}
+					</Button>
+				)}
+
 			</PanelBody>
 		</InspectorControls>
 	);
