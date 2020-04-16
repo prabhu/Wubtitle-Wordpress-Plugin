@@ -79,7 +79,7 @@ class MediaLibraryExtented {
 			$form_fields['e2w_form'] = array(
 				'label' => 'Ear2Words',
 				'input' => 'html',
-				'html'  => '<label for="attachments-' . $post->ID . '-e2w_form"> <input type="checkbox" id="attachments-' . $post->ID . '-e2w_form" name="attachments[' . $post->ID . '][e2w_form]" value="' . $post->ID . '"/> Generate subtitles</label>',
+				'html'  => '<label for="attachments-' . $post->ID . '-e2w_form"> <input type="checkbox" id="attachments-' . $post->ID . '-e2w_form" name="attachments[' . $post->ID . '][e2w_form]" value="' . $post->ID . '"/>' . __( 'GENERATE SUBTITLES', 'ear2words' ) . '</label>',
 				'value' => $post->ID,
 				'helps' => 'Check for generate subtitles',
 			);
@@ -87,12 +87,12 @@ class MediaLibraryExtented {
 			ob_start();
 			?>
 			<select name="attachments[<?php echo esc_html( $post->ID ); ?>][select-lang]" id="Profile Image Select">
-				<option <?php echo selected( $lang, 'it', false ); ?> value="it"> <?php echo esc_html( __( 'Italian', 'ear2words' ) ); ?></option>
-				<option <?php echo selected( $lang, 'en', false ); ?> value="en"> <?php echo esc_html( __( 'English', 'ear2words' ) ); ?></option>
-				<option <?php echo selected( $lang, 'es', false ); ?> value="es"> <?php echo esc_html( __( 'Spanish', 'ear2words' ) ); ?></option>
-				<option <?php echo selected( $lang, 'de', false ); ?> value="de"> <?php echo esc_html( __( 'German', 'ear2words' ) ); ?></option>
-				<option <?php echo selected( $lang, 'zh', false ); ?> value="zh"> <?php echo esc_html( __( 'Chinese', 'ear2words' ) ); ?></option>
-				<option <?php echo selected( $lang, 'fr', false ); ?> value="fr"> <?php echo esc_html( __( 'French', 'ear2words' ) ); ?></option>
+				<option <?php echo selected( $lang, 'it', false ); ?> value="it"> <?php echo esc_html_e( 'Italian', 'ear2words' ); ?></option>
+				<option <?php echo selected( $lang, 'en', false ); ?> value="en"> <?php echo esc_html_e( 'English', 'ear2words' ); ?></option>
+				<option <?php echo selected( $lang, 'es', false ); ?> value="es"> <?php echo esc_html_e( 'Spanish', 'ear2words' ); ?></option>
+				<option <?php echo selected( $lang, 'de', false ); ?> value="de"> <?php echo esc_html_e( 'German', 'ear2words' ); ?></option>
+				<option <?php echo selected( $lang, 'zh', false ); ?> value="zh"> <?php echo esc_html_e( 'Chinese', 'ear2words' ); ?></option>
+				<option <?php echo selected( $lang, 'fr', false ); ?> value="fr"> <?php echo esc_html_e( 'French', 'ear2words' ); ?></option>
 			</select>
 			<?php
 			$form_fields['e2w_form']['html'] .= ob_get_clean();
