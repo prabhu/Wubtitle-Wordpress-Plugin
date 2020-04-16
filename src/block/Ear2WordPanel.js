@@ -81,6 +81,7 @@ const Ear2WordPanel = props => {
 
 				{isDisabled ? (
 					__("Status: ", "ear2words") + status
+					
 				) : (
 					<Button
 						disabled={isDisabled}
@@ -92,7 +93,6 @@ const Ear2WordPanel = props => {
 						{__("GENERATE SUBTITLES", "ear2words")}
 					</Button>
 				)}
-
 			</PanelBody>
 		</InspectorControls>
 	);
