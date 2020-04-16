@@ -87,12 +87,12 @@ class MediaLibraryExtented {
 			ob_start();
 			?>
 			<select name="attachments[<?php echo esc_html( $post->ID ); ?>][select-lang]" id="Profile Image Select">
-				<option <?php echo selected( $lang, 'it', false ); ?> value="it"> <?php echo esc_html_e( 'Italian', 'ear2words' ); ?></option>
-				<option <?php echo selected( $lang, 'en', false ); ?> value="en"> <?php echo esc_html_e( 'English', 'ear2words' ); ?></option>
-				<option <?php echo selected( $lang, 'es', false ); ?> value="es"> <?php echo esc_html_e( 'Spanish', 'ear2words' ); ?></option>
-				<option <?php echo selected( $lang, 'de', false ); ?> value="de"> <?php echo esc_html_e( 'German', 'ear2words' ); ?></option>
-				<option <?php echo selected( $lang, 'zh', false ); ?> value="zh"> <?php echo esc_html_e( 'Chinese', 'ear2words' ); ?></option>
-				<option <?php echo selected( $lang, 'fr', false ); ?> value="fr"> <?php echo esc_html_e( 'French', 'ear2words' ); ?></option>
+				<option <?php echo selected( $lang, 'it', false ); ?> value="it"> <?php esc_html_e( 'Italian', 'ear2words' ); ?></option>
+				<option <?php echo selected( $lang, 'en', false ); ?> value="en"> <?php esc_html_e( 'English', 'ear2words' ); ?></option>
+				<option <?php echo selected( $lang, 'es', false ); ?> value="es"> <?php esc_html_e( 'Spanish', 'ear2words' ); ?></option>
+				<option <?php echo selected( $lang, 'de', false ); ?> value="de"> <?php esc_html_e( 'German', 'ear2words' ); ?></option>
+				<option <?php echo selected( $lang, 'zh', false ); ?> value="zh"> <?php esc_html_e( 'Chinese', 'ear2words' ); ?></option>
+				<option <?php echo selected( $lang, 'fr', false ); ?> value="fr"> <?php esc_html_e( 'French', 'ear2words' ); ?></option>
 			</select>
 			<?php
 			$form_fields['e2w_form']['html'] .= ob_get_clean();
