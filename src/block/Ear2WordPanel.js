@@ -81,7 +81,6 @@ const Ear2WordPanel = props => {
 
 				{isDisabled ? (
 					__("Status: ", "ear2words") + status
-					
 				) : (
 					<Button
 						disabled={isDisabled}
