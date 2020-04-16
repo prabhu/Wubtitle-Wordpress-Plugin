@@ -12,7 +12,7 @@ namespace Ear2Words;
  */
 class Loader {
 	/**
-	 * L'array che contiene il nome e l'instanza della classe.
+	 * L'array che contiene gli oggetti istanziati dal Loader.
 	 *
 	 * @var array
 	 */
@@ -42,7 +42,7 @@ class Loader {
 		}
 	}
 	/**
-	 *  Crea una singola instanza della classe.
+	 * Aggiunge l'istanza della classe al container.
 	 *
 	 * @param string $key nome instanza.
 	 * @param class  $item instanza della classe.
@@ -51,7 +51,7 @@ class Loader {
 		( self::$services )[ $key ] = $item;
 	}
 	/**
-	 * Restituisce l'istanza della classe.
+	 * Cerca nel container e se esiste restituisce l'istanza di una classe.
 	 *
 	 * @param string $key nome instanza.
 	 */

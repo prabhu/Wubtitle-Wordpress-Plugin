@@ -15,11 +15,11 @@ use Ear2Words\Loader;
  */
 class MediaLibraryExtented {
 	/**
-	 * Instanzia le azioni.
+	 * Setup delle action.
 	 */
 	public function run() {
 		if ( ! $this->is_gutenberg_active() ) {
-			add_action( 'attachment_fields_to_edit', array( $this, 'add_generate_subtitle_button' ), 99, 2 );
+			add_action( 'attachment_fields_to_edit', array( $this, 'add_generate_subtitle_form' ), 99, 2 );
 			add_filter( 'attachment_fields_to_save', array( $this, 'video_attachment_fields_to_save' ), null, 2 );
 			add_filter( 'wp_video_shortcode_override', array( $this, 'ear2words_video_shortcode' ), 10, 4 );
 		}
@@ -60,12 +60,12 @@ class MediaLibraryExtented {
 		return false;
 	}
 	/**
-	 *  Aggiunge il bottone
+	 *  Aggiunge il form di ear2words nella scheda "add media".
 	 *
 	 * @param array $form_fields campi finestra modale.
 	 * @param array $post attachment.
 	 */
-	public function add_generate_subtitle_button( $form_fields, $post ) {
+	public function add_generate_subtitle_form( $form_fields, $post ) {
 		$all_status = array(
 			'pending'  => __( 'Creating', 'ear2words' ),
 			'done'     => __( 'Draft', 'ear2words' ),
@@ -76,42 +76,46 @@ class MediaLibraryExtented {
 			return $form_fields;
 		}
 		if ( empty( get_post_meta( $post->ID, 'ear2words_status' ) ) ) {
-			$form_fields['button']          = array(
+			$form_fields['e2w_form'] = array(
 				'label' => 'Ear2Words',
 				'input' => 'html',
-				'html'  => '<label for="attachments-' . $post->ID . '-button"> <input type="checkbox" id="attachments-' . $post->ID . '-button" name="attachments[' . $post->ID . '][button]" value="' . $post->ID . '"/> Generate subtitles</label>',
+				'html'  => '<label for="attachments-' . $post->ID . '-e2w_form"> <input type="checkbox" id="attachments-' . $post->ID . '-e2w_form" name="attachments[' . $post->ID . '][e2w_form]" value="' . $post->ID . '"/> Generate subtitles</label>',
 				'value' => $post->ID,
 				'helps' => 'Check for generate subtitles',
 			);
-			$lang                           = explode( '_', get_locale(), 2 )[0];
-			$form_fields['button']['html'] .= '<select name="attachments[' . $post->ID . '][select-lang]" id="Profile Image Select">';
-			$form_fields['button']['html'] .= '<option ' . selected( $lang, 'it', false ) . 'value="it">' . __( 'Italian', 'ear2words' ) . '</option>';
-			$form_fields['button']['html'] .= '<option ' . selected( $lang, 'en', false ) . ' value="en">' . __( 'English', 'ear2words' ) . '</option>';
-			$form_fields['button']['html'] .= '<option ' . selected( $lang, 'es', false ) . 'value="es">' . __( 'Spanish', 'ear2words' ) . '</option>';
-			$form_fields['button']['html'] .= '<option ' . selected( $lang, 'de', false ) . 'value="de">' . __( 'German ', 'ear2words' ) . '</option>';
-			$form_fields['button']['html'] .= '<option ' . selected( $lang, 'zh', false ) . 'value="zh">' . __( 'Chinese', 'ear2words' ) . '</option>';
-			$form_fields['button']['html'] .= '<option ' . selected( $lang, 'fr', false ) . 'value="fr">' . __( 'French', 'ear2words' ) . '</option>';
-			$form_fields['button']['html'] .= '</select>';
+			$lang                    = explode( '_', get_locale(), 2 )[0];
+			ob_start();
+			?>
+			<select name="attachments[<?php echo esc_html( $post->ID ); ?>][select-lang]" id="Profile Image Select">
+				<option <?php echo selected( $lang, 'it', false ); ?> value="it"> <?php echo esc_html( __( 'Italian', 'ear2words' ) ); ?></option>
+				<option <?php echo selected( $lang, 'en', false ); ?> value="en"> <?php echo esc_html( __( 'English', 'ear2words' ) ); ?></option>
+				<option <?php echo selected( $lang, 'es', false ); ?> value="es"> <?php echo esc_html( __( 'Spanish', 'ear2words' ) ); ?></option>
+				<option <?php echo selected( $lang, 'de', false ); ?> value="de"> <?php echo esc_html( __( 'German', 'ear2words' ) ); ?></option>
+				<option <?php echo selected( $lang, 'zh', false ); ?> value="zh"> <?php echo esc_html( __( 'Chinese', 'ear2words' ) ); ?></option>
+				<option <?php echo selected( $lang, 'fr', false ); ?> value="fr"> <?php echo esc_html( __( 'French', 'ear2words' ) ); ?></option>
+			</select>
+			<?php
+			$form_fields['e2w_form']['html'] .= ob_get_clean();
 			return $form_fields;
 		}
-		$status                = get_post_meta( $post->ID, 'ear2words_status', true );
-		$form_fields['button'] = array(
+		$status                  = get_post_meta( $post->ID, 'ear2words_status', true );
+		$form_fields['e2w_form'] = array(
 			'label' => 'Ear2Words',
 			'input' => 'html',
-			'html'  => '<label for="attachments-' . $post->ID . '-button">' . $all_status[ $status ] . '</label>  ',
+			'html'  => '<label for="attachments-' . $post->ID . '-e2w_form">' . $all_status[ $status ] . '</label>  ',
 			'value' => $post->ID,
 			'helps' => 'Check for generate subtitles',
 		);
 		return $form_fields;
 	}
 	/**
-	 * Esegue la chiamata all'endpoint e salva uuid e stato.
+	 * Esegue la chiamata all'endpoint per generare i sottotitoli, se la chiamata va a buon fine salva uuid e stato.
 	 *
 	 * @param array $post contiene i dati dell'attachment.
 	 * @param array $attachment contiene i dati degli input custom.
 	 */
 	public function video_attachment_fields_to_save( $post, $attachment ) {
-		if ( isset( $attachment['button'] ) ) {
+		if ( isset( $attachment['e2w_form'] ) ) {
 			$data['lang']           = $attachment['select-lang'];
 			$data['id_attachment']  = $post['ID'];
 			$data['src_attachment'] = wp_get_attachment_url( $post['ID'] );
@@ -130,10 +134,10 @@ class MediaLibraryExtented {
 				// TODO restituire il messaggio di errore.
 				return;
 			}
-			$response = Loader::get( 'request' )->remote_post_endpoint( $body, $license_key );
+			$response = Loader::get( 'request' )->send_job_to_backend( $body, $license_key );
 			if ( 201 === $response['response']['code'] ) {
 				$response_body = json_decode( $response['body'] );
-				Loader::get( 'request' )->success_request_function( $post['ID'], $response_body->data->jobId );
+				Loader::get( 'request' )->update_uuid_and_status( $post['ID'], $response_body->data->jobId );
 			}
 		}
 	}
