@@ -51,6 +51,25 @@ const Ear2WordPanel = props => {
 		/>
 	));
 
+	// TODO: Fare il merge delle modifiche di Alessio per ottenere il valore
+	const langSaved = useSelect(select => {
+		const attachment =
+			props.id !== undefined
+				? select("core").getEntityRecord(
+						"postType",
+						"attachment",
+						props.id
+				  )
+				: undefined;
+		return attachment !== undefined
+			? select("core").getEditedEntityRecord(
+					"postType",
+					"attachment",
+					props.id
+			  ).meta.ear2words_lang_video
+			: "";
+	});
+
 	const langExten = {
 		it: __("Italian", "ear2words"),
 		en: __("English", "ear2words"),
@@ -66,8 +85,6 @@ const Ear2WordPanel = props => {
 		enabled: __("Enabled", "ear2words"),
 		notfound: __("None", "ear2words")
 	};
-
-	// ear2words_lang_video
 
 	function onClick() {
 		const idAttachment = props.id;
@@ -102,8 +119,7 @@ const Ear2WordPanel = props => {
 			<PanelBody title="Ear2words">
 				{isDisabled ? (
 					<Fragment>
-						{__("Language: ", "ear2words") +
-							langExten[languageSelected]}
+						{__("Language: ", "ear2words") + langExten[langSaved]}
 						{<br></br>}
 					</Fragment>
 				) : (
