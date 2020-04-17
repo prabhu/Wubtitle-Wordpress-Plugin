@@ -101,17 +101,7 @@ class ApiRequest {
 		if ( ! $body ) {
 			wp_send_json_error( __( 'An error occurred while creating the subtitles. Please try again in a few minutes.', 'ear2words' ) );
 		}
-			$response = wp_remote_post(
-				ENDPOINT . 'job/create',
-				array(
-					'method'  => 'POST',
-					'headers' => array(
-						'licenseKey'   => $license_key,
-						'Content-Type' => 'application/json; charset=utf-8',
-					),
-					'body'    => wp_json_encode( $body ),
-				)
-			);
+			$response = $this->send_job_to_backend( $body, $license_key );
 
 			$code_response = wp_remote_retrieve_response_code( $response );
 
@@ -126,8 +116,7 @@ class ApiRequest {
 				wp_send_json_error( $message[ $code_response ] );
 			}
 			$response_body = json_decode( wp_remote_retrieve_body( $response ) );
-			update_post_meta( $data_attachment['id_attachment'], 'ear2words_job_uuid', $response_body->data->jobId );
-			update_post_meta( $data_attachment['id_attachment'], 'ear2words_status', 'pending' );
+			$this->update_uuid_and_status( $data_attachment['id_attachment'], $response_body->data->jobId );
 			wp_send_json_success( $code_response );
 	}
 
@@ -144,5 +133,35 @@ class ApiRequest {
 				'single'       => true,
 			)
 		);
+	}
+	/**
+	 * Effettua la chiamata all'endpoint e ritorna la risposta.
+	 *
+	 * @param array  $body contiene il body della richiesta da inviare.
+	 * @param string $license_key licenza utente.
+	 */
+	public function send_job_to_backend( $body, $license_key ) {
+		$response = wp_remote_post(
+			ENDPOINT . 'job/create',
+			array(
+				'method'  => 'POST',
+				'headers' => array(
+					'licenseKey'   => $license_key,
+					'Content-Type' => 'application/json; charset=utf-8',
+				),
+				'body'    => wp_json_encode( $body ),
+			)
+		);
+		return $response;
+	}
+	/**
+	 * Aggiorna o aggiunge l'uuid e lo stato
+	 *
+	 * @param int    $id_attachment id dell'attachment.
+	 * @param string $job_id uuid ricevuto dall'endpoint.
+	 */
+	public function update_uuid_and_status( $id_attachment, $job_id ) {
+		update_post_meta( $id_attachment, 'ear2words_job_uuid', $job_id );
+		update_post_meta( $id_attachment, 'ear2words_status', 'pending' );
 	}
 }
