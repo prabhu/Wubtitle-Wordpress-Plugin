@@ -18,26 +18,17 @@ const showBuyLicenseWindow = BuyLicenseWindow => {
         `;
 		BuyLicenseWindow = window.open("", "Buy license", windowFeatures);
 
-		const request = new XMLHttpRequest();
-		request.open(
-			"GET",
-			`${ajax_stripe.ajax_url}?_ajax_nonce=${ajax_stripe.nonce}&action=payment_template`,
-			true
-		);
-
-		request.onload = function() {
-			if (this.status >= 200 && this.status < 400) {
-				BuyLicenseWindow.document.write(this.response);
-			} else {
-				BuyLicenseWindow.document.write("error");
-			}
-		};
-
-		request.onerror = function() {
-			BuyLicenseWindow.document.write("error");
-		};
-
-		request.send();
+		// Send the form via ajax
+		wp.ajax
+			.send(ajax_stripe.ajax_url, {
+				data: {
+					nonce: ajax_stripe.nonce,
+					action: "payment_template"
+				}
+			})
+			.done(function(response) {
+				BuyLicenseWindow.document.write(response);
+			});
 	} else {
 		BuyLicenseWindow.focus();
 	}

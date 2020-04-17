@@ -18,7 +18,6 @@ class PaymentTemplate {
 	 */
 	public function run() {
 		add_action( 'wp_ajax_payment_template', array( $this, 'load_template' ) );
-		add_action( 'wp_enqueue_scripts', array( $this, 'load_template' ) );
 	}
 
 	/**

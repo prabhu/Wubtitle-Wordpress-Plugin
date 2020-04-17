@@ -182,6 +182,7 @@ class Settings {
 	 * Includo gli script.
 	 */
 	public function enqueue_stripe_scripts() {
+		wp_enqueue_script( 'wp-util' );
 		wp_register_script( 'stripe_checkout_js', plugins_url( '../../src/payment/stripeCheckout.js', __FILE__ ), '0.1.0', true, array( 'jquery' ) );
 		wp_localize_script( 'stripe_checkout_js', 'ajax_stripe', array( 'ajax_url' => admin_url( 'admin-ajax.php' ) ) );
 		wp_enqueue_script( 'stripe_checkout_js' );
