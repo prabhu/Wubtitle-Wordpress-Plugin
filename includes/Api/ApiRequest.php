@@ -103,14 +103,13 @@ class ApiRequest {
 		}
 			$response = $this->send_job_to_backend( $body, $license_key );
 
-			$code_response = wp_remote_retrieve_response_code( $response );
+			$code_response = $this->is_successful_response( $response ) ? wp_remote_retrieve_response_code( $response ) : '500';
 
 			$message = array(
 				'400' => __( 'An error occurred while creating the subtitles. Please try again in a few minutes', 'ear2words' ),
 				'401' => __( 'An error occurred while creating the subtitles. Please try again in a few minutes', 'ear2words' ),
 				'403' => __( 'Unable to create subtitles. Invalid product license', 'ear2words' ),
 				'500' => __( 'Could not contact the server', 'ear2words' ),
-				''    => __( 'Could not contact the server', 'ear2words' ),
 			);
 			if ( 201 !== $code_response ) {
 				wp_send_json_error( $message[ $code_response ] );
@@ -119,7 +118,22 @@ class ApiRequest {
 			$this->update_uuid_and_status( $data_attachment['id_attachment'], $response_body->data->jobId );
 			wp_send_json_success( $code_response );
 	}
-
+	/**
+	 * Verifico che la chiamata non sia andata in errore.
+	 *
+	 * @param array | WP_ERROR $response risposta chiamata.
+	 */
+	private function is_successful_response( $response ) {
+		if ( ! is_wp_error( $response ) ) {
+			return true;
+		}
+		if ( defined( 'WP_DEBUG' ) && WP_DEBUG === true ) {
+			// phpcs:disable WordPress.PHP.DevelopmentFunctions
+			error_log( print_r( $response->get_error_message(), true ) );
+			// phpcs:enable
+		}
+		return false;
+	}
 	/**
 	 * Registro post meta per lo stato.
 	 */
