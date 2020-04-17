@@ -28,6 +28,11 @@
 		<input type="submit" value="Submit">
 	</form> 
 
+	<!-- TODO: Risolvere questo problema con phpcs: mi invita ad usare wp_enqueue_script ma questo file non carica i file di WP -->
+	<?php // phpcs:disable ?>
+	<script src="https://js.stripe.com/v3/"></script>
+	<?php // phpcs:enable ?>
+
 	<script>
 	document.addEventListener("DOMContentLoaded", function() {
 
