@@ -42,19 +42,23 @@ class Settings {
 	 */
 	public function render_settings_page() {
 		?>
-		<div class="wrap-e2w">
-			<h3 class="title-settings-e2w"><span class="text-e2w"><?php echo esc_html( get_admin_page_title() ); ?></span></h3>
+		<div class="e2w-button-submit">
+			<?php submit_button(); ?>
+		</div>
+		<div class="postbox wrap-e2w">
+			<h2 class="hndle ui-sortable-handle e2w-title" ><span><?php echo esc_html( get_admin_page_title() ); ?></span></h2>
+			<div class="inside">
 			<?php settings_errors(); ?>
 			<form action="options.php" method="post">
 				<?php
 				settings_fields( 'ear2words_settings' );
 				do_settings_sections( 'ear2words-settings' );
-				echo '<p> ';
+				echo '<p class="howto"> ';
 				esc_html_e( 'Please enter the license key you received after successful checkout', 'ear2words' );
 				echo '</p>';
-				submit_button();
 				?>
 			</form>
+		</div>
 		</div>
 		<?php
 	}
