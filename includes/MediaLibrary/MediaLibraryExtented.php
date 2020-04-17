@@ -137,7 +137,7 @@ class MediaLibraryExtented {
 			$response = Loader::get( 'request' )->send_job_to_backend( $body, $license_key );
 			if ( 201 === $response['response']['code'] ) {
 				$response_body = json_decode( $response['body'] );
-				Loader::get( 'request' )->update_uuid_and_status( $post['ID'], $response_body->data->jobId );
+				Loader::get( 'request' )->update_uuid_and_status( $post['ID'], $data['lang'], $response_body->data->jobId );
 			}
 		}
 	}
@@ -151,9 +151,19 @@ class MediaLibraryExtented {
 		remove_filter( 'wp_video_shortcode_override', array( $this, 'ear2words_video_shortcode' ), 10 );
 		$id_video = attachment_url_to_postid( $attr['mp4'] );
 		$subtitle = get_post_meta( $id_video, 'ear2words_subtitle', true );
+		$lang     = get_post_meta( $id_video, 'ear2words_lang_video', true );
+		$all_lang = array(
+			'it' => __( 'Italian', 'ear2words' ),
+			'en' => __( 'English', 'ear2words' ),
+			'es' => __( 'Spanish', 'ear2words' ),
+			'de' => __( 'German ', 'ear2words' ),
+			'zh' => __( 'Chinese', 'ear2words' ),
+			'fr' => __( 'French', 'ear2words' ),
+		);
+		$lang     = array_key_exists( $lang, $all_lang ) ? $all_lang[ $lang ] : 'Undefined';
 		// TODO quando si implementa l'editor si dovrà verificare che lo stato sia enabled.
 		if ( '' !== $subtitle ) {
-			$content = '<track srclang="it" label="Italian" kind="subtitles" src="' . wp_get_attachment_url( $subtitle ) . '" default>';
+			$content = '<track srclang="it" label="' . $lang . '" kind="subtitles" src="' . wp_get_attachment_url( $subtitle ) . '" default>';
 			$html    = wp_video_shortcode( $attr, $content );
 		}
 		add_filter( 'wp_video_shortcode_override', array( $this, 'ear2words_video_shortcode' ), 10, 4 );
