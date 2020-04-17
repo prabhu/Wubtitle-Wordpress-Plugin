@@ -10,6 +10,7 @@ import {
 import { InspectorControls } from "@wordpress/block-editor";
 import { useState, Fragment } from "@wordpress/element";
 import { __ } from "@wordpress/i18n";
+import { withState } from "@wordpress/compose";
 
 const Ear2WordPanel = props => {
 	const languages = ["it", "en", "es", "de", "zh"];
@@ -37,6 +38,37 @@ const Ear2WordPanel = props => {
 	const entityDispatcher = useDispatch("core");
 	const [languageSelected, setLanguage] = useState(lang);
 	const isDisabled = status === "pending" || props.id === undefined;
+
+	const SubtitleSwitch = withState({
+		published: false
+	})(({ published, setState }) => (
+		<ToggleControl
+			label="Published"
+			checked={published}
+			onChange={() =>
+				setState(state => ({ published: !state.published }))
+			}
+		/>
+	));
+
+	const langExten = {
+		it: __("Italian", "ear2words"),
+		en: __("English", "ear2words"),
+		es: __("Spanish", "ear2words"),
+		de: __("German ", "ear2words"),
+		zh: __("Chinese", "ear2words"),
+		fr: __("French", "ear2words")
+	};
+
+	const statusExten = {
+		pending: __("Generating", "ear2words"),
+		done: __("Draft", "ear2words"),
+		enabled: __("Enabled", "ear2words"),
+		notfound: __("None", "ear2words")
+	};
+
+	// ear2words_lang_video
+
 	function onClick() {
 		const idAttachment = props.id;
 		const srcAttachment = props.src;
@@ -70,14 +102,15 @@ const Ear2WordPanel = props => {
 			<PanelBody title="Ear2words">
 				{isDisabled ? (
 					<Fragment>
-						{__("Language: ", "ear2words") + languageSelected}
+						{__("Language: ", "ear2words") +
+							langExten[languageSelected]}
 						{<br></br>}
 					</Fragment>
 				) : (
 					<Fragment>
 						<SelectControl
 							label={__("Select the video language", "ear2words")}
-							value={languageSelected} // e.g: value = [ 'a', 'c' ]
+							value={languageSelected}
 							onChange={lingua => {
 								setLanguage(lingua);
 							}}
@@ -112,9 +145,9 @@ const Ear2WordPanel = props => {
 				)}
 				{isDisabled ? (
 					<Fragment>
-						{__("Status: ", "ear2words") + status}
+						{__("Status: ", "ear2words") + statusExten[status]}
 
-						<ToggleControl
+						<SubtitleSwitch
 							label="Fixed Background"
 							help="Has fixed background."
 						/>
