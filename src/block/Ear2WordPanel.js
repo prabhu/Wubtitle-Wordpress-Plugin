@@ -2,9 +2,8 @@
 import { useSelect, useDispatch } from "@wordpress/data";
 import apiFetch from "@wordpress/api-fetch";
 import { PanelBody, Button, SelectControl } from "@wordpress/components";
-import { Fragment } from "@wordpress/element";
 import { InspectorControls } from "@wordpress/block-editor";
-import { useState } from "@wordpress/element";
+import { useState, Fragment } from "@wordpress/element";
 import { __ } from "@wordpress/i18n";
 
 const Ear2WordPanel = props => {
@@ -64,26 +63,33 @@ const Ear2WordPanel = props => {
 	return (
 		<InspectorControls>
 			<PanelBody title="Ear2words">
-				<SelectControl
-					label={__("Select the video language", "ear2words")}
-					value={languageSelected} // e.g: value = [ 'a', 'c' ]
-					onChange={lingua => {
-						setLanguage(lingua);
-					}}
-					options={[
-						{ value: "it", label: __("Italian", "ear2words") },
-						{ value: "en", label: __("English", "ear2words") },
-						{ value: "es", label: __("Spanish", "ear2words") },
-						{ value: "de", label: __("German ", "ear2words") },
-						{ value: "zh", label: __("Chinese", "ear2words") },
-						{ value: "fr", label: __("French", "ear2words") }
-					]}
-				/>
-
 				{isDisabled ? (
 					<Fragment>
-						{__("Status: ", "ear2words") + status}
-					</Fragment>					
+						{__("Language: ", "ear2words") + languageSelected}
+						{<br></br>}
+					</Fragment>
+				) : (
+					<Fragment>
+
+						<SelectControl
+							label={__("Select the video language", "ear2words")}
+							value={languageSelected} // e.g: value = [ 'a', 'c' ]
+							onChange={lingua => {
+								setLanguage(lingua);
+							}}
+							options={[
+								{ value: "it", label: __("Italian", "ear2words") },
+								{ value: "en", label: __("English", "ear2words") },
+								{ value: "es", label: __("Spanish", "ear2words") },
+								{ value: "de", label: __("German ", "ear2words") },
+								{ value: "zh", label: __("Chinese", "ear2words") },
+								{ value: "fr", label: __("French", "ear2words") }
+							]}
+						/>
+					</Fragment>
+				)}
+				{isDisabled ? (
+					<Fragment>{__("Status: ", "ear2words") + status}</Fragment>
 				) : (
 					<Fragment>
 						{__("Status: ", "ear2words") + status}
