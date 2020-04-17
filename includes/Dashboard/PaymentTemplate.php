@@ -18,8 +18,10 @@ class PaymentTemplate {
 	 */
 	public function run() {
 		add_action( 'wp_ajax_payment_template', array( $this, 'load_template' ) );
-		add_action( 'wp_enqueue_scripts', array( $this, 'load_template' ) );
+		add_action( 'init', array( $this, 'load_template_payment_template' ) );
 	}
+
+
 
 	/**
 	 * Include template.
@@ -27,6 +29,25 @@ class PaymentTemplate {
 	public function load_template() {
 		include 'Templates/payment_template.php';
 		wp_die();
+	}
+
+	/**
+	 * Include template.
+	 */
+	public function load_template_payment_template() {
+		$url_path = trim( wp_parse_url( add_query_arg( array() ), PHP_URL_PATH ), '/' );
+		if ( 'ear2words/payment-success' === $url_path ) {
+			include 'Templates/success_template.php';
+			wp_die();
+		}
+	}
+
+
+	/**
+	 * Include template.
+	 */
+	public function create_url_success_payment() {
+		add_rewrite_rule( '^ear2words/success/?', 'index.php/pagamento-completato', 'top' );
 	}
 
 	/**

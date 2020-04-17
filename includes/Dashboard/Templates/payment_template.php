@@ -28,8 +28,9 @@
 		<input type="submit" value="Submit">
 	</form> 
 
+
 	<script>
-	document.addEventListener("DOMContentLoaded", function() {
+	// document.addEventListener("DOMContentLoaded", function() {
 
 		var stripe = Stripe('pk_test_nfUYjFiwdkzYpPOfCZkVZiMK00lOAFcAK7');
 		const form = document.querySelector('#form');
@@ -64,7 +65,7 @@
 			request.send("action=submit_plan&_ajax_nonce="+ nonce +"&pricing_plan="+select);		
 		});
 
-	});
+	// });
 	</script>
 </body>
 </html>
