@@ -2,6 +2,7 @@
 import { useSelect, useDispatch } from "@wordpress/data";
 import apiFetch from "@wordpress/api-fetch";
 import { PanelBody, Button, SelectControl } from "@wordpress/components";
+import { Fragment } from "@wordpress/element";
 import { InspectorControls } from "@wordpress/block-editor";
 import { useState } from "@wordpress/element";
 import { __ } from "@wordpress/i18n";
@@ -80,17 +81,22 @@ const Ear2WordPanel = props => {
 				/>
 
 				{isDisabled ? (
-					__("Status: ", "ear2words") + status
+					<Fragment>
+						{__("Status: ", "ear2words") + status}
+					</Fragment>					
 				) : (
-					<Button
-						disabled={isDisabled}
-						name="sottotitoli"
-						id={props.id}
-						isPrimary
-						onClick={onClick}
-					>
-						{__("GENERATE SUBTITLES", "ear2words")}
-					</Button>
+					<Fragment>
+						{__("Status: ", "ear2words") + status}
+						<Button
+							disabled={isDisabled}
+							name="sottotitoli"
+							id={props.id}
+							isPrimary
+							onClick={onClick}
+						>
+							{__("GENERATE SUBTITLES", "ear2words")}
+						</Button>
+					</Fragment>
 				)}
 			</PanelBody>
 		</InspectorControls>
