@@ -1,6 +1,6 @@
 <?php
 /**
- * This file describes handle operation on subtitle.
+ * This file describes handle Templates.
  *
  * @author     Nicola Palermo
  * @since      0.1.0
@@ -10,7 +10,7 @@
 namespace Ear2Words\Dashboard;
 
 /**
- * This class handle subtitles.
+ * This class handle Payment Templates .
  */
 class PaymentTemplate {
 	/**
