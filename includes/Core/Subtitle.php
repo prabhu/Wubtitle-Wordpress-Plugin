@@ -21,7 +21,7 @@ class Subtitle {
 	}
 
 	/**
-	 * Handle the subtitle deletion.
+	 * Handle the subtitle.
 	 *
 	 * @param int $id_deleted_attachment parametri del file.
 	 */
