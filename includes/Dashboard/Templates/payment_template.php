@@ -36,7 +36,7 @@
 	<script>
 	document.addEventListener("DOMContentLoaded", function() {
 
-		var stripe = Stripe('pk_test_nfUYjFiwdkzYpPOfCZkVZiMK00lOAFcAK7');
+		const stripe = Stripe('pk_test_nfUYjFiwdkzYpPOfCZkVZiMK00lOAFcAK7');
 		const form = document.querySelector('#form');
 
 		form.addEventListener("submit", (e) => {
