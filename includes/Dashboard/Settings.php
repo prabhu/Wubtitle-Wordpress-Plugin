@@ -21,7 +21,7 @@ class Settings {
 		add_action( 'admin_init', array( $this, 'init_settings' ) );
 		add_action( 'admin_init', array( $this, 'init_settings_field' ) );
 		add_action( 'update_option_ear2words_license_key', array( $this, 'check_license' ) );
-		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_stripe_scripts' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'e2w_settings_scripts' ) );
 	}
 
 	/**
@@ -181,9 +181,10 @@ class Settings {
 	/**
 	 * Includo gli script.
 	 */
-	public function enqueue_stripe_scripts() {
-		wp_register_script( 'stripe_checkout_js', plugins_url( '../../src/payment/stripeCheckout.js', __FILE__ ), '0.1.0', true, array( 'jquery' ) );
-		wp_localize_script( 'stripe_checkout_js', 'ajax_stripe', array( 'ajax_url' => admin_url( 'admin-ajax.php' ) ) );
-		wp_enqueue_script( 'stripe_checkout_js' );
+	public function e2w_settings_scripts() {
+		// TODO: controllo caricamento pagina dei settings.
+		wp_register_script( 'settings_scripts', EAR2WORDS_URL . '/src/payment/stripeCheckout.js', EAR2WORDS_VER, true, true );
+		wp_localize_script( 'settings_scripts', 'ajax_stripe', array( 'ajax_url' => admin_url( 'admin-ajax.php' ) ) );
+		wp_enqueue_script( 'settings_scripts' );
 	}
 }
