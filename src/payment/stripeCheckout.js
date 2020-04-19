@@ -27,7 +27,7 @@ const showBuyLicenseWindow = BuyLicenseWindow => {
 
 		request.onload = function() {
 			if (this.status >= 200 && this.status < 400) {
-				BuyLicenseWindow.document.write(this.response);
+				BuyLicenseWindow.document.body.innerHTML = this.response;
 			} else {
 				BuyLicenseWindow.document.write("error");
 			}
