@@ -9,36 +9,29 @@ const handleSubmit = (e, stripe) => {
 	e.preventDefault();
 	const select = document.querySelector("#select").value;
 	const nonce =
-		"<?php echo esc_js( wp_create_nonce( 'itr_ajax_nonce' ) ); ?>";
+		"<?php echo esc_html( wp_create_nonce( 'itr_ajax_nonce' ) ); ?>";
 
-	const data = {
-		action: "submit_plan",
-		_ajax_nonce: nonce,
-		pricing_plan: select
-	};
-
-	fetch("<?php echo esc_html( admin_url( 'admin-ajax.php' ) ); ?>", {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json"
-		},
-		body: JSON.stringify(data)
-	})
-		.then(response => response.json())
-		.then(res => {
-			if (res) {
+	const request = new XMLHttpRequest();
+	request.open(
+		"POST",
+		"<?php echo esc_html( admin_url( 'admin-ajax.php' ) ); ?>",
+		true
+	);
+	request.onload = function() {
+		if (this.status >= 200 && this.status < 400) {
+			const response = JSON.parse(this.response);
+			if (response.success) {
 				stripe.redirectToCheckout({
-					sessionId: res
+					sessionId: response.data
 				});
-				// .then(function(result) {
-				// 	const messageError = result.error.message;
-				//  TODO: Gestire errore. Rimosso per lintJS.
-
-				// });
 			}
-		});
-	//  TODO: Gestire errore. Rimosso per lintJS.
-	// .catch(error => {
-	// 	// console.error("Error:", error);
-	// });
+		}
+	};
+	request.setRequestHeader(
+		"Content-type",
+		"application/x-www-form-urlencoded"
+	);
+	request.send(
+		"action=submit_plan&_ajax_nonce=" + nonce + "&pricing_plan=" + select
+	);
 };

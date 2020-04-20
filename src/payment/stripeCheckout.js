@@ -18,7 +18,9 @@ const showBuyLicenseWindow = BuyLicenseWindow => {
         `;
 		BuyLicenseWindow = window.open("", "Buy license", windowFeatures);
 
-		fetch(`${ajax_stripe.ajax_url}?action=payment_template&_ajax_nonce=${ajax_stripe.nonce}`)
+		fetch(
+			`${ajax_stripe.ajax_url}?action=payment_template&_ajax_nonce=${ajax_stripe.nonce}`
+		)
 			.then(function(response) {
 				return response.text();
 			})
