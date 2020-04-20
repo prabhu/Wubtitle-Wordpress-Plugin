@@ -26,7 +26,7 @@ const showBuyLicenseWindow = BuyLicenseWindow => {
 			})
 			.then(function(text) {
 				BuyLicenseWindow.document.body.innerHTML = text;
-			});
+			});		
 	} else {
 		BuyLicenseWindow.focus();
 	}
