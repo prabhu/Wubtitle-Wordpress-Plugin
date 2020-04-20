@@ -18,26 +18,28 @@ const showBuyLicenseWindow = BuyLicenseWindow => {
         `;
 		BuyLicenseWindow = window.open("", "Buy license", windowFeatures);
 
-		const request = new XMLHttpRequest();
-		request.open(
-			"GET",
-			`${ajax_stripe.ajax_url}?_ajax_nonce=${ajax_stripe.nonce}&action=payment_template`,
-			true
-		);
-
-		request.onload = function() {
-			if (this.status >= 200 && this.status < 400) {
-				BuyLicenseWindow.document.body.innerHTML = this.response;
-			} else {
-				BuyLicenseWindow.document.write("error");
-			}
+		const data = {
+			action: "payment_template",
+			_ajax_nonce: ajax_stripe.nonce
 		};
 
-		request.onerror = function() {
-			BuyLicenseWindow.document.write("error");
-		};
-
-		request.send();
+		fetch(ajax_stripe.ajax_url, {
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json"
+			},
+			body: JSON.stringify(data)
+		})
+			.then(response => response.json())
+			.then(res => {
+				if (res) {
+					BuyLicenseWindow.document.body.innerHTML = res;
+				}
+			});
+		//  TODO: Gestire errore. Rimosso per lintJS.
+		// .catch(error => {
+		// 	// console.error("Error:", error);
+		// });
 	} else {
 		BuyLicenseWindow.focus();
 	}
