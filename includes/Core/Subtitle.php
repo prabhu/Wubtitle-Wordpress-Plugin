@@ -23,7 +23,7 @@ class Subtitle {
 	/**
 	 * Handle the subtitle deletion.
 	 *
-	 * @param int $id_deleted_attachment parametri.
+	 * @param int $id_deleted_attachment abc.
 	 */
 	public function delete_subtitle( $id_deleted_attachment ) {
 		$releted_vtt = get_post_meta( $id_deleted_attachment, 'ear2words_subtitle', true );
