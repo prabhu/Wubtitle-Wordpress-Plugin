@@ -9,7 +9,7 @@ const handleSubmit = (e, stripe) => {
 	e.preventDefault();
 	const select = document.querySelector("#select").value;
 	const nonce =
-		"<?php echo esc_html( wp_create_nonce( 'itr_ajax_nonce' ) ); ?>";
+		"<?php echo esc_js( wp_create_nonce( 'itr_ajax_nonce' ) ); ?>";
 
 	fetch("<?php echo esc_html( admin_url( 'admin-ajax.php' ) ); ?>", {
 		method: "POST",
