@@ -182,9 +182,7 @@ class Settings {
 	 * Includo gli script.
 	 */
 	public function e2w_settings_scripts() {
-
-		wp_enqueue_script('wp-util');
-		wp_enqueue_script( 'settings_scripts', EAR2WORDS_URL . '/src/payment/settings_script.js', array('wp-util'), EAR2WORDS_VER, true );
-
+		wp_enqueue_script( 'wp-util' );
+		wp_enqueue_script( 'settings_scripts', EAR2WORDS_URL . '/src/payment/settings_script.js', array( 'wp-util' ), EAR2WORDS_VER, true );
 	}
 }

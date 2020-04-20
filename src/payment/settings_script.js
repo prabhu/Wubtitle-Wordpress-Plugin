@@ -16,12 +16,18 @@ const showBuyLicenseWindow = BuyLicenseWindow => {
             height=500,
             scrollbars=yes,
         `;
-		wp.ajax.send("payment_template", {
-			type: "GET"
-		}).done( response => {
-			BuyLicenseWindow = window.open("", "Buy license", windowFeatures);
-			BuyLicenseWindow.document.body.innerHTML = response;
-		});
+		wp.ajax
+			.send("payment_template", {
+				type: "GET"
+			})
+			.done(response => {
+				BuyLicenseWindow = window.open(
+					"",
+					"Buy license",
+					windowFeatures
+				);
+				BuyLicenseWindow.document.body.innerHTML = response;
+			});
 	} else {
 		BuyLicenseWindow.focus();
 	}

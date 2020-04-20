@@ -30,6 +30,7 @@
 
 	<?php // phpcs:disable ?>
 	<script src="https://js.stripe.com/v3/"></script>
+	<!-- var globali -->
 	<script src="<?php esc_url(EAR2WORDS_URL . '/src/payment/payment_template.js'); ?>"></script>
 	<?php // phpcs:enable ?>
 </body>
