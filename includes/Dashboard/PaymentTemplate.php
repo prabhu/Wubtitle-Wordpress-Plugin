@@ -17,13 +17,13 @@ class PaymentTemplate {
 	 * Init class actions
 	 */
 	public function run() {
-		add_action( 'wp_ajax_payment_template', array( $this, 'load_template' ) );
+		add_action( 'wp_ajax_payment_template', array( $this, 'load_payment_template' ) );
 	}
 
 	/**
-	 * Include template.
+	 * Include il template che viene caricato nella finestra popup per l'acquisto della licenza al click del bottone "acquista".
 	 */
-	public function load_template() {
+	public function load_payment_template() {
 		include 'Templates/payment_template.php';
 		wp_die();
 	}
