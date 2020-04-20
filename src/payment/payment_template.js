@@ -11,27 +11,20 @@ const handleSubmit = (e, stripe) => {
 	const nonce =
 		"<?php echo esc_html( wp_create_nonce( 'itr_ajax_nonce' ) ); ?>";
 
-	const request = new XMLHttpRequest();
-	request.open(
-		"POST",
-		"<?php echo esc_html( admin_url( 'admin-ajax.php' ) ); ?>",
-		true
-	);
-	request.onload = function() {
-		if (this.status >= 200 && this.status < 400) {
-			const response = JSON.parse(this.response);
-			if (response.success) {
-				openStripeForm(response.data, stripe);
+	fetch("<?php echo esc_html( admin_url( 'admin-ajax.php' ) ); ?>", {
+		method: "POST",
+		credentials: "include",
+		headers: new Headers({
+			"Content-Type": "application/x-www-form-urlencoded"
+		}),
+		body: `action=submit_plan&_ajax_nonce=${nonce}&pricing_plan=${select}`
+	})
+		.then(resp => resp.json())
+		.then(function(data) {
+			if (data) {
+				openStripeForm(data, stripe);
 			}
-		}
-	};
-	request.setRequestHeader(
-		"Content-type",
-		"application/x-www-form-urlencoded"
-	);
-	request.send(
-		"action=submit_plan&_ajax_nonce=" + nonce + "&pricing_plan=" + select
-	);
+		});
 };
 
 const openStripeForm = (sessionId, stripe) => {
