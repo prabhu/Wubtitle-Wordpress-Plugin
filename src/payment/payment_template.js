@@ -1,5 +1,7 @@
-const paymentModule = (function(Stripe, document) {
+const paymentModule = (function(Stripe, document, WP_GLOBALS) {
 	let stripe = null;
+
+	const { adminAjax, nonce } = WP_GLOBALS;
 
 	const openStripeForm = sessionId => {
 		if (sessionId) {
@@ -10,12 +12,8 @@ const paymentModule = (function(Stripe, document) {
 	const handleSubmit = e => {
 		e.preventDefault();
 		const select = document.querySelector("#select").value;
-		// TODO: cambiare con variabili globali
-		const nonce =
-			"<?php echo esc_js( wp_create_nonce( 'itr_ajax_nonce' ) ); ?>";
 
-		// TODO: cambiare con variabile globale
-		fetch("<?php echo esc_html( admin_url( 'admin-ajax.php' ) ); ?>", {
+		fetch(adminAjax, {
 			method: "POST",
 			credentials: "include",
 			headers: new Headers({

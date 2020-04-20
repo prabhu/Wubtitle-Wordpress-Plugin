@@ -30,7 +30,12 @@
 
 	<?php // phpcs:disable ?>
 	<script src="https://js.stripe.com/v3/"></script>
-	<!-- var globali -->
+	<script>
+		const WP_GLOBALS = {
+			adminAjax: "<?php echo esc_html( admin_url( 'admin-ajax.php' ) ); ?>",
+			nonce: "<?php echo esc_js( wp_create_nonce( 'itr_ajax_nonce' ) ); ?>"
+		}	
+	</script>
 	<script src="<?php esc_url(EAR2WORDS_URL . '/src/payment/payment_template.js'); ?>"></script>
 	<?php // phpcs:enable ?>
 </body>
