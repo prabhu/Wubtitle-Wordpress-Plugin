@@ -67,15 +67,16 @@ class MediaLibraryExtented {
 	 */
 	public function add_generate_subtitle_form( $form_fields, $post ) {
 		$all_status = array(
-			'pending'  => __( 'Creating', 'ear2words' ),
-			'done'     => __( 'Draft', 'ear2words' ),
-			'enabled'  => __( 'Enabled', 'ear2words' ),
-			'disabled' => __( 'Disabled', 'ear2words' ),
-			'none'     => 'None',
+			'pending' => __( 'Creating', 'ear2words' ),
+			'done'    => __( 'Draft', 'ear2words' ),
+			'enabled' => __( 'Published', 'ear2words' ),
+			'draft'   => __( 'Draft', 'ear2words' ),
+			'none'    => 'None',
 		);
 		if ( ! wp_attachment_is( 'video', $post ) ) {
 			return $form_fields;
 		}
+		// Aggiunge lo stato del sottotitolo.
 		$status                    = empty( get_post_meta( $post->ID, 'ear2words_status', true ) ) ? 'none' : get_post_meta( $post->ID, 'ear2words_status', true );
 		$form_fields['e2w_status'] = array(
 			'label' => 'Subtitle',
@@ -83,6 +84,8 @@ class MediaLibraryExtented {
 			'html'  => '<label for="attachments-' . $post->ID . '-e2w_status">' . $all_status[ $status ] . '</label>',
 			'value' => $post->ID,
 		);
+
+		// Aggiunge la select della lingua e il bottone per generare i sottotitoli se il video non è ancora stato processato da e2w.
 		if ( empty( get_post_meta( $post->ID, 'ear2words_status' ) ) ) {
 			$form_fields['e2w_form'] = array(
 				'label' => 'Language',
@@ -109,10 +112,33 @@ class MediaLibraryExtented {
 			$form_fields['e2w_form']['html'] .= ob_get_clean();
 			return $form_fields;
 		}
-		$form_fields['e2w_form'] = array(
+
+		$status = get_post_meta( $post->ID, 'ear2words_status', true );
+
+		// Sostituisce lo stato con una select per pubblicare o disabilitare i sottotitoli se lo stato è uno tra enabled e draft.
+		if ( 'draft' === $status || 'enabled' === $status ) {
+			$form_fields['e2w_status'] = array(
+				'label' => 'Subtitle',
+				'input' => 'html',
+				'html'  => '',
+				'value' => $post->ID,
+			);
+			$lang                      = explode( '_', get_locale(), 2 )[0];
+			ob_start();
+			?>
+			<select name="attachments[<?php echo esc_html( $post->ID ); ?>][select-status]" id="Profile Image Select">
+				<option <?php echo selected( $status, 'enabled', false ); ?> value="enabled"> <?php esc_html_e( 'Published', 'ear2words' ); ?></option>
+				<option <?php echo selected( $status, 'draft', false ); ?> value="draft"> <?php esc_html_e( 'Disabled', 'ear2words' ); ?></option>
+			</select>
+			<?php
+			$form_fields['e2w_status']['html'] .= ob_get_clean();
+		}
+
+		// Aggiunge una label per la lingua del video.
+		$form_fields['e2w_lang'] = array(
 			'label' => 'Language',
 			'input' => 'html',
-			'html'  => '<label for="attachments-' . $post->ID . '-e2w_status">' . get_post_meta( $post->ID, 'ear2words_lang_video', true ) . '</label>',
+			'html'  => '<label for="attachments-' . $post->ID . '-e2w_lang">' . $this->get_video_language( $post->ID ) . '</label>',
 			'value' => $post->ID,
 		);
 		return $form_fields;
@@ -124,6 +150,9 @@ class MediaLibraryExtented {
 	 * @param array $attachment contiene i dati degli input custom.
 	 */
 	public function video_attachment_fields_to_save( $post, $attachment ) {
+		if ( isset( $attachment['select-status'] ) ) {
+			update_post_meta( $post['ID'], 'ear2words_status', $attachment['select-status'] );
+		}
 		if ( isset( $attachment['e2w_form'] ) && '' !== $attachment['e2w_form'] ) {
 			$data['lang']           = $attachment['select-lang'];
 			$data['id_attachment']  = $post['ID'];
@@ -162,6 +191,21 @@ class MediaLibraryExtented {
 		$source   = array_key_exists( 'mp4', $attr ) ? $attr['mp4'] : $attr['src'];
 		$id_video = attachment_url_to_postid( $source );
 		$subtitle = get_post_meta( $id_video, 'ear2words_subtitle', true );
+		$lang     = $this->get_video_language( $id_video );
+		$status   = get_post_meta( $id_video, 'ear2words_status', true );
+		if ( '' !== $subtitle && 'enabled' === $status ) {
+			$content = '<track srclang="it" label="' . $lang . '" kind="subtitles" src="' . wp_get_attachment_url( $subtitle ) . '" default>';
+			$html    = wp_video_shortcode( $attr, $content );
+		}
+		add_filter( 'wp_video_shortcode_override', array( $this, 'ear2words_video_shortcode' ), 10, 4 );
+		return $html;
+	}
+	/**
+	 * Ritorna la lingua prendendola dal post meta del video. Inoltre la traduce.
+	 *
+	 * @param int $id_video id del video.
+	 */
+	public function get_video_language( $id_video ) {
 		$lang     = get_post_meta( $id_video, 'ear2words_lang_video', true );
 		$all_lang = array(
 			'it' => __( 'Italian', 'ear2words' ),
@@ -171,13 +215,6 @@ class MediaLibraryExtented {
 			'zh' => __( 'Chinese', 'ear2words' ),
 			'fr' => __( 'French', 'ear2words' ),
 		);
-		$lang     = array_key_exists( $lang, $all_lang ) ? $all_lang[ $lang ] : 'Undefined';
-		// TODO quando si implementa l'editor si dovrà verificare che lo stato sia enabled.
-		if ( '' !== $subtitle ) {
-			$content = '<track srclang="it" label="' . $lang . '" kind="subtitles" src="' . wp_get_attachment_url( $subtitle ) . '" default>';
-			$html    = wp_video_shortcode( $attr, $content );
-		}
-		add_filter( 'wp_video_shortcode_override', array( $this, 'ear2words_video_shortcode' ), 10, 4 );
-		return $html;
+		return array_key_exists( $lang, $all_lang ) ? $all_lang[ $lang ] : 'Undefined';
 	}
 }

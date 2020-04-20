@@ -9,6 +9,8 @@
 
 namespace Ear2Words\Gutenberg;
 
+use Ear2Words\Loader;
+
 /**
  * This class describes The Gutenberg video block.
  */
@@ -57,14 +59,16 @@ class VideoBlock {
 		$subtitle     = get_post_meta( $attributes['id'], 'ear2words_subtitle', true );
 		$subtitle_src = wp_get_attachment_url( $subtitle );
 		$video_src    = wp_get_attachment_url( $attributes['id'] );
-		if ( '' === $subtitle ) {
+		$lang         = Loader::get( 'extented_media_library' )->get_video_language( $attributes['id'] );
+		$status       = get_post_meta( $attributes['id'], 'ear2words_status', true );
+		if ( '' === $subtitle || 'enabled' !== $status ) {
 			return $content;
 		}
 		ob_start();
 		?>
 		<figure class="wp-block-video">
 			<video controls src= "<?php echo esc_html( $video_src ); ?>">
-			<track label="Italian" kind="subtitles" srclang="it" src=" <?php echo esc_html( $subtitle_src ); ?>" default>
+			<track label="<?php echo esc_html( $lang ); ?>" kind="subtitles" src=" <?php echo esc_html( $subtitle_src ); ?>" default>
 			</video>
 		</figure>
 		<?php
