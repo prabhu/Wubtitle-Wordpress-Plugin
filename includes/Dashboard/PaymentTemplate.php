@@ -23,7 +23,7 @@ class PaymentTemplate {
 	/**
 	 * Include il template che viene caricato nella finestra popup per l'acquisto della licenza al click del bottone "acquista".
 	 */
-	public function load_payment_template() {		
+	public function load_payment_template() {
 		if ( current_user_can( 'manage_options' ) ) {
 			ob_start();
 			include 'Templates/payment_template.php';
@@ -31,7 +31,7 @@ class PaymentTemplate {
 			wp_send_json_success( $html );
 			wp_die();
 		}
-		$html = "Error";		
+		$html = 'Error';
 	}
 
 }
