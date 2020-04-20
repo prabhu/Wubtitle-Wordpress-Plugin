@@ -21,9 +21,7 @@ const handleSubmit = (e, stripe) => {
 		if (this.status >= 200 && this.status < 400) {
 			const response = JSON.parse(this.response);
 			if (response.success) {
-				stripe.redirectToCheckout({
-					sessionId: response.data
-				});
+				openStripeForm(response.data, stripe);
 			}
 		}
 	};
@@ -34,4 +32,10 @@ const handleSubmit = (e, stripe) => {
 	request.send(
 		"action=submit_plan&_ajax_nonce=" + nonce + "&pricing_plan=" + select
 	);
+};
+
+const openStripeForm = (sessionId, stripe) => {
+	if (sessionId) {
+		stripe.redirectToCheckout({ sessionId });
+	}
 };
