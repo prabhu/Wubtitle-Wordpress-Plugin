@@ -71,17 +71,24 @@ class MediaLibraryExtented {
 			'done'     => __( 'Draft', 'ear2words' ),
 			'enabled'  => __( 'Enabled', 'ear2words' ),
 			'disabled' => __( 'Disabled', 'ear2words' ),
+			'none'     => 'None',
 		);
 		if ( ! wp_attachment_is( 'video', $post ) ) {
 			return $form_fields;
 		}
+		$status                    = empty( get_post_meta( $post->ID, 'ear2words_status', true ) ) ? 'none' : get_post_meta( $post->ID, 'ear2words_status', true );
+		$form_fields['e2w_status'] = array(
+			'label' => 'Subtitle',
+			'input' => 'html',
+			'html'  => '<label for="attachments-' . $post->ID . '-e2w_status">' . $all_status[ $status ] . '</label>',
+			'value' => $post->ID,
+		);
 		if ( empty( get_post_meta( $post->ID, 'ear2words_status' ) ) ) {
 			$form_fields['e2w_form'] = array(
-				'label' => 'Ear2Words',
+				'label' => 'Language',
 				'input' => 'html',
-				'html'  => '<label for="attachments-' . $post->ID . '-e2w_form"> <input type="checkbox" id="attachments-' . $post->ID . '-e2w_form" name="attachments[' . $post->ID . '][e2w_form]" value="' . $post->ID . '"/>' . __( 'GENERATE SUBTITLES', 'ear2words' ) . '</label>',
+				'html'  => '',
 				'value' => $post->ID,
-				'helps' => 'Check for generate subtitles',
 			);
 			$lang                    = explode( '_', get_locale(), 2 )[0];
 			ob_start();
@@ -94,17 +101,19 @@ class MediaLibraryExtented {
 				<option <?php echo selected( $lang, 'zh', false ); ?> value="zh"> <?php esc_html_e( 'Chinese', 'ear2words' ); ?></option>
 				<option <?php echo selected( $lang, 'fr', false ); ?> value="fr"> <?php esc_html_e( 'French', 'ear2words' ); ?></option>
 			</select>
+			<label onclick="this.setAttribute('disabled','true')" class="button-primary" style="margin-top:16px;" for="attachments-<?php echo esc_html( $post->ID ); ?>-e2w_form">
+				<input type="checkbox" style="display:none" id="attachments-<?php echo esc_html( $post->ID ); ?>-e2w_form" name="attachments[<?php echo esc_html( $post->ID ); ?>][e2w_form]" value="<?php echo esc_html( $post->ID ); ?>" />
+				<?php esc_html_e( 'GENERATE SUBTITLES', 'ear2words' ); ?>
+			</label>
 			<?php
 			$form_fields['e2w_form']['html'] .= ob_get_clean();
 			return $form_fields;
 		}
-		$status                  = get_post_meta( $post->ID, 'ear2words_status', true );
 		$form_fields['e2w_form'] = array(
-			'label' => 'Ear2Words',
+			'label' => 'Language',
 			'input' => 'html',
-			'html'  => '<label for="attachments-' . $post->ID . '-e2w_form">' . $all_status[ $status ] . '</label>  ',
+			'html'  => '<label for="attachments-' . $post->ID . '-e2w_status">' . get_post_meta( $post->ID, 'ear2words_lang_video', true ) . '</label>',
 			'value' => $post->ID,
-			'helps' => 'Check for generate subtitles',
 		);
 		return $form_fields;
 	}
@@ -115,7 +124,7 @@ class MediaLibraryExtented {
 	 * @param array $attachment contiene i dati degli input custom.
 	 */
 	public function video_attachment_fields_to_save( $post, $attachment ) {
-		if ( isset( $attachment['e2w_form'] ) ) {
+		if ( isset( $attachment['e2w_form'] ) && '' !== $attachment['e2w_form'] ) {
 			$data['lang']           = $attachment['select-lang'];
 			$data['id_attachment']  = $post['ID'];
 			$data['src_attachment'] = wp_get_attachment_url( $post['ID'] );
@@ -140,6 +149,7 @@ class MediaLibraryExtented {
 				Loader::get( 'request' )->update_uuid_and_status( $post['ID'], $response_body->data->jobId );
 			}
 		}
+		return $post;
 	}
 	/**
 	 * Sovrascrive lo shortcode video aggiungendo i sottotitoli come file_get_content
@@ -149,7 +159,8 @@ class MediaLibraryExtented {
 	 */
 	public function ear2words_video_shortcode( $html, $attr ) {
 		remove_filter( 'wp_video_shortcode_override', array( $this, 'ear2words_video_shortcode' ), 10 );
-		$id_video = attachment_url_to_postid( $attr['mp4'] );
+		$source   = array_key_exists( 'mp4', $attr ) ? $attr['mp4'] : $attr['src'];
+		$id_video = attachment_url_to_postid( $source );
 		$subtitle = get_post_meta( $id_video, 'ear2words_subtitle', true );
 		// TODO quando si implementa l'editor si dovrà verificare che lo stato sia enabled.
 		if ( '' !== $subtitle ) {
