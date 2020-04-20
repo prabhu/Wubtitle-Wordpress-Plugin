@@ -135,9 +135,9 @@ class MediaLibraryExtented {
 				return;
 			}
 			$response = Loader::get( 'request' )->send_job_to_backend( $body, $license_key );
-			if ( 201 === $response['response']['code'] ) {
-				$response_body = json_decode( $response['body'] );
-				Loader::get( 'request' )->update_uuid_and_status( $post['ID'], $data['lang'], $response_body->data->jobId );
+			if ( 201 === wp_remote_retrieve_response_code( $response ) ) {
+				$response_body = json_decode( wp_remote_retrieve_body( $response ) );
+				Loader::get( 'request' )->update_uuid_status_and_lang( $post['ID'], $data['lang'], $response_body->data->jobId );
 			}
 		}
 	}
@@ -149,7 +149,8 @@ class MediaLibraryExtented {
 	 */
 	public function ear2words_video_shortcode( $html, $attr ) {
 		remove_filter( 'wp_video_shortcode_override', array( $this, 'ear2words_video_shortcode' ), 10 );
-		$id_video = attachment_url_to_postid( $attr['mp4'] );
+		$source   = array_key_exists( 'mp4', $attr ) ? $attr['mp4'] : $attr['src'];
+		$id_video = attachment_url_to_postid( $source );
 		$subtitle = get_post_meta( $id_video, 'ear2words_subtitle', true );
 		$lang     = get_post_meta( $id_video, 'ear2words_lang_video', true );
 		$all_lang = array(
