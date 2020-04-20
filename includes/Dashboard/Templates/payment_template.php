@@ -28,7 +28,6 @@
 		<input type="submit" value="Submit">
 	</form> 
 
-	<!-- TODO: Risolvere questo problema con phpcs: mi invita ad usare wp_enqueue_script ma questo file non carica i file di WP -->
 	<?php // phpcs:disable ?>
 	<script src="https://js.stripe.com/v3/"></script>
 	<script src="<?php echo EAR2WORDS_URL . '/src/payment/payment_template.js'; ?>"></script>	

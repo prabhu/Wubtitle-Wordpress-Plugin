@@ -25,13 +25,12 @@ const showBuyLicenseWindow = BuyLicenseWindow => {
 
 		fetch(ajax_stripe.ajax_url, {
 			method: "GET",
-			body:data
-		})
-			.then(response => {
-				if (response) {
-					BuyLicenseWindow.document.body.innerHTML = response;
-				}
-			});
+			body: data
+		}).then(response => {
+			if (response) {
+				BuyLicenseWindow.document.body.innerHTML = response;
+			}
+		});
 		//  TODO: Gestire errore. Rimosso per lintJS.
 		// .catch(error => {
 		// 	// console.error("Error:", error);

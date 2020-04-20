@@ -183,7 +183,7 @@ class Settings {
 	 */
 	public function e2w_settings_scripts() {
 		global $pagenow;
-		if ( ( 'admin.php' === $pagenow ) && ( 'ear2words_settings' === $_GET['page'] ) ) { 
+		if ( isset( $pagenow ) && ( 'admin.php' === $pagenow ) ) {
 			wp_register_script( 'settings_scripts', EAR2WORDS_URL . '/src/payment/stripeCheckout.js', EAR2WORDS_VER, true, true );
 			wp_localize_script( 'settings_scripts', 'ajax_stripe', array( 'ajax_url' => admin_url( 'admin-ajax.php' ) ) );
 			wp_enqueue_script( 'settings_scripts' );
