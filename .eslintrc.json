@@ -4,7 +4,6 @@
         "browser": true
     },
     "globals": {
-        "ajax_stripe": true,
         "Stripe": true
     }
 }

@@ -32,6 +32,8 @@ class PaymentTemplate {
 			wp_die();
 		}
 		$html = 'Error';
+		wp_send_json_error( $html );
+		wp_die();
 	}
 
 }
