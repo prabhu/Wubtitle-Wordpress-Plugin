@@ -82,7 +82,7 @@ class MediaLibraryExtented {
 			'enabled' => __( 'Published', 'ear2words' ),
 			'none'    => 'None',
 		);
-		if ( ! wp_attachment_is( 'video', $post ) || 'admin-ajax.php' !== $pagenow ) {
+		if ( ! wp_attachment_is( 'video', $post ) || ( 'admin-ajax.php' !== $pagenow && 'async-upload.php' !== $pagenow ) ) {
 			return $form_fields;
 		}
 		// Aggiunge lo stato del sottotitolo.
@@ -95,7 +95,7 @@ class MediaLibraryExtented {
 		);
 
 		// Aggiunge la select della lingua e il bottone per generare i sottotitoli se il video non è ancora stato processato da e2w.
-		if ( empty( get_post_meta( $post->ID, 'ear2words_status' ) ) ) {
+		if ( 'none' === $status ) {
 			$form_fields['e2w_form'] = array(
 				'label' => 'Language',
 				'input' => 'html',
@@ -121,7 +121,6 @@ class MediaLibraryExtented {
 			$form_fields['e2w_form']['html'] .= ob_get_clean();
 			return $form_fields;
 		}
-
 		// Sostituisce lo stato con una select per pubblicare o disabilitare i sottotitoli se lo stato è uno tra enabled e draft.
 		if ( 'draft' === $status || 'enabled' === $status ) {
 			$form_fields['e2w_status'] = array(
@@ -140,7 +139,6 @@ class MediaLibraryExtented {
 			<?php
 			$form_fields['e2w_status']['html'] .= ob_get_clean();
 		}
-
 		// Aggiunge una label per la lingua del video.
 		$form_fields['e2w_lang'] = array(
 			'label' => 'Language',
