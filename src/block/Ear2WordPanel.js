@@ -45,11 +45,28 @@ const Ear2WordPanel = props => {
 		<ToggleControl
 			label="Published"
 			checked={published}
-			onChange={() =>
-				setState(state => ({ published: !state.published }))
-			}
+			onChange={() => {
+				setState(state => ({ published: !state.published }));
+				updateStatus(published);
+			}}
 		/>
 	));
+
+	const updateStatus = published => {
+		if (published) {
+			wp.data
+				.dispatch("core")
+				.editEntityRecord("postType", "attachment", props.id, {
+					ear2words_status: "enabled"
+				});
+		} else {
+			wp.data
+				.dispatch("core")
+				.editEntityRecord("postType", "attachment", props.id, {
+					ear2words_status: "draft"
+				});
+		}
+	};
 
 	// TODO: Fare il merge delle modifiche di Alessio per ottenere il valore
 	const langSaved = useSelect(select => {
@@ -114,6 +131,7 @@ const Ear2WordPanel = props => {
 			}
 		});
 	}
+
 	return (
 		<InspectorControls>
 			<PanelBody title="Ear2words">
