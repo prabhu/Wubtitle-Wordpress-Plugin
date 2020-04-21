@@ -184,8 +184,7 @@ class Settings {
 	 * @param string $hook valore presente nell'hook admin_enqueue_scripts.
 	 */
 	public function e2w_settings_scripts( $hook ) {
-		// TODO: non carica i file.
-		if ( 'edit.php' === $hook ) {
+		if ( 'toplevel_page_ear2words_settings' === $hook ) {
 			wp_enqueue_script( 'wp-util' );
 			wp_enqueue_script( 'settings_scripts', EAR2WORDS_URL . '/src/payment/settings_script.js', array( 'wp-util' ), EAR2WORDS_VER, true );
 		}
