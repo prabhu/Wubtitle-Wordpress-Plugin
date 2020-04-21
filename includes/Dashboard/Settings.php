@@ -21,6 +21,7 @@ class Settings {
 		add_action( 'admin_init', array( $this, 'init_settings' ) );
 		add_action( 'admin_init', array( $this, 'init_settings_field' ) );
 		add_action( 'update_option_ear2words_license_key', array( $this, 'check_license' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'e2w_settings_scripts' ) );
 	}
 
 	/**
@@ -39,6 +40,7 @@ class Settings {
 		<div class="wrap">
 			<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
 			<?php settings_errors(); ?>
+			<button id="buy-license-button" class="button button-primary" >Compra Licenza</button>
 			<form action="options.php" method="post">
 				<?php
 				settings_fields( 'ear2words_settings' );
@@ -174,5 +176,17 @@ class Settings {
 		?>
 		<input class="large-text" type="<?php echo esc_attr( $args['type'] ); ?>" name="<?php echo esc_attr( $args['name'] ); ?>" value="<?php echo esc_attr( $option ); ?>" placeholder="<?php echo esc_attr( $args['placeholder'] ); ?>">
 		<?php
+	}
+
+	/**
+	 * Includo gli script.
+	 *
+	 * @param string $hook valore presente nell'hook admin_enqueue_scripts.
+	 */
+	public function e2w_settings_scripts( $hook ) {
+		if ( 'toplevel_page_ear2words_settings' === $hook ) {
+			wp_enqueue_script( 'wp-util' );
+			wp_enqueue_script( 'settings_scripts', EAR2WORDS_URL . '/src/payment/settings_script.js', array( 'wp-util' ), EAR2WORDS_VER, true );
+		}
 	}
 }
