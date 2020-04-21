@@ -36,33 +36,48 @@ const Ear2WordPanel = props => {
 	});
 	const noticeDispatcher = useDispatch("core/notices");
 	const entityDispatcher = useDispatch("core");
-	const editorDispatcher = useDispatch("core/editor");
 	const [languageSelected, setLanguage] = useState(lang);
 	const isDisabled = status === "pending" || props.id === undefined;
+	const isPublished = status === "enabled";
 
 	const SubtitleSwitch = withState({
-		published: false
-	})(({ published, setState }) => (
+		published: isPublished
+	})(({ published }) => (
 		<ToggleControl
 			label="Published"
 			checked={published}
 			onChange={() => {
-				setState(state => ({ published: !state.published }));
 				updateStatus(published);
 			}}
 		/>
 	));
 
 	const updateStatus = published => {
+		published = !published;
 		if (published) {
-			editorDispatcher.editPost("postType", "attachment", props.id, {
-				meta: { ear2words_status: "enabled" }
-			});
+			entityDispatcher.editEntityRecord(
+				"postType",
+				"attachment",
+				props.id,
+				{
+					meta: { ear2words_status: "enabled" }
+				}
+			);
 		} else {
-			editorDispatcher.editPost("postType", "attachment", props.id, {
-				meta: { ear2words_status: "draft" }
-			});
+			entityDispatcher.editEntityRecord(
+				"postType",
+				"attachment",
+				props.id,
+				{
+					meta: { ear2words_status: "draft" }
+				}
+			);
 		}
+		entityDispatcher.saveEditedEntityRecord(
+			"postType",
+			"attachment",
+			props.id
+		);
 	};
 
 	const langSaved = useSelect(select => {
@@ -94,7 +109,7 @@ const Ear2WordPanel = props => {
 
 	const statusExten = {
 		pending: __("Generating", "ear2words"),
-		done: __("Draft", "ear2words"),
+		draft: __("Draft", "ear2words"),
 		enabled: __("Enabled", "ear2words"),
 		notfound: __("None", "ear2words")
 	};
@@ -147,7 +162,7 @@ const Ear2WordPanel = props => {
 								</Fragment>
 							);
 
-						case "done":
+						case "draft":
 							return (
 								<Fragment>
 									{__("Status: ", "ear2words") +
