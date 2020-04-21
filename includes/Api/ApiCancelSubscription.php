@@ -17,14 +17,20 @@ class ApiCancelSubscription {
 	 * Init class actions
 	 */
 	public function run() {
-		add_action( 'hook', array( $this, 'callback' ) );
+		add_action( 'wp_ajax_cancel_subscription', array( $this, 'cancel_subscription' ) );
 	}
 
 	/**
 	 * Crea.
 	 */
-	public function callback() {
-		// TODO: callback.
+	public function cancel_subscription() {
+		// TODO: ottenere license key dal db.
+
+		// TODO: creare header per la chiamata api con licenza.
+
+		// TODO: mandare richiesta POST.
+
+		// TODO: Fare check response.
 	}
 
 }
