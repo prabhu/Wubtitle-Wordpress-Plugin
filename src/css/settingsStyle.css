@@ -10,8 +10,11 @@
 }
 
 .logo-placeholder {
-  font-size: 30px;
+  font-size: 20px;
   font-weight: bold;
+  background: #fff;
+  padding: 20px;
+  border: 1px #2e2e2e solid;
 }
 
 .postbox tr{
@@ -23,6 +26,28 @@
 }
 .postbox td{
   padding: 0px 0px;
+}
+
+.postbox .notice {
+  margin: 10px;
+}
+
+.postbox .submit {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.plan-state {
+  font-weight: bold;
+}
+
+.upgrade-message {
+  display: flex;
+  align-items: center;
+}
+
+.upgrade-message .button {
+  margin: 10px;
 }
 /* .e2w-button-submit .button-primary{
   position: absolute;

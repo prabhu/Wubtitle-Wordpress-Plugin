@@ -43,20 +43,32 @@ class Settings {
 	 */
 	public function render_settings_page() {
 		?>
-		<div class="wrap">
+		<div class="wrap">		
 			<div class="header-settings">
 				<div class="logo-placeholder">
 					LOGO PLACEHOLDER
 				</div>
 				<div class="e2w-button-submit">
+					<!-- TODO:  Questa funzione deve essere usata all'interno di un form, cercare metodo alternativo -->
 					<?php submit_button(); ?>
 				</div>
-			</div>
+			</div>			
 			<div class="postbox">
 				<h2 class="hndle ui-sortable-handle e2w-title" ><span><?php echo esc_html( get_admin_page_title() ); ?></span></h2>
+				<?php settings_errors(); ?>
 				<div class="inside">
-					<?php settings_errors(); ?>
-					<button id="buy-license-button" class="button button-primary" >Compra Licenza</button>
+					<div class="plan-state">
+						<!-- TODO:  Rendere dinamico -->
+						<?php esc_html_e( 'Free Plan', 'ear2words' ); ?>
+					</div>
+					<div class="upgrade-message">
+						<?php esc_html_e( 'Unlock more feature!', 'ear2words' ); ?>
+						<button id="buy-license-button" class="button button-primary" >
+							<?php esc_html_e( 'Upgrade', 'ear2words' ); ?>
+						</button>
+						<?php esc_html_e( 'now!', 'ear2words' ); ?>
+					</div>
+
 					<form action="options.php" method="post">
 						<?php
 						settings_fields( 'ear2words_settings' );
@@ -65,6 +77,8 @@ class Settings {
 						esc_html_e( 'Please enter the license key you received after successful checkout', 'ear2words' );
 						echo '</p>';
 						?>
+						<!-- TODO:  Eliminare se si decide di usare un unico bottone di submit -->
+						<?php submit_button(); ?>
 					</form>
 				</div>
 			</div>
