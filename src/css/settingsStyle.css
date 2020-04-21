@@ -2,21 +2,30 @@
   padding: 8px 12px;
   margin-top: 0;
 }
-.wrap-e2w{
-  width: 98%;
+
+.header-settings {
+  display: flex;
+  justify-content: space-between  ;
+  align-items: center;
 }
-.wrap-e2w tr{
+
+.logo-placeholder {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.postbox tr{
   display: flex;
   flex-direction: column;
 }
-.wrap-e2w th{
+.postbox th{
   padding: 16px 0px 16px 0px;
 }
-.wrap-e2w td{
+.postbox td{
   padding: 0px 0px;
 }
-.e2w-button-submit .button-primary{
+/* .e2w-button-submit .button-primary{
   position: absolute;
   right: 32px;
   top: 64px;
-}
+} */

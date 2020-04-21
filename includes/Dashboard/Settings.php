@@ -43,24 +43,31 @@ class Settings {
 	 */
 	public function render_settings_page() {
 		?>
-		<div class="e2w-button-submit">
-			<?php submit_button(); ?>
-		</div>
-		<div class="postbox wrap-e2w">
-			<h2 class="hndle ui-sortable-handle e2w-title" ><span><?php echo esc_html( get_admin_page_title() ); ?></span></h2>
-			<div class="inside">
-			<?php settings_errors(); ?>
-			<button id="buy-license-button" class="button button-primary" >Compra Licenza</button>
-			<form action="options.php" method="post">
-				<?php
-				settings_fields( 'ear2words_settings' );
-				do_settings_sections( 'ear2words-settings' );
-				echo '<p class="howto"> ';
-				esc_html_e( 'Please enter the license key you received after successful checkout', 'ear2words' );
-				echo '</p>';
-				?>
-			</form>
-		</div>
+		<div class="wrap">
+			<div class="header-settings">
+				<div class="logo-placeholder">
+					LOGO PLACEHOLDER
+				</div>
+				<div class="e2w-button-submit">
+					<?php submit_button(); ?>
+				</div>
+			</div>
+			<div class="postbox">
+				<h2 class="hndle ui-sortable-handle e2w-title" ><span><?php echo esc_html( get_admin_page_title() ); ?></span></h2>
+				<div class="inside">
+					<?php settings_errors(); ?>
+					<button id="buy-license-button" class="button button-primary" >Compra Licenza</button>
+					<form action="options.php" method="post">
+						<?php
+						settings_fields( 'ear2words_settings' );
+						do_settings_sections( 'ear2words-settings' );
+						echo '<p class="howto"> ';
+						esc_html_e( 'Please enter the license key you received after successful checkout', 'ear2words' );
+						echo '</p>';
+						?>
+					</form>
+				</div>
+			</div>
 		</div>
 		<?php
 	}
