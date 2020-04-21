@@ -115,7 +115,7 @@ class ApiRequest {
 				wp_send_json_error( $message[ $code_response ] );
 			}
 			$response_body = json_decode( wp_remote_retrieve_body( $response ) );
-			$this->update_uuid_and_status( $data_attachment['id_attachment'], $response_body->data->jobId );
+			$this->update_uuid_status_and_lang( $data_attachment['id_attachment'], $data_attachment['lang'], $response_body->data->jobId );
 			wp_send_json_success( $code_response );
 	}
 	/**
@@ -172,9 +172,11 @@ class ApiRequest {
 	 * Aggiorna o aggiunge l'uuid e lo stato
 	 *
 	 * @param int    $id_attachment id dell'attachment.
+	 * @param string $lang lingua del video.
 	 * @param string $job_id uuid ricevuto dall'endpoint.
 	 */
-	public function update_uuid_and_status( $id_attachment, $job_id ) {
+	public function update_uuid_status_and_lang( $id_attachment, $lang, $job_id ) {
+		update_post_meta( $id_attachment, 'ear2words_lang_video', $lang );
 		update_post_meta( $id_attachment, 'ear2words_job_uuid', $job_id );
 		update_post_meta( $id_attachment, 'ear2words_status', 'pending' );
 	}
