@@ -20,11 +20,11 @@ class MediaLibraryExtented {
 	public function run() {
 		if ( ! $this->is_gutenberg_active() ) {
 			add_action( 'attachment_fields_to_edit', array( $this, 'add_generate_subtitle_form' ), 99, 2 );
-			add_filter( 'attachment_fields_to_save', array( $this, 'video_attachment_fields_to_save' ), null, 2 );
-			add_filter( 'wp_video_shortcode_override', array( $this, 'ear2words_video_shortcode' ), 10, 4 );
 		}
 		add_action( 'attachment_fields_to_edit', array( $this, 'add_generate_subtitle_form_into_media_library' ), 99, 2 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'ear2words_medialibrary_style' ) );
+		add_filter( 'attachment_fields_to_save', array( $this, 'video_attachment_fields_to_save' ), null, 2 );
+		add_filter( 'wp_video_shortcode_override', array( $this, 'ear2words_video_shortcode' ), 10, 4 );
 	}
 	/**
 	 *  Faccio l'enqueue dello style per i settings.
@@ -134,7 +134,7 @@ class MediaLibraryExtented {
 			?>
 			<select name="attachments[<?php echo esc_html( $post->ID ); ?>][select-status]" id="Profile Image Select">
 				<option <?php echo selected( $status, 'enabled', false ); ?> value="enabled"> <?php esc_html_e( 'Published', 'ear2words' ); ?></option>
-				<option <?php echo selected( $status, 'draft', false ); ?> value="draft"> <?php esc_html_e( 'Disabled', 'ear2words' ); ?></option>
+				<option <?php echo selected( $status, 'draft', false ); ?> value="draft"> <?php esc_html_e( 'Draft', 'ear2words' ); ?></option>
 			</select>
 			<?php
 			$form_fields['e2w_status']['html'] .= ob_get_clean();
@@ -180,7 +180,7 @@ class MediaLibraryExtented {
 				</label>
 				<select class="e2w-select-status" name="attachments[<?php echo esc_html( $post->ID ); ?>][select-status]" id="Profile Image Select">
 					<option <?php echo selected( $status, 'enabled', false ); ?> value="enabled"> <?php esc_html_e( 'Published', 'ear2words' ); ?></option>
-					<option <?php echo selected( $status, 'draft', false ); ?> value="draft"> <?php esc_html_e( 'Disabled', 'ear2words' ); ?></option>
+					<option <?php echo selected( $status, 'draft', false ); ?> value="draft"> <?php esc_html_e( 'Draft', 'ear2words' ); ?></option>
 				</select>
 			</div>
 			<!-- <textarea style="width:100%" class="wp-editor-area" cols="40" rows="5"></textarea> -->
