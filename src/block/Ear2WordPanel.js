@@ -36,6 +36,7 @@ const Ear2WordPanel = props => {
 	});
 	const noticeDispatcher = useDispatch("core/notices");
 	const entityDispatcher = useDispatch("core");
+	const editorDispatcher = useDispatch("core/editor");
 	const [languageSelected, setLanguage] = useState(lang);
 	const isDisabled = status === "pending" || props.id === undefined;
 
@@ -54,21 +55,16 @@ const Ear2WordPanel = props => {
 
 	const updateStatus = published => {
 		if (published) {
-			wp.data
-				.dispatch("core")
-				.editEntityRecord("postType", "attachment", props.id, {
-					ear2words_status: "enabled"
-				});
+			editorDispatcher.editPost("postType", "attachment", props.id, {
+				meta: { ear2words_status: "enabled" }
+			});
 		} else {
-			wp.data
-				.dispatch("core")
-				.editEntityRecord("postType", "attachment", props.id, {
-					ear2words_status: "draft"
-				});
+			editorDispatcher.editPost("postType", "attachment", props.id, {
+				meta: { ear2words_status: "draft" }
+			});
 		}
 	};
 
-	// TODO: Fare il merge delle modifiche di Alessio per ottenere il valore
 	const langSaved = useSelect(select => {
 		const attachment =
 			props.id !== undefined
