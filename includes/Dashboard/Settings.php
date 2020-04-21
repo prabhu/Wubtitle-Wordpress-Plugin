@@ -22,6 +22,7 @@ class Settings {
 		add_action( 'admin_init', array( $this, 'init_settings_field' ) );
 		add_action( 'update_option_ear2words_license_key', array( $this, 'check_license' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'e2w_settings_scripts' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'ear2words_settings_style' ) );
 	}
 
 	/**
@@ -29,25 +30,37 @@ class Settings {
 	 */
 	public function create_settings_menu() {
 		// TODO: Cambiare $icon_url e $position (attualmente subito dopo "Impostazioni") quando verranno date indicazioni UX.
-		add_menu_page( __( 'Ear2words Settings', 'ear2words' ), __( 'Ear2words', 'ear2words' ), 'manage_options', 'ear2words_settings', array( $this, 'render_settings_page' ), 'dashicons-format-status', 81 );
+		add_menu_page( __( 'Licensing', 'ear2words' ), __( 'Ear2words', 'ear2words' ), 'manage_options', 'ear2words_settings', array( $this, 'render_settings_page' ), 'dashicons-format-status', 81 );
 	}
-
+	/**
+	 *  Faccio l'enqueue dello style per i settings.
+	 */
+	public function ear2words_settings_style() {
+		wp_enqueue_style( 'ear2words_settings_style', plugins_url( '../../src/css/settingsStyle.css', __FILE__ ), null, true );
+	}
 	/**
 	 * Crea la pagina dei settings
 	 */
 	public function render_settings_page() {
 		?>
-		<div class="wrap">
-			<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
+		<div class="e2w-button-submit">
+			<?php submit_button(); ?>
+		</div>
+		<div class="postbox wrap-e2w">
+			<h2 class="hndle ui-sortable-handle e2w-title" ><span><?php echo esc_html( get_admin_page_title() ); ?></span></h2>
+			<div class="inside">
 			<?php settings_errors(); ?>
 			<button id="buy-license-button" class="button button-primary" >Compra Licenza</button>
 			<form action="options.php" method="post">
 				<?php
 				settings_fields( 'ear2words_settings' );
 				do_settings_sections( 'ear2words-settings' );
-				submit_button();
+				echo '<p class="howto"> ';
+				esc_html_e( 'Please enter the license key you received after successful checkout', 'ear2words' );
+				echo '</p>';
 				?>
 			</form>
+		</div>
 		</div>
 		<?php
 	}
@@ -151,10 +164,10 @@ class Settings {
 	 * Aggiunge un nuovo campo all'impostazione precedentemente creata
 	 */
 	public function init_settings_field() {
-		add_settings_section( 'ear2words-main-settings', __( 'License settings', 'ear2words' ), null, 'ear2words-settings' );
+		add_settings_section( 'ear2words-main-settings', null, null, 'ear2words-settings' );
 		add_settings_field(
 			'ear2words-license-key',
-			__( 'License key', 'ear2words' ),
+			__( 'License Number', 'ear2words' ),
 			array( $this, 'input_field' ),
 			'ear2words-settings',
 			'ear2words-main-settings',
@@ -174,7 +187,7 @@ class Settings {
 	public function input_field( $args ) {
 		$option = get_option( $args['name'], '' );
 		?>
-		<input class="large-text" type="<?php echo esc_attr( $args['type'] ); ?>" name="<?php echo esc_attr( $args['name'] ); ?>" value="<?php echo esc_attr( $option ); ?>" placeholder="<?php echo esc_attr( $args['placeholder'] ); ?>">
+		<input class="regular-text" type="<?php echo esc_attr( $args['type'] ); ?>" name="<?php echo esc_attr( $args['name'] ); ?>" value="<?php echo esc_attr( $option ); ?>" placeholder="<?php echo esc_attr( $args['placeholder'] ); ?>">
 		<?php
 	}
 
