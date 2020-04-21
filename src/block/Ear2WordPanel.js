@@ -117,71 +117,125 @@ const Ear2WordPanel = props => {
 	return (
 		<InspectorControls>
 			<PanelBody title="Ear2words">
-				{isDisabled ? (
-					<Fragment>
-						{__("Language: ", "ear2words") + langExten[langSaved]}
-						{<br></br>}
-					</Fragment>
-				) : (
-					<Fragment>
-						<SelectControl
-							label={__("Select the video language", "ear2words")}
-							value={languageSelected}
-							onChange={lingua => {
-								setLanguage(lingua);
-							}}
-							options={[
-								{
-									value: "it",
-									label: __("Italian", "ear2words")
-								},
-								{
-									value: "en",
-									label: __("English", "ear2words")
-								},
-								{
-									value: "es",
-									label: __("Spanish", "ear2words")
-								},
-								{
-									value: "de",
-									label: __("German ", "ear2words")
-								},
-								{
-									value: "zh",
-									label: __("Chinese", "ear2words")
-								},
-								{
-									value: "fr",
-									label: __("French", "ear2words")
-								}
-							]}
-						/>
-					</Fragment>
-				)}
-				{isDisabled ? (
-					<Fragment>
-						{__("Status: ", "ear2words") + statusExten[status]}
+				{(() => {
+					switch (status) {
+						case "pending":
+							return (
+								<Fragment>
+									{__("Language: ", "ear2words") +
+										langExten[langSaved]}
+									<br></br>
+									<br></br>
+									{__("Status: ", "ear2words") +
+										statusExten[status]}
+									<br></br>
+									<br></br>
+								</Fragment>
+							);
 
-						<SubtitleSwitch
-							label="Fixed Background"
-							help="Has fixed background."
-						/>
-					</Fragment>
-				) : (
-					<Fragment>
-						{__("Status: ", "ear2words") + status}
-						<Button
-							disabled={isDisabled}
-							name="sottotitoli"
-							id={props.id}
-							isPrimary
-							onClick={onClick}
-						>
-							{__("GENERATE SUBTITLES", "ear2words")}
-						</Button>
-					</Fragment>
-				)}
+						case "done":
+							return (
+								<Fragment>
+									{__("Status: ", "ear2words") +
+										statusExten[status]}
+									<br></br>
+									<br></br>
+									{__("Language: ", "ear2words") +
+										langExten[langSaved]}
+									<br></br>
+									<br></br>
+									<SubtitleSwitch />
+									<br></br>
+									<br></br>
+								</Fragment>
+							);
+
+						case "enabled":
+							return (
+								<Fragment>
+									{__("Status: ", "ear2words") +
+										statusExten[status]}
+									<br></br>
+									<br></br>
+									{__("Language: ", "ear2words") +
+										langExten[langSaved]}
+									<br></br>
+									<br></br>
+									<SubtitleSwitch />
+									<br></br>
+									<br></br>
+								</Fragment>
+							);
+
+						default:
+							return (
+								<Fragment>
+									{__("Status: ", "ear2words") + status}
+									<br></br>
+									<SelectControl
+										label={__(
+											"Select the video language",
+											"ear2words"
+										)}
+										value={languageSelected}
+										onChange={lingua => {
+											setLanguage(lingua);
+										}}
+										options={[
+											{
+												value: "it",
+												label: __(
+													"Italian",
+													"ear2words"
+												)
+											},
+											{
+												value: "en",
+												label: __(
+													"English",
+													"ear2words"
+												)
+											},
+											{
+												value: "es",
+												label: __(
+													"Spanish",
+													"ear2words"
+												)
+											},
+											{
+												value: "de",
+												label: __(
+													"German ",
+													"ear2words"
+												)
+											},
+											{
+												value: "zh",
+												label: __(
+													"Chinese",
+													"ear2words"
+												)
+											},
+											{
+												value: "fr",
+												label: __("French", "ear2words")
+											}
+										]}
+									/>
+									<Button
+										disabled={isDisabled}
+										name="sottotitoli"
+										id={props.id}
+										isPrimary
+										onClick={onClick}
+									>
+										{__("GENERATE SUBTITLES", "ear2words")}
+									</Button>
+								</Fragment>
+							);
+					}
+				})()}
 			</PanelBody>
 		</InspectorControls>
 	);
