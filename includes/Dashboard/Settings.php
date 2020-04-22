@@ -49,42 +49,10 @@ class Settings {
 				submit_button();
 				?>
 			</form>
-
-			<?php $this->cancelThickbox(); ?>
-
 		</div>
 		<?php
 	}
 
-	/**
-	 * Aggiunge.
-	 */
-	public function cancel_thickbox() {
-		add_thickbox();
-		?>
-
-		<a href="#TB_inline?width=400&height=300&inlineId=cancel-modal-window" class="thickbox">Unsubscribe</a>
-
-		<div id="cancel-modal-window" style="display:none;">
-			<p>Are you sure?</p>
-			<form method="POST" id="form">
-
-				<div>
-					<input type="radio" id="no" name="choise" value="no"
-					checked>
-					<label for="no">No</label>
-				</div>
-
-				<div>
-					<input type="radio" id="yes" name="choise" value="yes">
-					<label for="yes">Yes</label>
-				</div>
-
-				<input type="submit" value="Submit">
-			</form> 
-		</div>
-		<?php
-	}
 
 	/**
 	 * Aggiunge una nuova impostazione
