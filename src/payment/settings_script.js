@@ -59,7 +59,7 @@ const showCancelSubscriptionWindow = CancelSubscriptioWindow => {
 					"Cancel subscription",
 					windowFeatures
 				);
-				CancelSubscriptioWindow.document.body.innerHTML = response;
+				CancelSubscriptioWindow.document.write(response);
 			});
 	} else {
 		CancelSubscriptioWindow.focus();

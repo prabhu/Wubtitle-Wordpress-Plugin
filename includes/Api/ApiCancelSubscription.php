@@ -24,44 +24,39 @@ class ApiCancelSubscription {
 	 * Chiamata ad endpoint remoto per richiesta cancellazione.
 	 */
 	public function remote_request() {
-		$license_key = get_option( 'ear2words_license_key' );
+		if ( ! isset( $_POST['_ajax_nonce'] ) ) {
+			wp_send_json_error( __( 'No Nonce', 'ear2words' ) );
+		} elseif ( ! isset( $_POST['action'] ) ) {
+			wp_send_json_error( __( 'No Cancel', 'ear2words' ) );
+		} elseif ( ! check_ajax_referer( 'itr_ajax_nonce', $nonce ) ) {
+			wp_send_json_error( __( 'Invalid', 'ear2words' ) );
+		}
 
-		$headers = array(
-			'Content-Type' => 'application/json; charset=utf-8',
-			'licenseKey'   => $license_key,
-		);
+		$license_key = get_option( 'ear2words_license_key' );
+		$nonce       = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
 
 		$response = wp_remote_post(
-			// TODO: cambiare endapoint con quello che verrà formito da Simone.
-			ENDPOINT . 'stripe/subscription/cancel',
+			'http://ca3bed8a.ngrok.io/stripe/customer/unsubscribe',
 			array(
 				'method'  => 'POST',
-				'headers' => $headers,
+				'headers' => array(
+					'Content-Type' => 'application/json; charset=utf-8',
+					'licenseKey'   => $license_key,
+				),
 			)
 		);
 
-		$status = wp_remote_retrieve_response_code( $response );
+		$code_response = wp_remote_retrieve_response_code( $response );
 
-		return $status;
+		$message = array(
+			'200' => __( 'Cancellato correttamente', 'ear2words' ),
+			'400' => __( 'Bad Request. Please try again in a few minutes', 'ear2words' ),
+			'401' => __( 'Unauthorized', 'ear2words' ),
+			'403' => __( 'Forbidden', 'ear2words' ),
+			'404' => __( 'Non trovato', 'ear2words' ),
+		);
+		wp_send_json_success( $message[ $code_response ] );
 	}
 
-	/**
-	 * Check dello status.
-	 *
-	 * @param int $status response code della chiamata all'endpoint remoto.
-	 */
-	public function check_response( $status ) {
-		if ( 200 === $status ) {
-			// Cancellazione andata a buon fine.
-			$message = ' Cancellazione andata a buon fine';
-		} elseif ( 403 === $status ) {
-			// License key non valida.
-			$message = 'License key non valida';
-		} elseif ( 401 === $status ) {
-			// License key non esiste.
-			$message = 'License key non esiste';
-		}
-		return $message;
-	}
 
 }
