@@ -43,7 +43,9 @@ class Settings {
 			<button id="buy-license-button" class="button button-primary" ><?php esc_html_e( 'Upgrade', 'ear2words' ); ?></button>
 			<?php
 			if ( ! empty( get_option( 'ear2words_license_key' ) ) ) {
-				echo '<a id="update-plan-button" style="text-decoration: underline" >' . esc_html_e( 'Update email or payment detail', 'ear2words' ) . '</a>';
+				echo '<a id="update-plan-button" style="text-decoration: underline" >';
+				esc_html_e( 'Update email or payment detail', 'ear2words' );
+				echo '</a>';
 			}
 			?>
 			<form action="options.php" method="post">
