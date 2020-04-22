@@ -18,6 +18,7 @@ class PaymentTemplate {
 	 */
 	public function run() {
 		add_action( 'wp_ajax_payment_template', array( $this, 'load_payment_template' ) );
+		add_action( 'wp_ajax_update_template', array( $this, 'load_update_template' ) );
 	}
 
 	/**
@@ -27,6 +28,21 @@ class PaymentTemplate {
 		if ( current_user_can( 'manage_options' ) ) {
 			ob_start();
 			include 'Templates/payment_template.php';
+			$html = ob_get_clean();
+			wp_send_json_success( $html );
+			wp_die();
+		}
+		$html = 'Error';
+		wp_send_json_error( $html );
+		wp_die();
+	}
+	/**
+	 * Include il template che viene caricato nella finestra popup per l'acquisto della licenza al click del bottone "acquista".
+	 */
+	public function load_update_template() {
+		if ( current_user_can( 'manage_options' ) ) {
+			ob_start();
+			include 'Templates/update_template.php';
 			$html = ob_get_clean();
 			wp_send_json_success( $html );
 			wp_die();

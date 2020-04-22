@@ -40,7 +40,12 @@ class Settings {
 		<div class="wrap">
 			<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
 			<?php settings_errors(); ?>
-			<button id="buy-license-button" class="button button-primary" >Compra Licenza</button>
+			<button id="buy-license-button" class="button button-primary" ><?php esc_html_e( 'Upgrade', 'ear2words' ); ?></button>
+			<?php
+			if ( ! empty( get_option( 'ear2words_license_key' ) ) ) {
+				echo '<a id="update-plan-button" style="text-decoration: underline" >' . esc_html_e( 'Update email or payment detail', 'ear2words' ) . '</a>';
+			}
+			?>
 			<form action="options.php" method="post">
 				<?php
 				settings_fields( 'ear2words_settings' );

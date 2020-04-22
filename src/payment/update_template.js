@@ -2,7 +2,7 @@
 const paymentModule = (function(Stripe, document) {
 	let stripe = null;
 
-	const { adminAjax, nonce, licenseKey } = WP_GLOBALS;
+	const { adminAjax, nonce } = WP_GLOBALS;
 
 	const openStripeForm = sessionId => {
 		if (sessionId) {
@@ -12,7 +12,6 @@ const paymentModule = (function(Stripe, document) {
 
 	const handleSubmit = e => {
 		e.preventDefault();
-		const select = document.querySelector("#select").value;
 
 		fetch(adminAjax, {
 			method: "POST",
@@ -20,7 +19,7 @@ const paymentModule = (function(Stripe, document) {
 			headers: new Headers({
 				"Content-Type": "application/x-www-form-urlencoded"
 			}),
-			body: `action=submit_plan&_ajax_nonce=${nonce}&pricing_plan=${select}&license_key=${licenseKey}`
+			body: `action=update_payment&_ajax_nonce=${nonce}`
 		})
 			.then(resp => resp.json())
 			.then(response => {
@@ -35,9 +34,8 @@ const paymentModule = (function(Stripe, document) {
 
 	const init = () => {
 		stripe = Stripe("pk_test_nfUYjFiwdkzYpPOfCZkVZiMK00lOAFcAK7");
-		const form = document.querySelector("#form");
-
-		form.addEventListener("submit", handleSubmit);
+		const form = document.querySelector("#button-update-payment");
+		form.addEventListener("click", handleSubmit);
 	};
 
 	return {
