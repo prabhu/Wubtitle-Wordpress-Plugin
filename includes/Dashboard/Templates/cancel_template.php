@@ -20,7 +20,18 @@
 </head>
 <body>
 	<h1><?php esc_html_e( 'Cancel Subscription', 'ear2words' ); ?></h1>
+	<p>Sei sicuro?</p>
+	<button id="confirm-cancel-subscription">Sono sicuro</button>
 
-
+	<?php // phpcs:disable ?>
+	<script src="https://js.stripe.com/v3/"></script>
+	<script>
+		const WP_GLOBALS = {
+			adminAjax: "<?php echo esc_html( admin_url( 'admin-ajax.php' ) ); ?>",
+			nonce: "<?php echo esc_js( wp_create_nonce( 'itr_ajax_nonce' ) ); ?>"
+		}	
+	</script>
+	<script src="<?php esc_url(EAR2WORDS_URL . 'src/payment/cancel_template.js'); ?>"></script>
+	<?php // phpcs:enable ?>
 </body>
 </html>
