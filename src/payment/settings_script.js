@@ -33,7 +33,7 @@ const showBuyLicenseWindow = BuyLicenseWindow => {
 					"Buy license",
 					windowFeatures
 				);
-				BuyLicenseWindow.document.body.innerHTML = response;
+				BuyLicenseWindow.document.write(response);
 			});
 	} else {
 		BuyLicenseWindow.focus();

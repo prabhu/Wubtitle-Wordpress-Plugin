@@ -50,9 +50,10 @@ class ApiPricingPlan {
 		if ( ! check_ajax_referer( 'itr_ajax_nonce', $nonce ) ) {
 			wp_send_json_error( __( 'Error, invalid request', 'ear2words' ) );
 		}
-		$body          = $this->set_body_request( $pricing_plan, $site_url );
-		$response      = wp_remote_post(
-			ENDPOINT . 'stripe/session/create',
+		$body     = $this->set_body_request( $pricing_plan, $site_url );
+		$response = wp_remote_post(
+			// ENDPOINT . 'stripe/session/create',.
+			'http://ca3bed8a.ngrok.io/stripe/session/create',
 			array(
 				'method'  => 'POST',
 				'headers' => array(

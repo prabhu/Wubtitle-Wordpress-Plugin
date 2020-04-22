@@ -54,6 +54,8 @@ class ApiCancelSubscription {
 			'401' => __( 'Unauthorized', 'ear2words' ),
 			'403' => __( 'Forbidden', 'ear2words' ),
 			'404' => __( 'Non trovato', 'ear2words' ),
+			'500' => __( 'Int ser error', 'ear2words' ),
+			'502' => __( 'bad gate', 'ear2words' ),
 		);
 		wp_send_json_success( $message[ $code_response ] );
 	}
