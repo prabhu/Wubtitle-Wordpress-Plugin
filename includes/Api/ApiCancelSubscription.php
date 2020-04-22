@@ -17,20 +17,30 @@ class ApiCancelSubscription {
 	 * Init class actions
 	 */
 	public function run() {
-		add_action( 'wp_ajax_cancel_subscription', array( $this, 'cancel_subscription' ) );
+		add_action( 'wp_ajax_cancel_subscription', array( $this, 'remote_request' ) );
 	}
 
 	/**
-	 * Crea.
+	 * Chiamata ad endpoint remoto per richiesta cancellazione.
 	 */
-	public function cancel_subscription() {
-		// TODO: ottenere license key dal db.
+	public function remote_request() {
+		$license_key = get_option( 'ear2words_license_key' );
 
-		// TODO: creare header per la chiamata api con licenza.
+		$headers = array(
+			'Content-Type' => 'application/json; charset=utf-8',
+			'licenseKey'   => $license_key,
+		);
 
-		// TODO: mandare richiesta POST.
+		$response = wp_remote_post(
+			// TODO: cambiare endapoint con quello che verrà formito da Simone.
+			ENDPOINT . 'stripe/subscription/cancel',
+			array(
+				'method'  => 'POST',
+				'headers' => $headers,
+			)
+		);
 
-		// TODO: Fare check response.
+		return $response;
 	}
 
 }
