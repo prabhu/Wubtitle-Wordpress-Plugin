@@ -40,7 +40,28 @@ class ApiCancelSubscription {
 			)
 		);
 
-		return $response;
+		$status = wp_remote_retrieve_response_code( $response );
+
+		return $status;
+	}
+
+	/**
+	 * Check dello status.
+	 *
+	 * @param int $status response code della chiamata all'endpoint remoto.
+	 */
+	public function check_response( $status ) {
+		if ( 200 === $status ) {
+			// Cancellazione andata a buon fine.
+			$message = ' Cancellazione andata a buon fine';
+		} elseif ( 403 === $status ) {
+			// License key non valida.
+			$message = 'License key non valida';
+		} elseif ( 401 === $status ) {
+			// License key non esiste.
+			$message = 'License key non esiste';
+		}
+		return $message;
 	}
 
 }
