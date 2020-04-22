@@ -26,17 +26,17 @@
 			<option value="plan_H6KKmWETz5hkCu">Standard</option>
 		</select>
 		<input type="submit" value="Submit">
-	</form> 
+	</form>
 
 	<?php // phpcs:disable ?>
-	<script src="https://js.stripe.com/v3/"></script>
 	<script>
 		const WP_GLOBALS = {
 			adminAjax: "<?php echo esc_html( admin_url( 'admin-ajax.php' ) ); ?>",
 			nonce: "<?php echo esc_js( wp_create_nonce( 'itr_ajax_nonce' ) ); ?>"
-		}	
+		}
 	</script>
-	<script src="<?php esc_url(EAR2WORDS_URL . '/src/payment/payment_template.js'); ?>"></script>
+	<script src="https://js.stripe.com/v3/"></script>
+	<script src="<?php echo esc_url(EAR2WORDS_URL . 'src/payment/payment_template.js'); ?>"></script>
 	<?php // phpcs:enable ?>
 </body>
 </html>

@@ -1,4 +1,5 @@
-const paymentModule = (function(Stripe, document, WP_GLOBALS) {
+/*  global WP_GLOBALS  */
+const paymentModule = (function(Stripe, document) {
 	let stripe = null;
 
 	const { adminAjax, nonce } = WP_GLOBALS;
@@ -22,9 +23,9 @@ const paymentModule = (function(Stripe, document, WP_GLOBALS) {
 			body: `action=submit_plan&_ajax_nonce=${nonce}&pricing_plan=${select}`
 		})
 			.then(resp => resp.json())
-			.then(data => {
-				if (data) {
-					openStripeForm(data, stripe);
+			.then(response => {
+				if (response) {
+					openStripeForm(response.data, stripe);
 				}
 			});
 	};
@@ -36,9 +37,9 @@ const paymentModule = (function(Stripe, document, WP_GLOBALS) {
 		form.addEventListener("submit", handleSubmit);
 	};
 
-	return init;
+	return {
+		init
+	};
 })(Stripe, document);
 
-document.addEventListener("DOMContentLoaded", function() {
-	paymentModule.init();
-});
+paymentModule.init();
