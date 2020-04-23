@@ -1,3 +1,152 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
 body {
     background-color: #1A237E;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.wrapper {
+    width: 100%;
+    padding: 10px;
+}
+
+.container {
+    margin: auto;
+    padding: 0 5px;
+    max-width: 1200px;
+}
+
+.title {
+    color: white;
+    font-weight: bold;
+    font-size: 40px;
+    text-align: center;
+    padding: 30px 0;
+}
+
+.card-container {
+    padding: 30px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.card-column {
+    margin: 7px;
+    width: 25%;
+}
+
+.card {
+    background-color: #fff;
+    width: 100%;
+    padding-top: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    transition: transform .2s, box-shadow .2s;
+}
+
+.card:hover {
+    transform: scale(1.1);
+    z-index: 100;
+    box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, .5);
+}
+
+.zoom {
+    transform: scale(1.1);
+    z-index: 100;
+    box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, .5);
+}
+
+.card .card-content {
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    bottom: 5%;
+    right: 5%;
+    width: 90%;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: stretch;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.card-title {
+    color: #1251ff;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.card-logo {
+    height: 30px;
+    width: 30px;
+    background-color: gray;
+}
+
+.card-price {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-price .year {
+    color: gray;
+    font-size: 18px;
+}
+
+.card-price .price {
+    color: black;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.card-features .row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.card .button {
+    background-color: #1251ff;
+    color: #ffffff;
+    padding: 10px;
+    text-align: center;
+    border-top-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    cursor: pointer;
+}
+
+.features-list {
+    padding: 30px 5px;
+    color: #f9f9f9;
+}
+
+.features-list ul {
+    margin-left: 20px;
+    list-style: none;
+}
+ul li::before {
+    content: "\2022";
+    color: yellow;
+    font-weight: bold;
+    display: inline-block; 
+    width: 1em;
+    margin-left: -1em;
 }
