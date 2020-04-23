@@ -48,6 +48,7 @@ class ApiCancelSubscription {
 
 		$code_response = wp_remote_retrieve_response_code( $response );
 
+		// TODO: Cambiare messaggi quando saranno disponibili mockup e copy.
 		$message = array(
 			'200' => __( 'Cancellato correttamente', 'ear2words' ),
 			'400' => __( 'Bad Request. Please try again in a few minutes', 'ear2words' ),

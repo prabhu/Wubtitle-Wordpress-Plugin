@@ -20,13 +20,14 @@
 </head>
 <body>
 	<h1><?php esc_html_e( 'Cancel Subscription', 'ear2words' ); ?></h1>
-	<p>Sei sicuro?</p>
+	<p><?php esc_html_e( 'Are you sure?', 'ear2words' ); ?></p>
 	<form method="POST" id="form">
-		<select name="pricing_plan" id="select">
-			<option value="si">Sì</option>
-			<option value="no">No</option>
-		</select>
-		<input type="submit" value="Submit">
+		<input type="submit" value="<?php esc_html_e( 'Yes', 'ear2words' ); ?>">
+		<!-- TODO: Predisposto form per raccolta informazioni per implementazioni future. -->
+		<br><br>
+		<?php esc_html_e( 'Why?', 'ear2words' ); ?>
+		<br>
+		<input type="text">
 	</form> 
 
 	<?php // phpcs:disable ?>
