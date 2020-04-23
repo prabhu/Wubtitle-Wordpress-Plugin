@@ -43,7 +43,17 @@ class Settings {
 			<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
 			<?php settings_errors(); ?>
 			<button id="buy-license-button" class="button button-primary" >Compra Licenza</button>
-			<div><?php echo esc_html( __( 'Automatic renewal', 'ear2words' ) ); ?>: <?php echo esc_html( $this->get_renewal_date() ); ?></div>
+			<div>
+			<?php
+			if ( $this->get_cancel_subscription_event() === true ) {
+				echo esc_html( __( 'You requested the subscription cancellation. Your plan will be valid until ', 'ear2words' ) );
+				echo esc_html( $this->get_renewal_date() );
+			} elseif ( $this->get_cancel_subscription_event() === false ) {
+				echo esc_html( __( 'Automatic renewal:', 'ear2words' ) );
+				echo esc_html( $this->get_renewal_date() );
+			}
+			?>
+			</div>
 			<form action="options.php" method="post">
 				<?php
 				settings_fields( 'ear2words_settings' );
@@ -207,6 +217,22 @@ class Settings {
 	 * Ottiene cancellazione subscription avvenuta.
 	 */
 	public function get_cancel_subscription_event() {
+		$license_key = get_option( 'ear2words_license_key' );
+
+		$response = wp_remote_post(
+			// TODO: cambiare url con quella fornita da Simone.
+			ENDPOINT . ',/stripe/customer/cancel-subscription',
+			array(
+				'method'  => 'POST',
+				'headers' => array(
+					'Content-Type' => 'application/json; charset=utf-8',
+					'licenseKey'   => $license_key,
+				),
+			)
+		);
+		$retrieved = json_decode( wp_remote_retrieve_body( $response ), true );
+
+		return $retrieved['data']['cancel-subscription'];
 	}
 
 	/**
