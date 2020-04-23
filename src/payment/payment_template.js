@@ -24,7 +24,7 @@ const paymentModule = (function(Stripe, document) {
 					openStripeForm(data.data, stripe);
 				} else {
 					/* eslint-disable */
-					alert("Non è possibile raggiungere il servizio");
+					alert(data.data);
 					/* eslint-enable */
 				}
 			});

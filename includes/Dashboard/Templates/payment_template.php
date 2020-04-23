@@ -65,7 +65,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="current-plan" plan="free">
+							<div class="current-plan" plan="plan_H6KKmWETz5hkCu">
 								Current plan
 							</div>							
 						</div>  
@@ -114,7 +114,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="button-choose-plan" plan="professional">
+							<div class="button-choose-plan" plan="plan_H6KKmWETz5hkCu">
 								Choose this plan
 							</div>							
 						</div>  
@@ -179,7 +179,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="button-choose-plan" plan="enterprise">
+							<div class="button-choose-plan" plan="plan_H6KKmWETz5hkCu">
 								Choose this plan
 							</div>							
 						</div>  
@@ -228,7 +228,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="button-choose-plan" plan="business">
+							<div class="button-choose-plan" plan="plan_H6KKmWETz5hkCu">
 								Choose this plan
 							</div>							
 						</div>  

@@ -53,7 +53,7 @@ class ApiPricingPlan {
 		$body     = $this->set_body_request( $pricing_plan, $site_url );
 		$response = wp_remote_post(
 			// ENDPOINT . 'stripe/session/create',.
-			'http://ca3bed8a.ngrok.io/stripe/session/create',
+			'https://6aef91a6.ngrok.io/stripe/session/create',
 			array(
 				'method'  => 'POST',
 				'headers' => array(
