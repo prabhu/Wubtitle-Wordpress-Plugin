@@ -21,6 +21,7 @@ class Settings {
 		add_action( 'admin_init', array( $this, 'init_settings' ) );
 		add_action( 'admin_init', array( $this, 'init_settings_field' ) );
 		add_action( 'admin_init', array( $this, 'get_renewal_date' ) );
+		add_action( 'admin_init', array( $this, 'get_cancel_subscription_event' ) );
 		add_action( 'update_option_ear2words_license_key', array( $this, 'check_license' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'e2w_settings_scripts' ) );
 	}
@@ -200,6 +201,12 @@ class Settings {
 		$retrieved = json_decode( wp_remote_retrieve_body( $response ), true );
 
 		return $retrieved['data']['renewal_date'];
+	}
+
+	/**
+	 * Ottiene cancellazione subscription avvenuta.
+	 */
+	public function get_cancel_subscription_event() {
 	}
 
 	/**
