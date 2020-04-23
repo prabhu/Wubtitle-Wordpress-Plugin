@@ -17,26 +17,228 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Payment</title>
+	<?php // phpcs:disable ?>
+	<link rel="stylesheet" href="<?php echo esc_url( EAR2WORDS_URL . 'src/css/payment_template.css' ); ?>">
+	<?php // phpcs:enable ?>
 </head>
 <body>
-	<h1><?php esc_html_e( 'Select Plan', 'ear2words' ); ?></h1>
+
+	<div class="wrapper">
+		<div class="container">
+			<div class="title">Pricing Plan</div>
+			<div class="card-container">
+				<div class="card-column">
+					<div class="card">
+						<div class="card-content">
+							<div class="card-header">
+								<div class="card-title">
+									Enterprise
+								</div>
+								<div class="card-logo">									
+								</div>
+							</div>
+
+							<div class="card-price">
+								<div class="year">
+									Per year
+								</div>
+								<div class="price">
+									€180
+								</div>
+							</div>
+
+							<div class="card-features">
+								<div class="row">
+									<div>Feature on</div>
+									<div>include</div>
+								</div>
+								<div class="row">
+									<div>Feature on</div>
+									<div>include</div>
+								</div>
+								<div class="row">
+									<div>Feature on</div>
+									<div>include</div>
+								</div>
+							</div>
+							<div class="button">
+								Choose this plan
+							</div>							
+						</div>  
+					</div>
+					<div class="features-list">
+						<ul>
+							<li>Lorem ipsum dolor sit amet</li>
+							<li>Lorem ipsum dolor sit amet</li>
+							<li>Lorem ipsum dolor sit amet</li>
+							<li>Lorem ipsum dolor sit amet</li>
+							<li>Lorem ipsum dolor sit amet</li>
+						</ul>
+					</div>
+				</div>
+				<div class="card-column">
+					<div class="card" id="test-card">
+						<div class="card-content">
+							<div class="card-header">
+								<div class="card-title">
+									Enterprise
+								</div>
+								<div class="card-logo">									
+								</div>
+							</div>
+							<div class="card-price">
+								<div class="year">
+									Per year
+								</div>
+								<div class="price">
+									€180
+								</div>
+							</div>
+							<div class="card-features">
+								<div class="row">
+									<div>Feature on</div>
+									<div>include</div>
+								</div>
+								<div class="row">
+									<div>Feature on</div>
+									<div>include</div>
+								</div>
+								<div class="row">
+									<div>Feature on</div>
+									<div>include</div>
+								</div>
+							</div>
+							<div class="button">
+								Choose this plan
+							</div>							
+						</div>  
+					</div>
+					<div class="features-list">
+						<ul>
+							<li>Lorem ipsum dolor sit amet</li>
+							<li>Lorem ipsum dolor sit amet</li>
+							<li>Lorem ipsum dolor sit amet</li>
+							<li>Lorem ipsum dolor sit amet</li>
+							<li>Lorem ipsum dolor sit amet</li>
+						</ul>
+					</div>
+				</div>
+				<div class="card-column">
+					<div class="card">
+						<div class="card-content">
+							<div class="card-header">
+								<div class="card-title">
+									Enterprise
+								</div>
+								<div class="card-logo">									
+								</div>
+							</div>
+							<div class="card-price">
+								<div class="year">
+									Per year
+								</div>
+								<div class="price">
+									€180
+								</div>
+							</div>
+							<div class="card-features">
+								<div class="row">
+									<div>Feature on</div>
+									<div>include</div>
+								</div>
+								<div class="row">
+									<div>Feature on</div>
+									<div>include</div>
+								</div>
+								<div class="row">
+									<div>Feature on</div>
+									<div>include</div>
+								</div>
+							</div>
+							<div class="button">
+								Choose this plan
+							</div>							
+						</div>  
+					</div>
+					<div class="features-list">
+						<ul>
+							<li>Lorem ipsum dolor sit amet</li>
+							<li>Lorem ipsum dolor sit amet</li>
+							<li>Lorem ipsum dolor sit amet</li>
+							<li>Lorem ipsum dolor sit amet</li>
+							<li>Lorem ipsum dolor sit amet</li>
+						</ul>
+					</div>
+				</div>
+				<div class="card-column">
+					<div class="card">
+						<div class="card-content">
+							<div class="card-header">
+								<div class="card-title">
+									Enterprise
+								</div>
+								<div class="card-logo">									
+								</div>
+							</div>
+							<div class="card-price">
+								<div class="year">
+									Per year
+								</div>
+								<div class="price">
+									€180
+								</div>
+							</div>
+							<div class="card-features">
+								<div class="row">
+									<div>Feature on</div>
+									<div>include</div>
+								</div>
+								<div class="row">
+									<div>Feature on</div>
+									<div>include</div>
+								</div>
+								<div class="row">
+									<div>Feature on</div>
+									<div>include</div>
+								</div>
+							</div>
+							<div class="button">
+								Choose this plan
+							</div>							
+						</div>  
+					</div>
+					<div class="features-list">
+						<ul>
+							<li>Lorem ipsum dolor sit amet</li>
+							<li>Lorem ipsum dolor sit amet</li>
+							<li>Lorem ipsum dolor sit amet</li>
+							<li>Lorem ipsum dolor sit amet</li>
+							<li>Lorem ipsum dolor sit amet</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+
+		</div>   
+	</div> 
+<!-- 
 	<form method="POST" id="form">
 		<select name="pricing_plan" id="select">
 			<option value="plan_H6i0TeOPhpY6DN">Premium</option>
 			<option value="plan_H6KKmWETz5hkCu">Standard</option>
 		</select>
 		<input type="submit" value="Submit">
-	</form> 
+	</form>  -->
 
 	<?php // phpcs:disable ?>
-	<script src="https://js.stripe.com/v3/"></script>
+	<!-- <script src="https://js.stripe.com/v3/"></script>
 	<script>
 		const WP_GLOBALS = {
 			adminAjax: "<?php echo esc_html( admin_url( 'admin-ajax.php' ) ); ?>",
 			nonce: "<?php echo esc_js( wp_create_nonce( 'itr_ajax_nonce' ) ); ?>"
 		}	
 	</script>
-	<script src="<?php echo esc_url(EAR2WORDS_URL . 'src/payment/payment_template.js'); ?>"></script>
+	<script src="<?php echo esc_url(EAR2WORDS_URL . 'src/payment/payment_template.js'); ?>"></script> -->
 	<?php // phpcs:enable ?>
 </body>
 </html>
