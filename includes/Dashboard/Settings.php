@@ -42,7 +42,7 @@ class Settings {
 			<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
 			<?php settings_errors(); ?>
 			<button id="buy-license-button" class="button button-primary" >Compra Licenza</button>
-			<div>Data di scadenza: 12121212</div>
+			<div><?php echo esc_html( __( 'Automatic renewal', 'ear2words' ) ); ?>: <?php echo esc_html( $this->get_renewal_date() ); ?></div>
 			<form action="options.php" method="post">
 				<?php
 				settings_fields( 'ear2words_settings' );
@@ -181,9 +181,25 @@ class Settings {
 	}
 
 	/**
-	 * Get data scadenza
+	 * Ottiene data di scadenza della license
 	 */
 	public function get_renewal_date() {
+		$license_key = get_option( 'ear2words_license_key' );
+
+		$response = wp_remote_post(
+			// TODO: cambiare url con quella fornita da Simone.
+			ENDPOINT . ',/stripe/customer/renewal-date',
+			array(
+				'method'  => 'POST',
+				'headers' => array(
+					'Content-Type' => 'application/json; charset=utf-8',
+					'licenseKey'   => $license_key,
+				),
+			)
+		);
+		$retrieved = json_decode( wp_remote_retrieve_body( $response ), true );
+
+		return $retrieved['data']['renewal_date'];
 	}
 
 	/**
