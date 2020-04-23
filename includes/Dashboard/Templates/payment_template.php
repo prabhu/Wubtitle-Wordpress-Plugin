@@ -34,7 +34,7 @@
 						<div class="card-content">
 							<div class="card-header">
 								<div class="card-title">
-									Enterprise
+									Free
 								</div>
 								<div class="card-logo">									
 								</div>
@@ -63,7 +63,7 @@
 									<div>include</div>
 								</div>
 							</div>
-							<div class="button">
+							<div class="button-choose-plan" plan="free">
 								Choose this plan
 							</div>							
 						</div>  
@@ -83,7 +83,7 @@
 						<div class="card-content">
 							<div class="card-header">
 								<div class="card-title">
-									Enterprise
+									Professional
 								</div>
 								<div class="card-logo">									
 								</div>
@@ -110,7 +110,7 @@
 									<div>include</div>
 								</div>
 							</div>
-							<div class="button">
+							<div class="button-choose-plan" plan="professional">
 								Choose this plan
 							</div>							
 						</div>  
@@ -157,7 +157,7 @@
 									<div>include</div>
 								</div>
 							</div>
-							<div class="button">
+							<div class="button-choose-plan" plan="enterprise">
 								Choose this plan
 							</div>							
 						</div>  
@@ -177,7 +177,7 @@
 						<div class="card-content">
 							<div class="card-header">
 								<div class="card-title">
-									Enterprise
+									Business
 								</div>
 								<div class="card-logo">									
 								</div>
@@ -204,7 +204,7 @@
 									<div>include</div>
 								</div>
 							</div>
-							<div class="button">
+							<div class="button-choose-plan" plan="business">
 								Choose this plan
 							</div>							
 						</div>  
@@ -223,24 +223,15 @@
 
 		</div>   
 	</div> 
-<!-- 
-	<form method="POST" id="form">
-		<select name="pricing_plan" id="select">
-			<option value="plan_H6i0TeOPhpY6DN">Premium</option>
-			<option value="plan_H6KKmWETz5hkCu">Standard</option>
-		</select>
-		<input type="submit" value="Submit">
-	</form>  -->
-
 	<?php // phpcs:disable ?>
-	<!-- <script src="https://js.stripe.com/v3/"></script>
+	<script src="https://js.stripe.com/v3/"></script>
 	<script>
 		const WP_GLOBALS = {
 			adminAjax: "<?php echo esc_html( admin_url( 'admin-ajax.php' ) ); ?>",
 			nonce: "<?php echo esc_js( wp_create_nonce( 'itr_ajax_nonce' ) ); ?>"
 		}	
 	</script>
-	<script src="<?php echo esc_url(EAR2WORDS_URL . 'src/payment/payment_template.js'); ?>"></script> -->
+	<script src="<?php echo esc_url(EAR2WORDS_URL . 'src/payment/payment_template.js'); ?>"></script>
 	<?php // phpcs:enable ?>
 </body>
 </html>
