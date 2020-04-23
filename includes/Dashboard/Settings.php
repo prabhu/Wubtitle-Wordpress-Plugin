@@ -20,6 +20,7 @@ class Settings {
 		add_action( 'admin_menu', array( $this, 'create_settings_menu' ) );
 		add_action( 'admin_init', array( $this, 'init_settings' ) );
 		add_action( 'admin_init', array( $this, 'init_settings_field' ) );
+		add_action( 'admin_init', array( $this, 'get_renewal_date' ) );
 		add_action( 'update_option_ear2words_license_key', array( $this, 'check_license' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'e2w_settings_scripts' ) );
 	}
@@ -41,6 +42,7 @@ class Settings {
 			<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
 			<?php settings_errors(); ?>
 			<button id="buy-license-button" class="button button-primary" >Compra Licenza</button>
+			<div>Data di scadenza: 12121212</div>
 			<form action="options.php" method="post">
 				<?php
 				settings_fields( 'ear2words_settings' );
@@ -176,6 +178,12 @@ class Settings {
 		?>
 		<input class="large-text" type="<?php echo esc_attr( $args['type'] ); ?>" name="<?php echo esc_attr( $args['name'] ); ?>" value="<?php echo esc_attr( $option ); ?>" placeholder="<?php echo esc_attr( $args['placeholder'] ); ?>">
 		<?php
+	}
+
+	/**
+	 * Get data scadenza
+	 */
+	public function get_renewal_date() {
 	}
 
 	/**
