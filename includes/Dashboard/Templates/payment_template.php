@@ -32,39 +32,41 @@
 				<div class="card-column">
 					<div class="card">
 						<div class="card-content">
-							<div class="card-header">
-								<div class="card-title">
-									Free
+							<div>
+								<div class="card-header">
+									<div class="card-title">
+										Free
+									</div>
+									<div class="card-logo">									
+									</div>
 								</div>
-								<div class="card-logo">									
-								</div>
-							</div>
 
-							<div class="card-price">
-								<div class="year">
-									Per year
+								<div class="card-price">
+									<div class="year">
+										Per year
+									</div>
+									<div class="price">
+										€180
+									</div>
 								</div>
-								<div class="price">
-									€180
-								</div>
-							</div>
 
-							<div class="card-features">
-								<div class="row">
-									<div>Feature on</div>
-									<div>include</div>
-								</div>
-								<div class="row">
-									<div>Feature on</div>
-									<div>include</div>
-								</div>
-								<div class="row">
-									<div>Feature on</div>
-									<div>include</div>
+								<div class="card-features">
+									<div class="row">
+										<div>Feature on</div>
+										<div>include</div>
+									</div>
+									<div class="row">
+										<div>Feature on</div>
+										<div>include</div>
+									</div>
+									<div class="row">
+										<div>Feature on</div>
+										<div>include</div>
+									</div>
 								</div>
 							</div>
-							<div class="button-choose-plan" plan="free">
-								Choose this plan
+							<div class="current-plan" plan="free">
+								Current plan
 							</div>							
 						</div>  
 					</div>
@@ -79,35 +81,37 @@
 					</div>
 				</div>
 				<div class="card-column">
-					<div class="card" id="test-card">
+					<div class="card zoom" id="test-card">
 						<div class="card-content">
-							<div class="card-header">
-								<div class="card-title">
-									Professional
+							<div>
+								<div class="card-header">
+									<div class="card-title">
+										Professional
+									</div>
+									<div class="card-logo">									
+									</div>
 								</div>
-								<div class="card-logo">									
+								<div class="card-price">
+									<div class="year">
+										Per year
+									</div>
+									<div class="price">
+										€180
+									</div>
 								</div>
-							</div>
-							<div class="card-price">
-								<div class="year">
-									Per year
-								</div>
-								<div class="price">
-									€180
-								</div>
-							</div>
-							<div class="card-features">
-								<div class="row">
-									<div>Feature on</div>
-									<div>include</div>
-								</div>
-								<div class="row">
-									<div>Feature on</div>
-									<div>include</div>
-								</div>
-								<div class="row">
-									<div>Feature on</div>
-									<div>include</div>
+								<div class="card-features">
+									<div class="row">
+										<div>Feature on</div>
+										<div>include</div>
+									</div>
+									<div class="row">
+										<div>Feature on</div>
+										<div>include</div>
+									</div>
+									<div class="row">
+										<div>Feature on</div>
+										<div>include</div>
+									</div>
 								</div>
 							</div>
 							<div class="button-choose-plan" plan="professional">
@@ -128,33 +132,51 @@
 				<div class="card-column">
 					<div class="card">
 						<div class="card-content">
-							<div class="card-header">
-								<div class="card-title">
-									Enterprise
+							<div>
+								<div class="card-header">
+									<div class="card-title">
+										Enterprise
+									</div>
+									<div class="card-logo">									
+									</div>
 								</div>
-								<div class="card-logo">									
+								<div class="card-price">
+									<div class="year">
+										Per year
+									</div>
+									<div class="price">
+										€180
+									</div>
 								</div>
-							</div>
-							<div class="card-price">
-								<div class="year">
-									Per year
-								</div>
-								<div class="price">
-									€180
-								</div>
-							</div>
-							<div class="card-features">
-								<div class="row">
-									<div>Feature on</div>
-									<div>include</div>
-								</div>
-								<div class="row">
-									<div>Feature on</div>
-									<div>include</div>
-								</div>
-								<div class="row">
-									<div>Feature on</div>
-									<div>include</div>
+								<div class="card-features">
+									<div class="row">
+										<div>Feature on</div>
+										<div>include</div>
+									</div>
+									<div class="row">
+										<div>Feature on</div>
+										<div>include</div>
+									</div>
+									<div class="row">
+										<div>Feature on</div>
+										<div>include</div>
+									</div>
+									<div class="row">
+										<div>Feature on</div>
+										<div>include</div>
+									</div>
+									<div class="row">
+										<div>Feature on</div>
+										<div>include</div>
+									</div>
+									<div class="row">
+										<div>Feature on</div>
+										<div>include</div>
+									</div>
+									<div class="row">
+										<div>Feature on</div>
+										<div>include</div>
+									</div>
 								</div>
 							</div>
 							<div class="button-choose-plan" plan="enterprise">
@@ -173,35 +195,37 @@
 					</div>
 				</div>
 				<div class="card-column">
-					<div class="card">
+					<div class="card">						
 						<div class="card-content">
-							<div class="card-header">
-								<div class="card-title">
-									Business
+							<div>
+								<div class="card-header">
+									<div class="card-title">
+										Business
+									</div>
+									<div class="card-logo">									
+									</div>
 								</div>
-								<div class="card-logo">									
+								<div class="card-price">
+									<div class="year">
+										Per year
+									</div>
+									<div class="price">
+										€180
+									</div>
 								</div>
-							</div>
-							<div class="card-price">
-								<div class="year">
-									Per year
-								</div>
-								<div class="price">
-									€180
-								</div>
-							</div>
-							<div class="card-features">
-								<div class="row">
-									<div>Feature on</div>
-									<div>include</div>
-								</div>
-								<div class="row">
-									<div>Feature on</div>
-									<div>include</div>
-								</div>
-								<div class="row">
-									<div>Feature on</div>
-									<div>include</div>
+								<div class="card-features">
+									<div class="row">
+										<div>Feature on</div>
+										<div>include</div>
+									</div>
+									<div class="row">
+										<div>Feature on</div>
+										<div>include</div>
+									</div>
+									<div class="row">
+										<div>Feature on</div>
+										<div>include</div>
+									</div>
 								</div>
 							</div>
 							<div class="button-choose-plan" plan="business">
