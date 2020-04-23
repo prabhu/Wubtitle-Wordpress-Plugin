@@ -51,13 +51,13 @@ class ApiPricingPlan {
 		if ( ! check_ajax_referer( 'itr_ajax_nonce', $nonce ) ) {
 			wp_send_json_error( __( 'Error, invalid request', 'ear2words' ) );
 		}
-		$body    = $this->set_body_request( $pricing_plan, $site_url );
-		$headers = array(
+		$body        = $this->set_body_request( $pricing_plan, $site_url );
+		$headers     = array(
 			'Content-Type' => 'application/json; charset=utf-8',
 		);
-		if ( isset( $_POST['license_key'] ) && '' !== $_POST['license_key'] ) {
-			$license_key = sanitize_text_field( wp_unslash( $_POST['license_key'] ) );
-			$headers     = array(
+		$license_key = get_option( 'ear2words_license_key' );
+		if ( ! empty( $license_key ) && '' !== $license_key ) {
+			$headers = array(
 				'licenseKey'   => $license_key,
 				'Content-Type' => 'application/json; charset=utf-8',
 			);

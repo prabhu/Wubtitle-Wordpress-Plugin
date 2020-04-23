@@ -2,9 +2,9 @@
 /**
  * This file is a template.
  *
- * @author     Nicola Palermo
+ * @author     Alessio Catania
  * @since      0.1.0
- * @package    Ear2Words\Dashboar\Templates
+ * @package    Ear2Words\Dashboard\Templates
  */
 
 /**
@@ -20,8 +20,6 @@
 </head>
 <body>
 	<div class="warning" id="error-message" style="color:red; text-align:center"></div>
-	<h1><?php esc_html_e( 'Update Plan or Payment', 'ear2words' ); ?></h1>
-	<button id="button-update-payment">Aggiorna pagamento</Button>
 	<?php // phpcs:disable ?>
 	<script>
 		const WP_GLOBALS = {

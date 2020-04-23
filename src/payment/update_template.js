@@ -10,9 +10,7 @@ const paymentModule = (function(Stripe, document) {
 		}
 	};
 
-	const handleSubmit = e => {
-		e.preventDefault();
-
+	const handleSubmit = () => {
 		fetch(adminAjax, {
 			method: "POST",
 			credentials: "include",
@@ -34,8 +32,7 @@ const paymentModule = (function(Stripe, document) {
 
 	const init = () => {
 		stripe = Stripe("pk_test_nfUYjFiwdkzYpPOfCZkVZiMK00lOAFcAK7");
-		const form = document.querySelector("#button-update-payment");
-		form.addEventListener("click", handleSubmit);
+		handleSubmit();
 	};
 
 	return {
