@@ -63,7 +63,7 @@ class ApiPricingPlan {
 			);
 		}
 		$response      = wp_remote_post(
-			ENDPOINT . 'stripe/session/create',
+			'https://6aef91a6.ngrok.io/stripe/session/create',
 			array(
 				'method'  => 'POST',
 				'headers' => $headers,
@@ -101,7 +101,7 @@ class ApiPricingPlan {
 			wp_send_json_error( __( 'Unable to create subtitles. The product license key is missing.', 'ear2words' ) );
 		}
 		$response      = wp_remote_post(
-			ENDPOINT . 'stripe/customer/update',
+			'https://6aef91a6.ngrok.io/stripe/customer/update',
 			array(
 				'method'  => 'POST',
 				'headers' => array(

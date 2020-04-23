@@ -19,6 +19,8 @@
 	<title>Payment</title>
 </head>
 <body>
+	<a href="http://wordpress01.local/wp-admin/admin.php?page=ear2words_settings&update=true" >prova success</a>
+	<a href="http://wordpress01.local/wp-admin/admin.php?page=ear2words_settings&update=false" >prova cancel</a>
 	<div class="warning" id="error-message" style="color:red; text-align:center"></div>
 	<?php // phpcs:disable ?>
 	<script>

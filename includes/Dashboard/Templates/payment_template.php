@@ -21,6 +21,8 @@
 <body>
 	<div class="warning" id="error-message" style="color:red; text-align:center"></div>
 	<h1><?php esc_html_e( 'Select Plan', 'ear2words' ); ?></h1>
+	<a href="http://wordpress01.local/wp-admin/admin.php?page=ear2words_settings&payment=true" >prova success</a>
+	<a href="http://wordpress01.local/wp-admin/admin.php?page=ear2words_settings&payment=false" >prova cancel</a>
 	<form method="POST" id="form">
 		<select name="pricing_plan" id="select">
 			<option value="plan_H6i0TeOPhpY6DN">Premium</option>
