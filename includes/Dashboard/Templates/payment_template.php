@@ -18,6 +18,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Payment</title>
 	<?php // phpcs:disable ?>
+	<link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.typekit.net/auk4ruc.css">
 	<link rel="stylesheet" href="<?php echo esc_url( EAR2WORDS_URL . 'src/css/payment_template.css' ); ?>">
 	<?php // phpcs:enable ?>
 </head>
@@ -25,7 +27,7 @@
 
 	<div class="wrapper">
 		<div class="container">
-			<div class="title">Pricing Plan</div>
+			<div class="title">Choose the right plan for your project</div>
 			<div class="card-container">
 				<div class="card-column">
 					<div class="card">

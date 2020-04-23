@@ -10,6 +10,7 @@ body {
     align-items: center;
     justify-content: center;
     min-height: 100vh;
+    font-family: 'Open Sans', sans-serif;
 }
 
 .wrapper {
@@ -26,7 +27,7 @@ body {
 .title {
     color: white;
     font-weight: bold;
-    font-size: 40px;
+    font-size: 30px;
     text-align: center;
     padding: 30px 0;
 }
@@ -88,14 +89,17 @@ body {
 }
 
 .card-title {
-    color: #1251ff;
-    font-size: 20px;
+    color: #304FFE;
+    letter-spacing: 0px;
     font-weight: bold;
+    font-size: 20px;
+    line-height: 28px;
+    font-family: acumin-pro, sans-serif;
 }
 
 .card-logo {
-    height: 30px;
-    width: 30px;
+    height: 23px;
+    width: 23px;
     background-color: gray;
 }
 
@@ -106,14 +110,18 @@ body {
 }
 
 .card-price .year {
-    color: gray;
-    font-size: 18px;
+    letter-spacing: 0px;
+    color: #A2ACB2;
+    font-size: 12px;
+    line-height: 17px;
 }
 
 .card-price .price {
-    color: black;
-    font-size: 25px;
-    font-weight: bold;
+    color: #00112F;
+    font-size: 24px;
+    line-height: 33px;
+    letter-spacing: 0px;
+    font-weight: 600;
 }
 
 .card-features .row {
@@ -121,16 +129,23 @@ body {
     justify-content: space-between;
     align-items: center;
     margin: 10px 0;
+    letter-spacing: 0px;
+    color: #23282D;
+    font-size: 8px;
+    line-height: 11px;
+    letter-spacing: 0px;
 }
 
 .card .button {
-    background-color: #1251ff;
-    color: #ffffff;
     padding: 10px;
     text-align: center;
-    border-top-left-radius: 20px;
-    border-bottom-right-radius: 20px;
+    background: #304FFE 0% 0% no-repeat padding-box;
+    border-radius: 16px 0px;
     cursor: pointer;
+    letter-spacing: 0px;
+    color: #FFFFFF;
+    font-size: 12px;
+    line-height: 17px;
 }
 
 .features-list {
@@ -142,11 +157,18 @@ body {
     margin-left: 20px;
     list-style: none;
 }
-ul li::before {
+.features-list ul li::before {
     content: "\2022";
-    color: yellow;
+    color: #FFFF00;
     font-weight: bold;
     display: inline-block; 
     width: 1em;
     margin-left: -1em;
+}
+
+.features-list ul li {
+    font-size: 12px;
+    line-height: 17px;
+    letter-spacing: 0px;
+    color: #FFFFFF;
 }
