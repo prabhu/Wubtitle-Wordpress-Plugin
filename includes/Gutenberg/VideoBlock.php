@@ -68,7 +68,7 @@ class VideoBlock {
 		?>
 		<figure class="wp-block-video">
 			<video controls src= "<?php echo esc_html( $video_src ); ?>">
-			<track label="<?php echo esc_html( $lang ); ?>" kind="subtitles" src=" <?php echo esc_html( $subtitle_src ); ?>" default>
+			<track label="<?php echo esc_attr( $lang ); ?>" kind="subtitles" src=" <?php echo esc_html( $subtitle_src ); ?>" default>
 			</video>
 		</figure>
 		<?php
