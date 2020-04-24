@@ -10,69 +10,84 @@ import {
 import { InspectorControls } from "@wordpress/block-editor";
 import { useState, Fragment } from "@wordpress/element";
 import { __ } from "@wordpress/i18n";
-import { withState } from "@wordpress/compose";
 
 const Ear2WordPanel = props => {
 	const languages = ["it", "en", "es", "de", "zh"];
 	const lang = languages.includes(ear2words_button_object.lang)
 		? ear2words_button_object.lang
 		: "en";
-	const status = useSelect(select => {
-		const attachment =
-			props.id !== undefined
-				? select("core").getEntityRecord(
-						"postType",
-						"attachment",
-						props.id
-				  )
-				: undefined;
-		return attachment !== undefined
-			? select("core").getEditedEntityRecord(
-					"postType",
-					"attachment",
-					props.id
-			  ).meta.ear2words_status
-			: "";
+
+	const languageSaved = useSelect(select => {
+		let attachment;
+		if (props.id !== undefined) {
+			attachment = select("core").getEntityRecord(
+				"postType",
+				"attachment",
+				props.id
+			);
+		}
+		let langSaved = "";
+		if (attachment !== undefined) {
+			langSaved = select("core").getEditedEntityRecord(
+				"postType",
+				"attachment",
+				props.id
+			).meta.ear2words_lang_video;
+		}
+
+		return langSaved;
 	});
+
+	const status = useSelect(select => {
+		let attachment;
+		if (props.id !== undefined) {
+			attachment = select("core").getEntityRecord(
+				"postType",
+				"attachment",
+				props.id
+			);
+		}
+		let statusMeta = "";
+		if (attachment !== undefined) {
+			statusMeta = select("core").getEditedEntityRecord(
+				"postType",
+				"attachment",
+				props.id
+			).meta.ear2words_status;
+		}
+
+		return statusMeta;
+	});
+
 	const noticeDispatcher = useDispatch("core/notices");
 	const entityDispatcher = useDispatch("core");
 	const [languageSelected, setLanguage] = useState(lang);
 	const isDisabled = status === "pending" || props.id === undefined;
 	const isPublished = status === "enabled";
 
-	const SubtitleSwitch = withState({
-		published: isPublished
-	})(({ published }) => (
-		<ToggleControl
-			label="Published"
-			checked={published}
-			onChange={() => {
-				updateStatus(published);
-			}}
-		/>
-	));
+	const SubtitleSwitch = properties => {
+		const { isPublishedToggle } = properties;
+		return (
+			<ToggleControl
+				label="Published"
+				checked={isPublishedToggle}
+				onChange={() => {
+					updateStatus(isPublishedToggle);
+				}}
+			/>
+		);
+	};
 
 	const updateStatus = published => {
 		published = !published;
+
+		let state = "draft";
 		if (published) {
-			entityDispatcher.editEntityRecord(
-				"postType",
-				"attachment",
-				props.id,
-				{
-					meta: { ear2words_status: "enabled" }
-				}
-			);
-		} else {
-			entityDispatcher.editEntityRecord(
-				"postType",
-				"attachment",
-				props.id,
-				{
-					meta: { ear2words_status: "draft" }
-				}
-			);
+			state = "enabled";
 		}
+
+		editStatus(state);
+
 		entityDispatcher.saveEditedEntityRecord(
 			"postType",
 			"attachment",
@@ -80,23 +95,11 @@ const Ear2WordPanel = props => {
 		);
 	};
 
-	const langSaved = useSelect(select => {
-		const attachment =
-			props.id !== undefined
-				? select("core").getEntityRecord(
-						"postType",
-						"attachment",
-						props.id
-				  )
-				: undefined;
-		return attachment !== undefined
-			? select("core").getEditedEntityRecord(
-					"postType",
-					"attachment",
-					props.id
-			  ).meta.ear2words_lang_video
-			: "";
-	});
+	const editStatus = statusToEdit => {
+		entityDispatcher.editEntityRecord("postType", "attachment", props.id, {
+			meta: { ear2words_status: statusToEdit }
+		});
+	};
 
 	const langExten = {
 		it: __("Italian", "ear2words"),
@@ -143,128 +146,84 @@ const Ear2WordPanel = props => {
 		});
 	}
 
+	const selectOptions = [
+		{
+			value: "it",
+			label: __("Italian", "ear2words")
+		},
+		{
+			value: "en",
+			label: __("English", "ear2words")
+		},
+		{
+			value: "es",
+			label: __("Spanish", "ear2words")
+		},
+		{
+			value: "de",
+			label: __("German ", "ear2words")
+		},
+		{
+			value: "zh",
+			label: __("Chinese", "ear2words")
+		},
+		{
+			value: "fr",
+			label: __("French", "ear2words")
+		}
+	];
+
+	const MainComponent = prop => {
+		const { subtitleStatus, subtitleState } = prop;
+
+		if (subtitleStatus === "pending") {
+			return (
+				<Fragment>
+					{__("Language: ", "ear2words") + langExten[languageSaved]}
+					{__("Status: ", "ear2words") + statusExten[subtitleStatus]}
+				</Fragment>
+			);
+		} else if (subtitleStatus === "draft" || subtitleStatus === "enabled") {
+			return (
+				<Fragment>
+					{__("Status: ", "ear2words") + statusExten[subtitleStatus]}
+					{__("Language: ", "ear2words") + langExten[languageSaved]}
+					<SubtitleSwitch isPublishedToggle={subtitleState} />
+				</Fragment>
+			);
+		}
+		return (
+			<Fragment>
+				{__("Status: ", "ear2words") + subtitleStatus}
+				<br></br>
+				<SelectControl
+					label={__("Select the video language", "ear2words")}
+					value={languageSelected}
+					onChange={lingua => {
+						setLanguage(lingua);
+					}}
+					options={selectOptions}
+				/>
+				<Button
+					disabled={isDisabled}
+					name="sottotitoli"
+					id={props.id}
+					isPrimary
+					onClick={onClick}
+				>
+					{__("GENERATE SUBTITLES", "ear2words")}
+				</Button>
+			</Fragment>
+		);
+	};
+
 	return (
 		<InspectorControls>
 			<PanelBody title="Ear2words">
-				{(() => {
-					switch (status) {
-						case "pending":
-							return (
-								<Fragment>
-									{__("Language: ", "ear2words") +
-										langExten[langSaved]}
-									<br></br>
-									<br></br>
-									{__("Status: ", "ear2words") +
-										statusExten[status]}
-									<br></br>
-									<br></br>
-								</Fragment>
-							);
-
-						case "draft":
-							return (
-								<Fragment>
-									{__("Status: ", "ear2words") +
-										statusExten[status]}
-									<br></br>
-									<br></br>
-									{__("Language: ", "ear2words") +
-										langExten[langSaved]}
-									<br></br>
-									<br></br>
-									<SubtitleSwitch />
-									<br></br>
-									<br></br>
-								</Fragment>
-							);
-
-						case "enabled":
-							return (
-								<Fragment>
-									{__("Status: ", "ear2words") +
-										statusExten[status]}
-									<br></br>
-									<br></br>
-									{__("Language: ", "ear2words") +
-										langExten[langSaved]}
-									<br></br>
-									<br></br>
-									<SubtitleSwitch />
-									<br></br>
-									<br></br>
-								</Fragment>
-							);
-
-						default:
-							return (
-								<Fragment>
-									{__("Status: ", "ear2words") + status}
-									<br></br>
-									<SelectControl
-										label={__(
-											"Select the video language",
-											"ear2words"
-										)}
-										value={languageSelected}
-										onChange={lingua => {
-											setLanguage(lingua);
-										}}
-										options={[
-											{
-												value: "it",
-												label: __(
-													"Italian",
-													"ear2words"
-												)
-											},
-											{
-												value: "en",
-												label: __(
-													"English",
-													"ear2words"
-												)
-											},
-											{
-												value: "es",
-												label: __(
-													"Spanish",
-													"ear2words"
-												)
-											},
-											{
-												value: "de",
-												label: __(
-													"German ",
-													"ear2words"
-												)
-											},
-											{
-												value: "zh",
-												label: __(
-													"Chinese",
-													"ear2words"
-												)
-											},
-											{
-												value: "fr",
-												label: __("French", "ear2words")
-											}
-										]}
-									/>
-									<Button
-										disabled={isDisabled}
-										name="sottotitoli"
-										id={props.id}
-										isPrimary
-										onClick={onClick}
-									>
-										{__("GENERATE SUBTITLES", "ear2words")}
-									</Button>
-								</Fragment>
-							);
-					}
-				})()}
+				<MainComponent
+					subtitleStatus={status}
+					subtitleState={isPublished}
+				/>
 			</PanelBody>
 		</InspectorControls>
 	);
