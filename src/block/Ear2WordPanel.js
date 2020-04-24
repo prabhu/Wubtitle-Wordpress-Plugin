@@ -17,7 +17,7 @@ const Ear2WordPanel = props => {
 		? ear2words_button_object.lang
 		: "en";
 
-	const languageSaved = useSelect(select => {
+	const metaValues = useSelect(select => {
 		let attachment;
 		if (props.id !== undefined) {
 			attachment = select("core").getEntityRecord(
@@ -26,38 +26,24 @@ const Ear2WordPanel = props => {
 				props.id
 			);
 		}
-		let langSaved = "";
+		let met = "";
 		if (attachment !== undefined) {
-			langSaved = select("core").getEditedEntityRecord(
+			met = select("core").getEditedEntityRecord(
 				"postType",
 				"attachment",
 				props.id
-			).meta.ear2words_lang_video;
+			).meta;
 		}
 
-		return langSaved;
+		return met;
 	});
 
-	const status = useSelect(select => {
-		let attachment;
-		if (props.id !== undefined) {
-			attachment = select("core").getEntityRecord(
-				"postType",
-				"attachment",
-				props.id
-			);
-		}
-		let statusMeta = "";
-		if (attachment !== undefined) {
-			statusMeta = select("core").getEditedEntityRecord(
-				"postType",
-				"attachment",
-				props.id
-			).meta.ear2words_status;
-		}
-
-		return statusMeta;
-	});
+	let languageSaved;
+	let status;
+	if (metaValues !== undefined) {
+		languageSaved = metaValues.ear2words_lang_video;
+		status = metaValues.ear2words_status;
+	}
 
 	const noticeDispatcher = useDispatch("core/notices");
 	const entityDispatcher = useDispatch("core");
