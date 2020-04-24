@@ -38,6 +38,19 @@ class TestApiPricingPlan extends WP_Ajax_UnitTestCase {
       $response = json_decode( $this->_last_response );
       $this->assertFalse( $response->success);
     }
+    /**
+     * Effuettua la chiamata senza nonce alla funzione update_payment
+     */
+     public function test_negative_update_payment(){
+       try {
+           $this->_handleAjax( 'update_payment' );
+       } catch ( WPAjaxDieContinueException $e ) {}
+
+       // Verifica che è stata lanciata l'eccezione
+       $this->assertTrue( isset( $e ) );
+       $response = json_decode( $this->_last_response );
+       $this->assertFalse( $response->success);
+     }
       /**
        * Verifica che il body è stato creato correttamente
        */

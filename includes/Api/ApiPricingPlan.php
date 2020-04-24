@@ -100,9 +100,7 @@ class ApiPricingPlan {
 			wp_send_json_error( __( 'An error occurred. Please try again in a few minutes.', 'ear2words' ) );
 		}
 		$nonce = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
-		if ( ! check_ajax_referer( 'itr_ajax_nonce', $nonce ) ) {
-			wp_send_json_error( __( 'Error, invalid request', 'ear2words' ) );
-		}
+		check_ajax_referer( 'itr_ajax_nonce', $nonce );
 		$license_key = get_option( 'ear2words_license_key' );
 		if ( empty( $license_key ) ) {
 			wp_send_json_error( __( 'Unable to create subtitles. The product license key is missing.', 'ear2words' ) );
