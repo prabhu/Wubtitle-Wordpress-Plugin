@@ -51,8 +51,7 @@ const Ear2WordPanel = props => {
 	const isDisabled = status === "pending" || props.id === undefined;
 	const isPublished = status === "enabled";
 
-	const SubtitleSwitch = properties => {
-		const { isPublishedToggle } = properties;
+	const SubtitleSwitch = ({ isPublishedToggle }) => {
 		return (
 			<ToggleControl
 				label="Published"
