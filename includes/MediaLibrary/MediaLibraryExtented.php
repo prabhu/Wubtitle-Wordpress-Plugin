@@ -76,13 +76,17 @@ class MediaLibraryExtented {
 	 */
 	public function add_generate_subtitle_form( $form_fields, $post ) {
 		global $pagenow;
-		$all_status = array(
+		$all_status    = array(
 			'pending' => __( 'Generating', 'ear2words' ),
 			'draft'   => __( 'Draft', 'ear2words' ),
 			'enabled' => __( 'Published', 'ear2words' ),
 			'none'    => 'None',
 		);
-		if ( ! wp_attachment_is( 'video', $post ) || ( 'admin-ajax.php' !== $pagenow && 'async-upload.php' !== $pagenow ) ) {
+		$allowed_pages = array(
+			'admin-ajax.php',
+			'async-upload.php',
+		);
+		if ( ! wp_attachment_is( 'video', $post ) || ! in_array( $pagenow, $allowed_pages, true ) ) {
 			return $form_fields;
 		}
 		// Aggiunge lo stato del sottotitolo.
