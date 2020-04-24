@@ -1,33 +1,38 @@
-const cancelSubscriptionModule = (function(document, WP_GLOBALS) {
+const unsubscribeModule = (function(document) {
 	const { adminAjax, nonce } = WP_GLOBALS;
 
-	const handleSubmit = e => {
-		e.preventDefault();
-		const select = document.querySelector("#select").value;
-
+	const handleUnsubscription = () => {
 		fetch(adminAjax, {
 			method: "POST",
 			credentials: "include",
 			headers: new Headers({
 				"Content-Type": "application/x-www-form-urlencoded"
 			}),
-			body: `action=cancel_subscription&_ajax_nonce=${nonce}&choise=${select}`
+			body: `action=submit_plan&_ajax_nonce=${nonce}&choise=free`
 		})
 			.then(resp => resp.json())
 			.then(data => {
-				document.body.innerHTML = data.data;
+				document.querySelector("#message").innerHTML = data.data;
+				setTimeout(() => {
+					window.close();
+				}, 3000);
 			});
 	};
 
 	const init = () => {
-		const form = document.querySelector("#form");
+		const unsubscribeButton = document.querySelector("#unsubscribeButton");
+		const closeButton = document.querySelector("#close");
 
-		form.addEventListener("submit", handleSubmit);
+		unsubscribeButton.addEventListener("click", () => {
+			handleUnsubscription();
+		});
+
+		closeButton.addEventListener("click", () => {
+			window.close();
+		});
 	};
 
-	return {
-		init
-	};
-})(document, WP_GLOBALS);
+	return { init };
+})(document);
 
-cancelSubscriptionModule.init();
+unsubscribeModule.init();

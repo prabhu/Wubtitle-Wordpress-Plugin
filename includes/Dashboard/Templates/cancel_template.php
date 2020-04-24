@@ -20,14 +20,25 @@
 	<?php // phpcs:disable ?>
 	<link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://use.typekit.net/auk4ruc.css">
-	<link rel="stylesheet" href="<?php echo esc_url( EAR2WORDS_URL . 'src/css/cancel_template.css' ); ?>">
+	<link rel="stylesheet" href="<?php echo esc_url( EAR2WORDS_URL . 'src/css/payment_template.css' ); ?>">
 	<?php // phpcs:enable ?>
 </head>
 <body>
 
 	<div class="wrapper">
 		<div class="container">
-			<div class="title">Choose the right plan for your project</div>
+			<div class="unsubscribe-section">
+				<div class="title">Are you sure you want to unsubscribe?</div>
+				<div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur praesentium ad cupiditate autem libero obcaecati odio numquam magnam magni? Quibusdam.</div>
+				<div class="buttons">
+					<div class="button unsubscribe" id="unsubscribeButton">Return to free version</div>
+					<div class="button" id="close">Forget it</div>
+				</div>
+				<div id="message"></div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="title">Or choose another plan</div>
 			<div class="card-container">
 				<div class="card-column">
 					<div class="card">
@@ -247,54 +258,6 @@
 
 		</div>   
 	</div> 
-	<?php // phpcs:disable ?>
-	<script src="https://js.stripe.com/v3/"></script>
-	<script>
-		const WP_GLOBALS = {
-			adminAjax: "<?php echo esc_html( admin_url( 'admin-ajax.php' ) ); ?>",
-			nonce: "<?php echo esc_js( wp_create_nonce( 'itr_ajax_nonce' ) ); ?>"
-		}	
-	</script>
-	<script src="<?php echo esc_url(EAR2WORDS_URL . 'src/payment/payment_template.js'); ?>"></script>
-	<?php // phpcs:enable ?>
-</body>
-</html>
-
-
-
-
-<?php
-/**
- * This file is a template.
- *
- * @author     Nicola Palermo
- * @since      0.1.0
- * @package    Ear2Words\Dashboar\Templates
- */
-
-/**
- * This is a template.
- */
-?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Cancel subscription</title>
-</head>
-<body>
-	<h1><?php esc_html_e( 'Cancel Subscription', 'ear2words' ); ?></h1>
-	<p><?php esc_html_e( 'Are you sure?', 'ear2words' ); ?></p>
-	<form method="POST" id="form">
-		<input type="submit" value="<?php esc_html_e( 'Yes', 'ear2words' ); ?>">
-		<!-- TODO: Predisposto form per raccolta informazioni per implementazioni future. -->
-		<br><br>
-		<?php esc_html_e( 'Why?', 'ear2words' ); ?>
-		<br>
-		<input type="text">
-	</form> 
-
 	<?php // phpcs:disable ?>
 	<script src="https://js.stripe.com/v3/"></script>
 	<script>
