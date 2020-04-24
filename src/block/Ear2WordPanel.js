@@ -165,23 +165,34 @@ const Ear2WordPanel = props => {
 		if (subtitleStatus === "pending") {
 			return (
 				<Fragment>
-					{__("Language: ", "ear2words") + langExten[languageSaved]}
-					{__("Status: ", "ear2words") + statusExten[subtitleStatus]}
+					<div>
+						{__("Language: ", "ear2words") +
+							langExten[languageSaved]}
+					</div>
+					<div>
+						{__("Status: ", "ear2words") +
+							statusExten[subtitleStatus]}
+					</div>
 				</Fragment>
 			);
 		} else if (subtitleStatus === "draft" || subtitleStatus === "enabled") {
 			return (
 				<Fragment>
-					{__("Status: ", "ear2words") + statusExten[subtitleStatus]}
-					{__("Language: ", "ear2words") + langExten[languageSaved]}
+					<div>
+						{__("Status: ", "ear2words") +
+							statusExten[subtitleStatus]}
+					</div>
+					<div>
+						{__("Language: ", "ear2words") +
+							langExten[languageSaved]}
+					</div>
 					<SubtitleSwitch isPublishedToggle={subtitleState} />
 				</Fragment>
 			);
 		}
 		return (
 			<Fragment>
-				{__("Status: ", "ear2words") + subtitleStatus}
-				<br></br>
+				<div>{__("Status: ", "ear2words") + subtitleStatus}</div>
 				<SelectControl
 					label={__("Select the video language", "ear2words")}
 					value={languageSelected}
