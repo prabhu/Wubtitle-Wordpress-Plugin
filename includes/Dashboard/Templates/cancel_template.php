@@ -29,7 +29,7 @@
 		<div class="container">
 			<div class="unsubscribe-section">
 				<div class="title">Are you sure you want to unsubscribe?</div>
-				<div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur praesentium ad cupiditate autem libero obcaecati odio numquam magnam magni? Quibusdam.</div>
+				<div>Are you sure you want to cancel your subscription? If you choose to continue, when the subscription expires your plan will return to free version and you will lose all the additional features</div>
 				<div class="buttons">
 					<div class="button unsubscribe" id="unsubscribeButton">Return to free version</div>
 					<div class="button" id="close">Forget it</div>
@@ -266,7 +266,7 @@
 			nonce: "<?php echo esc_js( wp_create_nonce( 'itr_ajax_nonce' ) ); ?>"
 		}	
 	</script>
-	<script src="<?php echo esc_url(EAR2WORDS_URL . 'src/payment/cancel_template.js'); ?>"></script>
+	<script src="<?php echo esc_url(EAR2WORDS_URL . 'src/payment/payment_template.js'); ?>"></script>
 	<?php // phpcs:enable ?>
 </body>
 </html>
