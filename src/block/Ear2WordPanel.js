@@ -26,16 +26,16 @@ const Ear2WordPanel = props => {
 				props.id
 			);
 		}
-		let met = "";
+		let meta = "";
 		if (attachment !== undefined) {
-			met = select("core").getEditedEntityRecord(
+			meta = select("core").getEditedEntityRecord(
 				"postType",
 				"attachment",
 				props.id
 			).meta;
 		}
 
-		return met;
+		return meta;
 	});
 
 	let languageSaved;
