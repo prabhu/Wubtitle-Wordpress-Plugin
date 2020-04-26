@@ -3,7 +3,8 @@ let UpdatePlanWindow = null;
 document.addEventListener("DOMContentLoaded", function() {
 	const buyButton = document.querySelector("#buy-license-button");
 	if (buyButton) {
-		buyButton.addEventListener("click", () => {
+		buyButton.addEventListener("click", e => {
+			e.preventDefault();
 			showBuyLicenseWindow();
 		});
 	}

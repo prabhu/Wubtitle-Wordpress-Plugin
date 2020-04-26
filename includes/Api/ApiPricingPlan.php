@@ -56,7 +56,7 @@ class ApiPricingPlan {
 			'Content-Type' => 'application/json; charset=utf-8',
 		);
 		$license_key = get_option( 'ear2words_license_key' );
-		if ( ! empty( $license_key ) && '' !== $license_key ) {
+		if ( ! empty( $license_key ) ) {
 			$headers = array(
 				'licenseKey'   => $license_key,
 				'Content-Type' => 'application/json; charset=utf-8',
@@ -86,7 +86,7 @@ class ApiPricingPlan {
 		wp_send_json_success( $session_id );
 	}
 	/**
-	 * Riceve i dati da javascript e li invia all'endpoint.
+	 * Riceve i dati da javascript e li invia all'endpoint per effettuare l'aggiornamento dei dati di pagamento.
 	 */
 	public function update_payment() {
 		if ( ! isset( $_POST['_ajax_nonce'] ) ) {

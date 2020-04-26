@@ -39,14 +39,9 @@ class Settings {
 		?>
 		<div class="wrap">
 			<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
-			<?php settings_errors(); ?>
-			<button id="buy-license-button" class="button button-primary" ><?php esc_html_e( 'Upgrade', 'ear2words' ); ?></button>
 			<?php
-			if ( ! empty( get_option( 'ear2words_license_key' ) ) ) {
-				echo '<a id="update-plan-button" style="text-decoration: underline" >';
-				esc_html_e( 'Update email or payment detail', 'ear2words' );
-				echo '</a>';
-			}
+			settings_errors();
+			do_settings_sections( 'ear2words_button' );
 			?>
 			<form action="options.php" method="post">
 				<?php
@@ -57,6 +52,11 @@ class Settings {
 			</form>
 		</div>
 		<?php
+		if ( ! empty( get_option( 'ear2words_license_key' ) ) ) {
+			echo '<a id="update-plan-button" style="text-decoration: underline" >';
+			esc_html_e( 'Update email or payment detail', 'ear2words' );
+			echo '</a>';
+		}
 	}
 
 	/**
@@ -160,6 +160,16 @@ class Settings {
 	public function init_settings_field() {
 		add_settings_section( 'ear2words-main-settings', __( 'License settings', 'ear2words' ), null, 'ear2words-settings' );
 		add_settings_field(
+			'buy-license-button',
+			__( 'Unlock more features!', 'ear2words' ),
+			array( $this, 'upgrade_button' ),
+			'ear2words-settings',
+			'ear2words-main-settings',
+			array(
+				'name' => __( 'Upgrade', 'ear2words' ),
+			)
+		);
+		add_settings_field(
 			'ear2words-license-key',
 			__( 'License key', 'ear2words' ),
 			array( $this, 'input_field' ),
@@ -182,6 +192,19 @@ class Settings {
 		$option = get_option( $args['name'], '' );
 		?>
 		<input class="large-text" type="<?php echo esc_attr( $args['type'] ); ?>" name="<?php echo esc_attr( $args['name'] ); ?>" value="<?php echo esc_attr( $option ); ?>" placeholder="<?php echo esc_attr( $args['placeholder'] ); ?>">
+		<?php
+	}
+	/**
+	 * Crea il bottone per fare l'upgrade del bottone.
+	 *
+	 * @param array $args Parametri dell'input.
+	 */
+	public function upgrade_button( $args ) {
+		?>
+		<button id="buy-license-button" class="button-primary" >
+			<?php echo esc_html( $args['name'] ); ?>
+		</button>
+		<p style="display:inline; margin-left:4px;"> now! </p>
 		<?php
 	}
 

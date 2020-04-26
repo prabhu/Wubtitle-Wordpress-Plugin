@@ -37,7 +37,7 @@ class PaymentTemplate {
 		wp_die();
 	}
 	/**
-	 * Include il template che viene caricato nella finestra popup per l'acquisto della licenza al click del bottone "acquista".
+	 * Include il template che viene caricato nella finestra popup per l'aggiornamento dei dati di pagamento.
 	 */
 	public function load_update_template() {
 		if ( current_user_can( 'manage_options' ) ) {
