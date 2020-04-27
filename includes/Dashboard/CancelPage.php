@@ -1,6 +1,6 @@
 <?php
 /**
- * This file describes handle Templates.
+ * This file describes how to include the cancel template.
  *
  * @author     Nicola Palermo
  * @since      0.1.0
@@ -10,9 +10,9 @@
 namespace Ear2Words\Dashboard;
 
 /**
- * This class handle Cancel Templates .
+ * This class handle the cancel template.
  */
-class CancelTemplate {
+class CancelPage {
 	/**
 	 * Init class actions
 	 */
