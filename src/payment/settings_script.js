@@ -1,6 +1,6 @@
 let BuyLicenseWindow = null;
 let UpdatePlanWindow = null;
-let CancelSubscriptioWindow = null;
+let CancelSubscriptionWindow = null;
 document.addEventListener("DOMContentLoaded", function() {
 	const buyButton = document.querySelector("#buy-license-button");
 	if (buyButton) {
@@ -77,7 +77,7 @@ const showBuyLicenseWindow = () => {
 };
 
 const showCancelSubscriptionWindow = () => {
-	if (CancelSubscriptioWindow === null || CancelSubscriptioWindow.closed) {
+	if (CancelSubscriptionWindow === null || CancelSubscriptionWindow.closed) {
 		const windowFeatures = `
             left=500,
             top=200,
@@ -90,17 +90,25 @@ const showCancelSubscriptionWindow = () => {
 				type: "GET"
 			})
 			.done(response => {
-				CancelSubscriptioWindow = window.open(
+				CancelSubscriptionWindow = window.open(
 					"",
 					"Cancel subscription",
 					windowFeatures
 				);
-				CancelSubscriptioWindow.document.write(response);
+				CancelSubscriptionWindow.document.write(response);
 			});
 	} else {
-		CancelSubscriptioWindow.focus();
+		CancelSubscriptionWindow.focus();
 	}
 };
 window.onunload = function() {
-	BuyLicenseWindow.close();
+	if (BuyLicenseWindow !== null) {
+		BuyLicenseWindow.close();
+	}
+	if (UpdatePlanWindow !== null) {
+		UpdatePlanWindow.close();
+	}
+	if (CancelSubscriptionWindow !== null) {
+		CancelSubscriptionWindow.close();
+	}
 };
