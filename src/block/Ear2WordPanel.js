@@ -100,6 +100,17 @@ const Ear2WordPanel = props => {
 		);
 	};
 
+	const PendingSubtitle = ({ statusText, langText }) => {
+		return (
+			<Fragment>
+				<div>
+					{__("Status: ", "ear2words") + statusExten[statusText]}
+				</div>
+				<div>{__("Language: ", "ear2words") + langExten[langText]}</div>
+			</Fragment>
+		);
+	};
+
 	const updateStatus = published => {
 		published = !published;
 
@@ -202,7 +213,7 @@ const Ear2WordPanel = props => {
 					switch (status) {
 						case "pending":
 							return (
-								<SubtitleControl
+								<PendingSubtitle
 									langText={languageSaved}
 									statusText={status}
 								/>
