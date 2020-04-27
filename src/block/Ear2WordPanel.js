@@ -1,15 +1,13 @@
 /*  global ear2words_button_object  */
 import { useSelect, useDispatch } from "@wordpress/data";
 import apiFetch from "@wordpress/api-fetch";
-import {
-	PanelBody,
-	Button,
-	SelectControl,
-	ToggleControl
-} from "@wordpress/components";
+import { PanelBody, Button, SelectControl } from "@wordpress/components";
 import { InspectorControls } from "@wordpress/block-editor";
 import { useState, Fragment } from "@wordpress/element";
 import { __ } from "@wordpress/i18n";
+import PendingSubtitle from "./PendingSubtitle";
+import SubtitleControl from "./SubtitleControl";
+import selectOptions from "./labels";
 
 const Ear2WordPanel = props => {
 	const languages = ["it", "en", "es", "de", "zh"];
@@ -76,80 +74,6 @@ const Ear2WordPanel = props => {
 		);
 	};
 
-	const Switch = ({ isActive }) => {
-		return (
-			<ToggleControl
-				label="Published"
-				checked={isActive}
-				onChange={() => {
-					updateStatus(isActive);
-				}}
-			/>
-		);
-	};
-
-	const SubtitleControl = ({ statusText, langText }) => {
-		return (
-			<Fragment>
-				<div>
-					{__("Status: ", "ear2words") + statusExten[statusText]}
-				</div>
-				<div>{__("Language: ", "ear2words") + langExten[langText]}</div>
-				<Switch isActive={isPublished} />
-			</Fragment>
-		);
-	};
-
-	const PendingSubtitle = ({ statusText, langText }) => {
-		return (
-			<Fragment>
-				<div>
-					{__("Status: ", "ear2words") + statusExten[statusText]}
-				</div>
-				<div>{__("Language: ", "ear2words") + langExten[langText]}</div>
-			</Fragment>
-		);
-	};
-
-	const updateStatus = published => {
-		published = !published;
-
-		let state = "draft";
-		if (published) {
-			state = "enabled";
-		}
-
-		editStatus(state);
-
-		entityDispatcher.saveEditedEntityRecord(
-			"postType",
-			"attachment",
-			props.id
-		);
-	};
-
-	const editStatus = statusToEdit => {
-		entityDispatcher.editEntityRecord("postType", "attachment", props.id, {
-			meta: { ear2words_status: statusToEdit }
-		});
-	};
-
-	const langExten = {
-		it: __("Italian", "ear2words"),
-		en: __("English", "ear2words"),
-		es: __("Spanish", "ear2words"),
-		de: __("German ", "ear2words"),
-		zh: __("Chinese", "ear2words"),
-		fr: __("French", "ear2words")
-	};
-
-	const statusExten = {
-		pending: __("Generating", "ear2words"),
-		draft: __("Draft", "ear2words"),
-		enabled: __("Enabled", "ear2words"),
-		notfound: __("None", "ear2words")
-	};
-
 	function onClick() {
 		const idAttachment = props.id;
 		const srcAttachment = props.src;
@@ -179,57 +103,38 @@ const Ear2WordPanel = props => {
 		});
 	}
 
-	const selectOptions = [
-		{
-			value: "it",
-			label: __("Italian", "ear2words")
-		},
-		{
-			value: "en",
-			label: __("English", "ear2words")
-		},
-		{
-			value: "es",
-			label: __("Spanish", "ear2words")
-		},
-		{
-			value: "de",
-			label: __("German ", "ear2words")
-		},
-		{
-			value: "zh",
-			label: __("Chinese", "ear2words")
-		},
-		{
-			value: "fr",
-			label: __("French", "ear2words")
+	const Ear2wordsPanelContent = ({ mainStatus, mainLanguageSaved }) => {
+		switch (status) {
+			case "pending":
+				return (
+					<PendingSubtitle
+						langText={mainLanguageSaved}
+						statusText={mainStatus}
+					/>
+				);
+			case "draft":
+			case "enabled":
+				return (
+					<SubtitleControl
+						statusText={status}
+						langText={languageSaved}
+						isPublished={isPublished}
+						entityDispatcher={entityDispatcher}
+						propsId={props.id}
+					/>
+				);
+			default:
+				return <GenerateSubtitles />;
 		}
-	];
+	};
 
 	return (
 		<InspectorControls>
 			<PanelBody title="Ear2words">
-				{(() => {
-					switch (status) {
-						case "pending":
-							return (
-								<PendingSubtitle
-									langText={languageSaved}
-									statusText={status}
-								/>
-							);
-						case "draft":
-						case "enabled":
-							return (
-								<SubtitleControl
-									langText={languageSaved}
-									statusText={status}
-								/>
-							);
-						default:
-							return <GenerateSubtitles />;
-					}
-				})()}
+				<Ear2wordsPanelContent
+					status={status}
+					languageSaved={languageSaved}
+				/>
 			</PanelBody>
 		</InspectorControls>
 	);
