@@ -39,10 +39,9 @@ class Settings {
 		?>
 		<div class="wrap">
 			<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
-			<?php
-			settings_errors();
-			do_settings_sections( 'ear2words_button' );
-			?>
+			<?php settings_errors(); ?>
+			<button id="buy-license-button" class="button button-primary" >Compra Licenza</button>
+			<button id="cancel-license-button" class="button button-primary" >Annulla Licenza</button>
 			<form action="options.php" method="post">
 				<?php
 				settings_fields( 'ear2words_settings' );
@@ -58,6 +57,7 @@ class Settings {
 			echo '</a>';
 		}
 	}
+
 
 	/**
 	 * Aggiunge una nuova impostazione
