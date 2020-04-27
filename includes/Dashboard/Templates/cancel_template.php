@@ -24,6 +24,16 @@
 	<?php // phpcs:enable ?>
 </head>
 <body>
+	<h1><?php esc_html_e( 'Cancel Subscription', 'ear2words' ); ?></h1>
+	<p><?php esc_html_e( 'Are you sure?', 'ear2words' ); ?></p>
+	<form method="POST" id="form">
+		<input type="submit" value="<?php esc_html_e( 'Yes', 'ear2words' ); ?>">
+		<!-- TODO: Predisposto form per raccolta informazioni per implementazioni future. -->
+		<p>
+			<?php esc_html_e( 'Why?', 'ear2words' ); ?>
+		</p>
+		<input type="text">
+	</form> 
 
 	<div class="wrapper">
 		<div class="container">
