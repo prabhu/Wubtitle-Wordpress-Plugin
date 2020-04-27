@@ -18,7 +18,7 @@ class ApiPricingPlan {
 	 */
 	public function run() {
 		add_action( 'wp_ajax_submit_plan', array( $this, 'send_plan' ) );
-		add_action( 'wp_ajax_update_payment', array( $this, 'update_payment' ) );
+		add_action( 'wp_ajax_update_payment_method', array( $this, 'update_payment_method' ) );
 	}
 	/**
 	 *  Creo il body della richiesta.
@@ -95,7 +95,7 @@ class ApiPricingPlan {
 	/**
 	 * Riceve i dati da javascript e li invia all'endpoint per effettuare l'aggiornamento dei dati di pagamento.
 	 */
-	public function update_payment() {
+	public function update_payment_method() {
 		if ( ! isset( $_POST['_ajax_nonce'] ) ) {
 			wp_send_json_error( __( 'An error occurred. Please try again in a few minutes.', 'ear2words' ) );
 		}
