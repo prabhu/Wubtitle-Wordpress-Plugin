@@ -2,9 +2,9 @@
 /**
  * This file is a template.
  *
- * @author     Nicola Palermo
+ * @author     Alessio Catania
  * @since      0.1.0
- * @package    Ear2Words\Dashboar\Templates
+ * @package    Ear2Words\Dashboard\Templates
  */
 
 /**
@@ -20,15 +20,6 @@
 </head>
 <body>
 	<div class="warning" id="error-message" style="color:red; text-align:center"></div>
-	<h1><?php esc_html_e( 'Select Plan', 'ear2words' ); ?></h1>
-	<form method="POST" id="form">
-		<select name="pricing_plan" id="select">
-			<option value="plan_H6i0TeOPhpY6DN">Premium</option>
-			<option value="plan_H6KKmWETz5hkCu">Standard</option>
-		</select>
-		<input type="submit" value="Submit">
-	</form>
-
 	<?php // phpcs:disable ?>
 	<script>
 		const WP_GLOBALS = {
@@ -37,7 +28,7 @@
 		}
 	</script>
 	<script src="https://js.stripe.com/v3/"></script>
-	<script src="<?php echo esc_url(EAR2WORDS_URL . 'src/payment/payment_template.js'); ?>"></script>
+	<script src="<?php echo esc_url(EAR2WORDS_URL . 'src/payment/update_template.js'); ?>"></script>
 	<?php // phpcs:enable ?>
 </body>
 </html>
