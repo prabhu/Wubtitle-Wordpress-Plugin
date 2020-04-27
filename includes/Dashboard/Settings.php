@@ -44,16 +44,14 @@ class Settings {
 	public function render_settings_page() {
 		?>
 		<div class="wrap">
-				<div class="logo-placeholder">
-					LOGO PLACEHOLDER
-				</div>
-				<form action="options.php" method="post">
-					<?php settings_errors(); ?>
-				<div class="e2w-button-submit">
-					<?php
-					submit_button();
-					?>
-				</div>
+			<div class="logo-placeholder">
+				LOGO PLACEHOLDER
+			</div>
+			<form action="options.php" method="post">
+			<?php
+			settings_errors();
+			submit_button();
+			?>
 			<div class="postbox">
 				<h2 class="hndle ui-sortable-handle e2w-title" ><span><?php esc_html_e( 'Licensing', 'ear2words' ); ?></span></h2>
 				<div class="inside">
@@ -64,9 +62,6 @@ class Settings {
 						<?php
 						settings_fields( 'ear2words_settings' );
 						do_settings_sections( 'ear2words-settings' );
-						echo '<p class="howto"> ';
-						esc_html_e( 'Please enter the license key you received after successful checkout', 'ear2words' );
-						echo '</p>';
 						?>
 					<?php
 					if ( ! empty( get_option( 'ear2words_license_key' ) ) ) {
@@ -207,6 +202,7 @@ class Settings {
 				'name'        => 'ear2words_license_key',
 				'placeholder' => __( 'License key', 'ear2words' ),
 				'class'       => 'input-license-key',
+				'description' => __( 'Please enter the license key you received after successful checkout', 'ear2words' ),
 			)
 		);
 	}
@@ -220,6 +216,7 @@ class Settings {
 		$option = get_option( $args['name'], '' );
 		?>
 		<input class="regular-text" type="<?php echo esc_attr( $args['type'] ); ?>" name="<?php echo esc_attr( $args['name'] ); ?>" value="<?php echo esc_attr( $option ); ?>" placeholder="<?php echo esc_attr( $args['placeholder'] ); ?>">
+		<p class="description"><?php echo esc_html( $args['description'] ); ?></p>
 		<?php
 	}
 	/**
