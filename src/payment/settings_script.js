@@ -1,11 +1,19 @@
 let BuyLicenseWindow = null;
 let UpdatePlanWindow = null;
+let CancelSubscriptionWindow = null;
 document.addEventListener("DOMContentLoaded", function() {
 	const buyButton = document.querySelector("#buy-license-button");
 	if (buyButton) {
 		buyButton.addEventListener("click", e => {
 			e.preventDefault();
 			showBuyLicenseWindow();
+		});
+	}
+
+	const cancelButton = document.querySelector("#cancel-license-button");
+	if (cancelButton) {
+		cancelButton.addEventListener("click", () => {
+			showCancelSubscriptionWindow();
 		});
 	}
 
@@ -67,6 +75,40 @@ const showBuyLicenseWindow = () => {
 		return BuyLicenseWindow;
 	}
 };
+
+const showCancelSubscriptionWindow = () => {
+	if (CancelSubscriptionWindow === null || CancelSubscriptionWindow.closed) {
+		const windowFeatures = `
+            left=500,
+            top=200,
+            width=500,
+            height=500,
+            scrollbars=yes,
+        `;
+		wp.ajax
+			.send("cancel_template", {
+				type: "GET"
+			})
+			.done(response => {
+				CancelSubscriptionWindow = window.open(
+					"",
+					"Cancel subscription",
+					windowFeatures
+				);
+				CancelSubscriptionWindow.document.write(response);
+			});
+	} else {
+		CancelSubscriptionWindow.focus();
+	}
+};
 window.onunload = function() {
-	BuyLicenseWindow.close();
+	if (BuyLicenseWindow !== null) {
+		BuyLicenseWindow.close();
+	}
+	if (UpdatePlanWindow !== null) {
+		UpdatePlanWindow.close();
+	}
+	if (CancelSubscriptionWindow !== null) {
+		CancelSubscriptionWindow.close();
+	}
 };

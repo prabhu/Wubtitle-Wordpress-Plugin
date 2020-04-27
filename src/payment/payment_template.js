@@ -1,4 +1,3 @@
-/*  global WP_GLOBALS  */
 const paymentModule = (function(Stripe, document) {
 	let stripe = null;
 
