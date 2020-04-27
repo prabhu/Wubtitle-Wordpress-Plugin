@@ -51,15 +51,52 @@ const Ear2WordPanel = props => {
 	const isDisabled = status === "pending" || props.id === undefined;
 	const isPublished = status === "enabled";
 
-	const SubtitleSwitch = ({ isPublishedToggle }) => {
+	const GenerateSubtitles = () => {
+		return (
+			<Fragment>
+				<div>{__("Status: ", "ear2words") + status}</div>
+				<SelectControl
+					label={__("Select the video language", "ear2words")}
+					value={languageSelected}
+					onChange={lingua => {
+						setLanguage(lingua);
+					}}
+					options={selectOptions}
+				/>
+				<Button
+					disabled={isDisabled}
+					name="sottotitoli"
+					id={props.id}
+					isPrimary
+					onClick={onClick}
+				>
+					{__("GENERATE SUBTITLES", "ear2words")}
+				</Button>
+			</Fragment>
+		);
+	};
+
+	const Switch = ({ isActive }) => {
 		return (
 			<ToggleControl
 				label="Published"
-				checked={isPublishedToggle}
+				checked={isActive}
 				onChange={() => {
-					updateStatus(isPublishedToggle);
+					updateStatus(isActive);
 				}}
 			/>
+		);
+	};
+
+	const SubtitleControl = ({ statusText, langText }) => {
+		return (
+			<Fragment>
+				<div>
+					{__("Status: ", "ear2words") + statusExten[statusText]}
+				</div>
+				<div>{__("Language: ", "ear2words") + langExten[langText]}</div>
+				<Switch isActive={isPublished} />
+			</Fragment>
 		);
 	};
 
@@ -158,68 +195,30 @@ const Ear2WordPanel = props => {
 		}
 	];
 
-	const MainComponent = prop => {
-		const { subtitleStatus, subtitleState } = prop;
-
-		if (subtitleStatus === "pending") {
-			return (
-				<Fragment>
-					<div>
-						{__("Language: ", "ear2words") +
-							langExten[languageSaved]}
-					</div>
-					<div>
-						{__("Status: ", "ear2words") +
-							statusExten[subtitleStatus]}
-					</div>
-				</Fragment>
-			);
-		} else if (subtitleStatus === "draft" || subtitleStatus === "enabled") {
-			return (
-				<Fragment>
-					<div>
-						{__("Status: ", "ear2words") +
-							statusExten[subtitleStatus]}
-					</div>
-					<div>
-						{__("Language: ", "ear2words") +
-							langExten[languageSaved]}
-					</div>
-					<SubtitleSwitch isPublishedToggle={subtitleState} />
-				</Fragment>
-			);
-		}
-		return (
-			<Fragment>
-				<div>{__("Status: ", "ear2words") + subtitleStatus}</div>
-				<SelectControl
-					label={__("Select the video language", "ear2words")}
-					value={languageSelected}
-					onChange={lingua => {
-						setLanguage(lingua);
-					}}
-					options={selectOptions}
-				/>
-				<Button
-					disabled={isDisabled}
-					name="sottotitoli"
-					id={props.id}
-					isPrimary
-					onClick={onClick}
-				>
-					{__("GENERATE SUBTITLES", "ear2words")}
-				</Button>
-			</Fragment>
-		);
-	};
-
 	return (
 		<InspectorControls>
 			<PanelBody title="Ear2words">
-				<MainComponent
-					subtitleStatus={status}
-					subtitleState={isPublished}
-				/>
+				{(() => {
+					switch (status) {
+						case "pending":
+							return (
+								<SubtitleControl
+									langText={languageSaved}
+									statusText={status}
+								/>
+							);
+						case "draft":
+						case "enabled":
+							return (
+								<SubtitleControl
+									langText={languageSaved}
+									statusText={status}
+								/>
+							);
+						default:
+							return <GenerateSubtitles />;
+					}
+				})()}
 			</PanelBody>
 		</InspectorControls>
 	);
