@@ -43,6 +43,7 @@ class Settings {
 	 */
 	public function render_settings_page() {
 		?>
+		<form action="options.php" method="post">
 		<div class="wrap">
 			<div class="header-settings">
 				<div class="logo-placeholder">
@@ -64,15 +65,6 @@ class Settings {
 						<!-- TODO:  Rendere dinamico -->
 						<?php esc_html_e( 'Free Plan', 'ear2words' ); ?>
 					</div>
-					<div class="upgrade-message">
-						<?php esc_html_e( 'Unlock more feature!', 'ear2words' ); ?>
-						<button id="buy-license-button" class="button button-primary" >
-							<?php esc_html_e( 'Upgrade', 'ear2words' ); ?>
-						</button>
-						<?php esc_html_e( 'now!', 'ear2words' ); ?>
-					</div>
-
-					<form action="options.php" method="post">
 						<?php
 						settings_fields( 'ear2words_settings' );
 						do_settings_sections( 'ear2words-settings' );
@@ -80,18 +72,18 @@ class Settings {
 						esc_html_e( 'Please enter the license key you received after successful checkout', 'ear2words' );
 						echo '</p>';
 						?>
-						<!-- TODO:  Eliminare se si decide di usare un unico bottone di submit -->
-						<?php submit_button(); ?>
-					</form>
+					<?php
+					if ( ! empty( get_option( 'ear2words_license_key' ) ) ) {
+						echo '<a id="update-plan-button" style="text-decoration: underline" >';
+						esc_html_e( 'Update email or payment detail', 'ear2words' );
+						echo '</a>';
+					}
+					?>
 				</div>
 			</div>
 		</div>
+		</form>
 		<?php
-		if ( ! empty( get_option( 'ear2words_license_key' ) ) ) {
-			echo '<a id="update-plan-button" style="text-decoration: underline" >';
-			esc_html_e( 'Update email or payment detail', 'ear2words' );
-			echo '</a>';
-		}
 	}
 
 	/**
@@ -201,7 +193,8 @@ class Settings {
 			'ear2words-settings',
 			'ear2words-main-settings',
 			array(
-				'name' => __( 'Upgrade', 'ear2words' ),
+				'name'  => __( 'Upgrade', 'ear2words' ),
+				'class' => 'upgrade-button',
 			)
 		);
 		add_settings_field(
@@ -214,6 +207,7 @@ class Settings {
 				'type'        => 'text',
 				'name'        => 'ear2words_license_key',
 				'placeholder' => __( 'License key', 'ear2words' ),
+				'class'       => 'input-license-key',
 			)
 		);
 	}

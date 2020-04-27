@@ -17,14 +17,14 @@
   border: 1px #2e2e2e solid;
 }
 
-.postbox tr{
+.input-license-key {
   display: flex;
   flex-direction: column;
 }
-.postbox th{
+.input-license-key th{
   padding: 16px 0px 16px 0px;
 }
-.postbox td{
+.input-license-key td{
   padding: 0px 0px;
 }
 
@@ -48,4 +48,12 @@
 
 .upgrade-message .button {
   margin: 10px;
+}
+
+.upgrade-button {
+  display: block;
+}
+.upgrade-button th {
+  width: auto;
+  font-weight: 400;
 }
