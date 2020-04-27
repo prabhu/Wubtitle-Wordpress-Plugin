@@ -7,14 +7,20 @@ import { useState, Fragment } from "@wordpress/element";
 import { __ } from "@wordpress/i18n";
 import PendingSubtitle from "./PendingSubtitle";
 import SubtitleControl from "./SubtitleControl";
-import { selectOptions } from "./labels";
+import { selectOptions, selectOptionsFreePlan } from "./labels";
 
 const Ear2WordPanel = props => {
-	const languages = ["it", "en", "es", "de", "zh"];
+	const extensionsFile =
+		props.src !== undefined
+			? props.src.substring(props.src.lastIndexOf(".") + 1)
+			: "mp4";
+	const languages =
+		ear2words_button_object.isFree === "1"
+			? ["it", "en"]
+			: ["it", "en", "es", "de", "zh"];
 	const lang = languages.includes(ear2words_button_object.lang)
 		? ear2words_button_object.lang
 		: "en";
-
 	const metaValues = useSelect(select => {
 		let attachment;
 		if (props.id !== undefined) {
@@ -48,7 +54,10 @@ const Ear2WordPanel = props => {
 	const [languageSelected, setLanguage] = useState(lang);
 	const isDisabled = status === "pending" || props.id === undefined;
 	const isPublished = status === "enabled";
-
+	const optionLanguage =
+		ear2words_button_object.isFree === "1"
+			? selectOptionsFreePlan
+			: selectOptions;
 	const GenerateSubtitles = () => {
 		return (
 			<Fragment>
@@ -59,7 +68,7 @@ const Ear2WordPanel = props => {
 					onChange={lingua => {
 						setLanguage(lingua);
 					}}
-					options={selectOptions}
+					options={optionLanguage}
 				/>
 				<Button
 					disabled={isDisabled}
@@ -73,6 +82,12 @@ const Ear2WordPanel = props => {
 			</Fragment>
 		);
 	};
+
+	const FormatNotSupported = () => (
+		<Fragment>
+			<div>{__("Format not supported in free plan", "ear2words")}</div>
+		</Fragment>
+	);
 
 	function onClick() {
 		const idAttachment = props.id;
@@ -103,13 +118,19 @@ const Ear2WordPanel = props => {
 		});
 	}
 
-	const Ear2wordsPanelContent = ({ mainStatus, mainLanguageSaved }) => {
+	const Ear2wordsPanelContent = () => {
+		if (
+			ear2words_button_object.isFree === "1" &&
+			extensionsFile !== "mp4"
+		) {
+			return <FormatNotSupported />;
+		}
 		switch (status) {
 			case "pending":
 				return (
 					<PendingSubtitle
-						langText={mainLanguageSaved}
-						statusText={mainStatus}
+						langText={languageSaved}
+						statusText={status}
 					/>
 				);
 			case "draft":
