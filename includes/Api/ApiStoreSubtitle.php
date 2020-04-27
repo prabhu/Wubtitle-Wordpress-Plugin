@@ -130,7 +130,7 @@ class ApiStoreSubtitle {
 		}
 
 		update_post_meta( $id_attachment, 'ear2words_subtitle', $id_file_vtt );
-		update_post_meta( $id_attachment, 'ear2words_status', 'done' );
+		update_post_meta( $id_attachment, 'ear2words_status', 'draft' );
 		update_post_meta( $id_file_vtt, 'is_subtitle', 'true' );
 
 		$message = array(
@@ -148,7 +148,3 @@ class ApiStoreSubtitle {
 		return $response;
 	}
 }
-
-
-
-

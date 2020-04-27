@@ -1,3 +1,4 @@
+/*  global WP_GLOBALS  */
 const paymentModule = (function(Stripe, document) {
 	let stripe = null;
 
@@ -9,14 +10,14 @@ const paymentModule = (function(Stripe, document) {
 		}
 	};
 
-	const handleChoise = plan => {
+	const handleSubmit = () => {
 		fetch(adminAjax, {
 			method: "POST",
 			credentials: "include",
 			headers: new Headers({
 				"Content-Type": "application/x-www-form-urlencoded"
 			}),
-			body: `action=submit_plan&_ajax_nonce=${nonce}&pricing_plan=${plan}`
+			body: `action=update_payment&_ajax_nonce=${nonce}`
 		})
 			.then(resp => resp.json())
 			.then(response => {
@@ -31,13 +32,7 @@ const paymentModule = (function(Stripe, document) {
 
 	const init = () => {
 		stripe = Stripe("pk_test_nfUYjFiwdkzYpPOfCZkVZiMK00lOAFcAK7");
-		const buttons = document.querySelectorAll(".button-choose-plan");
-		buttons.forEach(button => {
-			button.addEventListener("click", () => {
-				const plan = button.getAttribute("plan");
-				handleChoise(plan);
-			});
-		});
+		handleSubmit();
 	};
 
 	return {
