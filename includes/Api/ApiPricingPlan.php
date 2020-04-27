@@ -93,7 +93,7 @@ class ApiPricingPlan {
 		wp_send_json_success( $session_id );
 	}
 	/**
-	 * Riceve i dati da javascript e li invia all'endpoint.
+	 * Riceve i dati da javascript e li invia all'endpoint per effettuare l'aggiornamento dei dati di pagamento.
 	 */
 	public function update_payment() {
 		if ( ! isset( $_POST['_ajax_nonce'] ) ) {
