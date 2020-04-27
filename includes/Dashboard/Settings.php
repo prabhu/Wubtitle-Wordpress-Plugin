@@ -30,20 +30,20 @@ class Settings {
 	 */
 	public function create_settings_menu() {
 		// TODO: Cambiare $icon_url e $position (attualmente subito dopo "Impostazioni") quando verranno date indicazioni UX.
-		add_menu_page( __( 'Licensing', 'ear2words' ), __( 'Ear2words', 'ear2words' ), 'manage_options', 'ear2words_settings', array( $this, 'render_settings_page' ), 'dashicons-format-status', 81 );
+		add_menu_page( __( 'Ear2words Settings', 'ear2words' ), __( 'Ear2words', 'ear2words' ), 'manage_options', 'ear2words_settings', array( $this, 'render_settings_page' ), 'dashicons-format-status', 81 );
 	}
 	/**
 	 *  Faccio l'enqueue dello style per i settings.
 	 */
 	public function ear2words_settings_style() {
-		wp_enqueue_style( 'ear2words_settings_style', plugins_url( '../../src/css/settingsStyle.css', __FILE__ ), null, true );
+		wp_enqueue_style( 'ear2words_settings_style', EAR2WORDS_URL . 'src/css/settingsStyle.css', null, true );
 	}
 	/**
 	 * Crea la pagina dei settings
 	 */
 	public function render_settings_page() {
 		?>
-		<div class="wrap">		
+		<div class="wrap">
 			<div class="header-settings">
 				<div class="logo-placeholder">
 					LOGO PLACEHOLDER
@@ -52,9 +52,9 @@ class Settings {
 					<!-- TODO:  Questa funzione deve essere usata all'interno di un form, cercare metodo alternativo -->
 					<?php submit_button(); ?>
 				</div>
-			</div>			
+			</div>
 			<div class="postbox">
-				<h2 class="hndle ui-sortable-handle e2w-title" ><span><?php echo esc_html( get_admin_page_title() ); ?></span></h2>
+				<h2 class="hndle ui-sortable-handle e2w-title" ><span><?php esc_html_e( 'Licensing', 'ear2words' ); ?></span></h2>
 				<?php settings_errors(); ?>
 				<div class="inside">
 					<div class="plan-state">
