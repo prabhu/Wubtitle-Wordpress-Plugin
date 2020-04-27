@@ -19,13 +19,12 @@ const paymentModule = (function(Stripe, document) {
 			body: `action=submit_plan&_ajax_nonce=${nonce}&pricing_plan=${plan}`
 		})
 			.then(resp => resp.json())
-			.then(data => {
-				if (data.success) {
-					openStripeForm(data.data, stripe);
+			.then(response => {
+				if (response.success) {
+					openStripeForm(response.data, stripe);
 				} else {
-					/* eslint-disable */
-					alert(data.data);
-					/* eslint-enable */
+					document.getElementById("error-message").innerHTML =
+						response.data;
 				}
 			});
 	};
@@ -70,7 +69,9 @@ const paymentModule = (function(Stripe, document) {
 		});
 	};
 
-	return { init };
+	return {
+		init
+	};
 })(Stripe, document);
 
 paymentModule.init();
