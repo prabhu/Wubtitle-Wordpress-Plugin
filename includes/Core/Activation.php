@@ -41,9 +41,9 @@ class Activation {
 			)
 		);
 		$code_response = wp_remote_retrieve_response_code( $response );
-		if ( 201 === $code_response && empty( get_options( 'ear2words_license_key' ) ) ) {
+		if ( 201 === $code_response ) {
 			$response_body = json_decode( wp_remote_retrieve_body( $response ) );
-			update_option( 'ear2words_free', true );
+			update_option( 'ear2words_free', $response_body->data->isFree );
 			update_option( 'ear2words_license_key', $response_body->data->licenseKey );
 		}
 	}
