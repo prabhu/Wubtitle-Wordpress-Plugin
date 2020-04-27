@@ -36,9 +36,23 @@ class Settings {
 	 * Crea la pagina dei settings
 	 */
 	public function render_settings_page() {
+		$seconds = 900;
+		$jobs    = 20;
+		if ( ! empty( 'ear2words_seconds_done' ) ) {
+			$seconds -= get_option( 'ear2words_seconds_done' );
+			$jobs    -= get_option( 'ear2words_jobs_done' );
+		}
 		?>
 		<div class="wrap">
 			<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
+			<p>
+			<?php
+			esc_html_e( 'Minutes remaining: ', 'ear2words' );
+			echo esc_html( gmdate( 'i:s', $seconds ) );
+			esc_html_e( ' Jobs remaining: ', 'ear2words' );
+			echo esc_html( $jobs );
+			?>
+			</p>
 			<?php
 			settings_errors();
 			do_settings_sections( 'ear2words_button' );
