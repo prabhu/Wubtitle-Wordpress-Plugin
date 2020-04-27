@@ -7,7 +7,7 @@ import { useState, Fragment } from "@wordpress/element";
 import { __ } from "@wordpress/i18n";
 import PendingSubtitle from "./PendingSubtitle";
 import SubtitleControl from "./SubtitleControl";
-import selectOptions from "./labels";
+import { selectOptions } from "./labels";
 
 const Ear2WordPanel = props => {
 	const languages = ["it", "en", "es", "de", "zh"];
@@ -119,8 +119,7 @@ const Ear2WordPanel = props => {
 						statusText={status}
 						langText={languageSaved}
 						isPublished={isPublished}
-						entityDispatcher={entityDispatcher}
-						propsId={props.id}
+						postId={props.id}
 					/>
 				);
 			default:

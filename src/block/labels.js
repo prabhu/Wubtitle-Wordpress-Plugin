@@ -43,4 +43,4 @@ const selectOptions = [
 	}
 ];
 
-export default { langExten, statusExten, selectOptions };
+export { langExten, statusExten, selectOptions };
