@@ -43,23 +43,19 @@ class Settings {
 	 */
 	public function render_settings_page() {
 		?>
-		<form action="options.php" method="post">
 		<div class="wrap">
-			<div class="header-settings">
 				<div class="logo-placeholder">
 					LOGO PLACEHOLDER
 				</div>
+				<form action="options.php" method="post">
+					<?php settings_errors(); ?>
 				<div class="e2w-button-submit">
-					<!-- TODO:  Questa funzione deve essere usata all'interno di un form, cercare metodo alternativo -->
 					<?php
 					submit_button();
-					do_settings_sections( 'ear2words_button' );
 					?>
 				</div>
-			</div>
 			<div class="postbox">
 				<h2 class="hndle ui-sortable-handle e2w-title" ><span><?php esc_html_e( 'Licensing', 'ear2words' ); ?></span></h2>
-				<?php settings_errors(); ?>
 				<div class="inside">
 					<div class="plan-state">
 						<!-- TODO:  Rendere dinamico -->
