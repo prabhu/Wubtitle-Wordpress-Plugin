@@ -24,9 +24,9 @@
 	<form method="POST" id="form">
 		<input type="submit" value="<?php esc_html_e( 'Yes', 'ear2words' ); ?>">
 		<!-- TODO: Predisposto form per raccolta informazioni per implementazioni future. -->
-		<br><br>
-		<?php esc_html_e( 'Why?', 'ear2words' ); ?>
-		<br>
+		<p>
+			<?php esc_html_e( 'Why?', 'ear2words' ); ?>
+		</p>
 		<input type="text">
 	</form> 
 
