@@ -41,8 +41,6 @@ class Settings {
 		<div class="wrap">
 			<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
 			<?php settings_errors(); ?>
-			<button id="buy-license-button" class="button button-primary" >Compra Licenza</button>
-			<button id="cancel-license-button" class="button button-primary" >Annulla Licenza</button>
 			<form action="options.php" method="post">
 				<?php
 				settings_fields( 'ear2words_settings' );
@@ -52,8 +50,11 @@ class Settings {
 			</form>
 		</div>
 		<?php
-		if ( ! empty( get_option( 'ear2words_license_key' ) ) ) {
-			echo '<a id="update-plan-button" style="text-decoration: underline" >';
+		if ( ! get_option( 'ear2words_free' ) ) {
+			echo '<a id="cancel-license-button" style="text-decoration: underline; color:red" >';
+			esc_html_e( 'Unsubscribe', 'ear2words' );
+			echo '</a>';
+			echo '<a id="update-plan-button" style="text-decoration: underline; margin-left:16px" >';
 			esc_html_e( 'Update email or payment detail', 'ear2words' );
 			echo '</a>';
 		}
