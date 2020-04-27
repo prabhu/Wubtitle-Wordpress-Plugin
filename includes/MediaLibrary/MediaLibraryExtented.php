@@ -80,7 +80,7 @@ class MediaLibraryExtented {
 			'pending' => __( 'Generating', 'ear2words' ),
 			'draft'   => __( 'Draft', 'ear2words' ),
 			'enabled' => __( 'Published', 'ear2words' ),
-			'none'    => 'None',
+			''        => 'None',
 		);
 		$allowed_pages = array(
 			'admin-ajax.php',
@@ -89,8 +89,17 @@ class MediaLibraryExtented {
 		if ( ! wp_attachment_is( 'video', $post ) || ! in_array( $pagenow, $allowed_pages, true ) ) {
 			return $form_fields;
 		}
+		if ( get_option( 'ear2words_free' ) && 'video/mp4' !== $post->post_mime_type ) {
+			$form_fields['e2w_status'] = array(
+				'label' => 'Ear2words',
+				'input' => 'html',
+				'html'  => '<label for="attachments-' . $post->ID . '-e2w_status"> Formato non supportato per la versione free </label>',
+				'value' => $post->ID,
+			);
+			return $form_fields;
+		}
 		// Aggiunge lo stato del sottotitolo.
-		$status                    = empty( $post->ear2words_status ) ? 'none' : $post->ear2words_status;
+		$status                    = $post->ear2words_status;
 		$form_fields['e2w_status'] = array(
 			'label' => 'Subtitle',
 			'input' => 'html',
@@ -99,7 +108,7 @@ class MediaLibraryExtented {
 		);
 
 		// Aggiunge la select della lingua e il bottone per generare i sottotitoli se il video non è ancora stato processato da e2w.
-		if ( 'none' === $status ) {
+		if ( '' === $status ) {
 			$form_fields['e2w_form'] = array(
 				'label' => 'Language',
 				'input' => 'html',
@@ -112,10 +121,14 @@ class MediaLibraryExtented {
 			<select name="attachments[<?php echo esc_html( $post->ID ); ?>][select-lang]" id="Profile Image Select">
 				<option <?php echo selected( $lang, 'it', false ); ?> value="it"> <?php esc_html_e( 'Italian', 'ear2words' ); ?></option>
 				<option <?php echo selected( $lang, 'en', false ); ?> value="en"> <?php esc_html_e( 'English', 'ear2words' ); ?></option>
+				<?php
+				if ( ! get_option( 'ear2words_free' ) ) {
+					?>
 				<option <?php echo selected( $lang, 'es', false ); ?> value="es"> <?php esc_html_e( 'Spanish', 'ear2words' ); ?></option>
 				<option <?php echo selected( $lang, 'de', false ); ?> value="de"> <?php esc_html_e( 'German', 'ear2words' ); ?></option>
 				<option <?php echo selected( $lang, 'zh', false ); ?> value="zh"> <?php esc_html_e( 'Chinese', 'ear2words' ); ?></option>
 				<option <?php echo selected( $lang, 'fr', false ); ?> value="fr"> <?php esc_html_e( 'French', 'ear2words' ); ?></option>
+				<?php } ?>
 			</select>
 			<label onclick="this.setAttribute('disabled','true')" class="button-primary" style="margin-top:16px;" for="attachments-<?php echo esc_html( $post->ID ); ?>-e2w_form">
 				<input type="checkbox" style="display:none" id="attachments-<?php echo esc_html( $post->ID ); ?>-e2w_form" name="attachments[<?php echo esc_html( $post->ID ); ?>][e2w_form]" value="<?php echo esc_html( $post->ID ); ?>" />
@@ -170,7 +183,15 @@ class MediaLibraryExtented {
 		if ( ! wp_attachment_is( 'video', $post ) || 'post.php' !== $pagenow ) {
 			return $form_fields;
 		}
-
+		if ( get_option( 'ear2words_free' ) && 'video/mp4' !== $post->post_mime_type ) {
+			$form_fields['e2w_status'] = array(
+				'label' => 'Ear2words',
+				'input' => 'html',
+				'html'  => '<label for="attachments-' . $post->ID . '-e2w_status"> Formato non supportato per la versione free </label>',
+				'value' => $post->ID,
+			);
+			return $form_fields;
+		}
 		$status = empty( $post->ear2words_status ) ? 'none' : $post->ear2words_status;
 
 		// Aggiunge una select per pubblicare o disabilitare i sottotitoli se lo stato è uno tra enabled e draft.
@@ -203,9 +224,7 @@ class MediaLibraryExtented {
 			'value' => $post->ID,
 		);
 		// Aggiunge paragrafo.
-		if ( 'pending' === $status ) {
-			$form_fields['e2w_lang']['helps'] = __( 'Wait while subtitles are created. Subtitles will be available as soon as possible', 'ear2words' );
-		}
+		$form_fields['e2w_lang']['helps'] = __( 'Wait while subtitles are created. Subtitles will be available as soon as possible', 'ear2words' );
 		return $form_fields;
 	}
 
@@ -251,10 +270,14 @@ class MediaLibraryExtented {
 			<select style="width:100%" name="attachments[<?php echo esc_html( $id_video ); ?>][select-lang]" id="Profile Image Select">
 				<option <?php echo selected( $lang, 'it', false ); ?> value="it"> <?php esc_html_e( 'Italian', 'ear2words' ); ?></option>
 				<option <?php echo selected( $lang, 'en', false ); ?> value="en"> <?php esc_html_e( 'English', 'ear2words' ); ?></option>
+				<?php
+				if ( ! get_option( 'ear2words_free' ) ) {
+					?>
 				<option <?php echo selected( $lang, 'es', false ); ?> value="es"> <?php esc_html_e( 'Spanish', 'ear2words' ); ?></option>
 				<option <?php echo selected( $lang, 'de', false ); ?> value="de"> <?php esc_html_e( 'German', 'ear2words' ); ?></option>
 				<option <?php echo selected( $lang, 'zh', false ); ?> value="zh"> <?php esc_html_e( 'Chinese', 'ear2words' ); ?></option>
 				<option <?php echo selected( $lang, 'fr', false ); ?> value="fr"> <?php esc_html_e( 'French', 'ear2words' ); ?></option>
+				<?php } ?>
 			</select>
 			<button type="submit" class="button-primary" style="margin-top:16px;" id="attachments-<?php echo esc_html( $id_video ); ?>-e2w_form" name="attachments[<?php echo esc_html( $id_video ); ?>][e2w_form]" value="invio">
 			<?php esc_html_e( 'GENERATE SUBTITLES', 'ear2words' ); ?>
