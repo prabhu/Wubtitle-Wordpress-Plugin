@@ -74,9 +74,11 @@ class Settings {
 						?>
 					<?php
 					if ( ! empty( get_option( 'ear2words_license_key' ) ) ) {
-						echo '<a id="update-plan-button" style="text-decoration: underline" >';
-						esc_html_e( 'Update email or payment detail', 'ear2words' );
-						echo '</a>';
+					?>
+						<a id="update-plan-button" style="text-decoration: underline" >
+							<?php esc_html_e( 'Update email or payment detail', 'ear2words' ); ?>
+						</a>
+					<?php
 					}
 					?>
 				</div>
