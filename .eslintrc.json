@@ -4,6 +4,7 @@
         "browser": true
     },
     "globals": {
-        "Stripe": true
+        "Stripe": true,
+        "WP_GLOBALS": true
     }
 }

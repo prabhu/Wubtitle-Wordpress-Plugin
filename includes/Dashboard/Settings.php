@@ -86,6 +86,7 @@ class Settings {
 		<?php
 	}
 
+
 	/**
 	 * Aggiunge una nuova impostazione
 	 */
