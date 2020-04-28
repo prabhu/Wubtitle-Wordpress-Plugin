@@ -24,16 +24,6 @@
 	<?php // phpcs:enable ?>
 </head>
 <body>
-	<div class="warning" id="error-message" style="color:red; text-align:center"></div>
-	<h1><?php esc_html_e( 'Select Plan', 'ear2words' ); ?></h1>
-	<form method="POST" id="form">
-		<select name="pricing_plan" id="select">
-			<option value="plan_H6i0TeOPhpY6DN">Premium</option>
-			<option value="plan_H6KKmWETz5hkCu">Standard</option>
-		</select>
-		<input type="submit" value="Submit">
-	</form>
-
 	<div class="wrapper">
 		<div class="container">
 			<div class="title">Choose the right plan for your project</div>
@@ -109,71 +99,6 @@
 									</div>
 								</div>
 								<div class="card-features">
-									<div class="row">
-										<div>Feature on</div>
-										<div>include</div>
-									</div>
-									<div class="row">
-										<div>Feature on</div>
-										<div>include</div>
-									</div>
-									<div class="row">
-										<div>Feature on</div>
-										<div>include</div>
-									</div>
-								</div>
-							</div>
-							<div class="button-choose-plan" plan="plan_H6KKmWETz5hkCu">
-								Choose this plan
-							</div>							
-						</div>  
-					</div>
-					<div class="features-list">
-						<ul>
-							<li>Lorem ipsum dolor sit amet</li>
-							<li>Lorem ipsum dolor sit amet</li>
-							<li>Lorem ipsum dolor sit amet</li>
-							<li>Lorem ipsum dolor sit amet</li>
-							<li>Lorem ipsum dolor sit amet</li>
-						</ul>
-					</div>
-				</div>
-				<div class="card-column">
-					<div class="card">
-						<div class="card-content">
-							<div>
-								<div class="card-header">
-									<div class="card-title">
-										Enterprise
-									</div>
-									<div class="card-logo">									
-									</div>
-								</div>
-								<div class="card-price">
-									<div class="year">
-										Per year
-									</div>
-									<div class="price">
-										€180
-									</div>
-								</div>
-								<div class="card-features">
-									<div class="row">
-										<div>Feature on</div>
-										<div>include</div>
-									</div>
-									<div class="row">
-										<div>Feature on</div>
-										<div>include</div>
-									</div>
-									<div class="row">
-										<div>Feature on</div>
-										<div>include</div>
-									</div>
-									<div class="row">
-										<div>Feature on</div>
-										<div>include</div>
-									</div>
 									<div class="row">
 										<div>Feature on</div>
 										<div>include</div>
