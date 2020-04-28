@@ -17,10 +17,10 @@ class Cron {
 	 * Init class actions.
 	 */
 	public function run() {
-		add_action( 'e2w_cron', array( $this, 'upgrade' ) );
+		add_action( 'e2w_cron', array( $this, 'get_remote_data' ) );
 		add_filter( 'cron_schedules', array( $this, 'add_cron_interval' ) );
 		register_activation_hook( EAR2WORDS_FILE_URL, array( $this, 'schedule_cron' ) );
-		register_deactivation_hook( EAR2WORDS_FILE_URL, array( $this, 'schedule_cron' ) );
+		register_deactivation_hook( EAR2WORDS_FILE_URL, array( $this, 'unschedule_cron' ) );
 		add_action( 'init', array( $this, 'schedule_cron' ) );
 	}
 
@@ -32,6 +32,19 @@ class Cron {
 			wp_schedule_event( time(), 'five_seconds', 'e2w_cron' );
 		}
 	}
+
+
+	/**
+	 * Disattiva cron.
+	 */
+	public function unschedule_cron() {
+		// when the last event was scheduled.
+		$timestamp = wp_next_scheduled( '' );
+		// unschedule previous event if any.
+		wp_unschedule_event( $timestamp, '' );
+	}
+
+
 
 	/**
 	 * Cron.
@@ -46,23 +59,40 @@ class Cron {
 		return $schedules;
 	}
 
-	/**
-	 * Disattiva cron.
-	 */
-	public function cron_deactivate() {
-		// when the last event was scheduled.
-		$timestamp = wp_next_scheduled( 'get_subscription_info_cron_job' );
-		// unschedule previous event if any.
-		wp_unschedule_event( $timestamp, 'get_subscription_info_crar2words_license_key"on_job' );
-	}
+
 
 	/**
 	 * Fetch info.
 	 */
-	public function upgrade() {
-		update_option( 'state_account', gmdate( 'H:i:s', time() ) );
+	public function get_remote_data() {
+		$license_key = get_option( 'ear2words_license_key' );
+
+		$response = wp_remote_post(
+			ENDPOINT . 'get/info/test',
+			array(
+				'method'  => 'POST',
+				'headers' => array(
+					'Content-Type' => 'application/json; charset=utf-8',
+					'licenseKey'   => $license_key,
+				),
+			)
+		);
+
+		$code_response = wp_remote_retrieve_response_code( $response );
+		if ( 200 === $code_response ) {
+			$body_response = json_decode( wp_remote_retrieve_body( $response ) );
+			$options       = array(
+				'plan'            => $body_response->data->plan,
+				'expiration_date' => $body_response->data->expirationDate,
+				'is_first_month'  => $body_response->data->isFirstMonth,
+				'is_canceling'    => $body_response->data->isCanceling,
+				'total_jobs'      => $body_response->data->totalJobs,
+				'total_seconds'   => $body_response->data->totalSeconds,
+			);
+			update_option( 'state_account', $options );
+		} elseif ( 200 !== $code_response ) {
+			update_option( 'state_account', 'errore ' . $code_response );
+		}
 	}
-
-
 
 }

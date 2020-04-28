@@ -45,9 +45,15 @@ class Settings {
 			<?php
 			settings_errors();
 			do_settings_sections( 'ear2words_button' );
-			$test_value = get_option( 'state_account' );
-			echo esc_html( $test_value );
 			?>
+			<p>
+			<?php
+			$option_values = get_option( 'state_account' );
+			foreach ( $option_values  as $value ) {
+				echo esc_html( "<p>$value</p>" );
+			}
+			?>
+			</p>
 			<form action="options.php" method="post">
 				<?php
 				settings_fields( 'ear2words_settings' );
