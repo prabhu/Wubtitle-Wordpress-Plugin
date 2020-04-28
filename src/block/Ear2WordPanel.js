@@ -48,7 +48,6 @@ const Ear2WordPanel = props => {
 		languageSaved = metaValues.ear2words_lang_video;
 		status = metaValues.ear2words_status;
 	}
-
 	const noticeDispatcher = useDispatch("core/notices");
 	const entityDispatcher = useDispatch("core");
 	const [languageSelected, setLanguage] = useState(lang);
@@ -110,7 +109,12 @@ const Ear2WordPanel = props => {
 					"postType",
 					"attachment",
 					props.id,
-					{ meta: { ear2words_status: "pending" } }
+					{
+						meta: {
+							ear2words_status: "pending",
+							ear2words_lang_video: languageSelected
+						}
+					}
 				);
 			} else {
 				noticeDispatcher.createNotice("error", res.data);
