@@ -81,18 +81,12 @@ class Cron {
 		$code_response = wp_remote_retrieve_response_code( $response );
 		if ( 200 === $code_response ) {
 			$body_response = json_decode( wp_remote_retrieve_body( $response ) );
-			$options       = array(
-				'plan'            => $body_response->data->plan,
-				'expiration_date' => $body_response->data->expirationDate,
-				'is_first_month'  => $body_response->data->isFirstMonth,
-				'is_canceling'    => $body_response->data->isCanceling,
-				'total_jobs'      => $body_response->data->totalJobs,
-				'total_seconds'   => $body_response->data->totalSeconds,
-			);
-			update_option( 'state_account', $options );
-		} elseif ( 200 !== $code_response ) {
-			update_option( 'state_account', 'errore ' . $code_response );
+			update_option( 'ear2words_plan', $body_response->data->plan );
+			update_option( 'ear2words_expiration_date', $body_response->data->expirationDate );
+			update_option( 'ear2words_is_first_month', $body_response->data->isFirstMonth );
+			update_option( 'ear2words_is_canceling', $body_response->data->isCanceling );
+			update_option( 'ear2words_total_jobs', $body_response->data->totalJobs );
+			update_option( 'ear2words_total_seconds', $body_response->data->totalSeconds );
 		}
 	}
-
 }

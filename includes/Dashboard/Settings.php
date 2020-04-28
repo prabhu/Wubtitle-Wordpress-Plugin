@@ -48,10 +48,15 @@ class Settings {
 			?>
 			<p>
 			<?php
-			$option_values = get_option( 'state_account' );
-			foreach ( $option_values  as $value ) {
-				echo esc_html( "<p>$value</p>" );
-			}
+			$ear2words_plan            = get_option( 'ear2words_plan' );
+			$ear2words_expiration_date = get_option( 'ear2words_expiration_date' );
+			$ear2words_is_first_month  = get_option( 'ear2words_is_first_month' );
+			$ear2words_is_canceling    = get_option( 'ear2words_is_canceling' );
+			$ear2words_total_jobs      = get_option( 'ear2words_total_jobs' );
+			$ear2words_total_seconds   = get_option( 'ear2words_total_seconds' );
+
+			echo esc_html( "$ear2words_plan $ear2words_expiration_date $ear2words_is_first_month $ear2words_is_canceling $ear2words_total_jobs $ear2words_total_seconds" );
+
 			?>
 			</p>
 			<form action="options.php" method="post">
