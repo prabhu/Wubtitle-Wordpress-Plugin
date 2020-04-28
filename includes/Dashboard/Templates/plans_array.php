@@ -8,27 +8,29 @@
  */
 
 /**
- * This is an array.
+ * This array describes all avaiable plans for users.
  */
 $plans = array(
 	array(
-		'stripe_code' => 'plan_0',
-		'name'        => 'Free',
-		'price'       => 0,
-		'features'    => array(
+		'stripe_code'  => 'plan_0',
+		'name'         => 'Free',
+		'price'        => 0,
+		'features'     => array(
 			'Feature',
 			'Feature',
 		),
-		'dot_list'    => array(
+		'dot_list'     => array(
 			'Lorem ipsum dolor sit amet',
 			'Lorem ipsum dolor sit amet',
 		),
+		'zoom'         => false,
+		'current_plan' => true,
 	),
 	array(
-		'stripe_code' => 'plan_HBBbNjLjVk3w4w',
-		'name'        => 'Standard',
-		'price'       => 180,
-		'features'    => array(
+		'stripe_code'  => 'plan_HBBbNjLjVk3w4w',
+		'name'         => 'Standard',
+		'price'        => 180,
+		'features'     => array(
 			'Feature',
 			'Feature',
 			'Feature',
@@ -36,25 +38,29 @@ $plans = array(
 			'Feature',
 			'Feature',
 		),
-		'dot_list'    => array(
+		'dot_list'     => array(
 			'Lorem ipsum dolor sit amet',
 			'Lorem ipsum dolor sit amet',
 			'Lorem ipsum dolor sit amet',
 			'Lorem ipsum dolor sit amet',
 			'Lorem ipsum dolor sit amet',
 		),
+		'zoom'         => true,
+		'current_plan' => false,
 	),
 	array(
-		'stripe_code' => 'plan_HBBS5I9usXvwQR',
-		'name'        => 'Elite',
-		'price'       => 200,
-		'features'    => array(
+		'stripe_code'  => 'plan_HBBS5I9usXvwQR',
+		'name'         => 'Elite',
+		'price'        => 200,
+		'features'     => array(
 			'Lorem ipsum dolor sit amet',
 			'Feature',
 		),
-		'dot_list'    => array(
+		'dot_list'     => array(
 			'Lorem ipsum dolor sit amet',
 			'Lorem ipsum dolor sit amet',
 		),
+		'zoom'         => false,
+		'current_plan' => false,
 	),
 );

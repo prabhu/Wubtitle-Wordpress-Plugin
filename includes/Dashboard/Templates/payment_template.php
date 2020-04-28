@@ -26,50 +26,51 @@ require EAR2WORDS_DIR . 'includes/Dashboard/Templates/plans_array.php'
 </head>
 <body>
 	<div class="container">
-		<h1 class="title">Choose the right plan for your project</h1>
-		<div class="card-row">
+		<h1 class="title"><?php echo esc_html_e( 'Choose the right plan for your project', 'ear2words' ); ?></h1>
+		<div class="row">
 		<?php
-		foreach ( $plans as $plan ) {
+		foreach ( $plans as $plan ) :
 			?>
-			<div class="card-column">
-				<div class="card">
-					<h2 class="card-title">
+			<div class="column one-quarter">
+				<div class="card <?php echo $plan['zoom'] ? 'zoom' : ''; ?>">
+					<h2 class="card__title">
 						<?php echo esc_html( $plan['name'] ); ?>
 					</h2>
-					<div class="card-logo">									
+					<div class="card__logo">	
+						<!-- TODO: placeholder logo, momentaneamente un quadrato grigio con css-->
 					</div>
-					<div class="card-price">
-						Per year
+					<div class="card__price">
+						<?php echo esc_html_e( 'Per year', 'ear2words' ); ?>
 						<p class="price">
-							€ <?php echo esc_html( $plan['price'] ); ?>
+							<?php echo esc_html( '€' ) . ' ' . esc_html( $plan['price'] ); ?>
 						</p>
 					</div>
 					<?php
-					foreach ( $plan['features'] as $feature ) {
+					foreach ( $plan['features'] as $feature ) :
 						?>
-					<div class="card-features-row">
+					<div class="card__features">
 						<?php echo esc_html( $feature ); ?>
-						<div>include</div>
+						<div><?php echo esc_html_e( 'include', 'ear2words' ); ?></div>
 					</div>
 						<?php
-					}
+					endforeach;
 					?>
-					<div class="button-choose-plan" plan="<?php echo esc_html( $plan['stripe_code'] ); ?>">
-						Choose this plan
+					<div class="<?php echo $plan['current_plan'] ? 'current-plan' : 'button-choose-plan'; ?>" plan="<?php echo esc_html( $plan['stripe_code'] ); ?>">	
+						<?php echo $plan['current_plan'] ? esc_html_e( 'Your plan', 'ear2words' ) : esc_html_e( 'Choose this plan', 'ear2words' ); ?>
 					</div>
 				</div>
 				<ul class="features-list">
 					<?php
-					foreach ( $plan['dot_list'] as $dot ) {
+					foreach ( $plan['dot_list'] as $dot ) :
 						?>
 					<li><?php echo esc_html( $dot ); ?></li>
 						<?php
-					}
+					endforeach;
 					?>
 				</ul>
 			</div>
 			<?php
-		}
+		endforeach;
 		?>
 		</div>
 	</div>
