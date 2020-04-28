@@ -217,13 +217,13 @@ class Settings {
 		?>
 		<input class="regular-text" type="<?php echo esc_attr( $args['type'] ); ?>" name="<?php echo esc_attr( $args['name'] ); ?>" value="<?php echo esc_attr( $option ); ?>" placeholder="<?php echo esc_attr( $args['placeholder'] ); ?>">
 		<?php
-		if ( ! get_option( 'ear2words_free' ) ) {
+		if ( ! get_option( 'ear2words_free' ) ) :
 			?>
 			<a id="reset-license" style="text-decoration: underline" >
 				<?php esc_html_e( 'Reset license key', 'ear2words' ); ?>
 			</a>
 			<?php
-		}
+		endif;
 		?>
 		<p class="description"><?php echo esc_html( $args['description'] ); ?></p>
 		<?php

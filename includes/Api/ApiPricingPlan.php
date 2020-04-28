@@ -156,7 +156,6 @@ class ApiPricingPlan {
 			'400' => __( 'An error occurred. Please try again in a few minutes', 'ear2words' ),
 			'403' => __( 'Access denied', 'ear2words' ),
 			'500' => __( 'Could not contact the server', 'ear2words' ),
-			''    => __( 'Could not contact the server', 'ear2words' ),
 		);
 		if ( 200 !== $code_response ) {
 			wp_send_json_error( $message[ $code_response ] );
