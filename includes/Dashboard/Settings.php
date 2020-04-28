@@ -38,47 +38,18 @@ class Settings {
 	public function ear2words_settings_style() {
 		wp_enqueue_style( 'ear2words_settings_style', EAR2WORDS_URL . 'src/css/settingsStyle.css', null, true );
 	}
-	/**
-	 * Ritorna una array con la lista dei piani con i minuti e i jobs massimi.
-	 */
-	public function get_minutes_and_jobs_max() {
-		$plans = array(
-			'free'     => array(
-				'jobs'    => 3,
-				'minutes' => 30,
-			),
-			'standard' => array(
-				'jobs'    => 10,
-				'minutes' => 180,
-			),
-			'elite'    => array(
-				'jobs'    => 30,
-				'minutes' => 600,
-			),
-		);
-		return $plans;
-	}
 
 	/**
 	 * Crea la pagina dei settings
 	 */
 	public function render_settings_page() {
-		$plans       = $this->get_minutes_and_jobs_max();
-		$minutes_max = $plans['free']['minutes'];
-		$jobs_max    = $plans['free']['jobs'];
+		$seconds_max = get_option( 'ear2words_total_seconds' );
+		$jobs_max    = get_option( 'ear2words_total_jobs' );
 		$seconds     = get_option( 'ear2words_seconds_done' );
-		$jobs        = get_option( 'ear2words_jobs_done' );
+		$jobs        = empty( get_option( 'ear2words_jobs_done' ) ) ? 0 : get_option( 'ear2words_jobs_done' );
 		?>
 		<div class="wrap">
 			<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
-			<p>
-			<?php
-			esc_html_e( 'Minutes: ', 'ear2words' );
-			echo esc_html( gmdate( 'i', $seconds ) . '/' . $minutes_max );
-			esc_html_e( ', Videos: ', 'ear2words' );
-			echo esc_html( $jobs . '/' . $jobs_max );
-			?>
-			</p>
 			<div class="logo-placeholder">
 				LOGO PLACEHOLDER
 			</div>
@@ -93,6 +64,19 @@ class Settings {
 					<div class="plan-state">
 						<!-- TODO:  Rendere dinamico -->
 						<?php esc_html_e( 'Free Plan', 'ear2words' ); ?>
+						<p style="font-weight:400">
+						<?php
+						esc_html_e( 'Generated video subtitles: ', 'ear2words' );
+						echo esc_html( $jobs . '/' . $jobs_max );
+						?>
+						</p>
+						<p style="font-weight:400">
+						<?php
+						esc_html_e( 'Video time spent: ', 'ear2words' );
+						echo esc_html( gmdate( 'i:s', $seconds ) . '/' . gmdate( 'i:s', $seconds_max ) );
+						esc_html_e( ' minutes', 'ear2words' );
+						?>
+						</p>
 					</div>
 						<?php
 						settings_fields( 'ear2words_settings' );
