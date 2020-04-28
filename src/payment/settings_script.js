@@ -1,3 +1,4 @@
+/* global settings_object */
 let BuyLicenseWindow = null;
 let UpdatePlanWindow = null;
 let CancelSubscriptionWindow = null;
@@ -7,6 +8,13 @@ document.addEventListener("DOMContentLoaded", function() {
 		buyButton.addEventListener("click", e => {
 			e.preventDefault();
 			showBuyLicenseWindow();
+		});
+	}
+
+	const resetLicense = document.querySelector("#reset-license");
+	if (resetLicense) {
+		resetLicense.addEventListener("click", () => {
+			resetLicenseFunction();
 		});
 	}
 
@@ -100,6 +108,18 @@ const showCancelSubscriptionWindow = () => {
 	} else {
 		CancelSubscriptionWindow.focus();
 	}
+};
+const resetLicenseFunction = () => {
+	fetch(settings_object.ajax_url, {
+		method: "POST",
+		credentials: "include",
+		headers: new Headers({
+			"Content-Type": "application/x-www-form-urlencoded"
+		}),
+		body: `action=reset_license&_ajax_nonce=${settings_object.ajaxnonce}`
+	}).then(() => {
+		location.reload();
+	});
 };
 window.onunload = function() {
 	if (BuyLicenseWindow !== null) {

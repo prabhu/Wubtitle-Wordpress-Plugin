@@ -216,6 +216,15 @@ class Settings {
 		$option = get_option( $args['name'], '' );
 		?>
 		<input class="regular-text" type="<?php echo esc_attr( $args['type'] ); ?>" name="<?php echo esc_attr( $args['name'] ); ?>" value="<?php echo esc_attr( $option ); ?>" placeholder="<?php echo esc_attr( $args['placeholder'] ); ?>">
+		<?php
+		if ( ! get_option( 'ear2words_free' ) ) {
+			?>
+			<a id="reset-license" style="text-decoration: underline" >
+				<?php esc_html_e( 'Reset license key', 'ear2words' ); ?>
+			</a>
+			<?php
+		}
+		?>
 		<p class="description"><?php echo esc_html( $args['description'] ); ?></p>
 		<?php
 	}
@@ -242,6 +251,14 @@ class Settings {
 		if ( 'toplevel_page_ear2words_settings' === $hook ) {
 			wp_enqueue_script( 'wp-util' );
 			wp_enqueue_script( 'settings_scripts', EAR2WORDS_URL . '/src/payment/settings_script.js', array( 'wp-util' ), EAR2WORDS_VER, true );
+			wp_localize_script(
+				'settings_scripts',
+				'settings_object',
+				array(
+					'ajax_url'  => admin_url( 'admin-ajax.php' ),
+					'ajaxnonce' => wp_create_nonce( 'itr_ajax_nonce' ),
+				)
+			);
 		}
 	}
 }
