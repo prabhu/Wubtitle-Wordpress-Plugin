@@ -33,24 +33,44 @@ class Settings {
 	}
 
 	/**
+	 * Ritorna una array con la lista dei piani con i minuti e i jobs massimi.
+	 */
+	public function get_minutes_and_jobs_max() {
+		$plans = array(
+			'free'     => array(
+				'jobs'    => 3,
+				'minutes' => 30,
+			),
+			'standard' => array(
+				'jobs'    => 10,
+				'minutes' => 180,
+			),
+			'elite'    => array(
+				'jobs'    => 30,
+				'minutes' => 600,
+			),
+		);
+		return $plans;
+	}
+
+	/**
 	 * Crea la pagina dei settings
 	 */
 	public function render_settings_page() {
-		$seconds = 900;
-		$jobs    = 20;
-		if ( ! empty( 'ear2words_seconds_done' ) ) {
-			$seconds -= get_option( 'ear2words_seconds_done' );
-			$jobs    -= get_option( 'ear2words_jobs_done' );
-		}
+		$plans       = $this->get_minutes_and_jobs_max();
+		$minutes_max = $plans['free']['minutes'];
+		$jobs_max    = $plans['free']['jobs'];
+		$seconds     = get_option( 'ear2words_seconds_done' );
+		$jobs        = get_option( 'ear2words_jobs_done' );
 		?>
 		<div class="wrap">
 			<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
 			<p>
 			<?php
-			esc_html_e( 'Minutes remaining: ', 'ear2words' );
-			echo esc_html( gmdate( 'i:s', $seconds ) );
-			esc_html_e( ' Jobs remaining: ', 'ear2words' );
-			echo esc_html( $jobs );
+			esc_html_e( 'Minutes: ', 'ear2words' );
+			echo esc_html( gmdate( 'i', $seconds ) . '/' . $minutes_max );
+			esc_html_e( ', Videos: ', 'ear2words' );
+			echo esc_html( $jobs . '/' . $jobs_max );
 			?>
 			</p>
 			<?php
