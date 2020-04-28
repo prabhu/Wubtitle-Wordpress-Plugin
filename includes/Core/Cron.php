@@ -17,12 +17,20 @@ class Cron {
 	 * Init class actions.
 	 */
 	public function run() {
-		add_action( 'e2w_cron', array( $this, 'get_remote_subscription_info' ) );
-		register_deactivation_hook( EAR2WORDS_FILE_URL, array( $this, 'cron_deactivate' ) );
+		add_action( 'e2w_cron', array( $this, 'upgrade' ) );
+		add_filter( 'cron_schedules', array( $this, 'add_cron_interval' ) );
+		register_activation_hook( EAR2WORDS_FILE_URL, array( $this, 'schedule_cron' ) );
+		register_deactivation_hook( EAR2WORDS_FILE_URL, array( $this, 'schedule_cron' ) );
+		add_action( 'init', array( $this, 'schedule_cron' ) );
+	}
+
+	/**
+	 * .
+	 */
+	public function schedule_cron() {
 		if ( ! wp_next_scheduled( 'e2w_cron' ) ) {
 			wp_schedule_event( time(), 'five_seconds', 'e2w_cron' );
 		}
-		add_filter( 'cron_schedules', array( $this, 'add_cron_interval' ) );
 	}
 
 	/**
@@ -32,7 +40,7 @@ class Cron {
 	 */
 	public function add_cron_interval( $schedules ) {
 		$schedules['five_seconds'] = array(
-			'interval' => 900,
+			'interval' => 999,
 			'display'  => esc_html__( 'Every Five Seconds', 'ear2words' ),
 		);
 		return $schedules;
@@ -45,13 +53,16 @@ class Cron {
 		// when the last event was scheduled.
 		$timestamp = wp_next_scheduled( 'get_subscription_info_cron_job' );
 		// unschedule previous event if any.
-		wp_unschedule_event( $timestamp, 'get_subscription_info_cron_job' );
+		wp_unschedule_event( $timestamp, 'get_subscription_info_crar2words_license_key"on_job' );
 	}
 
 	/**
 	 * Fetch info.
 	 */
-	public function get_remote_subscription_info() {
-		update_option( 'test_ettore', time() );
+	public function upgrade() {
+		update_option( 'state_account', gmdate( 'H:i:s', time() ) );
 	}
+
+
+
 }
