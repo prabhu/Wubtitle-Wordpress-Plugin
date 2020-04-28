@@ -22,6 +22,7 @@ class Settings {
 		add_action( 'admin_init', array( $this, 'init_settings_field' ) );
 		add_action( 'update_option_ear2words_license_key', array( $this, 'check_license' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'e2w_settings_scripts' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'ear2words_settings_style' ) );
 	}
 
 	/**
@@ -31,31 +32,51 @@ class Settings {
 		// TODO: Cambiare $icon_url e $position (attualmente subito dopo "Impostazioni") quando verranno date indicazioni UX.
 		add_menu_page( __( 'Ear2words Settings', 'ear2words' ), __( 'Ear2words', 'ear2words' ), 'manage_options', 'ear2words_settings', array( $this, 'render_settings_page' ), 'dashicons-format-status', 81 );
 	}
-
+	/**
+	 *  Faccio l'enqueue dello style per i settings.
+	 */
+	public function ear2words_settings_style() {
+		wp_enqueue_style( 'ear2words_settings_style', EAR2WORDS_URL . 'src/css/settingsStyle.css', null, true );
+	}
 	/**
 	 * Crea la pagina dei settings
 	 */
 	public function render_settings_page() {
 		?>
 		<div class="wrap">
-			<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
-			<?php settings_errors(); ?>
-			<button id="buy-license-button" class="button button-primary" >Compra Licenza</button>
-			<button id="cancel-license-button" class="button button-primary" >Annulla Licenza</button>
+			<div class="logo-placeholder">
+				LOGO PLACEHOLDER
+			</div>
 			<form action="options.php" method="post">
-				<?php
-				settings_fields( 'ear2words_settings' );
-				do_settings_sections( 'ear2words-settings' );
-				submit_button();
-				?>
-			</form>
+			<?php
+			settings_errors();
+			submit_button();
+			?>
+			<div class="postbox">
+				<h2 class="hndle ui-sortable-handle e2w-title" ><span><?php esc_html_e( 'Licensing', 'ear2words' ); ?></span></h2>
+				<div class="inside">
+					<div class="plan-state">
+						<!-- TODO:  Rendere dinamico -->
+						<?php esc_html_e( 'Free Plan', 'ear2words' ); ?>
+					</div>
+						<?php
+						settings_fields( 'ear2words_settings' );
+						do_settings_sections( 'ear2words-settings' );
+						?>
+					<?php
+					if ( ! empty( get_option( 'ear2words_license_key' ) ) ) {
+						?>
+						<a id="update-plan-button" style="text-decoration: underline" >
+							<?php esc_html_e( 'Update email or payment detail', 'ear2words' ); ?>
+						</a>
+						<?php
+					}
+					?>
+				</div>
+			</div>
 		</div>
+		</form>
 		<?php
-		if ( ! empty( get_option( 'ear2words_license_key' ) ) ) {
-			echo '<a id="update-plan-button" style="text-decoration: underline" >';
-			esc_html_e( 'Update email or payment detail', 'ear2words' );
-			echo '</a>';
-		}
 	}
 
 
@@ -113,7 +134,7 @@ class Settings {
 	 *
 	 * @param string $license_key license key dell'input.
 	 */
-	public function remote_request( $license_key ) {
+	private function remote_request( $license_key ) {
 		$headers = array(
 			'Content-Type' => 'application/json; charset=utf-8',
 		);
@@ -158,7 +179,7 @@ class Settings {
 	 * Aggiunge un nuovo campo all'impostazione precedentemente creata
 	 */
 	public function init_settings_field() {
-		add_settings_section( 'ear2words-main-settings', __( 'License settings', 'ear2words' ), null, 'ear2words-settings' );
+		add_settings_section( 'ear2words-main-settings', null, null, 'ear2words-settings' );
 		add_settings_field(
 			'buy-license-button',
 			__( 'Unlock more features!', 'ear2words' ),
@@ -166,12 +187,13 @@ class Settings {
 			'ear2words-settings',
 			'ear2words-main-settings',
 			array(
-				'name' => __( 'Upgrade', 'ear2words' ),
+				'name'  => __( 'Upgrade', 'ear2words' ),
+				'class' => 'upgrade-button',
 			)
 		);
 		add_settings_field(
 			'ear2words-license-key',
-			__( 'License key', 'ear2words' ),
+			__( 'License Number', 'ear2words' ),
 			array( $this, 'input_field' ),
 			'ear2words-settings',
 			'ear2words-main-settings',
@@ -179,6 +201,8 @@ class Settings {
 				'type'        => 'text',
 				'name'        => 'ear2words_license_key',
 				'placeholder' => __( 'License key', 'ear2words' ),
+				'class'       => 'input-license-key',
+				'description' => __( 'Please enter the license key you received after successful checkout', 'ear2words' ),
 			)
 		);
 	}
@@ -191,7 +215,8 @@ class Settings {
 	public function input_field( $args ) {
 		$option = get_option( $args['name'], '' );
 		?>
-		<input class="large-text" type="<?php echo esc_attr( $args['type'] ); ?>" name="<?php echo esc_attr( $args['name'] ); ?>" value="<?php echo esc_attr( $option ); ?>" placeholder="<?php echo esc_attr( $args['placeholder'] ); ?>">
+		<input class="regular-text" type="<?php echo esc_attr( $args['type'] ); ?>" name="<?php echo esc_attr( $args['name'] ); ?>" value="<?php echo esc_attr( $option ); ?>" placeholder="<?php echo esc_attr( $args['placeholder'] ); ?>">
+		<p class="description"><?php echo esc_html( $args['description'] ); ?></p>
 		<?php
 	}
 	/**
