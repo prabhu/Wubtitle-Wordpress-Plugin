@@ -47,7 +47,6 @@ class Settings {
 				<div class="logo-placeholder">
 					LOGO PLACEHOLDER
 				</div>
-				<button id="cancel-license-button" class="button button-primary" >Annulla Licenza</button>
 				<form action="options.php" method="post">
 					<?php settings_errors(); ?>
 				<div class="e2w-button-submit">
@@ -70,7 +69,10 @@ class Settings {
 						echo '</p>';
 						?>
 					<?php
-					if ( ! empty( get_option( 'ear2words_license_key' ) ) ) {
+					if ( ! get_option( 'ear2words_free' ) ) {
+						?>
+						<a id="cancel-license-button" style="color:red; text-decoration: underline" ><?php esc_html_e( 'Unsubscribe', 'ear2words' ); ?></a>
+						<?php
 						echo '<a id="update-plan-button" style="text-decoration: underline" >';
 						esc_html_e( 'Update email or payment detail', 'ear2words' );
 						echo '</a>';
