@@ -38,13 +38,26 @@ class Settings {
 	public function ear2words_settings_style() {
 		wp_enqueue_style( 'ear2words_settings_style', EAR2WORDS_URL . 'src/css/settingsStyle.css', null, true );
 	}
+
 	/**
 	 * Crea la pagina dei settings
 	 */
 	public function render_settings_page() {
+		$plans        = array(
+			'plan_0'              => __( 'Free Plan', 'ear2words' ),
+			'plan_HBBbNjLjVk3w4w' => __( 'Standard Plan', 'ear2words' ),
+			'plan_HBBS5I9usXvwQR' => __( 'Elite Plan', 'ear2words' ),
+		);
+		$plan_saved   = get_option( 'ear2words_plan', $plans );
+		$current_plan = array_key_exists( $plan_saved, $plans ) ? $plans[ $plan_saved ] : '';
+		$seconds_max  = get_option( 'ear2words_total_seconds' );
+		$jobs_max     = get_option( 'ear2words_total_jobs' );
+		$seconds      = get_option( 'ear2words_seconds_done' );
+		$jobs         = empty( get_option( 'ear2words_jobs_done' ) ) ? 0 : get_option( 'ear2words_jobs_done' );
 			$this->stripe_callback_url();
 		?>
 		<div class="wrap">
+			<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
 			<div class="logo-placeholder">
 				LOGO PLACEHOLDER
 			</div>
@@ -58,7 +71,20 @@ class Settings {
 				<div class="inside">
 					<div class="plan-state">
 						<!-- TODO:  Rendere dinamico -->
-						<?php esc_html_e( 'Free Plan', 'ear2words' ); ?>
+						<?php echo esc_html( $current_plan ); ?>
+						<p style="font-weight:400">
+						<?php
+						esc_html_e( 'Generated video subtitles: ', 'ear2words' );
+						echo esc_html( $jobs . '/' . $jobs_max );
+						?>
+						</p>
+						<p style="font-weight:400">
+						<?php
+						esc_html_e( 'Video time spent: ', 'ear2words' );
+						echo esc_html( gmdate( 'i:s', $seconds ) . '/' . gmdate( 'i:s', $seconds_max ) );
+						esc_html_e( ' minutes', 'ear2words' );
+						?>
+						</p>
 					</div>
 						<?php
 						settings_fields( 'ear2words_settings' );
@@ -237,9 +263,21 @@ class Settings {
 	 * @param array $args Parametri dell'input.
 	 */
 	public function input_field( $args ) {
-		$option = get_option( $args['name'], '' );
+		$option = '';
+		if ( ! get_option( 'ear2words_free' ) ) {
+			$option = get_option( $args['name'], '' );
+		}
 		?>
 		<input class="regular-text" type="<?php echo esc_attr( $args['type'] ); ?>" name="<?php echo esc_attr( $args['name'] ); ?>" value="<?php echo esc_attr( $option ); ?>" placeholder="<?php echo esc_attr( $args['placeholder'] ); ?>">
+		<?php
+		if ( ! get_option( 'ear2words_free' ) ) :
+			?>
+			<a id="reset-license" style="text-decoration: underline" >
+				<?php esc_html_e( 'Reset license key', 'ear2words' ); ?>
+			</a>
+			<?php
+		endif;
+		?>
 		<p class="description"><?php echo esc_html( $args['description'] ); ?></p>
 		<?php
 	}
@@ -278,10 +316,12 @@ class Settings {
 			wp_enqueue_script( 'settings_scripts', EAR2WORDS_URL . '/src/payment/settings_script.js', array( 'wp-util' ), EAR2WORDS_VER, true );
 			wp_localize_script(
 				'settings_scripts',
-				'object',
+				'settings_object',
 				array(
-					'update'  => $update,
-					'payment' => $payment,
+					'ajax_url'  => admin_url( 'admin-ajax.php' ),
+					'ajaxnonce' => wp_create_nonce( 'itr_ajax_nonce' ),
+					'update'    => $update,
+					'payment'   => $payment,
 				)
 			);
 		}
