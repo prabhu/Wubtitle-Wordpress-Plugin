@@ -84,7 +84,9 @@ const Ear2WordPanel = props => {
 
 	const FormatNotSupported = () => (
 		<Fragment>
-			<div>{__("Format not supported in free plan", "ear2words")}</div>
+			<div>
+				{__("Unsupported video format for free plan", "ear2words")}
+			</div>
 		</Fragment>
 	);
 
