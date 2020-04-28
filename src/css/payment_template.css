@@ -156,7 +156,7 @@ body {
     line-height: 17px;
 }
 
-.current-plan {
+.disable-plan-button {
     padding: 10px;
     margin-top: 10px;
     text-align: center;
@@ -182,7 +182,7 @@ body {
     content: "\2022";
     color: #FFFF00;
     font-weight: bold;
-    display: inline-block; 
+    display: inline-block;
     width: 1em;
     margin-left: -1em;
 }
