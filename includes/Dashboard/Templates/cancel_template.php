@@ -10,6 +10,37 @@
 /**
  * This is a template.
  */
+$disable_downgrade_message = __( 'Unable this select this plan during the first month of subscription for current plan', 'ear2words' );
+$message_free              = 'Choose this plan';
+$message_standard          = 'Choose this plan';
+$message_elite             = 'Choose this plan';
+$class_free                = 'button-choose-plan';
+$class_standard            = 'button-choose-plan';
+$class_elite               = 'button-choose-plan';
+switch ( get_option( 'ear2words_plan' ) ) {
+	case 'plan_0':
+		$class_free   = 'current-plan';
+		$message_free = 'Current Plan';
+		break;
+	case 'plan_HBBbNjLjVk3w4w':
+		if ( get_option( 'ear2words_is_first_month' ) ) {
+			$class_free   = 'disable-downgrade';
+			$message_free = $disable_downgrade_message;
+		}
+		$class_standard   = 'current-plan';
+		$message_standard = 'Current Plan';
+		break;
+	case 'plan_HBBS5I9usXvwQR':
+		if ( get_option( 'ear2words_is_first_month' ) ) {
+			$class_free       = 'disable-downgrade';
+			$class_standard   = 'disable-downgrade';
+			$message_free     = $disable_downgrade_message;
+			$message_standard = $disable_downgrade_message;
+		}
+		$class_elite   = 'current-plan';
+		$message_elite = 'Current Plan';
+		break;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,16 +55,6 @@
 	<?php // phpcs:enable ?>
 </head>
 <body>
-	<h1><?php esc_html_e( 'Cancel Subscription', 'ear2words' ); ?></h1>
-	<p><?php esc_html_e( 'Are you sure?', 'ear2words' ); ?></p>
-	<form method="POST" id="form">
-		<input type="submit" value="<?php esc_html_e( 'Yes', 'ear2words' ); ?>">
-		<!-- TODO: Predisposto form per raccolta informazioni per implementazioni future. -->
-		<p>
-			<?php esc_html_e( 'Why?', 'ear2words' ); ?>
-		</p>
-		<input type="text">
-	</form> 
 
 	<div class="wrapper">
 		<div class="container">
@@ -58,16 +79,16 @@
 									<div class="card-title">
 										Free
 									</div>
-									<div class="card-logo">									
+									<div class="card-logo">
 									</div>
 								</div>
 
 								<div class="card-price">
 									<div class="year">
-										Per year
+										Per Month
 									</div>
 									<div class="price">
-										€180
+										€19
 									</div>
 								</div>
 
@@ -86,10 +107,10 @@
 									</div>
 								</div>
 							</div>
-							<div class="current-plan" plan="plan_H6KKmWETz5hkCu">
-								Current plan
-							</div>							
-						</div>  
+							<div class="<?php echo esc_attr( $class_free ); ?>" plan="plan_0">
+								<?php echo esc_html( $message_free ); ?>
+							</div>
+						</div>
 					</div>
 					<div class="features-list">
 						<ul>
@@ -107,17 +128,17 @@
 							<div>
 								<div class="card-header">
 									<div class="card-title">
-										Professional
+										Standard
 									</div>
-									<div class="card-logo">									
+									<div class="card-logo">
 									</div>
 								</div>
 								<div class="card-price">
 									<div class="year">
-										Per year
+										Per Month
 									</div>
 									<div class="price">
-										€180
+										€0
 									</div>
 								</div>
 								<div class="card-features">
@@ -135,10 +156,10 @@
 									</div>
 								</div>
 							</div>
-							<div class="button-choose-plan" plan="plan_H6KKmWETz5hkCu">
-								Choose this plan
-							</div>							
-						</div>  
+							<div class="<?php echo esc_attr( $class_standard ); ?>" plan="plan_HBBbNjLjVk3w4w">
+								<?php echo esc_html( $message_standard ); ?>
+							</div>
+						</div>
 					</div>
 					<div class="features-list">
 						<ul>
@@ -156,17 +177,17 @@
 							<div>
 								<div class="card-header">
 									<div class="card-title">
-										Enterprise
+										Elite
 									</div>
-									<div class="card-logo">									
+									<div class="card-logo">
 									</div>
 								</div>
 								<div class="card-price">
 									<div class="year">
-										Per year
+										Per Month
 									</div>
 									<div class="price">
-										€180
+										€49
 									</div>
 								</div>
 								<div class="card-features">
@@ -200,59 +221,10 @@
 									</div>
 								</div>
 							</div>
-							<div class="button-choose-plan" plan="plan_H6KKmWETz5hkCu">
-								Choose this plan
-							</div>							
-						</div>  
-					</div>
-					<div class="features-list">
-						<ul>
-							<li>Lorem ipsum dolor sit amet</li>
-							<li>Lorem ipsum dolor sit amet</li>
-							<li>Lorem ipsum dolor sit amet</li>
-							<li>Lorem ipsum dolor sit amet</li>
-							<li>Lorem ipsum dolor sit amet</li>
-						</ul>
-					</div>
-				</div>
-				<div class="card-column">
-					<div class="card">						
-						<div class="card-content">
-							<div>
-								<div class="card-header">
-									<div class="card-title">
-										Business
-									</div>
-									<div class="card-logo">									
-									</div>
-								</div>
-								<div class="card-price">
-									<div class="year">
-										Per year
-									</div>
-									<div class="price">
-										€180
-									</div>
-								</div>
-								<div class="card-features">
-									<div class="row">
-										<div>Feature on</div>
-										<div>include</div>
-									</div>
-									<div class="row">
-										<div>Feature on</div>
-										<div>include</div>
-									</div>
-									<div class="row">
-										<div>Feature on</div>
-										<div>include</div>
-									</div>
-								</div>
+							<div class="<?php echo esc_attr( $class_elite ); ?>" plan="plan_HBBS5I9usXvwQR">
+								<?php echo esc_html( $message_elite ); ?>
 							</div>
-							<div class="button-choose-plan" plan="plan_H6KKmWETz5hkCu">
-								Choose this plan
-							</div>							
-						</div>  
+						</div>
 					</div>
 					<div class="features-list">
 						<ul>
@@ -266,15 +238,15 @@
 				</div>
 			</div>
 
-		</div>   
-	</div> 
+		</div>
+	</div>
 	<?php // phpcs:disable ?>
 	<script src="https://js.stripe.com/v3/"></script>
 	<script>
 		const WP_GLOBALS = {
 			adminAjax: "<?php echo esc_html( admin_url( 'admin-ajax.php' ) ); ?>",
 			nonce: "<?php echo esc_js( wp_create_nonce( 'itr_ajax_nonce' ) ); ?>"
-		}	
+		}
 	</script>
 	<script src="<?php echo esc_url(EAR2WORDS_URL . 'src/payment/payment_template.js'); ?>"></script>
 	<?php // phpcs:enable ?>
