@@ -38,11 +38,11 @@ body {
     margin-bottom: 30px;
     display: flex;
     align-items: stretch;
-    justify-content: space-around;
+    justify-content: center;
 }
 
 .card-column {
-    margin: 7px;
+    margin: 7px 16px;
     width: 25%;
     display: flex;
     flex-direction: column;
