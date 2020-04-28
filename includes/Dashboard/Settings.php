@@ -61,6 +61,7 @@ class Settings {
 						<!-- TODO:  Rendere dinamico -->
 						<?php esc_html_e( 'Free Plan', 'ear2words' ); ?>
 					</div>
+					<button id="cancel-license-button" class="button button-primary" >Annulla Licenza</button>
 						<?php
 						settings_fields( 'ear2words_settings' );
 						do_settings_sections( 'ear2words-settings' );
@@ -121,7 +122,7 @@ class Settings {
 				'error'
 			);
 			remove_action( 'update_option_ear2words_license_key', array( $this, 'check_license' ) );
-			update_option( 'ear2words_license_key', null );
+			update_option( 'ear2words_license_key', null );<button id="cancel-license-button" class="button button-primary" >Annulla Licenza</button>
 		} elseif ( $validation['verified'] ) {
 			add_settings_error(
 				'ear2words_license_key',
