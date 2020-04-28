@@ -65,9 +65,12 @@ class Settings {
 						do_settings_sections( 'ear2words-settings' );
 						?>
 					<?php
-					if ( ! empty( get_option( 'ear2words_license_key' ) ) ) {
+					if ( ! get_option( 'ear2words_free' ) ) {
 						?>
-						<a id="update-plan-button" style="text-decoration: underline" >
+						<a id="cancel-license-button" style="text-decoration: underline; color:red" >
+							<?php esc_html_e( 'Unsubscribe', 'ear2words' ); ?>
+						</a>
+						<a id="update-plan-button" style="text-decoration: underline; margin-left:16px" >
 							<?php esc_html_e( 'Update email or payment detail', 'ear2words' ); ?>
 						</a>
 						<?php
@@ -78,14 +81,6 @@ class Settings {
 		</div>
 		</form>
 		<?php
-		if ( ! get_option( 'ear2words_free' ) ) {
-			echo '<a id="cancel-license-button" style="text-decoration: underline; color:red" >';
-			esc_html_e( 'Unsubscribe', 'ear2words' );
-			echo '</a>';
-			echo '<a id="update-plan-button" style="text-decoration: underline; margin-left:16px" >';
-			esc_html_e( 'Update email or payment detail', 'ear2words' );
-			echo '</a>';
-		}
 	}
 	/**
 	 * Gestisce le callback di stripe.
