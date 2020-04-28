@@ -43,10 +43,17 @@ class Settings {
 	 * Crea la pagina dei settings
 	 */
 	public function render_settings_page() {
-		$seconds_max = get_option( 'ear2words_total_seconds' );
-		$jobs_max    = get_option( 'ear2words_total_jobs' );
-		$seconds     = get_option( 'ear2words_seconds_done' );
-		$jobs        = empty( get_option( 'ear2words_jobs_done' ) ) ? 0 : get_option( 'ear2words_jobs_done' );
+		$plans        = array(
+			'plan_0'              => __( 'Free Plan', 'ear2words' ),
+			'plan_HBBbNjLjVk3w4w' => __( 'Standard Plan', 'ear2words' ),
+			'plan_HBBS5I9usXvwQR' => __( 'Elite Plan', 'ear2words' ),
+		);
+		$plan_saved   = get_option( 'ear2words_plan', $plans );
+		$current_plan = array_key_exists( $plan_saved, $plans ) ? $plans[ $plan_saved ] : '';
+		$seconds_max  = get_option( 'ear2words_total_seconds' );
+		$jobs_max     = get_option( 'ear2words_total_jobs' );
+		$seconds      = get_option( 'ear2words_seconds_done' );
+		$jobs         = empty( get_option( 'ear2words_jobs_done' ) ) ? 0 : get_option( 'ear2words_jobs_done' );
 		?>
 		<div class="wrap">
 			<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
@@ -63,7 +70,7 @@ class Settings {
 				<div class="inside">
 					<div class="plan-state">
 						<!-- TODO:  Rendere dinamico -->
-						<?php esc_html_e( 'Free Plan', 'ear2words' ); ?>
+						<?php echo esc_html( $current_plan ); ?>
 						<p style="font-weight:400">
 						<?php
 						esc_html_e( 'Generated video subtitles: ', 'ear2words' );
@@ -232,7 +239,10 @@ class Settings {
 	 * @param array $args Parametri dell'input.
 	 */
 	public function input_field( $args ) {
-		$option = get_option( $args['name'], '' );
+		$option = '';
+		if ( ! get_option( 'ear2words_free' ) ) {
+			$option = get_option( $args['name'], '' );
+		}
 		?>
 		<input class="regular-text" type="<?php echo esc_attr( $args['type'] ); ?>" name="<?php echo esc_attr( $args['name'] ); ?>" value="<?php echo esc_attr( $option ); ?>" placeholder="<?php echo esc_attr( $args['placeholder'] ); ?>">
 		<p class="description"><?php echo esc_html( $args['description'] ); ?></p>
