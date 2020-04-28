@@ -1,13 +1,13 @@
-/* global object */
+/* global settings_object */
 let BuyLicenseWindow = null;
 let UpdatePlanWindow = null;
 let CancelSubscriptionWindow = null;
-if (object.update !== "none" || object.payment === "true") {
+if (settings_object.update !== "none" || settings_object.payment === "true") {
 	window.opener.location.reload(false);
 	window.close();
 }
 document.addEventListener("DOMContentLoaded", function() {
-	if (object.payment === "false") {
+	if (settings_object.payment === "false") {
 		showBuyLicenseWindow();
 	}
 	const buyButton = document.querySelector("#buy-license-button");
@@ -15,6 +15,13 @@ document.addEventListener("DOMContentLoaded", function() {
 		buyButton.addEventListener("click", e => {
 			e.preventDefault();
 			showBuyLicenseWindow();
+		});
+	}
+
+	const resetLicense = document.querySelector("#reset-license");
+	if (resetLicense) {
+		resetLicense.addEventListener("click", () => {
+			resetLicenseFunction();
 		});
 	}
 
@@ -109,6 +116,18 @@ const showCancelSubscriptionWindow = () => {
 	} else {
 		CancelSubscriptionWindow.focus();
 	}
+};
+const resetLicenseFunction = () => {
+	fetch(settings_object.ajax_url, {
+		method: "POST",
+		credentials: "include",
+		headers: new Headers({
+			"Content-Type": "application/x-www-form-urlencoded"
+		}),
+		body: `action=reset_license&_ajax_nonce=${settings_object.ajaxnonce}`
+	}).then(() => {
+		location.reload();
+	});
 };
 window.onunload = function() {
 	if (BuyLicenseWindow !== null) {
