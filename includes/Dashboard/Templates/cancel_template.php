@@ -10,6 +10,7 @@
 /**
  * This is a template.
  */
+require EAR2WORDS_DIR . 'includes/Dashboard/Templates/plans_array.php'
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,250 +25,66 @@
 	<?php // phpcs:enable ?>
 </head>
 <body>
-	<h1><?php esc_html_e( 'Cancel Subscription', 'ear2words' ); ?></h1>
-	<p><?php esc_html_e( 'Are you sure?', 'ear2words' ); ?></p>
-	<form method="POST" id="form">
-		<input type="submit" value="<?php esc_html_e( 'Yes', 'ear2words' ); ?>">
-		<!-- TODO: Predisposto form per raccolta informazioni per implementazioni future. -->
-		<p>
-			<?php esc_html_e( 'Why?', 'ear2words' ); ?>
-		</p>
-		<input type="text">
-	</form> 
-
-	<div class="wrapper">
-		<div class="container">
-			<div class="unsubscribe-section">
-				<div class="title">Are you sure you want to unsubscribe?</div>
-				<div>Are you sure you want to cancel your subscription? If you choose to continue, when the subscription expires your plan will return to free version and you will lose all the additional features</div>
-				<div class="buttons">
-					<div class="button unsubscribe" id="unsubscribeButton">Return to free version</div>
-					<div class="button" id="close">Forget it</div>
-				</div>
-				<div id="message"></div>
+	<div class="container">
+		<div class="unsubscribe-section">
+			<div class="title">Are you sure you want to unsubscribe?</div>
+			<div>Are you sure you want to cancel your subscription? If you choose to continue, when the subscription expires your plan will return to free version and you will lose all the additional features</div>
+			<div class="buttons">
+				<div class="button unsubscribe" id="unsubscribeButton">Return to free version</div>
+				<div class="button" id="close">Forget it</div>
 			</div>
+			<div id="message"><!-- From JS --></div>				
 		</div>
-		<div class="container">
-			<div class="title">Or choose another plan</div>
-			<div class="card-container">
-				<div class="card-column">
-					<div class="card">
-						<div class="card-content">
-							<div>
-								<div class="card-header">
-									<div class="card-title">
-										Free
-									</div>
-									<div class="card-logo">									
-									</div>
-								</div>
-
-								<div class="card-price">
-									<div class="year">
-										Per year
-									</div>
-									<div class="price">
-										€180
-									</div>
-								</div>
-
-								<div class="card-features">
-									<div class="row">
-										<div>Feature on</div>
-										<div>include</div>
-									</div>
-									<div class="row">
-										<div>Feature on</div>
-										<div>include</div>
-									</div>
-									<div class="row">
-										<div>Feature on</div>
-										<div>include</div>
-									</div>
-								</div>
-							</div>
-							<div class="current-plan" plan="plan_H6KKmWETz5hkCu">
-								Current plan
-							</div>							
-						</div>  
+	</div>
+	<div class="container">
+		<h1 class="title">Or choose another plan</h1>
+		<div class="card-row">
+		<?php
+		foreach ( $plans as $plan ) {
+			?>
+			<div class="card-column">
+				<div class="card">
+					<h2 class="card-title">
+						<?php echo esc_html( $plan['name'] ); ?>
+					</h2>
+					<div class="card-logo">									
 					</div>
-					<div class="features-list">
-						<ul>
-							<li>Lorem ipsum dolor sit amet</li>
-							<li>Lorem ipsum dolor sit amet</li>
-							<li>Lorem ipsum dolor sit amet</li>
-							<li>Lorem ipsum dolor sit amet</li>
-							<li>Lorem ipsum dolor sit amet</li>
-						</ul>
+					<div class="card-price">
+						Per year
+						<p class="price">
+							€ <?php echo esc_html( $plan['price'] ); ?>
+						</p>
+					</div>
+					<?php
+					foreach ( $plan['features'] as $feature ) {
+						?>
+					<div class="card-features-row">
+						<?php echo esc_html( $feature ); ?>
+						<div>include</div>
+					</div>
+						<?php
+					}
+					?>
+					<div class="button-choose-plan" plan="<?php echo esc_html( $plan['stripe_code'] ); ?>">
+						Choose this plan
 					</div>
 				</div>
-				<div class="card-column">
-					<div class="card zoom" id="test-card">
-						<div class="card-content">
-							<div>
-								<div class="card-header">
-									<div class="card-title">
-										Professional
-									</div>
-									<div class="card-logo">									
-									</div>
-								</div>
-								<div class="card-price">
-									<div class="year">
-										Per year
-									</div>
-									<div class="price">
-										€180
-									</div>
-								</div>
-								<div class="card-features">
-									<div class="row">
-										<div>Feature on</div>
-										<div>include</div>
-									</div>
-									<div class="row">
-										<div>Feature on</div>
-										<div>include</div>
-									</div>
-									<div class="row">
-										<div>Feature on</div>
-										<div>include</div>
-									</div>
-								</div>
-							</div>
-							<div class="button-choose-plan" plan="plan_H6KKmWETz5hkCu">
-								Choose this plan
-							</div>							
-						</div>  
-					</div>
-					<div class="features-list">
-						<ul>
-							<li>Lorem ipsum dolor sit amet</li>
-							<li>Lorem ipsum dolor sit amet</li>
-							<li>Lorem ipsum dolor sit amet</li>
-							<li>Lorem ipsum dolor sit amet</li>
-							<li>Lorem ipsum dolor sit amet</li>
-						</ul>
-					</div>
-				</div>
-				<div class="card-column">
-					<div class="card">
-						<div class="card-content">
-							<div>
-								<div class="card-header">
-									<div class="card-title">
-										Enterprise
-									</div>
-									<div class="card-logo">									
-									</div>
-								</div>
-								<div class="card-price">
-									<div class="year">
-										Per year
-									</div>
-									<div class="price">
-										€180
-									</div>
-								</div>
-								<div class="card-features">
-									<div class="row">
-										<div>Feature on</div>
-										<div>include</div>
-									</div>
-									<div class="row">
-										<div>Feature on</div>
-										<div>include</div>
-									</div>
-									<div class="row">
-										<div>Feature on</div>
-										<div>include</div>
-									</div>
-									<div class="row">
-										<div>Feature on</div>
-										<div>include</div>
-									</div>
-									<div class="row">
-										<div>Feature on</div>
-										<div>include</div>
-									</div>
-									<div class="row">
-										<div>Feature on</div>
-										<div>include</div>
-									</div>
-									<div class="row">
-										<div>Feature on</div>
-										<div>include</div>
-									</div>
-								</div>
-							</div>
-							<div class="button-choose-plan" plan="plan_H6KKmWETz5hkCu">
-								Choose this plan
-							</div>							
-						</div>  
-					</div>
-					<div class="features-list">
-						<ul>
-							<li>Lorem ipsum dolor sit amet</li>
-							<li>Lorem ipsum dolor sit amet</li>
-							<li>Lorem ipsum dolor sit amet</li>
-							<li>Lorem ipsum dolor sit amet</li>
-							<li>Lorem ipsum dolor sit amet</li>
-						</ul>
-					</div>
-				</div>
-				<div class="card-column">
-					<div class="card">						
-						<div class="card-content">
-							<div>
-								<div class="card-header">
-									<div class="card-title">
-										Business
-									</div>
-									<div class="card-logo">									
-									</div>
-								</div>
-								<div class="card-price">
-									<div class="year">
-										Per year
-									</div>
-									<div class="price">
-										€180
-									</div>
-								</div>
-								<div class="card-features">
-									<div class="row">
-										<div>Feature on</div>
-										<div>include</div>
-									</div>
-									<div class="row">
-										<div>Feature on</div>
-										<div>include</div>
-									</div>
-									<div class="row">
-										<div>Feature on</div>
-										<div>include</div>
-									</div>
-								</div>
-							</div>
-							<div class="button-choose-plan" plan="plan_H6KKmWETz5hkCu">
-								Choose this plan
-							</div>							
-						</div>  
-					</div>
-					<div class="features-list">
-						<ul>
-							<li>Lorem ipsum dolor sit amet</li>
-							<li>Lorem ipsum dolor sit amet</li>
-							<li>Lorem ipsum dolor sit amet</li>
-							<li>Lorem ipsum dolor sit amet</li>
-							<li>Lorem ipsum dolor sit amet</li>
-						</ul>
-					</div>
-				</div>
+				<ul class="features-list">
+					<?php
+					foreach ( $plan['dot_list'] as $dot ) {
+						?>
+					<li><?php echo esc_html( $dot ); ?></li>
+						<?php
+					}
+					?>
+				</ul>
 			</div>
+			<?php
+		}
+		?>
+		</div>
+	</div>
 
-		</div>   
-	</div> 
 	<?php // phpcs:disable ?>
 	<script src="https://js.stripe.com/v3/"></script>
 	<script>
