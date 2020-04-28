@@ -10,24 +10,34 @@
 /**
  * This is a template.
  */
-$message_free     = 'Choose this plan';
-$message_standard = 'Choose this plan';
-$message_elite    = 'Choose this plan';
-$class_standard   = 'button-choose-plan';
-$class_elite      = 'button-choose-plan';
+$disable_downgrade_message = __( 'Unable this select this plan during the first month of subscription for current plan', 'ear2words' );
+$message_free              = 'Choose this plan';
+$message_standard          = 'Choose this plan';
+$message_elite             = 'Choose this plan';
+$class_free                = 'button-choose-plan';
+$class_standard            = 'button-choose-plan';
+$class_elite               = 'button-choose-plan';
 switch ( get_option( 'ear2words_plan' ) ) {
 	case 'plan_0':
+		$class_free   = 'current-plan';
 		$message_free = 'Current Plan';
 		break;
 	case 'plan_HBBbNjLjVk3w4w':
-		$class_standard   = 'disable-plan-button';
+		if ( get_option( 'ear2words_is_first_month' ) ) {
+			$class_free   = 'disable-downgrade';
+			$message_free = $disable_downgrade_message;
+		}
+		$class_standard   = 'current-plan';
 		$message_standard = 'Current Plan';
 		break;
 	case 'plan_HBBS5I9usXvwQR':
 		if ( get_option( 'ear2words_is_first_month' ) ) {
-			$class_standard = 'disable-plan-button';
+			$class_free       = 'disable-downgrade';
+			$class_standard   = 'disable-downgrade';
+			$message_free     = $disable_downgrade_message;
+			$message_standard = $disable_downgrade_message;
 		}
-		$class_elite   = 'disable-plan-button';
+		$class_elite   = 'current-plan';
 		$message_elite = 'Current Plan';
 		break;
 }
@@ -85,7 +95,7 @@ switch ( get_option( 'ear2words_plan' ) ) {
 									</div>
 								</div>
 							</div>
-								<div class="disable-plan-button" plan="plan_0">
+								<div class="<?php echo esc_attr( $class_free ); ?>" plan="plan_0">
 									<?php echo esc_html( $message_free ); ?>
 								</div>
 						</div>
