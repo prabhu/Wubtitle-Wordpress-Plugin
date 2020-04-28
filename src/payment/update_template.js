@@ -16,7 +16,7 @@ const paymentModule = (function(Stripe, document) {
 			headers: new Headers({
 				"Content-Type": "application/x-www-form-urlencoded"
 			}),
-			body: `action=update_payment&_ajax_nonce=${nonce}`
+			body: `action=update_payment_method&_ajax_nonce=${nonce}`
 		})
 			.then(resp => resp.json())
 			.then(response => {
