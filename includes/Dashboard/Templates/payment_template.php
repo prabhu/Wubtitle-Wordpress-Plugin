@@ -24,16 +24,6 @@
 	<?php // phpcs:enable ?>
 </head>
 <body>
-	<div class="warning" id="error-message" style="color:red; text-align:center"></div>
-	<h1><?php esc_html_e( 'Select Plan', 'ear2words' ); ?></h1>
-	<form method="POST" id="form">
-		<select name="pricing_plan" id="select">
-			<option value="plan_H6i0TeOPhpY6DN">Premium</option>
-			<option value="plan_H6KKmWETz5hkCu">Standard</option>
-		</select>
-		<input type="submit" value="Submit">
-	</form>
-
 	<div class="wrapper">
 		<div class="container">
 			<div class="title">Choose the right plan for your project</div>
