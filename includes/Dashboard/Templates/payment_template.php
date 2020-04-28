@@ -26,23 +26,23 @@ require EAR2WORDS_DIR . 'includes/Dashboard/Templates/plans_array.php'
 </head>
 <body>
 	<div class="container">
-		<div class="title">Choose the right plan for your project</div>
+		<h1 class="title">Choose the right plan for your project</h1>
 		<div class="card-row">
 		<?php
 		foreach ( $plans as $plan ) {
 			?>
 			<div class="card-column">
 				<div class="card">
-					<div class="card-title">
+					<h2 class="card-title">
 						<?php echo esc_html( $plan['name'] ); ?>
-					</div>
+					</h2>
 					<div class="card-logo">									
 					</div>
 					<div class="card-price">
 						Per year
-						<div class="price">
+						<p class="price">
 							€ <?php echo esc_html( $plan['price'] ); ?>
-						</div>
+						</p>
 					</div>
 					<?php
 					foreach ( $plan['features'] as $feature ) {
