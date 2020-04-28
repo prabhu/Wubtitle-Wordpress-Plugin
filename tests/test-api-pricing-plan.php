@@ -26,7 +26,7 @@ class TestApiPricingPlan extends WP_Ajax_UnitTestCase {
     }
 
    /**
-    * Effuettua la chiamata senza nonce
+    * Effettua la chiamata senza nonce
     */
     public function test_negative_send_request(){
       try {
@@ -55,11 +55,11 @@ class TestApiPricingPlan extends WP_Ajax_UnitTestCase {
        $this->assertFalse( $response->success);
      }
     /**
-     * Effuettua la chiamata senza nonce alla funzione update_payment
+     * Effettua la chiamata senza nonce alla funzione update_payment
      */
      public function test_negative_update_payment(){
        try {
-           $this->_handleAjax( 'update_payment' );
+           $this->_handleAjax( 'update_payment_method' );
        } catch ( WPAjaxDieContinueException $e ) {}
 
        // Verifica che è stata lanciata l'eccezione
