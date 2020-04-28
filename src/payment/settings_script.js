@@ -1,7 +1,15 @@
+/* global object */
 let BuyLicenseWindow = null;
 let UpdatePlanWindow = null;
 let CancelSubscriptionWindow = null;
+if (object.update !== "none" || object.payment === "true") {
+	window.opener.location.reload(false);
+	window.close();
+}
 document.addEventListener("DOMContentLoaded", function() {
+	if (object.payment === "false") {
+		showBuyLicenseWindow();
+	}
 	const buyButton = document.querySelector("#buy-license-button");
 	if (buyButton) {
 		buyButton.addEventListener("click", e => {
@@ -40,13 +48,14 @@ const showUpdatePlanWindow = () => {
 			.done(response => {
 				UpdatePlanWindow = window.open(
 					"",
-					"Update Plan",
+					"Update-Plan",
 					windowFeatures
 				);
 				UpdatePlanWindow.document.write(response);
 			});
 	} else {
 		UpdatePlanWindow.focus();
+		return UpdatePlanWindow;
 	}
 };
 const showBuyLicenseWindow = () => {

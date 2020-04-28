@@ -26,7 +26,7 @@ class TestApiPricingPlan extends WP_Ajax_UnitTestCase {
     }
 
    /**
-    * Effuettua la chiamata senza nonce
+    * Effettua la chiamata senza nonce
     */
     public function test_negative_send_request(){
       try {
@@ -38,6 +38,35 @@ class TestApiPricingPlan extends WP_Ajax_UnitTestCase {
       $response = json_decode( $this->_last_response );
       $this->assertFalse( $response->success);
     }
+    /**
+     * Effuettua la chiamata senza nonce
+     */
+     public function test_no_license_send_request(){
+       $_POST['_ajax_nonce'] = wp_create_nonce( 'itr_ajax_nonce' );
+       $_POST['pricing_plan'] = 'test';
+       try {
+           $this->_handleAjax( 'submit_plan' );
+       } catch ( WPAjaxDieContinueException $e ) {}
+
+       // Verifica che è stata lanciata l'eccezione
+       $this->assertTrue( isset( $e ) );
+       $response = json_decode( $this->_last_response );
+       //verifica che c'è stato un'errore
+       $this->assertFalse( $response->success);
+     }
+    /**
+     * Effettua la chiamata senza nonce alla funzione update_payment
+     */
+     public function test_negative_update_payment(){
+       try {
+           $this->_handleAjax( 'update_payment_method' );
+       } catch ( WPAjaxDieContinueException $e ) {}
+
+       // Verifica che è stata lanciata l'eccezione
+       $this->assertTrue( isset( $e ) );
+       $response = json_decode( $this->_last_response );
+       $this->assertFalse( $response->success);
+     }
       /**
        * Verifica che il body è stato creato correttamente
        */
