@@ -142,6 +142,18 @@ class ApiRequest {
 			'attachment',
 			'ear2words_status',
 			array(
+				'show_in_rest'  => true,
+				'type'          => 'string',
+				'single'        => true,
+				'auth_callback' => function() {
+					return current_user_can( 'edit_posts' );
+				},
+			)
+		);
+		register_post_meta(
+			'attachment',
+			'ear2words_lang_video',
+			array(
 				'show_in_rest' => true,
 				'type'         => 'string',
 				'single'       => true,
