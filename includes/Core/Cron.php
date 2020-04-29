@@ -18,19 +18,19 @@ class Cron {
 	 */
 	public function run() {
 		add_action( 'e2w_cron', array( $this, 'get_remote_data' ) );
-		register_activation_hook( EAR2WORDS_FILE_URL, array( $this, 'schedule_cron' ) );
-		register_activation_hook( EAR2WORDS_FILE_URL, array( $this, 'get_remote_data' ) );
+		register_activation_hook( EAR2WORDS_FILE_URL, array( $this, 'schedule_cron_and_update' ) );
 		register_deactivation_hook( EAR2WORDS_FILE_URL, array( $this, 'unschedule_cron' ) );
-		add_action( 'init', array( $this, 'schedule_cron' ) );
+		add_action( 'init', array( $this, 'schedule_cron_and_update' ) );
 	}
 
 	/**
 	 * Add new scedule cron.
 	 */
-	public function schedule_cron() {
+	public function schedule_cron_and_update() {
 		if ( ! wp_next_scheduled( 'e2w_cron' ) ) {
 			wp_schedule_event( time(), 'twicedaily', 'e2w_cron' );
 		}
+		$this->get_remote_data();
 	}
 
 
