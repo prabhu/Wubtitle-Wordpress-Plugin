@@ -18,6 +18,9 @@ class ApiPricingPlan {
 	 */
 	public function run() {
 		add_action( 'wp_ajax_submit_plan', array( $this, 'send_plan' ) );
+
+		add_action( 'wp_ajax_reset_license', array( $this, 'reset_license' ) );
+		add_action( 'wp_ajax_update_payment_method', array( $this, 'update_payment_method' ) );
 	}
 	/**
 	 *  Creo il body della richiesta.
@@ -47,16 +50,73 @@ class ApiPricingPlan {
 		$pricing_plan = sanitize_text_field( wp_unslash( $_POST['pricing_plan'] ) );
 		$site_url     = sanitize_text_field( wp_unslash( $site_url ) );
 		$nonce        = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
-		if ( ! check_ajax_referer( 'itr_ajax_nonce', $nonce ) ) {
-			wp_send_json_error( __( 'Error, invalid request', 'ear2words' ) );
+		check_ajax_referer( 'itr_ajax_nonce', $nonce );
+		$body         = $this->set_body_request( $pricing_plan, $site_url );
+		$url_endpoint = ENDPOINT . 'stripe/session/create';
+		$license_key  = get_option( 'ear2words_license_key' );
+		if ( empty( $license_key ) ) {
+			wp_send_json_error( __( 'Unable to create subtitles. The product license key is missing.', 'ear2words' ) );
 		}
-		$body          = $this->set_body_request( $pricing_plan, $site_url );
+		// se non è free contatto l'endpoint per aggiorna il piano.
+		if ( ! get_option( 'ear2words_free' ) ) {
+			$url_endpoint = ENDPOINT . 'stripe/customer/update';
+			$body['type'] = 'plan';
+		}
 		$response      = wp_remote_post(
-			ENDPOINT . 'stripe/session/create',
+			$url_endpoint,
+			array(
+				'method'  => 'POST',
+				'headers' => array(
+					'licenseKey'   => $license_key,
+					'Content-Type' => 'application/json; charset=utf-8',
+				),
+				'body'    => wp_json_encode( $body ),
+			)
+		);
+		$code_response = $this->is_successful_response( $response ) ? wp_remote_retrieve_response_code( $response ) : '500';
+		$message       = array(
+			'400' => __( 'An error occurred. Please try again in a few minutes', 'ear2words' ),
+			'401' => __( 'An error occurred. Please try again in a few minutes', 'ear2words' ),
+			'403' => __( 'Access denied', 'ear2words' ),
+			'500' => __( 'Could not contact the server', 'ear2words' ),
+			''    => __( 'Could not contact the server', 'ear2words' ),
+		);
+		// 200 se è un aggiornamento del piano
+		if ( 200 === $code_response ) {
+			update_option( 'custom_notices', 'cambio del piano effettuato' );
+			wp_send_json_success( 'upgrade_plan_success' );
+		}
+		// 201 se è il primo pagamento
+		if ( 201 !== $code_response ) {
+			wp_send_json_error( $message[ $code_response ] );
+		}
+		$response_body = json_decode( wp_remote_retrieve_body( $response ) );
+		$session_id    = $response_body->data->sessionId;
+		wp_send_json_success( $session_id );
+	}
+	/**
+	 * Riceve i dati da javascript e li invia all'endpoint per effettuare l'aggiornamento dei dati di pagamento.
+	 */
+	public function update_payment_method() {
+		if ( ! isset( $_POST['_ajax_nonce'] ) ) {
+			wp_send_json_error( __( 'An error occurred. Please try again in a few minutes.', 'ear2words' ) );
+		}
+		$nonce = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
+		check_ajax_referer( 'itr_ajax_nonce', $nonce );
+		$license_key = get_option( 'ear2words_license_key' );
+		if ( empty( $license_key ) ) {
+			wp_send_json_error( __( 'Unable to create subtitles. The product license key is missing.', 'ear2words' ) );
+		}
+		$body          = array(
+			'type' => 'payment',
+		);
+		$response      = wp_remote_post(
+			ENDPOINT . 'stripe/customer/update',
 			array(
 				'method'  => 'POST',
 				'headers' => array(
 					'Content-Type' => 'application/json; charset=utf-8',
+					'licenseKey'   => $license_key,
 				),
 				'body'    => wp_json_encode( $body ),
 			)
@@ -75,6 +135,47 @@ class ApiPricingPlan {
 		$response_body = json_decode( wp_remote_retrieve_body( $response ) );
 		$session_id    = $response_body->data->sessionId;
 		wp_send_json_success( $session_id );
+	}
+	/**
+	 * Riceve i dati da javascript e li invia all'endpoint per resettare la licenza.
+	 */
+	public function reset_license() {
+		$site_url = get_site_url();
+		if ( ! isset( $_POST['_ajax_nonce'] ) ) {
+			wp_send_json_error( __( 'An error occurred. Please try again in a few minutes.', 'ear2words' ) );
+		}
+		$nonce    = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
+		$site_url = sanitize_text_field( wp_unslash( $site_url ) );
+		check_ajax_referer( 'itr_ajax_nonce', $nonce );
+		$body          = array(
+			'data' => array(
+				'domainUrl' => $site_url,
+			),
+		);
+		$response      = wp_remote_post(
+			ENDPOINT . 'key/fetch',
+			array(
+				'method'  => 'POST',
+				'headers' => array(
+					'Content-Type' => 'application/json; charset=utf-8',
+				),
+				'body'    => wp_json_encode( $body ),
+			)
+		);
+		$code_response = $this->is_successful_response( $response ) ? wp_remote_retrieve_response_code( $response ) : '500';
+		$message       = array(
+			'400' => __( 'An error occurred. Please try again in a few minutes', 'ear2words' ),
+			'403' => __( 'Access denied', 'ear2words' ),
+			'500' => __( 'Could not contact the server', 'ear2words' ),
+		);
+		if ( 200 !== $code_response ) {
+			wp_send_json_error( $message[ $code_response ] );
+		}
+		$response_body = json_decode( wp_remote_retrieve_body( $response ) );
+		$license_key   = $response_body->data->licenseKey;
+		update_option( 'custom_notices', __( 'License key recovered!', 'ear2words' ) );
+		update_option( 'ear2words_license_key', $license_key );
+		wp_send_json_success();
 	}
 	/**
 	 * Verifico che la chiamata non sia andata in errore.

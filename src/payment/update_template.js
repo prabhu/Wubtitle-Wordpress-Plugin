@@ -9,25 +9,18 @@ const paymentModule = (function(Stripe, document) {
 		}
 	};
 
-	const handleSubmit = e => {
-		e.preventDefault();
-		const select = document.querySelector("#select").value;
-
+	const handleSubmit = () => {
 		fetch(adminAjax, {
 			method: "POST",
 			credentials: "include",
 			headers: new Headers({
 				"Content-Type": "application/x-www-form-urlencoded"
 			}),
-			body: `action=submit_plan&_ajax_nonce=${nonce}&pricing_plan=${select}`
+			body: `action=update_payment_method&_ajax_nonce=${nonce}`
 		})
 			.then(resp => resp.json())
 			.then(response => {
 				if (response.success) {
-					if (response.data === "upgrade_plan_success") {
-						window.opener.location.reload(false);
-						window.close();
-					}
 					openStripeForm(response.data, stripe);
 				} else {
 					document.getElementById("error-message").innerHTML =
@@ -38,9 +31,7 @@ const paymentModule = (function(Stripe, document) {
 
 	const init = () => {
 		stripe = Stripe("pk_test_nfUYjFiwdkzYpPOfCZkVZiMK00lOAFcAK7");
-		const form = document.querySelector("#form");
-
-		form.addEventListener("submit", handleSubmit);
+		handleSubmit();
 	};
 
 	return {
