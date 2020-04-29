@@ -33,6 +33,7 @@ class Loader {
 			'extented_media_library' => MediaLibrary\MediaLibraryExtented::class,
 			'send_pricing_plan'      => Api\ApiPricingPlan::class,
 			'payment_template'       => Dashboard\PaymentTemplate::class,
+			'activation'             => Core\Activation::class,
 			'cancel_template'        => Dashboard\CancelPage::class,
 			'cancel_subscription'    => Api\ApiCancelSubscription::class,
 			'cron'                   => Core\Cron::class,
