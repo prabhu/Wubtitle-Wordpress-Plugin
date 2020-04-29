@@ -197,18 +197,21 @@ body {
     padding: 10px;
     margin: 10px;
     text-align: center;
-    background: #304FFE 0% 0% no-repeat padding-box;
+    background: #FFFF00;
     border-radius: 16px;
     cursor: pointer;
     letter-spacing: 0px;
-    color: #FFFFFF;
+    color: #00112F;
     font-size: 12px;
     line-height: 17px;
     font-family: 'Days One', sans-serif;
 }
 
 .unsubscribe-section .buttons .unsubscribe {
-    background: gray 0% 0% no-repeat padding-box;
+    border: 2px #FFFF00 ;
+    border-style: solid;
+    background: none;
+    color: #FFFF00;
 }
 
 #message {
