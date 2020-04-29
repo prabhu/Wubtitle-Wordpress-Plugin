@@ -58,6 +58,9 @@ class ApiCancelSubscription {
 			'500' => __( 'Internal server error', 'ear2words' ),
 			'502' => __( 'Bad gateway', 'ear2words' ),
 		);
+		if ( 200 === $code_response ) {
+			Loader::get( 'cron' )->get_remote_data();
+		}
 		wp_send_json_success( $message[ $code_response ] );
 	}
 
