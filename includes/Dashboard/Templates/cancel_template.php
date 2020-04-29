@@ -10,39 +10,9 @@
 /**
  * This is a template.
  */
-$disable_downgrade_message = __( 'Unable this select this plan during the first month of subscription for current plan', 'ear2words' );
-$message_free              = 'Choose this plan';
-$message_standard          = 'Choose this plan';
-$message_elite             = 'Choose this plan';
-$class_free                = 'button-choose-plan';
-$class_standard            = 'button-choose-plan';
-$class_elite               = 'button-choose-plan';
-switch ( get_option( 'ear2words_plan' ) ) {
-	case 'plan_0':
-		$class_free   = 'current-plan';
-		$message_free = 'Current Plan';
-		break;
-	case 'plan_HBBbNjLjVk3w4w':
-		if ( get_option( 'ear2words_is_first_month' ) ) {
-			$class_free   = 'disable-downgrade';
-			$message_free = $disable_downgrade_message;
-		}
-		$class_standard   = 'current-plan';
-		$message_standard = 'Current Plan';
-		break;
-	case 'plan_HBBS5I9usXvwQR':
-		if ( get_option( 'ear2words_is_first_month' ) ) {
-			$class_free       = 'disable-downgrade';
-			$class_standard   = 'disable-downgrade';
-			$message_free     = $disable_downgrade_message;
-			$message_standard = $disable_downgrade_message;
-		}
-		$class_elite   = 'current-plan';
-		$message_elite = 'Current Plan';
-		break;
-}
 
-require EAR2WORDS_DIR . 'includes/Dashboard/Templates/plans_array.php'
+require EAR2WORDS_DIR . 'includes/Dashboard/Templates/plans_array.php';
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -100,8 +70,8 @@ require EAR2WORDS_DIR . 'includes/Dashboard/Templates/plans_array.php'
 						<?php
 					endforeach;
 					?>
-					<div class="<?php echo $plan['current_plan'] ? 'current-plan' : 'button-choose-plan'; ?>" plan="<?php echo esc_html( $plan['stripe_code'] ); ?>">
-						<?php echo $plan['current_plan'] ? esc_html_e( 'Your plan', 'ear2words' ) : esc_html_e( 'Choose this plan', 'ear2words' ); ?>
+					<div class="<?php echo esc_attr( $plan['class_button'] ); ?>" plan="<?php echo esc_html( $plan['stripe_code'] ); ?>">
+						<?php echo esc_html( $plan['message_button'] ); ?>
 					</div>
 				</div>
 				<ul class="features-list">
