@@ -9,6 +9,8 @@
 
 namespace Ear2Words\Api;
 
+use Ear2Words\Loader;
+
 /**
  * This class describes the cancel subscription request.
  */
