@@ -17,7 +17,7 @@ require EAR2WORDS_DIR . 'includes/Dashboard/Templates/plans_array.php'
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Payment</title>
+	<title>Cancel subscription</title>
 	<?php // phpcs:disable ?>
 	<link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://use.typekit.net/auk4ruc.css">
