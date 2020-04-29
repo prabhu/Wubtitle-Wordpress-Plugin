@@ -23,8 +23,7 @@ class Loader {
 	public static function init() {
 		load_plugin_textdomain( 'ear2words', false, EAR2WORDS_NAME . '/languages' );
 		$classes = array(
-			// TODO: Rimosso momentaniamente, phpmd blocca più di 13 classi nel loader.
-			// 'gutenber'               => Gutenberg\VideoBlock::class,.
+			'gutenber'               => Gutenberg\VideoBlock::class,
 			'settings'               => Dashboard\Settings::class,
 			'request'                => Api\ApiRequest::class,
 			'license_validation'     => Api\ApiLicenseValidation::class,
