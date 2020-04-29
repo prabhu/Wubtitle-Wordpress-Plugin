@@ -25,6 +25,7 @@ $plans = array(
 		),
 		'zoom'         => false,
 		'current_plan' => true,
+		'icon'         => 'smile.svg',
 	),
 	array(
 		'stripe_code'  => 'plan_HBBbNjLjVk3w4w',
@@ -47,6 +48,7 @@ $plans = array(
 		),
 		'zoom'         => true,
 		'current_plan' => false,
+		'icon'         => 'fire.svg',
 	),
 	array(
 		'stripe_code'  => 'plan_HBBS5I9usXvwQR',
@@ -62,5 +64,6 @@ $plans = array(
 		),
 		'zoom'         => false,
 		'current_plan' => false,
+		'icon'         => 'rocket.svg',
 	),
 );
