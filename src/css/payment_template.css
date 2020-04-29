@@ -127,7 +127,8 @@ body {
     padding: 10px;
     margin-top: 10px;
     text-align: center;
-    background: #304FFE 0% 0% no-repeat padding-box;
+    /* background: #304FFE 0% 0% no-repeat padding-box; */
+    background: transparent linear-gradient(265deg, #D500F9 0%, #2962FF 99%) 0% 0% no-repeat padding-box;
     border-radius: 16px 0px;
     cursor: pointer;
     letter-spacing: 0px;
