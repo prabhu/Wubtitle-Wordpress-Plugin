@@ -148,6 +148,13 @@ body {
     line-height: 17px;
 }
 
+.disable-downgrade {
+  color: #FF1744;
+  font-size: 10px;
+  text-align: left;
+  font-family: 'Open Sans Semibold';
+}
+
 
 .features-list {
     padding: 30px 5px;
@@ -160,7 +167,7 @@ body {
     content: "\2022";
     color: #FFFF00;
     font-weight: bold;
-    display: inline-block; 
+    display: inline-block;
     width: 1em;
     margin-left: -1em;
 }
