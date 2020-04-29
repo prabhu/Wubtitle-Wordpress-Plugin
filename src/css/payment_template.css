@@ -134,6 +134,7 @@ body {
     color: #FFFFFF;
     font-size: 12px;
     line-height: 17px;
+    font-family: 'Days One', sans-serif;
 }
 
 .current-plan {
@@ -146,6 +147,7 @@ body {
     color: #FFFFFF;
     font-size: 12px;
     line-height: 17px;
+    font-family: 'Days One', sans-serif;
 }
 
 
@@ -189,12 +191,13 @@ body {
     margin: 10px;
     text-align: center;
     background: #304FFE 0% 0% no-repeat padding-box;
-    border-radius: 16px 0px;
+    border-radius: 16px;
     cursor: pointer;
     letter-spacing: 0px;
     color: #FFFFFF;
     font-size: 12px;
     line-height: 17px;
+    font-family: 'Days One', sans-serif;
 }
 
 .unsubscribe-section .buttons .unsubscribe {
