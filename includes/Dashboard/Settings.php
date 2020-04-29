@@ -280,17 +280,19 @@ class Settings {
 	 */
 	public function init_settings_field() {
 		add_settings_section( 'ear2words-main-settings', null, null, 'ear2words-settings' );
-		add_settings_field(
-			'buy-license-button',
-			__( 'Unlock more features!', 'ear2words' ),
-			array( $this, 'upgrade_button' ),
-			'ear2words-settings',
-			'ear2words-main-settings',
-			array(
-				'name'  => __( 'Upgrade', 'ear2words' ),
-				'class' => 'upgrade-button',
-			)
-		);
+		if ( 'plan_HBBS5I9usXvwQR' !== get_option( 'ear2words_plan' ) ) {
+			add_settings_field(
+				'buy-license-button',
+				__( 'Unlock more features!', 'ear2words' ),
+				array( $this, 'upgrade_button' ),
+				'ear2words-settings',
+				'ear2words-main-settings',
+				array(
+					'name'  => __( 'Upgrade', 'ear2words' ),
+					'class' => 'upgrade-button',
+				)
+			);
+		}
 		add_settings_field(
 			'ear2words-license-key',
 			__( 'License Number', 'ear2words' ),
