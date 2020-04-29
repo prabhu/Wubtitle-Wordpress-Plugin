@@ -93,7 +93,7 @@ class MediaLibraryExtented {
 			$form_fields['e2w_status'] = array(
 				'label' => 'Ear2words',
 				'input' => 'html',
-				'html'  => '<label for="attachments-' . $post->ID . '-e2w_status"> Formato non supportato per la versione free </label>',
+				'html'  => '<label for="attachments-' . $post->ID . '-e2w_status">' . __( 'Unsupported video format for free plan', 'ear2words' ) . '</label>',
 				'value' => $post->ID,
 			);
 			return $form_fields;
@@ -189,7 +189,7 @@ class MediaLibraryExtented {
 			$form_fields['e2w_status'] = array(
 				'label' => 'Ear2words',
 				'input' => 'html',
-				'html'  => '<label for="attachments-' . $post->ID . '-e2w_status"> Formato non supportato per la versione free </label>',
+				'html'  => '<label for="attachments-' . $post->ID . '-e2w_status">' . __( 'Unsupported video format for free plan', 'ear2words' ) . '</label>',
 				'value' => $post->ID,
 			);
 			return $form_fields;
