@@ -70,8 +70,8 @@ const showBuyLicenseWindow = () => {
 		const windowFeatures = `
             left=500,
             top=200,
-            width=500,
-            height=500,
+            width=1200,
+            height=700,
             scrollbars=yes,
         `;
 		wp.ajax

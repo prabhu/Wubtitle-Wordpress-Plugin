@@ -86,6 +86,9 @@ class Settings {
 						?>
 						</p>
 					</div>
+					<!-- TODO: cambiare bottoni secondo mockup-->
+					<button id="buy-license-button" class="button button-primary" >Compra Licenza</button>
+					<button id="cancel-license-button" class="button button-primary" >Annulla Licenza</button>
 						<?php
 						settings_fields( 'ear2words_settings' );
 						do_settings_sections( 'ear2words-settings' );
