@@ -10,6 +10,7 @@
 /**
  * This is a template.
  */
+require EAR2WORDS_DIR . 'includes/Dashboard/Templates/plans_array.php'
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,163 +25,55 @@
 	<?php // phpcs:enable ?>
 </head>
 <body>
-	<div class="wrapper">
-		<div class="container">
-			<div class="title">Choose the right plan for your project</div>
-			<div class="card-container">
-				<div class="card-column">
-					<div class="card">
-						<div class="card-content">
-							<div>
-								<div class="card-header">
-									<div class="card-title">
-										Free
-									</div>
-									<div class="card-logo">									
-									</div>
-								</div>
-
-								<div class="card-price">
-									<div class="year">
-										Per year
-									</div>
-									<div class="price">
-										€180
-									</div>
-								</div>
-
-								<div class="card-features">
-									<div class="row">
-										<div>Feature on</div>
-										<div>include</div>
-									</div>
-									<div class="row">
-										<div>Feature on</div>
-										<div>include</div>
-									</div>
-									<div class="row">
-										<div>Feature on</div>
-										<div>include</div>
-									</div>
-								</div>
-							</div>
-							<div class="current-plan" plan="plan_H6KKmWETz5hkCu">
-								Current plan
-							</div>							
-						</div>  
+	<div class="container">
+		<h1 class="title"><?php echo esc_html_e( 'Choose the right plan for your project', 'ear2words' ); ?></h1>
+		<div class="row">
+		<?php
+		foreach ( $plans as $plan ) :
+			?>
+			<div class="column one-quarter">
+				<div class="card <?php echo $plan['zoom'] ? 'zoom' : ''; ?>">
+					<h2 class="card__title">
+						<?php echo esc_html( $plan['name'] ); ?>
+					</h2>
+					<div class="card__logo">	
+						<!-- TODO: placeholder logo, momentaneamente un quadrato grigio con css-->
 					</div>
-					<div class="features-list">
-						<ul>
-							<li>Lorem ipsum dolor sit amet</li>
-							<li>Lorem ipsum dolor sit amet</li>
-							<li>Lorem ipsum dolor sit amet</li>
-							<li>Lorem ipsum dolor sit amet</li>
-							<li>Lorem ipsum dolor sit amet</li>
-						</ul>
+					<div class="card__price">
+						<?php echo esc_html_e( 'Per year', 'ear2words' ); ?>
+						<p class="price">
+							<?php echo esc_html( '€' ) . ' ' . esc_html( $plan['price'] ); ?>
+						</p>
+					</div>
+					<?php
+					foreach ( $plan['features'] as $feature ) :
+						?>
+					<div class="card__features">
+						<?php echo esc_html( $feature ); ?>
+						<div><?php echo esc_html_e( 'include', 'ear2words' ); ?></div>
+					</div>
+						<?php
+					endforeach;
+					?>
+					<div class="<?php echo $plan['current_plan'] ? 'current-plan' : 'button-choose-plan'; ?>" plan="<?php echo esc_html( $plan['stripe_code'] ); ?>">	
+						<?php echo $plan['current_plan'] ? esc_html_e( 'Your plan', 'ear2words' ) : esc_html_e( 'Choose this plan', 'ear2words' ); ?>
 					</div>
 				</div>
-				<div class="card-column">
-					<div class="card zoom" id="test-card">
-						<div class="card-content">
-							<div>
-								<div class="card-header">
-									<div class="card-title">
-										Professional
-									</div>
-									<div class="card-logo">									
-									</div>
-								</div>
-								<div class="card-price">
-									<div class="year">
-										Per year
-									</div>
-									<div class="price">
-										€180
-									</div>
-								</div>
-								<div class="card-features">
-									<div class="row">
-										<div>Feature on</div>
-										<div>include</div>
-									</div>
-									<div class="row">
-										<div>Feature on</div>
-										<div>include</div>
-									</div>
-									<div class="row">
-										<div>Feature on</div>
-										<div>include</div>
-									</div>
-								</div>
-							</div>
-							<div class="button-choose-plan" plan="plan_H6KKmWETz5hkCu">
-								Choose this plan
-							</div>							
-						</div>  
-					</div>
-					<div class="features-list">
-						<ul>
-							<li>Lorem ipsum dolor sit amet</li>
-							<li>Lorem ipsum dolor sit amet</li>
-							<li>Lorem ipsum dolor sit amet</li>
-							<li>Lorem ipsum dolor sit amet</li>
-							<li>Lorem ipsum dolor sit amet</li>
-						</ul>
-					</div>
-				</div>
-				<div class="card-column">
-					<div class="card">						
-						<div class="card-content">
-							<div>
-								<div class="card-header">
-									<div class="card-title">
-										Business
-									</div>
-									<div class="card-logo">									
-									</div>
-								</div>
-								<div class="card-price">
-									<div class="year">
-										Per year
-									</div>
-									<div class="price">
-										€180
-									</div>
-								</div>
-								<div class="card-features">
-									<div class="row">
-										<div>Feature on</div>
-										<div>include</div>
-									</div>
-									<div class="row">
-										<div>Feature on</div>
-										<div>include</div>
-									</div>
-									<div class="row">
-										<div>Feature on</div>
-										<div>include</div>
-									</div>
-								</div>
-							</div>
-							<div class="button-choose-plan" plan="plan_H6KKmWETz5hkCu">
-								Choose this plan
-							</div>							
-						</div>  
-					</div>
-					<div class="features-list">
-						<ul>
-							<li>Lorem ipsum dolor sit amet</li>
-							<li>Lorem ipsum dolor sit amet</li>
-							<li>Lorem ipsum dolor sit amet</li>
-							<li>Lorem ipsum dolor sit amet</li>
-							<li>Lorem ipsum dolor sit amet</li>
-						</ul>
-					</div>
-				</div>
+				<ul class="features-list">
+					<?php
+					foreach ( $plan['dot_list'] as $dot ) :
+						?>
+					<li><?php echo esc_html( $dot ); ?></li>
+						<?php
+					endforeach;
+					?>
+				</ul>
 			</div>
-
-		</div>   
-	</div> 
+			<?php
+		endforeach;
+		?>
+		</div>
+	</div>
 	<?php // phpcs:disable ?>
 	<script>
 		const WP_GLOBALS = {

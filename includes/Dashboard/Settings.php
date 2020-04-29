@@ -67,10 +67,13 @@ class Settings {
 						$ear2words_is_canceling    = get_option( 'ear2words_is_canceling' );
 						$ear2words_total_jobs      = get_option( 'ear2words_total_jobs' );
 						$ear2words_total_seconds   = get_option( 'ear2words_total_seconds' );
-			
+
 						echo esc_html( "$ear2words_plan $ear2words_expiration_date $ear2words_is_first_month $ear2words_is_canceling $ear2words_total_jobs $ear2words_total_seconds" );
-					?>					
+					?>
 					</div>
+					<!-- TODO: cambiare bottoni secondo mockup-->
+					<button id="buy-license-button" class="button button-primary" >Compra Licenza</button>
+					<button id="cancel-license-button" class="button button-primary" >Annulla Licenza</button>
 						<?php
 						settings_fields( 'ear2words_settings' );
 						do_settings_sections( 'ear2words-settings' );
