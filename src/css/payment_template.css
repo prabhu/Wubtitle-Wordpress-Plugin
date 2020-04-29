@@ -172,3 +172,37 @@ body {
     color: #FFFFFF;
     margin: 5px 0;
 }
+
+.unsubscribe-section {
+    color: #FFFFFF;
+}
+
+.unsubscribe-section .buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.unsubscribe-section .buttons .button {
+    width: 20%;
+    padding: 10px;
+    margin: 10px;
+    text-align: center;
+    background: #304FFE 0% 0% no-repeat padding-box;
+    border-radius: 16px 0px;
+    cursor: pointer;
+    letter-spacing: 0px;
+    color: #FFFFFF;
+    font-size: 12px;
+    line-height: 17px;
+}
+
+.unsubscribe-section .buttons .unsubscribe {
+    background: gray 0% 0% no-repeat padding-box;
+}
+
+#message {
+    text-align: center;
+    color: #ffffff;
+    height: 30px;
+}

@@ -27,7 +27,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
 	const cancelButton = document.querySelector("#cancel-license-button");
 	if (cancelButton) {
-		cancelButton.addEventListener("click", () => {
+		cancelButton.addEventListener("click", e => {
+			e.preventDefault();
 			showCancelSubscriptionWindow();
 		});
 	}
@@ -95,11 +96,11 @@ const showBuyLicenseWindow = () => {
 const showCancelSubscriptionWindow = () => {
 	if (CancelSubscriptionWindow === null || CancelSubscriptionWindow.closed) {
 		const windowFeatures = `
-            left=500,
-            top=200,
-            width=500,
-            height=500,
-            scrollbars=yes,
+			left=500,
+			top=200,
+			width=1200,
+			height=700,
+			scrollbars=yes,
         `;
 		wp.ajax
 			.send("cancel_template", {
