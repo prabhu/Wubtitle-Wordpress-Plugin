@@ -4,12 +4,14 @@
     box-sizing: border-box;
 }
 
+html,
 body {
     background-color: #1A237E;
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 100vh;
+    height: 100%;
+    width: 100%;
     font-family: 'Open Sans', sans-serif;
     overflow-x: hidden;
 }
