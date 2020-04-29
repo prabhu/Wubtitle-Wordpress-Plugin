@@ -26,7 +26,7 @@ class Cron {
 	}
 
 	/**
-	 * .
+	 * Add new scedule cron.
 	 */
 	public function schedule_cron() {
 		if ( ! wp_next_scheduled( 'e2w_cron' ) ) {
@@ -37,7 +37,7 @@ class Cron {
 
 
 	/**
-	 * Disattiva cron.
+	 * Remove cron on plugin disable.
 	 */
 	public function unschedule_cron() {
 		// when the last event was scheduled.
@@ -49,7 +49,7 @@ class Cron {
 
 
 	/**
-	 * Cron.
+	 * Add custum interval.
 	 *
 	 * @param array $schedules parametro.
 	 */
@@ -65,7 +65,7 @@ class Cron {
 
 
 	/**
-	 * Fetch info.
+	 * Get info from remote and DB update.
 	 */
 	public function get_remote_data() {
 		$license_key = get_option( 'ear2words_license_key' );
