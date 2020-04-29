@@ -41,6 +41,7 @@ switch ( get_option( 'ear2words_plan' ) ) {
 		$message_elite = 'Current Plan';
 		break;
 }
+require EAR2WORDS_DIR . 'includes/Dashboard/Templates/plans_array.php'
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -55,161 +56,53 @@ switch ( get_option( 'ear2words_plan' ) ) {
 	<?php // phpcs:enable ?>
 </head>
 <body>
-	<div class="wrapper">
-		<div class="container">
-			<div class="title">Choose the right plan for your project</div>
-			<div class="card-container">
-				<div class="card-column">
-					<div class="card">
-						<div class="card-content">
-							<div>
-								<div class="card-header">
-									<div class="card-title">
-										Free
-									</div>
-									<div class="card-logo">
-									</div>
-								</div>
-
-								<div class="card-price">
-									<div class="year">
-										Per month
-									</div>
-									<div class="price">
-										€0
-									</div>
-								</div>
-
-								<div class="card-features">
-									<div class="row">
-										<div>Feature on</div>
-										<div>include</div>
-									</div>
-									<div class="row">
-										<div>Feature on</div>
-										<div>include</div>
-									</div>
-									<div class="row">
-										<div>Feature on</div>
-										<div>include</div>
-									</div>
-								</div>
-							</div>
-								<div class="<?php echo esc_attr( $class_free ); ?>" plan="plan_0">
-									<?php echo esc_html( $message_free ); ?>
-								</div>
-						</div>
+	<div class="container">
+		<h1 class="title"><?php echo esc_html_e( 'Choose the right plan for your project', 'ear2words' ); ?></h1>
+		<div class="row">
+		<?php
+		foreach ( $plans as $plan ) :
+			?>
+			<div class="column one-quarter">
+				<div class="card <?php echo $plan['zoom'] ? 'zoom' : ''; ?>">
+					<h2 class="card__title">
+						<?php echo esc_html( $plan['name'] ); ?>
+					</h2>
+					<div class="card__logo">
+						<!-- TODO: placeholder logo, momentaneamente un quadrato grigio con css-->
 					</div>
-					<div class="features-list">
-						<ul>
-							<li>Lorem ipsum dolor sit amet</li>
-							<li>Lorem ipsum dolor sit amet</li>
-							<li>Lorem ipsum dolor sit amet</li>
-							<li>Lorem ipsum dolor sit amet</li>
-							<li>Lorem ipsum dolor sit amet</li>
-						</ul>
+					<div class="card__price">
+						<?php echo esc_html_e( 'Per year', 'ear2words' ); ?>
+						<p class="price">
+							<?php echo esc_html( '€' . $plan['price'] ); ?>
+						</p>
+					</div>
+					<?php
+					foreach ( $plan['features'] as $feature ) :
+						?>
+					<div class="card__features">
+						<?php echo esc_html( $feature ); ?>
+						<div><?php echo esc_html_e( 'include', 'ear2words' ); ?></div>
+					</div>
+						<?php
+					endforeach;
+					?>
+					<div class="<?php echo $plan['current_plan'] ? 'current-plan' : 'button-choose-plan'; ?>" plan="<?php echo esc_html( $plan['stripe_code'] ); ?>">
+						<?php echo $plan['current_plan'] ? esc_html_e( 'Your plan', 'ear2words' ) : esc_html_e( 'Choose this plan', 'ear2words' ); ?>
 					</div>
 				</div>
-				<div class="card-column">
-					<div class="card zoom" id="test-card">
-						<div class="card-content">
-							<div>
-								<div class="card-header">
-									<div class="card-title">
-										Standard
-									</div>
-									<div class="card-logo">
-									</div>
-								</div>
-								<div class="card-price">
-									<div class="year">
-										Per month
-									</div>
-									<div class="price">
-										€19
-									</div>
-								</div>
-								<div class="card-features">
-									<div class="row">
-										<div>Feature on</div>
-										<div>include</div>
-									</div>
-									<div class="row">
-										<div>Feature on</div>
-										<div>include</div>
-									</div>
-									<div class="row">
-										<div>Feature on</div>
-										<div>include</div>
-									</div>
-								</div>
-							</div>
-							<div class="<?php echo esc_attr( $class_standard ); ?>" plan="plan_HBBbNjLjVk3w4w">
-								<?php echo esc_html( $message_standard ); ?>
-							</div>
-						</div>
-					</div>
-					<div class="features-list">
-						<ul>
-							<li>Lorem ipsum dolor sit amet</li>
-							<li>Lorem ipsum dolor sit amet</li>
-							<li>Lorem ipsum dolor sit amet</li>
-							<li>Lorem ipsum dolor sit amet</li>
-							<li>Lorem ipsum dolor sit amet</li>
-						</ul>
-					</div>
-				</div>
-				<div class="card-column">
-					<div class="card">
-						<div class="card-content">
-							<div>
-								<div class="card-header">
-									<div class="card-title">
-										Elite
-									</div>
-									<div class="card-logo">
-									</div>
-								</div>
-								<div class="card-price">
-									<div class="year">
-										Per month
-									</div>
-									<div class="price">
-										€49
-									</div>
-								</div>
-								<div class="card-features">
-									<div class="row">
-										<div>Feature on</div>
-										<div>include</div>
-									</div>
-									<div class="row">
-										<div>Feature on</div>
-										<div>include</div>
-									</div>
-									<div class="row">
-										<div>Feature on</div>
-										<div>include</div>
-									</div>
-								</div>
-							</div>
-							<div class="<?php echo esc_attr( $class_elite ); ?>" plan="plan_HBBS5I9usXvwQR">
-								<?php echo esc_html( $message_elite ); ?>
-							</div>
-						</div>
-					</div>
-					<div class="features-list">
-						<ul>
-							<li>Lorem ipsum dolor sit amet</li>
-							<li>Lorem ipsum dolor sit amet</li>
-							<li>Lorem ipsum dolor sit amet</li>
-							<li>Lorem ipsum dolor sit amet</li>
-							<li>Lorem ipsum dolor sit amet</li>
-						</ul>
-					</div>
-				</div>
+				<ul class="features-list">
+					<?php
+					foreach ( $plan['dot_list'] as $dot ) :
+						?>
+					<li><?php echo esc_html( $dot ); ?></li>
+						<?php
+					endforeach;
+					?>
+				</ul>
 			</div>
-
+			<?php
+		endforeach;
+		?>
 		</div>
 	</div>
 	<?php // phpcs:disable ?>

@@ -38,44 +38,68 @@ class Settings {
 	public function ear2words_settings_style() {
 		wp_enqueue_style( 'ear2words_settings_style', EAR2WORDS_URL . 'src/css/settingsStyle.css', null, true );
 	}
+
 	/**
 	 * Crea la pagina dei settings
 	 */
 	public function render_settings_page() {
+		$plans        = array(
+			'plan_0'              => __( 'Free Plan', 'ear2words' ),
+			'plan_HBBbNjLjVk3w4w' => __( 'Standard Plan', 'ear2words' ),
+			'plan_HBBS5I9usXvwQR' => __( 'Elite Plan', 'ear2words' ),
+		);
+		$plan_saved   = get_option( 'ear2words_plan', $plans );
+		$current_plan = array_key_exists( $plan_saved, $plans ) ? $plans[ $plan_saved ] : '';
+		$seconds_max  = get_option( 'ear2words_total_seconds' );
+		$jobs_max     = get_option( 'ear2words_total_jobs' );
+		$seconds      = get_option( 'ear2words_seconds_done' );
+		$jobs         = empty( get_option( 'ear2words_jobs_done' ) ) ? 0 : get_option( 'ear2words_jobs_done' );
+			$this->stripe_callback_url();
 		?>
 		<div class="wrap">
-				<div class="logo-placeholder">
-					LOGO PLACEHOLDER
-				</div>
-				<form action="options.php" method="post">
-					<?php settings_errors(); ?>
-				<div class="e2w-button-submit">
-					<?php
-					submit_button();
-					?>
-				</div>
+			<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
+			<div class="logo-placeholder">
+				LOGO PLACEHOLDER
+			</div>
+			<form action="options.php" method="post">
+			<?php
+			settings_errors();
+			submit_button();
+			?>
 			<div class="postbox">
 				<h2 class="hndle ui-sortable-handle e2w-title" ><span><?php esc_html_e( 'Licensing', 'ear2words' ); ?></span></h2>
 				<div class="inside">
 					<div class="plan-state">
 						<!-- TODO:  Rendere dinamico -->
-						<?php esc_html_e( 'Free Plan', 'ear2words' ); ?>
+						<?php echo esc_html( $current_plan ); ?>
+						<p style="font-weight:400">
+						<?php
+						esc_html_e( 'Generated video subtitles: ', 'ear2words' );
+						echo esc_html( $jobs . '/' . $jobs_max );
+						?>
+						</p>
+						<p style="font-weight:400">
+						<?php
+						esc_html_e( 'Video time spent: ', 'ear2words' );
+						echo esc_html( gmdate( 'i:s', $seconds ) . '/' . gmdate( 'i:s', $seconds_max ) );
+						esc_html_e( ' minutes', 'ear2words' );
+						?>
+						</p>
 					</div>
 						<?php
 						settings_fields( 'ear2words_settings' );
 						do_settings_sections( 'ear2words-settings' );
-						echo '<p class="howto"> ';
-						esc_html_e( 'Please enter the license key you received after successful checkout', 'ear2words' );
-						echo '</p>';
 						?>
 					<?php
 					if ( ! get_option( 'ear2words_free' ) ) {
 						?>
-						<a id="cancel-license-button" style="color:red; text-decoration: underline" ><?php esc_html_e( 'Unsubscribe', 'ear2words' ); ?></a>
+						<a id="cancel-license-button" style="text-decoration: underline; color:red" >
+							<?php esc_html_e( 'Unsubscribe', 'ear2words' ); ?>
+						</a>
+						<a id="update-plan-button" style="text-decoration: underline; margin-left:16px" >
+							<?php esc_html_e( 'Update email or payment detail', 'ear2words' ); ?>
+						</a>
 						<?php
-						echo '<a id="update-plan-button" style="text-decoration: underline" >';
-						esc_html_e( 'Update email or payment detail', 'ear2words' );
-						echo '</a>';
 					}
 					?>
 				</div>
@@ -84,8 +108,29 @@ class Settings {
 		</form>
 		<?php
 	}
+	/**
+	 * Gestisce le callback di stripe.
+	 */
+	private function stripe_callback_url() {
+		$notices = get_option( 'custom_notices' );
+		if ( ! empty( $notices ) ) {
+			?>
+			<div class="notice notice-success is-dismissible">
+				<p><?php echo esc_html( $notices ); ?></p>
+			</div>
+			<?php
+			delete_option( 'custom_notices' );
+		}
+		// phpcs:disable
+		if ( isset( $_GET['payment'] ) && 'true' === $_GET['payment'] ) {
+			update_option( 'custom_notices', 'pagamento effettuato' );
+		}
 
-
+		if ( isset( $_GET['update'] ) && 'true' === $_GET['update'] ) {
+			update_option( 'custom_notices', 'aggiornamento effettuato' );
+		}
+		// phpcs:enable
+	}
 	/**
 	 * Aggiunge una nuova impostazione
 	 */
@@ -180,7 +225,6 @@ class Settings {
 		return $validation;
 	}
 
-
 	/**
 	 * Aggiunge un nuovo campo all'impostazione precedentemente creata
 	 */
@@ -208,6 +252,7 @@ class Settings {
 				'name'        => 'ear2words_license_key',
 				'placeholder' => __( 'License key', 'ear2words' ),
 				'class'       => 'input-license-key',
+				'description' => __( 'Please enter the license key you received after successful checkout', 'ear2words' ),
 			)
 		);
 	}
@@ -218,9 +263,22 @@ class Settings {
 	 * @param array $args Parametri dell'input.
 	 */
 	public function input_field( $args ) {
-		$option = get_option( $args['name'], '' );
+		$option = '';
+		if ( ! get_option( 'ear2words_free' ) ) {
+			$option = get_option( $args['name'], '' );
+		}
 		?>
 		<input class="regular-text" type="<?php echo esc_attr( $args['type'] ); ?>" name="<?php echo esc_attr( $args['name'] ); ?>" value="<?php echo esc_attr( $option ); ?>" placeholder="<?php echo esc_attr( $args['placeholder'] ); ?>">
+		<?php
+		if ( ! get_option( 'ear2words_free' ) ) :
+			?>
+			<a id="reset-license" style="text-decoration: underline" >
+				<?php esc_html_e( 'Reset license key', 'ear2words' ); ?>
+			</a>
+			<?php
+		endif;
+		?>
+		<p class="description"><?php echo esc_html( $args['description'] ); ?></p>
 		<?php
 	}
 	/**
@@ -243,9 +301,29 @@ class Settings {
 	 * @param string $hook valore presente nell'hook admin_enqueue_scripts.
 	 */
 	public function e2w_settings_scripts( $hook ) {
+		$update  = 'none';
+		$payment = 'none';
+		// phpcs:disable
+		if ( isset( $_GET['update'] ) ) {
+			$update = sanitize_text_field( wp_unslash( $_GET['update'] ) );
+		}
+		if ( isset( $_GET['payment'] ) ) {
+			$payment = sanitize_text_field( wp_unslash( $_GET['payment'] ) );
+		}
+		// phpcs:enable
 		if ( 'toplevel_page_ear2words_settings' === $hook ) {
 			wp_enqueue_script( 'wp-util' );
 			wp_enqueue_script( 'settings_scripts', EAR2WORDS_URL . '/src/payment/settings_script.js', array( 'wp-util' ), EAR2WORDS_VER, true );
+			wp_localize_script(
+				'settings_scripts',
+				'settings_object',
+				array(
+					'ajax_url'  => admin_url( 'admin-ajax.php' ),
+					'ajaxnonce' => wp_create_nonce( 'itr_ajax_nonce' ),
+					'update'    => $update,
+					'payment'   => $payment,
+				)
+			);
 		}
 	}
 }

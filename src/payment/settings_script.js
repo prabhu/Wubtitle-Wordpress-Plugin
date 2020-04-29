@@ -1,7 +1,15 @@
+/* global settings_object */
 let BuyLicenseWindow = null;
 let UpdatePlanWindow = null;
 let CancelSubscriptionWindow = null;
+if (settings_object.update !== "none" || settings_object.payment === "true") {
+	window.opener.location.reload(false);
+	window.close();
+}
 document.addEventListener("DOMContentLoaded", function() {
+	if (settings_object.payment === "false") {
+		showBuyLicenseWindow();
+	}
 	const buyButton = document.querySelector("#buy-license-button");
 	if (buyButton) {
 		buyButton.addEventListener("click", e => {
@@ -10,9 +18,17 @@ document.addEventListener("DOMContentLoaded", function() {
 		});
 	}
 
+	const resetLicense = document.querySelector("#reset-license");
+	if (resetLicense) {
+		resetLicense.addEventListener("click", () => {
+			resetLicenseFunction();
+		});
+	}
+
 	const cancelButton = document.querySelector("#cancel-license-button");
 	if (cancelButton) {
-		cancelButton.addEventListener("click", () => {
+		cancelButton.addEventListener("click", e => {
+			e.preventDefault();
 			showCancelSubscriptionWindow();
 		});
 	}
@@ -40,13 +56,14 @@ const showUpdatePlanWindow = () => {
 			.done(response => {
 				UpdatePlanWindow = window.open(
 					"",
-					"Update Plan",
+					"Update-Plan",
 					windowFeatures
 				);
 				UpdatePlanWindow.document.write(response);
 			});
 	} else {
 		UpdatePlanWindow.focus();
+		return UpdatePlanWindow;
 	}
 };
 const showBuyLicenseWindow = () => {
@@ -79,11 +96,11 @@ const showBuyLicenseWindow = () => {
 const showCancelSubscriptionWindow = () => {
 	if (CancelSubscriptionWindow === null || CancelSubscriptionWindow.closed) {
 		const windowFeatures = `
-            left=500,
-            top=200,
-            width=1200,
-            height=700,
-            scrollbars=yes,
+			left=500,
+			top=200,
+			width=1200,
+			height=700,
+			scrollbars=yes,
         `;
 		wp.ajax
 			.send("cancel_template", {
@@ -100,6 +117,18 @@ const showCancelSubscriptionWindow = () => {
 	} else {
 		CancelSubscriptionWindow.focus();
 	}
+};
+const resetLicenseFunction = () => {
+	fetch(settings_object.ajax_url, {
+		method: "POST",
+		credentials: "include",
+		headers: new Headers({
+			"Content-Type": "application/x-www-form-urlencoded"
+		}),
+		body: `action=reset_license&_ajax_nonce=${settings_object.ajaxnonce}`
+	}).then(() => {
+		location.reload();
+	});
 };
 window.onunload = function() {
 	if (BuyLicenseWindow !== null) {

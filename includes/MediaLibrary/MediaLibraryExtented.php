@@ -122,13 +122,15 @@ class MediaLibraryExtented {
 				<option <?php echo selected( $lang, 'it', false ); ?> value="it"> <?php esc_html_e( 'Italian', 'ear2words' ); ?></option>
 				<option <?php echo selected( $lang, 'en', false ); ?> value="en"> <?php esc_html_e( 'English', 'ear2words' ); ?></option>
 				<?php
-				if ( ! get_option( 'ear2words_free' ) ) {
+				if ( ! get_option( 'ear2words_free' ) ) :
 					?>
 				<option <?php echo selected( $lang, 'es', false ); ?> value="es"> <?php esc_html_e( 'Spanish', 'ear2words' ); ?></option>
 				<option <?php echo selected( $lang, 'de', false ); ?> value="de"> <?php esc_html_e( 'German', 'ear2words' ); ?></option>
 				<option <?php echo selected( $lang, 'zh', false ); ?> value="zh"> <?php esc_html_e( 'Chinese', 'ear2words' ); ?></option>
 				<option <?php echo selected( $lang, 'fr', false ); ?> value="fr"> <?php esc_html_e( 'French', 'ear2words' ); ?></option>
-				<?php } ?>
+					<?php
+				endif;
+				?>
 			</select>
 			<label onclick="this.setAttribute('disabled','true')" class="button-primary" style="margin-top:16px;" for="attachments-<?php echo esc_html( $post->ID ); ?>-e2w_form">
 				<input type="checkbox" style="display:none" id="attachments-<?php echo esc_html( $post->ID ); ?>-e2w_form" name="attachments[<?php echo esc_html( $post->ID ); ?>][e2w_form]" value="<?php echo esc_html( $post->ID ); ?>" />
@@ -271,13 +273,15 @@ class MediaLibraryExtented {
 				<option <?php echo selected( $lang, 'it', false ); ?> value="it"> <?php esc_html_e( 'Italian', 'ear2words' ); ?></option>
 				<option <?php echo selected( $lang, 'en', false ); ?> value="en"> <?php esc_html_e( 'English', 'ear2words' ); ?></option>
 				<?php
-				if ( ! get_option( 'ear2words_free' ) ) {
+				if ( ! get_option( 'ear2words_free' ) ) :
 					?>
 				<option <?php echo selected( $lang, 'es', false ); ?> value="es"> <?php esc_html_e( 'Spanish', 'ear2words' ); ?></option>
 				<option <?php echo selected( $lang, 'de', false ); ?> value="de"> <?php esc_html_e( 'German', 'ear2words' ); ?></option>
 				<option <?php echo selected( $lang, 'zh', false ); ?> value="zh"> <?php esc_html_e( 'Chinese', 'ear2words' ); ?></option>
 				<option <?php echo selected( $lang, 'fr', false ); ?> value="fr"> <?php esc_html_e( 'French', 'ear2words' ); ?></option>
-				<?php } ?>
+					<?php
+			endif;
+				?>
 			</select>
 			<button type="submit" class="button-primary" style="margin-top:16px;" id="attachments-<?php echo esc_html( $id_video ); ?>-e2w_form" name="attachments[<?php echo esc_html( $id_video ); ?>][e2w_form]" value="invio">
 			<?php esc_html_e( 'GENERATE SUBTITLES', 'ear2words' ); ?>

@@ -3,18 +3,18 @@
   margin-top: 0;
 }
 
-.header-settings {
-  display: flex;
-  justify-content: space-between  ;
-  align-items: center;
+p.submit {
+  text-align: right;
 }
 
 .logo-placeholder {
-  font-size: 20px;
+  font-size: 15px;
   font-weight: bold;
   background: #fff;
-  padding: 20px;
+  padding: 10px 30px;
   border: 1px #2e2e2e solid;
+  display: inline-block;
+  position: absolute;
 }
 
 .input-license-key {

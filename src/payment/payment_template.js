@@ -9,7 +9,7 @@ const paymentModule = (function(Stripe, document) {
 		}
 	};
 
-	const handleChoise = plan => {
+	const handleChoice = plan => {
 		fetch(adminAjax, {
 			method: "POST",
 			credentials: "include",
@@ -21,6 +21,10 @@ const paymentModule = (function(Stripe, document) {
 			.then(resp => resp.json())
 			.then(response => {
 				if (response.success) {
+					if (response.data === "upgrade_plan_success") {
+						window.opener.location.reload(false);
+						window.close();
+					}
 					openStripeForm(response.data, stripe);
 				} else {
 					document.getElementById("error-message").innerHTML =
@@ -53,7 +57,7 @@ const paymentModule = (function(Stripe, document) {
 		buttons.forEach(button => {
 			button.addEventListener("click", () => {
 				const plan = button.getAttribute("plan");
-				handleChoise(plan);
+				handleChoice(plan);
 			});
 		});
 

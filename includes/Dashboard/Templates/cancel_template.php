@@ -41,13 +41,15 @@ switch ( get_option( 'ear2words_plan' ) ) {
 		$message_elite = 'Current Plan';
 		break;
 }
+
+require EAR2WORDS_DIR . 'includes/Dashboard/Templates/plans_array.php'
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Payment</title>
+	<title>Cancel subscription</title>
 	<?php // phpcs:disable ?>
 	<link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://use.typekit.net/auk4ruc.css">
@@ -55,191 +57,69 @@ switch ( get_option( 'ear2words_plan' ) ) {
 	<?php // phpcs:enable ?>
 </head>
 <body>
-
-	<div class="wrapper">
-		<div class="container">
-			<div class="unsubscribe-section">
-				<div class="title">Are you sure you want to unsubscribe?</div>
-				<div>Are you sure you want to cancel your subscription? If you choose to continue, when the subscription expires your plan will return to free version and you will lose all the additional features</div>
-				<div class="buttons">
-					<div class="button unsubscribe" id="unsubscribeButton">Return to free version</div>
-					<div class="button" id="close">Forget it</div>
+	<div class="container">
+		<div class="row">
+			<div class="column">
+				<div class="unsubscribe-section">
+					<h1 class="title"><?php echo esc_html_e( 'Are you sure you want to unsubscribe?', 'ear2words' ); ?></h1>
+					<p><?php echo esc_html_e( 'Are you sure you want to cancel your subscription? If you choose to continue, when the subscription expires your plan will return to free version and you will lose all the additional features', 'ear2words' ); ?></p>
+					<div class="buttons">
+						<div class="button unsubscribe" id="unsubscribeButton"><?php echo esc_html_e( 'Return to free version', 'ear2words' ); ?></div>
+						<div class="button" id="close"><?php echo esc_html_e( 'Forget it', 'ear2words' ); ?></div>
+					</div>
+					<div id="message"><!-- From JS --></div>
 				</div>
-				<div id="message"></div>
 			</div>
 		</div>
-		<div class="container">
-			<div class="title">Or choose another plan</div>
-			<div class="card-container">
-				<div class="card-column">
-					<div class="card">
-						<div class="card-content">
-							<div>
-								<div class="card-header">
-									<div class="card-title">
-										Free
-									</div>
-									<div class="card-logo">
-									</div>
-								</div>
-
-								<div class="card-price">
-									<div class="year">
-										Per Month
-									</div>
-									<div class="price">
-										€19
-									</div>
-								</div>
-
-								<div class="card-features">
-									<div class="row">
-										<div>Feature on</div>
-										<div>include</div>
-									</div>
-									<div class="row">
-										<div>Feature on</div>
-										<div>include</div>
-									</div>
-									<div class="row">
-										<div>Feature on</div>
-										<div>include</div>
-									</div>
-								</div>
-							</div>
-							<div class="<?php echo esc_attr( $class_free ); ?>" plan="plan_0">
-								<?php echo esc_html( $message_free ); ?>
-							</div>
-						</div>
+		<h1 class="title"><?php echo esc_html_e( 'Or choose another plan', 'ear2words' ); ?></h1>
+		<div class="row">
+		<?php
+		foreach ( $plans as $plan ) :
+			?>
+			<div class="column one-quarter">
+				<div class="card <?php echo $plan['zoom'] ? 'zoom' : ''; ?>">
+					<h2 class="card__title">
+						<?php echo esc_html( $plan['name'] ); ?>
+					</h2>
+					<div class="card__logo">
+						<!-- TODO: placeholder logo, momentaneamente un quadrato grigio con css-->
 					</div>
-					<div class="features-list">
-						<ul>
-							<li>Lorem ipsum dolor sit amet</li>
-							<li>Lorem ipsum dolor sit amet</li>
-							<li>Lorem ipsum dolor sit amet</li>
-							<li>Lorem ipsum dolor sit amet</li>
-							<li>Lorem ipsum dolor sit amet</li>
-						</ul>
+					<div class="card__price">
+						<?php echo esc_html_e( 'Per year', 'ear2words' ); ?>
+						<p class="price">
+							<?php echo esc_html( '€' . $plan['price'] ); ?>
+						</p>
+					</div>
+					<?php
+					foreach ( $plan['features'] as $feature ) :
+						?>
+					<div class="card__features">
+						<?php echo esc_html( $feature ); ?>
+						<div><?php echo esc_html_e( 'include', 'ear2words' ); ?></div>
+					</div>
+						<?php
+					endforeach;
+					?>
+					<div class="<?php echo $plan['current_plan'] ? 'current-plan' : 'button-choose-plan'; ?>" plan="<?php echo esc_html( $plan['stripe_code'] ); ?>">
+						<?php echo $plan['current_plan'] ? esc_html_e( 'Your plan', 'ear2words' ) : esc_html_e( 'Choose this plan', 'ear2words' ); ?>
 					</div>
 				</div>
-				<div class="card-column">
-					<div class="card zoom" id="test-card">
-						<div class="card-content">
-							<div>
-								<div class="card-header">
-									<div class="card-title">
-										Standard
-									</div>
-									<div class="card-logo">
-									</div>
-								</div>
-								<div class="card-price">
-									<div class="year">
-										Per Month
-									</div>
-									<div class="price">
-										€0
-									</div>
-								</div>
-								<div class="card-features">
-									<div class="row">
-										<div>Feature on</div>
-										<div>include</div>
-									</div>
-									<div class="row">
-										<div>Feature on</div>
-										<div>include</div>
-									</div>
-									<div class="row">
-										<div>Feature on</div>
-										<div>include</div>
-									</div>
-								</div>
-							</div>
-							<div class="<?php echo esc_attr( $class_standard ); ?>" plan="plan_HBBbNjLjVk3w4w">
-								<?php echo esc_html( $message_standard ); ?>
-							</div>
-						</div>
-					</div>
-					<div class="features-list">
-						<ul>
-							<li>Lorem ipsum dolor sit amet</li>
-							<li>Lorem ipsum dolor sit amet</li>
-							<li>Lorem ipsum dolor sit amet</li>
-							<li>Lorem ipsum dolor sit amet</li>
-							<li>Lorem ipsum dolor sit amet</li>
-						</ul>
-					</div>
-				</div>
-				<div class="card-column">
-					<div class="card">
-						<div class="card-content">
-							<div>
-								<div class="card-header">
-									<div class="card-title">
-										Elite
-									</div>
-									<div class="card-logo">
-									</div>
-								</div>
-								<div class="card-price">
-									<div class="year">
-										Per Month
-									</div>
-									<div class="price">
-										€49
-									</div>
-								</div>
-								<div class="card-features">
-									<div class="row">
-										<div>Feature on</div>
-										<div>include</div>
-									</div>
-									<div class="row">
-										<div>Feature on</div>
-										<div>include</div>
-									</div>
-									<div class="row">
-										<div>Feature on</div>
-										<div>include</div>
-									</div>
-									<div class="row">
-										<div>Feature on</div>
-										<div>include</div>
-									</div>
-									<div class="row">
-										<div>Feature on</div>
-										<div>include</div>
-									</div>
-									<div class="row">
-										<div>Feature on</div>
-										<div>include</div>
-									</div>
-									<div class="row">
-										<div>Feature on</div>
-										<div>include</div>
-									</div>
-								</div>
-							</div>
-							<div class="<?php echo esc_attr( $class_elite ); ?>" plan="plan_HBBS5I9usXvwQR">
-								<?php echo esc_html( $message_elite ); ?>
-							</div>
-						</div>
-					</div>
-					<div class="features-list">
-						<ul>
-							<li>Lorem ipsum dolor sit amet</li>
-							<li>Lorem ipsum dolor sit amet</li>
-							<li>Lorem ipsum dolor sit amet</li>
-							<li>Lorem ipsum dolor sit amet</li>
-							<li>Lorem ipsum dolor sit amet</li>
-						</ul>
-					</div>
-				</div>
+				<ul class="features-list">
+					<?php
+					foreach ( $plan['dot_list'] as $dot ) :
+						?>
+					<li><?php echo esc_html( $dot ); ?></li>
+						<?php
+					endforeach;
+					?>
+				</ul>
 			</div>
-
+			<?php
+		endforeach;
+		?>
 		</div>
 	</div>
+
 	<?php // phpcs:disable ?>
 	<script src="https://js.stripe.com/v3/"></script>
 	<script>
