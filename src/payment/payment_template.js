@@ -40,7 +40,7 @@ const paymentModule = (function(Stripe, document) {
 			headers: new Headers({
 				"Content-Type": "application/x-www-form-urlencoded"
 			}),
-			body: `action=submit_plan&_ajax_nonce=${nonce}&choise=free`
+			body: `action=cancel_subscription&_ajax_nonce=${nonce}`
 		})
 			.then(resp => resp.json())
 			.then(data => {

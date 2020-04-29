@@ -18,6 +18,13 @@ document.addEventListener("DOMContentLoaded", function() {
 		});
 	}
 
+	const modifyPlan = document.querySelector("#modify-plan");
+	if (modifyPlan) {
+		modifyPlan.addEventListener("click", () => {
+			showBuyLicenseWindow();
+		});
+	}
+
 	const resetLicense = document.querySelector("#reset-license");
 	if (resetLicense) {
 		resetLicense.addEventListener("click", () => {

@@ -9,6 +9,8 @@
 
 namespace Ear2Words\Dashboard;
 
+use Ear2Words\Loader;
+
 /**
  * This class describes Settings.
  */
@@ -48,12 +50,17 @@ class Settings {
 			'plan_HBBbNjLjVk3w4w' => __( 'Standard Plan', 'ear2words' ),
 			'plan_HBBS5I9usXvwQR' => __( 'Elite Plan', 'ear2words' ),
 		);
-		$plan_saved   = get_option( 'ear2words_plan', $plans );
+		$plan_saved   = get_option( 'ear2words_plan' );
 		$current_plan = array_key_exists( $plan_saved, $plans ) ? $plans[ $plan_saved ] : '';
 		$seconds_max  = get_option( 'ear2words_total_seconds' );
 		$jobs_max     = get_option( 'ear2words_total_jobs' );
 		$seconds      = get_option( 'ear2words_seconds_done' );
-		$jobs         = empty( get_option( 'ear2words_jobs_done' ) ) ? 0 : get_option( 'ear2words_jobs_done' );
+		if ( ! $seconds ) {
+			$seconds = 0; }
+		$jobs                      = empty( get_option( 'ear2words_jobs_done' ) ) ? 0 : get_option( 'ear2words_jobs_done' );
+		$ear2words_expiration_date = get_option( 'ear2words_expiration_date' );
+		$friendly_expiration_date  = date_i18n( get_option( 'date_format' ), $ear2words_expiration_date );
+		$ear2words_is_canceling    = get_option( 'ear2words_is_canceling' );
 			$this->stripe_callback_url();
 		?>
 		<div class="wrap">
@@ -70,41 +77,35 @@ class Settings {
 				<h2 class="hndle ui-sortable-handle e2w-title" ><span><?php esc_html_e( 'Licensing', 'ear2words' ); ?></span></h2>
 				<div class="inside">
 					<div class="plan-state">
-						<!-- TODO:  Rendere dinamico -->
 						<?php echo esc_html( $current_plan ); ?>
-						<p style="font-weight:400">
-						<?php
-						esc_html_e( 'Generated video subtitles: ', 'ear2words' );
-						echo esc_html( $jobs . '/' . $jobs_max );
-						?>
-						</p>
-						<p style="font-weight:400">
-						<?php
-						esc_html_e( 'Video time spent: ', 'ear2words' );
-						echo esc_html( gmdate( 'i:s', $seconds ) . '/' . gmdate( 'i:s', $seconds_max ) );
-						esc_html_e( ' minutes', 'ear2words' );
-						?>
-						</p>
 					</div>
-					<!-- TODO: cambiare bottoni secondo mockup-->
-					<button id="buy-license-button" class="button button-primary" >Compra Licenza</button>
-					<button id="cancel-license-button" class="button button-primary" >Annulla Licenza</button>
+					<div class="plan-renewal">
+						<?php
+						$this->render_plan_renewal( $current_plan, $ear2words_is_canceling, $friendly_expiration_date );
+						?>
+					</div>
+					<p style="font-weight:400">
+					<?php
+					esc_html_e( 'Generated video subtitles: ', 'ear2words' );
+					echo esc_html( $jobs . '/' . $jobs_max );
+					?>
+					</p>
+					<p style="font-weight:400">
+					<?php
+					esc_html_e( 'Video time spent: ', 'ear2words' );
+					echo esc_html( date_i18n( 'i:s', $seconds ) . '/' . date_i18n( 'i:s', $seconds_max ) );
+					esc_html_e( ' minutes', 'ear2words' );
+					?>
+					</p>
 						<?php
 						settings_fields( 'ear2words_settings' );
 						do_settings_sections( 'ear2words-settings' );
 						?>
-					<?php
-					if ( ! get_option( 'ear2words_free' ) ) {
-						?>
-						<a id="cancel-license-button" style="text-decoration: underline; color:red" >
-							<?php esc_html_e( 'Unsubscribe', 'ear2words' ); ?>
-						</a>
-						<a id="update-plan-button" style="text-decoration: underline; margin-left:16px" >
-							<?php esc_html_e( 'Update email or payment detail', 'ear2words' ); ?>
-						</a>
+					<div class="plan-update">
 						<?php
-					}
-					?>
+						$this->render_plan_update( $ear2words_is_canceling );
+						?>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -127,6 +128,7 @@ class Settings {
 		// phpcs:disable
 		if ( isset( $_GET['payment'] ) && 'true' === $_GET['payment'] ) {
 			update_option( 'custom_notices', 'pagamento effettuato' );
+			Loader::get('cron')->get_remote_data();
 		}
 
 		if ( isset( $_GET['update'] ) && 'true' === $_GET['update'] ) {
@@ -134,6 +136,51 @@ class Settings {
 		}
 		// phpcs:enable
 	}
+
+
+	/**
+	 * Render name plan in render settengs method
+	 *
+	 * @param string  $plan stripe plan code.
+	 * @param boolean $cancelling state of user plan.
+	 * @param string  $date renewal date.
+	 */
+	private function render_plan_renewal( $plan, $cancelling, $date ) {
+		if ( 'plan_0' !== $plan && ! $cancelling ) {
+			echo esc_html( __( 'Automatic renewal: ', 'ear2words' ) . $date );
+		} elseif ( 'plan_0' !== $plan && $cancelling ) {
+			echo esc_html( __( 'You requested the subscription cancellation. Your plan will be valid until  ', 'ear2words' ) . $date );
+		}
+	}
+
+	/**
+	 * Render name plan in render settengs method
+	 *
+	 * @param boolean $cancelling state of user plan.
+	 */
+	private function render_plan_update( $cancelling ) {
+		if ( ! $cancelling && ! get_option( 'ear2words_free' ) ) {
+			?>
+			<a id="cancel-license-button" style="text-decoration: underline; color:red; margin-right:10px;" >
+				<?php esc_html_e( 'Unsubscribe', 'ear2words' ); ?>
+			</a>
+			<a id="update-plan-button" style="text-decoration: underline" >
+				<?php esc_html_e( 'Update email or payment detail', 'ear2words' ); ?>
+			</a>
+			<a id="modify-plan" style="text-decoration: underline; margin-left: 10px;" >
+				<?php esc_html_e( 'Modify plan', 'ear2words' ); ?>
+			</a>
+			<?php
+		} elseif ( $cancelling ) {
+			?>
+			<a id="update-plan-button" style="text-decoration: underline;" >
+				<?php esc_html_e( 'Reactivate plan', 'ear2words' ); ?>
+			</a>
+			<?php
+		}
+	}
+
+
 	/**
 	 * Aggiunge una nuova impostazione
 	 */

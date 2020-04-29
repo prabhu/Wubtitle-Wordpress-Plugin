@@ -36,6 +36,7 @@ class Loader {
 			'activation'             => Core\Activation::class,
 			'cancel_template'        => Dashboard\CancelPage::class,
 			'cancel_subscription'    => Api\ApiCancelSubscription::class,
+			'cron'                   => Core\Cron::class,
 		);
 
 		foreach ( $classes as $key => $class ) {

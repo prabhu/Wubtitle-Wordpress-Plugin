@@ -43,4 +43,15 @@ const selectOptions = [
 	}
 ];
 
-export { langExten, statusExten, selectOptions };
+const selectOptionsFreePlan = [
+	{
+		value: "it",
+		label: __("Italian", "ear2words")
+	},
+	{
+		value: "en",
+		label: __("English", "ear2words")
+	}
+];
+
+export { langExten, statusExten, selectOptions, selectOptionsFreePlan };

@@ -10,7 +10,9 @@
 /**
  * This is a template.
  */
-require EAR2WORDS_DIR . 'includes/Dashboard/Templates/plans_array.php'
+
+require EAR2WORDS_DIR . 'includes/Dashboard/Templates/plans_array.php';
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -65,8 +67,8 @@ require EAR2WORDS_DIR . 'includes/Dashboard/Templates/plans_array.php'
 						<?php
 					endforeach;
 					?>
-					<div class="<?php echo $plan['current_plan'] ? 'current-plan' : 'button-choose-plan'; ?>" plan="<?php echo esc_html( $plan['stripe_code'] ); ?>">	
-						<?php echo $plan['current_plan'] ? esc_html_e( 'Your plan', 'ear2words' ) : esc_html_e( 'Choose this plan', 'ear2words' ); ?>
+					<div class="<?php echo esc_attr( $plan['class_button'] ); ?>" plan="<?php echo esc_html( $plan['stripe_code'] ); ?>">
+						<?php echo esc_html( $plan['message_button'] ); ?>
 					</div>
 				</div>
 				<ul class="features-list">
@@ -91,7 +93,7 @@ require EAR2WORDS_DIR . 'includes/Dashboard/Templates/plans_array.php'
 		const WP_GLOBALS = {
 			adminAjax: "<?php echo esc_html( admin_url( 'admin-ajax.php' ) ); ?>",
 			nonce: "<?php echo esc_js( wp_create_nonce( 'itr_ajax_nonce' ) ); ?>"
-		}	
+		}
 	</script>
 	<script src="<?php echo esc_url(EAR2WORDS_URL . 'src/payment/payment_template.js'); ?>"></script>
 	<?php // phpcs:enable ?>
