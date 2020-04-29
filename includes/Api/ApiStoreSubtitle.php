@@ -69,12 +69,11 @@ class ApiStoreSubtitle {
 	}
 
 	/**
-	 * Ottiene.
+	 * Ottiene il file dei sottotitoli e lo salva, inoltre aggiunge dei post meta al video.
 	 *
 	 * @param array $params parametri del file.
 	 */
 	public function get_subtitle( $params ) {
-		// If the function it's not available, require it.
 		if ( ! function_exists( 'download_url' ) ) {
 			require_once ABSPATH . 'wp-admin/includes/file.php';
 		}
@@ -82,6 +81,8 @@ class ApiStoreSubtitle {
 		$file_name     = explode( '?', basename( $url ) )[0];
 		$id_attachment = $params['attachmentId'];
 		$temp_file     = download_url( $url );
+		update_option( 'ear2words_seconds_done', $params['duration'] );
+		update_option( 'ear2words_jobs_done', $params['jobs'] );
 
 		if ( is_wp_error( $temp_file ) ) {
 			$error = array(

@@ -26,7 +26,7 @@ class TestApiRequest extends WP_Ajax_UnitTestCase {
     }
 
    /**
-    * Effuettua la chiamata senza nonce
+    * Effettua la chiamata senza nonce
     */
     public function test_negative_send_request(){
       try {
