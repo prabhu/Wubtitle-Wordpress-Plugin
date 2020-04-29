@@ -43,16 +43,18 @@ class Settings {
 	 * Crea la pagina dei settings
 	 */
 	public function render_settings_page() {
-		$plans                     = array(
+		$plans        = array(
 			'plan_0'              => __( 'Free Plan', 'ear2words' ),
 			'plan_HBBbNjLjVk3w4w' => __( 'Standard Plan', 'ear2words' ),
 			'plan_HBBS5I9usXvwQR' => __( 'Elite Plan', 'ear2words' ),
 		);
-		$plan_saved                = get_option( 'ear2words_plan' );
-		$current_plan              = array_key_exists( $plan_saved, $plans ) ? $plans[ $plan_saved ] : '';
-		$seconds_max               = get_option( 'ear2words_total_seconds' );
-		$jobs_max                  = get_option( 'ear2words_total_jobs' );
-		$seconds                   = get_option( 'ear2words_seconds_done' );
+		$plan_saved   = get_option( 'ear2words_plan' );
+		$current_plan = array_key_exists( $plan_saved, $plans ) ? $plans[ $plan_saved ] : '';
+		$seconds_max  = get_option( 'ear2words_total_seconds' );
+		$jobs_max     = get_option( 'ear2words_total_jobs' );
+		$seconds      = get_option( 'ear2words_seconds_done' );
+		if ( ! $seconds ) {
+			$seconds = 0; }
 		$jobs                      = empty( get_option( 'ear2words_jobs_done' ) ) ? 0 : get_option( 'ear2words_jobs_done' );
 		$ear2words_expiration_date = get_option( 'ear2words_expiration_date' );
 		$friendly_expiration_date  = date_i18n( get_option( 'date_format' ), $ear2words_expiration_date );
@@ -89,7 +91,7 @@ class Settings {
 					<p style="font-weight:400">
 					<?php
 					esc_html_e( 'Video time spent: ', 'ear2words' );
-					echo esc_html( gmdate( 'i:s', $seconds ) . '/' . gmdate( 'i:s', $seconds_max ) );
+					echo esc_html( date_i18n( 'i:s', $seconds ) . '/' . date_i18n( 'i:s', $seconds_max ) );
 					esc_html_e( ' minutes', 'ear2words' );
 					?>
 					</p>
@@ -141,15 +143,10 @@ class Settings {
 	 * @param string  $date renewal date.
 	 */
 	private function render_plan_renewal( $plan, $cancelling, $date ) {
-		// TODO: Ho disabilitato phpcs perché non posso tradurre la data che è una variabile.
 		if ( 'plan_0' !== $plan && ! $cancelling ) {
-			// phpcs:disable
-			echo esc_html_e( 'Automatic renewal: ', 'ear2words' ) . $date;
-			// phpcs:enable
+			echo esc_html( __( 'Automatic renewal: ', 'ear2words' ) . $date );
 		} elseif ( 'plan_0' !== $plan && $cancelling ) {
-			// phpcs:disable
-			echo esc_html_e( 'You requested the subscription cancellation. Your plan will be valid until ', 'ear2words' ) . $date;
-			// phpcs:enable
+			echo esc_html( __( 'You requested the subscription cancellation. Your plan will be valid until  ', 'ear2words' ) . $date );
 		}
 	}
 

@@ -18,8 +18,6 @@ class Cron {
 	 */
 	public function run() {
 		add_action( 'e2w_cron', array( $this, 'get_remote_data' ) );
-		// TODO: usato un intervallo custom per il test del cron, rimuovere dopo il collaudo.
-		add_filter( 'cron_schedules', array( $this, 'add_cron_interval' ) );
 		register_activation_hook( EAR2WORDS_FILE_URL, array( $this, 'schedule_cron' ) );
 		register_deactivation_hook( EAR2WORDS_FILE_URL, array( $this, 'unschedule_cron' ) );
 		add_action( 'init', array( $this, 'schedule_cron' ) );
@@ -30,8 +28,7 @@ class Cron {
 	 */
 	public function schedule_cron() {
 		if ( ! wp_next_scheduled( 'e2w_cron' ) ) {
-			// TODO: usato un intervallo custom per il test del cron, rimuovere dopo il collaudo.
-			wp_schedule_event( time(), 'five_seconds', 'e2w_cron' );
+			wp_schedule_event( time(), 'twicedaily', 'e2w_cron' );
 		}
 	}
 
@@ -45,23 +42,6 @@ class Cron {
 		// unschedule previous event if any.
 		wp_unschedule_event( $timestamp, '' );
 	}
-
-
-
-	/**
-	 * Add custum interval.
-	 *
-	 * @param array $schedules parametro.
-	 */
-	public function add_cron_interval( $schedules ) {
-		// TODO: usato un intervallo custom per il test del cron, rimuovere dopo il collaudo.
-		$schedules['five_seconds'] = array(
-			'interval' => 999,
-			'display'  => esc_html__( 'Every Five Seconds', 'ear2words' ),
-		);
-		return $schedules;
-	}
-
 
 
 	/**
