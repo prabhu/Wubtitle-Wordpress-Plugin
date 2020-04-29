@@ -87,9 +87,7 @@ class ApiRequest {
 			wp_send_json_error( __( 'An error occurred while creating the subtitles. Please try again in a few minutes.', 'ear2words' ) );
 		}
 		$nonce = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
-		if ( ! check_ajax_referer( 'itr_ajax_nonce', $nonce ) ) {
-			wp_send_json_error( __( 'Error, invalid request', 'ear2words' ) );
-		}
+		check_ajax_referer( 'itr_ajax_nonce', $nonce );
 		$data_attachment = $this->sanitize_input( $_POST );
 		if ( ! $data_attachment ) {
 			wp_send_json_error( __( 'An error occurred while creating the subtitles. Please try again in a few minutes.', 'ear2words' ) );
@@ -104,6 +102,11 @@ class ApiRequest {
 			$response = $this->send_job_to_backend( $body, $license_key );
 
 			$code_response = $this->is_successful_response( $response ) ? wp_remote_retrieve_response_code( $response ) : '500';
+
+		if ( 429 === $code_response ) {
+			$message_error = $this->get_error_message( $response );
+			wp_send_json_error( $message_error );
+		}
 
 			$message = array(
 				'400' => __( 'An error occurred while creating the subtitles. Please try again in a few minutes', 'ear2words' ),
@@ -191,5 +194,27 @@ class ApiRequest {
 		update_post_meta( $id_attachment, 'ear2words_lang_video', $lang );
 		update_post_meta( $id_attachment, 'ear2words_job_uuid', $job_id );
 		update_post_meta( $id_attachment, 'ear2words_status', 'pending' );
+	}
+	/**
+	 * Crea un messaggio errore per l'errore 429 e lo ritorna.
+	 *
+	 * @param array $response risposta dell'endpoint aws.
+	 */
+	public function get_error_message( $response ) {
+		$response_body = json_decode( wp_remote_retrieve_body( $response ) );
+		$title_error   = json_decode( $response_body->errors->title );
+		$reason        = $title_error->reason;
+		$error_message = array(
+			'NO_AVAILABLE_JOBS'     => __( 'Error, no more video left for your subscription plan', 'ear2words' ),
+			'NO_AVAILABLE_LANGUAGE' => __( 'Error, language not supported for your subscription plan', 'ear2words' ),
+			'NO_AVAILABLE_FORMAT'   => __( 'Unsupported video format for free plan', 'ear2words' ),
+		);
+		if ( 'NO_AVAILABLE_MINUTES' === $reason ) {
+			// phpcs:disable
+			// camelcase object
+			$error_message['NO_AVAILABLE_MINUTES'] = __( 'Error, video length is longer than minutes available for your subscription plan (minutes left ', 'ear2words' ) . gmdate( 'i:s', $title_error->videoTimeLeft ) . __( ', video left ', 'ear2words' ) . $title_error->jobsLeft . ')';
+			// phpcs:enable
+		}
+		return $error_message[ $reason ];
 	}
 }
