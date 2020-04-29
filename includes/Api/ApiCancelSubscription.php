@@ -30,12 +30,11 @@ class ApiCancelSubscription {
 			wp_send_json_error( __( 'No Nonce', 'ear2words' ) );
 		} elseif ( ! isset( $_POST['action'] ) ) {
 			wp_send_json_error( __( 'No Cancel', 'ear2words' ) );
-		} elseif ( ! check_ajax_referer( 'itr_ajax_nonce', $nonce ) ) {
+		} elseif ( ! check_ajax_referer( 'itr_ajax_nonce', sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) ) ) ) {
 			wp_send_json_error( __( 'Invalid', 'ear2words' ) );
 		}
 
 		$license_key = get_option( 'ear2words_license_key' );
-		$nonce       = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
 
 		$response = wp_remote_post(
 			ENDPOINT . 'stripe/customer/unsubscribe',
