@@ -19,6 +19,7 @@ class Cron {
 	public function run() {
 		add_action( 'e2w_cron', array( $this, 'get_remote_data' ) );
 		register_activation_hook( EAR2WORDS_FILE_URL, array( $this, 'schedule_cron' ) );
+		register_activation_hook( EAR2WORDS_FILE_URL, array( $this, 'get_remote_data' ) );
 		register_deactivation_hook( EAR2WORDS_FILE_URL, array( $this, 'unschedule_cron' ) );
 		add_action( 'init', array( $this, 'schedule_cron' ) );
 	}
