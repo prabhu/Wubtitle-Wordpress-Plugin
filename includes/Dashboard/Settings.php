@@ -126,6 +126,7 @@ class Settings {
 		// phpcs:disable
 		if ( isset( $_GET['payment'] ) && 'true' === $_GET['payment'] ) {
 			update_option( 'custom_notices', 'pagamento effettuato' );
+			Loader::get('cron')->get_remote_data();
 		}
 
 		if ( isset( $_GET['update'] ) && 'true' === $_GET['update'] ) {
