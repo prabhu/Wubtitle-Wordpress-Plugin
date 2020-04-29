@@ -42,7 +42,7 @@ require EAR2WORDS_DIR . 'includes/Dashboard/Templates/plans_array.php'
 					<div class="card__price">
 						<?php echo esc_html_e( 'Per year', 'ear2words' ); ?>
 						<p class="price">
-							<?php echo esc_html( '€' ) . ' ' . esc_html( $plan['price'] ); ?>
+							<?php echo esc_html( '€' . $plan['price'] ); ?>
 						</p>
 					</div>
 					<?php
