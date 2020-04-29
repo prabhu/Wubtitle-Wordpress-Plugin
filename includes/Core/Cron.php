@@ -85,11 +85,8 @@ class Cron {
 		if ( 200 === $code_response ) {
 			$body_response = json_decode( wp_remote_retrieve_body( $response ) );
 			update_option( 'ear2words_plan', $body_response->data->plan );
-			if ( 'plan_0' === $body_response->data->plan ) {
-				update_option( 'ear2words_free', true );
-			} elseif ( 'plan_0' !== $body_response->data->plan ) {
-				update_option( 'ear2words_free', false );
-			}
+			$is_free_plan = 'plan_0' === $body_response->data->plan;
+			update_option( 'ear2words_free', $is_free_plan );
 			update_option( 'ear2words_expiration_date', $body_response->data->expirationDate );
 			update_option( 'ear2words_is_first_month', $body_response->data->isFirstMonth );
 			update_option( 'ear2words_is_canceling', $body_response->data->isCanceling );
