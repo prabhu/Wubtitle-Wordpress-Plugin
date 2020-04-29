@@ -68,7 +68,7 @@ class Cron {
 		$license_key = get_option( 'ear2words_license_key' );
 
 		$response = wp_remote_post(
-			ENDPOINT . 'get/info/test',
+			ENDPOINT . 'subscription/info',
 			array(
 				'method'  => 'POST',
 				'headers' => array(
@@ -82,11 +82,19 @@ class Cron {
 		if ( 200 === $code_response ) {
 			$body_response = json_decode( wp_remote_retrieve_body( $response ) );
 			update_option( 'ear2words_plan', $body_response->data->plan );
+			if ( 'plan_0' === $body_response->data->plan ) {
+				update_option( 'ear2words_free', true );
+			} elseif ( 'plan_0' !== $body_response->data->plan ) {
+				update_option( 'ear2words_free', false );
+			}
 			update_option( 'ear2words_expiration_date', $body_response->data->expirationDate );
 			update_option( 'ear2words_is_first_month', $body_response->data->isFirstMonth );
 			update_option( 'ear2words_is_canceling', $body_response->data->isCanceling );
 			update_option( 'ear2words_total_jobs', $body_response->data->totalJobs );
 			update_option( 'ear2words_total_seconds', $body_response->data->totalSeconds );
+			update_option( 'ear2words_error', false );
+		} elseif ( 200 !== $code_response ) {
+			update_option( 'ear2words_error', 'errore ' . $code_response );
 		}
 	}
 }
