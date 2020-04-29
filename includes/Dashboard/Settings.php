@@ -161,19 +161,19 @@ class Settings {
 	private function render_plan_update( $cancelling ) {
 		if ( ! $cancelling && ! get_option( 'ear2words_free' ) ) {
 			?>
-			<a id="cancel-license-button" style="text-decoration: underline; color:red; margin-right:10px;" >
+			<a href="#" id="cancel-license-button" style="text-decoration: underline; color:red; margin-right:10px;" >
 				<?php esc_html_e( 'Unsubscribe', 'ear2words' ); ?>
 			</a>
-			<a id="update-plan-button" style="text-decoration: underline" >
+			<a href="#" id="update-plan-button" style="text-decoration: underline" >
 				<?php esc_html_e( 'Update email or payment detail', 'ear2words' ); ?>
 			</a>
-			<a id="modify-plan" style="text-decoration: underline; margin-left: 10px;" >
+			<a href="#" id="modify-plan" style="text-decoration: underline; margin-left: 10px;" >
 				<?php esc_html_e( 'Modify plan', 'ear2words' ); ?>
 			</a>
 			<?php
 		} elseif ( $cancelling ) {
 			?>
-			<a id="update-plan-button" style="text-decoration: underline;" >
+			<a href="#" id="update-plan-button" style="text-decoration: underline;" >
 				<?php esc_html_e( 'Reactivate plan', 'ear2words' ); ?>
 			</a>
 			<?php
@@ -322,7 +322,7 @@ class Settings {
 		<?php
 		if ( ! get_option( 'ear2words_free' ) ) :
 			?>
-			<a id="reset-license" style="text-decoration: underline" >
+			<a href="#" id="reset-license" style="text-decoration: underline" >
 				<?php esc_html_e( 'Reset license key', 'ear2words' ); ?>
 			</a>
 			<?php
