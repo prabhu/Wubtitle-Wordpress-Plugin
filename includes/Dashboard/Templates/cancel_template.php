@@ -26,17 +26,19 @@ require EAR2WORDS_DIR . 'includes/Dashboard/Templates/plans_array.php'
 </head>
 <body>
 	<div class="container">
-		<div class="unsubscribe-section">
-			<div class="title">Are you sure you want to unsubscribe?</div>
-			<div>Are you sure you want to cancel your subscription? If you choose to continue, when the subscription expires your plan will return to free version and you will lose all the additional features</div>
-			<div class="buttons">
-				<div class="button unsubscribe" id="unsubscribeButton">Return to free version</div>
-				<div class="button" id="close">Forget it</div>
+		<div class="row">
+			<div class="column">
+				<div class="unsubscribe-section">
+					<h1 class="title"><?php echo esc_html_e( 'Are you sure you want to unsubscribe?', 'ear2words' ); ?></h1>
+					<p><?php echo esc_html_e( 'Are you sure you want to cancel your subscription? If you choose to continue, when the subscription expires your plan will return to free version and you will lose all the additional features', 'ear2words' ); ?></p>
+					<div class="buttons">
+						<div class="button unsubscribe" id="unsubscribeButton"><?php echo esc_html_e( 'Return to free version', 'ear2words' ); ?></div>
+						<div class="button" id="close"><?php echo esc_html_e( 'Forget it', 'ear2words' ); ?></div>
+					</div>
+					<div id="message"><!-- From JS --></div>
+				</div>
 			</div>
-			<div id="message"><!-- From JS --></div>			
 		</div>
-	</div>
-	<div class="container">
 		<h1 class="title"><?php echo esc_html_e( 'Or choose another plan', 'ear2words' ); ?></h1>
 		<div class="row">
 		<?php
