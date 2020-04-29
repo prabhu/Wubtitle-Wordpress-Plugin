@@ -7,10 +7,7 @@
 html,
 body {
     background-color: #1A237E;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
+    min-height: 100%;
     width: 100%;
     font-family: 'Open Sans', sans-serif;
     overflow-x: hidden;
@@ -21,6 +18,10 @@ body {
     padding: 0 5px;
     width: 100%;
     max-width: 1200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }
 
 .title {
@@ -38,6 +39,7 @@ body {
     align-items: stretch;
     justify-content: center;
     flex-wrap: wrap;
+    width: 100%;
 }
 
 .column {
