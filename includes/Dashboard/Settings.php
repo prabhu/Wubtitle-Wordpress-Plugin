@@ -9,6 +9,8 @@
 
 namespace Ear2Words\Dashboard;
 
+use Ear2Words\Loader;
+
 /**
  * This class describes Settings.
  */
