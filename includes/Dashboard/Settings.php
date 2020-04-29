@@ -167,10 +167,13 @@ class Settings {
 			<a id="update-plan-button" style="text-decoration: underline" >
 				<?php esc_html_e( 'Update email or payment detail', 'ear2words' ); ?>
 			</a>
+			<a id="modify-plan" style="text-decoration: underline; margin-left: 10px;" >
+				<?php esc_html_e( 'Modify plan', 'ear2words' ); ?>
+			</a>
 			<?php
 		} elseif ( $cancelling ) {
 			?>
-			<a id="update-plan-button" style="text-decoration: underline" >
+			<a id="update-plan-button" style="text-decoration: underline;" >
 				<?php esc_html_e( 'Reactivate plan', 'ear2words' ); ?>
 			</a>
 			<?php
