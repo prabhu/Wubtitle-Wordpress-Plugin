@@ -156,7 +156,7 @@ const Ear2WordPanel = props => {
 
 	return (
 		<InspectorControls>
-			<PanelBody title="Ear2words">
+			<PanelBody title="Wubtitle">
 				<Ear2wordsPanelContent
 					status={status}
 					languageSaved={languageSaved}

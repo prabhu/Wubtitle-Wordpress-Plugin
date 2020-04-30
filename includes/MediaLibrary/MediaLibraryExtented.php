@@ -91,7 +91,7 @@ class MediaLibraryExtented {
 		}
 		if ( get_option( 'ear2words_free' ) && 'video/mp4' !== $post->post_mime_type ) {
 			$form_fields['e2w_status'] = array(
-				'label' => 'Ear2words',
+				'label' => 'Wubtitle',
 				'input' => 'html',
 				'html'  => '<label for="attachments-' . $post->ID . '-e2w_status">' . __( 'Unsupported video format for free plan', 'ear2words' ) . '</label>',
 				'value' => $post->ID,
@@ -187,7 +187,7 @@ class MediaLibraryExtented {
 		}
 		if ( get_option( 'ear2words_free' ) && 'video/mp4' !== $post->post_mime_type ) {
 			$form_fields['e2w_status'] = array(
-				'label' => 'Ear2words',
+				'label' => 'Wubtitle',
 				'input' => 'html',
 				'html'  => '<label for="attachments-' . $post->ID . '-e2w_status">' . __( 'Unsupported video format for free plan', 'ear2words' ) . '</label>',
 				'value' => $post->ID,
