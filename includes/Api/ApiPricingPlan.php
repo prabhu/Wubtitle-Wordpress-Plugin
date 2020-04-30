@@ -171,7 +171,6 @@ class ApiPricingPlan {
 		if ( 200 !== $code_response ) {
 			wp_send_json_error( $message[ $code_response ] );
 		}
-		update_option( 'custom_notices', __( 'License key sent, check your email!', 'ear2words' ) );
 		wp_send_json_success();
 	}
 	/**

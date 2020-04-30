@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Ear2Words plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Ear2Words 0.1.0\n"
+"Project-Id-Version: Ear2Words 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-ear2words\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-04-30T09:31:22+02:00\n"
-"PO-Revision-Date: 2020-04-30 09:49+0200\n"
+"POT-Creation-Date: 2020-04-30T15:48:43+02:00\n"
+"PO-Revision-Date: 2020-04-30 15:58+0200\n"
 "X-Generator: Poedit 2.3\n"
 "X-Domain: ear2words\n"
 "Last-Translator: \n"
@@ -50,9 +50,8 @@ msgid "Invalid"
 msgstr ""
 
 #: includes/Api/ApiCancelSubscription.php:54
-#, fuzzy
 msgid "Deleted successfully"
-msgstr "Cancellato"
+msgstr ""
 
 #: includes/Api/ApiCancelSubscription.php:55
 #, fuzzy
@@ -69,12 +68,14 @@ msgid "Forbidden"
 msgstr ""
 
 #: includes/Api/ApiCancelSubscription.php:58
+#, fuzzy
 msgid "Not Found"
-msgstr ""
+msgstr "Non trovato"
 
 #: includes/Api/ApiCancelSubscription.php:59
+#, fuzzy
 msgid "Internal server error"
-msgstr ""
+msgstr "Impossibile contattare il server"
 
 #: includes/Api/ApiCancelSubscription.php:60
 msgid "Bad gateway"
@@ -111,11 +112,6 @@ msgstr "Accesso negato"
 #, fuzzy
 msgid "Could not contact the server"
 msgstr "Impossibile contattare il server"
-
-#: includes/Api/ApiPricingPlan.php:174
-#, fuzzy
-msgid "License key sent, check your email!"
-msgstr "Licenza inviata, controlla l'email!"
 
 #: includes/Api/ApiRequest.php:62
 #, fuzzy
@@ -179,56 +175,67 @@ msgstr ""
 msgid ", video left "
 msgstr ", video rimasti "
 
-#: includes/Dashboard/Settings.php:35
-#, fuzzy
-msgid "Ear2words Settings"
-msgstr "Impostazioni Ear2words"
+#: includes/Dashboard/Settings.php:36
+msgid "Wubtitle Settings"
+msgstr "Impostazioni Wubtitle"
 
-#: includes/Dashboard/Settings.php:35
-msgid "Ear2words"
+#: includes/Dashboard/Settings.php:36
+msgid "Wubtitle"
 msgstr ""
 
-#: includes/Dashboard/Settings.php:49
+#: includes/Dashboard/Settings.php:50
 #, fuzzy
 msgid "Free Plan"
 msgstr "Piano Free"
 
-#: includes/Dashboard/Settings.php:50
+#: includes/Dashboard/Settings.php:51
 #, fuzzy
 msgid "Standard Plan"
 msgstr "Piano Standard"
 
-#: includes/Dashboard/Settings.php:51
+#: includes/Dashboard/Settings.php:52
 #, fuzzy
 msgid "Elite Plan"
 msgstr "Piano Elite"
 
-#: includes/Dashboard/Settings.php:77
+#: includes/Dashboard/Settings.php:75
 #, fuzzy
 msgid "Licensing"
 msgstr "Licenza"
 
-#: includes/Dashboard/Settings.php:89
+#: includes/Dashboard/Settings.php:87
 #, fuzzy
 msgid "Generated video subtitles: "
 msgstr "Sottotitoli generati: "
 
-#: includes/Dashboard/Settings.php:95
+#: includes/Dashboard/Settings.php:93
 #, fuzzy
 msgid "Video time spent: "
 msgstr "Tempo video utilizzato: "
 
-#: includes/Dashboard/Settings.php:97
-#, fuzzy
-msgid " minutes"
-msgstr "minuti"
+#: includes/Dashboard/Settings.php:95
+msgid " hours"
+msgstr "ore"
 
-#: includes/Dashboard/Settings.php:150
+#: includes/Dashboard/Settings.php:124
+msgid "Payment successful"
+msgstr "Pagamento effettuato"
+
+#: includes/Dashboard/Settings.php:127
+msgid "Payment information updated"
+msgstr "Metodo di pagamento aggiornato"
+
+#: includes/Dashboard/Settings.php:130
+#, fuzzy
+msgid "License key sent, check your email!"
+msgstr "Licenza inviata, controlla l'email!"
+
+#: includes/Dashboard/Settings.php:154
 #, fuzzy
 msgid "Automatic renewal: "
 msgstr "Rinnovo automatico: "
 
-#: includes/Dashboard/Settings.php:152
+#: includes/Dashboard/Settings.php:156
 #, fuzzy
 msgid ""
 "You requested the subscription cancellation. Your plan will be valid until  "
@@ -236,35 +243,32 @@ msgstr ""
 "Hai richiesto la cancellazione dell'abbonamento. Il tuo piano sarà valido "
 "fino al "
 
-#: includes/Dashboard/Settings.php:165
+#: includes/Dashboard/Settings.php:169
 #, fuzzy
 msgid "Unsubscribe"
 msgstr "Annulla l'iscrizione"
 
-#: includes/Dashboard/Settings.php:168
+#: includes/Dashboard/Settings.php:172
 #, fuzzy
 msgid "Update email or payment detail"
 msgstr "Aggiorna email o dettagli pagamento"
 
-#: includes/Dashboard/Settings.php:171
+#: includes/Dashboard/Settings.php:175
 #, fuzzy
 msgid "Modify plan"
 msgstr "Modifica piano"
 
-#: includes/Dashboard/Settings.php:177
+#: includes/Dashboard/Settings.php:206
 #, fuzzy
-msgid "Reactivate plan"
-msgstr "Riattiva il piano"
-
-#: includes/Dashboard/Settings.php:208
 msgid "Unable to update. Expired product license."
 msgstr "Impossibile aggiornare. Licenza del prodotto scaduta."
 
-#: includes/Dashboard/Settings.php:209
+#: includes/Dashboard/Settings.php:207
+#, fuzzy
 msgid "Unable to update. Invalid product license."
 msgstr "Impossibile aggiornare. Licenza del prodotto non valida."
 
-#: includes/Dashboard/Settings.php:210
+#: includes/Dashboard/Settings.php:208
 #, fuzzy
 msgid ""
 "An error occurred while updating licence. Please try again in a few minutes."
@@ -272,56 +276,56 @@ msgstr ""
 "Si è verificato un errore durante l'aggiornamento della licenza. Riprova di "
 "nuovo tra qualche minuto"
 
-#: includes/Dashboard/Settings.php:211
+#: includes/Dashboard/Settings.php:209
 #, fuzzy
 msgid "Could not contact the server."
 msgstr "Impossibile contattare il server"
 
-#: includes/Dashboard/Settings.php:212
+#: includes/Dashboard/Settings.php:210
 #, fuzzy
 msgid "An error occurred."
 msgstr "Si è verificato un errore"
 
-#: includes/Dashboard/Settings.php:227
+#: includes/Dashboard/Settings.php:225
 #, fuzzy
 msgid "Valid product license. Subscription plan updated."
 msgstr "Licenza del prodotto valida. Piano di abbonamento aggiornato."
 
-#: includes/Dashboard/Settings.php:286
+#: includes/Dashboard/Settings.php:284
 #, fuzzy
 msgid "Unlock more features!"
 msgstr "Sblocca più funzionalità!"
 
-#: includes/Dashboard/Settings.php:291
+#: includes/Dashboard/Settings.php:289
 msgid "Upgrade"
 msgstr ""
 
-#: includes/Dashboard/Settings.php:298
+#: includes/Dashboard/Settings.php:296
 #, fuzzy
 msgid "License Number"
 msgstr "Licenza"
 
-#: includes/Dashboard/Settings.php:305
+#: includes/Dashboard/Settings.php:303
 #, fuzzy
 msgid "License key"
 msgstr "Licenza"
 
-#: includes/Dashboard/Settings.php:307
+#: includes/Dashboard/Settings.php:305
 #, fuzzy
 msgid "Please enter the license key you received after successful checkout"
 msgstr ""
 "Inserisci la chiave di licenza ricevuta dopo aver effettuato il checkout"
 
-#: includes/Dashboard/Settings.php:328
+#: includes/Dashboard/Settings.php:326
 msgid "Reset license key"
-msgstr ""
+msgstr "Reset Licenza"
 
-#: includes/Dashboard/Templates/cancel_template.php:34
+#: includes/Dashboard/Templates/cancel_template.php:33
 #, fuzzy
 msgid "Are you sure you want to unsubscribe?"
 msgstr "Sei sicuro che vuoi annullare l'iscrizione?"
 
-#: includes/Dashboard/Templates/cancel_template.php:35
+#: includes/Dashboard/Templates/cancel_template.php:34
 #, fuzzy
 msgid ""
 "Are you sure you want to cancel your subscription? If you choose to "
@@ -332,44 +336,96 @@ msgstr ""
 "allo scadere dell'abbonamento il tuo piano tornerà alla versione gratuita e "
 "perderai tutte le funzionalità aggiuntive"
 
-#: includes/Dashboard/Templates/cancel_template.php:37
+#: includes/Dashboard/Templates/cancel_template.php:36
 #, fuzzy
 msgid "Return to free version"
 msgstr "Ritorna alla versione free"
 
-#: includes/Dashboard/Templates/cancel_template.php:38
+#: includes/Dashboard/Templates/cancel_template.php:37
 msgid "Forget it"
 msgstr ""
 
-#: includes/Dashboard/Templates/cancel_template.php:44
+#: includes/Dashboard/Templates/cancel_template.php:43
 #, fuzzy
 msgid "Or choose another plan"
 msgstr "O scegli un'altro piano"
 
-#: includes/Dashboard/Templates/cancel_template.php:58
-#: includes/Dashboard/Templates/payment_template.php:44
+#: includes/Dashboard/Templates/cancel_template.php:57
+#: includes/Dashboard/Templates/payment_template.php:43
 #, fuzzy
 msgid "Per year"
 msgstr "Per anno"
 
-#: includes/Dashboard/Templates/cancel_template.php:68
-#: includes/Dashboard/Templates/payment_template.php:54
-msgid "include"
-msgstr ""
-
-#: includes/Dashboard/Templates/payment_template.php:30
+#: includes/Dashboard/Templates/payment_template.php:29
 #, fuzzy
 msgid "Choose the right plan for your project"
 msgstr "Scegli il piano giusto per il tuo progetto"
 
-#: includes/Dashboard/Templates/plans_array.php:28
-#: includes/Dashboard/Templates/plans_array.php:51
-#: includes/Dashboard/Templates/plans_array.php:67
+#: includes/Dashboard/Templates/plans_array.php:16
+msgid "Free"
+msgstr ""
+
+#: includes/Dashboard/Templates/plans_array.php:19
+msgid "3"
+msgstr ""
+
+#: includes/Dashboard/Templates/plans_array.php:20
+msgid "30 min"
+msgstr ""
+
+#: includes/Dashboard/Templates/plans_array.php:23
+#, fuzzy
+msgid "Mp3 Video format allowed"
+msgstr "Formato video non supportato per il piano free"
+
+#: includes/Dashboard/Templates/plans_array.php:24
+msgid "Recognized languages: English and Italian"
+msgstr "Linguaggi supportati Inglese e Italiano"
+
+#: includes/Dashboard/Templates/plans_array.php:30
+#: includes/Dashboard/Templates/plans_array.php:48
+#: includes/Dashboard/Templates/plans_array.php:66
 #, fuzzy
 msgid "Choose this plan"
 msgstr "Scegli il piano"
 
-#: includes/Dashboard/Templates/plans_array.php:71
+#: includes/Dashboard/Templates/plans_array.php:34
+msgid "Standard"
+msgstr ""
+
+#: includes/Dashboard/Templates/plans_array.php:37
+msgid "10"
+msgstr ""
+
+#: includes/Dashboard/Templates/plans_array.php:38
+msgid "3 hours"
+msgstr ""
+
+#: includes/Dashboard/Templates/plans_array.php:41
+#: includes/Dashboard/Templates/plans_array.php:59
+msgid "All wordpress formats supported by wordpress"
+msgstr "Tutti i formati supportati da wordpress"
+
+#: includes/Dashboard/Templates/plans_array.php:42
+#: includes/Dashboard/Templates/plans_array.php:60
+msgid ""
+"Recognized languuages: English, Italian, German, French, Spanish and Chinese"
+msgstr ""
+"Lingue supportate: Inglese, Italiano, Tedesco, Francese, Spagnolo, Cinese"
+
+#: includes/Dashboard/Templates/plans_array.php:52
+msgid "Elite"
+msgstr ""
+
+#: includes/Dashboard/Templates/plans_array.php:55
+msgid "30"
+msgstr ""
+
+#: includes/Dashboard/Templates/plans_array.php:56
+msgid "10 hours"
+msgstr ""
+
+#: includes/Dashboard/Templates/plans_array.php:70
 #, fuzzy
 msgid ""
 "Unable this select this plan during the first month of subscription for "
@@ -378,16 +434,16 @@ msgstr ""
 "Non è possibile selezionare questo piano durante il primo mese di "
 "abbonamento per il piano corrente"
 
-#: includes/Dashboard/Templates/plans_array.php:75
-#: includes/Dashboard/Templates/plans_array.php:83
-#: includes/Dashboard/Templates/plans_array.php:93
+#: includes/Dashboard/Templates/plans_array.php:74
+#: includes/Dashboard/Templates/plans_array.php:82
+#: includes/Dashboard/Templates/plans_array.php:92
 #, fuzzy
 msgid "Your plan"
 msgstr "Il tuo piano"
 
 #: includes/MediaLibrary/ListingSubtitles.php:42
 #: includes/MediaLibrary/MediaLibraryExtented.php:80
-#: includes/MediaLibrary/MediaLibraryExtented.php:180 build/index.js:576
+#: includes/MediaLibrary/MediaLibraryExtented.php:180 build/index.js:584
 #: src/block/labels.js:13
 #, fuzzy
 msgid "Generating"
@@ -397,7 +453,7 @@ msgstr "In Creazione"
 #: includes/MediaLibrary/MediaLibraryExtented.php:81
 #: includes/MediaLibrary/MediaLibraryExtented.php:156
 #: includes/MediaLibrary/MediaLibraryExtented.php:181
-#: includes/MediaLibrary/MediaLibraryExtented.php:249 build/index.js:577
+#: includes/MediaLibrary/MediaLibraryExtented.php:249 build/index.js:585
 #: src/block/labels.js:14
 #, fuzzy
 msgid "Draft"
@@ -412,15 +468,15 @@ msgstr "In bozza"
 msgid "Published"
 msgstr "Pubblicati"
 
-#: includes/MediaLibrary/ListingSubtitles.php:46 build/index.js:579
+#: includes/MediaLibrary/ListingSubtitles.php:46 build/index.js:587
 #: src/block/labels.js:16
 msgid "None"
 msgstr ""
 
 #: includes/MediaLibrary/MediaLibraryExtented.php:122
 #: includes/MediaLibrary/MediaLibraryExtented.php:273
-#: includes/MediaLibrary/MediaLibraryExtented.php:359 build/index.js:568
-#: build/index.js:583 build/index.js:602 src/block/labels.js:4
+#: includes/MediaLibrary/MediaLibraryExtented.php:359 build/index.js:576
+#: build/index.js:591 build/index.js:610 src/block/labels.js:4
 #: src/block/labels.js:22 src/block/labels.js:49
 #, fuzzy
 msgid "Italian"
@@ -428,8 +484,8 @@ msgstr "Italiano"
 
 #: includes/MediaLibrary/MediaLibraryExtented.php:123
 #: includes/MediaLibrary/MediaLibraryExtented.php:274
-#: includes/MediaLibrary/MediaLibraryExtented.php:360 build/index.js:569
-#: build/index.js:586 build/index.js:605 src/block/labels.js:5
+#: includes/MediaLibrary/MediaLibraryExtented.php:360 build/index.js:577
+#: build/index.js:594 build/index.js:613 src/block/labels.js:5
 #: src/block/labels.js:26 src/block/labels.js:53
 #, fuzzy
 msgid "English"
@@ -437,8 +493,8 @@ msgstr "Inglese"
 
 #: includes/MediaLibrary/MediaLibraryExtented.php:127
 #: includes/MediaLibrary/MediaLibraryExtented.php:278
-#: includes/MediaLibrary/MediaLibraryExtented.php:361 build/index.js:570
-#: build/index.js:589 src/block/labels.js:6 src/block/labels.js:30
+#: includes/MediaLibrary/MediaLibraryExtented.php:361 build/index.js:578
+#: build/index.js:597 src/block/labels.js:6 src/block/labels.js:30
 #, fuzzy
 msgid "Spanish"
 msgstr "Spagnolo"
@@ -451,16 +507,16 @@ msgstr "Tedesco "
 
 #: includes/MediaLibrary/MediaLibraryExtented.php:129
 #: includes/MediaLibrary/MediaLibraryExtented.php:280
-#: includes/MediaLibrary/MediaLibraryExtented.php:363 build/index.js:572
-#: build/index.js:595 src/block/labels.js:8 src/block/labels.js:38
+#: includes/MediaLibrary/MediaLibraryExtented.php:363 build/index.js:580
+#: build/index.js:603 src/block/labels.js:8 src/block/labels.js:38
 #, fuzzy
 msgid "Chinese"
 msgstr "Cinese"
 
 #: includes/MediaLibrary/MediaLibraryExtented.php:130
 #: includes/MediaLibrary/MediaLibraryExtented.php:281
-#: includes/MediaLibrary/MediaLibraryExtented.php:364 build/index.js:573
-#: build/index.js:598 src/block/labels.js:9 src/block/labels.js:42
+#: includes/MediaLibrary/MediaLibraryExtented.php:364 build/index.js:581
+#: build/index.js:606 src/block/labels.js:9 src/block/labels.js:42
 #, fuzzy
 msgid "French"
 msgstr "Francese"
@@ -472,6 +528,10 @@ msgstr "Francese"
 msgid "GENERATE SUBTITLES"
 msgstr "GENERA SOTTOTITOLI"
 
+#: includes/MediaLibrary/MediaLibraryExtented.php:205
+msgid "Subtitles"
+msgstr "Sottotitoli"
+
 #: includes/MediaLibrary/MediaLibraryExtented.php:229
 #, fuzzy
 msgid ""
@@ -481,15 +541,15 @@ msgstr ""
 "Attendi che vengano creati i sottotitoli. I sottotitoli saranno disponibili "
 "il prima possibile"
 
-#: includes/MediaLibrary/MediaLibraryExtented.php:362 build/index.js:571
-#: build/index.js:592 src/block/labels.js:7 src/block/labels.js:34
+#: includes/MediaLibrary/MediaLibraryExtented.php:362 build/index.js:579
+#: build/index.js:600 src/block/labels.js:7 src/block/labels.js:34
 #, fuzzy
 msgid "German "
 msgstr "Tedesco "
 
-#: build/index.js:332 build/index.js:437 build/index.js:496
+#: build/index.js:332 build/index.js:437 build/index.js:500
 #: src/block/Ear2WordPanel.js:63 src/block/PendingSubtitle.js:7
-#: src/block/SubtitleControl.js:34
+#: src/block/SubtitleControl.js:35
 #, fuzzy
 msgid "Status: "
 msgstr "Stato: "
@@ -504,13 +564,13 @@ msgstr "Seleziona la lingua del video"
 msgid "Subtitle creation successfully started"
 msgstr "Creazione dei sottotitoli avviata con successo"
 
-#: build/index.js:437 build/index.js:496 src/block/PendingSubtitle.js:8
-#: src/block/SubtitleControl.js:35
+#: build/index.js:437 build/index.js:504 src/block/PendingSubtitle.js:8
+#: src/block/SubtitleControl.js:38
 #, fuzzy
 msgid "Language: "
 msgstr "Lingua: "
 
-#: build/index.js:578 src/block/labels.js:15
+#: build/index.js:586 src/block/labels.js:15
 #, fuzzy
 msgid "Enabled"
 msgstr "Attivati"

@@ -1,15 +1,20 @@
 /* global settings_object */
+/* exported redirectToCallback */
 let BuyLicenseWindow = null;
 let UpdatePlanWindow = null;
 let CancelSubscriptionWindow = null;
-if (settings_object.update !== "none" || settings_object.payment === "true") {
-	window.opener.location.reload(false);
-	window.close();
+
+/* eslint-disable */
+function redirectToCallback(param) {
+	window.location.href += "&" + param;
 }
+function cancelPayment(){
+	BuyLicenseWindow.close();
+	showBuyLicenseWindow();
+}
+/* eslint-enable */
+
 document.addEventListener("DOMContentLoaded", function() {
-	if (settings_object.payment === "false") {
-		showBuyLicenseWindow();
-	}
 	const buyButton = document.querySelector("#buy-license-button");
 	if (buyButton) {
 		buyButton.addEventListener("click", e => {
@@ -125,7 +130,8 @@ const showCancelSubscriptionWindow = () => {
 		CancelSubscriptionWindow.focus();
 	}
 };
-const resetLicenseFunction = () => {
+const resetLicenseFunction = e => {
+	e.preventDefault();
 	fetch(settings_object.ajax_url, {
 		method: "POST",
 		credentials: "include",
@@ -133,9 +139,13 @@ const resetLicenseFunction = () => {
 			"Content-Type": "application/x-www-form-urlencoded"
 		}),
 		body: `action=reset_license&_ajax_nonce=${settings_object.ajaxnonce}`
-	}).then(() => {
-		location.reload();
-	});
+	})
+		.then(resp => resp.json())
+		.then(response => {
+			if (response.success) {
+				redirectToCallback("notices-code=reset");
+			}
+		});
 };
 window.onunload = function() {
 	if (BuyLicenseWindow !== null) {
