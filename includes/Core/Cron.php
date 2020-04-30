@@ -72,9 +72,6 @@ class Cron {
 			update_option( 'ear2words_is_canceling', $body_response->data->isCanceling );
 			update_option( 'ear2words_total_jobs', $body_response->data->totalJobs );
 			update_option( 'ear2words_total_seconds', $body_response->data->totalSeconds );
-			update_option( 'ear2words_error', false );
-		} elseif ( 200 !== $code_response ) {
-			update_option( 'ear2words_error', 'errore ' . $code_response );
 		}
 	}
 }
