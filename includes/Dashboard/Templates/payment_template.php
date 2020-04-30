@@ -20,8 +20,7 @@ require EAR2WORDS_DIR . 'includes/Dashboard/Templates/plans_array.php';
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Payment</title>
 	<?php // phpcs:disable ?>
-	<link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.typekit.net/auk4ruc.css">
+	<link href="https://fonts.googleapis.com/css?family=Days+One|Open+Sans&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="<?php echo esc_url( EAR2WORDS_URL . 'src/css/payment_template.css' ); ?>">
 	<?php // phpcs:enable ?>
 </head>
@@ -34,11 +33,11 @@ require EAR2WORDS_DIR . 'includes/Dashboard/Templates/plans_array.php';
 			?>
 			<div class="column one-quarter">
 				<div class="card <?php echo $plan['zoom'] ? 'zoom' : ''; ?>">
-					<h2 class="card__title">
-						<?php echo esc_html( $plan['name'] ); ?>
-					</h2>
-					<div class="card__logo">
-						<!-- TODO: placeholder logo, momentaneamente un quadrato grigio con css-->
+					<div class="card__header">
+						<h2 class="card__title">
+							<?php echo esc_html( $plan['name'] ); ?>
+						</h2>
+						<img class="card__logo" src="<?php echo esc_url( EAR2WORDS_URL . 'src/img/' . $plan['icon'] ); ?>">
 					</div>
 					<div class="card__price">
 						<?php echo esc_html_e( 'Per year', 'ear2words' ); ?>
@@ -47,12 +46,12 @@ require EAR2WORDS_DIR . 'includes/Dashboard/Templates/plans_array.php';
 						</p>
 					</div>
 					<?php
-					foreach ( $plan['features'] as $feature ) :
+					foreach ( $plan['features'] as $key => $feature ) :
 						?>
-					<div class="card__features">
-						<?php echo esc_html( $feature ); ?>
-						<div><?php echo esc_html_e( 'include', 'ear2words' ); ?></div>
-					</div>
+					<p class="card__features">
+						<span><?php echo esc_html( $key ); ?></span>							
+						<?php echo esc_html( $feature ); ?>						
+					</p>
 						<?php
 					endforeach;
 					?>
@@ -60,6 +59,16 @@ require EAR2WORDS_DIR . 'includes/Dashboard/Templates/plans_array.php';
 						<?php echo esc_html( $plan['message_button'] ); ?>
 					</div>
 				</div>
+			</div>
+			<?php
+		endforeach;
+		?>
+		</div>
+		<div class="row">
+		<?php
+		foreach ( $plans as $plan ) :
+			?>
+			<div class="column one-quarter">
 				<ul class="features-list">
 					<?php
 					foreach ( $plan['dot_list'] as $dot ) :
