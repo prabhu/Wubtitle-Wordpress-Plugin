@@ -25,14 +25,16 @@ document.addEventListener("DOMContentLoaded", function() {
 
 	const modifyPlan = document.querySelector("#modify-plan");
 	if (modifyPlan) {
-		modifyPlan.addEventListener("click", () => {
+		modifyPlan.addEventListener("click", e => {
+			e.preventDefault();
 			showBuyLicenseWindow();
 		});
 	}
 
 	const resetLicense = document.querySelector("#reset-license");
 	if (resetLicense) {
-		resetLicense.addEventListener("click", () => {
+		resetLicense.addEventListener("click", e => {
+			e.preventDefault();
 			resetLicenseFunction();
 		});
 	}
@@ -47,7 +49,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
 	const updateButton = document.querySelector("#update-plan-button");
 	if (updateButton) {
-		updateButton.addEventListener("click", () => {
+		updateButton.addEventListener("click", e => {
+			e.preventDefault();
 			showUpdatePlanWindow();
 		});
 	}
@@ -130,8 +133,7 @@ const showCancelSubscriptionWindow = () => {
 		CancelSubscriptionWindow.focus();
 	}
 };
-const resetLicenseFunction = e => {
-	e.preventDefault();
+const resetLicenseFunction = () => {
 	fetch(settings_object.ajax_url, {
 		method: "POST",
 		credentials: "include",
