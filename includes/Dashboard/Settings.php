@@ -32,7 +32,7 @@ class Settings {
 	 */
 	public function create_settings_menu() {
 		// TODO: Cambiare $icon_url e $position (attualmente subito dopo "Impostazioni") quando verranno date indicazioni UX.
-		add_menu_page( __( 'Ear2words Settings', 'ear2words' ), __( 'Ear2words', 'ear2words' ), 'manage_options', 'ear2words_settings', array( $this, 'render_settings_page' ), 'dashicons-format-status', 81 );
+		add_menu_page( __( 'Wubtitle Settings', 'ear2words' ), __( 'Wubtitle', 'ear2words' ), 'manage_options', 'ear2words_settings', array( $this, 'render_settings_page' ), 'dashicons-format-status', 81 );
 	}
 	/**
 	 *  Faccio l'enqueue dello style per i settings.
