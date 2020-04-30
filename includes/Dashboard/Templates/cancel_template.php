@@ -50,7 +50,7 @@ require EAR2WORDS_DIR . 'includes/Dashboard/Templates/plans_array.php';
 					<h2 class="card__title">
 						<?php echo esc_html( $plan['name'] ); ?>
 					</h2>
-					<img class="card__logo" src="<?php echo esc_html( EAR2WORDS_URL ) . 'src/img/' . esc_html( $plan['icon'] ); ?>">
+					<img class="card__logo" src="<?php echo esc_url( EAR2WORDS_URL . 'src/img/' . $plan['icon'] ); ?>">
 					<div class="card__price">
 						<?php echo esc_html_e( 'Per year', 'ear2words' ); ?>
 						<p class="price">
