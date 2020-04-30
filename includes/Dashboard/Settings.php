@@ -94,7 +94,7 @@ class Settings {
 					<?php
 					esc_html_e( 'Video time spent: ', 'ear2words' );
 					echo esc_html( date_i18n( 'i:s', $seconds ) . '/' . date_i18n( 'i:s', $seconds_max ) );
-					esc_html_e( ' minutes', 'ear2words' );
+					esc_html_e( ' hours', 'ear2words' );
 					?>
 					</p>
 						<?php
