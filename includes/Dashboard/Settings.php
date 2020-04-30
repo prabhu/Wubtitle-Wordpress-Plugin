@@ -121,6 +121,7 @@ class Settings {
 		}
 		switch ( $_GET['notices-code'] ) {
 			case 'payment':
+				Loader::get( 'cron' )->get_remote_data();
 				$message = __( 'Payment successful', 'ear2words' );
 				break;
 			case 'update':

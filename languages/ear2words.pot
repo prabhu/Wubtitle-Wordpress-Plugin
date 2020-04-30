@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Ear2Words plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Ear2Words 0.1.0\n"
+"Project-Id-Version: Ear2Words 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-ear2words\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-04-30T09:31:22+02:00\n"
+"POT-Creation-Date: 2020-04-30T15:48:43+02:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: ear2words\n"
@@ -109,10 +109,6 @@ msgstr ""
 msgid "Could not contact the server"
 msgstr ""
 
-#: includes/Api/ApiPricingPlan.php:174
-msgid "License key sent, check your email!"
-msgstr ""
-
 #: includes/Api/ApiRequest.php:62
 msgid "Error, invalid language selected"
 msgstr ""
@@ -156,168 +152,225 @@ msgstr ""
 msgid ", video left "
 msgstr ""
 
-#: includes/Dashboard/Settings.php:35
-msgid "Ear2words Settings"
+#: includes/Dashboard/Settings.php:36
+msgid "Wubtitle Settings"
 msgstr ""
 
-#: includes/Dashboard/Settings.php:35
-msgid "Ear2words"
-msgstr ""
-
-#: includes/Dashboard/Settings.php:49
-msgid "Free Plan"
+#: includes/Dashboard/Settings.php:36
+msgid "Wubtitle"
 msgstr ""
 
 #: includes/Dashboard/Settings.php:50
-msgid "Standard Plan"
+msgid "Free Plan"
 msgstr ""
 
 #: includes/Dashboard/Settings.php:51
+msgid "Standard Plan"
+msgstr ""
+
+#: includes/Dashboard/Settings.php:52
 msgid "Elite Plan"
 msgstr ""
 
-#: includes/Dashboard/Settings.php:77
+#: includes/Dashboard/Settings.php:75
 msgid "Licensing"
 msgstr ""
 
-#: includes/Dashboard/Settings.php:89
+#: includes/Dashboard/Settings.php:87
 msgid "Generated video subtitles: "
 msgstr ""
 
-#: includes/Dashboard/Settings.php:95
+#: includes/Dashboard/Settings.php:93
 msgid "Video time spent: "
 msgstr ""
 
-#: includes/Dashboard/Settings.php:97
-msgid " minutes"
+#: includes/Dashboard/Settings.php:95
+msgid " hours"
 msgstr ""
 
-#: includes/Dashboard/Settings.php:150
+#: includes/Dashboard/Settings.php:124
+msgid "Payment successful"
+msgstr ""
+
+#: includes/Dashboard/Settings.php:127
+msgid "Payment information updated"
+msgstr ""
+
+#: includes/Dashboard/Settings.php:130
+msgid "License key sent, check your email!"
+msgstr ""
+
+#: includes/Dashboard/Settings.php:154
 msgid "Automatic renewal: "
 msgstr ""
 
-#: includes/Dashboard/Settings.php:152
+#: includes/Dashboard/Settings.php:156
 msgid "You requested the subscription cancellation. Your plan will be valid until  "
 msgstr ""
 
-#: includes/Dashboard/Settings.php:165
+#: includes/Dashboard/Settings.php:169
 msgid "Unsubscribe"
 msgstr ""
 
-#: includes/Dashboard/Settings.php:168
+#: includes/Dashboard/Settings.php:172
 msgid "Update email or payment detail"
 msgstr ""
 
-#: includes/Dashboard/Settings.php:171
+#: includes/Dashboard/Settings.php:175
 msgid "Modify plan"
 msgstr ""
 
-#: includes/Dashboard/Settings.php:177
-msgid "Reactivate plan"
-msgstr ""
-
-#: includes/Dashboard/Settings.php:208
+#: includes/Dashboard/Settings.php:206
 msgid "Unable to update. Expired product license."
 msgstr ""
 
-#: includes/Dashboard/Settings.php:209
+#: includes/Dashboard/Settings.php:207
 msgid "Unable to update. Invalid product license."
 msgstr ""
 
-#: includes/Dashboard/Settings.php:210
+#: includes/Dashboard/Settings.php:208
 msgid "An error occurred while updating licence. Please try again in a few minutes."
 msgstr ""
 
-#: includes/Dashboard/Settings.php:211
+#: includes/Dashboard/Settings.php:209
 msgid "Could not contact the server."
 msgstr ""
 
-#: includes/Dashboard/Settings.php:212
+#: includes/Dashboard/Settings.php:210
 msgid "An error occurred."
 msgstr ""
 
-#: includes/Dashboard/Settings.php:227
+#: includes/Dashboard/Settings.php:225
 msgid "Valid product license. Subscription plan updated."
 msgstr ""
 
-#: includes/Dashboard/Settings.php:286
+#: includes/Dashboard/Settings.php:284
 msgid "Unlock more features!"
 msgstr ""
 
-#: includes/Dashboard/Settings.php:291
+#: includes/Dashboard/Settings.php:289
 msgid "Upgrade"
 msgstr ""
 
-#: includes/Dashboard/Settings.php:298
+#: includes/Dashboard/Settings.php:296
 msgid "License Number"
 msgstr ""
 
-#: includes/Dashboard/Settings.php:305
+#: includes/Dashboard/Settings.php:303
 msgid "License key"
 msgstr ""
 
-#: includes/Dashboard/Settings.php:307
+#: includes/Dashboard/Settings.php:305
 msgid "Please enter the license key you received after successful checkout"
 msgstr ""
 
-#: includes/Dashboard/Settings.php:328
+#: includes/Dashboard/Settings.php:326
 msgid "Reset license key"
 msgstr ""
 
-#: includes/Dashboard/Templates/cancel_template.php:34
+#: includes/Dashboard/Templates/cancel_template.php:33
 msgid "Are you sure you want to unsubscribe?"
 msgstr ""
 
-#: includes/Dashboard/Templates/cancel_template.php:35
+#: includes/Dashboard/Templates/cancel_template.php:34
 msgid "Are you sure you want to cancel your subscription? If you choose to continue, when the subscription expires your plan will return to free version and you will lose all the additional features"
 msgstr ""
 
-#: includes/Dashboard/Templates/cancel_template.php:37
+#: includes/Dashboard/Templates/cancel_template.php:36
 msgid "Return to free version"
 msgstr ""
 
-#: includes/Dashboard/Templates/cancel_template.php:38
+#: includes/Dashboard/Templates/cancel_template.php:37
 msgid "Forget it"
 msgstr ""
 
-#: includes/Dashboard/Templates/cancel_template.php:44
+#: includes/Dashboard/Templates/cancel_template.php:43
 msgid "Or choose another plan"
 msgstr ""
 
-#: includes/Dashboard/Templates/cancel_template.php:58
-#: includes/Dashboard/Templates/payment_template.php:44
+#: includes/Dashboard/Templates/cancel_template.php:57
+#: includes/Dashboard/Templates/payment_template.php:43
 msgid "Per year"
 msgstr ""
 
-#: includes/Dashboard/Templates/cancel_template.php:68
-#: includes/Dashboard/Templates/payment_template.php:54
-msgid "include"
-msgstr ""
-
-#: includes/Dashboard/Templates/payment_template.php:30
+#: includes/Dashboard/Templates/payment_template.php:29
 msgid "Choose the right plan for your project"
 msgstr ""
 
-#: includes/Dashboard/Templates/plans_array.php:28
-#: includes/Dashboard/Templates/plans_array.php:51
-#: includes/Dashboard/Templates/plans_array.php:67
+#: includes/Dashboard/Templates/plans_array.php:16
+msgid "Free"
+msgstr ""
+
+#: includes/Dashboard/Templates/plans_array.php:19
+msgid "3"
+msgstr ""
+
+#: includes/Dashboard/Templates/plans_array.php:20
+msgid "30 min"
+msgstr ""
+
+#: includes/Dashboard/Templates/plans_array.php:23
+msgid "Mp3 Video format allowed"
+msgstr ""
+
+#: includes/Dashboard/Templates/plans_array.php:24
+msgid "Recognized languages: English and Italian"
+msgstr ""
+
+#: includes/Dashboard/Templates/plans_array.php:30
+#: includes/Dashboard/Templates/plans_array.php:48
+#: includes/Dashboard/Templates/plans_array.php:66
 msgid "Choose this plan"
 msgstr ""
 
-#: includes/Dashboard/Templates/plans_array.php:71
+#: includes/Dashboard/Templates/plans_array.php:34
+msgid "Standard"
+msgstr ""
+
+#: includes/Dashboard/Templates/plans_array.php:37
+msgid "10"
+msgstr ""
+
+#: includes/Dashboard/Templates/plans_array.php:38
+msgid "3 hours"
+msgstr ""
+
+#: includes/Dashboard/Templates/plans_array.php:41
+#: includes/Dashboard/Templates/plans_array.php:59
+msgid "All wordpress formats supported by wordpress"
+msgstr ""
+
+#: includes/Dashboard/Templates/plans_array.php:42
+#: includes/Dashboard/Templates/plans_array.php:60
+msgid "Recognized languuages: English, Italian, German, French, Spanish and Chinese"
+msgstr ""
+
+#: includes/Dashboard/Templates/plans_array.php:52
+msgid "Elite"
+msgstr ""
+
+#: includes/Dashboard/Templates/plans_array.php:55
+msgid "30"
+msgstr ""
+
+#: includes/Dashboard/Templates/plans_array.php:56
+msgid "10 hours"
+msgstr ""
+
+#: includes/Dashboard/Templates/plans_array.php:70
 msgid "Unable this select this plan during the first month of subscription for current plan"
 msgstr ""
 
-#: includes/Dashboard/Templates/plans_array.php:75
-#: includes/Dashboard/Templates/plans_array.php:83
-#: includes/Dashboard/Templates/plans_array.php:93
+#: includes/Dashboard/Templates/plans_array.php:74
+#: includes/Dashboard/Templates/plans_array.php:82
+#: includes/Dashboard/Templates/plans_array.php:92
 msgid "Your plan"
 msgstr ""
 
 #: includes/MediaLibrary/ListingSubtitles.php:42
 #: includes/MediaLibrary/MediaLibraryExtented.php:80
 #: includes/MediaLibrary/MediaLibraryExtented.php:180
-#: build/index.js:576
+#: build/index.js:584
 #: src/block/labels.js:13
 msgid "Generating"
 msgstr ""
@@ -327,7 +380,7 @@ msgstr ""
 #: includes/MediaLibrary/MediaLibraryExtented.php:156
 #: includes/MediaLibrary/MediaLibraryExtented.php:181
 #: includes/MediaLibrary/MediaLibraryExtented.php:249
-#: build/index.js:577
+#: build/index.js:585
 #: src/block/labels.js:14
 msgid "Draft"
 msgstr ""
@@ -341,7 +394,7 @@ msgid "Published"
 msgstr ""
 
 #: includes/MediaLibrary/ListingSubtitles.php:46
-#: build/index.js:579
+#: build/index.js:587
 #: src/block/labels.js:16
 msgid "None"
 msgstr ""
@@ -349,9 +402,9 @@ msgstr ""
 #: includes/MediaLibrary/MediaLibraryExtented.php:122
 #: includes/MediaLibrary/MediaLibraryExtented.php:273
 #: includes/MediaLibrary/MediaLibraryExtented.php:359
-#: build/index.js:568
-#: build/index.js:583
-#: build/index.js:602
+#: build/index.js:576
+#: build/index.js:591
+#: build/index.js:610
 #: src/block/labels.js:4
 #: src/block/labels.js:22
 #: src/block/labels.js:49
@@ -361,9 +414,9 @@ msgstr ""
 #: includes/MediaLibrary/MediaLibraryExtented.php:123
 #: includes/MediaLibrary/MediaLibraryExtented.php:274
 #: includes/MediaLibrary/MediaLibraryExtented.php:360
-#: build/index.js:569
-#: build/index.js:586
-#: build/index.js:605
+#: build/index.js:577
+#: build/index.js:594
+#: build/index.js:613
 #: src/block/labels.js:5
 #: src/block/labels.js:26
 #: src/block/labels.js:53
@@ -373,8 +426,8 @@ msgstr ""
 #: includes/MediaLibrary/MediaLibraryExtented.php:127
 #: includes/MediaLibrary/MediaLibraryExtented.php:278
 #: includes/MediaLibrary/MediaLibraryExtented.php:361
-#: build/index.js:570
-#: build/index.js:589
+#: build/index.js:578
+#: build/index.js:597
 #: src/block/labels.js:6
 #: src/block/labels.js:30
 msgid "Spanish"
@@ -388,8 +441,8 @@ msgstr ""
 #: includes/MediaLibrary/MediaLibraryExtented.php:129
 #: includes/MediaLibrary/MediaLibraryExtented.php:280
 #: includes/MediaLibrary/MediaLibraryExtented.php:363
-#: build/index.js:572
-#: build/index.js:595
+#: build/index.js:580
+#: build/index.js:603
 #: src/block/labels.js:8
 #: src/block/labels.js:38
 msgid "Chinese"
@@ -398,8 +451,8 @@ msgstr ""
 #: includes/MediaLibrary/MediaLibraryExtented.php:130
 #: includes/MediaLibrary/MediaLibraryExtented.php:281
 #: includes/MediaLibrary/MediaLibraryExtented.php:364
-#: build/index.js:573
-#: build/index.js:598
+#: build/index.js:581
+#: build/index.js:606
 #: src/block/labels.js:9
 #: src/block/labels.js:42
 msgid "French"
@@ -412,13 +465,17 @@ msgstr ""
 msgid "GENERATE SUBTITLES"
 msgstr ""
 
+#: includes/MediaLibrary/MediaLibraryExtented.php:205
+msgid "Subtitles"
+msgstr ""
+
 #: includes/MediaLibrary/MediaLibraryExtented.php:229
 msgid "Wait while subtitles are created. Subtitles will be available as soon as possible"
 msgstr ""
 
 #: includes/MediaLibrary/MediaLibraryExtented.php:362
-#: build/index.js:571
-#: build/index.js:592
+#: build/index.js:579
+#: build/index.js:600
 #: src/block/labels.js:7
 #: src/block/labels.js:34
 msgid "German "
@@ -426,10 +483,10 @@ msgstr ""
 
 #: build/index.js:332
 #: build/index.js:437
-#: build/index.js:496
+#: build/index.js:500
 #: src/block/Ear2WordPanel.js:63
 #: src/block/PendingSubtitle.js:7
-#: src/block/SubtitleControl.js:34
+#: src/block/SubtitleControl.js:35
 msgid "Status: "
 msgstr ""
 
@@ -444,13 +501,13 @@ msgid "Subtitle creation successfully started"
 msgstr ""
 
 #: build/index.js:437
-#: build/index.js:496
+#: build/index.js:504
 #: src/block/PendingSubtitle.js:8
-#: src/block/SubtitleControl.js:35
+#: src/block/SubtitleControl.js:38
 msgid "Language: "
 msgstr ""
 
-#: build/index.js:578
+#: build/index.js:586
 #: src/block/labels.js:15
 msgid "Enabled"
 msgstr ""
