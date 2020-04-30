@@ -48,10 +48,10 @@ require EAR2WORDS_DIR . 'includes/Dashboard/Templates/plans_array.php';
 					<?php
 					foreach ( $plan['features'] as $key => $feature ) :
 						?>
-					<div class="card__features">
-						<div><?php echo esc_html( $key ); ?></div>							
+					<p class="card__features">
+						<span><?php echo esc_html( $key ); ?></span>							
 						<?php echo esc_html( $feature ); ?>						
-					</div>
+					</p>
 						<?php
 					endforeach;
 					?>
