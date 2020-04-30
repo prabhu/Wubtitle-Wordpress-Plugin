@@ -31,10 +31,10 @@ const SubtitleControl = ({ statusText, langText, isPublished, postId }) => {
 
 	return (
 		<Fragment>
-			<p style={{ marginBottom: "8px" }}>
+			<p style={{ margin: "0" }}>
 				{__("Status: ", "ear2words") + statusExten[statusText]}
 			</p>
-			<p style={{ marginTop: "8px", marginBottom: "16px" }}>
+			<p style={{ margin: "8px 0" }}>
 				{__("Language: ", "ear2words") + langExten[langText]}
 			</p>
 			<ToggleControl
