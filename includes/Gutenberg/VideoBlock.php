@@ -57,6 +57,9 @@ class VideoBlock {
 	 * @param string $content html generato da wordress per il blocco video standard.
 	 */
 	public function video_dynamic_block_render_callback( $attributes, $content ) {
+		if ( empty( $attributes['id'] ) ) {
+			return $content;
+		}
 		$subtitle     = get_post_meta( $attributes['id'], 'ear2words_subtitle', true );
 		$subtitle_src = wp_get_attachment_url( $subtitle );
 		$video_src    = wp_get_attachment_url( $attributes['id'] );

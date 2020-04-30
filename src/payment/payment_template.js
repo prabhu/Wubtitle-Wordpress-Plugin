@@ -58,14 +58,16 @@ const paymentModule = (function(Stripe, document) {
 
 		const unsubscribeButton = document.querySelector("#unsubscribeButton");
 		const closeButton = document.querySelector("#close");
-
-		unsubscribeButton.addEventListener("click", () => {
-			handleUnsubscription();
-		});
-
-		closeButton.addEventListener("click", () => {
-			window.close();
-		});
+		if (unsubscribeButton) {
+			unsubscribeButton.addEventListener("click", () => {
+				handleUnsubscription();
+			});
+		}
+		if (closeButton) {
+			closeButton.addEventListener("click", () => {
+				window.close();
+			});
+		}
 	};
 
 	return {
