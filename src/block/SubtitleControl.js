@@ -31,12 +31,12 @@ const SubtitleControl = ({ statusText, langText, isPublished, postId }) => {
 
 	return (
 		<Fragment>
-			<div style={{ marginBottom: "8px" }}>
+			<p style={{ marginBottom: "8px" }}>
 				{__("Status: ", "ear2words") + statusExten[statusText]}
-			</div>
-			<div style={{ margin: "16px 0" }}>
+			</p>
+			<p style={{ marginTop: "8px", marginBottom: "16px" }}>
 				{__("Language: ", "ear2words") + langExten[langText]}
-			</div>
+			</p>
 			<ToggleControl
 				label="Published"
 				checked={isPublished}
