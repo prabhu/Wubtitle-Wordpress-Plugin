@@ -11,7 +11,7 @@ import { selectOptions, selectOptionsFreePlan } from "./labels";
 
 const Ear2WordPanel = props => {
 	const extensionsFile =
-		props.src !== undefined
+		props.id !== undefined
 			? props.src.substring(props.src.lastIndexOf(".") + 1)
 			: "mp4";
 	const languages =
