@@ -16,8 +16,8 @@ $plans = array(
 		'name'           => __( 'Free', 'ear2words' ),
 		'price'          => 0,
 		'features'       => array(
-			__( '3', 'ear2words' ),
-			__( '30 min', 'ear2words' ),
+			'Number of video'        => __( '3', 'ear2words' ),
+			'Total length of videos' => __( '30 min', 'ear2words' ),
 		),
 		'dot_list'       => array(
 			__( 'Mp3 Video format allowed', 'ear2words' ),
@@ -34,8 +34,8 @@ $plans = array(
 		'name'           => __( 'Standard', 'ear2words' ),
 		'price'          => 180,
 		'features'       => array(
-			__( '10', 'ear2words' ),
-			__( '3 hours', 'ear2words' ),
+			'Number of video'        => __( '10', 'ear2words' ),
+			'Total length of videos' => __( '3 hours', 'ear2words' ),
 		),
 		'dot_list'       => array(
 			__( 'All wordpress formats supported by wordpress', 'ear2words' ),
@@ -52,8 +52,8 @@ $plans = array(
 		'name'           => __( 'Elite', 'ear2words' ),
 		'price'          => 200,
 		'features'       => array(
-			__( '30', 'ear2words' ),
-			__( '10 hours', 'ear2words' ),
+			'Number of video'        => __( '30', 'ear2words' ),
+			'Total length of videos' => __( '10 hours', 'ear2words' ),
 		),
 		'dot_list'       => array(
 			__( 'All wordpress formats supported by wordpress', 'ear2words' ),
