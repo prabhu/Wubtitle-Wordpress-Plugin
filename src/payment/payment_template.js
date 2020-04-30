@@ -41,14 +41,9 @@ const paymentModule = (function(Stripe, document) {
 				"Content-Type": "application/x-www-form-urlencoded"
 			}),
 			body: `action=cancel_subscription&_ajax_nonce=${nonce}`
-		})
-			.then(resp => resp.json())
-			.then(data => {
-				document.querySelector("#message").innerHTML = data.data;
-				setTimeout(() => {
-					window.close();
-				}, 3000);
-			});
+		}).then(() => {
+			window.close();
+		});
 	};
 
 	const init = () => {

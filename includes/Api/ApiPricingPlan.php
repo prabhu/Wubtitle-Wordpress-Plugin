@@ -171,10 +171,7 @@ class ApiPricingPlan {
 		if ( 200 !== $code_response ) {
 			wp_send_json_error( $message[ $code_response ] );
 		}
-		$response_body = json_decode( wp_remote_retrieve_body( $response ) );
-		$license_key   = $response_body->data->licenseKey;
-		update_option( 'custom_notices', __( 'License key recovered!', 'ear2words' ) );
-		update_option( 'ear2words_license_key', $license_key );
+		update_option( 'custom_notices', __( 'License key sent, check your email!', 'ear2words' ) );
 		wp_send_json_success();
 	}
 	/**
