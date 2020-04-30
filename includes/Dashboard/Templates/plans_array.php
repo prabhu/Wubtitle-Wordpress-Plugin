@@ -32,7 +32,7 @@ $plans = array(
 	array(
 		'stripe_code'    => 'plan_HBBbNjLjVk3w4w',
 		'name'           => __( 'Standard', 'ear2words' ),
-		'price'          => 180,
+		'price'          => 19,
 		'features'       => array(
 			'Number of video'        => __( '10', 'ear2words' ),
 			'Total length of videos' => __( '3 hours', 'ear2words' ),
@@ -50,7 +50,7 @@ $plans = array(
 	array(
 		'stripe_code'    => 'plan_HBBS5I9usXvwQR',
 		'name'           => __( 'Elite', 'ear2words' ),
-		'price'          => 200,
+		'price'          => 49,
 		'features'       => array(
 			'Number of video'        => __( '30', 'ear2words' ),
 			'Total length of videos' => __( '10 hours', 'ear2words' ),
