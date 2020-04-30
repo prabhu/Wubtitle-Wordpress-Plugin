@@ -61,8 +61,8 @@ require EAR2WORDS_DIR . 'includes/Dashboard/Templates/plans_array.php';
 					foreach ( $plan['features'] as $feature ) :
 						?>
 					<div class="card__features">
-						<?php echo esc_html( $feature ); ?>
 						<div><?php echo esc_html_e( 'include', 'ear2words' ); ?></div>
+						<?php echo esc_html( $feature ); ?>						
 					</div>
 						<?php
 					endforeach;
