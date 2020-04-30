@@ -123,7 +123,6 @@ class Settings {
 		}
 		switch ( $_GET['notices-code'] ) {
 			case 'payment':
-				error_log('oooooo');
 				$message = __( 'Payment successful', 'ear2words' );
 				break;
 			case 'update':
