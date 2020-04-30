@@ -65,9 +65,7 @@ class Settings {
 		?>
 		<div class="wrap">
 			<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
-			<div class="logo-placeholder">
-				LOGO PLACEHOLDER
-			</div>
+			<img class="logo" src="<?php echo esc_url( EAR2WORDS_URL . 'src/img/logo.svg' ); ?>">
 			<form action="options.php" method="post">
 			<?php
 			settings_errors();

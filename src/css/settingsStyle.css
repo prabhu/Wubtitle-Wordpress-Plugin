@@ -7,14 +7,12 @@ p.submit {
   text-align: right;
 }
 
-.logo-placeholder {
-  font-size: 15px;
-  font-weight: bold;
-  background: #fff;
-  padding: 10px 30px;
-  border: 1px #2e2e2e solid;
+.logo{
+  height: 30px;
+  width: auto;
   display: inline-block;
   position: absolute;
+  margin-top: 30px;
 }
 
 .input-license-key {
