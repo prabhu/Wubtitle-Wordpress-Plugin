@@ -6,7 +6,8 @@
 
 html,
 body {
-    background-color: #1A237E;
+    /* background-color: #1A237E; */
+    background: transparent linear-gradient(254deg, #D500F9 0%, #2962FF 99%) 0% 0% no-repeat padding-box;
     min-height: 100%;
     width: 100%;
     font-family: 'Open Sans', sans-serif;
@@ -31,6 +32,7 @@ body {
     font-weight: 600;
     font-size: 23px;
     line-height: 32px;
+    font-family: 'Days One', sans-serif;
 }
   
 .row {
@@ -60,6 +62,9 @@ body {
     border-radius: 20px;
     transition: transform .2s, box-shadow .2s;
     box-shadow: 0px 6px 24px rgba(0, 0, 0, .29);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .card:hover {
@@ -81,14 +86,12 @@ body {
     font-weight: bold;
     font-size: 20px;
     line-height: 28px;
-    font-family: acumin-pro, sans-serif;
+    font-family: 'Days One', sans-serif;
     display: inline;
 }
 
 .card__logo {
     height: 23px;
-    width: 23px;
-    background-color: gray;
     float: right;
 }
 
@@ -109,6 +112,7 @@ body {
     line-height: 33px;
     letter-spacing: 0px;
     font-weight: 600;
+    margin: 20px 0;
 }
 
 .card__features {
@@ -127,13 +131,15 @@ body {
     padding: 10px;
     margin-top: 10px;
     text-align: center;
-    background: #304FFE 0% 0% no-repeat padding-box;
-    border-radius: 16px 0px;
+    background: transparent linear-gradient(265deg, #D500F9 0%, #2962FF 99%) 0% 0% no-repeat padding-box;
+    border-radius: 16px;
     cursor: pointer;
     letter-spacing: 0px;
     color: #FFFFFF;
     font-size: 12px;
     line-height: 17px;
+    font-family: 'Days One', sans-serif;
+    margin-top: auto;
 }
 
 .current-plan {
@@ -141,18 +147,24 @@ body {
     margin-top: 10px;
     text-align: center;
     background: #90A4AE 0% 0% no-repeat padding-box;
-    border-radius: 16px 0px;
+    border-radius: 16px;
     letter-spacing: 0px;
     color: #FFFFFF;
     font-size: 12px;
     line-height: 17px;
+    font-family: 'Days One', sans-serif;
+    margin-top: auto;
 }
 
 .disable-downgrade {
-  color: #FF1744;
-  font-size: 10px;
-  text-align: left;
-  font-family: 'Open Sans Semibold';
+    color: #FF1744;
+    font-size: 10px;
+    text-align: left;
+    font-family: 'Open Sans Semibold';
+    margin-top: auto;
+    height: 37px;
+    display: flex;
+    align-items: center;
 }
 
 
@@ -195,17 +207,21 @@ body {
     padding: 10px;
     margin: 10px;
     text-align: center;
-    background: #304FFE 0% 0% no-repeat padding-box;
-    border-radius: 16px 0px;
+    background: #FFFF00;
+    border-radius: 16px;
     cursor: pointer;
     letter-spacing: 0px;
-    color: #FFFFFF;
+    color: #00112F;
     font-size: 12px;
     line-height: 17px;
+    font-family: 'Days One', sans-serif;
 }
 
 .unsubscribe-section .buttons .unsubscribe {
-    background: gray 0% 0% no-repeat padding-box;
+    border: 2px #FFFF00 ;
+    border-style: solid;
+    background: none;
+    color: #FFFF00;
 }
 
 #message {
