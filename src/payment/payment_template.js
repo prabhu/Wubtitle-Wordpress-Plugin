@@ -65,6 +65,7 @@ const paymentModule = (function(Stripe, document) {
 		}
 		if (closeButton) {
 			closeButton.addEventListener("click", () => {
+				window.opener.redirectToCallback("notices-code=delete");
 				window.close();
 			});
 		}

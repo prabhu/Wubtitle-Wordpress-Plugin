@@ -130,7 +130,8 @@ const showCancelSubscriptionWindow = () => {
 		CancelSubscriptionWindow.focus();
 	}
 };
-const resetLicenseFunction = () => {
+const resetLicenseFunction = e => {
+	e.preventDefault();
 	fetch(settings_object.ajax_url, {
 		method: "POST",
 		credentials: "include",

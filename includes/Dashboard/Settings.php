@@ -130,6 +130,9 @@ class Settings {
 			case 'reset':
 				$message = __( 'License key sent, check your email!', 'ear2words' );
 				break;
+			case 'delete':
+				$message = __( 'Unsubscription successful', 'ear2words' );
+				break;
 		}
 		if ( ! $message ) {
 			return;
