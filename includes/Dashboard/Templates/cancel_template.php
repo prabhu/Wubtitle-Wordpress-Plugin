@@ -47,10 +47,12 @@ require EAR2WORDS_DIR . 'includes/Dashboard/Templates/plans_array.php';
 			?>
 			<div class="column one-quarter">
 				<div class="card <?php echo $plan['zoom'] ? 'zoom' : ''; ?>">
-					<h2 class="card__title">
-						<?php echo esc_html( $plan['name'] ); ?>
-					</h2>
-					<img class="card__logo" src="<?php echo esc_url( EAR2WORDS_URL . 'src/img/' . $plan['icon'] ); ?>">
+					<div class="card__header">
+						<h2 class="card__title">
+							<?php echo esc_html( $plan['name'] ); ?>
+						</h2>
+						<img class="card__logo" src="<?php echo esc_url( EAR2WORDS_URL . 'src/img/' . $plan['icon'] ); ?>">
+					</div>
 					<div class="card__price">
 						<?php echo esc_html_e( 'Per year', 'ear2words' ); ?>
 						<p class="price">
@@ -62,7 +64,7 @@ require EAR2WORDS_DIR . 'includes/Dashboard/Templates/plans_array.php';
 						?>
 					<div class="card__features">
 						<div><?php echo esc_html( $key ); ?></div>							
-						<?php echo esc_html( $feature ); ?>							
+						<?php echo esc_html( $feature ); ?>						
 					</div>
 						<?php
 					endforeach;
@@ -71,6 +73,16 @@ require EAR2WORDS_DIR . 'includes/Dashboard/Templates/plans_array.php';
 						<?php echo esc_html( $plan['message_button'] ); ?>
 					</div>
 				</div>
+			</div>
+			<?php
+		endforeach;
+		?>
+		</div>
+		<div class="row">
+		<?php
+		foreach ( $plans as $plan ) :
+			?>
+			<div class="column one-quarter">
 				<ul class="features-list">
 					<?php
 					foreach ( $plan['dot_list'] as $dot ) :
