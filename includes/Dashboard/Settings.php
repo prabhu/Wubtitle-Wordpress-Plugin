@@ -33,7 +33,7 @@ class Settings {
 	 */
 	public function create_settings_menu() {
 		// TODO: Cambiare $icon_url e $position (attualmente subito dopo "Impostazioni") quando verranno date indicazioni UX.
-		add_menu_page( __( 'Ear2words Settings', 'ear2words' ), __( 'Ear2words', 'ear2words' ), 'manage_options', 'ear2words_settings', array( $this, 'render_settings_page' ), 'dashicons-format-status', 81 );
+		add_menu_page( __( 'Wubtitle Settings', 'ear2words' ), __( 'Wubtitle', 'ear2words' ), 'manage_options', 'ear2words_settings', array( $this, 'render_settings_page' ), 'dashicons-format-status', 81 );
 	}
 	/**
 	 *  Faccio l'enqueue dello style per i settings.
@@ -65,9 +65,7 @@ class Settings {
 		?>
 		<div class="wrap">
 			<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
-			<div class="logo-placeholder">
-				LOGO PLACEHOLDER
-			</div>
+			<img class="logo" src="<?php echo esc_url( EAR2WORDS_URL . 'src/img/logo.svg' ); ?>">
 			<form action="options.php" method="post">
 			<?php
 			settings_errors();
@@ -93,8 +91,8 @@ class Settings {
 					<p style="font-weight:400">
 					<?php
 					esc_html_e( 'Video time spent: ', 'ear2words' );
-					echo esc_html( date_i18n( 'i:s', $seconds ) . '/' . date_i18n( 'i:s', $seconds_max ) );
-					esc_html_e( ' minutes', 'ear2words' );
+					echo esc_html( date_i18n( 'H:i:s', $seconds ) . '/' . date_i18n( 'H:i:s', $seconds_max ) );
+					esc_html_e( ' hours', 'ear2words' );
 					?>
 					</p>
 						<?php
