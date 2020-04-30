@@ -81,7 +81,7 @@ class Settings {
 					</div>
 					<div class="plan-renewal">
 						<?php
-						$this->render_plan_renewal( $current_plan, $ear2words_is_canceling, $friendly_expiration_date );
+						$this->render_plan_renewal( $plan_saved, $ear2words_is_canceling, $friendly_expiration_date );
 						?>
 					</div>
 					<p style="font-weight:400">
