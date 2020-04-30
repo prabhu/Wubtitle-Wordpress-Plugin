@@ -7,12 +7,18 @@ p.submit {
   text-align: right;
 }
 
+.wrap h1 {
+  margin-bottom: 16px;
+}
+
+form {
+  margin-top: -64px;
+}
+
 .logo{
   height: 30px;
   width: auto;
   display: inline-block;
-  position: absolute;
-  margin-top: 30px;
 }
 
 .input-license-key {
