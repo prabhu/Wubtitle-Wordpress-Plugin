@@ -13,7 +13,9 @@
 		<exclude name="StaticAccess" />
 	</rule>
 	<rule ref="rulesets/unusedcode.xml"></rule>
-	<rule ref="rulesets/codesize.xml"></rule>
+	<rule ref="rulesets/codesize.xml">
+		<exclude name="TooManyPublicMethods"></exclude>
+	</rule>
 	<rule ref="rulesets/naming.xml">
 		<exclude name="LongVariable"></exclude>
 	</rule>
