@@ -16,11 +16,11 @@ $plans = array(
 		'name'           => __( 'Free', 'ear2words' ),
 		'price'          => 0,
 		'features'       => array(
-			'Number of video'        => __( '3', 'ear2words' ),
-			'Total length of videos' => __( '30 min', 'ear2words' ),
+			__( 'Number of video', 'ear2words' )        => __( '3', 'ear2words' ),
+			__( 'Total length of videos', 'ear2words' ) => __( '30 min', 'ear2words' ),
 		),
 		'dot_list'       => array(
-			__( 'Mp3 Video format allowed', 'ear2words' ),
+			__( 'Mp4 Video format allowed', 'ear2words' ),
 			__( 'Recognized languages: English and Italian', 'ear2words' ),
 		),
 		'zoom'           => false,
@@ -34,14 +34,14 @@ $plans = array(
 		'name'           => __( 'Standard', 'ear2words' ),
 		'price'          => 19,
 		'features'       => array(
-			'Number of video'        => __( '10', 'ear2words' ),
-			'Total length of videos' => __( '3 hours', 'ear2words' ),
+			__( 'Number of video', 'ear2words' )        => __( '10', 'ear2words' ),
+			__( 'Total length of videos', 'ear2words' ) => __( '3 hours', 'ear2words' ),
 		),
 		'dot_list'       => array(
 			__( 'All wordpress formats supported by wordpress', 'ear2words' ),
 			__( 'Recognized languuages: English, Italian, German, French, Spanish and Chinese', 'ear2words' ),
 		),
-		'zoom'           => true,
+		'zoom'           => false,
 		'current_plan'   => false,
 		'icon'           => 'fire.svg',
 		'class_button'   => 'button-choose-plan',
@@ -52,8 +52,8 @@ $plans = array(
 		'name'           => __( 'Elite', 'ear2words' ),
 		'price'          => 49,
 		'features'       => array(
-			'Number of video'        => __( '30', 'ear2words' ),
-			'Total length of videos' => __( '10 hours', 'ear2words' ),
+			__( 'Number of video', 'ear2words' )        => __( '30', 'ear2words' ),
+			__( 'Total length of videos', 'ear2words' ) => __( '10 hours', 'ear2words' ),
 		),
 		'dot_list'       => array(
 			__( 'All wordpress formats supported by wordpress', 'ear2words' ),
@@ -90,5 +90,15 @@ switch ( get_option( 'ear2words_plan' ) ) {
 		}
 		$plans[2]['class_button']   = 'current-plan';
 		$plans[2]['message_button'] = __( 'Your plan', 'ear2words' );
+		break;
+}
+
+switch ( get_option( 'ear2words_plan' ) ) {
+	case 'plan_0':
+		$plans[1]['zoom'] = true;
+		break;
+	case 'plan_HBBbNjLjVk3w4w':
+	case 'plan_HBBS5I9usXvwQR':
+		$plans[2]['zoom'] = true;
 		break;
 }
