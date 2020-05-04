@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ear2Words 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-ear2words\n"
-"POT-Creation-Date: 2020-05-04T17:39:08+02:00\n"
-"PO-Revision-Date: 2020-05-04 17:39+0200\n"
+"POT-Creation-Date: 2020-05-04T18:40:51+02:00\n"
+"PO-Revision-Date: 2020-05-04 18:41+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -76,30 +76,30 @@ msgstr ""
 msgid "Bad gateway"
 msgstr ""
 
-#: includes/Api/ApiPricingPlan.php:48 includes/Api/ApiPricingPlan.php:105
-#: includes/Api/ApiPricingPlan.php:148
+#: includes/Api/ApiPricingPlan.php:49 includes/Api/ApiPricingPlan.php:104
+#: includes/Api/ApiPricingPlan.php:147
 msgid "An error occurred. Please try again in a few minutes."
 msgstr "Si è verificato un errore. Riprova di nuovo tra qualche minuto."
 
-#: includes/Api/ApiPricingPlan.php:58 includes/Api/ApiPricingPlan.php:111
+#: includes/Api/ApiPricingPlan.php:59 includes/Api/ApiPricingPlan.php:110
 #: includes/Api/ApiRequest.php:96
 msgid "Unable to create subtitles. The product license key is missing."
 msgstr "Impossibile creare i sottotitoli. La  licenza del prodotto è assente."
 
-#: includes/Api/ApiPricingPlan.php:81 includes/Api/ApiPricingPlan.php:82
-#: includes/Api/ApiPricingPlan.php:129 includes/Api/ApiPricingPlan.php:130
-#: includes/Api/ApiPricingPlan.php:170
+#: includes/Api/ApiPricingPlan.php:80 includes/Api/ApiPricingPlan.php:81
+#: includes/Api/ApiPricingPlan.php:128 includes/Api/ApiPricingPlan.php:129
+#: includes/Api/ApiPricingPlan.php:169
 msgid "An error occurred. Please try again in a few minutes"
 msgstr "Si è verificato un errore.  Riprova di nuovo tra qualche minuto"
 
-#: includes/Api/ApiPricingPlan.php:83 includes/Api/ApiPricingPlan.php:131
-#: includes/Api/ApiPricingPlan.php:171
+#: includes/Api/ApiPricingPlan.php:82 includes/Api/ApiPricingPlan.php:130
+#: includes/Api/ApiPricingPlan.php:170
 msgid "Access denied"
 msgstr "Accesso negato"
 
-#: includes/Api/ApiPricingPlan.php:84 includes/Api/ApiPricingPlan.php:85
-#: includes/Api/ApiPricingPlan.php:132 includes/Api/ApiPricingPlan.php:133
-#: includes/Api/ApiPricingPlan.php:172 includes/Api/ApiRequest.php:115
+#: includes/Api/ApiPricingPlan.php:83 includes/Api/ApiPricingPlan.php:84
+#: includes/Api/ApiPricingPlan.php:131 includes/Api/ApiPricingPlan.php:132
+#: includes/Api/ApiPricingPlan.php:171 includes/Api/ApiRequest.php:115
 msgid "Could not contact the server"
 msgstr "Impossibile contattare il server"
 
@@ -282,6 +282,10 @@ msgstr ""
 #: includes/Dashboard/Settings.php:332
 msgid "Reset license key"
 msgstr "Reset Licenza"
+
+#: includes/Dashboard/Settings.php:350
+msgid "now!"
+msgstr " "
 
 #: includes/Dashboard/Templates/cancel_template.php:33
 msgid "Are you sure you want to unsubscribe?"
