@@ -10,6 +10,7 @@
 namespace Ear2Words\MediaLibrary;
 
 use Ear2Words\Loader;
+use Ear2Words\Gutenberg\Gutenberg;
 
 /**
  * Classe che estende la media library
@@ -19,7 +20,8 @@ class MediaLibraryExtented {
 	 * Setup delle action.
 	 */
 	public function run() {
-		if ( ! $this->is_gutenberg_active() ) {
+		$gutenberg = new Gutenberg();
+		if ( ! $gutenberg->is_gutenberg_active() ) {
 			add_action( 'attachment_fields_to_edit', array( $this, 'add_generate_subtitle_form' ), 99, 2 );
 		}
 		add_action( 'attachment_fields_to_edit', array( $this, 'add_generate_subtitle_form_into_media_library' ), 99, 2 );
@@ -34,33 +36,6 @@ class MediaLibraryExtented {
 		wp_enqueue_style( 'ear2words_medialibrary_style', EAR2WORDS_URL . '/src/css/mediaStyle.css', null, true );
 	}
 
-	/**
-	 * Verifica se gutenberg è attivo.
-	 */
-	private function is_gutenberg_active() {
-		// Gutenberg plugin is installed and activated.
-		$gutenberg = ! ( false === has_filter( 'replace_editor', 'gutenberg_init' ) );
-
-		// Block editor since 5.0.
-		$block_editor = version_compare( $GLOBALS['wp_version'], '5.0-beta', '>' );
-
-		if ( ! $gutenberg && ! $block_editor ) {
-			return false;
-		}
-
-		if ( ! function_exists( 'is_plugin_active' ) ) {
-			include_once ABSPATH . 'wp-admin/includes/plugin.php';
-		}
-
-		if ( is_plugin_active( 'classic-editor/classic-editor.php' ) ) {
-			$editor_option       = get_option( 'classic-editor-replace' );
-			$block_editor_active = array( 'no-replace', 'block' );
-
-			return in_array( $editor_option, $block_editor_active, true );
-		}
-
-		return true;
-	}
 
 	/**
 	 *  Aggiunge il form di ear2words nella scheda "add media".
@@ -156,7 +131,7 @@ class MediaLibraryExtented {
 	 *
 	 * @param string $lang_code language code.
 	 */
-	public function is_pro_only( $lang_code ) {
+	private function is_pro_only( $lang_code ) {
 		return get_option( 'ear2words_free' ) && 'it' !== $lang_code && 'en' !== $lang_code ? true : false;
 	}
 
@@ -165,7 +140,7 @@ class MediaLibraryExtented {
 	 *
 	 * @param string $lang language code.
 	 */
-	public function language_options( $lang ) {
+	private function language_options( $lang ) {
 		$languages = array(
 			'it' => __( 'Italian', 'ear2words' ),
 			'en' => __( 'English', 'ear2words' ),
@@ -253,7 +228,7 @@ class MediaLibraryExtented {
 	 * @param string $status stato dei stottotitoli.
 	 * @param int    $id_video id del video.
 	 */
-	public function create_toolbar_and_select( $status, $id_video ) {
+	private function create_toolbar_and_select( $status, $id_video ) {
 		$form_fields = array();
 		ob_start();
 		?>
@@ -276,7 +251,7 @@ class MediaLibraryExtented {
 	 *
 	 * @param int $id_video id del video.
 	 */
-	public function create_select_and_button( $id_video ) {
+	private function create_select_and_button( $id_video ) {
 		$form_fields = array(
 			'label' => 'Language',
 			'input' => 'html',
@@ -359,7 +334,7 @@ class MediaLibraryExtented {
 	 *
 	 * @param int $id_video id del video.
 	 */
-	public function get_video_language( $id_video ) {
+	private function get_video_language( $id_video ) {
 		$lang     = get_post_meta( $id_video, 'ear2words_lang_video', true );
 		$all_lang = array(
 			'it' => __( 'Italian', 'ear2words' ),
