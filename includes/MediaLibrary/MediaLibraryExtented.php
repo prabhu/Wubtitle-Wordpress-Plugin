@@ -10,6 +10,7 @@
 namespace Ear2Words\MediaLibrary;
 
 use Ear2Words\Loader;
+
 /**
  * Classe che estende la media library
  */
@@ -47,7 +48,11 @@ class MediaLibraryExtented {
 			return false;
 		}
 
-		if ( $this->is_classic_editor_active() ) {
+		if ( ! function_exists( 'is_plugin_active' ) ) {
+			include_once ABSPATH . 'wp-admin/includes/plugin.php';
+		}
+
+		if ( is_plugin_active( 'classic-editor/classic-editor.php' ) ) {
 			$editor_option       = get_option( 'classic-editor-replace' );
 			$block_editor_active = array( 'no-replace', 'block' );
 
@@ -56,18 +61,7 @@ class MediaLibraryExtented {
 
 		return true;
 	}
-	/**
-	 * Verifica se il classic editor è attivo.
-	 */
-	private function is_classic_editor_active() {
-		if ( ! function_exists( 'is_plugin_active' ) ) {
-			include_once ABSPATH . 'wp-admin/includes/plugin.php';
-		}
-		if ( is_plugin_active( 'classic-editor/classic-editor.php' ) ) {
-			return true;
-		}
-		return false;
-	}
+
 	/**
 	 *  Aggiunge il form di ear2words nella scheda "add media".
 	 *
@@ -119,24 +113,7 @@ class MediaLibraryExtented {
 			ob_start();
 			?>
 			<select name="attachments[<?php echo esc_html( $post->ID ); ?>][select-lang]" id="Profile Image Select">
-				<option <?php echo selected( $lang, 'it', false ); ?> value="it"> <?php esc_html_e( 'Italian', 'ear2words' ); ?></option>
-				<option <?php echo selected( $lang, 'en', false ); ?> value="en"> <?php esc_html_e( 'English', 'ear2words' ); ?></option>
-				<option <?php echo selected( $lang, 'es', false ); ?> value="es" <?php $this->disable_option(); ?>>
-					<?php esc_html_e( 'Spanish', 'ear2words' ); ?>
-					<?php $this->pro_only(); ?>
-				</option>
-				<option <?php echo selected( $lang, 'de', false ); ?> value="de" <?php $this->disable_option(); ?>> 
-					<?php esc_html_e( 'German', 'ear2words' ); ?>
-					<?php $this->pro_only(); ?>
-				</option>
-				<option <?php echo selected( $lang, 'zh', false ); ?> value="zh" <?php $this->disable_option(); ?>>
-					<?php esc_html_e( 'Chinese', 'ear2words' ); ?>
-					<?php $this->pro_only(); ?>									
-				</option>
-				<option <?php echo selected( $lang, 'fr', false ); ?> value="fr" <?php $this->disable_option(); ?>>
-					<?php esc_html_e( 'French', 'ear2words' ); ?>
-					<?php $this->pro_only(); ?>
-				</option>
+				<?php $this->language_options( $lang ); ?>
 			</select>
 			<label onclick="this.setAttribute('disabled','true')" class="button-primary" style="margin-top:16px;" for="attachments-<?php echo esc_html( $post->ID ); ?>-e2w_form">
 				<input type="checkbox" style="display:none" id="attachments-<?php echo esc_html( $post->ID ); ?>-e2w_form" name="attachments[<?php echo esc_html( $post->ID ); ?>][e2w_form]" value="<?php echo esc_html( $post->ID ); ?>" />
@@ -174,22 +151,37 @@ class MediaLibraryExtented {
 		return $form_fields;
 	}
 
-
 	/**
-	 *  Disabilita l'opzione della select se nel piano free .
+	 *  Aggiunge "pro only" se nel piano free.
+	 *
+	 * @param string $lang_code language code.
 	 */
-	public function disable_option() {
-		if ( get_option( 'ear2words_free' ) ) {
-			echo 'disabled';
-		}
+	public function is_pro_only( $lang_code ) {
+		return get_option( 'ear2words_free' ) && 'it' !== $lang_code && 'en' !== $lang_code ? true : false;
 	}
 
 	/**
-	 *  Aggiunge "pro only" se nel piano free.
+	 *  Ritorna le options.
+	 *
+	 * @param string $lang language code.
 	 */
-	public function pro_only() {
-		if ( get_option( 'ear2words_free' ) ) {
-			echo esc_html_e( ' (Pro only)', 'ear2words' );
+	public function language_options( $lang ) {
+		$languages = array(
+			'it' => __( 'Italian', 'ear2words' ),
+			'en' => __( 'English', 'ear2words' ),
+			'es' => __( 'Spanish', 'ear2words' ),
+			'de' => __( 'German', 'ear2words' ),
+			'zh' => __( 'Chinese', 'ear2words' ),
+			'fr' => __( 'French', 'ear2words' ),
+		);
+		foreach ( $languages as $key => $language ) {
+			echo sprintf(
+				'<option %s value="%s" %s>%s</option>',
+				selected( $lang, $key, false ),
+				esc_html( $key ),
+				esc_html( $this->is_pro_only( $key ) ? 'disabled' : '' ),
+				esc_html( $this->is_pro_only( $key ) ? $language . ' (Pro Only)' : $language )
+			);
 		}
 	}
 
@@ -295,27 +287,7 @@ class MediaLibraryExtented {
 		ob_start();
 		?>
 			<select style="width:100%" name="attachments[<?php echo esc_html( $id_video ); ?>][select-lang]" id="Profile Image Select">
-				<option <?php echo selected( $lang, 'it', false ); ?> value="it"> <?php esc_html_e( 'Italian', 'ear2words' ); ?></option>
-				<option <?php echo selected( $lang, 'en', false ); ?> value="en"> <?php esc_html_e( 'English', 'ear2words' ); ?></option>
-				<option <?php echo selected( $lang, 'es', false ); ?> value="es" <?php $this->disable_option(); ?>>
-					<?php esc_html_e( 'Spanish', 'ear2words' ); ?>
-					<?php $this->pro_only(); ?>
-				</option>
-				<option <?php echo selected( $lang, 'de', false ); ?> value="de"  <?php $this->disable_option(); ?>
-				>
-					<?php esc_html_e( 'German', 'ear2words' ); ?>
-					<?php $this->pro_only(); ?>
-				</option>
-				<option <?php echo selected( $lang, 'zh', false ); ?> value="zh"  <?php $this->disable_option(); ?>
-				>
-					<?php esc_html_e( 'Chinese', 'ear2words' ); ?>
-					<?php $this->pro_only(); ?>
-				</option>
-				<option <?php echo selected( $lang, 'fr', false ); ?> value="fr"   <?php $this->disable_option(); ?>
-				>
-					<?php esc_html_e( 'French', 'ear2words' ); ?>
-					<?php $this->pro_only(); ?>
-				</option>
+				<?php $this->language_options( $lang ); ?>
 			</select>
 			<button type="submit" class="button-primary" style="margin-top:16px;" id="attachments-<?php echo esc_html( $id_video ); ?>-e2w_form" name="attachments[<?php echo esc_html( $id_video ); ?>][e2w_form]" value="invio">
 			<?php esc_html_e( 'GENERATE SUBTITLES', 'ear2words' ); ?>
