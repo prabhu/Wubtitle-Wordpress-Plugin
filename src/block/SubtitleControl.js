@@ -38,7 +38,7 @@ const SubtitleControl = ({ statusText, langText, isPublished, postId }) => {
 				{__("Language: ", "ear2words") + langExten[langText]}
 			</p>
 			<ToggleControl
-				label="Published"
+				label={__("Published", "ear2words")}
 				checked={isPublished}
 				onChange={() => {
 					updateStatus(isPublished);
