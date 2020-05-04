@@ -3,7 +3,7 @@
  * Questo file implementa le funzioni relative a stripe.
  *
  * @author     Alessio Catania
- * @since      0.1.0
+ * @since      1.0.0
  * @package    Ear2Words\Api
  */
 

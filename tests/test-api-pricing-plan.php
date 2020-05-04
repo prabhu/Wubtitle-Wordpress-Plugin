@@ -77,7 +77,6 @@ class TestApiPricingPlan extends WP_Ajax_UnitTestCase {
          $expected_body = array(
     			 'data' => array(
     				 'planId'    => 'premium',
-    				 'domainUrl' => 'http://wordpress01.local',
     			 ),
     		 );
          $this->assertEqualSets($expected_body,$result);
