@@ -4,7 +4,7 @@
  *
  * @author     Nicola Palermo
  * @since      0.1.0
- * @package    Ear2Words\Dashboard
+ * @package    Ear2Words\Gutenberg
  */
 
 namespace Ear2Words\Gutenberg;
