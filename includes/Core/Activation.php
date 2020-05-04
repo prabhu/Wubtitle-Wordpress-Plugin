@@ -28,6 +28,7 @@ class Activation {
 		$body          = array(
 			'data' => array(
 				'domainUrl' => $site_url,
+				'siteLang'  => explode( '_', get_locale(), 2 )[0],
 			),
 		);
 		$response      = wp_remote_post(
