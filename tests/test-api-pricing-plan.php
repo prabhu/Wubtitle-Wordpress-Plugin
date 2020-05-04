@@ -72,11 +72,13 @@ class TestApiPricingPlan extends WP_Ajax_UnitTestCase {
        */
        public function test_body_request(){
          $pricing_plan = 'premium';
+         $site_url = get_site_url();
          $result = $this->instance->set_body_request( $pricing_plan, $site_url );
          $lang_expected = explode( '_', get_locale(), 2 )[0];
          $expected_body = array(
     			 'data' => array(
     				 'planId'    => 'premium',
+    				 'domainUrl' => 'http://wordpress01.local',
              'siteLang' => $lang_expected,
     			 ),
     		 );

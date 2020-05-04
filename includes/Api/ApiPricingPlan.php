@@ -34,8 +34,9 @@ class ApiPricingPlan {
 		}
 		return array(
 			'data' => array(
-				'planId'   => $pricing_plan,
-				'siteLang' => explode( '_', get_locale(), 2 )[0],
+				'planId'    => $pricing_plan,
+				'domainUrl' => $site_url,
+				'siteLang'  => explode( '_', get_locale(), 2 )[0],
 			),
 		);
 	}
