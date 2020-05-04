@@ -80,7 +80,7 @@ class MediaLibraryExtented {
 			'pending' => __( 'Generating', 'ear2words' ),
 			'draft'   => __( 'Draft', 'ear2words' ),
 			'enabled' => __( 'Published', 'ear2words' ),
-			''        => 'None',
+			''        => __( 'None', 'ear2words' ),
 		);
 		$allowed_pages = array(
 			'admin-ajax.php',
@@ -180,7 +180,7 @@ class MediaLibraryExtented {
 			'pending' => __( 'Generating', 'ear2words' ),
 			'draft'   => __( 'Draft', 'ear2words' ),
 			'enabled' => __( 'Published', 'ear2words' ),
-			'none'    => 'None',
+			'none'    => __( 'None', 'ear2words' ),
 		);
 		if ( ! wp_attachment_is( 'video', $post ) || 'post.php' !== $pagenow ) {
 			return $form_fields;
