@@ -3,16 +3,10 @@
   margin-top: 0;
 }
 
-p.submit {
-  text-align: right;
-}
-
-.wrap h1 {
-  margin-bottom: 16px;
-}
-
-form {
-  margin-top: -64px;
+.form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .logo{

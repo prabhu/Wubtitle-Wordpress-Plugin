@@ -64,13 +64,15 @@ class Settings {
 		$ear2words_is_canceling    = get_option( 'ear2words_is_canceling' );
 		?>
 		<div class="wrap">
-			<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
-			<img class="logo" src="<?php echo esc_url( EAR2WORDS_URL . 'src/img/logo.svg' ); ?>">
+			<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>			
 			<form action="options.php" method="post">
-			<?php
-			settings_errors();
-			submit_button();
-			?>
+			<div class="form-header">			
+				<img class="logo" src="<?php echo esc_url( EAR2WORDS_URL . 'src/img/logo.svg' ); ?>">
+				<?php
+				settings_errors();
+				submit_button();
+				?>
+			</div>
 			<div class="postbox">
 				<h2 class="hndle ui-sortable-handle e2w-title" ><span><?php esc_html_e( 'Licensing', 'ear2words' ); ?></span></h2>
 				<div class="inside">
