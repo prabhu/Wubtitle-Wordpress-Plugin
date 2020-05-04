@@ -6,7 +6,6 @@
 
 html,
 body {
-    /* background-color: #1A237E; */
     background: transparent linear-gradient(254deg, #D500F9 0%, #2962FF 99%) 0% 0% no-repeat padding-box;
     min-height: 100%;
     width: 100%;
