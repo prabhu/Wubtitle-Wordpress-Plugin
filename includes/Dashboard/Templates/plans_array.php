@@ -41,7 +41,7 @@ $plans = array(
 			__( 'All wordpress formats supported by wordpress', 'ear2words' ),
 			__( 'Recognized languuages: English, Italian, German, French, Spanish and Chinese', 'ear2words' ),
 		),
-		'zoom'           => true,
+		'zoom'           => false,
 		'current_plan'   => false,
 		'icon'           => 'fire.svg',
 		'class_button'   => 'button-choose-plan',
@@ -90,5 +90,15 @@ switch ( get_option( 'ear2words_plan' ) ) {
 		}
 		$plans[2]['class_button']   = 'current-plan';
 		$plans[2]['message_button'] = __( 'Your plan', 'ear2words' );
+		break;
+}
+
+switch ( get_option( 'ear2words_plan' ) ) {
+	case 'plan_0':
+		$plans[1]['zoom'] = true;
+		break;
+	case 'plan_HBBbNjLjVk3w4w':
+	case 'plan_HBBS5I9usXvwQR':
+		$plans[2]['zoom'] = true;
 		break;
 }
