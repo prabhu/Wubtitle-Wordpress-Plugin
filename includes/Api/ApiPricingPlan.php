@@ -34,8 +34,7 @@ class ApiPricingPlan {
 		}
 		return array(
 			'data' => array(
-				'planId'    => $pricing_plan,
-				'domainUrl' => $site_url,
+				'planId' => $pricing_plan,
 			),
 		);
 	}
@@ -81,11 +80,6 @@ class ApiPricingPlan {
 			'500' => __( 'Could not contact the server', 'ear2words' ),
 			''    => __( 'Could not contact the server', 'ear2words' ),
 		);
-		// 200 se è un aggiornamento del piano
-		if ( 200 === $code_response ) {
-			update_option( 'custom_notices', 'cambio del piano effettuato' );
-			wp_send_json_success( 'upgrade_plan_success' );
-		}
 		// 201 se è il primo pagamento
 		if ( 201 !== $code_response ) {
 			wp_send_json_error( $message[ $code_response ] );
