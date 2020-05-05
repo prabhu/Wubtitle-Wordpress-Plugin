@@ -10,7 +10,7 @@
 namespace Ear2Words\MediaLibrary;
 
 use Ear2Words\Loader;
-use Ear2Words\Gutenberg\Gutenberg;
+use Ear2Words\Gutenberg\GutenbergUtil;
 
 /**
  * Classe che estende la media library
@@ -20,8 +20,8 @@ class MediaLibraryExtented {
 	 * Setup delle action.
 	 */
 	public function run() {
-		$gutenberg = new Gutenberg();
-		if ( ! $gutenberg->is_gutenberg_active() ) {
+		$gutenberg_util = new GutenbergUtil();
+		if ( ! $gutenberg_util->is_gutenberg_active() ) {
 			add_action( 'attachment_fields_to_edit', array( $this, 'add_generate_subtitle_form' ), 99, 2 );
 		}
 		add_action( 'attachment_fields_to_edit', array( $this, 'add_generate_subtitle_form_into_media_library' ), 99, 2 );

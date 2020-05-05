@@ -12,7 +12,7 @@ namespace Ear2Words\Gutenberg;
 /**
  * This class handle Gutenberg methods.
  */
-class Gutenberg {
+class GutenbergUtil {
 
 	/**
 	 * Verifica se gutenberg è attivo.
