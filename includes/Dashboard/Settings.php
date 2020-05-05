@@ -65,9 +65,9 @@ class Settings {
 		$ear2words_is_canceling    = get_option( 'ear2words_is_canceling' );
 		?>
 		<div class="wrap">
-			<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>			
+			<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
 			<form action="options.php" method="post">
-			<div class="form-header">			
+			<div class="form-header">
 				<img class="logo" src="<?php echo esc_url( EAR2WORDS_URL . 'src/img/logo.svg' ); ?>">
 				<?php
 				settings_errors();
@@ -347,7 +347,7 @@ class Settings {
 		<button id="buy-license-button" class="button-primary" >
 			<?php echo esc_html( $args['name'] ); ?>
 		</button>
-		<p style="display:inline; margin-left:4px;"> now! </p>
+		<p style="display:inline; margin-left:4px;"> <?php esc_html_e( 'now!', 'ear2words' ); ?> </p>
 		<?php
 	}
 
