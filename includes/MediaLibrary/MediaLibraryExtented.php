@@ -101,7 +101,7 @@ class MediaLibraryExtented {
 		// Aggiunge lo stato del sottotitolo.
 		$status                    = $post->ear2words_status;
 		$form_fields['e2w_status'] = array(
-			'label' => 'Subtitle',
+			'label' => __( 'Subtitle', 'ear2words' ),
 			'input' => 'html',
 			'html'  => '<label for="attachments-' . $post->ID . '-e2w_status">' . $all_status[ $status ] . '</label>',
 			'value' => $post->ID,
@@ -110,7 +110,7 @@ class MediaLibraryExtented {
 		// Aggiunge la select della lingua e il bottone per generare i sottotitoli se il video non è ancora stato processato da e2w.
 		if ( '' === $status ) {
 			$form_fields['e2w_form'] = array(
-				'label' => 'Language',
+				'label' => __( 'Language', 'ear2words' ),
 				'input' => 'html',
 				'html'  => '',
 				'value' => $post->ID,
@@ -143,7 +143,7 @@ class MediaLibraryExtented {
 		// Sostituisce lo stato con una select per pubblicare o disabilitare i sottotitoli se lo stato è uno tra enabled e draft.
 		if ( 'draft' === $status || 'enabled' === $status ) {
 			$form_fields['e2w_status'] = array(
-				'label' => 'Subtitle',
+				'label' => __( 'Subtitle', 'ear2words' ),
 				'input' => 'html',
 				'html'  => '',
 				'value' => $post->ID,
@@ -160,7 +160,7 @@ class MediaLibraryExtented {
 		}
 		// Aggiunge una label per la lingua del video.
 		$form_fields['e2w_lang'] = array(
-			'label' => 'Language',
+			'label' => __( 'Language', 'ear2words' ),
 			'input' => 'html',
 			'html'  => '<label for="attachments-' . $post->ID . '-e2w_lang">' . $this->get_video_language( $post->ID ) . '</label>',
 			'value' => $post->ID,
@@ -206,7 +206,7 @@ class MediaLibraryExtented {
 
 		// Aggiunge lo stato del sottotitolo.
 		$form_fields['e2w_status'] = array(
-			'label' => 'Status',
+			'label' => __( 'Status', 'ear2words' ),
 			'input' => 'html',
 			'html'  => '<label for="attachments-' . $post->ID . '-e2w_status">' . $all_status[ $status ] . '</label>',
 			'value' => $post->ID,
@@ -220,7 +220,7 @@ class MediaLibraryExtented {
 
 		// Aggiunge una label per la lingua del video.
 		$form_fields['e2w_lang'] = array(
-			'label' => 'Language',
+			'label' => __( 'Language', 'ear2words' ),
 			'input' => 'html',
 			'html'  => '<label for="attachments-' . $post->ID . '-e2w_lang">' . $this->get_video_language( $post->ID ) . '</label>',
 			'value' => $post->ID,
@@ -261,7 +261,7 @@ class MediaLibraryExtented {
 	 */
 	public function create_select_and_button( $id_video ) {
 		$form_fields = array(
-			'label' => 'Language',
+			'label' => __( 'Language', 'ear2words' ),
 			'input' => 'html',
 			'html'  => '',
 			'value' => $id_video,
