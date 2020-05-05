@@ -1,18 +1,18 @@
 <?php
 /**
- * This file describes handle Gutenberg.
+ * This file handless some helper methods.
  *
  * @author     Nicola Palermo
- * @since      0.1.0
- * @package    Ear2Words\Gutenberg
+ * @since      1.0.0
+ * @package    Ear2Words
  */
 
-namespace Ear2Words\Gutenberg;
+namespace Ear2Words;
 
 /**
- * This class handle Gutenberg methods.
+ * This class handles some helper methods.
  */
-class GutenbergUtil {
+class Helpers {
 
 	/**
 	 * Verifica se gutenberg è attivo.

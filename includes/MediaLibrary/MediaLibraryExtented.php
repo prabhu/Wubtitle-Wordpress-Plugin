@@ -10,7 +10,7 @@
 namespace Ear2Words\MediaLibrary;
 
 use Ear2Words\Loader;
-use Ear2Words\Gutenberg\GutenbergUtil;
+use Ear2Words\Helpers;
 
 /**
  * Classe che estende la media library
@@ -20,8 +20,8 @@ class MediaLibraryExtented {
 	 * Setup delle action.
 	 */
 	public function run() {
-		$gutenberg_util = new GutenbergUtil();
-		if ( ! $gutenberg_util->is_gutenberg_active() ) {
+		$helpers = new Helpers();
+		if ( ! $helpers->is_gutenberg_active() ) {
 			add_action( 'attachment_fields_to_edit', array( $this, 'add_generate_subtitle_form' ), 99, 2 );
 		}
 		add_action( 'attachment_fields_to_edit', array( $this, 'add_generate_subtitle_form_into_media_library' ), 99, 2 );
@@ -127,16 +127,17 @@ class MediaLibraryExtented {
 	}
 
 	/**
-	 *  Aggiunge "pro only" se nel piano free.
+	 *  Check sulla lingua disponibile nel piano free.
 	 *
 	 * @param string $lang_code language code.
 	 */
 	private function is_pro_only( $lang_code ) {
-		return get_option( 'ear2words_free' ) && 'it' !== $lang_code && 'en' !== $lang_code ? true : false;
+		$free_lang = array( 'it', 'en' );
+		return get_option( 'ear2words_free', true ) && ! in_array( $lang_code, $free_lang, true );
 	}
 
 	/**
-	 *  Ritorna le options.
+	 *  Ritorna le options delle lingue selezionabili nelle select "genera sottotitoli".
 	 *
 	 * @param string $lang language code.
 	 */

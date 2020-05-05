@@ -38,7 +38,7 @@ class Loader {
 			'cancel_subscription'     => Api\ApiCancelSubscription::class,
 			'cron'                    => Core\Cron::class,
 			'register_callback_pages' => Dashboard\RegisterStripeCallbackPages::class,
-			'gutenberg_util'          => Gutenberg\GutenbergUtil::class,
+			'helpers'                 => Helpers::class,
 		);
 
 		foreach ( $classes as $key => $class ) {
