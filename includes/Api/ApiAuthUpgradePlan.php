@@ -1,6 +1,6 @@
 <?php
 /**
- * Questo file crea un nuovo endpoint per lo store del file .
+ * Questo file crea un nuovo endpoint per l'autorizzazione al cambio di piano.
  *
  * @author     Nicola Palermo
  * @since      1.0.0
@@ -13,23 +13,23 @@ use WP_REST_Response;
 use \Firebase\JWT\JWT;
 
 /**
- * Questa classe gestisce lo store dei file vtt.
+ * Questa classe gestisce l'autorizzazione al cambio di piano.
  */
 class ApiAuthUpgradePlan {
 	/**
 	 * Init class action.
 	 */
 	public function run() {
-		add_action( 'rest_api_init', array( $this, 'register_auth_plan_upgrade_route' ) );
+		add_action( 'rest_api_init', array( $this, 'register_auth_plan_route' ) );
 	}
 
 	/**
 	 * Crea nuova rotta REST.
 	 */
-	public function register_auth_plan_upgrade_route() {
+	public function register_auth_plan_route() {
 		register_rest_route(
 			'ear2words/v1',
-			'/auth-plan-upgrade',
+			'/auth-plan',
 			array(
 				'methods'  => 'POST',
 				'callback' => array( $this, 'auth_and_get_plan' ),
@@ -67,11 +67,11 @@ class ApiAuthUpgradePlan {
 	}
 
 	/**
-	 * Ottiene il file dei sottotitoli e lo salva, inoltre aggiunge dei post meta al video.
+	 * Ottiene e restitutisce al backend il piano desiderato.
 	 */
 	public function return_plan() {
-		$plan_to_upgrade = get_option( 'ear2words_plan_to_upgrade' );
-		update_option( '', false );
+		$plan_to_upgrade = get_option( 'ear2words_wanted_plan' );
+		update_option( 'ear2words_wanted_plan', false );
 
 		$message = array(
 			'message' => array(
