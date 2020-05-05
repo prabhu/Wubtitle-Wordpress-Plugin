@@ -334,7 +334,7 @@ class MediaLibraryExtented {
 	 *
 	 * @param int $id_video id del video.
 	 */
-	private function get_video_language( $id_video ) {
+	public function get_video_language( $id_video ) {
 		$lang     = get_post_meta( $id_video, 'ear2words_lang_video', true );
 		$all_lang = array(
 			'it' => __( 'Italian', 'ear2words' ),
