@@ -73,16 +73,11 @@ class ApiAuthUpgradePlan {
 		$plan_to_upgrade = get_option( 'ear2words_wanted_plan' );
 		update_option( 'ear2words_wanted_plan', false );
 
-		$message = array(
+		$data = array(
 			'data' => array(
 				'plan_code' => $plan_to_upgrade,
 			),
 		);
-
-		$response = new WP_REST_Response( $message );
-
-		$response->set_status( 200 );
-
-		return $response;
+		return $data;
 	}
 }
