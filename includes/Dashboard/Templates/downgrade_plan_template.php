@@ -24,6 +24,7 @@ if ( 'plan_HBBbNjLjVk3w4w' === $wanted_plan ) {
 } elseif ( 'plan_0' === $wanted_plan ) {
 	$wanted_plan = 0;
 }
+$amount_preview = get_option( 'ear2words_amount_preview' );
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -46,7 +47,7 @@ if ( 'plan_HBBbNjLjVk3w4w' === $wanted_plan ) {
 				<h1 class="title" >  <?php echo esc_html( $plans[ $wanted_plan ]['name'] ); ?> </h1>
 			</div>
 			<div class="column one-quarter">
-				<h1 style="text-align:center; margin-top:64px;"> <span class="refund"> 12$ credit earnings </span> </h1>
+				<h1 style="text-align:center; margin-top:64px;"> <span class="refund"><?php echo esc_html( $amount_preview . '€' . __( ' credit earnings', 'ear2words' ) ); ?></span> </h1>
 		<img class="arrowdown" src="<?php echo esc_url( EAR2WORDS_URL . 'src/img/arrowdown.svg' ); ?>">
 			</div>
 			<div class="column one-quarter">
