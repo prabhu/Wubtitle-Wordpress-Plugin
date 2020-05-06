@@ -38,6 +38,7 @@ class Loader {
 			'cancel_subscription'     => Api\ApiCancelSubscription::class,
 			'cron'                    => Core\Cron::class,
 			'register_callback_pages' => Dashboard\RegisterStripeCallbackPages::class,
+			'api_auth_plan'           => Api\ApiAuthUpgradePlan::class,
 		);
 
 		foreach ( $classes as $key => $class ) {
