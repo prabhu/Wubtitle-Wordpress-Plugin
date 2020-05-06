@@ -17,6 +17,7 @@ class YouTube {
 	 * Init class actions.
 	 */
 	public function run() {
+		add_action( 'wp_head', array( $this, 'register_service_worker' ) );
 		add_action( 'admin_menu', array( $this, 'create_settings_menu' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'e2w_youtube_scripts' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'ear2words_youtube_style' ) );
@@ -76,6 +77,12 @@ class YouTube {
 		if ( 'toplevel_page_ear2words_youtube' === $hook ) {
 			wp_enqueue_script( 'youtube_scripts', EAR2WORDS_URL . '/src/youtube/youtube_script.js', null, EAR2WORDS_VER, true );
 		}
+	}
+
+	/**
+	 * Includo gli script.
+	 */
+	public function register_service_worker() {
 	}
 
 }
