@@ -37,13 +37,14 @@ class ApiPricingPlan {
 			'data' => array(
 				'planId' => $wanted_plan,
 			),
+			'type' => 'plan',
 		);
 		$license_key = get_option( 'ear2words_license_key' );
 		if ( empty( $license_key ) ) {
 			wp_send_json_error( __( 'Unable to create subtitles. The product license key is missing.', 'ear2words' ) );
 		}
 		$response      = wp_remote_post(
-			ENDPOINT,
+			ENDPOINT . 'stripe/customer/update',
 			array(
 				'method'  => 'POST',
 				'headers' => array(
@@ -61,7 +62,7 @@ class ApiPricingPlan {
 			'500' => __( 'Could not contact the server', 'ear2words' ),
 			''    => __( 'Could not contact the server', 'ear2words' ),
 		);
-		if ( 201 !== $code_response ) {
+		if ( 200 !== $code_response ) {
 			wp_send_json_error( $message[ $code_response ] );
 		}
 		wp_send_json_success();
@@ -106,6 +107,7 @@ class ApiPricingPlan {
 		if ( ! get_option( 'ear2words_free' ) ) {
 			$url_endpoint = ENDPOINT . 'stripe/customer/update/preview';
 			unset( $body['data']['siteLang'] );
+			unset( $body['data']['domainUrl'] );
 		}
 		$response      = wp_remote_post(
 			$url_endpoint,
