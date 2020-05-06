@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ear2Words 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-ear2words\n"
-"POT-Creation-Date: 2020-05-04T10:14:45+02:00\n"
-"PO-Revision-Date: 2020-05-04 10:15+0200\n"
+"POT-Creation-Date: 2020-05-04T18:40:51+02:00\n"
+"PO-Revision-Date: 2020-05-04 18:41+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -76,30 +76,30 @@ msgstr ""
 msgid "Bad gateway"
 msgstr ""
 
-#: includes/Api/ApiPricingPlan.php:48 includes/Api/ApiPricingPlan.php:102
-#: includes/Api/ApiPricingPlan.php:145
+#: includes/Api/ApiPricingPlan.php:49 includes/Api/ApiPricingPlan.php:104
+#: includes/Api/ApiPricingPlan.php:147
 msgid "An error occurred. Please try again in a few minutes."
 msgstr "Si è verificato un errore. Riprova di nuovo tra qualche minuto."
 
-#: includes/Api/ApiPricingPlan.php:58 includes/Api/ApiPricingPlan.php:108
+#: includes/Api/ApiPricingPlan.php:59 includes/Api/ApiPricingPlan.php:110
 #: includes/Api/ApiRequest.php:96
 msgid "Unable to create subtitles. The product license key is missing."
 msgstr "Impossibile creare i sottotitoli. La  licenza del prodotto è assente."
 
-#: includes/Api/ApiPricingPlan.php:78 includes/Api/ApiPricingPlan.php:79
-#: includes/Api/ApiPricingPlan.php:126 includes/Api/ApiPricingPlan.php:127
-#: includes/Api/ApiPricingPlan.php:167
+#: includes/Api/ApiPricingPlan.php:80 includes/Api/ApiPricingPlan.php:81
+#: includes/Api/ApiPricingPlan.php:128 includes/Api/ApiPricingPlan.php:129
+#: includes/Api/ApiPricingPlan.php:169
 msgid "An error occurred. Please try again in a few minutes"
 msgstr "Si è verificato un errore.  Riprova di nuovo tra qualche minuto"
 
-#: includes/Api/ApiPricingPlan.php:80 includes/Api/ApiPricingPlan.php:128
-#: includes/Api/ApiPricingPlan.php:168
+#: includes/Api/ApiPricingPlan.php:82 includes/Api/ApiPricingPlan.php:130
+#: includes/Api/ApiPricingPlan.php:170
 msgid "Access denied"
 msgstr "Accesso negato"
 
-#: includes/Api/ApiPricingPlan.php:81 includes/Api/ApiPricingPlan.php:82
-#: includes/Api/ApiPricingPlan.php:129 includes/Api/ApiPricingPlan.php:130
-#: includes/Api/ApiPricingPlan.php:169 includes/Api/ApiRequest.php:115
+#: includes/Api/ApiPricingPlan.php:83 includes/Api/ApiPricingPlan.php:84
+#: includes/Api/ApiPricingPlan.php:131 includes/Api/ApiPricingPlan.php:132
+#: includes/Api/ApiPricingPlan.php:171 includes/Api/ApiRequest.php:115
 msgid "Could not contact the server"
 msgstr "Impossibile contattare il server"
 
@@ -164,124 +164,128 @@ msgstr "Impostazioni Wubtitle"
 msgid "Wubtitle"
 msgstr ""
 
-#: includes/Dashboard/Settings.php:50
+#: includes/Dashboard/Settings.php:51
 msgid "Free Plan"
 msgstr "Piano Free"
 
-#: includes/Dashboard/Settings.php:51
+#: includes/Dashboard/Settings.php:52
 msgid "Standard Plan"
 msgstr "Piano Standard"
 
-#: includes/Dashboard/Settings.php:52
+#: includes/Dashboard/Settings.php:53
 msgid "Elite Plan"
 msgstr "Piano Elite"
 
-#: includes/Dashboard/Settings.php:75
+#: includes/Dashboard/Settings.php:78
 msgid "Licensing"
 msgstr "Licenza"
 
-#: includes/Dashboard/Settings.php:87
+#: includes/Dashboard/Settings.php:90
 msgid "Generated video subtitles: "
 msgstr "Sottotitoli generati: "
 
-#: includes/Dashboard/Settings.php:93
+#: includes/Dashboard/Settings.php:96
 msgid "Video time spent: "
 msgstr "Tempo video utilizzato: "
 
-#: includes/Dashboard/Settings.php:95
+#: includes/Dashboard/Settings.php:98
 msgid " hours"
 msgstr " ore"
 
-#: includes/Dashboard/Settings.php:125
+#: includes/Dashboard/Settings.php:127
 msgid "Payment successful"
 msgstr "Pagamento effettuato"
 
-#: includes/Dashboard/Settings.php:128
+#: includes/Dashboard/Settings.php:130
 msgid "Payment information updated"
 msgstr "Metodo di pagamento aggiornato"
 
-#: includes/Dashboard/Settings.php:131
+#: includes/Dashboard/Settings.php:133
 msgid "License key sent, check your email!"
 msgstr "Licenza inviata, controlla l'email!"
 
-#: includes/Dashboard/Settings.php:134
+#: includes/Dashboard/Settings.php:136
 msgid "Unsubscription successful"
 msgstr "Iscrizione annullata con successo"
 
-#: includes/Dashboard/Settings.php:158
+#: includes/Dashboard/Settings.php:160
 msgid "Automatic renewal: "
 msgstr "Rinnovo automatico: "
 
-#: includes/Dashboard/Settings.php:160
+#: includes/Dashboard/Settings.php:162
 msgid ""
 "You requested the subscription cancellation. Your plan will be valid until  "
 msgstr ""
 "Hai richiesto la cancellazione dell'abbonamento. Il tuo piano sarà valido "
 "fino al "
 
-#: includes/Dashboard/Settings.php:173
+#: includes/Dashboard/Settings.php:175
 msgid "Unsubscribe"
 msgstr "Annulla l'iscrizione"
 
-#: includes/Dashboard/Settings.php:176
+#: includes/Dashboard/Settings.php:178
 msgid "Update email or payment detail"
 msgstr "Aggiorna email o dettagli pagamento"
 
-#: includes/Dashboard/Settings.php:179
+#: includes/Dashboard/Settings.php:181
 msgid "Modify plan"
 msgstr "Modifica piano"
 
-#: includes/Dashboard/Settings.php:210
+#: includes/Dashboard/Settings.php:212
 msgid "Unable to update. Expired product license."
 msgstr "Impossibile aggiornare. Licenza del prodotto scaduta."
 
-#: includes/Dashboard/Settings.php:211
+#: includes/Dashboard/Settings.php:213
 msgid "Unable to update. Invalid product license."
 msgstr "Impossibile aggiornare. Licenza del prodotto non valida."
 
-#: includes/Dashboard/Settings.php:212
+#: includes/Dashboard/Settings.php:214
 msgid ""
 "An error occurred while updating licence. Please try again in a few minutes."
 msgstr ""
 "Si è verificato un errore durante l'aggiornamento della licenza. Riprova di "
 "nuovo tra qualche minuto."
 
-#: includes/Dashboard/Settings.php:213
+#: includes/Dashboard/Settings.php:215
 msgid "Could not contact the server."
 msgstr "Impossibile contattare il server."
 
-#: includes/Dashboard/Settings.php:214
+#: includes/Dashboard/Settings.php:216
 msgid "An error occurred."
 msgstr "Si è verificato un errore."
 
-#: includes/Dashboard/Settings.php:229
+#: includes/Dashboard/Settings.php:231
 msgid "Valid product license. Subscription plan updated."
 msgstr "Licenza del prodotto valida. Piano di abbonamento aggiornato."
 
-#: includes/Dashboard/Settings.php:288
+#: includes/Dashboard/Settings.php:290
 msgid "Unlock more features!"
 msgstr "Sblocca più funzionalità!"
 
-#: includes/Dashboard/Settings.php:293
+#: includes/Dashboard/Settings.php:295
 msgid "Upgrade"
 msgstr ""
 
-#: includes/Dashboard/Settings.php:300
+#: includes/Dashboard/Settings.php:302
 msgid "License Number"
 msgstr "Numero licenza"
 
-#: includes/Dashboard/Settings.php:307
+#: includes/Dashboard/Settings.php:309
 msgid "License key"
 msgstr "Licenza"
 
-#: includes/Dashboard/Settings.php:309
+#: includes/Dashboard/Settings.php:311
 msgid "Please enter the license key you received after successful checkout"
 msgstr ""
 "Inserisci la chiave di licenza ricevuta dopo aver effettuato il checkout"
 
-#: includes/Dashboard/Settings.php:330
+#: includes/Dashboard/Settings.php:332
 msgid "Reset license key"
 msgstr "Reset Licenza"
+
+#: includes/Dashboard/Settings.php:350
+msgid "now!"
+msgstr " "
 
 #: includes/Dashboard/Templates/cancel_template.php:33
 msgid "Are you sure you want to unsubscribe?"
@@ -431,10 +435,12 @@ msgstr "In bozza"
 msgid "Published"
 msgstr "Pubblicati"
 
-#: includes/MediaLibrary/ListingSubtitles.php:46 build/index.js:587
+#: includes/MediaLibrary/ListingSubtitles.php:46
+#: includes/MediaLibrary/MediaLibraryExtented.php:83
+#: includes/MediaLibrary/MediaLibraryExtented.php:183 build/index.js:587
 #: src/block/labels.js:16
 msgid "None"
-msgstr ""
+msgstr "Nessuno"
 
 #: includes/MediaLibrary/MediaLibraryExtented.php:104
 #: includes/MediaLibrary/MediaLibraryExtented.php:146
