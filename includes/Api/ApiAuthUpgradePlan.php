@@ -74,9 +74,7 @@ class ApiAuthUpgradePlan {
 		update_option( 'ear2words_wanted_plan', false );
 
 		$message = array(
-			'message' => array(
-				'status'    => '200',
-				'title'     => 'Plan to upgrade',
+			'data' => array(
 				'plan_code' => $plan_to_upgrade,
 			),
 		);
