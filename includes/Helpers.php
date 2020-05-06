@@ -1,6 +1,6 @@
 <?php
 /**
- * This file handless some helper methods.
+ * This file handles a class of helper methods.
  *
  * @author     Nicola Palermo
  * @since      1.0.0
@@ -10,7 +10,7 @@
 namespace Ear2Words;
 
 /**
- * This class handles some helper methods.
+ * This class handles some helper methods used throughout the plugin.
  */
 class Helpers {
 
