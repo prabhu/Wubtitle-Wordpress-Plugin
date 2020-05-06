@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-05-04T18:40:51+02:00\n"
+"POT-Creation-Date: 2020-05-06T15:05:39+02:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: ear2words\n"
@@ -74,37 +74,44 @@ msgstr ""
 msgid "Bad gateway"
 msgstr ""
 
-#: includes/Api/ApiPricingPlan.php:49
-#: includes/Api/ApiPricingPlan.php:104
-#: includes/Api/ApiPricingPlan.php:147
+#: includes/Api/ApiPricingPlan.php:32
+#: includes/Api/ApiPricingPlan.php:94
+#: includes/Api/ApiPricingPlan.php:152
+#: includes/Api/ApiPricingPlan.php:195
 msgid "An error occurred. Please try again in a few minutes."
 msgstr ""
 
-#: includes/Api/ApiPricingPlan.php:59
-#: includes/Api/ApiPricingPlan.php:110
+#: includes/Api/ApiPricingPlan.php:44
+#: includes/Api/ApiPricingPlan.php:104
+#: includes/Api/ApiPricingPlan.php:158
 #: includes/Api/ApiRequest.php:96
 msgid "Unable to create subtitles. The product license key is missing."
 msgstr ""
 
-#: includes/Api/ApiPricingPlan.php:80
-#: includes/Api/ApiPricingPlan.php:81
-#: includes/Api/ApiPricingPlan.php:128
-#: includes/Api/ApiPricingPlan.php:129
-#: includes/Api/ApiPricingPlan.php:169
+#: includes/Api/ApiPricingPlan.php:59
+#: includes/Api/ApiPricingPlan.php:60
+#: includes/Api/ApiPricingPlan.php:125
+#: includes/Api/ApiPricingPlan.php:126
+#: includes/Api/ApiPricingPlan.php:176
+#: includes/Api/ApiPricingPlan.php:177
+#: includes/Api/ApiPricingPlan.php:217
 msgid "An error occurred. Please try again in a few minutes"
 msgstr ""
 
-#: includes/Api/ApiPricingPlan.php:82
-#: includes/Api/ApiPricingPlan.php:130
-#: includes/Api/ApiPricingPlan.php:170
+#: includes/Api/ApiPricingPlan.php:61
+#: includes/Api/ApiPricingPlan.php:127
+#: includes/Api/ApiPricingPlan.php:178
+#: includes/Api/ApiPricingPlan.php:218
 msgid "Access denied"
 msgstr ""
 
-#: includes/Api/ApiPricingPlan.php:83
-#: includes/Api/ApiPricingPlan.php:84
-#: includes/Api/ApiPricingPlan.php:131
-#: includes/Api/ApiPricingPlan.php:132
-#: includes/Api/ApiPricingPlan.php:171
+#: includes/Api/ApiPricingPlan.php:62
+#: includes/Api/ApiPricingPlan.php:63
+#: includes/Api/ApiPricingPlan.php:128
+#: includes/Api/ApiPricingPlan.php:129
+#: includes/Api/ApiPricingPlan.php:179
+#: includes/Api/ApiPricingPlan.php:180
+#: includes/Api/ApiPricingPlan.php:219
 #: includes/Api/ApiRequest.php:115
 msgid "Could not contact the server"
 msgstr ""
@@ -289,6 +296,8 @@ msgid "Return to free version"
 msgstr ""
 
 #: includes/Dashboard/Templates/cancel_template.php:37
+#: includes/Dashboard/Templates/downgrade_plan_template.php:54
+#: includes/Dashboard/Templates/upgrade_plan_template.php:54
 msgid "Forget it"
 msgstr ""
 
@@ -299,6 +308,26 @@ msgstr ""
 #: includes/Dashboard/Templates/cancel_template.php:57
 #: includes/Dashboard/Templates/payment_template.php:43
 msgid "Per month"
+msgstr ""
+
+#: includes/Dashboard/Templates/downgrade_plan_template.php:34
+msgid "Subscription plan downgrade"
+msgstr ""
+
+#: includes/Dashboard/Templates/downgrade_plan_template.php:35
+msgid "Downgrading now, you will earn a credit that will be billed to you at the next charge"
+msgstr ""
+
+#: includes/Dashboard/Templates/downgrade_plan_template.php:42
+msgid " credit earnings"
+msgstr ""
+
+#: includes/Dashboard/Templates/downgrade_plan_template.php:51
+msgid "The subtitles already created and the minutes already used will be counted on the new subscription plan"
+msgstr ""
+
+#: includes/Dashboard/Templates/downgrade_plan_template.php:53
+msgid "Downgrade Now"
 msgstr ""
 
 #: includes/Dashboard/Templates/payment_template.php:29
@@ -385,6 +414,22 @@ msgstr ""
 #: includes/Dashboard/Templates/plans_array.php:82
 #: includes/Dashboard/Templates/plans_array.php:92
 msgid "Your plan"
+msgstr ""
+
+#: includes/Dashboard/Templates/upgrade_plan_template.php:35
+msgid "Subscription plan upgrade"
+msgstr ""
+
+#: includes/Dashboard/Templates/upgrade_plan_template.php:36
+msgid "Upgrading now, for the first month you are entired to a partial refund of previous monthly subscription plan"
+msgstr ""
+
+#: includes/Dashboard/Templates/upgrade_plan_template.php:45
+msgid "Only for first month (Until "
+msgstr ""
+
+#: includes/Dashboard/Templates/upgrade_plan_template.php:55
+msgid "Upgrade Now"
 msgstr ""
 
 #: includes/MediaLibrary/ListingSubtitles.php:42
