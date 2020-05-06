@@ -33,7 +33,7 @@ body {
     line-height: 32px;
     font-family: 'Days One', sans-serif;
 }
-  
+
 .row {
     margin-bottom: 30px;
     display: flex;
@@ -198,14 +198,17 @@ body {
 .unsubscribe-section {
     color: #FFFFFF;
 }
+.confirm-change-section {
+  width: 100%;
+}
 
-.unsubscribe-section .buttons {
+.unsubscribe-section .buttons , .confirm-change-section .buttons {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.unsubscribe-section .buttons .button {
+.unsubscribe-section .buttons .button , .confirm-change-section .buttons .button {
     width: 20%;
     padding: 10px;
     margin: 10px;
@@ -220,7 +223,7 @@ body {
     font-family: 'Days One', sans-serif;
 }
 
-.unsubscribe-section .buttons .unsubscribe {
+.unsubscribe-section .buttons .unsubscribe, .confirm-change-section .buttons .unsubscribe {
     border: 2px #FFFF00 ;
     border-style: solid;
     background: none;
@@ -231,4 +234,53 @@ body {
     text-align: center;
     color: #ffffff;
     height: 30px;
+}
+
+.card_plan {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  height: 72px;
+}
+
+.margin_medium {
+  margin-top: 68px;
+}
+.old_price {
+  font-size: 45px;
+  color: #FFFFFF;
+  opacity: 0.6;
+  position: relative;
+  display: inline-block;
+}
+.old_price::before {
+  content: '';
+  width: 100%;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  border-bottom: 3px solid #FFFF00;
+  -webkit-transform: skewY(-20deg);
+  --transform: skewY(-20deg);
+}
+.new_price {
+  margin-left: 28px;
+  font-size: 56px;
+  color: #FFFF00;
+}
+.refund{
+  font-size: 24px;
+  color: #FFFF00;
+}
+.confirm-paragraph{
+  color:#FFFFFF;
+  text-align: center;
+  margin-bottom: 16px;
+}
+.arrowup{
+  width: 100%;
+  margin-top: 30px;
+}
+.arrowdown{
+  width: 100%;
 }

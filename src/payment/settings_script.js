@@ -12,6 +12,10 @@ function cancelPayment(){
 	BuyLicenseWindow.close();
 	showBuyLicenseWindow();
 }
+function confirmPlanChange(){
+	BuyLicenseWindow.close();
+	confirmPlanChangeWindow();
+}
 /* eslint-enable */
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -92,6 +96,33 @@ const showBuyLicenseWindow = () => {
         `;
 		wp.ajax
 			.send("payment_template", {
+				type: "GET"
+			})
+			.done(response => {
+				BuyLicenseWindow = window.open(
+					"",
+					"Buy-license",
+					windowFeatures
+				);
+				BuyLicenseWindow.document.write(response);
+			});
+	} else {
+		BuyLicenseWindow.focus();
+		return BuyLicenseWindow;
+	}
+};
+
+const confirmPlanChangeWindow = () => {
+	if (BuyLicenseWindow === null || BuyLicenseWindow.closed) {
+		const windowFeatures = `
+            left=500,
+            top=200,
+            width=1200,
+            height=700,
+            scrollbars=yes,
+        `;
+		wp.ajax
+			.send("change_plan_template", {
 				type: "GET"
 			})
 			.done(response => {

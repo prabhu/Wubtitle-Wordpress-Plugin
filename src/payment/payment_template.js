@@ -21,6 +21,9 @@ const paymentModule = (function(Stripe, document) {
 			.then(resp => resp.json())
 			.then(response => {
 				if (response.success) {
+					if (response.data === "upgrade_plan_success") {
+						window.opener.confirmPlanChange();
+					}
 					openStripeForm(response.data, stripe);
 				} else {
 					document.getElementById("error-message").innerHTML =
@@ -38,7 +41,6 @@ const paymentModule = (function(Stripe, document) {
 			}),
 			body: `action=cancel_subscription&_ajax_nonce=${nonce}`
 		}).then(() => {
-			window.opener.redirectToCallback("notices-code=delete");
 			window.close();
 		});
 	};
@@ -62,6 +64,7 @@ const paymentModule = (function(Stripe, document) {
 		}
 		if (closeButton) {
 			closeButton.addEventListener("click", () => {
+				window.opener.redirectToCallback("notices-code=delete");
 				window.close();
 			});
 		}
