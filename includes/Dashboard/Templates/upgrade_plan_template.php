@@ -11,19 +11,10 @@
  * Pagina per l'upgrade.
  */
 require EAR2WORDS_DIR . 'includes/Dashboard/Templates/plans_array.php';
-
-$current_plan = get_option( 'ear2words_plan' );
-if ( 'plan_HBBbNjLjVk3w4w' === $current_plan ) {
-	$current_plan = 1;
-} elseif ( 'plan_HBBS5I9usXvwQR' === $current_plan ) {
-	$current_plan = 2;
-}
-$wanted_plan = get_option( 'ear2words_wanted_plan' );
-if ( 'plan_HBBbNjLjVk3w4w' === $wanted_plan ) {
-	$wanted_plan = 1;
-} elseif ( 'plan_HBBS5I9usXvwQR' === $wanted_plan ) {
-	$wanted_plan = 2;
-}
+$plan           = get_option( 'ear2words_plan' );
+$current_plan   = $map_plans_array[ $plan ];
+$plan           = get_option( 'ear2words_wanted_plan' );
+$wanted_plan    = $map_plans_array[ $plan ];
 $data           = get_option( 'ear2words_expiration_date' );
 $data           = date_i18n( get_option( 'date_format' ), $data );
 $amount_preview = get_option( 'ear2words_amount_preview' );

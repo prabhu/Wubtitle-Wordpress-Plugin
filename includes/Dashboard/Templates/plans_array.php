@@ -102,3 +102,9 @@ switch ( get_option( 'ear2words_plan' ) ) {
 		$plans[2]['zoom'] = true;
 		break;
 }
+
+$map_plans_array = array(
+	'plan_0'              => 0,
+	'plan_HBBbNjLjVk3w4w' => 1,
+	'plan_HBBS5I9usXvwQR' => 2,
+);

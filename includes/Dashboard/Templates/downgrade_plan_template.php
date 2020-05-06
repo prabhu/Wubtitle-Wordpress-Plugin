@@ -12,18 +12,10 @@
  */
 require EAR2WORDS_DIR . 'includes/Dashboard/Templates/plans_array.php';
 
-$current_plan = get_option( 'ear2words_plan' );
-if ( 'plan_HBBbNjLjVk3w4w' === $current_plan ) {
-	$current_plan = 1;
-} elseif ( 'plan_HBBS5I9usXvwQR' === $current_plan ) {
-	$current_plan = 2;
-}
-$wanted_plan = get_option( 'ear2words_wanted_plan' );
-if ( 'plan_HBBbNjLjVk3w4w' === $wanted_plan ) {
-	$wanted_plan = 1;
-} elseif ( 'plan_0' === $wanted_plan ) {
-	$wanted_plan = 0;
-}
+$plan           = get_option( 'ear2words_plan' );
+$current_plan   = $map_plans_array[ $plan ];
+$plan           = get_option( 'ear2words_wanted_plan' );
+$wanted_plan    = $map_plans_array[ $plan ];
 $amount_preview = get_option( 'ear2words_amount_preview' );
 ?>
 <!DOCTYPE html>
