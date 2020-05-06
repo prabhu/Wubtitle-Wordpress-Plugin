@@ -36,6 +36,7 @@ class ApiPricingPlan {
 			'data' => array(
 				'planId'    => $pricing_plan,
 				'domainUrl' => $site_url,
+				'siteLang'  => explode( '_', get_locale(), 2 )[0],
 			),
 		);
 	}
@@ -61,6 +62,7 @@ class ApiPricingPlan {
 		if ( ! get_option( 'ear2words_free' ) ) {
 			$url_endpoint = ENDPOINT . 'stripe/customer/update';
 			$body['type'] = 'plan';
+			unset( $body['data']['siteLang'] );
 		}
 		$response      = wp_remote_post(
 			$url_endpoint,
