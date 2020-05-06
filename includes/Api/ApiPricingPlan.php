@@ -65,6 +65,8 @@ class ApiPricingPlan {
 		if ( 200 !== $code_response ) {
 			wp_send_json_error( $message[ $code_response ] );
 		}
+		delete_option( 'ear2words_amount_preview' );
+		delete_option( 'ear2words_wanted_plan' );
 		wp_send_json_success();
 	}
 	/**
