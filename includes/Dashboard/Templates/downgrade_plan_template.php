@@ -57,8 +57,8 @@ if ( 'plan_HBBbNjLjVk3w4w' === $wanted_plan ) {
 		<div class="confirm-change-section">
 			<p class="confirm-paragraph"> <?php esc_html_e( 'The subtitles already created and the minutes already used will be counted on the new subscription plan', 'ear2words' ); ?> </p>
 			<div class="buttons">
-				<div class="button unsubscribe" ><?php esc_html_e( 'Downgrade Now', 'ear2words' ); ?></div>
-				<div class="button" ><?php esc_html_e( 'Forget it', 'ear2words' ); ?></div>
+				<div class="button unsubscribe" id="confirm_changes"><?php esc_html_e( 'Downgrade Now', 'ear2words' ); ?></div>
+				<div class="button" id="forget" ><?php esc_html_e( 'Forget it', 'ear2words' ); ?></div>
 			</div>
 		</div>
 	</div>
@@ -70,7 +70,7 @@ if ( 'plan_HBBbNjLjVk3w4w' === $wanted_plan ) {
 	}
 	</script>
 	<script src="https://js.stripe.com/v3/"></script>
-	<script src="<?php echo esc_url(EAR2WORDS_URL . 'src/payment/payment_template.js'); ?>"></script>
+	<script src="<?php echo esc_url(EAR2WORDS_URL . 'src/payment/change_plan_script.js'); ?>"></script>
 	<?php // phpcs:enable ?>
 </body>
 </html>

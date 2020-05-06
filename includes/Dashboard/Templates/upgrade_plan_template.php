@@ -24,8 +24,9 @@ if ( 'plan_HBBbNjLjVk3w4w' === $wanted_plan ) {
 } elseif ( 'plan_HBBS5I9usXvwQR' === $wanted_plan ) {
 	$wanted_plan = 2;
 }
-$data = get_option( 'ear2words_expiration_date' );
-$data = date_i18n( get_option( 'date_format' ), $data );
+$data           = get_option( 'ear2words_expiration_date' );
+$data           = date_i18n( get_option( 'date_format' ), $data );
+$amount_preview = get_option( 'ear2words_amount_preview' );
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -48,7 +49,7 @@ $data = date_i18n( get_option( 'date_format' ), $data );
 				<h1 class="title" > <?php echo esc_html( $plans[ $current_plan ]['name'] ); ?> </h1>
 			</div>
 			<div class="column one-quarter">
-				<h1 style="text-align:center"> <span class="old_price"><?php echo esc_html( $plans[ $wanted_plan ]['price'] ); ?></span> <span class="new_price">32$</span> </h1>
+				<h1 style="text-align:center"> <span class="old_price"><?php echo esc_html( $plans[ $wanted_plan ]['price'] ); ?></span> <span class="new_price"> <?php echo esc_html( $amount_preview . '€' ); ?></span> </h1>
 				<img class="arrowup" src="<?php echo esc_url( EAR2WORDS_URL . 'src/img/arrowup.svg' ); ?>">
 				<p style="color:#FFFFFF"> <?php echo esc_html( __( 'Only for first month (Until ', 'ear2words' ) . $data . ')' ); ?> </p>
 			</div>
@@ -59,8 +60,8 @@ $data = date_i18n( get_option( 'date_format' ), $data );
 		</div>
 		<div class="confirm-change-section">
 			<div class="buttons">
-				<div class="button unsubscribe" ><?php echo esc_html_e( 'Forget it', 'ear2words' ); ?></div>
-				<div class="button" ><?php echo esc_html_e( 'Upgrade Now', 'ear2words' ); ?></div>
+				<div class="button unsubscribe" id="forget" ><?php echo esc_html_e( 'Forget it', 'ear2words' ); ?></div>
+				<div class="button" id="confirm_changes" ><?php echo esc_html_e( 'Upgrade Now', 'ear2words' ); ?></div>
 			</div>
 		</div>
 	</div>
@@ -72,7 +73,7 @@ $data = date_i18n( get_option( 'date_format' ), $data );
 	}
 	</script>
 	<script src="https://js.stripe.com/v3/"></script>
-	<script src="<?php echo esc_url(EAR2WORDS_URL . 'src/payment/payment_template.js'); ?>"></script>
+	<script src="<?php echo esc_url(EAR2WORDS_URL . 'src/payment/change_plan_script.js'); ?>"></script>
 	<?php // phpcs:enable ?>
 </body>
 </html>
