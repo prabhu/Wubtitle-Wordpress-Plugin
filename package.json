@@ -22,6 +22,8 @@
   },
   "dependencies": {
     "@wordpress/api-fetch": "^3.11.0",
-    "@wordpress/i18n": "^3.10.0"
+    "@wordpress/i18n": "^3.10.0",
+    "browserify": "^16.5.1",
+    "puppeteer": "^3.0.2"
   }
 }

@@ -52,6 +52,8 @@ class YouTube {
 					<button id="youtube-subtitles-button" class="button-primary" >
 						<?php echo esc_html( 'Get subtitles' ); ?>
 					</button>
+					<div id="test">
+					</div>
 				</div>
 			</div>
 		</div>
