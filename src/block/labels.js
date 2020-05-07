@@ -46,11 +46,33 @@ const selectOptions = [
 const selectOptionsFreePlan = [
 	{
 		value: "it",
-		label: __("Italian", "ear2words")
+		label: __("Italian", "ear2words"),
+		disabled: false
 	},
 	{
 		value: "en",
-		label: __("English", "ear2words")
+		label: __("English", "ear2words"),
+		disabled: false
+	},
+	{
+		value: "es",
+		label: __("Spanish (Pro only)", "ear2words"),
+		disabled: true
+	},
+	{
+		value: "de",
+		label: __("German (Pro only)", "ear2words"),
+		disabled: true
+	},
+	{
+		value: "zh",
+		label: __("Chinese (Pro only)", "ear2words"),
+		disabled: true
+	},
+	{
+		value: "fr",
+		label: __("French (Pro only)", "ear2words"),
+		disabled: true
 	}
 ];
 

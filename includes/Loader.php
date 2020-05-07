@@ -39,6 +39,8 @@ class Loader {
 			'cron'                    => Core\Cron::class,
 			'register_callback_pages' => Dashboard\RegisterStripeCallbackPages::class,
 			'widgets'                 => Dashboard\Widgets::class,
+			'api_auth_plan'           => Api\ApiAuthUpgradePlan::class,
+			'helpers'                 => Helpers::class,
 		);
 
 		foreach ( $classes as $key => $class ) {

@@ -46,6 +46,7 @@ class Settings {
 	 * Crea la pagina dei settings
 	 */
 	public function render_settings_page() {
+		Loader::get( 'cron' )->get_remote_data();
 		$plans        = array(
 			'plan_0'              => __( 'Free Plan', 'ear2words' ),
 			'plan_HBBbNjLjVk3w4w' => __( 'Standard Plan', 'ear2words' ),
@@ -65,12 +66,14 @@ class Settings {
 		?>
 		<div class="wrap">
 			<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
-			<img class="logo" src="<?php echo esc_url( EAR2WORDS_URL . 'src/img/logo.svg' ); ?>">
 			<form action="options.php" method="post">
-			<?php
-			settings_errors();
-			submit_button();
-			?>
+			<div class="form-header">
+				<img class="logo" src="<?php echo esc_url( EAR2WORDS_URL . 'src/img/logo.svg' ); ?>">
+				<?php
+				settings_errors();
+				submit_button();
+				?>
+			</div>
 			<div class="postbox">
 				<h2 class="hndle ui-sortable-handle e2w-title" ><span><?php esc_html_e( 'Licensing', 'ear2words' ); ?></span></h2>
 				<div class="inside">
@@ -116,12 +119,11 @@ class Settings {
 	public function check_notice_stripe() {
 		$message = false;
 		// phpcs:disable
-		if ( empty( $_GET['notices-code'] ) ) {
+		if ( empty( $_GET['notices-code'] ) || isset( $_GET['settings-updated'] ) ) {
 			return;
 		}
 		switch ( $_GET['notices-code'] ) {
 			case 'payment':
-				Loader::get( 'cron' )->get_remote_data();
 				$message = __( 'Payment successful', 'ear2words' );
 				break;
 			case 'update':
@@ -345,7 +347,7 @@ class Settings {
 		<button id="buy-license-button" class="button-primary" >
 			<?php echo esc_html( $args['name'] ); ?>
 		</button>
-		<p style="display:inline; margin-left:4px;"> now! </p>
+		<p style="display:inline; margin-left:4px;"> <?php esc_html_e( 'now!', 'ear2words' ); ?> </p>
 		<?php
 	}
 

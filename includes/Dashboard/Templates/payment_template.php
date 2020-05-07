@@ -40,7 +40,7 @@ require EAR2WORDS_DIR . 'includes/Dashboard/Templates/plans_array.php';
 						<img class="card__logo" src="<?php echo esc_url( EAR2WORDS_URL . 'src/img/' . $plan['icon'] ); ?>">
 					</div>
 					<div class="card__price">
-						<?php echo esc_html_e( 'Per year', 'ear2words' ); ?>
+						<?php echo esc_html_e( 'Per month', 'ear2words' ); ?>
 						<p class="price">
 							<?php echo esc_html( '€' . $plan['price'] ); ?>
 						</p>
@@ -49,8 +49,8 @@ require EAR2WORDS_DIR . 'includes/Dashboard/Templates/plans_array.php';
 					foreach ( $plan['features'] as $key => $feature ) :
 						?>
 					<p class="card__features">
-						<span><?php echo esc_html( $key ); ?></span>							
-						<?php echo esc_html( $feature ); ?>						
+						<span><?php echo esc_html( $key ); ?></span>
+						<?php echo esc_html( $feature ); ?>
 					</p>
 						<?php
 					endforeach;
