@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is a template.
+ * Pagina per la conferma dell'upgrade del piano.
  *
  * @author     Nicola Palermo
  * @since      0.1.0
@@ -8,7 +8,7 @@
  */
 
 /**
- * This is a template.
+ * Pagina per l'upgrade del piano.
  */
 require EAR2WORDS_DIR . 'includes/Dashboard/Templates/plans_array.php';
 
@@ -25,7 +25,7 @@ require EAR2WORDS_DIR . 'includes/Dashboard/Templates/plans_array.php';
 	<?php // phpcs:enable ?>
 </head>
 <body>
-	<div class="container">
+	<div class="container" id="content">
 		<h1 class="title"><?php echo esc_html_e( 'Choose the right plan for your project', 'ear2words' ); ?></h1>
 		<div class="row">
 		<?php

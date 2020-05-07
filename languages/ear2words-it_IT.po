@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ear2Words 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-ear2words\n"
-"POT-Creation-Date: 2020-05-04T18:40:51+02:00\n"
-"PO-Revision-Date: 2020-05-04 18:41+0200\n"
+"POT-Creation-Date: 2020-05-06T15:05:39+02:00\n"
+"PO-Revision-Date: 2020-05-06 15:26+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -76,30 +76,32 @@ msgstr ""
 msgid "Bad gateway"
 msgstr ""
 
-#: includes/Api/ApiPricingPlan.php:49 includes/Api/ApiPricingPlan.php:104
-#: includes/Api/ApiPricingPlan.php:147
+#: includes/Api/ApiPricingPlan.php:32 includes/Api/ApiPricingPlan.php:94
+#: includes/Api/ApiPricingPlan.php:152 includes/Api/ApiPricingPlan.php:195
 msgid "An error occurred. Please try again in a few minutes."
 msgstr "Si è verificato un errore. Riprova di nuovo tra qualche minuto."
 
-#: includes/Api/ApiPricingPlan.php:59 includes/Api/ApiPricingPlan.php:110
-#: includes/Api/ApiRequest.php:96
+#: includes/Api/ApiPricingPlan.php:44 includes/Api/ApiPricingPlan.php:104
+#: includes/Api/ApiPricingPlan.php:158 includes/Api/ApiRequest.php:96
 msgid "Unable to create subtitles. The product license key is missing."
 msgstr "Impossibile creare i sottotitoli. La  licenza del prodotto è assente."
 
-#: includes/Api/ApiPricingPlan.php:80 includes/Api/ApiPricingPlan.php:81
-#: includes/Api/ApiPricingPlan.php:128 includes/Api/ApiPricingPlan.php:129
-#: includes/Api/ApiPricingPlan.php:169
+#: includes/Api/ApiPricingPlan.php:59 includes/Api/ApiPricingPlan.php:60
+#: includes/Api/ApiPricingPlan.php:125 includes/Api/ApiPricingPlan.php:126
+#: includes/Api/ApiPricingPlan.php:176 includes/Api/ApiPricingPlan.php:177
+#: includes/Api/ApiPricingPlan.php:217
 msgid "An error occurred. Please try again in a few minutes"
 msgstr "Si è verificato un errore.  Riprova di nuovo tra qualche minuto"
 
-#: includes/Api/ApiPricingPlan.php:82 includes/Api/ApiPricingPlan.php:130
-#: includes/Api/ApiPricingPlan.php:170
+#: includes/Api/ApiPricingPlan.php:61 includes/Api/ApiPricingPlan.php:127
+#: includes/Api/ApiPricingPlan.php:178 includes/Api/ApiPricingPlan.php:218
 msgid "Access denied"
 msgstr "Accesso negato"
 
-#: includes/Api/ApiPricingPlan.php:83 includes/Api/ApiPricingPlan.php:84
-#: includes/Api/ApiPricingPlan.php:131 includes/Api/ApiPricingPlan.php:132
-#: includes/Api/ApiPricingPlan.php:171 includes/Api/ApiRequest.php:115
+#: includes/Api/ApiPricingPlan.php:62 includes/Api/ApiPricingPlan.php:63
+#: includes/Api/ApiPricingPlan.php:128 includes/Api/ApiPricingPlan.php:129
+#: includes/Api/ApiPricingPlan.php:179 includes/Api/ApiPricingPlan.php:180
+#: includes/Api/ApiPricingPlan.php:219 includes/Api/ApiRequest.php:115
 msgid "Could not contact the server"
 msgstr "Impossibile contattare il server"
 
@@ -306,8 +308,10 @@ msgid "Return to free version"
 msgstr "Ritorna alla versione free"
 
 #: includes/Dashboard/Templates/cancel_template.php:37
+#: includes/Dashboard/Templates/downgrade_plan_template.php:54
+#: includes/Dashboard/Templates/upgrade_plan_template.php:54
 msgid "Forget it"
-msgstr ""
+msgstr "Annulla"
 
 #: includes/Dashboard/Templates/cancel_template.php:43
 msgid "Or choose another plan"
@@ -317,6 +321,34 @@ msgstr "O scegli un'altro piano"
 #: includes/Dashboard/Templates/payment_template.php:43
 msgid "Per month"
 msgstr "Per mese"
+
+#: includes/Dashboard/Templates/downgrade_plan_template.php:34
+msgid "Subscription plan downgrade"
+msgstr "Modifica piano di abbonamento"
+
+#: includes/Dashboard/Templates/downgrade_plan_template.php:35
+msgid ""
+"Downgrading now, you will earn a credit that will be billed to you at the "
+"next charge"
+msgstr ""
+"Scegliendo un piano di abbonamento inferiore, guadagnerai un credito che "
+"verrà utilizzato al pagamento successivo"
+
+#: includes/Dashboard/Templates/downgrade_plan_template.php:42
+msgid " credit earnings"
+msgstr " di credito"
+
+#: includes/Dashboard/Templates/downgrade_plan_template.php:51
+msgid ""
+"The subtitles already created and the minutes already used will be counted "
+"on the new subscription plan"
+msgstr ""
+"I sottotitoli già creati e i minuti già utilizzati verranno conteggiati nel "
+"nuovo piano di abbonamento"
+
+#: includes/Dashboard/Templates/downgrade_plan_template.php:53
+msgid "Downgrade Now"
+msgstr "Modifica piano"
 
 #: includes/Dashboard/Templates/payment_template.php:29
 msgid "Choose the right plan for your project"
@@ -409,6 +441,27 @@ msgstr ""
 #: includes/Dashboard/Templates/plans_array.php:92
 msgid "Your plan"
 msgstr "Il tuo piano"
+
+#: includes/Dashboard/Templates/upgrade_plan_template.php:35
+msgid "Subscription plan upgrade"
+msgstr "Modifica piano di abbonamento"
+
+#: includes/Dashboard/Templates/upgrade_plan_template.php:36
+msgid ""
+"Upgrading now, for the first month you are entired to a partial refund of "
+"previous monthly subscription plan"
+msgstr ""
+"Scegliendo un piano di abbonamento superiore, per il primo mese verrà "
+"applicato uno sconto pari al credito residuo della mensilità "
+"dell'abbonamento precedente"
+
+#: includes/Dashboard/Templates/upgrade_plan_template.php:45
+msgid "Only for first month (Until "
+msgstr "Solo per il primo mese (Fino al "
+
+#: includes/Dashboard/Templates/upgrade_plan_template.php:55
+msgid "Upgrade Now"
+msgstr "Modifica piano"
 
 #: includes/MediaLibrary/ListingSubtitles.php:42
 #: includes/MediaLibrary/MediaLibraryExtented.php:80

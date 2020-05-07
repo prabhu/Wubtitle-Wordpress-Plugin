@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name:     Ear2Words
+ * Plugin Name:     Wubtitle
  * Plugin URI:      PLUGIN SITE HERE
  * Description:     Plugin che crea dei sottotitoli per ogni video
  * Author:          CTMobi

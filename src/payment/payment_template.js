@@ -21,14 +21,10 @@ const paymentModule = (function(Stripe, document) {
 			.then(resp => resp.json())
 			.then(response => {
 				if (response.success) {
-					if (response.data === "upgrade_plan_success") {
-						window.opener.location.reload(false);
-						window.close();
+					if (response.data === "change_plan") {
+						window.opener.confirmPlanChange();
 					}
 					openStripeForm(response.data, stripe);
-				} else {
-					document.getElementById("error-message").innerHTML =
-						response.data;
 				}
 			});
 	};
