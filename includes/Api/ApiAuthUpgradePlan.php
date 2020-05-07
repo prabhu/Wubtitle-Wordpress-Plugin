@@ -71,7 +71,6 @@ class ApiAuthUpgradePlan {
 	 */
 	public function return_plan() {
 		$plan_to_upgrade = get_option( 'ear2words_wanted_plan' );
-		update_option( 'ear2words_wanted_plan', false );
 
 		$data = array(
 			'data' => array(
