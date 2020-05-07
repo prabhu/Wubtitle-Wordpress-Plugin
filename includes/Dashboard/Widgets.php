@@ -3,7 +3,7 @@
  * This file handles the dashboard widgets
  *
  * @author     Nicola Palermo
- * @since      0.1.0
+ * @since      1.0.0
  * @package    Ear2Words\Dashboard
  */
 
