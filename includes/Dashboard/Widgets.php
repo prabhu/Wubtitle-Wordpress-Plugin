@@ -1,6 +1,6 @@
 <?php
 /**
- * This file describes handle Templates.
+ * This file handles the dashboard widgets
  *
  * @author     Nicola Palermo
  * @since      0.1.0
@@ -10,7 +10,7 @@
 namespace Ear2Words\Dashboard;
 
 /**
- * This class handle Payment Templates .
+ * This class handles the necessary methods to handle the widgets in the dashboard.
  */
 class Widgets {
 	/**
@@ -21,14 +21,14 @@ class Widgets {
 	}
 
 	/**
-	 * Include il template.
+	 * Aggiunge un nuovo widget.
 	 */
 	public function add_e2w_dashboard_widget() {
 		wp_add_dashboard_widget( 'e2w_dashboard_widget', __( 'E2W Widget', 'ear2words' ), array( $this, 'e2w_dashboard_widget' ) );
 	}
 
 	/**
-	 * Include il template.
+	 * Genera il template del widget.
 	 */
 	public function e2w_dashboard_widget() {
 		?>
