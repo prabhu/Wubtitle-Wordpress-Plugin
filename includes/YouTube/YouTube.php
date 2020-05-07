@@ -9,6 +9,7 @@
 
 namespace Ear2Words\YouTube;
 
+// phpcs:disable
 /**
  * This class handle YouTube functions.
  */
@@ -17,10 +18,25 @@ class YouTube {
 	 * Init class actions.
 	 */
 	public function run() {
-		add_action( 'wp_head', array( $this, 'register_service_worker' ) );
 		add_action( 'admin_menu', array( $this, 'create_settings_menu' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'e2w_youtube_scripts' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'ear2words_youtube_style' ) );
+		add_action( 'wp_ajax_get_info_yt', array( $this, 'get_info' ) );
+	}
+
+	public function get_info() {
+		$id_video = $_POST['id'];
+
+		$get_info_url = "https://www.youtube.com/get_video_info?video_id=$id_video";
+
+		$file_info = array();
+		$file      = file_get_contents( $get_info_url );
+		parse_str( $file, $file_info );
+
+		$url = json_decode( $file_info['player_response'] )->captions->playerCaptionsTracklistRenderer->captionTracks[0]->baseUrl;
+
+		wp_send_json_success( $url . '&fmt=json3&xorb=2&xobt=3&xovt=3' );
+		wp_die();
 	}
 
 	/**
@@ -43,16 +59,13 @@ class YouTube {
 				<h2 class="hndle ui-sortable-handle e2w-title" ><span><?php esc_html_e( 'Youtube', 'ear2words' ); ?></span></h2>
 				<div class="inside">
 					<input type="text" id="youtube-url">
-					<button id="youtube-iframe-button" class="button-primary" >
-						<?php echo esc_html( 'Carica Video' ); ?>
+					<button id="youtube-button" class="button-primary" >
+						<?php echo esc_html( 'Get Subtitle' ); ?>
 					</button>
-					<hr>
 					<div id="video-embed">
 					</div>
-					<button id="youtube-subtitles-button" class="button-primary" >
-						<?php echo esc_html( 'Get subtitles' ); ?>
-					</button>
-					<div id="test">
+					<hr>
+					<div id="text">
 					</div>
 				</div>
 			</div>
@@ -77,14 +90,19 @@ class YouTube {
 	 */
 	public function e2w_youtube_scripts( $hook ) {
 		if ( 'toplevel_page_ear2words_youtube' === $hook ) {
-			wp_enqueue_script( 'youtube_scripts', EAR2WORDS_URL . '/src/youtube/youtube_script.js', null, EAR2WORDS_VER, true );
+			wp_enqueue_script( 'wp-util' );
+			wp_enqueue_script( 'youtube_scripts', EAR2WORDS_URL . '/src/youtube/youtube_script.js', array( 'wp-util' ), EAR2WORDS_VER, true );
+			wp_localize_script(
+				'youtube_scripts',
+				'youtube_object',
+				array(
+					'ajax_url'  => admin_url( 'admin-ajax.php' ),
+					'ajaxnonce' => wp_create_nonce( 'itr_ajax_nonce' ),
+				)
+			);
 		}
 	}
 
-	/**
-	 * Includo gli script.
-	 */
-	public function register_service_worker() {
-	}
-
 }
+
+// phpcs:enable

@@ -57,10 +57,6 @@
 }
 
 
-#test {
-  width: 500px;
-  height: 500px;
-  background-color: gray;
-  overflow: hidden;
-  display: none;
+#video-embed, #text {
+  margin: 20px 0;
 }
