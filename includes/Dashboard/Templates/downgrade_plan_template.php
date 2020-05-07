@@ -33,7 +33,7 @@ $amount_preview = -$amount_preview;
 <body>
 	<div class="container">
 		<h1 class="title"><?php esc_html_e( 'Subscription plan downgrade', 'ear2words' ); ?></h1>
-		<p style="color:#FFFFFF"> <?php esc_html_e( 'Downgrading now, you will earn a credit that will be billed to you at the next charge', 'ear2words' ); ?> </p>
+		<p class="paragraph-center"> <?php esc_html_e( 'Downgrading now, you will earn a credit that will be billed to you at the next charge', 'ear2words' ); ?> </p>
 		<div class="row margin_medium">
 			<div class="column one-quarter">
 				<img class="card_plan" src="<?php echo esc_url( EAR2WORDS_URL . 'src/img/' . $plans[ $wanted_plan ]['icon'] ); ?>">

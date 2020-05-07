@@ -33,16 +33,16 @@ $amount_preview = get_option( 'ear2words_amount_preview' );
 <body>
 	<div class="container">
 		<h1 class="title"><?php esc_html_e( 'Subscription plan upgrade', 'ear2words' ); ?></h1>
-		<p style="color:#FFFFFF"> <?php esc_html_e( 'Upgrading now, for the first month you are entired to a partial refund of previous monthly subscription plan', 'ear2words' ); ?> </p>
+		<p class="paragraph-center"> <?php esc_html_e( 'Upgrading now, for the first month you are entired to a partial refund of previous monthly subscription plan', 'ear2words' ); ?> </p>
 		<div class="row margin_medium">
 			<div class="column one-quarter">
 				<img class="card_plan" src="<?php echo esc_url( EAR2WORDS_URL . 'src/img/' . $plans[ $current_plan ]['icon'] ); ?>">
 				<h1 class="title" > <?php echo esc_html( $plans[ $current_plan ]['name'] ); ?> </h1>
 			</div>
 			<div class="column one-quarter">
-				<h1 style="text-align:center"> <span class="old_price"><?php echo esc_html( $plans[ $wanted_plan ]['price'] ); ?></span> <span class="new_price"> <?php echo esc_html( $amount_preview . '€' ); ?></span> </h1>
+				<h1 style="text-align:center"> <span class="old_price"><?php echo esc_html( $plans[ $wanted_plan ]['price'] . '€' ); ?></span> <span class="new_price"> <?php echo esc_html( $amount_preview . '€' ); ?></span> </h1>
 				<img class="arrowup" src="<?php echo esc_url( EAR2WORDS_URL . 'src/img/arrowup.svg' ); ?>">
-				<p style="color:#FFFFFF"> <?php echo esc_html( __( 'Only for first month (Until ', 'ear2words' ) . $data . ')' ); ?> </p>
+				<p class="paragraph-center"> <?php echo esc_html( __( 'Only for first month (Until ', 'ear2words' ) . $data . ')' ); ?> </p>
 			</div>
 			<div class="column one-quarter">
 				<img class="card_plan" src="<?php echo esc_url( EAR2WORDS_URL . 'src/img/' . $plans[ $wanted_plan ]['icon'] ); ?>">
