@@ -9,6 +9,8 @@
 
 namespace Ear2Words\Dashboard;
 
+use Ear2Words\Loader;
+
 /**
  * This class handles the necessary methods to handle the widgets in the dashboard.
  */
@@ -31,10 +33,25 @@ class Widgets {
 	 * Genera il template del widget.
 	 */
 	public function e2w_dashboard_widget() {
+		Loader::get( 'cron' )->get_remote_data();
 		?>
-		<h2>E2W widget</h2>
+		<h2> <?php echo esc_html( __( 'Your plan: ', 'ear2words' ) . $this->current_plan() ); ?></h2>
 		<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora, maxime.</p>
 		<?php
+	}
+
+	/**
+	 * Genera.
+	 */
+	private function current_plan() {
+		$plans        = array(
+			'plan_0'              => __( 'Free Plan', 'ear2words' ),
+			'plan_HBBbNjLjVk3w4w' => __( 'Standard Plan', 'ear2words' ),
+			'plan_HBBS5I9usXvwQR' => __( 'Elite Plan', 'ear2words' ),
+		);
+		$plan_saved   = get_option( 'ear2words_plan' );
+		$current_plan = array_key_exists( $plan_saved, $plans ) ? $plans[ $plan_saved ] : '';
+		return esc_html( $current_plan );
 	}
 
 }
