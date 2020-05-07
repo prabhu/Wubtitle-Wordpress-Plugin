@@ -38,7 +38,7 @@ const paymentModule = (function(Stripe, document) {
 			}),
 			body: `action=cancel_subscription&_ajax_nonce=${nonce}`
 		}).then(() => {
-			window.close();
+			window.opener.redirectToCallback("notices-code=delete");
 		});
 	};
 
@@ -61,7 +61,6 @@ const paymentModule = (function(Stripe, document) {
 		}
 		if (closeButton) {
 			closeButton.addEventListener("click", () => {
-				window.opener.redirectToCallback("notices-code=delete");
 				window.close();
 			});
 		}
