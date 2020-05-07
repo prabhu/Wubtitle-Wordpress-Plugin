@@ -11,11 +11,6 @@
  * Pagina per il downgrade.
  */
 require EAR2WORDS_DIR . 'includes/Dashboard/Templates/plans_array.php';
-
-$plan           = get_option( 'ear2words_plan' );
-$current_plan   = $map_plans_array[ $plan ];
-$plan           = get_option( 'ear2words_wanted_plan' );
-$wanted_plan    = $map_plans_array[ $plan ];
 $amount_preview = (float) get_option( 'ear2words_amount_preview' );
 $amount_preview = -$amount_preview;
 ?>

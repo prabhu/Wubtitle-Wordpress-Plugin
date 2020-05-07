@@ -27,15 +27,17 @@ class PaymentTemplate {
 	 * Include il template che viene caricato nella finestra popup per l'acquisto della licenza al click del bottone "acquista".
 	 */
 	public function change_plan_template() {
-		$plans         = array(
+		$map_plans     = array(
 			'plan_0'              => 0,
 			'plan_HBBbNjLjVk3w4w' => 1,
 			'plan_HBBS5I9usXvwQR' => 2,
 		);
-		$current_plan  = get_option( 'ear2words_plan' );
-		$wanted_plan   = get_option( 'ear2words_wanted_plan' );
+		$plan          = get_option( 'ear2words_plan' );
+		$current_plan  = $map_plans[ $plan ];
+		$plan          = get_option( 'ear2words_wanted_plan' );
+		$wanted_plan   = $map_plans[ $plan ];
 		$includes_file = 'Templates/downgrade_plan_template.php';
-		if ( $plans[ $wanted_plan ] > $plans[ $current_plan ] ) {
+		if ( $wanted_plan > $current_plan ) {
 			$includes_file = 'Templates/upgrade_plan_template.php';
 		}
 		if ( current_user_can( 'manage_options' ) ) {
