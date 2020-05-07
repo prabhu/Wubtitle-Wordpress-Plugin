@@ -24,7 +24,7 @@ class Widgets {
 	 * Include il template.
 	 */
 	public function add_e2w_dashboard_widget() {
-		wp_add_dashboard_widget( 'e2w_dashboard_widget', __( 'E2W Widget', 'ear2words' ), 'e2w_dashboard_widget' );
+		wp_add_dashboard_widget( 'e2w_dashboard_widget', __( 'E2W Widget', 'ear2words' ), array( $this, 'e2w_dashboard_widget' ) );
 	}
 
 	/**
