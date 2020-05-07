@@ -36,7 +36,19 @@ class Widgets {
 		Loader::get( 'cron' )->get_remote_data();
 		?>
 		<h2> <?php echo esc_html( __( 'Your plan: ', 'ear2words' ) . $this->current_plan() ); ?></h2>
-		<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora, maxime.</p>
+		<h4>Gli ultimi Jobs:</h4>
+		<?php
+		$jobs = $this->get_last_jobs();
+		foreach ( $jobs as  $video ) {
+			?>
+			<p>
+				<?php echo esc_html( __( 'Video: ', 'ear2words' ) ); ?>
+				<a href="<?php echo esc_html( get_edit_post_link( $video->ID ) ); ?>"><?php echo esc_html( $video->post_name ); ?></a> 
+				- <?php echo esc_html( __( 'Status: ', 'ear2words' ) . $video->ear2words_status ); ?>
+			</p>			
+			<?php
+		}
+		?>
 		<?php
 	}
 
@@ -52,6 +64,18 @@ class Widgets {
 		$plan_saved   = get_option( 'ear2words_plan' );
 		$current_plan = array_key_exists( $plan_saved, $plans ) ? $plans[ $plan_saved ] : '';
 		return esc_html( $current_plan );
+	}
+
+	/**
+	 * Ottiene gli ultimi job richiesti.
+	 */
+	private function get_last_jobs() {
+		$args = array(
+			'post_type'      => 'attachment',
+			'posts_per_page' => 5,
+			'meta_key'       => 'ear2words_status',
+		);
+		return get_posts( $args );
 	}
 
 }
