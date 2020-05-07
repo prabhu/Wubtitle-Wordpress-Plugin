@@ -20,6 +20,7 @@ class ApiPricingPlan {
 		add_action( 'wp_ajax_submit_plan', array( $this, 'send_plan' ) );
 
 		add_action( 'wp_ajax_reset_license', array( $this, 'reset_license' ) );
+		add_action( 'wp_ajax_reactivate_plan', array( $this, 'reactivate_plan' ) );
 		add_action( 'wp_ajax_update_payment_method', array( $this, 'update_payment_method' ) );
 		add_action( 'wp_ajax_change_plan', array( $this, 'change_plan' ) );
 	}
@@ -67,6 +68,40 @@ class ApiPricingPlan {
 		}
 		delete_option( 'ear2words_amount_preview' );
 		delete_option( 'ear2words_wanted_plan' );
+		wp_send_json_success();
+	}
+	/**
+	 * Chima l'endpoint per fare la riattivazione del piano.
+	 */
+	public function reactivate_plan() {
+		if ( ! isset( $_POST['_ajax_nonce'] ) ) {
+			wp_send_json_error( __( 'An error occurred. Please try again in a few minutes.', 'ear2words' ) );
+		}
+		$nonce = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
+		check_ajax_referer( 'itr_ajax_nonce', $nonce );
+		$license_key = get_option( 'ear2words_license_key' );
+		if ( empty( $license_key ) ) {
+			wp_send_json_error( __( 'Unable to create subtitles. The product license key is missing.', 'ear2words' ) );
+		}
+		$response      = wp_remote_post(
+			ENDPOINT . 'stripe/customer/reactivate',
+			array(
+				'method'  => 'POST',
+				'headers' => array(
+					'licenseKey' => $license_key,
+				),
+			)
+		);
+		$code_response = $this->is_successful_response( $response ) ? wp_remote_retrieve_response_code( $response ) : '500';
+		$message       = array(
+			'400' => __( 'An error occurred. Please try again in a few minutes', 'ear2words' ),
+			'403' => __( 'Access denied', 'ear2words' ),
+			'500' => __( 'Could not contact the server', 'ear2words' ),
+		);
+		if ( 200 !== $code_response ) {
+			wp_send_json_error( $message[ $code_response ] );
+		}
+		update_option( 'ear2words_is_reactivating', true );
 		wp_send_json_success();
 	}
 	/**

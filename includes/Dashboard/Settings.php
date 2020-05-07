@@ -181,6 +181,12 @@ class Settings {
 				<?php esc_html_e( 'Modify plan', 'ear2words' ); ?>
 			</a>
 			<?php
+		} elseif ( $cancelling ) {
+			?>
+			<a id="reactivate-plan-button" style="text-decoration: underline;" >
+				<?php esc_html_e( 'Reactivate plan', 'ear2words' ); ?>
+			</a>
+			<?php
 		}
 	}
 
