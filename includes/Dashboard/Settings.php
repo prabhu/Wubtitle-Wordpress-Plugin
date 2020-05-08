@@ -186,7 +186,7 @@ class Settings {
 			<?php
 		} elseif ( $cancelling ) {
 			?>
-			<a id="reactivate-plan-button" style="text-decoration: underline;" >
+			<a href="#" id="reactivate-plan-button" style="text-decoration: underline;" >
 				<?php esc_html_e( 'Reactivate plan', 'ear2words' ); ?>
 			</a>
 			<?php

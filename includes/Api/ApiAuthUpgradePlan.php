@@ -38,7 +38,7 @@ class ApiAuthUpgradePlan {
 		);
 	}
 	/**
-	 * Crea nuova rotta REST.
+	 * Crea un endpoint rest per la riattivazione del piano.
 	 */
 	public function register_reactivate_plan_route() {
 		register_rest_route(

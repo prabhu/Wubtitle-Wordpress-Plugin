@@ -74,7 +74,6 @@ class ApiPricingPlan {
 	 * Chima l'endpoint per fare la riattivazione del piano.
 	 */
 	public function reactivate_plan() {
-		update_option( 'ear2words_is_reactivating', true );
 		if ( ! isset( $_POST['_ajax_nonce'] ) ) {
 			wp_send_json_error( __( 'An error occurred. Please try again in a few minutes.', 'ear2words' ) );
 		}
@@ -84,6 +83,7 @@ class ApiPricingPlan {
 		if ( empty( $license_key ) ) {
 			wp_send_json_error( __( 'Unable to create subtitles. The product license key is missing.', 'ear2words' ) );
 		}
+		update_option( 'ear2words_is_reactivating', true );
 		$response      = wp_remote_post(
 			ENDPOINT . 'stripe/customer/reactivate',
 			array(
