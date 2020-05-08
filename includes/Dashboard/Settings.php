@@ -135,6 +135,9 @@ class Settings {
 			case 'delete':
 				$message = __( 'Unsubscription successful', 'ear2words' );
 				break;
+			case 'reactivate':
+				$message = __( 'Reactivation of the plan successful', 'ear2words' );
+				break;
 		}
 		if ( ! $message ) {
 			return;

@@ -195,11 +195,12 @@ const reactivateFunction = () => {
 		headers: new Headers({
 			"Content-Type": "application/x-www-form-urlencoded"
 		}),
-		body: `action=reactivate_plane&_ajax_nonce=${settings_object.ajaxnonce}`
+		body: `action=reactivate_plan&_ajax_nonce=${settings_object.ajaxnonce}`
 	})
 		.then(resp => resp.json())
 		.then(response => {
 			if (response.success) {
+				redirectToCallback("notices-code=reactivate");
 			}
 		});
 };

@@ -77,7 +77,7 @@ class ApiAuthUpgradePlan {
 
 			return $response;
 		}
-		$is_reactivating = get_option( 'ear2words_is_reactivating' );
+		$is_reactivating = (bool) get_option( 'ear2words_is_reactivating' );
 		update_option( 'ear2words_is_reactivating', false );
 		$message = array(
 			'data' => array(

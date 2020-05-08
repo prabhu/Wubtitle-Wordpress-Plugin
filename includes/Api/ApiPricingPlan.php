@@ -74,6 +74,7 @@ class ApiPricingPlan {
 	 * Chima l'endpoint per fare la riattivazione del piano.
 	 */
 	public function reactivate_plan() {
+		update_option( 'ear2words_is_reactivating', true );
 		if ( ! isset( $_POST['_ajax_nonce'] ) ) {
 			wp_send_json_error( __( 'An error occurred. Please try again in a few minutes.', 'ear2words' ) );
 		}
@@ -101,7 +102,6 @@ class ApiPricingPlan {
 		if ( 200 !== $code_response ) {
 			wp_send_json_error( $message[ $code_response ] );
 		}
-		update_option( 'ear2words_is_reactivating', true );
 		wp_send_json_success();
 	}
 	/**
