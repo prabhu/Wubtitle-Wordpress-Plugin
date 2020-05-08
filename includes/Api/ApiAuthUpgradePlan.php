@@ -84,12 +84,7 @@ class ApiAuthUpgradePlan {
 				'is_reactivating' => $is_reactivating,
 			),
 		);
-
-		$response = new WP_REST_Response( $message );
-
-		$response->set_status( 200 );
-
-		return $response;
+		return $message;
 	}
 
 	/**

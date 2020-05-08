@@ -71,7 +71,7 @@ class ApiPricingPlan {
 		wp_send_json_success();
 	}
 	/**
-	 * Chima l'endpoint per fare la riattivazione del piano.
+	 * Chiama l'endpoint per fare la riattivazione del piano.
 	 */
 	public function reactivate_plan() {
 		if ( ! isset( $_POST['_ajax_nonce'] ) ) {
