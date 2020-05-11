@@ -41,6 +41,7 @@ class Loader {
 			'api_auth_plan'           => Api\ApiAuthUpgradePlan::class,
 			'helpers'                 => Helpers::class,
 			'transcript_cpt'          => Core\CustomPostTypes\Transcript::class,
+			'youtube'                 => YouTube\YouTube::class,
 		);
 
 		foreach ( $classes as $key => $class ) {

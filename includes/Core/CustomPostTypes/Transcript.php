@@ -19,13 +19,13 @@ class Transcript {
 	public function run() {
 		add_action( 'init', array( $this, 'register_transcript_cpt' ) );
 
-		add_action( 'add_meta_boxes', array( $this, 'wporg_add_custom_box' ) );
+		add_action( 'add_meta_boxes', array( $this, 'add_source_box' ) );
 
-		add_action( 'add_meta_boxes', array( $this, 'wporg_add_custom_box2' ) );
+		add_action( 'add_meta_boxes', array( $this, 'add_youtube_box' ) );
 
-		add_action( 'save_post', array( $this, 'wporg_save_postdata' ) );
+		add_action( 'save_post', array( $this, 'save_postdata' ) );
 
-		add_filter( 'use_block_editor_for_post_type', array( $this, 'prefix_disable_gutenberg' ), 10, 2 );
+		add_filter( 'use_block_editor_for_post_type', array( $this, 'disable_gutenberg' ), 10, 2 );
 	}
 
 	/**
@@ -34,7 +34,7 @@ class Transcript {
 	 * @param string $current_status renewal date.
 	 * @param string $post_type renewal date.
 	 */
-	public function prefix_disable_gutenberg( $current_status, $post_type ) {
+	public function disable_gutenberg( $current_status, $post_type ) {
 		if ( 'transcript' === $post_type ) {
 			return false;
 		}
@@ -44,11 +44,11 @@ class Transcript {
 	/**
 	 * Init class actions.
 	 */
-	public function wporg_add_custom_box() {
+	public function add_source_box() {
 		add_meta_box(
-			'wporg_box_id',
-			'Custom Meta Box Title',
-			array( $this, 'wporg_custom_box_html' ),
+			'source_meta_box',
+			'Source',
+			array( $this, 'source_box_html' ),
 			'transcript'
 		);
 	}
@@ -56,64 +56,59 @@ class Transcript {
 	/**
 	 * Init class actions.
 	 */
-	public function wporg_add_custom_box2() {
-		add_meta_box(
-			'wporg_box_id2',
-			'Custom Meta Box Title',
-			array( $this, 'wporg_custom_box_html2' ),
-			'transcript'
-		);
+	public function add_youtube_box() {
+		if ( get_post_meta( get_the_ID(), '_transcript_source', true ) === 'youtube' || ! get_post_meta( get_the_ID(), '_transcript_source', true ) ) {
+			add_meta_box(
+				'youtube_meta_box',
+				'Youtube',
+				array( $this, 'youtube_box_html' ),
+				'transcript'
+			);
+		}
 	}
 
 	/**
 	 * Init class actions.
 	 */
-	public function wporg_custom_box_html() {
+	public function source_box_html() {
 		?>
-			<label for="wporg_field">Description for this field</label>  
-			<ul>
-				<li>
-					<label class="selected">
-						<input type="radio" id="acf-field_5eb9098287f3c" name="acf[field_5eb9098287f3c]" value="Youtube">Youtube
-					</label>
-				</li>
-				<li>
-					<label>
-						<input type="radio" id="acf-field_5eb9098287f3c-Media Locali" name="acf[field_5eb9098287f3c]" value="Media Locali">Media Locali
-					</label>
-				</li>
-			</ul>
-			<?php wp_nonce_field( 'transcript_nonce' ); ?>
+			<p>Source: <?php echo get_post_meta( get_the_ID(), '_transcript_source', true ) ? esc_html( get_post_meta( get_the_ID(), '_transcript_source', true ) ) : esc_html( 'youtube' ); ?> </p>
+			<input type="hidden" id="source" name="source" value="<?php echo get_post_meta( get_the_ID(), '_transcript_source', true ) ? esc_html( get_post_meta( get_the_ID(), '_transcript_source', true ) ) : esc_html( 'youtube' ); ?>">
+			<input type="hidden" id="nonce" name="nonce" value="<?php echo esc_html( wp_create_nonce( 'nonce' ) ); ?>">
 		<?php
 	}
 
-		/**
-		 * Init class actions.
-		 */
-	public function wporg_custom_box_html2() {
+	/**
+	 * Init class actions.
+	 */
+	public function youtube_box_html() {
 		?>
-			<label for="wporg_field">Description for this field</label>  
-			<div class="acf-input">
-				<div class="acf-input-wrap">
-					<input type="text" id="acf-field_5eb904f23eb5d" name="acf[field_5eb904f23eb5d]" placeholder="es f34rt3f" required="required">
-					<button class="button button-primary button-large">Get Transcript</button>
+			<label for="url">ID Video
+				<div>
+					<input type="text" id="youtube-url" name="url" placeholder="Insert id" value="<?php echo esc_html( get_post_meta( get_the_ID(), '_transcript_youtube_id', true ) ); ?>">
+					<div id="youtube-button" class="button button-primary">Get Transcript</div>
+					<span id="message"><!-- from JS --></span>					
 				</div>
-			</div>
-			<?php wp_nonce_field( 'transcript_nonce' ); ?>
+			</label>
 		<?php
 	}
+
 	/**
 	 * Init class actions.
 	 *
 	 *  @param string $post_id renewal date.
-	 *  @param string $retrieved_nonce renewal date.
 	 */
-	public function wporg_save_postdata( $post_id, $retrieved_nonce ) {
-		if ( array_key_exists( 'wporg_field', $_POST ) && wp_verify_nonce( $retrieved_nonce, 'transcript_nonce' ) ) {
+	public function save_postdata( $post_id ) {
+		if ( array_key_exists( 'source', $_POST ) || array_key_exists( 'url', $_POST ) && isset( $_POST['nonce'] ) && wp_verify_nonce( sanitize_key( $_POST['nonce'] ) ) ) {
 			update_post_meta(
 				$post_id,
-				'_wporg_meta_key',
-				sanitize_text_field( wp_unslash( $_POST['wporg_field'] ) )
+				'_transcript_youtube_id',
+				sanitize_text_field( wp_unslash( $_POST['url'] ) )
+			);
+			update_post_meta(
+				$post_id,
+				'_transcript_source',
+				sanitize_text_field( wp_unslash( $_POST['source'] ) )
 			);
 		}
 	}
