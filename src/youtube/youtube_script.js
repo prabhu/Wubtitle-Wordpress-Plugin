@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", () => {
 	const button = document.querySelector("#youtube-button");
 	button.addEventListener("click", () => {
 		document.querySelector("#message").innerHTML = "Getting transcript...";
@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function() {
 		wp.ajax
 			.send("get_info_yt", {
 				type: "POST",
-				data: { id, nonce: "dfve" }
+				data: { id, nonce: "nonce" }
 			})
 			.then(response => {
 				if (response === "error") {
