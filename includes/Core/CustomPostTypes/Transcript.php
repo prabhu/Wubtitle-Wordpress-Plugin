@@ -18,7 +18,72 @@ class Transcript {
 	 */
 	public function run() {
 		add_action( 'init', array( $this, 'register_transcript_cpt' ) );
+
+		add_action( 'add_meta_boxes', array( $this, 'wporg_add_custom_box' ) );
+
+		add_action( 'save_post', array( $this, 'wporg_save_postdata' ) );
+
+		add_filter( 'use_block_editor_for_post_type', array( $this, 'prefix_disable_gutenberg' ), 10, 2 );
 	}
+
+	/**
+	 * Init class actions.
+	 *
+	 * @param string $current_status renewal date.
+	 * @param string $post_type renewal date.
+	 */
+	public function prefix_disable_gutenberg( $current_status, $post_type ) {
+		if ( 'transcript' === $post_type ) {
+			return false;
+		}
+		return $current_status;
+	}
+
+	/**
+	 * Init class actions.
+	 */
+	public function wporg_add_custom_box() {
+		add_meta_box(
+			'wporg_box_id',
+			'Custom Meta Box Title',
+			array( $this, 'wporg_custom_box_html' ),
+			'transcript'
+		);
+	}
+
+	/**
+	 * Init class actions.
+	 *
+	 * @param string $post renewal date.
+	 */
+	public function wporg_custom_box_html( $post ) {
+		?>
+			<label for="wporg_field">Description for this field</label>
+			<select name="wporg_field" id="wporg_field" class="postbox">            	
+				<?php wp_nonce_field( 'transcript_nonce' ); ?>
+				<option value=""><?php echo esc_html( $post ); ?></option>
+				<option value="something">Something</option>
+				<option value="else">Else</option>
+			</select>
+		<?php
+	}
+
+	/**
+	 * Init class actions.
+	 *
+	 *  @param string $post_id renewal date.
+	 *  @param string $retrieved_nonce renewal date.
+	 */
+	public function wporg_save_postdata( $post_id, $retrieved_nonce ) {
+		if ( array_key_exists( 'wporg_field', $_POST ) && wp_verify_nonce( $retrieved_nonce, 'transcript_nonce' ) ) {
+			update_post_meta(
+				$post_id,
+				'_wporg_meta_key',
+				sanitize_text_field( wp_unslash( $_POST['wporg_field'] ) )
+			);
+		}
+	}
+
 
 	/**
 	 * Add new scedule cron.
@@ -84,12 +149,10 @@ class Transcript {
 			'query_var'             => true,
 			'menu_position'         => 83,
 			'menu_icon'             => 'dashicons-format-chat',
-			'supports'              => array( 'title', 'editor', 'thumbnail', 'excerpt', 'trackbacks', 'custom-fields', 'revisions', 'author', 'page-attributes', 'post-formats' ),
-			'taxonomies'            => array( 'category', 'post_tag' ),
+			'supports'              => array( 'title', 'editor', 'revisions' ),
 		);
 
 		register_post_type( 'transcript', $args );
 	}
-
 
 }
