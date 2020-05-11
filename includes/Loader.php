@@ -40,6 +40,7 @@ class Loader {
 			'register_callback_pages' => Dashboard\RegisterStripeCallbackPages::class,
 			'api_auth_plan'           => Api\ApiAuthUpgradePlan::class,
 			'helpers'                 => Helpers::class,
+			'trascription_block'      => Gutenberg\TranscriptionBlock::class,
 		);
 
 		foreach ( $classes as $key => $class ) {

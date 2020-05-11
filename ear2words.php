@@ -5,7 +5,7 @@
  * Description:     Plugin che crea dei sottotitoli per ogni video
  * Author:          CTMobi
  * Author URI:      YOUR SITE HERE
- * Text Domain:     ear2words
+ * Text Domain:     wubtitle
  * Domain Path:     /languages
  * Version:         1.0.0
  *
