@@ -10,3 +10,4 @@
  */
 
 import "./block/addSubtitleButton";
+import "./block/YoutubeBlock";
