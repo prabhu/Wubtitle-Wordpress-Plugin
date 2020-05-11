@@ -21,6 +21,8 @@ class Transcript {
 
 		add_action( 'add_meta_boxes', array( $this, 'wporg_add_custom_box' ) );
 
+		add_action( 'add_meta_boxes', array( $this, 'wporg_add_custom_box2' ) );
+
 		add_action( 'save_post', array( $this, 'wporg_save_postdata' ) );
 
 		add_filter( 'use_block_editor_for_post_type', array( $this, 'prefix_disable_gutenberg' ), 10, 2 );
@@ -53,21 +55,53 @@ class Transcript {
 
 	/**
 	 * Init class actions.
-	 *
-	 * @param string $post renewal date.
 	 */
-	public function wporg_custom_box_html( $post ) {
+	public function wporg_add_custom_box2() {
+		add_meta_box(
+			'wporg_box_id2',
+			'Custom Meta Box Title',
+			array( $this, 'wporg_custom_box_html2' ),
+			'transcript'
+		);
+	}
+
+	/**
+	 * Init class actions.
+	 */
+	public function wporg_custom_box_html() {
 		?>
-			<label for="wporg_field">Description for this field</label>
-			<select name="wporg_field" id="wporg_field" class="postbox">            	
-				<?php wp_nonce_field( 'transcript_nonce' ); ?>
-				<option value=""><?php echo esc_html( $post ); ?></option>
-				<option value="something">Something</option>
-				<option value="else">Else</option>
-			</select>
+			<label for="wporg_field">Description for this field</label>  
+			<ul>
+				<li>
+					<label class="selected">
+						<input type="radio" id="acf-field_5eb9098287f3c" name="acf[field_5eb9098287f3c]" value="Youtube">Youtube
+					</label>
+				</li>
+				<li>
+					<label>
+						<input type="radio" id="acf-field_5eb9098287f3c-Media Locali" name="acf[field_5eb9098287f3c]" value="Media Locali">Media Locali
+					</label>
+				</li>
+			</ul>
+			<?php wp_nonce_field( 'transcript_nonce' ); ?>
 		<?php
 	}
 
+		/**
+		 * Init class actions.
+		 */
+	public function wporg_custom_box_html2() {
+		?>
+			<label for="wporg_field">Description for this field</label>  
+			<div class="acf-input">
+				<div class="acf-input-wrap">
+					<input type="text" id="acf-field_5eb904f23eb5d" name="acf[field_5eb904f23eb5d]" placeholder="es f34rt3f" required="required">
+					<button class="button button-primary button-large">Get Transcript</button>
+				</div>
+			</div>
+			<?php wp_nonce_field( 'transcript_nonce' ); ?>
+		<?php
+	}
 	/**
 	 * Init class actions.
 	 *
@@ -156,3 +190,4 @@ class Transcript {
 	}
 
 }
+
