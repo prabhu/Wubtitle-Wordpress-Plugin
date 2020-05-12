@@ -58,6 +58,14 @@ document.addEventListener("DOMContentLoaded", function() {
 			showUpdatePlanWindow();
 		});
 	}
+
+	const reactivateButton = document.querySelector("#reactivate-plan-button");
+	if (reactivateButton) {
+		reactivateButton.addEventListener("click", e => {
+			e.preventDefault();
+			reactivateFunction();
+		});
+	}
 });
 const showUpdatePlanWindow = () => {
 	if (UpdatePlanWindow === null || UpdatePlanWindow.closed) {
@@ -177,6 +185,22 @@ const resetLicenseFunction = () => {
 		.then(response => {
 			if (response.success) {
 				redirectToCallback("notices-code=reset");
+			}
+		});
+};
+const reactivateFunction = () => {
+	fetch(settings_object.ajax_url, {
+		method: "POST",
+		credentials: "include",
+		headers: new Headers({
+			"Content-Type": "application/x-www-form-urlencoded"
+		}),
+		body: `action=reactivate_plan&_ajax_nonce=${settings_object.ajaxnonce}`
+	})
+		.then(resp => resp.json())
+		.then(response => {
+			if (response.success) {
+				redirectToCallback("notices-code=reactivate");
 			}
 		});
 };
