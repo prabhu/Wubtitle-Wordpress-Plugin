@@ -1,7 +1,8 @@
 import { registerBlockType } from "@wordpress/blocks";
 import { __ } from "@wordpress/i18n";
 import { withSelect } from "@wordpress/data";
-import { SelectControl } from "@wordpress/components";
+import { FormTokenField } from "@wordpress/components";
+import { useState } from "@wordpress/element";
 
 registerBlockType("wubtitle/transcription", {
 	title: __("Trascription", "ear2words"),
@@ -19,7 +20,7 @@ registerBlockType("wubtitle/transcription", {
 				per_page: -1
 			})
 		};
-	})(({ posts, attributes, setAttributes }) => {
+	})(({ posts, setAttributes }) => {
 		if (!posts) {
 			return __("Loading...", "ear2words");
 		}
@@ -27,24 +28,29 @@ registerBlockType("wubtitle/transcription", {
 		if (posts && posts.length === 0) {
 			return __("No transcriptions", "ear2words");
 		}
-		const options = [];
+		const options = new Map();
+		const suggestions = [];
 		for (let i = 0; i < posts.length; i++) {
-			const option = {
-				value: posts[i].id,
-				label: posts[i].title.rendered
-			};
-			options.push(option);
+			options.set(posts[i].title.rendered, posts[i].id);
+			suggestions[i] = posts[i].title.rendered;
 		}
-		if (attributes.content === undefined) {
-			const content = posts[0].id;
-			setAttributes({ content });
-		}
+		const [tokens, setTokens] = useState([]);
+		const setTokenFunction = token => {
+			if (token.length === 0) {
+				setTokens(token);
+			} else if (suggestions.includes(token[0])) {
+				const content = options.get(token[0]);
+				setTokens(token);
+				setAttributes({ content });
+			}
+		};
 		return (
-			<SelectControl
-				label={__("Select the transcription", "ear2words")}
-				value={attributes.content}
-				onChange={content => setAttributes({ content })}
-				options={options}
+			<FormTokenField
+				value={tokens}
+				suggestions={suggestions}
+				onChange={token => setTokenFunction(token)}
+				placeholder="Type a continent"
+				maxLength={1}
 			/>
 		);
 	}),
