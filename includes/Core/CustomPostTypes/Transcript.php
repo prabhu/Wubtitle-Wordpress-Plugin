@@ -118,7 +118,7 @@ class Transcript {
 
 
 	/**
-	 * Add new scedule cron.
+	 * Registra un nuovo post type.
 	 */
 	public function register_transcript_cpt() {
 		$labels = array(
