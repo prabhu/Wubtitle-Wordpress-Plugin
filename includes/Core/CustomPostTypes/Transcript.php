@@ -47,7 +47,7 @@ class Transcript {
 	public function add_source_box() {
 		add_meta_box(
 			'source_meta_box',
-			'Source',
+			__( 'Source', 'ear2words' ),
 			array( $this, 'source_box_html' ),
 			'transcript'
 		);
@@ -60,7 +60,7 @@ class Transcript {
 		if ( get_post_meta( get_the_ID(), '_transcript_source', true ) === 'youtube' || ! get_post_meta( get_the_ID(), '_transcript_source', true ) ) {
 			add_meta_box(
 				'youtube_meta_box',
-				'Youtube',
+				__( 'Youtube', 'ear2words' ),
 				array( $this, 'youtube_box_html' ),
 				'transcript'
 			);
@@ -72,7 +72,10 @@ class Transcript {
 	 */
 	public function source_box_html() {
 		?>
-			<p>Source: <?php echo get_post_meta( get_the_ID(), '_transcript_source', true ) ? esc_html( get_post_meta( get_the_ID(), '_transcript_source', true ) ) : esc_html( 'youtube' ); ?> </p>
+			<p>
+				<?php echo esc_html( __( 'Source:', 'ear2words' ) ); ?> 
+				<?php echo get_post_meta( get_the_ID(), '_transcript_source', true ) ? esc_html( get_post_meta( get_the_ID(), '_transcript_source', true ) ) : esc_html( 'youtube' ); ?>
+			</p>
 			<input type="hidden" id="source" name="source" value="<?php echo get_post_meta( get_the_ID(), '_transcript_source', true ) ? esc_html( get_post_meta( get_the_ID(), '_transcript_source', true ) ) : esc_html( 'youtube' ); ?>">
 			<input type="hidden" id="nonce" name="nonce" value="<?php echo esc_html( wp_create_nonce( 'nonce' ) ); ?>">
 		<?php
@@ -83,10 +86,10 @@ class Transcript {
 	 */
 	public function youtube_box_html() {
 		?>
-			<label for="url">ID Video
+			<label for="url"><?php echo esc_html( __( 'ID Video', 'ear2words' ) ); ?>
 				<div>
-					<input type="text" id="youtube-url" name="url" placeholder="Insert id" value="<?php echo esc_html( get_post_meta( get_the_ID(), '_transcript_youtube_id', true ) ); ?>">
-					<div id="youtube-button" class="button button-primary">Get Transcript</div>
+					<input type="text" id="youtube-url" name="url" placeholder="<?php echo esc_html( __( 'Insert video ID', 'ear2words' ) ); ?>" value="<?php echo esc_html( get_post_meta( get_the_ID(), '_transcript_youtube_id', true ) ); ?>">
+					<div id="youtube-button" class="button button-primary"><?php echo esc_html( __( 'Get transcript', 'ear2words' ) ); ?></div>
 					<span id="message"><!-- from JS --></span>					
 				</div>
 			</label>

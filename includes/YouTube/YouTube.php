@@ -66,7 +66,7 @@ class YouTube {
 
 				$file_info = array();
 
-				// TODO: phpcs mi invita ad usare wp_remote_get ma non funziona.
+				// TODO: warning di phpcs: mi invita ad usare wp_remote_get ma non funziona.
  				// phpcs:disable
 				$file      = file_get_contents( $get_info_url );
 				// phpcs:enable

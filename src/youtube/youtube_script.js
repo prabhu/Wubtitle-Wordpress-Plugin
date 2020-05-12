@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
 					document.querySelector("#message").innerHTML = "Error";
 				} else if (!response) {
 					document.querySelector("#message").innerHTML =
-						"Transcrizione non disponibile";
+						"Transcript not available";
 				} else {
 					fetch(response)
 						.then(res => res.json())
