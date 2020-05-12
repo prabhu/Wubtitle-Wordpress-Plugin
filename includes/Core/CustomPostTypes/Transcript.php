@@ -1,6 +1,6 @@
 <?php
 /**
- * This file describes handle WP_Cron functions.
+ * This file describes the transcript custom post type.
  *
  * @author     Nicola Palermo
  * @since      1.0.0
@@ -10,7 +10,7 @@
 namespace Ear2Words\Core\CustomPostTypes;
 
 /**
- * This class handle WP_Cron functions.
+ * This class handle the transcript custom post type methods.
  */
 class Transcript {
 	/**
@@ -29,10 +29,10 @@ class Transcript {
 	}
 
 	/**
-	 * Init class actions.
+	 * Disable Gutenber for transcript post type.
 	 *
-	 * @param string $current_status renewal date.
-	 * @param string $post_type renewal date.
+	 * @param string $current_status gutenberg status.
+	 * @param string $post_type post type transcript.
 	 */
 	public function disable_gutenberg( $current_status, $post_type ) {
 		if ( 'transcript' === $post_type ) {
@@ -42,7 +42,7 @@ class Transcript {
 	}
 
 	/**
-	 * Init class actions.
+	 * Aggiunge custom box per meta value source.
 	 */
 	public function add_source_box() {
 		add_meta_box(
@@ -54,7 +54,7 @@ class Transcript {
 	}
 
 	/**
-	 * Init class actions.
+	 * Aggiunge custom box per meta value id video.
 	 */
 	public function add_youtube_box() {
 		if ( get_post_meta( get_the_ID(), '_transcript_source', true ) === 'youtube' || ! get_post_meta( get_the_ID(), '_transcript_source', true ) ) {
@@ -68,7 +68,7 @@ class Transcript {
 	}
 
 	/**
-	 * Init class actions.
+	 * Render del box source.
 	 */
 	public function source_box_html() {
 		?>
@@ -79,7 +79,7 @@ class Transcript {
 	}
 
 	/**
-	 * Init class actions.
+	 * Render del box video youtube.
 	 */
 	public function youtube_box_html() {
 		?>
@@ -124,15 +124,15 @@ class Transcript {
 			'menu_name'                => __( 'Transcripts', 'ear2words' ),
 			'all_items'                => __( 'All transcripts', 'ear2words' ),
 			'add_new'                  => __( 'Add new', 'ear2words' ),
-			'add_new_item'             => __( 'Aggiungi nuovo Transcript', 'ear2words' ),
-			'edit_item'                => __( 'Modifica Transcript', 'ear2words' ),
-			'new_item'                 => __( 'Nuovo Transcript', 'ear2words' ),
-			'view_item'                => __( 'Visualizza Transcript', 'ear2words' ),
-			'view_items'               => __( 'Visualizza Transcripts', 'ear2words' ),
-			'search_items'             => __( 'Cerca Transcripts', 'ear2words' ),
+			'add_new_item'             => __( 'Add new transcript', 'ear2words' ),
+			'edit_item'                => __( 'Edit transcript', 'ear2words' ),
+			'new_item'                 => __( 'New transcript', 'ear2words' ),
+			'view_item'                => __( 'View transcript', 'ear2words' ),
+			'view_items'               => __( 'View transcripts', 'ear2words' ),
+			'search_items'             => __( 'Search transcripts', 'ear2words' ),
 			'not_found'                => __( 'No Transcripts found', 'ear2words' ),
 			'not_found_in_trash'       => __( 'No Transcripts found in trash', 'ear2words' ),
-			'parent'                   => __( 'Genitore Transcript:', 'ear2words' ),
+			'parent'                   => __( 'Parent transcript:', 'ear2words' ),
 			'featured_image'           => __( 'Featured image for this Transcript', 'ear2words' ),
 			'set_featured_image'       => __( 'Set featured image for this Transcript', 'ear2words' ),
 			'remove_featured_image'    => __( 'Remove featured image for this Transcript', 'ear2words' ),
@@ -150,7 +150,7 @@ class Transcript {
 			'item_reverted_to_draft'   => __( 'Transcript reverted to draft.', 'ear2words' ),
 			'item_scheduled'           => __( 'Transcript scheduled', 'ear2words' ),
 			'item_updated'             => __( 'Transcript updated.', 'ear2words' ),
-			'parent_item_colon'        => __( 'Genitore Transcript:', 'ear2words' ),
+			'parent_item_colon'        => __( 'Parent transcript:', 'ear2words' ),
 		);
 
 		$args = array(

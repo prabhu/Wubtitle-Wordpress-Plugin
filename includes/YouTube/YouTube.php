@@ -1,16 +1,16 @@
 <?php
 /**
- * This file describes handle Youtube functions.
+ * This file handles Youtube functions.
  *
  * @author     Nicola Palermo
- * @since      0.1.0
+ * @since      1.0.0
  * @package    Ear2Words\YouTube
  */
 
 namespace Ear2Words\YouTube;
 
 /**
- * This class handle YouTube functions.
+ * This class handles YouTube functions.
  */
 class YouTube {
 	/**
@@ -22,7 +22,7 @@ class YouTube {
 	}
 
 	/**
-	 * Effettua la chiamata all'endpoint e ritorna la risposta.
+	 * Effettua la chiamata all'endpoint.
 	 *
 	 * @param string $id_video il body della richiesta da inviare.
 	 */
@@ -65,9 +65,11 @@ class YouTube {
 				$get_info_url = "https://www.youtube.com/get_video_info?video_id=$id_video";
 
 				$file_info = array();
+
+				// TODO: phpcs mi invita ad usare wp_remote_get ma non funziona.
  				// phpcs:disable
 				$file      = file_get_contents( $get_info_url );
-				 // phpcs:enable
+				// phpcs:enable
 				parse_str( $file, $file_info );
 
 				$url = json_decode( $file_info['player_response'] )->captions->playerCaptionsTracklistRenderer->captionTracks[0]->baseUrl;
