@@ -10,6 +10,7 @@
 namespace Ear2Words\Core\CustomPostTypes;
 
 use \Ear2words\Core\Sources\YouTube;
+use Ear2Words\Helpers;
 
 /**
  * This class handle the transcript custom post type methods.
@@ -26,33 +27,22 @@ class Transcript {
 		add_filter( 'content_save_pre', array( $this, 'transcript_content' ) );
 
 		add_action( 'save_post_transcript', array( $this, 'save_postdata' ) );
-
-		add_filter( 'use_block_editor_for_post_type', array( $this, 'disable_gutenberg' ), 10, 2 );
 	}
 
-	/**
-	 * Disable Gutenberg for transcript post type.
-	 *
-	 * @param string $current_status gutenberg status.
-	 * @param string $post_type post type transcript.
-	 */
-	public function disable_gutenberg( $current_status, $post_type ) {
-		if ( 'transcript' === $post_type ) {
-			return false;
-		}
-		return $current_status;
-	}
 
 	/**
 	 * Aggiunge custom box per meta value source.
 	 */
 	public function add_source_box() {
-		add_meta_box(
-			'source_meta_box',
-			__( 'Source', 'ear2words' ),
-			array( $this, 'source_box_html' ),
-			'transcript'
-		);
+		$helpers = new Helpers();
+		if ( ! $helpers->is_gutenberg_active() ) {
+			add_meta_box(
+				'source_meta_box',
+				__( 'Source', 'ear2words' ),
+				array( $this, 'source_box_html' ),
+				'transcript'
+			);
+		}
 	}
 
 
