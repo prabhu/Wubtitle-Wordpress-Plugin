@@ -1,8 +1,9 @@
 import { registerBlockType } from "@wordpress/blocks";
 import { __ } from "@wordpress/i18n";
-import { withSelect } from "@wordpress/data";
+import { useSelect, withSelect } from "@wordpress/data";
 import { FormTokenField } from "@wordpress/components";
-import { useState } from "@wordpress/element";
+import { useState, useEffect } from "@wordpress/element";
+import { useDebounce } from "../helper/utils.js";
 
 registerBlockType("wubtitle/transcription", {
 	title: __("Trascription", "ear2words"),
@@ -15,10 +16,16 @@ registerBlockType("wubtitle/transcription", {
 		}
 	},
 	edit: withSelect(select => {
+		const query = {
+			per_page: 10,
+			search: "col"
+		};
 		return {
-			posts: select("core").getEntityRecords("postType", "transcript", {
-				per_page: -1
-			})
+			posts: select("core").getEntityRecords(
+				"postType",
+				"survay_product",
+				query
+			)
 		};
 	})(({ posts, setAttributes }) => {
 		if (!posts) {
@@ -28,13 +35,37 @@ registerBlockType("wubtitle/transcription", {
 		if (posts && posts.length === 0) {
 			return __("No transcriptions", "ear2words");
 		}
+
+		const [currentValue, setValue] = useState("");
+		const [postsCurrent, setPosts] = useState(posts);
+		const debouncedCurrentValue = useDebounce(currentValue, 500);
+		const { getEntityRecords } = useSelect(select => select("core"));
+		const searchItems = searchText => {
+			const query = {
+				per_page: -1,
+				search: searchText
+			};
+			const results = getEntityRecords(
+				"postType",
+				"survay_product",
+				query
+			);
+			return results;
+		};
+		useEffect(() => {
+			const results = searchItems(debouncedCurrentValue);
+			if (results !== null) setPosts(results);
+		}, [debouncedCurrentValue]);
+
 		const options = new Map();
 		const suggestions = [];
-		for (let i = 0; i < posts.length; i++) {
-			options.set(posts[i].title.rendered, posts[i].id);
-			suggestions[i] = posts[i].title.rendered;
+		for (let i = 0; i < postsCurrent.length; i++) {
+			options.set(postsCurrent[i].title.rendered, postsCurrent[i].id);
+			suggestions[i] = postsCurrent[i].title.rendered;
 		}
+
 		const [tokens, setTokens] = useState([]);
+
 		const setTokenFunction = token => {
 			if (token.length === 0) {
 				setTokens(token);
@@ -50,11 +81,12 @@ registerBlockType("wubtitle/transcription", {
 				suggestions={suggestions}
 				onChange={token => setTokenFunction(token)}
 				placeholder="Type a continent"
+				onInputChange={value => setValue(value)}
 				maxLength={1}
 			/>
 		);
 	}),
 	save: props => {
-		return "[transcript id= " + props.attributes.content + " ]";
+		return "[survay id= " + props.attributes.content + " ]";
 	}
 });
