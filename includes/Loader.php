@@ -42,6 +42,7 @@ class Loader {
 			'helpers'                 => Helpers::class,
 			'transcript_cpt'          => Core\CustomPostTypes\Transcript::class,
 			'youtube'                 => YouTube\YouTube::class,
+			'shortcode'               => Core\Shortcode::class,
 		);
 
 		foreach ( $classes as $key => $class ) {
