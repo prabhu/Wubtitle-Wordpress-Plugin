@@ -29,7 +29,7 @@ class Transcript {
 	}
 
 	/**
-	 * Disable Gutenber for transcript post type.
+	 * Disable Gutenberg for transcript post type.
 	 *
 	 * @param string $current_status gutenberg status.
 	 * @param string $post_type post type transcript.
