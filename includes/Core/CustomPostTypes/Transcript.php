@@ -82,7 +82,7 @@ class Transcript {
 		if ( isset( $_POST['nonce_transcript'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce_transcript'], 'name_of_my_action' ) ) ) ) {
 			return;
 		}
-		if ( isset( $_POST['url'] ) && isset( $_POST['source'] ) && ! $content ) {
+		if ( isset( $_POST['url'] ) && isset( $_POST['source'] ) && ! $content && ! wp_is_post_autosave() ) {
 			switch ( $_POST['source'] ) {
 				case 'youtube':
 					$video_source = new YouTube();
@@ -104,7 +104,7 @@ class Transcript {
 	 *  @param string $post_id id del post.
 	 */
 	public function save_postdata( $post_id ) {
-		if ( array_key_exists( 'source', $_POST ) || array_key_exists( 'url', $_POST ) && isset( $_POST['nonce'] ) && wp_verify_nonce( sanitize_key( $_POST['nonce'] ) ) ) {
+		if ( isset( $_POST['source'] ) || isset( $_POST['url'] ) && isset( $_POST['nonce'] ) && wp_verify_nonce( sanitize_key( $_POST['nonce'] ) ) ) {
 			update_post_meta(
 				$post_id,
 				'_transcript_youtube_id',
@@ -155,29 +155,17 @@ class Transcript {
 		);
 
 		$args = array(
-			'label'               => __( 'Transcripts', 'ear2words' ),
-			'labels'              => $labels,
-			'description'         => __( 'Video Transcripts', 'ear2words' ),
-			'public'              => false,
-			'publicly_queryable'  => false,
-			'show_ui'             => true,
-			'show_in_rest'        => true,
-			'has_archive'         => false,
-			'show_in_menu'        => true,
-			'show_in_nav_menus'   => true,
-			'delete_with_user'    => false,
-			'exclude_from_search' => true,
-			'capability_type'     => 'post',
-			'map_meta_cap'        => true,
-			'hierarchical'        => false,
-			'rewrite'             => array(
-				'slug'       => 'transcript',
-				'with_front' => true,
-			),
-			'query_var'           => true,
-			'menu_position'       => 83,
-			'menu_icon'           => 'dashicons-format-chat',
-			'supports'            => array( 'title', 'editor', 'revisions' ),
+			'label'            => __( 'Transcripts', 'ear2words' ),
+			'labels'           => $labels,
+			'description'      => __( 'Video Transcripts', 'ear2words' ),
+			'show_ui'          => true,
+			'show_in_rest'     => true,
+			'delete_with_user' => false,
+			'map_meta_cap'     => true,
+			'hierarchical'     => false,
+			'menu_position'    => 83,
+			'menu_icon'        => 'dashicons-format-chat',
+			'supports'         => array( 'title', 'editor', 'revisions' ),
 		);
 
 		register_post_type( 'transcript', $args );
