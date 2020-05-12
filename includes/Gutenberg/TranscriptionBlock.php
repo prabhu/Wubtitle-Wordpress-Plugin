@@ -23,7 +23,7 @@ class TranscriptionBlock {
 	 * Registra un nuovo block type.
 	 */
 	public function create_transcription_block() {
-		wp_register_script( 'trascription_block_script', EAR2WORDS_URL . '/build/index.js', array( 'wp-blocks', 'wp-element', 'wp-components' ), 'transcription_block', false );
+		wp_register_script( 'trascription_block_script', EAR2WORDS_URL . '/build/index.js', array( 'wp-blocks', 'wp-element', 'wp-components', 'wp-data' ), 'transcription_block', false );
 
 		register_block_type(
 			'wubtitle/transcription',
