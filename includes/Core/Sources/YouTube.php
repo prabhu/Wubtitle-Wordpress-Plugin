@@ -51,7 +51,7 @@ class YouTube implements \Ear2Words\Core\VideoSource {
 
 		$response_code = wp_remote_retrieve_response_code( $response );
 
-		if ( 201 === $response_code ) {
+		if ( 201 !== $response_code ) {
 			$get_info_url = "https://www.youtube.com/get_video_info?video_id=$id_video";
 
 			$file_info = array();

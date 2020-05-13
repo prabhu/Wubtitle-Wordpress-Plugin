@@ -24,7 +24,7 @@ class Transcript {
 
 		add_action( 'add_meta_boxes', array( $this, 'add_source_box' ) );
 
-		add_filter( 'content_save_pre', array( $this, 'transcript_content' ) );
+		add_filter( 'content_save_pre', array( $this, 'transcript_content' ), 99 );
 
 		add_action( 'save_post_transcript', array( $this, 'save_postdata' ) );
 	}
@@ -59,7 +59,7 @@ class Transcript {
 			<input type="hidden" id="source" name="source" value="<?php echo get_post_meta( get_the_ID(), '_transcript_source', true ) ? esc_html( get_post_meta( get_the_ID(), '_transcript_source', true ) ) : esc_html( 'youtube' ); ?>">
 
 			<input type="text" id="youtube-url" name="url" placeholder="<?php echo esc_html( __( 'Insert video ID', 'ear2words' ) ); ?>" value="<?php echo esc_html( get_post_meta( get_the_ID(), '_transcript_youtube_id', true ) ); ?>">
-			<?php wp_nonce_field( 'nonce_transcript' ); ?>
+			<!-- <?php wp_nonce_field( 'nonce_transcript' ); ?> -->
 		<?php
 	}
 
@@ -69,7 +69,7 @@ class Transcript {
 	 *  @param string $content contenuto ritornato dall'hook content_save_pre.
 	 */
 	public function transcript_content( $content ) {
-		if ( isset( $_POST['nonce_transcript'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce_transcript'], 'name_of_my_action' ) ) ) ) {
+		if ( isset( $_POST['nonce_transcript'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce_transcript'], 'action' ) ) ) ) {
 			return;
 		}
 		if ( isset( $_POST['url'] ) && isset( $_POST['source'] ) && ! $content && ! wp_is_post_autosave() ) {
@@ -82,7 +82,8 @@ class Transcript {
 				default:
 					return;
 			}
-			return $video_source->get_subtitle( sanitize_text_field( wp_unslash( $_POST['url'] ) ) );
+			$content = $video_source->get_subtitle( sanitize_text_field( wp_unslash( $_POST['url'] ) ) );
+			return $content;
 		}
 		return $content;
 	}
