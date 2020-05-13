@@ -8,14 +8,12 @@ registerBlockType("wubtitle/transcription", {
 	description: __("Enter the transcript of your video"),
 	category: "embed",
 	attributes: {
-		content: {
+		contentId: {
 			type: "string"
 		}
 	},
-	edit: ({ setAttributes }) => {
-		return <TranscriptionEditBlock setAttributes={setAttributes} />;
-	},
+	edit: TranscriptionEditBlock,
 	save: props => {
-		return "[survay id= " + props.attributes.content + " ]";
+		return "[transcript id= " + props.attributes.contentId + " ]";
 	}
 });

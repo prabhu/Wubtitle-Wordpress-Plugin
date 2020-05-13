@@ -2,33 +2,32 @@ import { useSelect } from "@wordpress/data";
 import { FormTokenField } from "@wordpress/components";
 import { useState, useEffect } from "@wordpress/element";
 import { useDebounce } from "../helper/utils.js";
+import { __ } from "@wordpress/i18n";
 
 const TranscriptionEditBlock = ({ setAttributes }) => {
 	const [currentValue, setValue] = useState("");
-	const [postsCurrent, setPosts] = useState("");
 	const [textSearch, setTextSearch] = useState("");
+	const [tokens, setTokens] = useState([]);
 	const debouncedCurrentValue = useDebounce(currentValue, 500);
 
 	useEffect(() => {
 		setTextSearch(debouncedCurrentValue);
 	}, [debouncedCurrentValue]);
 
-	useSelect(select => {
-		if (textSearch !== "") {
+	const postsCurrent = useSelect(select => {
+		if (textSearch.length > 2) {
 			const query = {
 				per_page: 10,
 				search: textSearch
 			};
 			const suggestions = select("core").getEntityRecords(
 				"postType",
-				"survay_product",
+				"transcript",
 				query
 			);
-			if (suggestions !== null) {
-				setPosts(suggestions);
-				setTextSearch("");
-			}
+			return suggestions !== null ? suggestions : [];
 		}
+		return [];
 	});
 
 	const options = new Map();
@@ -38,23 +37,22 @@ const TranscriptionEditBlock = ({ setAttributes }) => {
 		suggestions[i] = postsCurrent[i].title.rendered;
 	}
 
-	const [tokens, setTokens] = useState([]);
-
 	const setTokenFunction = token => {
 		if (token.length === 0) {
 			setTokens(token);
 		} else if (suggestions.includes(token[0])) {
-			const content = options.get(token[0]);
+			const contentId = options.get(token[0]);
 			setTokens(token);
-			setAttributes({ content });
+			setAttributes({ contentId });
 		}
 	};
 	return (
 		<FormTokenField
+			label={__("Wubtitle transcriptions", "ear2words")}
 			value={tokens}
 			suggestions={suggestions}
 			onChange={token => setTokenFunction(token)}
-			placeholder="Type a continent"
+			placeholder={__("Insert transcriptions", "ear2words")}
 			onInputChange={value => setValue(value)}
 			maxLength={1}
 		/>
