@@ -78,6 +78,7 @@ class ApiStoreSubtitle {
 			require_once ABSPATH . 'wp-admin/includes/file.php';
 		}
 		$url           = $params['url'];
+		$transcript    = $params['transcript'];
 		$file_name     = explode( '?', basename( $url ) )[0];
 		$id_attachment = $params['attachmentId'];
 		$temp_file     = download_url( $url );
@@ -134,6 +135,8 @@ class ApiStoreSubtitle {
 		update_post_meta( $id_attachment, 'ear2words_status', 'draft' );
 		update_post_meta( $id_file_vtt, 'is_subtitle', 'true' );
 
+		$this->add_post_trascript( $transcript, $file_name );
+
 		$message = array(
 			'message' => array(
 				'status' => '200',
@@ -147,5 +150,22 @@ class ApiStoreSubtitle {
 		$response->set_status( 200 );
 
 		return $response;
+	}
+
+
+	/**
+	 * Genera post trascrizione.
+	 *
+	 * @param string $transcript parametri del file.
+	 * @param string $file_name parametri del file.
+	 */
+	public function add_post_trascript( $transcript, $file_name ) {
+		$trascript_post = array(
+			'post_title'   => $file_name,
+			'post_content' => $transcript,
+			'post_status'  => 'publish',
+			'post_type'    => 'transcript',
+		);
+		wp_insert_post( $trascript_post );
 	}
 }
