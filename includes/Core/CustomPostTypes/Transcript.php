@@ -40,7 +40,10 @@ class Transcript {
 				'source_meta_box',
 				__( 'Source', 'ear2words' ),
 				array( $this, 'source_box_html' ),
-				'transcript'
+				'transcript',
+				array(
+					'__back_compat_meta_box' => true,
+				)
 			);
 		}
 	}
