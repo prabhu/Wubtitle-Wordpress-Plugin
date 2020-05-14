@@ -45,8 +45,9 @@ class YouTube implements \Ear2Words\Core\VideoSource {
 	 * Effettua la chiamata all'endpoint.
 	 *
 	 * @param string $id_video id del video youtube.
+	 * @param string $from post type dal quale viene fatta la richiesta.
 	 */
-	public function get_subtitle( $id_video ) {
+	public function get_subtitle( $id_video, $from ) {
 		$response = $this->send_job_to_backend( $id_video );
 
 		$response_code = wp_remote_retrieve_response_code( $response );

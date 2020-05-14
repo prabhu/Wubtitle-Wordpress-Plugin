@@ -29,7 +29,6 @@ class Transcript {
 		add_action( 'save_post_transcript', array( $this, 'save_postdata' ) );
 	}
 
-
 	/**
 	 * Aggiunge custom box per meta value source.
 	 */
@@ -47,7 +46,7 @@ class Transcript {
 
 
 	/**
-	 * Render del box source.source_box_html
+	 * Render del box source.
 	 */
 	public function source_box_html() {
 		?>
@@ -59,7 +58,7 @@ class Transcript {
 			<input type="hidden" id="source" name="source" value="<?php echo get_post_meta( get_the_ID(), '_transcript_source', true ) ? esc_html( get_post_meta( get_the_ID(), '_transcript_source', true ) ) : esc_html( 'youtube' ); ?>">
 
 			<input type="text" id="youtube-url" name="url" placeholder="<?php echo esc_html( __( 'Insert video ID', 'ear2words' ) ); ?>" value="<?php echo esc_html( get_post_meta( get_the_ID(), '_transcript_youtube_id', true ) ); ?>">
-			<!-- <?php wp_nonce_field( 'nonce_transcript' ); ?> -->
+			<?php wp_nonce_field( 'nonce_transcript' ); ?>
 		<?php
 	}
 
@@ -98,7 +97,7 @@ class Transcript {
 		if ( isset( $_POST['source'] ) || isset( $_POST['url'] ) && isset( $_POST['nonce'] ) && wp_verify_nonce( sanitize_key( $_POST['nonce'] ) ) ) {
 			update_post_meta(
 				$post_id,
-				'_transcript_youtube_id',
+				'_myplugin_book_isbn',
 				sanitize_text_field( wp_unslash( $_POST['url'] ) )
 			);
 			update_post_meta(
