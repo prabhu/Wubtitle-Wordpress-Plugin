@@ -17,6 +17,7 @@ interface VideoSource {
 	 * Interface method.
 	 *
 	 * @param string $id_video id del del video.
+	 * @param string $from post type dal quale viene fatta la richiesta.
 	 */
-	public function get_subtitle( $id_video );
+	public function get_subtitle( $id_video, $from );
 }
