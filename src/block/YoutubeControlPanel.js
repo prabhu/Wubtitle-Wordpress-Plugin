@@ -14,7 +14,11 @@ const YoutubeControlPanel = props => {
 		wp.ajax
 			.send("get_transcript", {
 				type: "POST",
-				data: { id: videoId, source: "youtube" }
+				data: {
+					id: videoId,
+					source: "youtube",
+					from: "default_post_type"
+				}
 			})
 			.then(response => {
 				document.querySelector(".message").innerHTML = "Done";
