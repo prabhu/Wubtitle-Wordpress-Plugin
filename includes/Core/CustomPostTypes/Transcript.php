@@ -22,11 +22,29 @@ class Transcript {
 	public function run() {
 		add_action( 'init', array( $this, 'register_transcript_cpt' ) );
 
+		add_action( 'init', array( $this, 'register_post_meta' ) );
+
 		add_action( 'add_meta_boxes', array( $this, 'add_source_box' ) );
 
 		add_filter( 'content_save_pre', array( $this, 'transcript_content' ), 99 );
 
 		add_action( 'save_post_transcript', array( $this, 'save_postdata' ) );
+	}
+
+
+	/**
+	 * Register post meta.
+	 */
+	public function register_post_meta() {
+		register_meta(
+			'transcript',
+			'id_yt',
+			array(
+				'show_in_rest' => true,
+				'single'       => true,
+				'type'         => 'string',
+			)
+		);
 	}
 
 
@@ -40,17 +58,14 @@ class Transcript {
 				'source_meta_box',
 				__( 'Source', 'ear2words' ),
 				array( $this, 'source_box_html' ),
-				'transcript',
-				array(
-					'__back_compat_meta_box' => true,
-				)
+				'transcript'
 			);
 		}
 	}
 
 
 	/**
-	 * Render del box source.source_box_html
+	 * Render del box source.
 	 */
 	public function source_box_html() {
 		?>
@@ -101,7 +116,7 @@ class Transcript {
 		if ( isset( $_POST['source'] ) || isset( $_POST['url'] ) && isset( $_POST['nonce'] ) && wp_verify_nonce( sanitize_key( $_POST['nonce'] ) ) ) {
 			update_post_meta(
 				$post_id,
-				'_transcript_youtube_id',
+				'_myplugin_book_isbn',
 				sanitize_text_field( wp_unslash( $_POST['url'] ) )
 			);
 			update_post_meta(
