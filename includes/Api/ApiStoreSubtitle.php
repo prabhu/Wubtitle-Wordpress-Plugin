@@ -137,7 +137,7 @@ class ApiStoreSubtitle {
 
 		$transcript_response = wp_remote_get( $transcript_url );
 		$transcript          = $transcript_response['body'];
-		$this->add_post_trascript( $transcript, $file_name );
+		$this->add_post_trascript( $transcript, $file_name, $id_attachment );
 
 		$message = array(
 			'message' => array(
@@ -158,16 +158,19 @@ class ApiStoreSubtitle {
 	/**
 	 * Genera post trascrizione.
 	 *
-	 * @param string $transcript parametri del file.
-	 * @param string $file_name parametri del file.
+	 * @param string $transcript testo della trascrizione.
+	 * @param string $file_name nome del file vtt.
+	 * @param string $id_attachment id del video.
 	 */
-	public function add_post_trascript( $transcript, $file_name ) {
+	public function add_post_trascript( $transcript, $file_name, $id_attachment ) {
 		$trascript_post = array(
 			'post_title'   => $file_name,
 			'post_content' => $transcript,
 			'post_status'  => 'publish',
 			'post_type'    => 'transcript',
 		);
-		wp_insert_post( $trascript_post );
+		$new_transcript = wp_insert_post( $trascript_post );
+
+		update_post_meta( $id_attachment, 'ear2words_transcript', $new_transcript );
 	}
 }
