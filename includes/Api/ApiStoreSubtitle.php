@@ -168,32 +168,39 @@ class ApiStoreSubtitle {
 	 * @param array $request valori della richiesta.
 	 */
 	public function get_jobs_failed( $request ) {
-		$headers        = $request->get_headers();
-		$jwt            = $headers['jwt'][0];
-		$params         = $request->get_param( 'data' );
-		$db_license_key = get_option( 'ear2words_license_key' );
-		try {
-			JWT::decode( $jwt, $db_license_key, array( 'HS256' ) );
-		} catch ( \Exception $e ) {
-			$error = array(
+		$params   = $request->get_param( 'data' );
+		$job_id   = $params['jobId'];
+		$args     = array(
+			'post_type'      => 'attachment',
+			'posts_per_page' => -1,
+			'meta_key'       => 'ear2words_job_uuid',
+			'meta_value'     => $job_id,
+		);
+		$job_meta = get_posts( $args );
+
+		if ( empty( $job_meta[0] ) ) {
+			$error    = array(
 				'errors' => array(
-					'status' => '403',
-					'title'  => 'Authentication Failed',
-					'source' => $e->getMessage(),
+					'status' => '404',
+					'title'  => 'Invalid Job uuid',
 				),
 			);
-
 			$response = new WP_REST_Response( $error );
 
-			$response->set_status( 403 );
+			$response->set_status( 404 );
 
 			return $response;
 		}
-		$jobs_id = $params['jobsId'];
-		foreach ( $jobs_id as $job_id ) {
-			update_post_meta( $job_id, 'ear2words_status', 'error' );
-		}
-		$response->set_status( 200 );
-		return $response;
+
+		$id_attachment = $job_meta[0]->ID;
+		update_post_meta( $id_attachment, 'ear2words_status', 'error' );
+		$message = array(
+			'data' => array(
+				'status' => '200',
+				'title'  => 'Success',
+			),
+		);
+
+		return $message;
 	}
 }
