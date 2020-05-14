@@ -43,6 +43,7 @@ class Loader {
 			'helpers'                 => Helpers::class,
 			'transcript_cpt'          => Core\CustomPostTypes\Transcript::class,
 			'youtube_source'          => Core\Sources\YouTube::class,
+			'trascription_block'      => Gutenberg\TranscriptionBlock::class,
 		);
 
 		foreach ( $classes as $key => $class ) {
