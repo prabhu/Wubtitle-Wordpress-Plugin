@@ -24,7 +24,7 @@ class ApiGetTranscript {
 	}
 
 	/**
-	 * Get media attachment.
+	 * Get transcript.
 	 */
 	public function get_transcript() {
 		if ( isset( $_POST['id'] ) && isset( $_POST['source'] ) ) {
