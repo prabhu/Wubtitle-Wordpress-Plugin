@@ -22,31 +22,12 @@ class Transcript {
 	public function run() {
 		add_action( 'init', array( $this, 'register_transcript_cpt' ) );
 
-		add_action( 'init', array( $this, 'register_post_meta' ) );
-
 		add_action( 'add_meta_boxes', array( $this, 'add_source_box' ) );
 
 		add_filter( 'content_save_pre', array( $this, 'transcript_content' ), 99 );
 
 		add_action( 'save_post_transcript', array( $this, 'save_postdata' ) );
 	}
-
-
-	/**
-	 * Register post meta.
-	 */
-	public function register_post_meta() {
-		register_meta(
-			'transcript',
-			'id_yt',
-			array(
-				'show_in_rest' => true,
-				'single'       => true,
-				'type'         => 'string',
-			)
-		);
-	}
-
 
 	/**
 	 * Aggiunge custom box per meta value source.
@@ -77,7 +58,7 @@ class Transcript {
 			<input type="hidden" id="source" name="source" value="<?php echo get_post_meta( get_the_ID(), '_transcript_source', true ) ? esc_html( get_post_meta( get_the_ID(), '_transcript_source', true ) ) : esc_html( 'youtube' ); ?>">
 
 			<input type="text" id="youtube-url" name="url" placeholder="<?php echo esc_html( __( 'Insert video ID', 'ear2words' ) ); ?>" value="<?php echo esc_html( get_post_meta( get_the_ID(), '_transcript_youtube_id', true ) ); ?>">
-			<!-- <?php wp_nonce_field( 'nonce_transcript' ); ?> -->
+			<?php wp_nonce_field( 'nonce_transcript' ); ?>
 		<?php
 	}
 
