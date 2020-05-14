@@ -27,13 +27,16 @@ class ApiGetTranscript {
 	 * Get transcript.
 	 */
 	public function get_transcript() {
-		if ( isset( $_POST['id'] ) && isset( $_POST['source'] ) ) {
+		if ( isset( $_POST['id'] ) && isset( $_POST['source'] ) && isset( $_POST['from'] ) ) {
 			wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['id'] ) ) );
 			wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['source'] ) ) );
+			wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['from'] ) ) );
 
 			$id_video = sanitize_text_field( wp_unslash( $_POST['id'] ) );
 
 			$source = sanitize_text_field( wp_unslash( $_POST['source'] ) );
+
+			$from = sanitize_text_field( wp_unslash( $_POST['from'] ) );
 
 			switch ( $source ) {
 				case 'youtube':
@@ -44,7 +47,7 @@ class ApiGetTranscript {
 				default:
 					return;
 			}
-			$transcript = $video_source->get_subtitle( $id_video );
+			$transcript = $video_source->get_subtitle( $id_video, $from );
 
 			wp_send_json_success( $transcript );
 			wp_die();
