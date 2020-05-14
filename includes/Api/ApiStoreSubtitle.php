@@ -22,6 +22,7 @@ class ApiStoreSubtitle {
 	 */
 	public function run() {
 		add_action( 'rest_api_init', array( $this, 'register_store_subtitle_route' ) );
+		add_action( 'rest_api_init', array( $this, 'register_error_jobs_route' ) );
 	}
 
 	/**
@@ -146,6 +147,53 @@ class ApiStoreSubtitle {
 
 		$response->set_status( 200 );
 
+		return $response;
+	}
+	/**
+	 * Crea un nuovo endpoint per ricevere i jobs andati in errori.
+	 */
+	public function register_error_jobs_route() {
+		register_rest_route(
+			'ear2words/v1',
+			'/error-jobs',
+			array(
+				'methods'  => 'POST',
+				'callback' => array( $this, 'get_jobs_failed' ),
+			)
+		);
+	}
+	/**
+	 * Recupera i job falliti.
+	 *
+	 * @param array $request valori della richiesta.
+	 */
+	public function get_jobs_failed( $request ) {
+		$headers        = $request->get_headers();
+		$jwt            = $headers['jwt'][0];
+		$params         = $request->get_param( 'data' );
+		$db_license_key = get_option( 'ear2words_license_key' );
+		try {
+			JWT::decode( $jwt, $db_license_key, array( 'HS256' ) );
+		} catch ( \Exception $e ) {
+			$error = array(
+				'errors' => array(
+					'status' => '403',
+					'title'  => 'Authentication Failed',
+					'source' => $e->getMessage(),
+				),
+			);
+
+			$response = new WP_REST_Response( $error );
+
+			$response->set_status( 403 );
+
+			return $response;
+		}
+		$jobs_id = $params['jobsId'];
+		foreach ( $jobs_id as $job_id ) {
+			update_post_meta( $job_id, 'ear2words_status', 'error' );
+		}
+		$response->set_status( 200 );
 		return $response;
 	}
 }
