@@ -10,4 +10,5 @@
  */
 
 import "./block/addSubtitleButton";
+import "./block/TranscriptPanel";
 import "./block/trascriptionBlock";
