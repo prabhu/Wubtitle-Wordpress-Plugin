@@ -77,11 +77,11 @@ class ApiStoreSubtitle {
 		if ( ! function_exists( 'download_url' ) ) {
 			require_once ABSPATH . 'wp-admin/includes/file.php';
 		}
-		$url           = $params['url'];
-		$transcript    = $params['transcript'];
-		$file_name     = explode( '?', basename( $url ) )[0];
-		$id_attachment = $params['attachmentId'];
-		$temp_file     = download_url( $url );
+		$url            = $params['url'];
+		$transcript_url = $params['transcript'];
+		$file_name      = explode( '?', basename( $url ) )[0];
+		$id_attachment  = $params['attachmentId'];
+		$temp_file      = download_url( $url );
 		update_option( 'ear2words_seconds_done', $params['duration'] );
 		update_option( 'ear2words_jobs_done', $params['jobs'] );
 
@@ -135,6 +135,8 @@ class ApiStoreSubtitle {
 		update_post_meta( $id_attachment, 'ear2words_status', 'draft' );
 		update_post_meta( $id_file_vtt, 'is_subtitle', 'true' );
 
+		$transcript_response = wp_remote_get( $transcript_url );
+		$transcript          = $transcript_response['body'];
 		$this->add_post_trascript( $transcript, $file_name );
 
 		$message = array(
