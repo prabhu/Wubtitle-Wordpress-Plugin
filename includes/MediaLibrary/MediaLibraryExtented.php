@@ -49,6 +49,7 @@ class MediaLibraryExtented {
 			'pending' => __( 'Generating', 'ear2words' ),
 			'draft'   => __( 'Draft', 'ear2words' ),
 			'enabled' => __( 'Published', 'ear2words' ),
+			'error'   => __( 'Error', 'ear2words' ),
 			''        => __( 'None', 'ear2words' ),
 		);
 		$allowed_pages = array(
@@ -77,7 +78,7 @@ class MediaLibraryExtented {
 		);
 
 		// Aggiunge la select della lingua e il bottone per generare i sottotitoli se il video non è ancora stato processato da e2w.
-		if ( '' === $status ) {
+		if ( '' === $status || 'error' === $status ) {
 			$form_fields['e2w_form'] = array(
 				'label' => __( 'Language', 'ear2words' ),
 				'input' => 'html',
@@ -174,6 +175,7 @@ class MediaLibraryExtented {
 			'draft'   => __( 'Draft', 'ear2words' ),
 			'enabled' => __( 'Published', 'ear2words' ),
 			'none'    => __( 'None', 'ear2words' ),
+			'error'   => __( 'Error', 'ear2words' ),
 		);
 		if ( ! wp_attachment_is( 'video', $post ) || 'post.php' !== $pagenow ) {
 			return $form_fields;
@@ -204,9 +206,12 @@ class MediaLibraryExtented {
 			'html'  => '<label for="attachments-' . $post->ID . '-e2w_status">' . $all_status[ $status ] . '</label>',
 			'value' => $post->ID,
 		);
-
+		$status_none               = array(
+			'none',
+			'error',
+		);
 		// Aggiunge la select della lingua e il bottone per generare i sottotitoli se il video non è ancora stato processato da e2w.
-		if ( empty( $post->ear2words_status ) ) {
+		if ( in_array( $status, $status_none, true ) ) {
 			$form_fields['e2w_form'] = $this->create_select_and_button( $post->ID );
 			return $form_fields;
 		}
