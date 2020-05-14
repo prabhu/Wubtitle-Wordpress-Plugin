@@ -135,6 +135,9 @@ class Settings {
 			case 'delete':
 				$message = __( 'Unsubscription successful', 'ear2words' );
 				break;
+			case 'reactivate':
+				$message = __( 'Reactivation of the plan successful', 'ear2words' );
+				break;
 		}
 		if ( ! $message ) {
 			return;
@@ -179,6 +182,12 @@ class Settings {
 			</a>
 			<a href="#" id="modify-plan" style="text-decoration: underline; margin-left: 10px;" >
 				<?php esc_html_e( 'Modify plan', 'ear2words' ); ?>
+			</a>
+			<?php
+		} elseif ( $cancelling ) {
+			?>
+			<a href="#" id="reactivate-plan-button" style="text-decoration: underline;" >
+				<?php esc_html_e( 'Reactivate plan', 'ear2words' ); ?>
 			</a>
 			<?php
 		}
