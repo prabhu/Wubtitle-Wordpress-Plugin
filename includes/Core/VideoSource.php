@@ -20,4 +20,11 @@ interface VideoSource {
 	 * @param string $from post type dal quale viene fatta la richiesta.
 	 */
 	public function get_subtitle( $id_video, $from );
+
+	/**
+	 * Interface method send job to backend.
+	 *
+	 * @param string $id_video id del del video.
+	 */
+	public function send_job_to_backend( $id_video );
 }
