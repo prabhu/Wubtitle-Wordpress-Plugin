@@ -40,8 +40,10 @@ class Transcript {
 				__( 'Source', 'ear2words' ),
 				array( $this, 'source_box_html' ),
 				'transcript',
+				'normal',
+				'high',
 				array(
-					'__block_editor_compatible_meta_box' => true,
+					'__back_compat_meta_box' => true,
 				)
 			);
 		}
@@ -61,7 +63,6 @@ class Transcript {
 			<input type="hidden" id="source" name="source" value="<?php echo get_post_meta( get_the_ID(), '_transcript_source', true ) ? esc_html( get_post_meta( get_the_ID(), '_transcript_source', true ) ) : esc_html( 'youtube' ); ?>">
 
 			<input type="text" id="youtube-url" name="url" placeholder="<?php echo esc_html( __( 'Insert video ID', 'ear2words' ) ); ?>" value="<?php echo esc_html( get_post_meta( get_the_ID(), '_transcript_youtube_id', true ) ); ?>">
-			<?php wp_nonce_field( 'nonce_transcript' ); ?>
 		<?php
 	}
 
@@ -71,10 +72,10 @@ class Transcript {
 	 *  @param string $content contenuto ritornato dall'hook content_save_pre.
 	 */
 	public function transcript_content( $content ) {
-		if ( isset( $_POST['nonce_transcript'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce_transcript'], 'action' ) ) ) ) {
-			return;
-		}
-		if ( isset( $_POST['url'] ) && isset( $_POST['source'] ) && ! $content && ! wp_is_post_autosave() ) {
+		if ( isset( $_POST['url'] ) && isset( $_POST['source'] ) && ! $content ) {
+			wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['url'] ) ) );
+			wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['source'] ) ) );
+
 			switch ( $_POST['source'] ) {
 				case 'youtube':
 					$video_source = new YouTube();
@@ -84,7 +85,7 @@ class Transcript {
 				default:
 					return;
 			}
-			$content = $video_source->get_subtitle( sanitize_text_field( wp_unslash( $_POST['url'] ) ) );
+			$content = $video_source->get_subtitle( sanitize_text_field( wp_unslash( $_POST['url'] ) ), 'transcript_post_type' );
 			return $content;
 		}
 		return $content;
@@ -97,7 +98,7 @@ class Transcript {
 	 *  @param string $post_id id del post.
 	 */
 	public function save_postdata( $post_id ) {
-		if ( wp_is_post_autosave( $post_id ) ) {
+		if ( ! wp_is_post_autosave( $post_id ) ) {
 			return;
 		}
 
@@ -105,9 +106,8 @@ class Transcript {
 			return;
 		}
 
-		if ( ! isset( $_POST['nonce'] ) && ! wp_verify_nonce( sanitize_key( $_POST['nonce'] ) ) ) {
-			return;
-		}
+		wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['url'] ) ) );
+		wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['source'] ) ) );
 
 		update_post_meta(
 			$post_id,
