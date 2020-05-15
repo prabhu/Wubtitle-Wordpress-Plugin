@@ -97,18 +97,28 @@ class Transcript {
 	 *  @param string $post_id id del post.
 	 */
 	public function save_postdata( $post_id ) {
-		if ( isset( $_POST['source'] ) || isset( $_POST['url'] ) && isset( $_POST['nonce'] ) && wp_verify_nonce( sanitize_key( $_POST['nonce'] ) ) ) {
-			update_post_meta(
-				$post_id,
-				'_myplugin_book_isbn',
-				sanitize_text_field( wp_unslash( $_POST['url'] ) )
-			);
-			update_post_meta(
-				$post_id,
-				'_transcript_source',
-				sanitize_text_field( wp_unslash( $_POST['source'] ) )
-			);
+		if ( wp_is_post_autosave( $post_id ) ) {
+			return;
 		}
+
+		if ( ! isset( $_POST['source'] ) || ! isset( $_POST['url'] ) ) {
+			return;
+		}
+
+		if ( ! isset( $_POST['nonce'] ) && ! wp_verify_nonce( sanitize_key( $_POST['nonce'] ) ) ) {
+			return;
+		}
+
+		update_post_meta(
+			$post_id,
+			'_myplugin_book_isbn',
+			sanitize_text_field( wp_unslash( $_POST['url'] ) )
+		);
+		update_post_meta(
+			$post_id,
+			'_transcript_source',
+			sanitize_text_field( wp_unslash( $_POST['source'] ) )
+		);
 	}
 
 
