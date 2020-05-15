@@ -9,15 +9,15 @@ document.addEventListener("DOMContentLoaded", function() {
 		frame: "post",
 		state: "embed"
 	});
+	windowTrascriptions.on("select", () => {
+		const embedUrl = document.getElementById("embed-url-field").value;
+		wp.media.editor.insert(
+			"[embed transcription='enable' ]" + embedUrl + "[/embed]"
+		);
+	});
 	let isOpened = false;
 
 	const openMediaWindow = () => {
-		windowTrascriptions.on("select", () => {
-			const embedUrl = document.getElementById("embed-url-field").value;
-			wp.media.editor.insert(
-				"[embed transcription='enable' ]" + embedUrl + "[/embed]"
-			);
-		});
 		windowTrascriptions.open();
 		if (!isOpened) {
 			document.getElementById("menu-item-insert").remove();
