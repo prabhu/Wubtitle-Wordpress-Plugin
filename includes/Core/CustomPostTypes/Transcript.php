@@ -55,12 +55,13 @@ class Transcript {
 		?>
 			<p>
 				<?php echo esc_html( __( 'Source:', 'ear2words' ) ); ?> 
-				<?php echo get_post_meta( $post->ID, '_transcript_source', true ) ? esc_html( get_post_meta( $post->ID, '_transcript_source', true ) ) : esc_html( 'youtube' ); ?>
+
+				<?php echo $post->_transcript_source ? esc_html( $post->_transcript_source ) : esc_html( 'youtube' ); ?>
 			</p>
 
-			<input type="hidden" id="source" name="source" value="<?php echo get_post_meta( $post->ID, '_transcript_source', true ) ? esc_html( get_post_meta( $post->ID, '_transcript_source', true ) ) : esc_html( 'youtube' ); ?>">
+			<input type="hidden" id="source" name="source" value="<?php echo $post->_transcript_source ? esc_attr( $post->_transcript_source ) : esc_html( 'youtube' ); ?>">
 
-			<input type="text" id="youtube-url" name="url" placeholder="<?php echo esc_html( __( 'Insert video ID', 'ear2words' ) ); ?>" value="<?php echo esc_html( get_post_meta( $post->ID, '_transcript_url', true ) ); ?>">
+			<input type="text" id="youtube-url" name="url" placeholder="<?php echo esc_html( __( 'Insert video ID', 'ear2words' ) ); ?>" value="<?php echo esc_attr( $post->_transcript_url ); ?>">
 
 			<?php wp_nonce_field( 'transcript_data', 'transcript_nonce' ); ?>
 		<?php
@@ -72,23 +73,41 @@ class Transcript {
 	 *  @param string $content contenuto ritornato dall'hook content_save_pre.
 	 */
 	public function transcript_content( $content ) {
-		if ( isset( $_POST['url'] ) && isset( $_POST['source'] ) && isset( $_POST['transcript_nonce'] ) && ! $content ) {
-			if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['transcript_nonce'] ) ), 'transcript_data' ) ) {
-				return;
-			}
-
-			switch ( $_POST['source'] ) {
-				case 'youtube':
-					$video_source = new YouTube();
-					break;
-				case 'media':
-					return;
-				default:
-					return;
-			}
-			$content = $video_source->get_subtitle( sanitize_text_field( wp_unslash( $_POST['url'] ) ), 'transcript_post_type' );
+		if ( $content ) {
 			return $content;
 		}
+
+		if ( ! isset( $_POST['url'] ) &&
+			! isset( $_POST['source'] ) &&
+			! isset( $_POST['transcript_nonce'] )
+			) {
+			return $content;
+		}
+
+		// phpcs:disable
+		if ( ! wp_verify_nonce( $_POST['transcript_nonce'] , 'transcript_data' ) ) {
+		// phpcs:enable
+			return $content;
+		}
+
+		switch ( $_POST['source'] ) {
+			case 'youtube':
+				$video_source = new YouTube();
+				break;
+			case 'media':
+				return;
+			default:
+				return;
+		}
+		$response = $video_source->send_job_to_backend( sanitize_text_field( wp_unslash( $_POST['url'] ) ) );
+
+		$response_code = wp_remote_retrieve_response_code( $response );
+
+		if ( 201 === $response_code ) {
+			return 'Error';
+		}
+
+		$content = $video_source->get_subtitle( sanitize_text_field( wp_unslash( $_POST['url'] ) ), 'transcript_post_type' );
 		return $content;
 	}
 
@@ -99,7 +118,7 @@ class Transcript {
 	 *  @param string $post_id id del post.
 	 */
 	public function save_postdata( $post_id ) {
-		if ( ! wp_is_post_autosave( $post_id ) || wp_is_post_revision( $post_id ) ) {
+		if ( wp_is_post_autosave( $post_id ) || wp_is_post_revision( $post_id ) ) {
 			return;
 		}
 
