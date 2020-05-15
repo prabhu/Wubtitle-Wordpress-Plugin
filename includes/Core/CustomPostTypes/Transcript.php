@@ -48,17 +48,19 @@ class Transcript {
 
 	/**
 	 * Render del box source.
+	 *
+	 * @param array $post array del post.
 	 */
-	public function source_box_html() {
+	public function source_box_html( $post ) {
 		?>
 			<p>
 				<?php echo esc_html( __( 'Source:', 'ear2words' ) ); ?> 
-				<?php echo get_post_meta( get_the_ID(), '_transcript_source', true ) ? esc_html( get_post_meta( get_the_ID(), '_transcript_source', true ) ) : esc_html( 'youtube' ); ?>
+				<?php echo get_post_meta( $post->ID, '_transcript_source', true ) ? esc_html( get_post_meta( $post->ID, '_transcript_source', true ) ) : esc_html( 'youtube' ); ?>
 			</p>
 
-			<input type="hidden" id="source" name="source" value="<?php echo get_post_meta( get_the_ID(), '_transcript_source', true ) ? esc_html( get_post_meta( get_the_ID(), '_transcript_source', true ) ) : esc_html( 'youtube' ); ?>">
+			<input type="hidden" id="source" name="source" value="<?php echo get_post_meta( $post->ID, '_transcript_source', true ) ? esc_html( get_post_meta( $post->ID, '_transcript_source', true ) ) : esc_html( 'youtube' ); ?>">
 
-			<input type="text" id="youtube-url" name="url" placeholder="<?php echo esc_html( __( 'Insert video ID', 'ear2words' ) ); ?>" value="<?php echo esc_html( get_post_meta( get_the_ID(), '_transcript_url', true ) ); ?>">
+			<input type="text" id="youtube-url" name="url" placeholder="<?php echo esc_html( __( 'Insert video ID', 'ear2words' ) ); ?>" value="<?php echo esc_html( get_post_meta( $post->ID, '_transcript_url', true ) ); ?>">
 
 			<input type="hidden" name="nonce" value="<?php echo esc_html( wp_create_nonce() ); ?>">
 		<?php
