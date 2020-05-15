@@ -172,20 +172,20 @@ class ApiStoreSubtitle {
 		$job_id   = $params['jobId'];
 		$args     = array(
 			'post_type'      => 'attachment',
-			'posts_per_page' => -1,
+			'posts_per_page' => 1,
 			'meta_key'       => 'ear2words_job_uuid',
 			'meta_value'     => $job_id,
 		);
 		$job_meta = get_posts( $args );
-
 		if ( empty( $job_meta[0] ) ) {
-			$error    = array(
-				'errors' => array(
-					'status' => '404',
-					'title'  => 'Invalid Job uuid',
-				),
+			$response = new WP_REST_Response(
+				array(
+					'errors' => array(
+						'status' => '404',
+						'title'  => 'Invalid Job uuid',
+					),
+				)
 			);
-			$response = new WP_REST_Response( $error );
 
 			$response->set_status( 404 );
 
