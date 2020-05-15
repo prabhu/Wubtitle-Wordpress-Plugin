@@ -67,8 +67,9 @@ class YouTube implements \Ear2Words\Core\VideoSource {
 		$response = wp_remote_get( $url );
 
 		$text = '';
+
 		foreach ( json_decode( $response['body'] )->events as $event ) {
-			if ( $event->segs ) {
+			if ( isset( $event->segs ) ) {
 				foreach ( $event->segs as $seg ) {
 					$text .= $seg->utf8;
 				}
