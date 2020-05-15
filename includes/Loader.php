@@ -42,7 +42,6 @@ class Loader {
 			'api_get_transcript'      => Api\ApiGetTranscript::class,
 			'helpers'                 => Helpers::class,
 			'transcript_cpt'          => Core\CustomPostTypes\Transcript::class,
-			'youtube'                 => YouTube\YouTube::class,
 			'shortcode'               => Core\Shortcode::class,
 			'youtube_source'          => Core\Sources\YouTube::class,
 			'trascription_block'      => Gutenberg\TranscriptionBlock::class,
