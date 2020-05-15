@@ -95,7 +95,7 @@ class Transcript {
 	 *  @param string $post_id id del post.
 	 */
 	public function save_postdata( $post_id ) {
-		if ( ! wp_is_post_autosave( $post_id ) && wp_is_post_revision( $post_id ) ) {
+		if ( ! wp_is_post_autosave( $post_id ) || wp_is_post_revision( $post_id ) ) {
 			return;
 		}
 
