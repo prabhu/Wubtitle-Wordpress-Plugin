@@ -10,7 +10,6 @@
 namespace Ear2Words\Core\CustomPostTypes;
 
 use \Ear2words\Core\Sources\YouTube;
-use Ear2Words\Helpers;
 
 /**
  * This class handle the transcript custom post type methods.
@@ -33,20 +32,17 @@ class Transcript {
 	 * Aggiunge custom box per meta value source.
 	 */
 	public function add_source_box() {
-		$helpers = new Helpers();
-		if ( ! $helpers->is_gutenberg_active() ) {
-			add_meta_box(
-				'source_meta_box',
-				__( 'Source', 'ear2words' ),
-				array( $this, 'source_box_html' ),
-				'transcript',
-				'normal',
-				'high',
-				array(
-					'__back_compat_meta_box' => true,
-				)
-			);
-		}
+		add_meta_box(
+			'source_meta_box',
+			__( 'Source', 'ear2words' ),
+			array( $this, 'source_box_html' ),
+			'transcript',
+			'normal',
+			'high',
+			array(
+				'__back_compat_meta_box' => true,
+			)
+		);
 	}
 
 
