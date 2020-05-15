@@ -67,7 +67,8 @@ class ApiRequest {
 			return false;
 		}
 		$body = array(
-			'data' => array(
+			'source' => 'INTERNAL',
+			'data'   => array(
 				'attachmentId' => $id_attachment,
 				'url'          => $data['src_attachment'],
 				'size'         => $video_data['filesize'],

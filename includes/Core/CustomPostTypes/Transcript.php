@@ -10,7 +10,6 @@
 namespace Ear2Words\Core\CustomPostTypes;
 
 use \Ear2words\Core\Sources\YouTube;
-use Ear2Words\Helpers;
 
 /**
  * This class handle the transcript custom post type methods.
@@ -33,32 +32,37 @@ class Transcript {
 	 * Aggiunge custom box per meta value source.
 	 */
 	public function add_source_box() {
-		$helpers = new Helpers();
-		if ( ! $helpers->is_gutenberg_active() ) {
-			add_meta_box(
-				'source_meta_box',
-				__( 'Source', 'ear2words' ),
-				array( $this, 'source_box_html' ),
-				'transcript'
-			);
-		}
+		add_meta_box(
+			'source_meta_box',
+			__( 'Source', 'ear2words' ),
+			array( $this, 'source_box_html' ),
+			'transcript',
+			'normal',
+			'high',
+			array(
+				'__back_compat_meta_box' => true,
+			)
+		);
 	}
 
 
 	/**
 	 * Render del box source.
+	 *
+	 * @param array $post array del post.
 	 */
-	public function source_box_html() {
+	public function source_box_html( $post ) {
 		?>
 			<p>
 				<?php echo esc_html( __( 'Source:', 'ear2words' ) ); ?> 
-				<?php echo get_post_meta( get_the_ID(), '_transcript_source', true ) ? esc_html( get_post_meta( get_the_ID(), '_transcript_source', true ) ) : esc_html( 'youtube' ); ?>
+				<?php echo get_post_meta( $post->ID, '_transcript_source', true ) ? esc_html( get_post_meta( $post->ID, '_transcript_source', true ) ) : esc_html( 'youtube' ); ?>
 			</p>
 
-			<input type="hidden" id="source" name="source" value="<?php echo get_post_meta( get_the_ID(), '_transcript_source', true ) ? esc_html( get_post_meta( get_the_ID(), '_transcript_source', true ) ) : esc_html( 'youtube' ); ?>">
+			<input type="hidden" id="source" name="source" value="<?php echo get_post_meta( $post->ID, '_transcript_source', true ) ? esc_html( get_post_meta( $post->ID, '_transcript_source', true ) ) : esc_html( 'youtube' ); ?>">
 
-			<input type="text" id="youtube-url" name="url" placeholder="<?php echo esc_html( __( 'Insert video ID', 'ear2words' ) ); ?>" value="<?php echo esc_html( get_post_meta( get_the_ID(), '_transcript_youtube_id', true ) ); ?>">
-			<?php wp_nonce_field( 'nonce_transcript' ); ?>
+			<input type="text" id="youtube-url" name="url" placeholder="<?php echo esc_html( __( 'Insert video ID', 'ear2words' ) ); ?>" value="<?php echo esc_html( get_post_meta( $post->ID, '_transcript_url', true ) ); ?>">
+
+			<input type="hidden" name="nonce" value="<?php echo esc_html( wp_create_nonce() ); ?>">
 		<?php
 	}
 
@@ -68,10 +72,9 @@ class Transcript {
 	 *  @param string $content contenuto ritornato dall'hook content_save_pre.
 	 */
 	public function transcript_content( $content ) {
-		if ( isset( $_POST['nonce_transcript'] ) && ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce_transcript'], 'action' ) ) ) ) {
-			return;
-		}
-		if ( isset( $_POST['url'] ) && isset( $_POST['source'] ) && ! $content && ! wp_is_post_autosave() ) {
+		if ( isset( $_POST['url'] ) && isset( $_POST['source'] ) && isset( $_POST['nonce'] ) && ! $content ) {
+			wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) );
+
 			switch ( $_POST['source'] ) {
 				case 'youtube':
 					$video_source = new YouTube();
@@ -81,7 +84,7 @@ class Transcript {
 				default:
 					return;
 			}
-			$content = $video_source->get_subtitle( sanitize_text_field( wp_unslash( $_POST['url'] ) ) );
+			$content = $video_source->get_subtitle( sanitize_text_field( wp_unslash( $_POST['url'] ) ), 'transcript_post_type' );
 			return $content;
 		}
 		return $content;
@@ -94,18 +97,26 @@ class Transcript {
 	 *  @param string $post_id id del post.
 	 */
 	public function save_postdata( $post_id ) {
-		if ( isset( $_POST['source'] ) || isset( $_POST['url'] ) && isset( $_POST['nonce'] ) && wp_verify_nonce( sanitize_key( $_POST['nonce'] ) ) ) {
-			update_post_meta(
-				$post_id,
-				'_myplugin_book_isbn',
-				sanitize_text_field( wp_unslash( $_POST['url'] ) )
-			);
-			update_post_meta(
-				$post_id,
-				'_transcript_source',
-				sanitize_text_field( wp_unslash( $_POST['source'] ) )
-			);
+		if ( ! wp_is_post_autosave( $post_id ) || wp_is_post_revision( $post_id ) ) {
+			return;
 		}
+
+		if ( ! isset( $_POST['source'] ) || ! isset( $_POST['url'] ) || ! isset( $_POST['nonce'] ) ) {
+			return;
+		}
+
+		wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) );
+
+		update_post_meta(
+			$post_id,
+			'_transcript_url',
+			sanitize_text_field( wp_unslash( $_POST['url'] ) )
+		);
+		update_post_meta(
+			$post_id,
+			'_transcript_source',
+			sanitize_text_field( wp_unslash( $_POST['source'] ) )
+		);
 	}
 
 
@@ -145,17 +156,16 @@ class Transcript {
 		);
 
 		$args = array(
-			'label'            => __( 'Transcripts', 'ear2words' ),
-			'labels'           => $labels,
-			'description'      => __( 'Video Transcripts', 'ear2words' ),
-			'show_ui'          => true,
-			'show_in_rest'     => true,
-			'delete_with_user' => false,
-			'map_meta_cap'     => true,
-			'hierarchical'     => false,
-			'menu_position'    => 83,
-			'menu_icon'        => 'dashicons-format-chat',
-			'supports'         => array( 'title', 'editor', 'revisions' ),
+			'label'         => __( 'Transcripts', 'ear2words' ),
+			'labels'        => $labels,
+			'description'   => __( 'Video Transcripts', 'ear2words' ),
+			'show_ui'       => true,
+			'show_in_rest'  => true,
+			'map_meta_cap'  => true,
+			'hierarchical'  => false,
+			'menu_position' => 83,
+			'menu_icon'     => 'dashicons-format-chat',
+			'supports'      => array( 'title', 'editor', 'revisions' ),
 		);
 
 		register_post_type( 'transcript', $args );
