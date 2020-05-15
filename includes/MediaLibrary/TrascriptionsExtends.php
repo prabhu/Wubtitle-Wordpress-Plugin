@@ -36,7 +36,7 @@ class TrascriptionsExtends {
 			'www.youtube.com',
 			'www.youtu.be',
 		);
-		if ( 'enable' !== $attr['transcription'] || ! in_array( $url_parts['host'], $allowed_urls, true ) ) {
+		if ( empty( $attr['transcription'] ) || 'enable' !== $attr['transcription'] || ! in_array( $url_parts['host'], $allowed_urls, true ) ) {
 			return $html;
 		}
 		// TODO eseguire la funzione per creare un nuovo custom posttype e inserire lo shortcode.
