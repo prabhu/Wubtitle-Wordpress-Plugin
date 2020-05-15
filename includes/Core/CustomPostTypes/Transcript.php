@@ -58,7 +58,7 @@ class Transcript {
 
 			<input type="hidden" id="source" name="source" value="<?php echo get_post_meta( get_the_ID(), '_transcript_source', true ) ? esc_html( get_post_meta( get_the_ID(), '_transcript_source', true ) ) : esc_html( 'youtube' ); ?>">
 
-			<input type="text" id="youtube-url" name="url" placeholder="<?php echo esc_html( __( 'Insert video ID', 'ear2words' ) ); ?>" value="<?php echo esc_html( get_post_meta( get_the_ID(), '_transcript_youtube_id', true ) ); ?>">
+			<input type="text" id="youtube-url" name="url" placeholder="<?php echo esc_html( __( 'Insert video ID', 'ear2words' ) ); ?>" value="<?php echo esc_html( get_post_meta( get_the_ID(), '_transcript_url', true ) ); ?>">
 
 			<input type="hidden" name="nonce" value="<?php echo esc_html( wp_create_nonce() ); ?>">
 		<?php
@@ -107,7 +107,7 @@ class Transcript {
 
 		update_post_meta(
 			$post_id,
-			'_myplugin_book_isbn',
+			'_transcript_url',
 			sanitize_text_field( wp_unslash( $_POST['url'] ) )
 		);
 		update_post_meta(
