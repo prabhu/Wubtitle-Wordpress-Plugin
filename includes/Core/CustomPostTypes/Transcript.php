@@ -59,6 +59,8 @@ class Transcript {
 			<input type="hidden" id="source" name="source" value="<?php echo get_post_meta( get_the_ID(), '_transcript_source', true ) ? esc_html( get_post_meta( get_the_ID(), '_transcript_source', true ) ) : esc_html( 'youtube' ); ?>">
 
 			<input type="text" id="youtube-url" name="url" placeholder="<?php echo esc_html( __( 'Insert video ID', 'ear2words' ) ); ?>" value="<?php echo esc_html( get_post_meta( get_the_ID(), '_transcript_youtube_id', true ) ); ?>">
+
+			<input type="hidden" name="nonce" value="<?php echo esc_html( wp_create_nonce() ); ?>">
 		<?php
 	}
 
@@ -68,9 +70,8 @@ class Transcript {
 	 *  @param string $content contenuto ritornato dall'hook content_save_pre.
 	 */
 	public function transcript_content( $content ) {
-		if ( isset( $_POST['url'] ) && isset( $_POST['source'] ) && ! $content ) {
-			wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['url'] ) ) );
-			wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['source'] ) ) );
+		if ( isset( $_POST['url'] ) && isset( $_POST['source'] ) && isset( $_POST['nonce'] ) && ! $content ) {
+			wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) );
 
 			switch ( $_POST['source'] ) {
 				case 'youtube':
@@ -98,12 +99,11 @@ class Transcript {
 			return;
 		}
 
-		if ( ! isset( $_POST['source'] ) || ! isset( $_POST['url'] ) ) {
+		if ( ! isset( $_POST['source'] ) || ! isset( $_POST['url'] ) || ! isset( $_POST['nonce'] ) ) {
 			return;
 		}
 
-		wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['url'] ) ) );
-		wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['source'] ) ) );
+		wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) );
 
 		update_post_meta(
 			$post_id,
