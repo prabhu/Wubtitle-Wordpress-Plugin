@@ -154,17 +154,16 @@ class Transcript {
 		);
 
 		$args = array(
-			'label'            => __( 'Transcripts', 'ear2words' ),
-			'labels'           => $labels,
-			'description'      => __( 'Video Transcripts', 'ear2words' ),
-			'show_ui'          => true,
-			'show_in_rest'     => true,
-			'delete_with_user' => false,
-			'map_meta_cap'     => true,
-			'hierarchical'     => false,
-			'menu_position'    => 83,
-			'menu_icon'        => 'dashicons-format-chat',
-			'supports'         => array( 'title', 'editor', 'revisions' ),
+			'label'         => __( 'Transcripts', 'ear2words' ),
+			'labels'        => $labels,
+			'description'   => __( 'Video Transcripts', 'ear2words' ),
+			'show_ui'       => true,
+			'show_in_rest'  => true,
+			'map_meta_cap'  => true,
+			'hierarchical'  => false,
+			'menu_position' => 83,
+			'menu_icon'     => 'dashicons-format-chat',
+			'supports'      => array( 'title', 'editor', 'revisions' ),
 		);
 
 		register_post_type( 'transcript', $args );
