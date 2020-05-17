@@ -21,7 +21,7 @@ const TranscriptionEditBlock = ({ attributes, setAttributes }) => {
 			};
 			const resultPost = select("core").getEntityRecords(
 				"postType",
-				"survay_product",
+				"transcript",
 				queryPost
 			);
 			setTokens([resultPost[0].title.rendered]);
@@ -36,7 +36,7 @@ const TranscriptionEditBlock = ({ attributes, setAttributes }) => {
 			};
 			const suggestions = select("core").getEntityRecords(
 				"postType",
-				"survay_product",
+				"transcript",
 				query
 			);
 			return suggestions !== null ? suggestions : [];
