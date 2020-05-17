@@ -4,7 +4,7 @@ import { useState, useEffect } from "@wordpress/element";
 import { useDebounce } from "../helper/utils.js";
 import { __ } from "@wordpress/i18n";
 
-const TranscriptionEditBlock = ({ setAttributes }) => {
+const TranscriptionEditBlock = ({ attributes, setAttributes }) => {
 	const [currentValue, setValue] = useState("");
 	const [textSearch, setTextSearch] = useState("");
 	const [tokens, setTokens] = useState([]);
@@ -14,6 +14,20 @@ const TranscriptionEditBlock = ({ setAttributes }) => {
 		setTextSearch(debouncedCurrentValue);
 	}, [debouncedCurrentValue]);
 
+	useSelect(select => {
+		if (attributes.contentId && tokens.length === 0) {
+			const queryPost = {
+				include: attributes.contentId
+			};
+			const resultPost = select("core").getEntityRecords(
+				"postType",
+				"survay_product",
+				queryPost
+			);
+			setTokens([resultPost[0].title.rendered]);
+		}
+	});
+
 	const postsCurrent = useSelect(select => {
 		if (textSearch.length > 2) {
 			const query = {
@@ -22,7 +36,7 @@ const TranscriptionEditBlock = ({ setAttributes }) => {
 			};
 			const suggestions = select("core").getEntityRecords(
 				"postType",
-				"transcript",
+				"survay_product",
 				query
 			);
 			return suggestions !== null ? suggestions : [];
@@ -39,6 +53,7 @@ const TranscriptionEditBlock = ({ setAttributes }) => {
 
 	const setTokenFunction = token => {
 		if (token.length === 0) {
+			setAttributes({ contentId: null });
 			setTokens(token);
 		} else if (suggestions.includes(token[0])) {
 			const contentId = options.get(token[0]);

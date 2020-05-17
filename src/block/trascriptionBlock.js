@@ -9,11 +9,11 @@ registerBlockType("wubtitle/transcription", {
 	category: "embed",
 	attributes: {
 		contentId: {
-			type: "string"
+			type: "int"
 		}
 	},
 	edit: TranscriptionEditBlock,
 	save: props => {
-		return "[transcript id= " + props.attributes.contentId + " ]";
+		return "[survay id= " + props.attributes.contentId + " ]";
 	}
 });
