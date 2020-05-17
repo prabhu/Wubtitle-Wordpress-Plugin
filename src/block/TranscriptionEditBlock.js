@@ -24,7 +24,9 @@ const TranscriptionEditBlock = ({ attributes, setAttributes }) => {
 				"transcript",
 				queryPost
 			);
-			setTokens([resultPost[0].title.rendered]);
+			if (resultPost !== null) {
+				setTokens([resultPost[0].title.rendered]);
+			}
 		}
 	});
 
