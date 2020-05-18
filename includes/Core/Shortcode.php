@@ -37,6 +37,10 @@ class Shortcode {
 
 		$post = get_post( $atts['id'] );
 
+		if ( null === $post ) {
+			return;
+		}
+
 		if ( 'transcript' === $post->post_type ) {
 			return apply_filters( 'the_content', $post->post_content );
 		}
