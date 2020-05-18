@@ -44,12 +44,6 @@ class TrascriptionsExtends {
 		return $html;
 	}
 	/**
-	 * Aggiunge il form.
-	 */
-	public function add_my_new_form() {
-		wp_iframe( array( $this, 'my_new_form' ) );
-	}
-	/**
 	 * Include il file javascript.
 	 */
 	public function include_transcription_modal_script() {
