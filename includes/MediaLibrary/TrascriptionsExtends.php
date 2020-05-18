@@ -42,7 +42,7 @@ class TrascriptionsExtends {
 			return $html;
 		}
 		// TODO eseguire la funzione per creare un nuovo custom posttype e inserire lo shortcode.
-		$transcript_id = Loader::get( 'youtube_source' )->get_subtitle( $query_params['v'], 'from_editor' );
+		$transcript_id = Loader::get( 'youtube_source' )->get_subtitle( $query_params['v'], 'default_post_type' );
 		$html         .= '[transcript id="' . $transcript_id . '" ]';
 		return $html;
 	}
