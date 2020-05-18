@@ -48,31 +48,30 @@ class YouTube implements \Ear2Words\Core\VideoSource {
 	 * @param string $from post type dal quale viene fatta la richiesta.
 	 */
 	public function get_subtitle( $id_video, $from ) {
-		$response = $this->send_job_to_backend( $id_video );
+		$get_info_url = "https://www.youtube.com/get_video_info?video_id=$id_video";
 
-		$response_code = wp_remote_retrieve_response_code( $response );
+		$file_info = array();
 
-		if ( 201 === $response_code ) {
-			$get_info_url = "https://www.youtube.com/get_video_info?video_id=$id_video";
+		$response = wp_remote_get( $get_info_url );
 
-			$file_info = array();
+		if ( is_wp_error( $response ) ) {
+			return '';
+		}
 
-			// TODO: warning di phpcs: mi invita ad usare wp_remote_get ma non funziona.
-            // phpcs:disable
-            $file      = file_get_contents( $get_info_url );
-            // phpcs:enable
-			parse_str( $file, $file_info );
+		$file = wp_remote_retrieve_body( $response );
 
-			$url = json_decode( $file_info['player_response'] )->captions->playerCaptionsTracklistRenderer->captionTracks[0]->baseUrl . '&fmt=json3&xorb=2&xobt=3&xovt=3';
+		parse_str( $file, $file_info );
 
-			$response = wp_remote_get( $url );
+		$url = json_decode( $file_info['player_response'] )->captions->playerCaptionsTracklistRenderer->captionTracks[0]->baseUrl . '&fmt=json3&xorb=2&xobt=3&xovt=3';
 
-			$text = '';
-			foreach ( json_decode( $response['body'] )->events as $event ) {
-				if ( $event->segs ) {
-					foreach ( $event->segs as $seg ) {
-						$text .= $seg->utf8;
-					}
+		$response = wp_remote_get( $url );
+
+		$text = '';
+
+		foreach ( json_decode( $response['body'] )->events as $event ) {
+			if ( isset( $event->segs ) ) {
+				foreach ( $event->segs as $seg ) {
+					$text .= $seg->utf8;
 				}
 			}
 
@@ -100,7 +99,8 @@ class YouTube implements \Ear2Words\Core\VideoSource {
 
 			return $text;
 		}
-		return 'Error';
+
+		return $text;
 	}
 
 }

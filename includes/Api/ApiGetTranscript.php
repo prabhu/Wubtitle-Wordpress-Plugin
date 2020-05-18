@@ -27,16 +27,15 @@ class ApiGetTranscript {
 	 * Get transcript.
 	 */
 	public function get_transcript() {
+		// phpcs:disable
 		if ( isset( $_POST['id'] ) && isset( $_POST['source'] ) && isset( $_POST['from'] ) ) {
-			wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['id'] ) ) );
-			wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['source'] ) ) );
-			wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['from'] ) ) );
-
+		
 			$id_video = sanitize_text_field( wp_unslash( $_POST['id'] ) );
 
 			$source = sanitize_text_field( wp_unslash( $_POST['source'] ) );
 
 			$from = sanitize_text_field( wp_unslash( $_POST['from'] ) );
+		// phpcs:enable
 
 			switch ( $source ) {
 				case 'youtube':
