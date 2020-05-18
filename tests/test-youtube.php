@@ -16,7 +16,7 @@ class TestYoutubeTranscript extends WP_UnitTestCase {
 	 */
 	public function SetUp(){
 		parent::setUp();
-		$this->instance = new YouTube;
+		$this->instance = new YouTube();
 	}
 	/**
 	 * Test callback dell'endpoint che riceve i job falliti.
