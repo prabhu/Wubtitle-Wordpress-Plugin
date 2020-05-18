@@ -82,20 +82,13 @@ class YouTube implements \Ear2Words\Core\VideoSource {
 				'post_content' => $text,
 				'post_type'    => 'transcript',
 				'post_status'  => 'publish',
+				'meta_input'   => array(
+					'_video_id'          => sanitize_text_field( wp_unslash( $id_video ) ),
+					'_transcript_source' => 'youtube',
+				),
 			);
 
-			$new_transcript = wp_insert_post( $trascript_post );
-
-			update_post_meta(
-				$new_transcript,
-				'_video_id',
-				sanitize_text_field( wp_unslash( $id_video ) )
-			);
-			update_post_meta(
-				$new_transcript,
-				'_transcript_source',
-				'youtube'
-			);
+			wp_insert_post( $trascript_post );
 		}
 
 		return $text;
