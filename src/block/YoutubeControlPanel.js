@@ -32,8 +32,6 @@ const YoutubeControlPanel = props => {
 			});
 	};
 
-	const Message = () => <span>{message}</span>;
-
 	return (
 		<InspectorControls>
 			<PanelBody title="Wubtitle">
@@ -45,7 +43,7 @@ const YoutubeControlPanel = props => {
 				>
 					{__("Transcribe", "ear2words")}
 				</Button>
-				<Message message={message} />
+				<span>{message}</span>
 			</PanelBody>
 		</InspectorControls>
 	);
