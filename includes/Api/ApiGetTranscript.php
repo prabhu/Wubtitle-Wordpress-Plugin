@@ -28,9 +28,9 @@ class ApiGetTranscript {
 	 */
 	public function get_transcript() {
 		// phpcs:disable
-		if ( isset( $_POST['id'] ) && isset( $_POST['source'] ) && isset( $_POST['from'] ) ) {
-		
-			$id_video = sanitize_text_field( wp_unslash( $_POST['id'] ) );
+		if ( isset( $_POST['url'] ) && isset( $_POST['source'] ) && isset( $_POST['from'] ) ) {
+
+			$url_video = sanitize_text_field( wp_unslash( $_POST['url'] ) );
 
 			$source = sanitize_text_field( wp_unslash( $_POST['source'] ) );
 
@@ -46,7 +46,7 @@ class ApiGetTranscript {
 				default:
 					return;
 			}
-			$transcript = $video_source->get_subtitle( $id_video, $from );
+			$transcript = $video_source->get_subtitle( $url_video, $from );
 
 			wp_send_json_success( $transcript );
 			wp_die();
