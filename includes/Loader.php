@@ -43,6 +43,7 @@ class Loader {
 			'helpers'                 => Helpers::class,
 			'extends_transcription'   => MediaLibrary\TrascriptionsExtends::class,
 			'transcript_cpt'          => Core\CustomPostTypes\Transcript::class,
+			'shortcode'               => Core\Shortcode::class,
 			'youtube_source'          => Core\Sources\YouTube::class,
 			'trascription_block'      => Gutenberg\TranscriptionBlock::class,
 		);

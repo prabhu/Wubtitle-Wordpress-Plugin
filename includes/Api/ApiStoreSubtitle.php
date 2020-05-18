@@ -78,10 +78,11 @@ class ApiStoreSubtitle {
 		if ( ! function_exists( 'download_url' ) ) {
 			require_once ABSPATH . 'wp-admin/includes/file.php';
 		}
-		$url           = $params['url'];
-		$file_name     = explode( '?', basename( $url ) )[0];
-		$id_attachment = $params['attachmentId'];
-		$temp_file     = download_url( $url );
+		$url            = $params['url'];
+		$transcript_url = $params['transcript'];
+		$file_name      = explode( '?', basename( $url ) )[0];
+		$id_attachment  = $params['attachmentId'];
+		$temp_file      = download_url( $url );
 		update_option( 'ear2words_seconds_done', $params['duration'] );
 		update_option( 'ear2words_jobs_done', $params['jobs'] );
 
@@ -135,6 +136,12 @@ class ApiStoreSubtitle {
 		update_post_meta( $id_attachment, 'ear2words_status', 'draft' );
 		update_post_meta( $id_file_vtt, 'is_subtitle', 'true' );
 
+		$transcript_response = wp_remote_get( $transcript_url );
+
+		$transcript = wp_remote_retrieve_body( $transcript_response );
+
+		$this->add_post_trascript( $transcript, $file_name, $id_attachment );
+
 		$message = array(
 			'message' => array(
 				'status' => '200',
@@ -149,6 +156,27 @@ class ApiStoreSubtitle {
 
 		return $response;
 	}
+
+	/**
+	 * Genera post trascrizione.
+	 *
+	 * @param string $transcript testo della trascrizione.
+	 * @param string $file_name nome del file vtt.
+	 * @param string $id_attachment id del video.
+	 */
+	public function add_post_trascript( $transcript, $file_name, $id_attachment ) {
+		$trascript_post = array(
+			'post_title'   => $file_name,
+			'post_content' => $transcript,
+			'post_status'  => 'publish',
+			'post_type'    => 'transcript',
+			'meta_input'   => array(
+				'ear2words_transcript' => $id_attachment,
+			),
+		);
+		wp_insert_post( $trascript_post );
+	}
+
 	/**
 	 * Crea un nuovo endpoint per ricevere i jobs andati in errori.
 	 */
