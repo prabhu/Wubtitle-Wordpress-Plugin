@@ -130,7 +130,7 @@ class Transcript {
 
 		$response_code = wp_remote_retrieve_response_code( $response );
 
-		if ( 201 === $response_code ) {
+		if ( 201 !== $response_code ) {
 			return 'Error';
 		}
 
