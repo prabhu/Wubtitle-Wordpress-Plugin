@@ -26,6 +26,33 @@ class Transcript {
 		add_filter( 'content_save_pre', array( $this, 'transcript_content' ), 99 );
 
 		add_action( 'save_post_transcript', array( $this, 'save_postdata' ) );
+
+		add_filter( 'manage_transcript_posts_columns', array( $this, 'set_custom_transcript_column' ) );
+		add_action( 'manage_transcript_posts_custom_column', array( $this, 'transcript_custom_column_values' ), 10, 2 );
+	}
+
+	/**
+	 * Aggiunge una nuova colonna.
+	 *
+	 * @param array $columns array delle colonne del post.
+	 */
+	public function set_custom_transcript_column( $columns ) {
+		$columns['shortcode'] = __( 'Shortcode', 'ear2words' );
+		return $columns;
+	}
+
+	/**
+	 * Gestisce il contenuto delle colonne.
+	 *
+	 * @param string $column colonna da gestire.
+	 * @param int    $post_id id del post nel loop.
+	 */
+	public function transcript_custom_column_values( $column, $post_id ) {
+		switch ( $column ) {
+			case 'shortcode':
+				echo esc_html( '[transcript id=' . $post_id . ']' );
+				break;
+		}
 	}
 
 	/**
