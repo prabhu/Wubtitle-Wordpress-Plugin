@@ -4,7 +4,7 @@ import { useState, useEffect } from "@wordpress/element";
 import { useDebounce } from "../helper/utils.js";
 import { __ } from "@wordpress/i18n";
 
-const TranscriptionEditBlock = ({ setAttributes }) => {
+const TranscriptionEditBlock = ({ attributes, setAttributes }) => {
 	const [currentValue, setValue] = useState("");
 	const [textSearch, setTextSearch] = useState("");
 	const [tokens, setTokens] = useState([]);
@@ -13,6 +13,23 @@ const TranscriptionEditBlock = ({ setAttributes }) => {
 	useEffect(() => {
 		setTextSearch(debouncedCurrentValue);
 	}, [debouncedCurrentValue]);
+
+	useSelect(select => {
+		if (attributes.contentId && tokens.length === 0) {
+			const queryPost = {
+				per_page: 1,
+				include: attributes.contentId
+			};
+			const resultPost = select("core").getEntityRecords(
+				"postType",
+				"transcript",
+				queryPost
+			);
+			if (resultPost !== null) {
+				setTokens([resultPost[0].title.rendered]);
+			}
+		}
+	});
 
 	const postsCurrent = useSelect(select => {
 		if (textSearch.length > 2) {
@@ -39,6 +56,7 @@ const TranscriptionEditBlock = ({ setAttributes }) => {
 
 	const setTokenFunction = token => {
 		if (token.length === 0) {
+			setAttributes({ contentId: null });
 			setTokens(token);
 		} else if (suggestions.includes(token[0])) {
 			const contentId = options.get(token[0]);

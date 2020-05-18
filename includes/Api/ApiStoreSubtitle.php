@@ -22,6 +22,7 @@ class ApiStoreSubtitle {
 	 */
 	public function run() {
 		add_action( 'rest_api_init', array( $this, 'register_store_subtitle_route' ) );
+		add_action( 'rest_api_init', array( $this, 'register_error_jobs_route' ) );
 	}
 
 	/**
@@ -154,7 +155,6 @@ class ApiStoreSubtitle {
 		return $response;
 	}
 
-
 	/**
 	 * Genera post trascrizione.
 	 *
@@ -172,5 +172,60 @@ class ApiStoreSubtitle {
 		$new_transcript = wp_insert_post( $trascript_post );
 
 		update_post_meta( $id_attachment, 'ear2words_transcript', $new_transcript );
+	}
+
+	/**
+	 * Crea un nuovo endpoint per ricevere i jobs andati in errori.
+	 */
+	public function register_error_jobs_route() {
+		register_rest_route(
+			'ear2words/v1',
+			'/error-jobs',
+			array(
+				'methods'  => 'POST',
+				'callback' => array( $this, 'get_jobs_failed' ),
+			)
+		);
+	}
+	/**
+	 * Recupera i job falliti.
+	 *
+	 * @param array $request valori della richiesta.
+	 */
+	public function get_jobs_failed( $request ) {
+		$params   = $request->get_param( 'data' );
+		$job_id   = $params['jobId'];
+		$args     = array(
+			'post_type'      => 'attachment',
+			'posts_per_page' => 1,
+			'meta_key'       => 'ear2words_job_uuid',
+			'meta_value'     => $job_id,
+		);
+		$job_meta = get_posts( $args );
+		if ( empty( $job_meta[0] ) ) {
+			$response = new WP_REST_Response(
+				array(
+					'errors' => array(
+						'status' => '404',
+						'title'  => 'Invalid Job uuid',
+					),
+				)
+			);
+
+			$response->set_status( 404 );
+
+			return $response;
+		}
+
+		$id_attachment = $job_meta[0]->ID;
+		update_post_meta( $id_attachment, 'ear2words_status', 'error' );
+		$message = array(
+			'data' => array(
+				'status' => '200',
+				'title'  => 'Success',
+			),
+		);
+
+		return $message;
 	}
 }
