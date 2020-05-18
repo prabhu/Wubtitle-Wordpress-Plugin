@@ -58,6 +58,10 @@ const Ear2WordPanel = props => {
 			? selectOptionsFreePlan
 			: selectOptions;
 	const GenerateSubtitles = () => {
+		status =
+			status === "error"
+				? __("Error", "ear2words")
+				: __("None", "ear2words");
 		return (
 			<Fragment>
 				<div>{__("Status: ", "ear2words") + status}</div>
