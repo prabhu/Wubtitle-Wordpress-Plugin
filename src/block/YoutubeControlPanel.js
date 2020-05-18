@@ -2,10 +2,13 @@
 import { PanelBody, Button } from "@wordpress/components";
 import { InspectorControls } from "@wordpress/block-editor";
 import { __ } from "@wordpress/i18n";
+import { useState } from "@wordpress/element";
 
 const YoutubeControlPanel = props => {
-	function onClick() {
-		document.querySelector(".message").innerHTML = "Getting transcript...";
+	const [message, setMessage] = useState("");
+
+	const onClick = () => {
+		setMessage("Getting transcript...");
 		const videoId = props.url.replace(
 			"https://www.youtube.com/watch?v=",
 			""
@@ -21,13 +24,15 @@ const YoutubeControlPanel = props => {
 				}
 			})
 			.then(response => {
-				document.querySelector(".message").innerHTML = "Done";
+				setMessage("Done");
 				const block = wp.blocks.createBlock("core/paragraph", {
 					content: response
 				});
 				wp.data.dispatch("core/block-editor").insertBlocks(block);
 			});
-	}
+	};
+
+	const Message = () => <span>{message}</span>;
 
 	return (
 		<InspectorControls>
@@ -40,7 +45,7 @@ const YoutubeControlPanel = props => {
 				>
 					{__("Transcribe", "ear2words")}
 				</Button>
-				<span className="message"></span>
+				<Message message={message} />
 			</PanelBody>
 		</InspectorControls>
 	);
