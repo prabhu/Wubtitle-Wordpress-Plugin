@@ -44,6 +44,7 @@ class ListingSubtitles {
 			'enabled'  => __( 'Published', 'ear2words' ),
 			'notvideo' => '__',
 			'notfound' => __( 'None', 'ear2words' ),
+			'error'    => __( 'Error', 'ear2words' ),
 		);
 		$status     = get_post_meta( $id_media, 'ear2words_status', true );
 		$status     = '' === $status ? 'notfound' : $status;

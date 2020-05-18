@@ -91,6 +91,7 @@ class TestApiRequest extends WP_Ajax_UnitTestCase {
          );
          $result = $this->instance->set_body_request($data);
          $expected_body = array(
+           'source' => 'INTERNAL',
     			 'data' => array(
     				 'attachmentId' => $attachment_id,
     				 'url'          => $src,

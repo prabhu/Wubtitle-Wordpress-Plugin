@@ -39,8 +39,12 @@ class Loader {
 			'cron'                    => Core\Cron::class,
 			'register_callback_pages' => Dashboard\RegisterStripeCallbackPages::class,
 			'api_auth_plan'           => Api\ApiAuthUpgradePlan::class,
+			'api_get_transcript'      => Api\ApiGetTranscript::class,
 			'helpers'                 => Helpers::class,
 			'extends_transcription'   => MediaLibrary\TrascriptionsExtends::class,
+			'transcript_cpt'          => Core\CustomPostTypes\Transcript::class,
+			'youtube_source'          => Core\Sources\YouTube::class,
+			'trascription_block'      => Gutenberg\TranscriptionBlock::class,
 		);
 
 		foreach ( $classes as $key => $class ) {
