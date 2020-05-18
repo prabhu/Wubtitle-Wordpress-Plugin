@@ -9,7 +9,7 @@ registerBlockType("wubtitle/transcription", {
 	category: "embed",
 	attributes: {
 		contentId: {
-			type: "string"
+			type: "int"
 		}
 	},
 	edit: TranscriptionEditBlock,
