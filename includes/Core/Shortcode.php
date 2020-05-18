@@ -33,8 +33,6 @@ class Shortcode {
 	 * @param array $atts parametri passati dallo shortcode.
 	 */
 	public function shortcode_transcript( $atts ) {
-		$atts = array_change_key_case( (array) $atts, CASE_LOWER );
-
 		$post = get_post( $atts['id'] );
 
 		if ( null === $post ) {
