@@ -32,6 +32,8 @@ class TrascriptionsExtends {
 	 */
 	public function ear2words_embed_shortcode( $html, $url, $attr ) {
 		$url_parts    = wp_parse_url( $url );
+		$query_params = array();
+		parse_str( $url_parts['query'], $query_params );
 		$allowed_urls = array(
 			'www.youtube.com',
 			'www.youtu.be',
@@ -40,7 +42,8 @@ class TrascriptionsExtends {
 			return $html;
 		}
 		// TODO eseguire la funzione per creare un nuovo custom posttype e inserire lo shortcode.
-		$html .= '<p> prova transcription </p>';
+		$transcript_id = Loader::get( 'youtube_source' )->get_subtitle( $query_params['v'], 'from_editor' );
+		$html         .= '<p> prova transcription ' . $transcript_id . '</p>';
 		return $html;
 	}
 	/**
