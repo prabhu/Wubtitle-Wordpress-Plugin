@@ -54,7 +54,7 @@ class Transcript {
 	public function source_box_html( $post ) {
 		?>
 			<p>
-				<?php echo esc_html( __( 'Source:', 'ear2words' ) ); ?> 
+				<?php echo esc_html( __( 'Source:', 'ear2words' ) ); ?>
 
 				<?php echo $post->_transcript_source ? esc_html( $post->_transcript_source ) : esc_html( 'youtube' ); ?>
 			</p>
@@ -103,7 +103,7 @@ class Transcript {
 
 		$response_code = wp_remote_retrieve_response_code( $response );
 
-		if ( 201 === $response_code ) {
+		if ( 201 !== $response_code ) {
 			return 'Error';
 		}
 
@@ -195,4 +195,3 @@ class Transcript {
 	}
 
 }
-

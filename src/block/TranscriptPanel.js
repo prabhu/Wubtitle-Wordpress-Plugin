@@ -22,15 +22,14 @@ const TranscriptPanel = () => {
 				}
 			})
 			.then(response => {
-				if (response === "error") {
-					setMessage(__("Url not valid...", "ear2words"));
-				} else {
-					setMessage(__("Done", "ear2words"));
-					const block = wp.blocks.createBlock("core/paragraph", {
-						content: response
-					});
-					wp.data.dispatch("core/block-editor").insertBlocks(block);
-				}
+				setMessage(__("Done", "ear2words"));
+				const block = wp.blocks.createBlock("core/paragraph", {
+					content: response
+				});
+				wp.data.dispatch("core/block-editor").insertBlocks(block);
+			})
+			.fail(response => {
+				setMessage(response);
 			});
 	};
 	return (

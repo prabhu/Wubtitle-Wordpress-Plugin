@@ -1,10 +1,12 @@
 document.addEventListener("DOMContentLoaded", function() {
 	const button = document.getElementById("insert-my-media");
-	button.addEventListener("click", () => {
-		wp.media.frame.detach();
-		wp.media.editor.remove();
-		openMediaWindow();
-	});
+	if (button) {
+		button.addEventListener("click", () => {
+			wp.media.frame.detach();
+			wp.media.editor.remove();
+			openMediaWindow();
+		});
+	}
 	const windowTrascriptions = wp.media({
 		frame: "post",
 		state: "embed"

@@ -19,16 +19,14 @@ const YoutubeControlPanel = props => {
 				}
 			})
 			.then(response => {
-				if (response === "error") {
-					setMessage(__("Url not valid", "ear2words"));
-				} else {
-					setMessage("Done");
-					const block = wp.blocks.createBlock(
-						"wubtitle/transcription",
-						{ contentId: response }
-					);
-					wp.data.dispatch("core/block-editor").insertBlocks(block);
-				}
+				setMessage("Done");
+				const block = wp.blocks.createBlock("wubtitle/transcription", {
+					contentId: response
+				});
+				wp.data.dispatch("core/block-editor").insertBlocks(block);
+			})
+			.fail(response => {
+				setMessage(response);
 			});
 	};
 

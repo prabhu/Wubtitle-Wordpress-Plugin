@@ -42,35 +42,12 @@ class YouTube implements \Ear2Words\Core\VideoSource {
 	}
 
 	/**
-	 * Effettua la chiamata all'endpoint.
+	 * Recupera la trascrizioni.
 	 *
-	 * @param string $url_video url del video youtube.
+	 * @param string $id_video id del video youtube.
 	 * @param string $from post type dal quale viene fatta la richiesta.
 	 */
-	public function get_subtitle( $url_video, $from ) {
-		$url_parts    = wp_parse_url( $url_video );
-		$allowed_urls = array(
-			'www.youtube.com',
-			'www.youtu.be',
-		);
-		if ( ! in_array( $url_parts['host'], $allowed_urls, true ) ) {
-			return 'error';
-		}
-		$url_parts    = wp_parse_url( $url_video );
-		$query_params = array();
-		parse_str( $url_parts['query'], $query_params );
-		$id_video = $query_params['v'];
-		$args     = array(
-			'post_type'      => 'transcript',
-			'posts_per_page' => 1,
-			'meta_key'       => '_video_id',
-			'meta_value'     => sanitize_text_field( wp_unslash( $id_video ) ),
-		);
-		$posts    = get_posts( $args );
-		if ( ! empty( $posts ) && 'default_post_type' === $from ) {
-			return $posts[0]->ID;
-		}
-
+	public function get_subtitle( $id_video, $from ) {
 		$get_info_url = "https://www.youtube.com/get_video_info?video_id=$id_video";
 
 		$file_info = array();
@@ -114,5 +91,32 @@ class YouTube implements \Ear2Words\Core\VideoSource {
 		}
 		return $text;
 	}
-
+	/**
+	 * Esegue la chiamata e poi recupera le trascrizioni.
+	 *
+	 * @param string $url_video url del video youtube.
+	 * @param string $from post type dal quale viene fatta la richiesta.
+	 */
+	public function send_job_and_get_transcription( $url_video, $from ) {
+		$url_parts    = wp_parse_url( $url_video );
+		$query_params = array();
+		parse_str( $url_parts['query'], $query_params );
+		$id_video = $query_params['v'];
+		$args     = array(
+			'post_type'      => 'transcript',
+			'posts_per_page' => 1,
+			'meta_key'       => '_video_id',
+			'meta_value'     => sanitize_text_field( wp_unslash( $id_video ) ),
+		);
+		$posts    = get_posts( $args );
+		if ( ! empty( $posts ) && 'default_post_type' === $from ) {
+			return $posts[0]->ID;
+		}
+		$response = $this->send_job_to_backend( $id_video );
+		if ( '201' === $response ) {
+			$response = $this->get_subtitle( $id_video, $from );
+			return $response;
+		}
+		return 'error';
+	}
 }

@@ -39,9 +39,11 @@ class TrascriptionsExtends {
 		if ( empty( $attr['transcription'] ) || 'enable' !== $attr['transcription'] || ! in_array( $url_parts['host'], $allowed_urls, true ) ) {
 			return $html;
 		}
-		// TODO eseguire la funzione per creare un nuovo custom posttype e inserire lo shortcode.
-		$transcript_id = Loader::get( 'youtube_source' )->get_subtitle( $url, 'default_post_type' );
-		$html         .= '[transcript id="' . $transcript_id . '" ]';
+		$transcript_id = Loader::get( 'youtube_source' )->send_job_and_get_transcription( $url, 'default_post_type' );
+		if ( 'error' === $transcript_id ) {
+			return $html;
+		}
+		$html .= '[transcript id="' . $transcript_id . '" ]';
 		return $html;
 	}
 	/**
