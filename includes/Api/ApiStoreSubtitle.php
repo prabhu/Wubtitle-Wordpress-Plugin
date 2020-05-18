@@ -137,7 +137,9 @@ class ApiStoreSubtitle {
 		update_post_meta( $id_file_vtt, 'is_subtitle', 'true' );
 
 		$transcript_response = wp_remote_get( $transcript_url );
-		$transcript          = $transcript_response['body'];
+
+		$transcript = wp_remote_retrieve_body( $transcript_response );
+
 		$this->add_post_trascript( $transcript, $file_name, $id_attachment );
 
 		$message = array(
@@ -168,10 +170,11 @@ class ApiStoreSubtitle {
 			'post_content' => $transcript,
 			'post_status'  => 'publish',
 			'post_type'    => 'transcript',
+			'meta_input'   => array(
+				'ear2words_transcript' => $id_attachment,
+			),
 		);
-		$new_transcript = wp_insert_post( $trascript_post );
-
-		update_post_meta( $id_attachment, 'ear2words_transcript', $new_transcript );
+		wp_insert_post( $trascript_post );
 	}
 
 	/**
