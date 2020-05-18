@@ -41,6 +41,7 @@ class Loader {
 			'api_auth_plan'           => Api\ApiAuthUpgradePlan::class,
 			'api_get_transcript'      => Api\ApiGetTranscript::class,
 			'helpers'                 => Helpers::class,
+			'extends_transcription'   => MediaLibrary\TrascriptionsExtends::class,
 			'transcript_cpt'          => Core\CustomPostTypes\Transcript::class,
 			'shortcode'               => Core\Shortcode::class,
 			'youtube_source'          => Core\Sources\YouTube::class,

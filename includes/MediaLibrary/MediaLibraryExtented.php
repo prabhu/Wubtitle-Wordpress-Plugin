@@ -29,6 +29,7 @@ class MediaLibraryExtented {
 		add_filter( 'attachment_fields_to_save', array( $this, 'video_attachment_fields_to_save' ), null, 2 );
 		add_filter( 'wp_video_shortcode_override', array( $this, 'ear2words_video_shortcode' ), 10, 4 );
 	}
+
 	/**
 	 *  Faccio l'enqueue dello style per i settings.
 	 */
