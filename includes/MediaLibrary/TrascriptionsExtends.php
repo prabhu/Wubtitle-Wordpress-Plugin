@@ -32,17 +32,23 @@ class TrascriptionsExtends {
 	 */
 	public function ear2words_embed_shortcode( $html, $url, $attr ) {
 		$url_parts    = wp_parse_url( $url );
-		$query_params = array();
-		parse_str( $url_parts['query'], $query_params );
 		$allowed_urls = array(
 			'www.youtube.com',
 			'www.youtu.be',
 		);
-		if ( empty( $attr['transcription'] ) || 'enable' !== $attr['transcription'] || ! in_array( $url_parts['host'], $allowed_urls, true ) ) {
+		if ( empty( $attr['transcription'] ) || 'enable' !== $attr['transcription'] ) {
 			return $html;
 		}
-		$transcript_id = Loader::get( 'youtube_source' )->get_subtitle( $query_params['v'], 'default_post_type' );
-		$html         .= '[transcript id="' . $transcript_id . '" ]';
+		if ( ! in_array( $url_parts['host'], $allowed_urls, true ) ) {
+			$html = '<p style="color:red">' . __( 'Url not a valid youtube url', 'ear2words' ) . '</p>';
+			return $html;
+		}
+		$transcript_response = Loader::get( 'youtube_source' )->send_job_and_get_transcription( $url, 'default_post_type' );
+		if ( ! $transcript_response['success'] ) {
+			$html = '<p style="color:red">' . $transcript_response['data'] . '</p>';
+			return $html;
+		}
+		$html .= '[transcript id="' . $transcript_response['data'] . '" ]';
 		return $html;
 	}
 	/**

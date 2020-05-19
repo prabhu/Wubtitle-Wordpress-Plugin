@@ -42,23 +42,12 @@ class YouTube implements \Ear2Words\Core\VideoSource {
 	}
 
 	/**
-	 * Effettua la chiamata all'endpoint.
+	 * Recupera la trascrizioni.
 	 *
 	 * @param string $id_video id del video youtube.
 	 * @param string $from post type dal quale viene fatta la richiesta.
 	 */
 	public function get_subtitle( $id_video, $from ) {
-		$args  = array(
-			'post_type'      => 'transcript',
-			'posts_per_page' => 1,
-			'meta_key'       => '_video_id',
-			'meta_value'     => sanitize_text_field( wp_unslash( $id_video ) ),
-		);
-		$posts = get_posts( $args );
-		if ( ! empty( $posts ) && 'default_post_type' === $from ) {
-			return $posts[0]->ID;
-		}
-
 		$get_info_url = "https://www.youtube.com/get_video_info?video_id=$id_video";
 
 		$file_info = array();
@@ -93,7 +82,7 @@ class YouTube implements \Ear2Words\Core\VideoSource {
 				'post_type'    => 'transcript',
 				'post_status'  => 'publish',
 				'meta_input'   => array(
-					'_video_id'          => sanitize_text_field( wp_unslash( $id_video ) ),
+					'_video_id'          => $id_video,
 					'_transcript_source' => 'youtube',
 				),
 			);
@@ -102,5 +91,51 @@ class YouTube implements \Ear2Words\Core\VideoSource {
 		}
 		return $text;
 	}
-
+	/**
+	 * Esegue la chiamata e poi recupera le trascrizioni.
+	 *
+	 * @param string $url_video url del video youtube.
+	 * @param string $from post type dal quale viene fatta la richiesta.
+	 */
+	public function send_job_and_get_transcription( $url_video, $from ) {
+		$url_parts    = wp_parse_url( $url_video );
+		$query_params = array();
+		parse_str( $url_parts['query'], $query_params );
+		$id_video = $query_params['v'];
+		$args     = array(
+			'post_type'      => 'transcript',
+			'posts_per_page' => 1,
+			'meta_key'       => '_video_id',
+			'meta_value'     => $id_video,
+		);
+		$posts    = get_posts( $args );
+		if ( ! empty( $posts ) && 'default_post_type' === $from ) {
+			$response = array(
+				'success' => true,
+				'data'    => $posts[0]->ID,
+			);
+			return $response;
+		}
+		$response      = $this->send_job_to_backend( $id_video );
+		$response_code = wp_remote_retrieve_response_code( $response );
+		$message       = array(
+			'400' => __( 'An error occurred while creating the transcriptions. Please try again in a few minutes', 'ear2words' ),
+			'401' => __( 'An error occurred while creating the transcriptions. Please try again in a few minutes', 'ear2words' ),
+			'403' => __( 'Unable to create transcriptions. Invalid product license', 'ear2words' ),
+			'500' => __( 'Could not contact the server', 'ear2words' ),
+			'429' => __( 'Error, no more video left for your subscription plan', 'ear2words' ),
+		);
+		if ( '201' !== $response_code ) {
+			$response = array(
+				'success' => false,
+				'data'    => $message[ $response_code ],
+			);
+			return $response;
+		}
+		$response = array(
+			'success' => true,
+			'data'    => $this->get_subtitle( $id_video, $from ),
+		);
+		return $response;
+	}
 }

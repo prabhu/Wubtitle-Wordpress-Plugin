@@ -14,6 +14,8 @@ registerBlockType("wubtitle/transcription", {
 	},
 	edit: TranscriptionEditBlock,
 	save: props => {
-		return "[transcript id= " + props.attributes.contentId + " ]";
+		return (
+			<div>{"[transcript id= " + props.attributes.contentId + " ]"}</div>
+		);
 	}
 });

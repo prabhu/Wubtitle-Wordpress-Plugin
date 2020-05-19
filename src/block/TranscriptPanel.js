@@ -2,62 +2,61 @@
 import { registerPlugin } from "@wordpress/plugins";
 import { PluginDocumentSettingPanel } from "@wordpress/edit-post";
 import { TextControl, Button } from "@wordpress/components";
-import { withState } from "@wordpress/compose";
-import { Fragment } from "@wordpress/element";
+import { useState, Fragment } from "@wordpress/element";
 import { __ } from "@wordpress/i18n";
 import { select } from "@wordpress/data";
 import domReady from "@wordpress/dom-ready";
 
-const TranscriptControl = withState({
-	idVideo: ""
-})(({ value, setState }) => (
-	<TextControl
-		label="video url"
-		id="input"
-		value={value}
-		onChange={idVideo => {
-			setState({ idVideo });
-		}}
-	/>
-));
-
-const getTranscript = () => {
-	const inputValue = document.querySelector("#input").value;
-
-	document.querySelector("#message").innerHTML = "Getting transcript...";
-
-	const videoId = inputValue.replace("https://www.youtube.com/watch?v=", "");
-
-	wp.ajax
-		.send("get_transcript", {
-			type: "POST",
-			data: {
-				id: videoId,
-				source: "youtube",
-				from: "transcript_post_type"
-			}
-		})
-		.then(response => {
-			document.querySelector("#message").innerHTML = "Done";
-			const block = wp.blocks.createBlock("core/paragraph", {
-				content: response
-			});
-			wp.data.dispatch("core/block-editor").insertBlocks(block);
-		});
-};
-
 const TranscriptPanel = () => {
+	const [message, setMessage] = useState("");
+	const [inputValue, setInputValue] = useState("");
+	const isDisabled = inputValue === "";
+	const getTranscript = () => {
+		setMessage(__("Getting transcript...", "ear2words"));
+
+		wp.ajax
+			.send("get_transcript", {
+				type: "POST",
+				data: {
+					url: inputValue,
+					source: "youtube",
+					from: "transcript_post_type"
+				}
+			})
+			.then(response => {
+				setMessage(__("Done", "ear2words"));
+				const block = wp.blocks.createBlock("core/paragraph", {
+					content: response
+				});
+				wp.data.dispatch("core/block-editor").insertBlocks(block);
+			})
+			.fail(response => {
+				setMessage(response);
+			});
+	};
 	return (
 		<Fragment>
 			<PluginDocumentSettingPanel
 				name="transcript-panel"
 				title="Transcript"
 			>
-				<TranscriptControl />
-				<Button name="transcript" isPrimary onClick={getTranscript}>
+				<TextControl
+					label="video url"
+					id="input"
+					value={inputValue}
+					onChange={urlVideo => {
+						setInputValue(urlVideo);
+					}}
+				/>
+				<Button
+					name="transcript"
+					isPrimary
+					onClick={getTranscript}
+					disabled={isDisabled}
+				>
 					{__("Get transcript", "ear2words")}
 				</Button>
-				<span id="message"></span>
+				<p>{message}</p>
 			</PluginDocumentSettingPanel>
 		</Fragment>
 	);

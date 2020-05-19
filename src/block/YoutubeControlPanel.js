@@ -6,19 +6,14 @@ import { useState } from "@wordpress/element";
 
 const YoutubeControlPanel = props => {
 	const [message, setMessage] = useState("");
-
+	const isDisabled = props.url === undefined;
 	const onClick = () => {
-		setMessage("Getting transcript...");
-		const videoId = props.url.replace(
-			"https://www.youtube.com/watch?v=",
-			""
-		);
-
+		setMessage(__("Getting transcript...", "ear2words"));
 		wp.ajax
 			.send("get_transcript", {
 				type: "POST",
 				data: {
-					id: videoId,
+					url: props.url,
 					source: "youtube",
 					from: "default_post_type"
 				}
@@ -29,6 +24,9 @@ const YoutubeControlPanel = props => {
 					contentId: response
 				});
 				wp.data.dispatch("core/block-editor").insertBlocks(block);
+			})
+			.fail(response => {
+				setMessage(response);
 			});
 	};
 
@@ -40,10 +38,11 @@ const YoutubeControlPanel = props => {
 					id={props.id}
 					isPrimary
 					onClick={onClick}
+					disabled={isDisabled}
 				>
 					{__("Transcribe", "ear2words")}
 				</Button>
-				<span>{message}</span>
+				<p>{message}</p>
 			</PanelBody>
 		</InspectorControls>
 	);

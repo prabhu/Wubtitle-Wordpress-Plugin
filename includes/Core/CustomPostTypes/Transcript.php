@@ -81,14 +81,14 @@ class Transcript {
 	public function source_box_html( $post ) {
 		?>
 			<p>
-				<?php echo esc_html( __( 'Source:', 'ear2words' ) ); ?> 
+				<?php echo esc_html( __( 'Source:', 'ear2words' ) ); ?>
 
 				<?php echo $post->_transcript_source ? esc_html( $post->_transcript_source ) : esc_html( 'youtube' ); ?>
 			</p>
 
 			<input type="hidden" id="source" name="source" value="<?php echo $post->_transcript_source ? esc_attr( $post->_transcript_source ) : esc_html( 'youtube' ); ?>">
 
-			<input type="text" id="youtube-url" name="url" placeholder="<?php echo esc_html( __( 'Insert video ID', 'ear2words' ) ); ?>" value="<?php echo esc_attr( $post->_transcript_url ); ?>">
+			<input type="text" id="youtube-url" name="url" placeholder="<?php echo esc_html( __( 'Insert url youtube video', 'ear2words' ) ); ?>" value="<?php echo esc_attr( $post->_transcript_url ); ?>">
 
 			<?php wp_nonce_field( 'transcript_data', 'transcript_nonce' ); ?>
 		<?php
@@ -100,10 +100,6 @@ class Transcript {
 	 *  @param string $content contenuto ritornato dall'hook content_save_pre.
 	 */
 	public function transcript_content( $content ) {
-		if ( $content ) {
-			return $content;
-		}
-
 		if ( ! isset( $_POST['url'] ) &&
 			! isset( $_POST['source'] ) &&
 			! isset( $_POST['transcript_nonce'] )
@@ -121,43 +117,51 @@ class Transcript {
 			case 'youtube':
 				$video_source = new YouTube();
 				break;
-			case 'media':
-				return;
 			default:
 				return;
 		}
-		$response = $video_source->send_job_to_backend( sanitize_text_field( wp_unslash( $_POST['url'] ) ) );
+		$url_video    = sanitize_text_field( wp_unslash( $_POST['url'] ) );
+		$url_parts    = wp_parse_url( $url_video );
+		$allowed_urls = array(
+			'www.youtube.com',
+			'www.youtu.be',
+		);
+		if ( ! in_array( $url_parts['host'], $allowed_urls, true ) ) {
+			return '<p style="color:red">' . __( 'Url not a valid youtube url', 'ear2words' ) . '</p>';
+		}
+		$query_params = array();
+		parse_str( $url_parts['query'], $query_params );
+		$id_video = $query_params['v'];
+
+		$args  = array(
+			'post_type'      => 'transcript',
+			'posts_per_page' => 1,
+			'meta_key'       => '_video_id',
+			'meta_value'     => $id_video,
+		);
+		$posts = get_posts( $args );
+		if ( ! empty( $posts ) ) {
+			return $posts[0]->post_content;
+		}
+
+		$response = $video_source->send_job_to_backend( $id_video );
 
 		$response_code = wp_remote_retrieve_response_code( $response );
 
+		$message = array(
+			'400' => __( 'An error occurred while creating the transcriptions. Please try again in a few minutes', 'ear2words' ),
+			'401' => __( 'An error occurred while creating the transcriptions. Please try again in a few minutes', 'ear2words' ),
+			'403' => __( 'Unable to create transcriptions. Invalid product license', 'ear2words' ),
+			'500' => __( 'Could not contact the server', 'ear2words' ),
+			'429' => __( 'Error, no more video left for your subscription plan', 'ear2words' ),
+		);
 		if ( 201 !== $response_code ) {
-			$this->handle_backend_error( $response_code );
+			return '<p style="color:red">' . $message[ $response_code ] . '</p>';
 		}
 
 		$content = $video_source->get_subtitle( sanitize_text_field( wp_unslash( $_POST['url'] ) ), 'transcript_post_type' );
 		return $content;
 	}
-
-	/**
-	 * Gestisce il messaggio d'errore.
-	 *
-	 * @param int $response_code response code della chiamata al backend.
-	 */
-	public function handle_backend_error( $response_code ) {
-		switch ( $response_code ) {
-			case 400:
-				return __( 'Some issues with the request. Try again in a few minutes or contact the support.', 'ear2words' );
-			case 401:
-				return __( 'Unauthorized. Check your license key.', 'ear2words' );
-			case 403:
-				return __( 'Forbidden. Check your license key.', 'ear2words' );
-			case 429:
-				return __( 'Too Many Requests. Try again in a few minutes.', 'ear2words' );
-			default:
-				return __( 'Error.', 'ear2words' );
-		}
-	}
-
 
 	/**
 	 * Update option hook callback.
@@ -242,4 +246,3 @@ class Transcript {
 	}
 
 }
-
