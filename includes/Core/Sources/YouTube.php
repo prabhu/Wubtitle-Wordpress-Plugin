@@ -82,7 +82,7 @@ class YouTube implements \Ear2Words\Core\VideoSource {
 				'post_type'    => 'transcript',
 				'post_status'  => 'publish',
 				'meta_input'   => array(
-					'_video_id'          => sanitize_text_field( wp_unslash( $id_video ) ),
+					'_video_id'          => $id_video,
 					'_transcript_source' => 'youtube',
 				),
 			);
@@ -106,7 +106,7 @@ class YouTube implements \Ear2Words\Core\VideoSource {
 			'post_type'      => 'transcript',
 			'posts_per_page' => 1,
 			'meta_key'       => '_video_id',
-			'meta_value'     => sanitize_text_field( wp_unslash( $id_video ) ),
+			'meta_value'     => $id_video,
 		);
 		$posts    = get_posts( $args );
 		if ( ! empty( $posts ) && 'default_post_type' === $from ) {

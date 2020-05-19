@@ -33,11 +33,9 @@ class ApiGetTranscript {
 		}
 
 		$url_video = sanitize_text_field( wp_unslash( $_POST['url'] ) );
-
 		$source = sanitize_text_field( wp_unslash( $_POST['source'] ) );
-
 		$from = sanitize_text_field( wp_unslash( $_POST['from'] ) );
-	// phpcs:enable
+		// phpcs:enable
 
 		switch ( $source ) {
 			case 'youtube':
@@ -53,21 +51,15 @@ class ApiGetTranscript {
 			'www.youtu.be',
 		);
 		if ( ! in_array( $url_parts['host'], $allowed_urls, true ) ) {
-			return 'error';
+			wp_send_json_error( __( 'Url not a valid youtube url', 'ear2words' ) );
 		}
 		$query_params = array();
 		parse_str( $url_parts['query'], $query_params );
 		$id_video = $query_params['v'];
 
-		$args  = array(
-			'post_type'      => 'transcript',
-			'posts_per_page' => 1,
-			'meta_key'       => '_video_id',
-			'meta_value'     => sanitize_text_field( wp_unslash( $id_video ) ),
-		);
-		$posts = get_posts( $args );
-		if ( ! empty( $posts ) && 'default_post_type' === $from ) {
-			wp_send_json_success( $posts[0]->ID );
+		$data_posts = $this->get_data_posts( $id_video, $from );
+		if ( $data_posts ) {
+			wp_send_json_success( $data_posts );
 		}
 
 		$response      = $video_source->send_job_to_backend( $id_video );
@@ -85,6 +77,28 @@ class ApiGetTranscript {
 		$transcript = $video_source->get_subtitle( $id_video, $from );
 
 		wp_send_json_success( $transcript );
+	}
+	/**
+	 * Recupera i dati se il post esiste e li ritorna.
+	 *
+	 * @param int    $id_video id del video.
+	 * @param string $from indica da dove viene eseguita la chiamata.
+	 */
+	public function get_data_posts( $id_video, $from ) {
+		$args  = array(
+			'post_type'      => 'transcript',
+			'posts_per_page' => 1,
+			'meta_key'       => '_video_id',
+			'meta_value'     => $id_video,
+		);
+		$posts = get_posts( $args );
+		if ( ! empty( $posts ) && 'default_post_type' === $from ) {
+			return $posts[0]->ID;
+		}
+		if ( ! empty( $posts ) && 'transcript_post_type' === $from ) {
+			return $posts[0]->post_content;
+		}
+		return false;
 	}
 
 }
