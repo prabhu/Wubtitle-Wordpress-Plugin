@@ -5,8 +5,6 @@ import { TextControl, Button } from "@wordpress/components";
 import { withState } from "@wordpress/compose";
 import { Fragment } from "@wordpress/element";
 import { __ } from "@wordpress/i18n";
-import { select } from "@wordpress/data";
-import domReady from "@wordpress/dom-ready";
 
 const TranscriptControl = withState({
 	idVideo: ""
@@ -63,11 +61,7 @@ const TranscriptPanel = () => {
 	);
 };
 
-domReady(() => {
-	if (select("core/editor").getCurrentPostType() !== "transcript") return;
-
-	registerPlugin("transcript-panel", {
-		render: TranscriptPanel,
-		icon: ""
-	});
+registerPlugin("transcript-panel", {
+	render: TranscriptPanel,
+	icon: ""
 });
