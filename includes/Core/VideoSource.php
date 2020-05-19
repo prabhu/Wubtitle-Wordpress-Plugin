@@ -27,4 +27,12 @@ interface VideoSource {
 	 * @param string $id_video id del del video.
 	 */
 	public function send_job_to_backend( $id_video );
+
+	/**
+	 * Interfaccia metodo per eseguire la chiamata e recuperare le trascrizioni.
+	 *
+	 * @param string $url_video url del video youtube.
+	 * @param string $from post type dal quale viene fatta la richiesta.
+	 */
+	public function send_job_and_get_transcription( $url_video, $from );
 }

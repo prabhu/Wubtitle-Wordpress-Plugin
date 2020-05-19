@@ -57,7 +57,7 @@ class ApiGetTranscript {
 		parse_str( $url_parts['query'], $query_params );
 		$id_video = $query_params['v'];
 
-		$data_posts = $this->get_data_posts( $id_video, $from );
+		$data_posts = $this->get_data_transcript( $id_video, $from );
 		if ( $data_posts ) {
 			wp_send_json_success( $data_posts );
 		}
@@ -84,7 +84,7 @@ class ApiGetTranscript {
 	 * @param int    $id_video id del video.
 	 * @param string $from indica da dove viene eseguita la chiamata.
 	 */
-	public function get_data_posts( $id_video, $from ) {
+	public function get_data_transcript( $id_video, $from ) {
 		$args  = array(
 			'post_type'      => 'transcript',
 			'posts_per_page' => 1,
