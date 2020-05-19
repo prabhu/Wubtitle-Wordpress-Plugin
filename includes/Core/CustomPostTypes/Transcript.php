@@ -26,6 +26,33 @@ class Transcript {
 		add_filter( 'content_save_pre', array( $this, 'transcript_content' ), 99 );
 
 		add_action( 'save_post_transcript', array( $this, 'save_postdata' ) );
+
+		add_filter( 'manage_transcript_posts_columns', array( $this, 'set_custom_transcript_column' ) );
+		add_action( 'manage_transcript_posts_custom_column', array( $this, 'transcript_custom_column_values' ), 10, 2 );
+	}
+
+	/**
+	 * Aggiunge una nuova colonna.
+	 *
+	 * @param array $columns array delle colonne del post.
+	 */
+	public function set_custom_transcript_column( $columns ) {
+		$columns['shortcode'] = __( 'Shortcode', 'ear2words' );
+		return $columns;
+	}
+
+	/**
+	 * Gestisce il contenuto delle colonne.
+	 *
+	 * @param string $column colonna da gestire.
+	 * @param int    $post_id id del post nel loop.
+	 */
+	public function transcript_custom_column_values( $column, $post_id ) {
+		switch ( $column ) {
+			case 'shortcode':
+				echo esc_html( '[transcript id=' . $post_id . ']' );
+				break;
+		}
 	}
 
 	/**
@@ -103,12 +130,32 @@ class Transcript {
 
 		$response_code = wp_remote_retrieve_response_code( $response );
 
-		if ( 201 === $response_code ) {
-			return 'Error';
+		if ( 201 !== $response_code ) {
+			$this->handle_backend_error( $response_code );
 		}
 
 		$content = $video_source->get_subtitle( sanitize_text_field( wp_unslash( $_POST['url'] ) ), 'transcript_post_type' );
 		return $content;
+	}
+
+	/**
+	 * Gestisce il messaggio d'errore.
+	 *
+	 * @param int $response_code response code della chiamata al backend.
+	 */
+	public function handle_backend_error( $response_code ) {
+		switch ( $response_code ) {
+			case 400:
+				return __( 'Some issues with the request. Try again in a few minutes or contact the support.', 'ear2words' );
+			case 401:
+				return __( 'Unauthorized. Check your license key.', 'ear2words' );
+			case 403:
+				return __( 'Forbidden. Check your license key.', 'ear2words' );
+			case 429:
+				return __( 'Too Many Requests. Try again in a few minutes.', 'ear2words' );
+			default:
+				return __( 'Error.', 'ear2words' );
+		}
 	}
 
 
