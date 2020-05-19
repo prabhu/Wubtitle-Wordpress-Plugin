@@ -110,13 +110,32 @@ class YouTube implements \Ear2Words\Core\VideoSource {
 		);
 		$posts    = get_posts( $args );
 		if ( ! empty( $posts ) && 'default_post_type' === $from ) {
-			return $posts[0]->ID;
-		}
-		$response = $this->send_job_to_backend( $id_video );
-		if ( '201' === $response ) {
-			$response = $this->get_subtitle( $id_video, $from );
+			$response = array(
+				'success' => true,
+				'data'    => $posts[0]->ID,
+			);
 			return $response;
 		}
-		return 'error';
+		$response      = $this->send_job_to_backend( $id_video );
+		$response_code = wp_remote_retrieve_response_code( $response );
+		$message       = array(
+			'400' => __( 'An error occurred while creating the transcriptions. Please try again in a few minutes', 'ear2words' ),
+			'401' => __( 'An error occurred while creating the transcriptions. Please try again in a few minutes', 'ear2words' ),
+			'403' => __( 'Unable to create transcriptions. Invalid product license', 'ear2words' ),
+			'500' => __( 'Could not contact the server', 'ear2words' ),
+			'429' => __( 'Error, no more video left for your subscription plan', 'ear2words' ),
+		);
+		if ( '201' !== $response_code ) {
+			$response = array(
+				'success' => false,
+				'data'    => $message[ $response_code ],
+			);
+			return $response;
+		}
+		$response = array(
+			'success' => true,
+			'data'    => $this->get_subtitle( $id_video, $from ),
+		);
+		return $response;
 	}
 }
