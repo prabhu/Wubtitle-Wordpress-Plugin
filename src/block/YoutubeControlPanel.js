@@ -42,7 +42,7 @@ const YoutubeControlPanel = props => {
 				>
 					{__("Transcribe", "ear2words")}
 				</Button>
-				<span>{message}</span>
+				<p>{message}</p>
 			</PanelBody>
 		</InspectorControls>
 	);

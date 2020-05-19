@@ -54,7 +54,7 @@ const TranscriptPanel = () => {
 				>
 					{__("Get transcript", "ear2words")}
 				</Button>
-				<span>{message}</span>
+				<p>{message}</p>
 			</PluginDocumentSettingPanel>
 		</Fragment>
 	);

@@ -28,7 +28,7 @@ class ApiGetTranscript {
 	 */
 	public function get_transcript() {
 		// phpcs:disable
-		if ( isset( $_POST['url'] ) && isset( $_POST['source'] ) && isset( $_POST['from'] ) ) {
+		if ( ! isset( $_POST['url'] ) && ! isset( $_POST['source'] ) && ! isset( $_POST['from'] ) ) {
 			wp_send_json_error( __( 'An error occurred while creating the transcriptions. Please try again in a few minutes', 'ear2words' ) );
 		}
 
