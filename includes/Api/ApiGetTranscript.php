@@ -74,7 +74,12 @@ class ApiGetTranscript {
 		if ( 201 !== $response_code ) {
 			wp_send_json_error( $message[ $response_code ] );
 		}
+
 		$transcript = $video_source->get_subtitle( $id_video, $from );
+
+		if ( ! $transcript ) {
+			wp_send_json_error( __( 'Transcript not avaiable for this video.', 'ear2words' ) );
+		}
 
 		wp_send_json_success( $transcript );
 	}
