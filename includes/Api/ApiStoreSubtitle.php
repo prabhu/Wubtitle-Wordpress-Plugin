@@ -140,7 +140,7 @@ class ApiStoreSubtitle {
 
 		$transcript = wp_remote_retrieve_body( $transcript_response );
 
-		$this->add_post_trascript( $transcript, $file_name, $id_attachment );
+		$this->add_post_trascript( $transcript, $id_attachment );
 
 		$message = array(
 			'message' => array(
@@ -161,12 +161,12 @@ class ApiStoreSubtitle {
 	 * Genera post trascrizione.
 	 *
 	 * @param string $transcript testo della trascrizione.
-	 * @param string $file_name nome del file vtt.
 	 * @param string $id_attachment id del video.
 	 */
-	public function add_post_trascript( $transcript, $file_name, $id_attachment ) {
-		$trascript_post = array(
-			'post_title'   => $file_name,
+	public function add_post_trascript( $transcript, $id_attachment ) {
+		$releted_attachment = get_post( $id_attachment );
+		$trascript_post     = array(
+			'post_title'   => $releted_attachment->post_title,
 			'post_content' => $transcript,
 			'post_status'  => 'publish',
 			'post_type'    => 'transcript',
