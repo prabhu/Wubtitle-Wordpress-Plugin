@@ -4,6 +4,8 @@ import { PluginDocumentSettingPanel } from "@wordpress/edit-post";
 import { TextControl, Button } from "@wordpress/components";
 import { useState, Fragment } from "@wordpress/element";
 import { __ } from "@wordpress/i18n";
+import { select } from "@wordpress/data";
+import domReady from "@wordpress/dom-ready";
 
 const TranscriptPanel = () => {
 	const [message, setMessage] = useState("");
@@ -60,7 +62,11 @@ const TranscriptPanel = () => {
 	);
 };
 
-registerPlugin("transcript-panel", {
-	render: TranscriptPanel,
-	icon: ""
+domReady(() => {
+	if (select("core/editor").getCurrentPostType() !== "transcript") return;
+
+	registerPlugin("transcript-panel", {
+		render: TranscriptPanel,
+		icon: ""
+	});
 });
