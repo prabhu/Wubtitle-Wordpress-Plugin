@@ -160,7 +160,21 @@ class Transcript {
 		}
 
 		$content = $video_source->get_subtitle( sanitize_text_field( wp_unslash( $_POST['url'] ) ), 'transcript_post_type' );
+
+		$this->has_content( $content );
+
 		return $content;
+	}
+
+	/**
+	 * Check content.
+	 *
+	 *  @param string $content id del post.
+	 */
+	public function has_content( $content ) {
+		if ( ! $content ) {
+			return '<p style="color:red">' . __( 'Transcript not avaiable for this video.', 'ear2words' ) . '</p>';
+		}
 	}
 
 	/**
