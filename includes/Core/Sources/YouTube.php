@@ -85,7 +85,7 @@ class YouTube implements \Ear2Words\Core\VideoSource {
 
 		if ( 'default_post_type' === $from ) {
 			$trascript_post = array(
-				'post_title'   => $title_video,
+				'post_title'   => sanitize_text_field( $title_video ),
 				'post_content' => $text,
 				'post_type'    => 'transcript',
 				'post_status'  => 'publish',
