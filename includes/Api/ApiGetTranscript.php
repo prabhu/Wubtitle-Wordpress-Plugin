@@ -21,6 +21,29 @@ class ApiGetTranscript {
 	 */
 	public function run() {
 		add_action( 'wp_ajax_get_transcript', array( $this, 'get_transcript' ) );
+		add_action( 'wp_ajax_get_transcript_internal_video', array( $this, 'get_transcript_internal_video' ) );
+	}
+	/**
+	 * Recupera le trascrizioni per il video interno e le ritorna.
+	 */
+	public function get_transcript_internal_video() {
+		if ( ! isset( $_POST['id'] ) || ! isset( $_POST['_ajax_nonce'] ) ) {
+			wp_send_json_error( __( 'An error occurred while creating the transcriptions. Please try again in a few minutes', 'ear2words' ) );
+		}
+		$nonce    = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
+		$id_video = sanitize_text_field( wp_unslash( $_POST['id'] ) );
+		check_ajax_referer( 'itr_ajax_nonce', $nonce );
+		$args  = array(
+			'post_type'      => 'transcript',
+			'posts_per_page' => 1,
+			'meta_key'       => 'ear2words_transcript',
+			'meta_value'     => $id_video,
+		);
+		$posts = get_posts( $args );
+		if ( empty( $posts ) ) {
+			wp_send_json_error( __( 'Error, Transcription not found', 'ear2words' ) );
+		}
+		wp_send_json_success( $posts[0]->ID );
 	}
 
 	/**
@@ -28,7 +51,7 @@ class ApiGetTranscript {
 	 */
 	public function get_transcript() {
 		// phpcs:disable
-		if ( ! isset( $_POST['url'] ) && ! isset( $_POST['source'] ) && ! isset( $_POST['from'] ) ) {
+		if ( ! isset( $_POST['url'] ) || ! isset( $_POST['source'] ) || ! isset( $_POST['from'] ) ) {
 			wp_send_json_error( __( 'An error occurred while creating the transcriptions. Please try again in a few minutes', 'ear2words' ) );
 		}
 

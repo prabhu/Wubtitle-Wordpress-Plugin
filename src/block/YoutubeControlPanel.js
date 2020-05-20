@@ -19,7 +19,6 @@ const YoutubeControlPanel = props => {
 				}
 			})
 			.then(response => {
-				setMessage("Done");
 				const block = wp.blocks.createBlock("wubtitle/transcription", {
 					contentId: response
 				});
@@ -40,7 +39,7 @@ const YoutubeControlPanel = props => {
 					onClick={onClick}
 					disabled={isDisabled}
 				>
-					{__("Transcribe", "ear2words")}
+					{__("Get Transcribe", "ear2words")}
 				</Button>
 				<p>{message}</p>
 			</PanelBody>
