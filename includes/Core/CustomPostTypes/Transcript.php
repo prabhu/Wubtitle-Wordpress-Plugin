@@ -51,9 +51,24 @@ class Transcript {
 				},
 			)
 		);
+
 		register_post_meta(
 			'transcript',
-			'_source',
+			'_trascript_url',
+			array(
+				'show_in_rest'      => true,
+				'type'              => 'string',
+				'single'            => true,
+				'sanitize_callback' => 'sanitize_text_field',
+				'auth_callback'     => function() {
+					return current_user_can( 'edit_posts' );
+				},
+			)
+		);
+
+		register_post_meta(
+			'transcript',
+			'_trascript_source',
 			array(
 				'show_in_rest'      => true,
 				'type'              => 'string',
@@ -124,7 +139,7 @@ class Transcript {
 
 			<input type="hidden" id="source" name="source" value="<?php echo $post->_transcript_source ? esc_attr( $post->_transcript_source ) : esc_html( 'youtube' ); ?>">
 
-			<input type="text" id="youtube-url" name="url" placeholder="<?php echo esc_html( __( 'Insert url youtube video', 'ear2words' ) ); ?>" value="<?php echo esc_attr( $post->_transcript_url ); ?>">
+			<input type="text" id="youtube-url" name="video_id" placeholder="<?php echo esc_html( __( 'Insert url youtube video', 'ear2words' ) ); ?>" value="<?php echo esc_attr( $post->_transcript_url ); ?>">
 
 			<?php wp_nonce_field( 'transcript_data', 'transcript_nonce' ); ?>
 		<?php
@@ -209,7 +224,7 @@ class Transcript {
 			return;
 		}
 
-		if ( ! isset( $_POST['source'] ) || ! isset( $_POST['videoId'] ) || ! isset( $_POST['transcript_nonce'] ) ) {
+		if ( ! isset( $_POST['source'] ) || ! isset( $_POST['video_id'] ) || ! isset( $_POST['transcript_nonce'] ) ) {
 			return;
 		}
 
@@ -233,7 +248,13 @@ class Transcript {
 
 		update_post_meta(
 			$post_id,
-			'_transcript_source',
+			'_url',
+			sanitize_text_field( wp_unslash( $_POST['video_id'] ) )
+		);
+
+		update_post_meta(
+			$post_id,
+			'_source',
 			sanitize_text_field( wp_unslash( $_POST['source'] ) )
 		);
 	}
