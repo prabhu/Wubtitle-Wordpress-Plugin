@@ -8,9 +8,12 @@ import { select } from "@wordpress/data";
 import domReady from "@wordpress/dom-ready";
 
 const TranscriptPanel = () => {
+	const metaPost = wp.data.select("core/editor").getCurrentPost().meta;
+
 	const [message, setMessage] = useState("");
-	const [inputValue, setInputValue] = useState("");
+	const [inputValue, setInputValue] = useState(metaPost._video_id);
 	const isDisabled = inputValue === "";
+
 	const getTranscript = () => {
 		setMessage(__("Getting transcript...", "ear2words"));
 
@@ -29,9 +32,6 @@ const TranscriptPanel = () => {
 					content: response
 				});
 				wp.data.dispatch("core/block-editor").insertBlocks(block);
-				wp.data.dispatch("core/editor").editPost({
-					meta: { _video_id: "ciaone" }
-				});
 			})
 			.fail(response => {
 				setMessage(response);
@@ -46,9 +46,15 @@ const TranscriptPanel = () => {
 				<TextControl
 					label="video url"
 					id="input"
+					name="videoId"
 					value={inputValue}
 					onChange={urlVideo => {
 						setInputValue(urlVideo);
+						wp.data.dispatch("core/editor").editPost({
+							meta: {
+								_video_id: urlVideo
+							}
+						});
 					}}
 				/>
 				<Button

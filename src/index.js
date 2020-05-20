@@ -10,6 +10,6 @@
  */
 
 import "./block/addSubtitleButton";
-import "./block/TranscriptPanel";
+import "./block/TranscriptPanel2";
 import "./block/YoutubeBlock";
 import "./block/trascriptionBlock";
