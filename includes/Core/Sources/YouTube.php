@@ -62,9 +62,9 @@ class YouTube implements \Ear2Words\Core\VideoSource {
 
 		parse_str( $file, $file_info );
 
-		$capiton_tracks = json_decode( $file_info['player_response'] )->captions->playerCaptionsTracklistRenderer->captionTracks;
+		$caption_tracks = json_decode( $file_info['player_response'] )->captions->playerCaptionsTracklistRenderer->captionTracks;
 
-		$url = $this->find_url( $capiton_tracks );
+		$url = $this->find_url( $caption_tracks );
 
 		if ( '' === $url ) {
 			return false;

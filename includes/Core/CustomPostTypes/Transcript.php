@@ -159,6 +159,8 @@ class Transcript {
 			return '<p style="color:red">' . $message[ $response_code ] . '</p>';
 		}
 
+		$content = $video_source->get_subtitle( sanitize_text_field( wp_unslash( $_POST['url'] ) ), 'transcript_post_type' );
+
 		$this->check_content( $content );
 
 		return $content;
