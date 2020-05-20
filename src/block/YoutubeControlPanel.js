@@ -11,18 +11,19 @@ const YoutubeControlPanel = props => {
 	let status = __("None", "ear2words");
 
 	useSelect(select => {
-		if (props.url !== undefined) {
-			const transcript = select("core").getEntityRecords(
-				"postType",
-				"transcript",
-				{
-					metaKey: "_video_id",
-					metaValue: props.url
-				}
-			);
-			if (transcript.length > 0) {
-				status = __("Created", "ear2words");
+		if (props.url === undefined) {
+			return;
+		}
+		const transcript = select("core").getEntityRecords(
+			"postType",
+			"transcript",
+			{
+				metaKey: "_video_id",
+				metaValue: props.url
 			}
+		);
+		if (transcript.length > 0) {
+			status = __("Created", "ear2words");
 		}
 	});
 
@@ -53,7 +54,7 @@ const YoutubeControlPanel = props => {
 		<InspectorControls>
 			<PanelBody title="Wubtitle">
 				<p style={{ margin: "0" }}>
-					{__("Status: ", "ear2words") + status}
+					{`${__("Status: ", "ear2words")} ${status}`}
 				</p>
 				<Button
 					name="sottotitoli"
