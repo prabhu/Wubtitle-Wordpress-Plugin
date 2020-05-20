@@ -27,10 +27,14 @@ document.addEventListener("DOMContentLoaded", function() {
 			document.getElementById("menu-item-playlist").remove();
 			document.getElementById("menu-item-video-playlist").remove();
 			document.getElementById("menu-item-featured-image").remove();
-			document.getElementById("menu-item-embed").innerHTML =
-				"Wubtitle Transcription";
+			document.getElementById("menu-item-embed").innerHTML = wp.i18n.__(
+				"Wubtitle Transcription",
+				"ear2words"
+			);
 			document.getElementById("media-frame-title").innerHTML =
-				"<h1> Wubtitle Transcription </h1>";
+				"<h1>" +
+				wp.i18n.__("Wubtitle Transcription", "ear2words") +
+				"</h1>";
 			isOpened = true;
 		}
 	};

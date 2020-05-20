@@ -56,11 +56,12 @@ class TrascriptionsExtends {
 	 */
 	public function include_transcription_modal_script() {
 		wp_enqueue_script( 'transcription_modal_script', EAR2WORDS_URL . '/src/editor/transcriptionModalScript.js', null, 'transcription_script', true );
+		wp_set_script_translations( 'transcription_modal_script', 'ear2words', EAR2WORDS_DIR . 'languages' );
 	}
 	/**
 	 * Aggiunge il bottone custom.
 	 */
 	public function add_transcriptions_media_button() {
-		echo '<a href="#" id="insert-my-media" class="button">Add transcription</a>';
+		echo '<a href="#" id="insert-my-media" class="button">' . esc_html( __( 'Add transcription', 'ear2words' ) ) . '</a>';
 	}
 }
