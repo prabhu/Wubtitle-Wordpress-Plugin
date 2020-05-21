@@ -42,7 +42,7 @@ class YouTube implements \Ear2Words\Core\VideoSource {
 	}
 
 	/**
-	 * Recupera la trascrizioni.
+	 * Recupera la trascrizione.
 	 *
 	 * @param string $url_subtitle url sottotitoli youtube.
 	 * @param string $id_video id video.
