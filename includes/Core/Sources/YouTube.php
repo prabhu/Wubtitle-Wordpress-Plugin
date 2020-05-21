@@ -46,6 +46,7 @@ class YouTube implements \Ear2Words\Core\VideoSource {
 	 *
 	 * @param string $url_subtitle url sottotitoli youtube.
 	 * @param string $id_video id video.
+	 * @param string $title_video titolo video.
 	 */
 	public function get_subtitle_to_url( $url_subtitle, $id_video, $title_video ) {
 		if ( '' === $url_subtitle ) {
