@@ -28,6 +28,7 @@ class Transcript {
 		add_action( 'save_post_transcript', array( $this, 'save_postdata' ) );
 
 		add_filter( 'manage_transcript_posts_columns', array( $this, 'set_custom_transcript_column' ) );
+
 		add_action( 'manage_transcript_posts_custom_column', array( $this, 'transcript_custom_column_values' ), 10, 2 );
 
 		add_action( 'init', array( $this, 'video_id_register_meta' ) );
@@ -139,7 +140,7 @@ class Transcript {
 
 			<input type="hidden" id="source" name="source" value="<?php echo $post->_transcript_source ? esc_attr( $post->_transcript_source ) : esc_html( 'youtube' ); ?>">
 
-			<input type="text" id="youtube-url" name="video_id" placeholder="<?php echo esc_html( __( 'Insert url youtube video', 'ear2words' ) ); ?>" value="<?php echo esc_attr( $post->_transcript_url ); ?>">
+			<input type="text" id="youtube-url" name="url" placeholder="<?php echo esc_html( __( 'Insert url youtube video', 'ear2words' ) ); ?>" value="<?php echo esc_attr( $post->_transcript_url ); ?>">
 
 			<?php wp_nonce_field( 'transcript_data', 'transcript_nonce' ); ?>
 		<?php
@@ -210,7 +211,7 @@ class Transcript {
 			return '<p style="color:red">' . $message[ $response_code ] . '</p>';
 		}
 
-		$content = $video_source->get_subtitle( sanitize_text_field( wp_unslash( $_POST['url'] ) ), 'transcript_post_type' );
+		$content = $video_source->get_subtitle( $id_video, 'transcript_post_type' );
 		return $content;
 	}
 
@@ -224,7 +225,7 @@ class Transcript {
 			return;
 		}
 
-		if ( ! isset( $_POST['source'] ) || ! isset( $_POST['video_id'] ) || ! isset( $_POST['transcript_nonce'] ) ) {
+		if ( ! isset( $_POST['source'] ) || ! isset( $_POST['url'] ) || ! isset( $_POST['transcript_nonce'] ) ) {
 			return;
 		}
 
@@ -233,7 +234,7 @@ class Transcript {
 		}
 
 		// phpcs:disable
-		$url_parts    = wp_parse_url( $_POST['videoId'] );
+		$url_parts    = wp_parse_url( $_POST['url'] );
 		// phpcs:enable
 
 		$query_params = array();
@@ -249,7 +250,7 @@ class Transcript {
 		update_post_meta(
 			$post_id,
 			'_url',
-			sanitize_text_field( wp_unslash( $_POST['video_id'] ) )
+			sanitize_text_field( wp_unslash( $_POST['url'] ) )
 		);
 
 		update_post_meta(
