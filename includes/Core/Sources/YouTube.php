@@ -86,6 +86,7 @@ class YouTube implements \Ear2Words\Core\VideoSource {
 		$text = str_replace( "\n", ' ', $text );
 
 		if ( 'default_post_type' === $from ) {
+			$text           = '<!-- wp:paragraph --><p>' . $text . '</p><!-- /wp:paragraph -->';
 			$trascript_post = array(
 				'post_title'   => sanitize_text_field( $title_video ),
 				'post_content' => $text,
