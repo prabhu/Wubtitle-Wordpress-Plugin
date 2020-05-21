@@ -244,17 +244,24 @@ class Transcript {
 		);
 
 		$args = array(
-			'label'         => __( 'Transcripts', 'ear2words' ),
-			'labels'        => $labels,
-			'description'   => __( 'Video Transcripts', 'ear2words' ),
-			'show_ui'       => true,
-			'show_in_rest'  => true,
-			'map_meta_cap'  => true,
-			'hierarchical'  => false,
-			'menu_position' => 83,
-			'menu_icon'     => 'dashicons-format-chat',
-			'supports'      => array( 'title', 'editor', 'revisions' ),
+			'label'        => __( 'Transcripts', 'ear2words' ),
+			'labels'       => $labels,
+			'description'  => __( 'Video Transcripts', 'ear2words' ),
+			'show_in_rest' => true,
+			'map_meta_cap' => true,
+			'hierarchical' => false,
+			'supports'     => array( 'title', 'editor', 'revisions' ),
 		);
+
+		if ( WP_DEBUG ) {
+			$debug_args = array(
+				'show_ui'       => true,
+				'menu_position' => 83,
+				'menu_icon'     => 'dashicons-format-chat',
+			);
+
+			$args = array_merge( $args, $debug_args );
+		}
 
 		register_post_type( 'transcript', $args );
 	}
