@@ -42,6 +42,41 @@ class YouTube implements \Ear2Words\Core\VideoSource {
 	}
 
 	/**
+	 * Recupera la trascrizione.
+	 *
+	 * @param string $url_subtitle url sottotitoli youtube.
+	 * @param string $id_video id video.
+	 * @param string $title_video titolo video.
+	 */
+	public function get_subtitle_to_url( $url_subtitle, $id_video, $title_video ) {
+		if ( '' === $url_subtitle ) {
+			return false;
+		}
+		$url_subtitle = $url_subtitle . '&fmt=json3';
+		$response     = wp_remote_get( $url_subtitle );
+		$text         = '';
+		foreach ( json_decode( $response['body'] )->events as $event ) {
+			if ( isset( $event->segs ) ) {
+				foreach ( $event->segs as $seg ) {
+					$text .= $seg->utf8;
+				}
+			}
+		}
+		$trascript_post = array(
+			'post_title'   => $title_video,
+			'post_content' => $text,
+			'post_type'    => 'transcript',
+			'post_status'  => 'publish',
+			'meta_input'   => array(
+				'_video_id'          => $id_video,
+				'_transcript_source' => 'youtube',
+			),
+		);
+		wp_insert_post( $trascript_post );
+		return $text;
+	}
+
+	/**
 	 * Recupera la trascrizioni.
 	 *
 	 * @param string $id_video id del video youtube.
@@ -157,7 +192,7 @@ class YouTube implements \Ear2Words\Core\VideoSource {
 			'500' => __( 'Could not contact the server', 'ear2words' ),
 			'429' => __( 'Error, no more video left for your subscription plan', 'ear2words' ),
 		);
-		if ( '201' !== $response_code ) {
+		if ( 201 !== $response_code ) {
 			$response = array(
 				'success' => false,
 				'data'    => $message[ $response_code ],
