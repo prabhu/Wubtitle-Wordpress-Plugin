@@ -126,6 +126,10 @@ class ApiGetTranscript {
 		if ( ! isset( $_POST['id'] ) || ! isset( $_POST['_ajax_nonce'] ) ) {
 			wp_send_json_error( __( 'An error occurred while creating the transcriptions. Please try again in a few minutes', 'ear2words' ) );
 		}
+		$from = '';
+		if ( isset( $_POST['from'] ) ) {
+			$from = sanitize_text_field( wp_unslash( $_POST['from'] ) );
+		}
 		$nonce    = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
 		$id_video = sanitize_text_field( wp_unslash( $_POST['id'] ) );
 		check_ajax_referer( 'itr_ajax_nonce', $nonce );
@@ -138,6 +142,9 @@ class ApiGetTranscript {
 		$posts = get_posts( $args );
 		if ( empty( $posts ) ) {
 			wp_send_json_error( __( 'Error, Transcription not found', 'ear2words' ) );
+		}
+		if ( 'classic_editor' === $from ) {
+			wp_send_json_success( $posts[0]->post_content );
 		}
 		wp_send_json_success( $posts[0]->ID );
 	}

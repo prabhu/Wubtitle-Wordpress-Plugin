@@ -10,7 +10,34 @@ document.addEventListener("DOMContentLoaded", function() {
 	}
 	const windowTrascriptions = wp.media({
 		frame: "post",
-		state: "embed"
+		state: "embed",
+		library: {
+			type: ["video"]
+		}
+	});
+	windowTrascriptions.on("insert", () => {
+		const media = windowTrascriptions
+			.state()
+			.get("selection")
+			.first()
+			.toJSON();
+		wp.ajax
+			.send("get_transcript_internal_video", {
+				type: "POST",
+				data: {
+					id: media.id,
+					_ajax_nonce: wubtitle_object_modal.ajaxnonce,
+					from: "classic_editor"
+				}
+			})
+			.then(response => {
+				wp.media.editor.insert(`<p> ${response} </p>`);
+			})
+			.fail(response => {
+				wp.media.editor.insert(
+					`<p style='color:red'>  ${response} </p>`
+				);
+			});
 	});
 	windowTrascriptions.on("select", () => {
 		const embedUrl = document.getElementById("embed-url-field").value;
@@ -114,19 +141,10 @@ document.addEventListener("DOMContentLoaded", function() {
 			divModal[0].appendChild(header);
 			divModal[0].appendChild(select);
 
-			document.getElementById("menu-item-insert").remove();
 			document.getElementById("menu-item-gallery").remove();
 			document.getElementById("menu-item-playlist").remove();
 			document.getElementById("menu-item-video-playlist").remove();
 			document.getElementById("menu-item-featured-image").remove();
-			document.getElementById("menu-item-embed").innerHTML = wp.i18n.__(
-				"Wubtitle Transcription",
-				"ear2words"
-			);
-			document.getElementById("media-frame-title").innerHTML =
-				"<h1>" +
-				wp.i18n.__("Wubtitle Transcription", "ear2words") +
-				"</h1>";
 			isOpened = true;
 		}
 	};
