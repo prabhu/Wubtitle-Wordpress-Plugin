@@ -28,8 +28,60 @@ class Transcript {
 		add_action( 'save_post_transcript', array( $this, 'save_postdata' ) );
 
 		add_filter( 'manage_transcript_posts_columns', array( $this, 'set_custom_transcript_column' ) );
+
 		add_action( 'manage_transcript_posts_custom_column', array( $this, 'transcript_custom_column_values' ), 10, 2 );
+
+		add_action( 'init', array( $this, 'video_id_register_meta' ) );
 	}
+
+
+	/**
+	 * Registra post meta.
+	 */
+	public function video_id_register_meta() {
+		register_post_meta(
+			'transcript',
+			'_video_id',
+			array(
+				'show_in_rest'      => true,
+				'type'              => 'string',
+				'single'            => true,
+				'sanitize_callback' => 'sanitize_text_field',
+				'auth_callback'     => function() {
+					return current_user_can( 'edit_posts' );
+				},
+			)
+		);
+
+		register_post_meta(
+			'transcript',
+			'_trascript_url',
+			array(
+				'show_in_rest'      => true,
+				'type'              => 'string',
+				'single'            => true,
+				'sanitize_callback' => 'sanitize_text_field',
+				'auth_callback'     => function() {
+					return current_user_can( 'edit_posts' );
+				},
+			)
+		);
+
+		register_post_meta(
+			'transcript',
+			'_trascript_source',
+			array(
+				'show_in_rest'      => true,
+				'type'              => 'string',
+				'single'            => true,
+				'sanitize_callback' => 'sanitize_text_field',
+				'auth_callback'     => function() {
+					return current_user_can( 'edit_posts' );
+				},
+			)
+		);
+	}
+
 
 	/**
 	 * Aggiunge una nuova colonna.
@@ -159,7 +211,7 @@ class Transcript {
 			return '<p style="color:red">' . $message[ $response_code ] . '</p>';
 		}
 
-		$content = $video_source->get_subtitle( sanitize_text_field( wp_unslash( $_POST['url'] ) ), 'transcript_post_type' );
+		$content = $video_source->get_subtitle( $id_video, 'transcript_post_type' );
 
 		$this->has_content( $content );
 
@@ -195,18 +247,32 @@ class Transcript {
 			return;
 		}
 
+		// phpcs:disable
+		$url_parts    = wp_parse_url( $_POST['url'] );
+		// phpcs:enable
+
+		$query_params = array();
+		parse_str( $url_parts['query'], $query_params );
+		$id_video = $query_params['v'];
+
+		update_post_meta(
+			$post_id,
+			'_video_id',
+			sanitize_text_field( wp_unslash( $id_video ) )
+		);
+
 		update_post_meta(
 			$post_id,
 			'_transcript_url',
 			sanitize_text_field( wp_unslash( $_POST['url'] ) )
 		);
+
 		update_post_meta(
 			$post_id,
 			'_transcript_source',
 			sanitize_text_field( wp_unslash( $_POST['source'] ) )
 		);
 	}
-
 
 	/**
 	 * Registra un nuovo post type.
@@ -253,7 +319,7 @@ class Transcript {
 			'hierarchical'  => false,
 			'menu_position' => 83,
 			'menu_icon'     => 'dashicons-format-chat',
-			'supports'      => array( 'title', 'editor', 'revisions' ),
+			'supports'      => array( 'title', 'editor', 'revisions', 'custom-fields' ),
 		);
 
 		register_post_type( 'transcript', $args );

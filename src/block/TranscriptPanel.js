@@ -8,9 +8,12 @@ import { select } from "@wordpress/data";
 import domReady from "@wordpress/dom-ready";
 
 const TranscriptPanel = () => {
+	const metaPost = wp.data.select("core/editor").getCurrentPost().meta;
+
 	const [message, setMessage] = useState("");
-	const [inputValue, setInputValue] = useState("");
+	const [inputValue, setInputValue] = useState(metaPost._trascript_url);
 	const isDisabled = inputValue === "";
+
 	const getTranscript = () => {
 		setMessage(__("Getting transcript...", "ear2words"));
 
@@ -43,9 +46,19 @@ const TranscriptPanel = () => {
 				<TextControl
 					label="video url"
 					id="input"
+					name="video_id"
 					value={inputValue}
 					onChange={urlVideo => {
 						setInputValue(urlVideo);
+						const searchParams = new URLSearchParams(urlVideo);
+						const idVideo = searchParams.get("v");
+						wp.data.dispatch("core/editor").editPost({
+							meta: {
+								_video_id: idVideo,
+								_trascript_url: urlVideo,
+								_trascript_source: "youtube"
+							}
+						});
 					}}
 				/>
 				<Button

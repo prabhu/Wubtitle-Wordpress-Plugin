@@ -95,6 +95,7 @@ class YouTube implements \Ear2Words\Core\VideoSource {
 				'meta_input'   => array(
 					'_video_id'          => $id_video,
 					'_transcript_source' => 'youtube',
+					'_transcript_url'    => "https://www.youtube.com/watch?v=$id_video",
 				),
 			);
 			$transcript_id  = wp_insert_post( $trascript_post );
