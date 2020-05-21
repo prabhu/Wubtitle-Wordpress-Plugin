@@ -29,7 +29,8 @@ document.addEventListener("DOMContentLoaded", function() {
 				data: {
 					_ajax_nonce: wubtitle_object_modal.ajaxnonce,
 					urlVideo: embedUrl,
-					urlSubtitle: languageSubtitle
+					urlSubtitle: languageSubtitle,
+					videoTitle
 				}
 			})
 			.then(response => {
@@ -46,10 +47,10 @@ document.addEventListener("DOMContentLoaded", function() {
 	});
 
 	let isOpened = false;
-
+	let videoTitle;
 	const getLanguages = inputUrl => {
 		wp.ajax
-			.send("get_video_languages", {
+			.send("get_video_info", {
 				type: "POST",
 				data: {
 					_ajax_nonce: wubtitle_object_modal.ajaxnonce,
@@ -63,8 +64,8 @@ document.addEventListener("DOMContentLoaded", function() {
 					"Select language",
 					"ear2words"
 				)}</option>`;
-
-				response.forEach(subtitle => {
+				videoTitle = response.title;
+				response.languages.forEach(subtitle => {
 					document.getElementById(
 						"transcript-select-lang"
 					).innerHTML += `<option value=${subtitle.baseUrl}>${subtitle.name.simpleText}</option>`;

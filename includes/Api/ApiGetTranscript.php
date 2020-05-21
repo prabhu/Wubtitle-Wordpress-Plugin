@@ -23,20 +23,21 @@ class ApiGetTranscript {
 		add_action( 'wp_ajax_get_transcript', array( $this, 'get_transcript' ) );
 		add_action( 'wp_ajax_get_transcript_yt', array( $this, 'get_transcript_yt' ) );
 		add_action( 'wp_ajax_get_transcript_internal_video', array( $this, 'get_transcript_internal_video' ) );
-		add_action( 'wp_ajax_get_video_languages', array( $this, 'get_video_languages' ) );
+		add_action( 'wp_ajax_get_video_info', array( $this, 'get_video_info' ) );
 	}
 
 	/**
 	 * Recupera le trascrizioni per il video yt e le ritorna.
 	 */
 	public function get_transcript_yt() {
-		if ( ! isset( $_POST['urlVideo'] ) || ! isset( $_POST['urlSubtitle'] ) || ! isset( $_POST['_ajax_nonce'] ) ) {
+		if ( ! isset( $_POST['urlVideo'] ) || ! isset( $_POST['urlSubtitle'] ) || ! isset( $_POST['_ajax_nonce'] ) || ! isset( $_POST['videoTitle'] ) ) {
 			wp_send_json_error( __( 'An error occurred while creating the transcriptions. Please try again in a few minutes', 'ear2words' ) );
 		}
 		$nonce = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
 		check_ajax_referer( 'itr_ajax_nonce', $nonce );
 		$url_video    = sanitize_text_field( wp_unslash( $_POST['urlVideo'] ) );
 		$url_subtitle = sanitize_text_field( wp_unslash( $_POST['urlSubtitle'] ) );
+		$video_title  = sanitize_text_field( wp_unslash( $_POST['videoTitle'] ) );
 
 		$url_parts    = wp_parse_url( $url_video );
 		$allowed_urls = array(
@@ -72,16 +73,16 @@ class ApiGetTranscript {
 		if ( 201 !== $response_code ) {
 			wp_send_json_error( $message[ $response_code ] );
 		}
-		$transcript = $video_source->get_subtitle_to_url( $url_subtitle, $id_video );
+		$transcript = $video_source->get_subtitle_to_url( $url_subtitle, $id_video, $video_title );
 		if ( ! $transcript ) {
 			wp_send_json_error( __( 'Transcript not avaiable for this video.', 'ear2words' ) );
 		}
 		wp_send_json_success( $transcript );
 	}
 	/**
-	 * Recupera la lista dei sottotitoli disponibili per il video.
+	 * Recupera le informazioni del video.
 	 */
-	public function get_video_languages() {
+	public function get_video_info() {
 		if ( ! isset( $_POST['url'] ) || ! isset( $_POST['_ajax_nonce'] ) ) {
 			wp_send_json_error( __( 'An error occurred while creating the transcriptions. Please try again in a few minutes', 'ear2words' ) );
 		}
@@ -110,9 +111,13 @@ class ApiGetTranscript {
 		$file     = wp_remote_retrieve_body( $response );
 
 		parse_str( $file, $file_info );
-
-		$languages = json_decode( $file_info['player_response'] )->captions->playerCaptionsTracklistRenderer->captionTracks;
-		wp_send_json_success( $languages );
+		$title_video = json_decode( $file_info['player_response'] )->videoDetails->title;
+		$languages   = json_decode( $file_info['player_response'] )->captions->playerCaptionsTracklistRenderer->captionTracks;
+		$video_info  = array(
+			'languages' => $languages,
+			'title'     => $title_video,
+		);
+		wp_send_json_success( $video_info );
 	}
 	/**
 	 * Recupera le trascrizioni per il video interno e le ritorna.
