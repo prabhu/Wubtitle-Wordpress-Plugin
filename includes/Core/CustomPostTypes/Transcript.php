@@ -249,13 +249,13 @@ class Transcript {
 
 		update_post_meta(
 			$post_id,
-			'_url',
+			'_transcript_url',
 			sanitize_text_field( wp_unslash( $_POST['url'] ) )
 		);
 
 		update_post_meta(
 			$post_id,
-			'_source',
+			'_transcript_source',
 			sanitize_text_field( wp_unslash( $_POST['source'] ) )
 		);
 	}

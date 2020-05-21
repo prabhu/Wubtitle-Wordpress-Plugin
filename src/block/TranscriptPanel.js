@@ -50,12 +50,11 @@ const TranscriptPanel = () => {
 					value={inputValue}
 					onChange={urlVideo => {
 						setInputValue(urlVideo);
+						const searchParams = new URLSearchParams(urlVideo);
+						const idVideo = searchParams.get("v");
 						wp.data.dispatch("core/editor").editPost({
 							meta: {
-								_video_id: urlVideo.replace(
-									"https://www.youtube.com/watch?v=",
-									""
-								),
+								_video_id: idVideo,
 								_trascript_url: urlVideo,
 								_trascript_source: "youtube"
 							}
