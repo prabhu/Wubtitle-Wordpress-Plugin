@@ -30,7 +30,7 @@ class ApiGetTranscript {
 	 * Recupera le trascrizioni per il video yt e le ritorna.
 	 */
 	public function get_transcript_yt() {
-		if ( ! isset( $_POST['urlVideo'] ) || ! isset( $_POST['urlSubtitle'] ) || ! isset( $_POST['_ajax_nonce'] ) || ! isset( $_POST['videoTitle'] ) ) {
+		if ( ! isset( $_POST['urlVideo'], $_POST['urlSubtitle'], $_POST['_ajax_nonce'], $_POST['videoTitle'] ) ) {
 			wp_send_json_error( __( 'An error occurred while creating the transcriptions. Please try again in a few minutes', 'ear2words' ) );
 		}
 		$nonce = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
@@ -38,6 +38,11 @@ class ApiGetTranscript {
 		$url_video    = sanitize_text_field( wp_unslash( $_POST['urlVideo'] ) );
 		$url_subtitle = sanitize_text_field( wp_unslash( $_POST['urlSubtitle'] ) );
 		$video_title  = sanitize_text_field( wp_unslash( $_POST['videoTitle'] ) );
+
+		$from = 'transcript_post_type';
+		if ( isset( $_POST['from'] ) ) {
+			$from = sanitize_text_field( wp_unslash( $_POST['from'] ) );
+		}
 
 		$url_parts    = wp_parse_url( $url_video );
 		$allowed_urls = array(
@@ -56,14 +61,15 @@ class ApiGetTranscript {
 		parse_str( $url_parts['query'], $query_video_params );
 		$id_video = $query_video_params['v'] . $lang;
 
-		$data_posts = $this->get_data_transcript( $id_video, 'transcript_post_type' );
+		$data_posts = $this->get_data_transcript( $id_video, $from );
 		if ( $data_posts ) {
 			wp_send_json_success( $data_posts );
 		}
 		$video_source  = new YouTube();
 		$response      = $video_source->send_job_to_backend( $id_video );
 		$response_code = wp_remote_retrieve_response_code( $response );
-		$message       = array(
+
+		$message = array(
 			'400' => __( 'An error occurred while creating the transcriptions. Please try again in a few minutes', 'ear2words' ),
 			'401' => __( 'An error occurred while creating the transcriptions. Please try again in a few minutes', 'ear2words' ),
 			'403' => __( 'Unable to create transcriptions. Invalid product license', 'ear2words' ),
@@ -73,12 +79,15 @@ class ApiGetTranscript {
 		if ( 201 !== $response_code ) {
 			wp_send_json_error( $message[ $response_code ] );
 		}
-		$transcript = $video_source->get_subtitle_to_url( $url_subtitle, $id_video, $video_title );
+
+		$transcript = $video_source->get_subtitle_to_url( $url_subtitle, $id_video, $video_title, $from );
 		if ( ! $transcript ) {
 			wp_send_json_error( __( 'Transcript not avaiable for this video.', 'ear2words' ) );
 		}
 		wp_send_json_success( $transcript );
 	}
+
+
 	/**
 	 * Recupera le informazioni del video.
 	 */
