@@ -1,5 +1,14 @@
 /* global wubtitle_object_modal */
 document.addEventListener("DOMContentLoaded", function() {
+	const pattern = new RegExp(
+		"^(https?:\\/\\/)?" + // protocol
+		"((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|" + // domain name
+		"((\\d{1,3}\\.){3}\\d{1,3}))" + // OR ip (v4) address
+		"(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*" + // port and path
+		"(\\?[;&a-z\\d%_.~+=-]*)?" + // query string
+			"(\\#[-a-z\\d_]*)?", // fragment locator
+		"i"
+	);
 	let isOpened = false;
 	let videoTitle;
 	const button = document.getElementById("insert-my-media");
@@ -35,7 +44,12 @@ document.addEventListener("DOMContentLoaded", function() {
 			})
 			.then(response => {
 				wp.media.editor.insert(
-					`<p> ${response.post_title} </br> ${response.post_content} </p>`
+					`<p> ${wp.i18n.__(
+						"Transcription of the video",
+						"ear2words"
+					)} ${response.post_title} </p> <p> ${
+						response.post_content
+					} </p>`
 				);
 			})
 			.fail(response => {
@@ -47,9 +61,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
 	windowTrascriptions.on("select", () => {
 		const embedUrl = document.getElementById("embed-url-field").value;
-		const languageSubtitle = document.getElementById(
+		const languageSelect = document.getElementById(
 			"transcript-select-lang"
-		).value;
+		);
+		const languageSubtitle = languageSelect.value;
 		if (languageSubtitle === "") {
 			wp.media.editor.insert(
 				`<p style='color:red'> ${wp.i18n.__(
@@ -83,6 +98,10 @@ document.addEventListener("DOMContentLoaded", function() {
 	});
 
 	const getLanguages = inputUrl => {
+		const selectInput = document.getElementById("transcript-select-lang");
+		const errorMessage = document.getElementById(
+			"error-message-transcript"
+		);
 		wp.ajax
 			.send("get_video_info", {
 				type: "POST",
@@ -92,13 +111,21 @@ document.addEventListener("DOMContentLoaded", function() {
 				}
 			})
 			.then(response => {
-				document.getElementById(
-					"transcript-select-lang"
-				).innerHTML = `<option value="">${wp.i18n.__(
+				selectInput.innerHTML = `<option value="">${wp.i18n.__(
 					"Select language",
 					"ear2words"
 				)}</option>`;
 				videoTitle = response.title;
+				if (!response.languages) {
+					errorMessage.innerHTML = wp.i18n.__(
+						"Unable to generate transcript, subtitles not present for this video",
+						"ear2words"
+					);
+					selectInput.disabled = true;
+					return;
+				}
+				errorMessage.innerHTML = "";
+				selectInput.disabled = false;
 				response.languages.forEach(subtitle => {
 					document.getElementById(
 						"transcript-select-lang"
@@ -127,6 +154,8 @@ document.addEventListener("DOMContentLoaded", function() {
 			header.appendChild(textHeader);
 			const select = document.createElement("SELECT");
 			select.setAttribute("id", "transcript-select-lang");
+			const errorMessage = document.createElement("p");
+			errorMessage.setAttribute("id", "error-message-transcript");
 			select.innerHTML = `<option value="">${wp.i18n.__(
 				"Select language",
 				"ear2words"
@@ -134,6 +163,7 @@ document.addEventListener("DOMContentLoaded", function() {
 			if (divModal.length > 0) {
 				divModal[0].appendChild(header);
 				divModal[0].appendChild(select);
+				divModal[0].appendChild(errorMessage);
 			}
 		}
 	};
@@ -144,7 +174,7 @@ document.addEventListener("DOMContentLoaded", function() {
 			if (inputUrl.value !== "") {
 				getLanguages(inputUrl.value);
 			}
-			inputUrl.addEventListener("change", () => {
+			inputUrl.addEventListener("input", () => {
 				if (inputUrl.value === "") {
 					document.getElementById(
 						"transcript-select-lang"
@@ -153,7 +183,9 @@ document.addEventListener("DOMContentLoaded", function() {
 						"ear2words"
 					)}</option>`;
 				}
-				getLanguages(inputUrl.value);
+				if (pattern.test(inputUrl.value)) {
+					getLanguages(inputUrl.value);
+				}
 			});
 		}
 	};
