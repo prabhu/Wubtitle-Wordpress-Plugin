@@ -10,12 +10,15 @@ registerBlockType("wubtitle/transcription", {
 	attributes: {
 		contentId: {
 			type: "int"
+		},
+		content: {
+			type: "string"
 		}
 	},
-	edit: TranscriptionEditBlock,
-	save: props => {
-		return (
-			<div>{"[transcript id= " + props.attributes.contentId + " ]"}</div>
-		);
-	}
+	edit: TranscriptionEditBlock
+	// save: props => {
+	// 	return (
+	// 		<div>{"[transcript id= " + props.attributes.contentId + " ]"}</div>
+	// 	);
+	// }
 });

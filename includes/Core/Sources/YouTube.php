@@ -97,8 +97,8 @@ class YouTube implements \Ear2Words\Core\VideoSource {
 					'_transcript_source' => 'youtube',
 				),
 			);
-			$transcript_id  = wp_insert_post( $trascript_post );
-			return $transcript_id;
+			wp_insert_post( $trascript_post );
+			return $text;
 		}
 		return $text;
 	}

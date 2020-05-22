@@ -39,8 +39,8 @@ const YoutubeControlPanel = props => {
 				}
 			})
 			.then(response => {
-				const block = wp.blocks.createBlock("wubtitle/transcription", {
-					contentId: response
+				const block = wp.blocks.createBlock("core/paragraph", {
+					content: response
 				});
 				wp.data.dispatch("core/block-editor").insertBlocks(block);
 			})

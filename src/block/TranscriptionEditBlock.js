@@ -51,19 +51,36 @@ const TranscriptionEditBlock = ({ attributes, setAttributes, className }) => {
 	const suggestions = [];
 	for (let i = 0; i < postsCurrent.length; i++) {
 		options.set(postsCurrent[i].title.rendered, postsCurrent[i].id);
+		options.set(
+			`${postsCurrent[i].title.rendered} content`,
+			postsCurrent[i].content.rendered
+		);
 		suggestions[i] = postsCurrent[i].title.rendered;
 	}
 
+	let contentText = "";
 	const setTokenFunction = token => {
 		if (token.length === 0) {
 			setAttributes({ contentId: null });
 			setTokens(token);
 		} else if (suggestions.includes(token[0])) {
 			const contentId = options.get(token[0]);
+			const contentKey = `${token[0]} content`;
+			contentText = options.get(contentKey);
 			setTokens(token);
 			setAttributes({ contentId });
+			const Paragraph = wp.blocks.createBlock("core/paragraph", {
+				content: contentText
+			});
+			const selectedBlock = wp.data
+				.select("core/block-editor")
+				.getSelectedBlock().clientId;
+			wp.data
+				.dispatch("core/block-editor")
+				.replaceBlocks(selectedBlock, Paragraph);
 		}
 	};
+
 	return (
 		<FormTokenField
 			className={className}
