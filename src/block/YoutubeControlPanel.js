@@ -18,11 +18,11 @@ const YoutubeControlPanel = props => {
 			"postType",
 			"transcript",
 			{
-				metaKey: "_video_id",
+				metaKey: "_transcript_url",
 				metaValue: props.url
 			}
 		);
-		if (transcript.length > 0) {
+		if (transcript && transcript.length > 0) {
 			status = __("Created", "ear2words");
 		}
 	});
