@@ -1,13 +1,15 @@
 /* global wubtitle_object_modal */
 document.addEventListener("DOMContentLoaded", function() {
+	let isOpened = false;
+	let videoTitle;
 	const button = document.getElementById("insert-my-media");
 	if (button) {
 		button.addEventListener("click", () => {
-			wp.media.frame.detach();
 			wp.media.editor.remove();
 			openMediaWindow();
 		});
 	}
+
 	const windowTrascriptions = wp.media({
 		frame: "post",
 		state: "embed",
@@ -15,6 +17,7 @@ document.addEventListener("DOMContentLoaded", function() {
 			type: ["video"]
 		}
 	});
+
 	windowTrascriptions.on("insert", () => {
 		const media = windowTrascriptions
 			.state()
@@ -31,7 +34,9 @@ document.addEventListener("DOMContentLoaded", function() {
 				}
 			})
 			.then(response => {
-				wp.media.editor.insert(`<p> ${response} </p>`);
+				wp.media.editor.insert(
+					`<p> ${response.post_title} </br> ${response.post_content} </p>`
+				);
 			})
 			.fail(response => {
 				wp.media.editor.insert(
@@ -39,6 +44,7 @@ document.addEventListener("DOMContentLoaded", function() {
 				);
 			});
 	});
+
 	windowTrascriptions.on("select", () => {
 		const embedUrl = document.getElementById("embed-url-field").value;
 		const languageSubtitle = document.getElementById(
@@ -46,7 +52,10 @@ document.addEventListener("DOMContentLoaded", function() {
 		).value;
 		if (languageSubtitle === "") {
 			wp.media.editor.insert(
-				"<p style='color:red'> Error, language not selected </p>"
+				`<p style='color:red'> ${wp.i18n.__(
+					"Error, language not selected",
+					"ear2words"
+				)} </p>`
 			);
 			return;
 		}
@@ -68,13 +77,11 @@ document.addEventListener("DOMContentLoaded", function() {
 			})
 			.fail(response => {
 				wp.media.editor.insert(
-					"<p style='color:red'>" + response + "</p>"
+					`<p style='color:red'> ${response} </p>`
 				);
 			});
 	});
 
-	let isOpened = false;
-	let videoTitle;
 	const getLanguages = inputUrl => {
 		wp.ajax
 			.send("get_video_info", {
@@ -108,22 +115,8 @@ document.addEventListener("DOMContentLoaded", function() {
 			});
 	};
 
-	const openMediaWindow = () => {
-		windowTrascriptions.open();
-		const inputUrl = document.getElementById("embed-url-field");
-		inputUrl.addEventListener("change", () => {
-			if (inputUrl.value === "") {
-				document.getElementById(
-					"transcript-select-lang"
-				).innerHTML = `<option value="">${wp.i18n.__(
-					"Select language",
-					"ear2words"
-				)}</option>`;
-			}
-			getLanguages(inputUrl.value);
-		});
-
-		if (!isOpened) {
+	const insertSelect = () => {
+		if (!document.getElementById("transcript-select-lang")) {
 			const divModal = document.getElementsByClassName(
 				"embed-link-settings"
 			);
@@ -138,9 +131,43 @@ document.addEventListener("DOMContentLoaded", function() {
 				"Select language",
 				"ear2words"
 			)}</option>`;
-			divModal[0].appendChild(header);
-			divModal[0].appendChild(select);
+			if (divModal.length > 0) {
+				divModal[0].appendChild(header);
+				divModal[0].appendChild(select);
+			}
+		}
+	};
 
+	const addListenerFunction = () => {
+		const inputUrl = document.getElementById("embed-url-field");
+		if (inputUrl) {
+			if (inputUrl.value !== "") {
+				getLanguages(inputUrl.value);
+			}
+			inputUrl.addEventListener("change", () => {
+				if (inputUrl.value === "") {
+					document.getElementById(
+						"transcript-select-lang"
+					).innerHTML = `<option value="">${wp.i18n.__(
+						"Select language",
+						"ear2words"
+					)}</option>`;
+				}
+				getLanguages(inputUrl.value);
+			});
+		}
+	};
+
+	const openMediaWindow = () => {
+		windowTrascriptions.open();
+		const modalEmbed = document.getElementById("menu-item-embed");
+		modalEmbed.addEventListener("click", () => {
+			insertSelect();
+			addListenerFunction();
+		});
+		insertSelect();
+		if (!isOpened) {
+			addListenerFunction();
 			document.getElementById("menu-item-gallery").remove();
 			document.getElementById("menu-item-playlist").remove();
 			document.getElementById("menu-item-video-playlist").remove();

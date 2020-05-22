@@ -144,7 +144,11 @@ class ApiGetTranscript {
 			wp_send_json_error( __( 'Error, Transcription not found', 'ear2words' ) );
 		}
 		if ( 'classic_editor' === $from ) {
-			wp_send_json_success( $posts[0]->post_content );
+			$response = array(
+				'post_title'   => $posts[0]->title,
+				'post_content' => $posts[0]->post_content,
+			);
+			wp_send_json_success( $response );
 		}
 		wp_send_json_success( $posts[0]->ID );
 	}
