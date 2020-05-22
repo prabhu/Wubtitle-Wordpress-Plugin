@@ -254,13 +254,9 @@ class Transcript {
 		);
 
 		if ( WP_DEBUG ) {
-			$debug_args = array(
-				'show_ui'       => true,
-				'menu_position' => 83,
-				'menu_icon'     => 'dashicons-format-chat',
-			);
-
-			$args = array_merge( $args, $debug_args );
+			$args['show_ui']       = true;
+			$args['menu_position'] = 83;
+			$args['menu_icon']     = 'dashicons-format-chat';
 		}
 
 		register_post_type( 'transcript', $args );
