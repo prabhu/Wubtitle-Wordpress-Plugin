@@ -145,7 +145,7 @@ class ApiGetTranscript {
 		}
 		if ( 'classic_editor' === $from ) {
 			$response = array(
-				'post_title'   => $posts[0]->title,
+				'post_title'   => $posts[0]->post_title,
 				'post_content' => $posts[0]->post_content,
 			);
 			wp_send_json_success( $response );
