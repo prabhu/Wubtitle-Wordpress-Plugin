@@ -27,7 +27,10 @@ const TranscriptionEditBlock = ({ attributes, setAttributes, className }) => {
 			);
 			if (resultPost !== null) {
 				setTokens([resultPost[0].title.rendered]);
-				replaceBlock(resultPost[0].content.rendered);
+				let text = resultPost[0].content.rendered;
+				text = text.replace("<p>", "");
+				text = text.replace("</p>", "");
+				replaceBlock(text);
 			}
 		}
 	});
