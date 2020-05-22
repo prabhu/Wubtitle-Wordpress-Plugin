@@ -10,10 +10,10 @@ const YoutubeControlPanel = props => {
 	const [message, setMessage] = useState("");
 	const [status, setStatus] = useState(__("None", "ear2words"));
 	const [languageSelected, setLanguage] = useState("");
-	const isDisabled = props.url === undefined && languageSelected === "";
 	const [langReady, setReady] = useState(false);
 	const [options, setOptions] = useState([]);
 	const [title, setTitle] = useState("");
+	const [disabled, setDisabled] = useState(true);
 
 	useSelect(select => {
 		if (props.url === undefined) {
@@ -74,7 +74,7 @@ const YoutubeControlPanel = props => {
 				response.languages.forEach((lang, index) => {
 					if (index === 0) {
 						const obj = {
-							value: "noselected",
+							value: "none",
 							label: __("Select language", "ear2words")
 						};
 						arrayLang[index] = obj;
@@ -98,7 +98,7 @@ const YoutubeControlPanel = props => {
 		<InspectorControls>
 			<PanelBody title="Wubtitle">
 				<p style={{ margin: "0", marginBottom: "20px" }}>
-					{`${__("Transcript tatus : ", "ear2words")} ${status}`}
+					{`${__("Transcript status : ", "ear2words")} ${status}`}
 				</p>
 				{props.url && langReady ? (
 					<SelectControl
@@ -106,6 +106,11 @@ const YoutubeControlPanel = props => {
 						value={languageSelected}
 						onChange={lingua => {
 							setLanguage(lingua);
+							if (lingua !== "none") {
+								setDisabled(false);
+							} else {
+								setDisabled(true);
+							}
 						}}
 						options={options}
 					/>
@@ -117,7 +122,7 @@ const YoutubeControlPanel = props => {
 					id={props.id}
 					isPrimary
 					onClick={handleClick}
-					disabled={isDisabled}
+					disabled={disabled}
 				>
 					{__("Get Transcribe", "ear2words")}
 				</Button>
