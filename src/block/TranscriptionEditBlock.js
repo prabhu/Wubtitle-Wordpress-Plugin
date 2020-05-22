@@ -27,6 +27,7 @@ const TranscriptionEditBlock = ({ attributes, setAttributes, className }) => {
 			);
 			if (resultPost !== null) {
 				setTokens([resultPost[0].title.rendered]);
+				replaceBlock(resultPost[0].content.rendered);
 			}
 		}
 	});
@@ -67,18 +68,24 @@ const TranscriptionEditBlock = ({ attributes, setAttributes, className }) => {
 			const contentId = options.get(token[0]);
 			const contentKey = `${token[0]} content`;
 			contentText = options.get(contentKey);
+			contentText = contentText.replace("<p>", "");
+			contentText = contentText.replace("</p>", "");
 			setTokens(token);
 			setAttributes({ contentId });
-			const Paragraph = wp.blocks.createBlock("core/paragraph", {
-				content: contentText
-			});
-			const selectedBlock = wp.data
-				.select("core/block-editor")
-				.getSelectedBlock().clientId;
-			wp.data
-				.dispatch("core/block-editor")
-				.replaceBlocks(selectedBlock, Paragraph);
+			replaceBlock(contentText);
 		}
+	};
+
+	const replaceBlock = content => {
+		const Paragraph = wp.blocks.createBlock("core/paragraph", {
+			content
+		});
+		const selectedBlock = wp.data
+			.select("core/block-editor")
+			.getSelectedBlock().clientId;
+		wp.data
+			.dispatch("core/block-editor")
+			.replaceBlocks(selectedBlock, Paragraph);
 	};
 
 	return (
