@@ -9,6 +9,9 @@ const YoutubeControlPanel = props => {
 	const [message, setMessage] = useState("");
 	const isDisabled = props.url === undefined;
 	const [status, setStatus] = useState(__("None", "ear2words"));
+	const [languageSelected, setLanguage] = useState("");
+	const [langReady, setReady] = useState(false);
+	const [options, setOptions] = useState([]);
 
 	useSelect(select => {
 		if (props.url === undefined) {
@@ -29,14 +32,16 @@ const YoutubeControlPanel = props => {
 	});
 
 	const handleClick = () => {
+		console.log(languageSelected);
 		setMessage(__("Getting transcript...", "ear2words"));
 		wp.ajax
-			.send("get_transcript", {
+			.send("get_transcript_yt", {
 				type: "POST",
 				data: {
-					url: props.url,
-					source: "youtube",
-					from: "default_post_type"
+					urlVideo: props.url,
+					urlSubtitle: languageSelected,
+					videoTitle: "test"
+					// TODO usare nome vero.
 				}
 			})
 			.then(response => {
@@ -53,6 +58,7 @@ const YoutubeControlPanel = props => {
 	};
 
 	const getLang = () => {
+		const arrayLang = [];
 		wp.ajax
 			.send("get_video_info", {
 				type: "POST",
@@ -62,25 +68,19 @@ const YoutubeControlPanel = props => {
 			})
 			.then(response => {
 				setReady(true);
-				response.languages.forEach(lang => {
-					selectOptions[lang.baseUrl] = lang.name.simpleText;
+				response.languages.forEach((lang, index) => {
+					const obj = {
+						value: lang.baseUrl,
+						label: lang.name.simpleText
+					};
+					arrayLang[index] = obj;
 				});
-				console.log(selectOptions);
+				setOptions(arrayLang);
 			})
 			.fail(response => {
 				console.log(response);
 			});
 	};
-
-	const [languageSelected, setLanguage] = useState("");
-	const [langReady, setReady] = useState(false);
-
-	const selectOptions = [
-		{
-			value: "none",
-			label: __("Select lang", "ear2words")
-		}
-	];
 
 	return (
 		<InspectorControls>
@@ -88,7 +88,6 @@ const YoutubeControlPanel = props => {
 				<p style={{ margin: "0" }}>
 					{`${__("Status: ", "ear2words")} ${status}`}
 				</p>
-
 				{langReady ? (
 					<SelectControl
 						label={__("Select the video language", "ear2words")}
@@ -96,12 +95,11 @@ const YoutubeControlPanel = props => {
 						onChange={lingua => {
 							setLanguage(lingua);
 						}}
-						options={selectOptions}
+						options={options}
 					/>
 				) : (
 					getLang()
 				)}
-				{/* <ModalLang /> */}
 				<Button
 					name="sottotitoli"
 					id={props.id}
