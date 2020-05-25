@@ -76,10 +76,7 @@ class YouTube implements \Ear2Words\Core\VideoSource {
 		);
 		$id_transcript  = wp_insert_post( $trascript_post );
 
-		if ( 'default_post_type' === $from ) {
-			return $id_transcript;
-		}
-		return $text;
+		return 'default_post_type' === $from ? $id_transcript : $text;
 	}
 
 	/**

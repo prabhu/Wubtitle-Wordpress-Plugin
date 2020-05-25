@@ -60,7 +60,6 @@ const YoutubeControlPanel = props => {
 	};
 
 	const getLang = () => {
-		const arrayLang = [];
 		wp.ajax
 			.send("get_video_info", {
 				type: "POST",
@@ -71,20 +70,15 @@ const YoutubeControlPanel = props => {
 			})
 			.then(response => {
 				setReady(true);
-				response.languages.forEach((lang, index) => {
-					if (index === 0) {
-						const obj = {
-							value: "none",
-							label: __("Select language", "ear2words")
-						};
-						arrayLang[index] = obj;
-					}
-					index += 1;
-					const obj = {
+				const arrayLang = response.languages.map(lang => {
+					return {
 						value: lang.baseUrl,
 						label: lang.name.simpleText
 					};
-					arrayLang[index] = obj;
+				});
+				arrayLang.unshift({
+					value: "none",
+					label: __("Select language", "ear2words")
 				});
 				setOptions(arrayLang);
 				setTitle(response.title);
@@ -106,11 +100,7 @@ const YoutubeControlPanel = props => {
 						value={languageSelected}
 						onChange={lingua => {
 							setLanguage(lingua);
-							if (lingua !== "none") {
-								setDisabled(false);
-							} else {
-								setDisabled(true);
-							}
+							setDisabled(lingua !== "none");
 						}}
 						options={options}
 					/>
