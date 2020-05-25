@@ -92,16 +92,24 @@ const TranscriptionEditBlock = ({ attributes, setAttributes, className }) => {
 	};
 
 	return (
-		<FormTokenField
-			className={className}
-			label={__("Wubtitle transcriptions", "ear2words")}
-			value={tokens}
-			suggestions={suggestions}
-			onChange={token => setTokenFunction(token)}
-			placeholder={__("Insert transcriptions", "ear2words")}
-			onInputChange={value => setValue(value)}
-			maxLength={1}
-		/>
+		<>
+			<FormTokenField
+				className={className}
+				label={__("Wubtitle transcriptions", "ear2words")}
+				value={tokens}
+				suggestions={suggestions}
+				onChange={token => setTokenFunction(token)}
+				placeholder={__("Insert transcriptions", "ear2words")}
+				onInputChange={value => setValue(value)}
+				maxLength={1}
+			/>
+			<p className="helperText">
+				{__(
+					"Enter the title of the video you want to transcribe",
+					"ear2words"
+				)}
+			</p>
+		</>
 	);
 };
 

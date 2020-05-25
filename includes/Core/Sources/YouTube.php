@@ -47,9 +47,10 @@ class YouTube implements \Ear2Words\Core\VideoSource {
 	 * @param string $url_subtitle url sottotitoli youtube.
 	 * @param string $id_video id video.
 	 * @param string $title_video titolo video.
+	 * @param string $from da dove parte la richiesta.
 	 */
-	public function get_subtitle_to_url( $url_subtitle, $id_video, $title_video ) {
-		if ( '' === $url_subtitle ) {
+	public function get_subtitle_to_url( $url_subtitle, $id_video, $title_video, $from = '' ) {
+		if ( empty( $url_subtitle ) ) {
 			return false;
 		}
 		$url_subtitle = $url_subtitle . '&fmt=json3';
@@ -62,6 +63,7 @@ class YouTube implements \Ear2Words\Core\VideoSource {
 				}
 			}
 		}
+		$text           = str_replace( "\n", ' ', $text );
 		$trascript_post = array(
 			'post_title'   => $title_video,
 			'post_content' => $text,
@@ -72,8 +74,9 @@ class YouTube implements \Ear2Words\Core\VideoSource {
 				'_transcript_source' => 'youtube',
 			),
 		);
-		wp_insert_post( $trascript_post );
-		return $text;
+		$id_transcript  = wp_insert_post( $trascript_post );
+
+		return 'default_post_type' === $from ? $id_transcript : $text;
 	}
 
 	/**
