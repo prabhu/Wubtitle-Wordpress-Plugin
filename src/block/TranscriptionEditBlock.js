@@ -10,6 +10,18 @@ const TranscriptionEditBlock = ({ attributes, setAttributes, className }) => {
 	const [tokens, setTokens] = useState([]);
 	const debouncedCurrentValue = useDebounce(currentValue, 500);
 
+	const replaceBlock = content => {
+		const Paragraph = wp.blocks.createBlock("core/paragraph", {
+			content
+		});
+		const selectedBlock = wp.data
+			.select("core/block-editor")
+			.getSelectedBlock().clientId;
+		wp.data
+			.dispatch("core/block-editor")
+			.replaceBlocks(selectedBlock, Paragraph);
+	};
+
 	useEffect(() => {
 		setTextSearch(debouncedCurrentValue);
 	}, [debouncedCurrentValue]);
@@ -77,18 +89,6 @@ const TranscriptionEditBlock = ({ attributes, setAttributes, className }) => {
 			setAttributes({ contentId });
 			replaceBlock(contentText);
 		}
-	};
-
-	const replaceBlock = content => {
-		const Paragraph = wp.blocks.createBlock("core/paragraph", {
-			content
-		});
-		const selectedBlock = wp.data
-			.select("core/block-editor")
-			.getSelectedBlock().clientId;
-		wp.data
-			.dispatch("core/block-editor")
-			.replaceBlocks(selectedBlock, Paragraph);
 	};
 
 	return (
