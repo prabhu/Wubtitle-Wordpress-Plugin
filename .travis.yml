@@ -40,7 +40,10 @@ matrix:
       env: WP_VERSION=5.2
     - php: 7.4
       env: WP_VERSION=5.3
+    - php: 7.4
+      env: WP_VERSION=latest
 
+  include:
     # Run PHP_CodeSniffer
     - name: Coding standards
       php: 7.4
