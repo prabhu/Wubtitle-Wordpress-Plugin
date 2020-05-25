@@ -149,7 +149,7 @@ class ApiGetTranscript {
 		);
 		$posts = get_posts( $args );
 		if ( empty( $posts ) ) {
-			wp_send_json_error( __( 'Error, Transcription not found', 'ear2words' ) );
+			wp_send_json_error( __( 'Error: this video doesn\'t have subtitles yet. It is necessary to generate them to obtain the transcription', 'ear2words' ) );
 		}
 		if ( 'classic_editor' === $from ) {
 			$response = array(
