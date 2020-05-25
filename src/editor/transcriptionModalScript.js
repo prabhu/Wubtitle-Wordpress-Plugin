@@ -116,7 +116,7 @@ document.addEventListener("DOMContentLoaded", function() {
 				videoTitle = response.title;
 				if (!response.languages) {
 					errorMessage.innerHTML = wp.i18n.__(
-						"Unable to generate transcript, subtitles not present for this video",
+						"Error: this video does not contain subtitles. Select a video with subtitles to generate the transcript",
 						"ear2words"
 					);
 					selectInput.disabled = true;
