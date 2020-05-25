@@ -100,7 +100,7 @@ const YoutubeControlPanel = props => {
 						value={languageSelected}
 						onChange={lingua => {
 							setLanguage(lingua);
-							setDisabled(lingua !== "none");
+							setDisabled(lingua === "none");
 						}}
 						options={options}
 					/>
