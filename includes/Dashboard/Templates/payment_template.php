@@ -4,13 +4,13 @@
  *
  * @author     Nicola Palermo
  * @since      0.1.0
- * @package    Ear2Words\Dashboar\Templates
+ * @package    Wubtitle\Dashboar\Templates
  */
 
 /**
  * Pagina per l'upgrade del piano.
  */
-require EAR2WORDS_DIR . 'includes/Dashboard/Templates/plans_array.php';
+require WUBTITLE_DIR . 'includes/Dashboard/Templates/plans_array.php';
 
 ?>
 <!DOCTYPE html>
@@ -21,12 +21,12 @@ require EAR2WORDS_DIR . 'includes/Dashboard/Templates/plans_array.php';
 	<title>Payment</title>
 	<?php // phpcs:disable ?>
 	<link href="https://fonts.googleapis.com/css?family=Days+One|Open+Sans&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="<?php echo esc_url( EAR2WORDS_URL . 'src/css/payment_template.css' ); ?>">
+	<link rel="stylesheet" href="<?php echo esc_url( WUBTITLE_URL . 'src/css/payment_template.css' ); ?>">
 	<?php // phpcs:enable ?>
 </head>
 <body>
 	<div class="container" id="content">
-		<h1 class="title"><?php echo esc_html_e( 'Choose the right plan for your project', 'ear2words' ); ?></h1>
+		<h1 class="title"><?php echo esc_html_e( 'Choose the right plan for your project', 'wubtitle' ); ?></h1>
 		<div class="row">
 		<?php
 		foreach ( $plans as $plan ) :
@@ -37,10 +37,10 @@ require EAR2WORDS_DIR . 'includes/Dashboard/Templates/plans_array.php';
 						<h2 class="card__title">
 							<?php echo esc_html( $plan['name'] ); ?>
 						</h2>
-						<img class="card__logo" src="<?php echo esc_url( EAR2WORDS_URL . 'src/img/' . $plan['icon'] ); ?>">
+						<img class="card__logo" src="<?php echo esc_url( WUBTITLE_URL . 'src/img/' . $plan['icon'] ); ?>">
 					</div>
 					<div class="card__price">
-						<?php echo esc_html_e( 'Per month', 'ear2words' ); ?>
+						<?php echo esc_html_e( 'Per month', 'wubtitle' ); ?>
 						<p class="price">
 							<?php echo esc_html( '€' . $plan['price'] ); ?>
 						</p>
@@ -92,7 +92,7 @@ require EAR2WORDS_DIR . 'includes/Dashboard/Templates/plans_array.php';
 		}
 	</script>
 	<script src="https://js.stripe.com/v3/"></script>
-	<script src="<?php echo esc_url(EAR2WORDS_URL . 'src/payment/payment_template.js'); ?>"></script>
+	<script src="<?php echo esc_url(WUBTITLE_URL . 'src/payment/payment_template.js'); ?>"></script>
 	<?php // phpcs:enable ?>
 </body>
 </html>

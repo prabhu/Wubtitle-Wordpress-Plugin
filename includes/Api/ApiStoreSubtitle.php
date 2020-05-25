@@ -4,10 +4,10 @@
  *
  * @author     Nicola Palermo
  * @since      0.1.0
- * @package    Ear2Words\Api
+ * @package    Wubtitle\Api
  */
 
-namespace Ear2Words\Api;
+namespace Wubtitle\Api;
 
 use WP_REST_Response;
 use \Firebase\JWT\JWT;
@@ -30,7 +30,7 @@ class ApiStoreSubtitle {
 	 */
 	public function register_store_subtitle_route() {
 		register_rest_route(
-			'ear2words/v1',
+			'wubtitle/v1',
 			'/store-subtitle',
 			array(
 				'methods'  => 'POST',
@@ -48,7 +48,7 @@ class ApiStoreSubtitle {
 		$headers        = $request->get_headers();
 		$jwt            = $headers['jwt'][0];
 		$params         = $request->get_param( 'data' );
-		$db_license_key = get_option( 'ear2words_license_key' );
+		$db_license_key = get_option( 'wubtitle_license_key' );
 		try {
 			JWT::decode( $jwt, $db_license_key, array( 'HS256' ) );
 		} catch ( \Exception $e ) {
@@ -83,8 +83,8 @@ class ApiStoreSubtitle {
 		$file_name      = explode( '?', basename( $url ) )[0];
 		$id_attachment  = $params['attachmentId'];
 		$temp_file      = download_url( $url );
-		update_option( 'ear2words_seconds_done', $params['duration'] );
-		update_option( 'ear2words_jobs_done', $params['jobs'] );
+		update_option( 'wubtitle_seconds_done', $params['duration'] );
+		update_option( 'wubtitle_jobs_done', $params['jobs'] );
 
 		if ( is_wp_error( $temp_file ) ) {
 			$error = array(
@@ -132,8 +132,8 @@ class ApiStoreSubtitle {
 			return $response;
 		}
 
-		update_post_meta( $id_attachment, 'ear2words_subtitle', $id_file_vtt );
-		update_post_meta( $id_attachment, 'ear2words_status', 'draft' );
+		update_post_meta( $id_attachment, 'wubtitle_subtitle', $id_file_vtt );
+		update_post_meta( $id_attachment, 'wubtitle_status', 'draft' );
 		update_post_meta( $id_file_vtt, 'is_subtitle', 'true' );
 
 		$transcript_response = wp_remote_get( $transcript_url );
@@ -171,7 +171,7 @@ class ApiStoreSubtitle {
 			'post_status'  => 'publish',
 			'post_type'    => 'transcript',
 			'meta_input'   => array(
-				'ear2words_transcript' => $id_attachment,
+				'wubtitle_transcript' => $id_attachment,
 			),
 		);
 		wp_insert_post( $trascript_post );
@@ -182,7 +182,7 @@ class ApiStoreSubtitle {
 	 */
 	public function register_error_jobs_route() {
 		register_rest_route(
-			'ear2words/v1',
+			'wubtitle/v1',
 			'/error-jobs',
 			array(
 				'methods'  => 'POST',
@@ -201,7 +201,7 @@ class ApiStoreSubtitle {
 		$args     = array(
 			'post_type'      => 'attachment',
 			'posts_per_page' => 1,
-			'meta_key'       => 'ear2words_job_uuid',
+			'meta_key'       => 'wubtitle_job_uuid',
 			'meta_value'     => $job_id,
 		);
 		$job_meta = get_posts( $args );
@@ -221,7 +221,7 @@ class ApiStoreSubtitle {
 		}
 
 		$id_attachment = $job_meta[0]->ID;
-		update_post_meta( $id_attachment, 'ear2words_status', 'error' );
+		update_post_meta( $id_attachment, 'wubtitle_status', 'error' );
 		$message = array(
 			'data' => array(
 				'status' => '200',

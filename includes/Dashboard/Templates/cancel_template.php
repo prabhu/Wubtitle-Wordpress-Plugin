@@ -4,14 +4,14 @@
  *
  * @author     Nicola Palermo
  * @since      0.1.0
- * @package    Ear2Words\Dashboar\Templates
+ * @package    Wubtitle\Dashboar\Templates
  */
 
 /**
  * This is a template.
  */
 
-require EAR2WORDS_DIR . 'includes/Dashboard/Templates/plans_array.php';
+require WUBTITLE_DIR . 'includes/Dashboard/Templates/plans_array.php';
 
 ?>
 <!DOCTYPE html>
@@ -22,7 +22,7 @@ require EAR2WORDS_DIR . 'includes/Dashboard/Templates/plans_array.php';
 	<title>Cancel subscription</title>
 	<?php // phpcs:disable ?>
 	<link href="https://fonts.googleapis.com/css?family=Days+One|Open+Sans&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="<?php echo esc_url( EAR2WORDS_URL . 'src/css/payment_template.css' ); ?>">
+	<link rel="stylesheet" href="<?php echo esc_url( WUBTITLE_URL . 'src/css/payment_template.css' ); ?>">
 	<?php // phpcs:enable ?>
 </head>
 <body>
@@ -30,17 +30,17 @@ require EAR2WORDS_DIR . 'includes/Dashboard/Templates/plans_array.php';
 		<div class="row">
 			<div class="column">
 				<div class="unsubscribe-section">
-					<h1 class="title"><?php echo esc_html_e( 'Are you sure you want to unsubscribe?', 'ear2words' ); ?></h1>
-					<p><?php echo esc_html_e( 'Are you sure you want to cancel your subscription? If you choose to continue, when the subscription expires your plan will return to free version and you will lose all the additional features', 'ear2words' ); ?></p>
+					<h1 class="title"><?php echo esc_html_e( 'Are you sure you want to unsubscribe?', 'wubtitle' ); ?></h1>
+					<p><?php echo esc_html_e( 'Are you sure you want to cancel your subscription? If you choose to continue, when the subscription expires your plan will return to free version and you will lose all the additional features', 'wubtitle' ); ?></p>
 					<div class="buttons">
-						<div class="button unsubscribe" id="unsubscribeButton"><?php echo esc_html_e( 'Return to free version', 'ear2words' ); ?></div>
-						<div class="button" id="close"><?php echo esc_html_e( 'Forget it', 'ear2words' ); ?></div>
+						<div class="button unsubscribe" id="unsubscribeButton"><?php echo esc_html_e( 'Return to free version', 'wubtitle' ); ?></div>
+						<div class="button" id="close"><?php echo esc_html_e( 'Forget it', 'wubtitle' ); ?></div>
 					</div>
 					<div id="message"><!-- From JS --></div>
 				</div>
 			</div>
 		</div>
-		<h1 class="title"><?php echo esc_html_e( 'Or choose another plan', 'ear2words' ); ?></h1>
+		<h1 class="title"><?php echo esc_html_e( 'Or choose another plan', 'wubtitle' ); ?></h1>
 		<div class="row">
 		<?php
 		foreach ( $plans as $plan ) :
@@ -51,10 +51,10 @@ require EAR2WORDS_DIR . 'includes/Dashboard/Templates/plans_array.php';
 						<h2 class="card__title">
 							<?php echo esc_html( $plan['name'] ); ?>
 						</h2>
-						<img class="card__logo" src="<?php echo esc_url( EAR2WORDS_URL . 'src/img/' . $plan['icon'] ); ?>">
+						<img class="card__logo" src="<?php echo esc_url( WUBTITLE_URL . 'src/img/' . $plan['icon'] ); ?>">
 					</div>
 					<div class="card__price">
-						<?php echo esc_html_e( 'Per month', 'ear2words' ); ?>
+						<?php echo esc_html_e( 'Per month', 'wubtitle' ); ?>
 						<p class="price">
 							<?php echo esc_html( '€' . $plan['price'] ); ?>
 						</p>
@@ -107,7 +107,7 @@ require EAR2WORDS_DIR . 'includes/Dashboard/Templates/plans_array.php';
 			nonce: "<?php echo esc_js( wp_create_nonce( 'itr_ajax_nonce' ) ); ?>"
 		}
 	</script>
-	<script src="<?php echo esc_url(EAR2WORDS_URL . 'src/payment/payment_template.js'); ?>"></script>
+	<script src="<?php echo esc_url(WUBTITLE_URL . 'src/payment/payment_template.js'); ?>"></script>
 	<?php // phpcs:enable ?>
 </body>
 </html>

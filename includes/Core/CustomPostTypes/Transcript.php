@@ -4,12 +4,12 @@
  *
  * @author     Nicola Palermo
  * @since      1.0.0
- * @package    Ear2Words\Core\CustomPostTypes
+ * @package    Wubtitle\Core\CustomPostTypes
  */
 
-namespace Ear2Words\Core\CustomPostTypes;
+namespace Wubtitle\Core\CustomPostTypes;
 
-use \Ear2words\Core\Sources\YouTube;
+use \Wubtitle\Core\Sources\YouTube;
 
 /**
  * This class handle the transcript custom post type methods.
@@ -37,7 +37,7 @@ class Transcript {
 	 * @param array $columns array delle colonne del post.
 	 */
 	public function set_custom_transcript_column( $columns ) {
-		$columns['shortcode'] = __( 'Shortcode', 'ear2words' );
+		$columns['shortcode'] = __( 'Shortcode', 'wubtitle' );
 		return $columns;
 	}
 
@@ -61,7 +61,7 @@ class Transcript {
 	public function add_source_box() {
 		add_meta_box(
 			'source_meta_box',
-			__( 'Source', 'ear2words' ),
+			__( 'Source', 'wubtitle' ),
 			array( $this, 'source_box_html' ),
 			'transcript',
 			'normal',
@@ -81,14 +81,14 @@ class Transcript {
 	public function source_box_html( $post ) {
 		?>
 			<p>
-				<?php echo esc_html( __( 'Source:', 'ear2words' ) ); ?>
+				<?php echo esc_html( __( 'Source:', 'wubtitle' ) ); ?>
 
 				<?php echo $post->_transcript_source ? esc_html( $post->_transcript_source ) : esc_html( 'youtube' ); ?>
 			</p>
 
 			<input type="hidden" id="source" name="source" value="<?php echo $post->_transcript_source ? esc_attr( $post->_transcript_source ) : esc_html( 'youtube' ); ?>">
 
-			<input type="text" id="youtube-url" name="url" placeholder="<?php echo esc_html( __( 'Insert url youtube video', 'ear2words' ) ); ?>" value="<?php echo esc_attr( $post->_transcript_url ); ?>">
+			<input type="text" id="youtube-url" name="url" placeholder="<?php echo esc_html( __( 'Insert url youtube video', 'wubtitle' ) ); ?>" value="<?php echo esc_attr( $post->_transcript_url ); ?>">
 
 			<?php wp_nonce_field( 'transcript_data', 'transcript_nonce' ); ?>
 		<?php
@@ -127,7 +127,7 @@ class Transcript {
 			'www.youtu.be',
 		);
 		if ( ! in_array( $url_parts['host'], $allowed_urls, true ) ) {
-			return '<p style="color:red">' . __( 'Url not a valid youtube url', 'ear2words' ) . '</p>';
+			return '<p style="color:red">' . __( 'Url not a valid youtube url', 'wubtitle' ) . '</p>';
 		}
 		$query_params = array();
 		parse_str( $url_parts['query'], $query_params );
@@ -149,11 +149,11 @@ class Transcript {
 		$response_code = wp_remote_retrieve_response_code( $response );
 
 		$message = array(
-			'400' => __( 'An error occurred while creating the transcriptions. Please try again in a few minutes', 'ear2words' ),
-			'401' => __( 'An error occurred while creating the transcriptions. Please try again in a few minutes', 'ear2words' ),
-			'403' => __( 'Unable to create transcriptions. Invalid product license', 'ear2words' ),
-			'500' => __( 'Could not contact the server', 'ear2words' ),
-			'429' => __( 'Error, no more video left for your subscription plan', 'ear2words' ),
+			'400' => __( 'An error occurred while creating the transcriptions. Please try again in a few minutes', 'wubtitle' ),
+			'401' => __( 'An error occurred while creating the transcriptions. Please try again in a few minutes', 'wubtitle' ),
+			'403' => __( 'Unable to create transcriptions. Invalid product license', 'wubtitle' ),
+			'500' => __( 'Could not contact the server', 'wubtitle' ),
+			'429' => __( 'Error, no more video left for your subscription plan', 'wubtitle' ),
 		);
 		if ( 201 !== $response_code ) {
 			return '<p style="color:red">' . $message[ $response_code ] . '</p>';
@@ -173,7 +173,7 @@ class Transcript {
 	 */
 	public function has_content( $content ) {
 		if ( ! $content ) {
-			return '<p style="color:red">' . __( 'Transcript not avaiable for this video.', 'ear2words' ) . '</p>';
+			return '<p style="color:red">' . __( 'Transcript not avaiable for this video.', 'wubtitle' ) . '</p>';
 		}
 	}
 
@@ -213,40 +213,40 @@ class Transcript {
 	 */
 	public function register_transcript_cpt() {
 		$labels = array(
-			'name'                     => __( 'Transcripts', 'ear2words' ),
-			'singular_name'            => __( 'Transcript', 'ear2words' ),
-			'menu_name'                => __( 'Transcripts', 'ear2words' ),
-			'all_items'                => __( 'All transcripts', 'ear2words' ),
-			'add_new'                  => __( 'Add new', 'ear2words' ),
-			'add_new_item'             => __( 'Add new transcript', 'ear2words' ),
-			'edit_item'                => __( 'Edit transcript', 'ear2words' ),
-			'new_item'                 => __( 'New transcript', 'ear2words' ),
-			'view_item'                => __( 'View transcript', 'ear2words' ),
-			'view_items'               => __( 'View transcripts', 'ear2words' ),
-			'search_items'             => __( 'Search transcripts', 'ear2words' ),
-			'not_found'                => __( 'No Transcripts found', 'ear2words' ),
-			'not_found_in_trash'       => __( 'No Transcripts found in trash', 'ear2words' ),
-			'parent'                   => __( 'Parent transcript:', 'ear2words' ),
-			'archives'                 => __( 'Transcript archives', 'ear2words' ),
-			'insert_into_item'         => __( 'Insert into Transcript', 'ear2words' ),
-			'uploaded_to_this_item'    => __( 'Upload to this Transcript', 'ear2words' ),
-			'filter_items_list'        => __( 'Filter Transcripts list', 'ear2words' ),
-			'items_list_navigation'    => __( 'Transcripts list navigation', 'ear2words' ),
-			'items_list'               => __( 'Transcripts list', 'ear2words' ),
-			'attributes'               => __( 'Transcripts attributes', 'ear2words' ),
-			'name_admin_bar'           => __( 'Transcript', 'ear2words' ),
-			'item_published'           => __( 'Transcript published', 'ear2words' ),
-			'item_published_privately' => __( 'Transcript published privately.', 'ear2words' ),
-			'item_reverted_to_draft'   => __( 'Transcript reverted to draft.', 'ear2words' ),
-			'item_scheduled'           => __( 'Transcript scheduled', 'ear2words' ),
-			'item_updated'             => __( 'Transcript updated.', 'ear2words' ),
-			'parent_item_colon'        => __( 'Parent transcript:', 'ear2words' ),
+			'name'                     => __( 'Transcripts', 'wubtitle' ),
+			'singular_name'            => __( 'Transcript', 'wubtitle' ),
+			'menu_name'                => __( 'Transcripts', 'wubtitle' ),
+			'all_items'                => __( 'All transcripts', 'wubtitle' ),
+			'add_new'                  => __( 'Add new', 'wubtitle' ),
+			'add_new_item'             => __( 'Add new transcript', 'wubtitle' ),
+			'edit_item'                => __( 'Edit transcript', 'wubtitle' ),
+			'new_item'                 => __( 'New transcript', 'wubtitle' ),
+			'view_item'                => __( 'View transcript', 'wubtitle' ),
+			'view_items'               => __( 'View transcripts', 'wubtitle' ),
+			'search_items'             => __( 'Search transcripts', 'wubtitle' ),
+			'not_found'                => __( 'No Transcripts found', 'wubtitle' ),
+			'not_found_in_trash'       => __( 'No Transcripts found in trash', 'wubtitle' ),
+			'parent'                   => __( 'Parent transcript:', 'wubtitle' ),
+			'archives'                 => __( 'Transcript archives', 'wubtitle' ),
+			'insert_into_item'         => __( 'Insert into Transcript', 'wubtitle' ),
+			'uploaded_to_this_item'    => __( 'Upload to this Transcript', 'wubtitle' ),
+			'filter_items_list'        => __( 'Filter Transcripts list', 'wubtitle' ),
+			'items_list_navigation'    => __( 'Transcripts list navigation', 'wubtitle' ),
+			'items_list'               => __( 'Transcripts list', 'wubtitle' ),
+			'attributes'               => __( 'Transcripts attributes', 'wubtitle' ),
+			'name_admin_bar'           => __( 'Transcript', 'wubtitle' ),
+			'item_published'           => __( 'Transcript published', 'wubtitle' ),
+			'item_published_privately' => __( 'Transcript published privately.', 'wubtitle' ),
+			'item_reverted_to_draft'   => __( 'Transcript reverted to draft.', 'wubtitle' ),
+			'item_scheduled'           => __( 'Transcript scheduled', 'wubtitle' ),
+			'item_updated'             => __( 'Transcript updated.', 'wubtitle' ),
+			'parent_item_colon'        => __( 'Parent transcript:', 'wubtitle' ),
 		);
 
 		$args = array(
-			'label'         => __( 'Transcripts', 'ear2words' ),
+			'label'         => __( 'Transcripts', 'wubtitle' ),
 			'labels'        => $labels,
-			'description'   => __( 'Video Transcripts', 'ear2words' ),
+			'description'   => __( 'Video Transcripts', 'wubtitle' ),
 			'show_ui'       => true,
 			'show_in_rest'  => true,
 			'map_meta_cap'  => true,

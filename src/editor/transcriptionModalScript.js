@@ -29,11 +29,11 @@ document.addEventListener("DOMContentLoaded", function() {
 			document.getElementById("menu-item-featured-image").remove();
 			document.getElementById("menu-item-embed").innerHTML = wp.i18n.__(
 				"Wubtitle Transcription",
-				"ear2words"
+				"wubtitle"
 			);
 			document.getElementById("media-frame-title").innerHTML =
 				"<h1>" +
-				wp.i18n.__("Wubtitle Transcription", "ear2words") +
+				wp.i18n.__("Wubtitle Transcription", "wubtitle") +
 				"</h1>";
 			isOpened = true;
 		}

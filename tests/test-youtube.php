@@ -2,10 +2,10 @@
 /**
  * Test YouTube
  *
- * @package Ear2Words
+ * @package Wubtitle
 */
 
-use \Ear2words\Core\Sources\YouTube;
+use \Wubtitle\Core\Sources\YouTube;
 
 /**
 * Test ricezione trascrizione.
@@ -72,11 +72,11 @@ questa sentenza nazionale in maniera più
 dettagliata per discutere";
 
 		$text = $this->instance->get_subtitle( "DxHd4_i_tS0", 'transcript_post_type' );
-		
 
-		$this->assertEquals( 
-            $expected_text, 
-            $text, 
+
+		$this->assertEquals(
+            $expected_text,
+            $text,
             "actual value is not equals to expected"
         );
 	 }

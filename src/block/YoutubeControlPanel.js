@@ -8,7 +8,7 @@ const YoutubeControlPanel = props => {
 	const [message, setMessage] = useState("");
 	const isDisabled = props.url === undefined;
 	const onClick = () => {
-		setMessage(__("Getting transcript...", "ear2words"));
+		setMessage(__("Getting transcript...", "wubtitle"));
 		wp.ajax
 			.send("get_transcript", {
 				type: "POST",
@@ -39,7 +39,7 @@ const YoutubeControlPanel = props => {
 					onClick={onClick}
 					disabled={isDisabled}
 				>
-					{__("Get Transcribe", "ear2words")}
+					{__("Get Transcribe", "wubtitle")}
 				</Button>
 				<p>{message}</p>
 			</PanelBody>

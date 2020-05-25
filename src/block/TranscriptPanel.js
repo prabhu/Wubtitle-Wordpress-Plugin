@@ -12,7 +12,7 @@ const TranscriptPanel = () => {
 	const [inputValue, setInputValue] = useState("");
 	const isDisabled = inputValue === "";
 	const getTranscript = () => {
-		setMessage(__("Getting transcript...", "ear2words"));
+		setMessage(__("Getting transcript...", "wubtitle"));
 
 		wp.ajax
 			.send("get_transcript", {
@@ -24,7 +24,7 @@ const TranscriptPanel = () => {
 				}
 			})
 			.then(response => {
-				setMessage(__("Done", "ear2words"));
+				setMessage(__("Done", "wubtitle"));
 				const block = wp.blocks.createBlock("core/paragraph", {
 					content: response
 				});
@@ -54,7 +54,7 @@ const TranscriptPanel = () => {
 					onClick={getTranscript}
 					disabled={isDisabled}
 				>
-					{__("Get transcript", "ear2words")}
+					{__("Get transcript", "wubtitle")}
 				</Button>
 				<p>{message}</p>
 			</PluginDocumentSettingPanel>

@@ -67,11 +67,11 @@ const TranscriptionEditBlock = ({ attributes, setAttributes, className }) => {
 	return (
 		<FormTokenField
 			className={className}
-			label={__("Wubtitle transcriptions", "ear2words")}
+			label={__("Wubtitle transcriptions", "wubtitle")}
 			value={tokens}
 			suggestions={suggestions}
 			onChange={token => setTokenFunction(token)}
-			placeholder={__("Insert transcriptions", "ear2words")}
+			placeholder={__("Insert transcriptions", "wubtitle")}
 			onInputChange={value => setValue(value)}
 			maxLength={1}
 		/>

@@ -2,10 +2,10 @@
 /**
  * Class Subtitle Test
  *
- * @package Ear2words
+ * @package Wubtitle
  */
 
-use Ear2Words\Core\Subtitle;
+use Wubtitle\Core\Subtitle;
 
 /**
  * Subtitle test case.
@@ -38,12 +38,12 @@ class TestSubtitle extends WP_UnitTestCase {
 			'post_content'   => '',
 			'post_parent'    => '0',
 			'meta_input'     => array(
-				'ear2words_subtitle' => $this->subtitle_id
+				'wubtitle_subtitle' => $this->subtitle_id
 			)
 		);
-		$this->video_id = $this->factory()->attachment->create($attachment_data);		
+		$this->video_id = $this->factory()->attachment->create($attachment_data);
 	}
-	
+
 	public function test_delete_attachment_and_subtitle() {
 		$delete = wp_delete_attachment( $this->video_id);
 		$this->assertInstanceOf('WP_Post',$delete);

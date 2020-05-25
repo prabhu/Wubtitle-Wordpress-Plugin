@@ -4,10 +4,10 @@
  *
  * @author     Alessio Catania
  * @since      0.1.0
- * @package    Ear2Words\Dashboard
+ * @package    Wubtitle\Dashboard
  */
 
-namespace Ear2Words\Dashboard;
+namespace Wubtitle\Dashboard;
 
 /**
  * This class describes Settings.

@@ -4,10 +4,10 @@
  *
  * @author     Nicola Palermo
  * @since      0.1.0
- * @package    Ear2Words\Core
+ * @package    Wubtitle\Core
  */
 
-namespace Ear2Words\Core;
+namespace Wubtitle\Core;
 
 /**
  * This class handle WP_Cron functions.
@@ -18,8 +18,8 @@ class Cron {
 	 */
 	public function run() {
 		add_action( 'e2w_cron', array( $this, 'get_remote_data' ) );
-		register_activation_hook( EAR2WORDS_FILE_URL, array( $this, 'get_remote_data' ) );
-		register_deactivation_hook( EAR2WORDS_FILE_URL, array( $this, 'unschedule_cron' ) );
+		register_activation_hook( WUBTITLE_FILE_URL, array( $this, 'get_remote_data' ) );
+		register_deactivation_hook( WUBTITLE_FILE_URL, array( $this, 'unschedule_cron' ) );
 		add_action( 'init', array( $this, 'schedule_cron' ) );
 	}
 
@@ -48,7 +48,7 @@ class Cron {
 	 * Get info from remote and DB update.
 	 */
 	public function get_remote_data() {
-		$license_key = get_option( 'ear2words_license_key' );
+		$license_key = get_option( 'wubtitle_license_key' );
 
 		$response = wp_remote_post(
 			ENDPOINT . 'subscription/info',
@@ -64,16 +64,16 @@ class Cron {
 		$code_response = wp_remote_retrieve_response_code( $response );
 		if ( 200 === $code_response ) {
 			$body_response = json_decode( wp_remote_retrieve_body( $response ) );
-			update_option( 'ear2words_plan', $body_response->data->plan );
+			update_option( 'wubtitle_plan', $body_response->data->plan );
 			$is_free_plan = 'plan_0' === $body_response->data->plan;
-			update_option( 'ear2words_free', $is_free_plan );
-			update_option( 'ear2words_expiration_date', $body_response->data->expirationDate );
-			update_option( 'ear2words_is_first_month', $body_response->data->isFirstMonth );
-			update_option( 'ear2words_is_canceling', $body_response->data->isCanceling );
-			update_option( 'ear2words_total_jobs', $body_response->data->totalJobs );
-			update_option( 'ear2words_total_seconds', $body_response->data->totalSeconds );
-			update_option( 'ear2words_jobs_done', $body_response->data->consumedJobs );
-			update_option( 'ear2words_seconds_done', $body_response->data->consumedSeconds );
+			update_option( 'wubtitle_free', $is_free_plan );
+			update_option( 'wubtitle_expiration_date', $body_response->data->expirationDate );
+			update_option( 'wubtitle_is_first_month', $body_response->data->isFirstMonth );
+			update_option( 'wubtitle_is_canceling', $body_response->data->isCanceling );
+			update_option( 'wubtitle_total_jobs', $body_response->data->totalJobs );
+			update_option( 'wubtitle_total_seconds', $body_response->data->totalSeconds );
+			update_option( 'wubtitle_jobs_done', $body_response->data->consumedJobs );
+			update_option( 'wubtitle_seconds_done', $body_response->data->consumedSeconds );
 		}
 	}
 }

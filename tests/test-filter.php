@@ -2,7 +2,7 @@
 /**
  * Class TestFilter
  *
- * @package Ear2Words
+ * @package Wubtitle
  */
 
  /**
@@ -36,7 +36,7 @@
            'post_title'     => 'video',
            'post_content'   => '',
            'meta_input'     => array(
-             'ear2words_subtitle' => $subtitle_id
+             'wubtitle_subtitle' => $subtitle_id
            )
          );
          $attachment_id = $this->factory()->attachment->create($attachment_data,'/video.mp4',2);
@@ -58,7 +58,7 @@
           ));
           $media = $query->posts;
           $subtitle_id = $this->expected;
-          $result_id = get_post_meta($media[0]->ID,'ear2words_subtitle',true);
+          $result_id = get_post_meta($media[0]->ID,'wubtitle_subtitle',true);
           $this->assertEqualSets(1,count($media));
           $this->assertEqualSets('video',$media[0]->post_title);
           $this->assertEqualSets($subtitle_id,$result_id);

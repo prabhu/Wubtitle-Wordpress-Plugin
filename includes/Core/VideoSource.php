@@ -4,10 +4,10 @@
  *
  * @author     Nicola Palermo
  * @since      1.0.0
- * @package    Ear2Words\Core
+ * @package    Wubtitle\Core
  */
 
-namespace Ear2Words\Core;
+namespace Wubtitle\Core;
 
 /**
  * This class handle subtitles.

@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ear2Words 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-ear2words\n"
-"POT-Creation-Date: 2020-05-19T16:08:57+02:00\n"
-"PO-Revision-Date: 2020-05-19 16:10+0200\n"
+"POT-Creation-Date: 2020-05-22T18:29:26+02:00\n"
+"PO-Revision-Date: 2020-05-22 18:29+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -77,11 +77,11 @@ msgstr ""
 msgid "Bad gateway"
 msgstr ""
 
-#: includes/Api/ApiGetTranscript.php:32 includes/Api/ApiGetTranscript.php:68
-#: includes/Api/ApiGetTranscript.php:69
+#: includes/Api/ApiGetTranscript.php:31 includes/Api/ApiGetTranscript.php:55
+#: includes/Api/ApiGetTranscript.php:91 includes/Api/ApiGetTranscript.php:92
 #: includes/Core/CustomPostTypes/Transcript.php:152
 #: includes/Core/CustomPostTypes/Transcript.php:153
-#: includes/Core/Sources/YouTube.php:122 includes/Core/Sources/YouTube.php:123
+#: includes/Core/Sources/YouTube.php:150 includes/Core/Sources/YouTube.php:151
 msgid ""
 "An error occurred while creating the transcriptions. Please try again in a "
 "few minutes"
@@ -89,34 +89,46 @@ msgstr ""
 "Si è verificato un errore durante la creazione dei sottotitoli. Riprova di "
 "nuovo tra qualche minuto"
 
-#: includes/Api/ApiGetTranscript.php:54
+#: includes/Api/ApiGetTranscript.php:44
+#, fuzzy
+#| msgid "No Transcripts found"
+msgid "Error, Transcription not found"
+msgstr "Nessuna trascrizione trovata"
+
+#: includes/Api/ApiGetTranscript.php:77
 #: includes/Core/CustomPostTypes/Transcript.php:130
 #: includes/MediaLibrary/TrascriptionsExtends.php:43
 msgid "Url not a valid youtube url"
 msgstr "Url youtube non valida"
 
-#: includes/Api/ApiGetTranscript.php:70
+#: includes/Api/ApiGetTranscript.php:93
 #: includes/Core/CustomPostTypes/Transcript.php:154
-#: includes/Core/Sources/YouTube.php:124
+#: includes/Core/Sources/YouTube.php:152
 msgid "Unable to create transcriptions. Invalid product license"
 msgstr ""
 "Impossibile creare i sottotitoli. La  licenza del prodotto non è valida"
 
-#: includes/Api/ApiGetTranscript.php:71 includes/Api/ApiPricingPlan.php:63
+#: includes/Api/ApiGetTranscript.php:94 includes/Api/ApiPricingPlan.php:63
 #: includes/Api/ApiPricingPlan.php:64 includes/Api/ApiPricingPlan.php:100
 #: includes/Api/ApiPricingPlan.php:165 includes/Api/ApiPricingPlan.php:166
 #: includes/Api/ApiPricingPlan.php:216 includes/Api/ApiPricingPlan.php:217
 #: includes/Api/ApiPricingPlan.php:256 includes/Api/ApiRequest.php:116
 #: includes/Core/CustomPostTypes/Transcript.php:155
-#: includes/Core/Sources/YouTube.php:125
+#: includes/Core/Sources/YouTube.php:153
 msgid "Could not contact the server"
 msgstr "Impossibile contattare il server"
 
-#: includes/Api/ApiGetTranscript.php:72 includes/Api/ApiRequest.php:209
+#: includes/Api/ApiGetTranscript.php:95 includes/Api/ApiRequest.php:209
 #: includes/Core/CustomPostTypes/Transcript.php:156
-#: includes/Core/Sources/YouTube.php:126
+#: includes/Core/Sources/YouTube.php:154
 msgid "Error, no more video left for your subscription plan"
 msgstr "Errore, non hai più video disponibili per il tuo piano di abbonamento"
+
+#: includes/Api/ApiGetTranscript.php:104
+#: includes/Core/CustomPostTypes/Transcript.php:176
+#: includes/Core/Sources/YouTube.php:169
+msgid "Transcript not avaiable for this video."
+msgstr "Trascrizione non disponibile per questo video."
 
 #: includes/Api/ApiPricingPlan.php:33 includes/Api/ApiPricingPlan.php:78
 #: includes/Api/ApiPricingPlan.php:131 includes/Api/ApiPricingPlan.php:189
@@ -175,8 +187,8 @@ msgstr "Errore, lingua non supportata per il tuo piano di abbonamento"
 
 #: includes/Api/ApiRequest.php:211
 #: includes/MediaLibrary/MediaLibraryExtented.php:67
-#: includes/MediaLibrary/MediaLibraryExtented.php:188 build/index.js:350
-#: src/block/Ear2WordPanel.js:92
+#: includes/MediaLibrary/MediaLibraryExtented.php:188 build/index.js:707
+#: src/block/WubtitlePanel.js:92
 msgid "Unsupported video format for free plan"
 msgstr "Formato video non supportato per il piano free"
 
@@ -208,115 +220,115 @@ msgstr ""
 msgid "Insert url youtube video"
 msgstr "Inserisci l' url del video youtube"
 
-#: includes/Core/CustomPostTypes/Transcript.php:202
-#: includes/Core/CustomPostTypes/Transcript.php:204
-#: includes/Core/CustomPostTypes/Transcript.php:233
+#: includes/Core/CustomPostTypes/Transcript.php:216
+#: includes/Core/CustomPostTypes/Transcript.php:218
+#: includes/Core/CustomPostTypes/Transcript.php:247
 msgid "Transcripts"
 msgstr "Trascrizioni"
 
-#: includes/Core/CustomPostTypes/Transcript.php:203
-#: includes/Core/CustomPostTypes/Transcript.php:223
+#: includes/Core/CustomPostTypes/Transcript.php:217
+#: includes/Core/CustomPostTypes/Transcript.php:237
 msgid "Transcript"
 msgstr "Trascrizione"
 
-#: includes/Core/CustomPostTypes/Transcript.php:205
+#: includes/Core/CustomPostTypes/Transcript.php:219
 msgid "All transcripts"
 msgstr "Tutte le trascrizioni"
 
-#: includes/Core/CustomPostTypes/Transcript.php:206
+#: includes/Core/CustomPostTypes/Transcript.php:220
 msgid "Add new"
 msgstr "Aggiungi nuovo"
 
-#: includes/Core/CustomPostTypes/Transcript.php:207
+#: includes/Core/CustomPostTypes/Transcript.php:221
 msgid "Add new transcript"
 msgstr "Aggiungi nuova trascrizione"
 
-#: includes/Core/CustomPostTypes/Transcript.php:208
+#: includes/Core/CustomPostTypes/Transcript.php:222
 msgid "Edit transcript"
 msgstr "Modifica trascrizione"
 
-#: includes/Core/CustomPostTypes/Transcript.php:209
+#: includes/Core/CustomPostTypes/Transcript.php:223
 msgid "New transcript"
 msgstr "Nuova trascrizione"
 
-#: includes/Core/CustomPostTypes/Transcript.php:210
+#: includes/Core/CustomPostTypes/Transcript.php:224
 msgid "View transcript"
 msgstr "Vedi trascrizione"
 
-#: includes/Core/CustomPostTypes/Transcript.php:211
+#: includes/Core/CustomPostTypes/Transcript.php:225
 msgid "View transcripts"
 msgstr "Vedi trascrizioni"
 
-#: includes/Core/CustomPostTypes/Transcript.php:212
+#: includes/Core/CustomPostTypes/Transcript.php:226
 msgid "Search transcripts"
 msgstr "Cerca trascrizioni"
 
-#: includes/Core/CustomPostTypes/Transcript.php:213
+#: includes/Core/CustomPostTypes/Transcript.php:227
 msgid "No Transcripts found"
 msgstr "Nessuna trascrizione trovata"
 
-#: includes/Core/CustomPostTypes/Transcript.php:214
+#: includes/Core/CustomPostTypes/Transcript.php:228
 msgid "No Transcripts found in trash"
 msgstr "Nessuna trascrizione trovata nel cestino"
 
-#: includes/Core/CustomPostTypes/Transcript.php:215
 #: includes/Core/CustomPostTypes/Transcript.php:229
+#: includes/Core/CustomPostTypes/Transcript.php:243
 msgid "Parent transcript:"
 msgstr ""
 
-#: includes/Core/CustomPostTypes/Transcript.php:216
+#: includes/Core/CustomPostTypes/Transcript.php:230
 msgid "Transcript archives"
 msgstr "Archivio trascrizioni"
 
-#: includes/Core/CustomPostTypes/Transcript.php:217
+#: includes/Core/CustomPostTypes/Transcript.php:231
 msgid "Insert into Transcript"
 msgstr "Inserisci nella trascrizione"
 
-#: includes/Core/CustomPostTypes/Transcript.php:218
+#: includes/Core/CustomPostTypes/Transcript.php:232
 msgid "Upload to this Transcript"
 msgstr "Aggiorna trascrizione"
 
-#: includes/Core/CustomPostTypes/Transcript.php:219
+#: includes/Core/CustomPostTypes/Transcript.php:233
 msgid "Filter Transcripts list"
 msgstr "Filtra lista trascrizioni"
 
-#: includes/Core/CustomPostTypes/Transcript.php:220
+#: includes/Core/CustomPostTypes/Transcript.php:234
 msgid "Transcripts list navigation"
 msgstr "Lista navigazione trascrizioni"
 
-#: includes/Core/CustomPostTypes/Transcript.php:221
+#: includes/Core/CustomPostTypes/Transcript.php:235
 msgid "Transcripts list"
 msgstr "Lista trascrizioni"
 
-#: includes/Core/CustomPostTypes/Transcript.php:222
+#: includes/Core/CustomPostTypes/Transcript.php:236
 msgid "Transcripts attributes"
 msgstr "Attributi trascrizioni"
 
-#: includes/Core/CustomPostTypes/Transcript.php:224
+#: includes/Core/CustomPostTypes/Transcript.php:238
 msgid "Transcript published"
 msgstr "Trascrizione pubblicata"
 
-#: includes/Core/CustomPostTypes/Transcript.php:225
+#: includes/Core/CustomPostTypes/Transcript.php:239
 msgid "Transcript published privately."
 msgstr "Trascrizione pubblicata privatamente."
 
-#: includes/Core/CustomPostTypes/Transcript.php:226
+#: includes/Core/CustomPostTypes/Transcript.php:240
 msgid "Transcript reverted to draft."
 msgstr "Trascrizione ripristinata in bozza."
 
-#: includes/Core/CustomPostTypes/Transcript.php:227
+#: includes/Core/CustomPostTypes/Transcript.php:241
 msgid "Transcript scheduled"
 msgstr "Trascrizione pianificata"
 
-#: includes/Core/CustomPostTypes/Transcript.php:228
+#: includes/Core/CustomPostTypes/Transcript.php:242
 msgid "Transcript updated."
 msgstr "Trascrizione aggiornata."
 
-#: includes/Core/CustomPostTypes/Transcript.php:235
+#: includes/Core/CustomPostTypes/Transcript.php:249
 msgid "Video Transcripts"
 msgstr "Trascrizioni video"
 
-#: includes/Core/Sources/YouTube.php:80
+#: includes/Core/Sources/YouTube.php:87
 msgid "Autogenerated. YouTube "
 msgstr "Autogenerato. Youtube"
 
@@ -629,9 +641,15 @@ msgstr "Solo per il primo mese (Fino al "
 msgid "Upgrade Now"
 msgstr "Modifica piano"
 
+#: includes/MediaLibrary/ListingSubtitles.php:31
+#: includes/MediaLibrary/MediaLibraryExtented.php:75
+#: includes/MediaLibrary/MediaLibraryExtented.php:106
+msgid "Subtitle"
+msgstr "Sottotitoli"
+
 #: includes/MediaLibrary/ListingSubtitles.php:42
 #: includes/MediaLibrary/MediaLibraryExtented.php:50
-#: includes/MediaLibrary/MediaLibraryExtented.php:175 build/index.js:916
+#: includes/MediaLibrary/MediaLibraryExtented.php:175 build/index.js:952
 #: src/block/labels.js:13
 msgid "Generating"
 msgstr "In Creazione"
@@ -640,7 +658,7 @@ msgstr "In Creazione"
 #: includes/MediaLibrary/MediaLibraryExtented.php:51
 #: includes/MediaLibrary/MediaLibraryExtented.php:116
 #: includes/MediaLibrary/MediaLibraryExtented.php:176
-#: includes/MediaLibrary/MediaLibraryExtented.php:248 build/index.js:917
+#: includes/MediaLibrary/MediaLibraryExtented.php:248 build/index.js:953
 #: src/block/labels.js:14
 msgid "Draft"
 msgstr "In bozza"
@@ -649,29 +667,24 @@ msgstr "In bozza"
 #: includes/MediaLibrary/MediaLibraryExtented.php:52
 #: includes/MediaLibrary/MediaLibraryExtented.php:115
 #: includes/MediaLibrary/MediaLibraryExtented.php:177
-#: includes/MediaLibrary/MediaLibraryExtented.php:247 build/index.js:506
-#: src/block/SubtitleControl.js:41
+#: includes/MediaLibrary/MediaLibraryExtented.php:247 build/index.js:372
+#: src/block/SubtitleControl.js:65
 msgid "Published"
 msgstr "Pubblicati"
 
 #: includes/MediaLibrary/ListingSubtitles.php:46
 #: includes/MediaLibrary/MediaLibraryExtented.php:54
-#: includes/MediaLibrary/MediaLibraryExtented.php:178 build/index.js:332
-#: build/index.js:919 src/block/Ear2WordPanel.js:64 src/block/labels.js:16
+#: includes/MediaLibrary/MediaLibraryExtented.php:178 build/index.js:689
+#: build/index.js:955 src/block/labels.js:16 src/block/WubtitlePanel.js:64
 msgid "None"
 msgstr "Nessuno"
 
 #: includes/MediaLibrary/ListingSubtitles.php:47
 #: includes/MediaLibrary/MediaLibraryExtented.php:53
-#: includes/MediaLibrary/MediaLibraryExtented.php:179 build/index.js:332
-#: src/block/Ear2WordPanel.js:63
+#: includes/MediaLibrary/MediaLibraryExtented.php:179 build/index.js:689
+#: src/block/WubtitlePanel.js:63
 msgid "Error"
 msgstr "Errore"
-
-#: includes/MediaLibrary/MediaLibraryExtented.php:75
-#: includes/MediaLibrary/MediaLibraryExtented.php:106
-msgid "Subtitle"
-msgstr "Sottotitoli"
 
 #: includes/MediaLibrary/MediaLibraryExtented.php:84
 #: includes/MediaLibrary/MediaLibraryExtented.php:123
@@ -681,28 +694,28 @@ msgid "Language"
 msgstr "Lingua"
 
 #: includes/MediaLibrary/MediaLibraryExtented.php:97
-#: includes/MediaLibrary/MediaLibraryExtented.php:275 build/index.js:346
-#: src/block/Ear2WordPanel.js:83
+#: includes/MediaLibrary/MediaLibraryExtented.php:275 build/index.js:703
+#: src/block/WubtitlePanel.js:83
 msgid "GENERATE SUBTITLES"
 msgstr "GENERA SOTTOTITOLI"
 
 #: includes/MediaLibrary/MediaLibraryExtented.php:148
-#: includes/MediaLibrary/MediaLibraryExtented.php:347 build/index.js:908
-#: build/index.js:923 build/index.js:942 src/block/labels.js:4
+#: includes/MediaLibrary/MediaLibraryExtented.php:347 build/index.js:944
+#: build/index.js:959 build/index.js:978 src/block/labels.js:4
 #: src/block/labels.js:22 src/block/labels.js:49
 msgid "Italian"
 msgstr "Italiano"
 
 #: includes/MediaLibrary/MediaLibraryExtented.php:149
-#: includes/MediaLibrary/MediaLibraryExtented.php:348 build/index.js:909
-#: build/index.js:926 build/index.js:946 src/block/labels.js:5
+#: includes/MediaLibrary/MediaLibraryExtented.php:348 build/index.js:945
+#: build/index.js:962 build/index.js:982 src/block/labels.js:5
 #: src/block/labels.js:26 src/block/labels.js:54
 msgid "English"
 msgstr "Inglese"
 
 #: includes/MediaLibrary/MediaLibraryExtented.php:150
-#: includes/MediaLibrary/MediaLibraryExtented.php:349 build/index.js:910
-#: build/index.js:929 src/block/labels.js:6 src/block/labels.js:30
+#: includes/MediaLibrary/MediaLibraryExtented.php:349 build/index.js:946
+#: build/index.js:965 src/block/labels.js:6 src/block/labels.js:30
 msgid "Spanish"
 msgstr "Spagnolo"
 
@@ -711,14 +724,14 @@ msgid "German"
 msgstr "Tedesco"
 
 #: includes/MediaLibrary/MediaLibraryExtented.php:152
-#: includes/MediaLibrary/MediaLibraryExtented.php:351 build/index.js:912
-#: build/index.js:935 src/block/labels.js:8 src/block/labels.js:38
+#: includes/MediaLibrary/MediaLibraryExtented.php:351 build/index.js:948
+#: build/index.js:971 src/block/labels.js:8 src/block/labels.js:38
 msgid "Chinese"
 msgstr "Cinese"
 
 #: includes/MediaLibrary/MediaLibraryExtented.php:153
-#: includes/MediaLibrary/MediaLibraryExtented.php:352 build/index.js:913
-#: build/index.js:938 src/block/labels.js:9 src/block/labels.js:42
+#: includes/MediaLibrary/MediaLibraryExtented.php:352 build/index.js:949
+#: build/index.js:974 src/block/labels.js:9 src/block/labels.js:42
 msgid "French"
 msgstr "Francese"
 
@@ -738,8 +751,8 @@ msgstr ""
 "Attendi che vengano creati i sottotitoli. I sottotitoli saranno disponibili "
 "il prima possibile"
 
-#: includes/MediaLibrary/MediaLibraryExtented.php:350 build/index.js:911
-#: build/index.js:932 src/block/labels.js:7 src/block/labels.js:34
+#: includes/MediaLibrary/MediaLibraryExtented.php:350 build/index.js:947
+#: build/index.js:968 src/block/labels.js:7 src/block/labels.js:34
 msgid "German "
 msgstr "Tedesco "
 
@@ -747,75 +760,77 @@ msgstr "Tedesco "
 msgid "Add transcription"
 msgstr "Aggiungi trascrizione"
 
-#: build/index.js:333 build/index.js:438 build/index.js:501
-#: src/block/Ear2WordPanel.js:67 src/block/PendingSubtitle.js:7
-#: src/block/SubtitleControl.js:35
+#: build/index.js:274 build/index.js:367 build/index.js:690
+#: src/block/PendingSubtitle.js:7 src/block/SubtitleControl.js:59
+#: src/block/WubtitlePanel.js:67
 msgid "Status: "
 msgstr "Stato: "
 
-#: build/index.js:334 src/block/Ear2WordPanel.js:69
-msgid "Select the video language"
-msgstr "Seleziona la lingua del video"
-
-#: build/index.js:365 src/block/Ear2WordPanel.js:112
-msgid "Subtitle creation successfully started"
-msgstr "Creazione dei sottotitoli avviata con successo"
-
-#: build/index.js:438 build/index.js:505 src/block/PendingSubtitle.js:8
-#: src/block/SubtitleControl.js:38
+#: build/index.js:274 build/index.js:371 src/block/PendingSubtitle.js:8
+#: src/block/SubtitleControl.js:62
 msgid "Language: "
 msgstr "Lingua: "
 
-#: build/index.js:569 build/index.js:815 src/block/TranscriptPanel.js:15
+#: build/index.js:337 build/index.js:440 build/index.js:852
+#: src/block/SubtitleControl.js:29 src/block/TranscriptPanel.js:15
 #: src/block/YoutubeControlPanel.js:11
 msgid "Getting transcript..."
 msgstr "Generazione trascrizione..."
 
-#: build/index.js:578 src/block/TranscriptPanel.js:27
+#: build/index.js:382 build/index.js:878 src/block/SubtitleControl.js:72
+#: src/block/YoutubeControlPanel.js:42
+msgid "Get Transcribe"
+msgstr "Ottieni trascrizione"
+
+#: build/index.js:449 src/block/TranscriptPanel.js:27
 msgid "Done"
 msgstr "Fatto"
 
-#: build/index.js:603 src/block/TranscriptPanel.js:57
+#: build/index.js:474 src/block/TranscriptPanel.js:57
 msgid "Get transcript"
-msgstr "Ottiene la trascrizione"
+msgstr "Ottieni trascrizione"
 
-#: build/index.js:718 src/block/TranscriptionEditBlock.js:69
+#: build/index.js:591 src/block/TranscriptionEditBlock.js:70
 msgid "Wubtitle transcriptions"
 msgstr "Trascrizioni Wubtitle"
 
-#: build/index.js:724 src/block/TranscriptionEditBlock.js:73
+#: build/index.js:597 src/block/TranscriptionEditBlock.js:74
 msgid "Insert transcriptions"
 msgstr "Inserisci trascrizioni"
 
-#: build/index.js:842 src/block/YoutubeControlPanel.js:43
-msgid "Transcribe"
-msgstr "Genera trascrizione"
+#: build/index.js:691 src/block/WubtitlePanel.js:69
+msgid "Select the video language"
+msgstr "Seleziona la lingua del video"
 
-#: build/index.js:918 src/block/labels.js:15
+#: build/index.js:722 src/block/WubtitlePanel.js:112
+msgid "Subtitle creation successfully started"
+msgstr "Creazione dei sottotitoli avviata con successo"
+
+#: build/index.js:954 src/block/labels.js:15
 msgid "Enabled"
 msgstr "Attivati"
 
-#: build/index.js:950 src/block/labels.js:59
+#: build/index.js:986 src/block/labels.js:59
 msgid "Spanish (Pro only)"
 msgstr "Spagnolo (solo Pro)"
 
-#: build/index.js:954 src/block/labels.js:64
+#: build/index.js:990 src/block/labels.js:64
 msgid "German (Pro only)"
 msgstr "Tedesco (solo Pro)"
 
-#: build/index.js:958 src/block/labels.js:69
+#: build/index.js:994 src/block/labels.js:69
 msgid "Chinese (Pro only)"
 msgstr "Cinese (solo Pro)"
 
-#: build/index.js:962 src/block/labels.js:74
+#: build/index.js:998 src/block/labels.js:74
 msgid "French (Pro only)"
 msgstr "Francese (solo Pro)"
 
-#: build/index.js:990 src/block/trascriptionBlock.js:6
+#: build/index.js:1026 src/block/trascriptionBlock.js:6
 msgid "Trascription"
 msgstr "Trascrizione"
 
-#: build/index.js:992 src/block/trascriptionBlock.js:8
+#: build/index.js:1028 src/block/trascriptionBlock.js:8
 msgid "Enter the transcript of your video"
 msgstr "Inserisci la trascrizione del tuo video"
 
@@ -823,3 +838,32 @@ msgstr "Inserisci la trascrizione del tuo video"
 #: src/editor/transcriptionModalScript.js:36
 msgid "Wubtitle Transcription"
 msgstr "Trascrizioni Wubtitle"
+
+#~ msgid ""
+#~ "Error: this video doesn't have subtitles yet. It is necessary to generate "
+#~ "them to obtain the transcription"
+#~ msgstr ""
+#~ "Errore: questo video non ha ancora i sottititoli. E' necessario generarli "
+#~ "per ottenere la trascrizione"
+
+#~ msgid "Created"
+#~ msgstr "Creata"
+
+#~ msgid "Transcription of the video"
+#~ msgstr "Trascrizione del video"
+
+#~ msgid "Error, language not selected"
+#~ msgstr "Errore, lingua non selezionata "
+
+#~ msgid "Select language"
+#~ msgstr "Seleziona la lingua "
+
+#~ msgid ""
+#~ "Error: this video does not contain subtitles. Select a video with "
+#~ "subtitles to generate the transcript"
+#~ msgstr ""
+#~ "Errore: questo video non contiene sottotitoli. Selezionare un video con "
+#~ "sottotitoli per generare la trascrizione"
+
+#~ msgid "Language of trascription "
+#~ msgstr "Lingua della trascrizione "
