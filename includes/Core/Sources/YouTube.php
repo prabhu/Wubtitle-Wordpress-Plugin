@@ -50,7 +50,7 @@ class YouTube implements \Ear2Words\Core\VideoSource {
 	 * @param string $from da dove parte la richiesta.
 	 */
 	public function get_subtitle_to_url( $url_subtitle, $id_video, $title_video, $from = '' ) {
-		if ( '' === $url_subtitle ) {
+		if ( empty( $url_subtitle ) ) {
 			return false;
 		}
 		$url_subtitle = $url_subtitle . '&fmt=json3';
