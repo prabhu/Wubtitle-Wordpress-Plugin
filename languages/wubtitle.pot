@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-05-22T18:29:26+02:00\n"
+"POT-Creation-Date: 2020-05-26T11:04:18+02:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: wubtitle\n"
@@ -75,67 +75,38 @@ msgstr ""
 msgid "Bad gateway"
 msgstr ""
 
-<<<<<<< HEAD:languages/wubtitle.pot
-#: includes/Api/ApiGetTranscript.php:31
-#: includes/Api/ApiGetTranscript.php:55
-#: includes/Api/ApiGetTranscript.php:91
-#: includes/Api/ApiGetTranscript.php:92
-#: includes/Core/CustomPostTypes/Transcript.php:152
-#: includes/Core/CustomPostTypes/Transcript.php:153
-#: includes/Core/Sources/YouTube.php:150
-#: includes/Core/Sources/YouTube.php:151
-msgid "An error occurred while creating the transcriptions. Please try again in a few minutes"
-msgstr ""
-
-#: includes/Api/ApiGetTranscript.php:44
-msgid "Error, Transcription not found"
-msgstr ""
-
-#: includes/Api/ApiGetTranscript.php:77
-=======
 #: includes/Api/ApiGetTranscript.php:34
-#: includes/Api/ApiGetTranscript.php:67
-#: includes/Api/ApiGetTranscript.php:68
-#: includes/Api/ApiGetTranscript.php:87
-#: includes/Api/ApiGetTranscript.php:127
-#: includes/Api/ApiGetTranscript.php:162
-#: includes/Api/ApiGetTranscript.php:198
-#: includes/Api/ApiGetTranscript.php:199
+#: includes/Api/ApiGetTranscript.php:73
+#: includes/Api/ApiGetTranscript.php:74
+#: includes/Api/ApiGetTranscript.php:95
+#: includes/Api/ApiGetTranscript.php:135
+#: includes/Api/ApiGetTranscript.php:170
+#: includes/Api/ApiGetTranscript.php:206
+#: includes/Api/ApiGetTranscript.php:207
 #: includes/Core/CustomPostTypes/Transcript.php:152
 #: includes/Core/CustomPostTypes/Transcript.php:153
-#: includes/Core/Sources/YouTube.php:189
-#: includes/Core/Sources/YouTube.php:190
+#: includes/Core/Sources/YouTube.php:192
+#: includes/Core/Sources/YouTube.php:193
 msgid "An error occurred while creating the transcriptions. Please try again in a few minutes"
 msgstr ""
 
-#: includes/Api/ApiGetTranscript.php:48
-#: includes/Api/ApiGetTranscript.php:98
-#: includes/Api/ApiGetTranscript.php:103
-#: includes/Api/ApiGetTranscript.php:184
->>>>>>> origin/staging:languages/ear2words.pot
+#: includes/Api/ApiGetTranscript.php:53
+#: includes/Api/ApiGetTranscript.php:106
+#: includes/Api/ApiGetTranscript.php:111
+#: includes/Api/ApiGetTranscript.php:192
 #: includes/Core/CustomPostTypes/Transcript.php:130
 msgid "Url not a valid youtube url"
 msgstr ""
 
-<<<<<<< HEAD:languages/wubtitle.pot
-#: includes/Api/ApiGetTranscript.php:93
+#: includes/Api/ApiGetTranscript.php:75
+#: includes/Api/ApiGetTranscript.php:208
 #: includes/Core/CustomPostTypes/Transcript.php:154
-#: includes/Core/Sources/YouTube.php:152
+#: includes/Core/Sources/YouTube.php:194
 msgid "Unable to create transcriptions. Invalid product license"
 msgstr ""
 
-#: includes/Api/ApiGetTranscript.php:94
-=======
-#: includes/Api/ApiGetTranscript.php:69
-#: includes/Api/ApiGetTranscript.php:200
-#: includes/Core/CustomPostTypes/Transcript.php:154
-#: includes/Core/Sources/YouTube.php:191
-msgid "Unable to create transcriptions. Invalid product license"
-msgstr ""
-
-#: includes/Api/ApiGetTranscript.php:70
-#: includes/Api/ApiGetTranscript.php:201
->>>>>>> origin/staging:languages/ear2words.pot
+#: includes/Api/ApiGetTranscript.php:76
+#: includes/Api/ApiGetTranscript.php:209
 #: includes/Api/ApiPricingPlan.php:63
 #: includes/Api/ApiPricingPlan.php:64
 #: includes/Api/ApiPricingPlan.php:100
@@ -146,49 +117,29 @@ msgstr ""
 #: includes/Api/ApiPricingPlan.php:256
 #: includes/Api/ApiRequest.php:116
 #: includes/Core/CustomPostTypes/Transcript.php:155
-<<<<<<< HEAD:languages/wubtitle.pot
-#: includes/Core/Sources/YouTube.php:153
+#: includes/Core/Sources/YouTube.php:195
 msgid "Could not contact the server"
 msgstr ""
 
-#: includes/Api/ApiGetTranscript.php:95
+#: includes/Api/ApiGetTranscript.php:77
+#: includes/Api/ApiGetTranscript.php:210
 #: includes/Api/ApiRequest.php:209
 #: includes/Core/CustomPostTypes/Transcript.php:156
-#: includes/Core/Sources/YouTube.php:154
+#: includes/Core/Sources/YouTube.php:196
 msgid "Error, no more video left for your subscription plan"
 msgstr ""
 
-#: includes/Api/ApiGetTranscript.php:104
+#: includes/Api/ApiGetTranscript.php:84
+#: includes/Api/ApiGetTranscript.php:219
 #: includes/Core/CustomPostTypes/Transcript.php:176
-#: includes/Core/Sources/YouTube.php:169
+#: includes/Core/Sources/YouTube.php:211
 msgid "Transcript not avaiable for this video."
 msgstr ""
 
-=======
-#: includes/Core/Sources/YouTube.php:192
-msgid "Could not contact the server"
-msgstr ""
-
-#: includes/Api/ApiGetTranscript.php:71
-#: includes/Api/ApiGetTranscript.php:202
-#: includes/Api/ApiRequest.php:209
-#: includes/Core/CustomPostTypes/Transcript.php:156
-#: includes/Core/Sources/YouTube.php:193
-msgid "Error, no more video left for your subscription plan"
-msgstr ""
-
-#: includes/Api/ApiGetTranscript.php:78
-#: includes/Api/ApiGetTranscript.php:211
-#: includes/Core/CustomPostTypes/Transcript.php:176
-#: includes/Core/Sources/YouTube.php:208
-msgid "Transcript not avaiable for this video."
-msgstr ""
-
-#: includes/Api/ApiGetTranscript.php:144
+#: includes/Api/ApiGetTranscript.php:152
 msgid "Error: this video doesn't have subtitles yet. It is necessary to generate them to obtain the transcription"
 msgstr ""
 
->>>>>>> origin/staging:languages/ear2words.pot
 #: includes/Api/ApiPricingPlan.php:33
 #: includes/Api/ApiPricingPlan.php:78
 #: includes/Api/ApiPricingPlan.php:131
@@ -250,13 +201,8 @@ msgstr ""
 #: includes/Api/ApiRequest.php:211
 #: includes/MediaLibrary/MediaLibraryExtented.php:67
 #: includes/MediaLibrary/MediaLibraryExtented.php:188
-<<<<<<< HEAD:languages/wubtitle.pot
-#: build/index.js:707
-#: src/block/WubtitlePanel.js:92
-=======
 #: build/index.js:1
-#: src/block/Ear2WordPanel.js:92
->>>>>>> origin/staging:languages/ear2words.pot
+#: src/block/WubtitlePanel.js:92
 msgid "Unsupported video format for free plan"
 msgstr ""
 
@@ -392,13 +338,6 @@ msgstr ""
 msgid "Video Transcripts"
 msgstr ""
 
-<<<<<<< HEAD:languages/wubtitle.pot
-#: includes/Core/Sources/YouTube.php:87
-msgid "Autogenerated. YouTube "
-msgstr ""
-
-=======
->>>>>>> origin/staging:languages/ear2words.pot
 #: includes/Dashboard/Settings.php:36
 msgid "Wubtitle Settings"
 msgstr ""
@@ -685,11 +624,7 @@ msgstr ""
 #: includes/MediaLibrary/ListingSubtitles.php:42
 #: includes/MediaLibrary/MediaLibraryExtented.php:50
 #: includes/MediaLibrary/MediaLibraryExtented.php:175
-<<<<<<< HEAD:languages/wubtitle.pot
-#: build/index.js:952
-=======
 #: build/index.js:1
->>>>>>> origin/staging:languages/ear2words.pot
 #: src/block/labels.js:13
 msgid "Generating"
 msgstr ""
@@ -699,11 +634,7 @@ msgstr ""
 #: includes/MediaLibrary/MediaLibraryExtented.php:116
 #: includes/MediaLibrary/MediaLibraryExtented.php:176
 #: includes/MediaLibrary/MediaLibraryExtented.php:248
-<<<<<<< HEAD:languages/wubtitle.pot
-#: build/index.js:953
-=======
 #: build/index.js:1
->>>>>>> origin/staging:languages/ear2words.pot
 #: src/block/labels.js:14
 msgid "Draft"
 msgstr ""
@@ -713,11 +644,7 @@ msgstr ""
 #: includes/MediaLibrary/MediaLibraryExtented.php:115
 #: includes/MediaLibrary/MediaLibraryExtented.php:177
 #: includes/MediaLibrary/MediaLibraryExtented.php:247
-<<<<<<< HEAD:languages/wubtitle.pot
-#: build/index.js:372
-=======
 #: build/index.js:1
->>>>>>> origin/staging:languages/ear2words.pot
 #: src/block/SubtitleControl.js:65
 msgid "Published"
 msgstr ""
@@ -725,30 +652,18 @@ msgstr ""
 #: includes/MediaLibrary/ListingSubtitles.php:46
 #: includes/MediaLibrary/MediaLibraryExtented.php:54
 #: includes/MediaLibrary/MediaLibraryExtented.php:178
-<<<<<<< HEAD:languages/wubtitle.pot
-#: build/index.js:689
-#: build/index.js:955
+#: build/index.js:1
 #: src/block/labels.js:16
 #: src/block/WubtitlePanel.js:64
-=======
-#: build/index.js:1
-#: src/block/Ear2WordPanel.js:64
-#: src/block/labels.js:16
 #: src/block/YoutubeControlPanel.js:11
->>>>>>> origin/staging:languages/ear2words.pot
 msgid "None"
 msgstr ""
 
 #: includes/MediaLibrary/ListingSubtitles.php:47
 #: includes/MediaLibrary/MediaLibraryExtented.php:53
 #: includes/MediaLibrary/MediaLibraryExtented.php:179
-<<<<<<< HEAD:languages/wubtitle.pot
-#: build/index.js:689
-#: src/block/WubtitlePanel.js:63
-=======
 #: build/index.js:1
-#: src/block/Ear2WordPanel.js:63
->>>>>>> origin/staging:languages/ear2words.pot
+#: src/block/WubtitlePanel.js:63
 msgid "Error"
 msgstr ""
 
@@ -761,25 +676,14 @@ msgstr ""
 
 #: includes/MediaLibrary/MediaLibraryExtented.php:97
 #: includes/MediaLibrary/MediaLibraryExtented.php:275
-<<<<<<< HEAD:languages/wubtitle.pot
-#: build/index.js:703
-#: src/block/WubtitlePanel.js:83
-=======
 #: build/index.js:1
-#: src/block/Ear2WordPanel.js:83
->>>>>>> origin/staging:languages/ear2words.pot
+#: src/block/WubtitlePanel.js:83
 msgid "GENERATE SUBTITLES"
 msgstr ""
 
 #: includes/MediaLibrary/MediaLibraryExtented.php:148
 #: includes/MediaLibrary/MediaLibraryExtented.php:347
-<<<<<<< HEAD:languages/wubtitle.pot
-#: build/index.js:944
-#: build/index.js:959
-#: build/index.js:978
-=======
 #: build/index.js:1
->>>>>>> origin/staging:languages/ear2words.pot
 #: src/block/labels.js:4
 #: src/block/labels.js:22
 #: src/block/labels.js:49
@@ -788,13 +692,7 @@ msgstr ""
 
 #: includes/MediaLibrary/MediaLibraryExtented.php:149
 #: includes/MediaLibrary/MediaLibraryExtented.php:348
-<<<<<<< HEAD:languages/wubtitle.pot
-#: build/index.js:945
-#: build/index.js:962
-#: build/index.js:982
-=======
 #: build/index.js:1
->>>>>>> origin/staging:languages/ear2words.pot
 #: src/block/labels.js:5
 #: src/block/labels.js:26
 #: src/block/labels.js:54
@@ -803,12 +701,7 @@ msgstr ""
 
 #: includes/MediaLibrary/MediaLibraryExtented.php:150
 #: includes/MediaLibrary/MediaLibraryExtented.php:349
-<<<<<<< HEAD:languages/wubtitle.pot
-#: build/index.js:946
-#: build/index.js:965
-=======
 #: build/index.js:1
->>>>>>> origin/staging:languages/ear2words.pot
 #: src/block/labels.js:6
 #: src/block/labels.js:30
 msgid "Spanish"
@@ -820,12 +713,7 @@ msgstr ""
 
 #: includes/MediaLibrary/MediaLibraryExtented.php:152
 #: includes/MediaLibrary/MediaLibraryExtented.php:351
-<<<<<<< HEAD:languages/wubtitle.pot
-#: build/index.js:948
-#: build/index.js:971
-=======
 #: build/index.js:1
->>>>>>> origin/staging:languages/ear2words.pot
 #: src/block/labels.js:8
 #: src/block/labels.js:38
 msgid "Chinese"
@@ -833,12 +721,7 @@ msgstr ""
 
 #: includes/MediaLibrary/MediaLibraryExtented.php:153
 #: includes/MediaLibrary/MediaLibraryExtented.php:352
-<<<<<<< HEAD:languages/wubtitle.pot
-#: build/index.js:949
-#: build/index.js:974
-=======
 #: build/index.js:1
->>>>>>> origin/staging:languages/ear2words.pot
 #: src/block/labels.js:9
 #: src/block/labels.js:42
 msgid "French"
@@ -857,12 +740,7 @@ msgid "Wait while subtitles are created. Subtitles will be available as soon as 
 msgstr ""
 
 #: includes/MediaLibrary/MediaLibraryExtented.php:350
-<<<<<<< HEAD:languages/wubtitle.pot
-#: build/index.js:947
-#: build/index.js:968
-=======
 #: build/index.js:1
->>>>>>> origin/staging:languages/ear2words.pot
 #: src/block/labels.js:7
 #: src/block/labels.js:34
 msgid "German "
@@ -872,181 +750,111 @@ msgstr ""
 msgid "Add transcription"
 msgstr ""
 
-<<<<<<< HEAD:languages/wubtitle.pot
-#: build/index.js:274
-#: build/index.js:367
-#: build/index.js:690
+#: build/index.js:1
+#: src/block/labels.js:15
+msgid "Enabled"
+msgstr ""
+
+#: build/index.js:1
+#: src/block/labels.js:59
+msgid "Spanish (Pro only)"
+msgstr ""
+
+#: build/index.js:1
+#: src/block/labels.js:64
+msgid "German (Pro only)"
+msgstr ""
+
+#: build/index.js:1
+#: src/block/labels.js:69
+msgid "Chinese (Pro only)"
+msgstr ""
+
+#: build/index.js:1
+#: src/block/labels.js:74
+msgid "French (Pro only)"
+msgstr ""
+
+#: build/index.js:1
 #: src/block/PendingSubtitle.js:7
 #: src/block/SubtitleControl.js:59
 #: src/block/WubtitlePanel.js:67
 msgid "Status: "
 msgstr ""
 
-#: build/index.js:274
-#: build/index.js:371
-=======
 #: build/index.js:1
-#: src/block/labels.js:15
-msgid "Enabled"
-msgstr ""
-
-#: build/index.js:1
-#: src/block/labels.js:59
-msgid "Spanish (Pro only)"
-msgstr ""
-
-#: build/index.js:1
-#: src/block/labels.js:64
-msgid "German (Pro only)"
-msgstr ""
-
-#: build/index.js:1
-#: src/block/labels.js:69
-msgid "Chinese (Pro only)"
-msgstr ""
-
-#: build/index.js:1
-#: src/block/labels.js:74
-msgid "French (Pro only)"
-msgstr ""
-
-#: build/index.js:1
-#: src/block/Ear2WordPanel.js:67
-#: src/block/PendingSubtitle.js:7
-#: src/block/SubtitleControl.js:59
-#: src/block/YoutubeControlPanel.js:56
-msgid "Status: "
-msgstr ""
-
-#: build/index.js:1
->>>>>>> origin/staging:languages/ear2words.pot
 #: src/block/PendingSubtitle.js:8
 #: src/block/SubtitleControl.js:62
 msgid "Language: "
 msgstr ""
 
-<<<<<<< HEAD:languages/wubtitle.pot
-#: build/index.js:337
-#: build/index.js:440
-#: build/index.js:852
-=======
 #: build/index.js:1
->>>>>>> origin/staging:languages/ear2words.pot
 #: src/block/SubtitleControl.js:29
 #: src/block/TranscriptPanel.js:15
-#: src/block/YoutubeControlPanel.js:31
+#: src/block/YoutubeControlPanel.js:37
 msgid "Getting transcript..."
 msgstr ""
 
-<<<<<<< HEAD:languages/wubtitle.pot
-#: build/index.js:382
-#: build/index.js:878
-#: src/block/SubtitleControl.js:72
-#: src/block/YoutubeControlPanel.js:42
-msgid "Get Transcribe"
-msgstr ""
-
-#: build/index.js:449
-=======
 #: build/index.js:1
 #: src/block/SubtitleControl.js:72
-#: src/block/YoutubeControlPanel.js:65
+#: src/block/YoutubeControlPanel.js:117
 msgid "Get Transcribe"
 msgstr ""
 
 #: build/index.js:1
-#: src/block/Ear2WordPanel.js:69
-msgid "Select the video language"
-msgstr ""
-
-#: build/index.js:1
-#: src/block/Ear2WordPanel.js:112
-msgid "Subtitle creation successfully started"
-msgstr ""
-
-#: build/index.js:1
->>>>>>> origin/staging:languages/ear2words.pot
-#: src/block/TranscriptPanel.js:27
-msgid "Done"
-msgstr ""
-
-<<<<<<< HEAD:languages/wubtitle.pot
-#: build/index.js:474
-=======
-#: build/index.js:1
->>>>>>> origin/staging:languages/ear2words.pot
-#: src/block/TranscriptPanel.js:57
-msgid "Get transcript"
-msgstr ""
-
-<<<<<<< HEAD:languages/wubtitle.pot
-#: build/index.js:591
-#: src/block/TranscriptionEditBlock.js:70
-msgid "Wubtitle transcriptions"
-msgstr ""
-
-#: build/index.js:597
-#: src/block/TranscriptionEditBlock.js:74
-msgid "Insert transcriptions"
-msgstr ""
-
-#: build/index.js:691
 #: src/block/WubtitlePanel.js:69
+#: src/block/YoutubeControlPanel.js:99
 msgid "Select the video language"
 msgstr ""
 
-#: build/index.js:722
+#: build/index.js:1
 #: src/block/WubtitlePanel.js:112
 msgid "Subtitle creation successfully started"
 msgstr ""
 
-#: build/index.js:954
-#: src/block/labels.js:15
-msgid "Enabled"
-msgstr ""
-
-#: build/index.js:986
-#: src/block/labels.js:59
-msgid "Spanish (Pro only)"
-msgstr ""
-
-#: build/index.js:990
-#: src/block/labels.js:64
-msgid "German (Pro only)"
-msgstr ""
-
-#: build/index.js:994
-#: src/block/labels.js:69
-msgid "Chinese (Pro only)"
-msgstr ""
-
-#: build/index.js:998
-#: src/block/labels.js:74
-msgid "French (Pro only)"
-msgstr ""
-
-#: build/index.js:1026
-#: src/block/trascriptionBlock.js:6
-msgid "Trascription"
-msgstr ""
-
-#: build/index.js:1028
-#: src/block/trascriptionBlock.js:8
-msgid "Enter the transcript of your video"
-=======
 #: build/index.js:1
-#: src/block/YoutubeControlPanel.js:26
+#: src/block/TranscriptPanel.js:27
+msgid "Done"
+msgstr ""
+
+#: build/index.js:1
+#: src/block/TranscriptPanel.js:57
+msgid "Get transcript"
+msgstr ""
+
+#: build/index.js:1
+#: src/block/YoutubeControlPanel.js:30
+#: src/block/YoutubeControlPanel.js:55
 msgid "Created"
 msgstr ""
 
 #: build/index.js:1
-#: src/block/TranscriptionEditBlock.js:70
+#: src/block/YoutubeControlPanel.js:95
+msgid "Transcript status : "
+msgstr ""
+
+#: build/index.js:1
+#: src/block/YoutubeControlPanel.js:81
+#: src/editor/transcriptionModalScript.js:112
+#: src/editor/transcriptionModalScript.js:136
+#: src/editor/transcriptionModalScript.js:157
+#: src/editor/transcriptionModalScript.js:179
+msgid "Select language"
+msgstr ""
+
+#: build/index.js:1
+#: src/block/TranscriptionEditBlock.js:98
 msgid "Wubtitle transcriptions"
 msgstr ""
 
 #: build/index.js:1
-#: src/block/TranscriptionEditBlock.js:74
+#: src/block/TranscriptionEditBlock.js:102
 msgid "Insert transcriptions"
+msgstr ""
+
+#: build/index.js:1
+#: src/block/TranscriptionEditBlock.js:107
+msgid "Enter the title of the video you want to transcribe"
 msgstr ""
 
 #: build/index.js:1
@@ -1067,16 +875,8 @@ msgstr ""
 msgid "Error, language not selected"
 msgstr ""
 
-#: src/editor/transcriptionModalScript.js:112
-#: src/editor/transcriptionModalScript.js:136
-#: src/editor/transcriptionModalScript.js:157
-#: src/editor/transcriptionModalScript.js:179
-msgid "Select language"
-msgstr ""
-
 #: src/editor/transcriptionModalScript.js:118
 msgid "Error: this video does not contain subtitles. Select a video with subtitles to generate the transcript"
->>>>>>> origin/staging:languages/ear2words.pot
 msgstr ""
 
 #: src/editor/transcriptionModalScript.js:150

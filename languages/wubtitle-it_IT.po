@@ -1,11 +1,11 @@
 # Copyright (C) 2020 CTMobi
-# This file is distributed under the same license as the Ear2Words plugin.
+# This file is distributed under the same license as the Wubtitle plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Ear2Words 1.0.0\n"
+"Project-Id-Version: Wubtitle 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-ear2words\n"
-"POT-Creation-Date: 2020-05-22T18:29:26+02:00\n"
-"PO-Revision-Date: 2020-05-22 18:29+0200\n"
+"POT-Creation-Date: 2020-05-26T11:04:18+02:00\n"
+"PO-Revision-Date: 2020-05-26 11:04+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -13,7 +13,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 2.3.1\n"
-"X-Domain: ear2words\n"
+"X-Domain: wubtitle\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. Plugin Name of the plugin
@@ -71,27 +71,19 @@ msgstr "Non trovato"
 
 #: includes/Api/ApiCancelSubscription.php:59
 msgid "Internal server error"
-msgstr ""
+msgstr "Impossibile contattare il server"
 
 #: includes/Api/ApiCancelSubscription.php:60
 msgid "Bad gateway"
 msgstr ""
 
-<<<<<<< HEAD:languages/wubtitle-it_IT.po
-#: includes/Api/ApiGetTranscript.php:31 includes/Api/ApiGetTranscript.php:55
-#: includes/Api/ApiGetTranscript.php:91 includes/Api/ApiGetTranscript.php:92
+#: includes/Api/ApiGetTranscript.php:34 includes/Api/ApiGetTranscript.php:73
+#: includes/Api/ApiGetTranscript.php:74 includes/Api/ApiGetTranscript.php:95
+#: includes/Api/ApiGetTranscript.php:135 includes/Api/ApiGetTranscript.php:170
+#: includes/Api/ApiGetTranscript.php:206 includes/Api/ApiGetTranscript.php:207
 #: includes/Core/CustomPostTypes/Transcript.php:152
 #: includes/Core/CustomPostTypes/Transcript.php:153
-#: includes/Core/Sources/YouTube.php:150 includes/Core/Sources/YouTube.php:151
-=======
-#: includes/Api/ApiGetTranscript.php:34 includes/Api/ApiGetTranscript.php:67
-#: includes/Api/ApiGetTranscript.php:68 includes/Api/ApiGetTranscript.php:87
-#: includes/Api/ApiGetTranscript.php:127 includes/Api/ApiGetTranscript.php:162
-#: includes/Api/ApiGetTranscript.php:198 includes/Api/ApiGetTranscript.php:199
-#: includes/Core/CustomPostTypes/Transcript.php:152
-#: includes/Core/CustomPostTypes/Transcript.php:153
-#: includes/Core/Sources/YouTube.php:189 includes/Core/Sources/YouTube.php:190
->>>>>>> origin/staging:languages/ear2words-it_IT.po
+#: includes/Core/Sources/YouTube.php:192 includes/Core/Sources/YouTube.php:193
 msgid ""
 "An error occurred while creating the transcriptions. Please try again in a "
 "few minutes"
@@ -99,84 +91,44 @@ msgstr ""
 "Si è verificato un errore durante la creazione dei sottotitoli. Riprova di "
 "nuovo tra qualche minuto"
 
-<<<<<<< HEAD:languages/wubtitle-it_IT.po
-#: includes/Api/ApiGetTranscript.php:44
-#, fuzzy
-#| msgid "No Transcripts found"
-msgid "Error, Transcription not found"
-msgstr "Nessuna trascrizione trovata"
-
-#: includes/Api/ApiGetTranscript.php:77
-=======
-#: includes/Api/ApiGetTranscript.php:48 includes/Api/ApiGetTranscript.php:98
-#: includes/Api/ApiGetTranscript.php:103 includes/Api/ApiGetTranscript.php:184
->>>>>>> origin/staging:languages/ear2words-it_IT.po
+#: includes/Api/ApiGetTranscript.php:53 includes/Api/ApiGetTranscript.php:106
+#: includes/Api/ApiGetTranscript.php:111 includes/Api/ApiGetTranscript.php:192
 #: includes/Core/CustomPostTypes/Transcript.php:130
 msgid "Url not a valid youtube url"
 msgstr "Url youtube non valida"
 
-<<<<<<< HEAD:languages/wubtitle-it_IT.po
-#: includes/Api/ApiGetTranscript.php:93
+#: includes/Api/ApiGetTranscript.php:75 includes/Api/ApiGetTranscript.php:208
 #: includes/Core/CustomPostTypes/Transcript.php:154
-#: includes/Core/Sources/YouTube.php:152
-=======
-#: includes/Api/ApiGetTranscript.php:69 includes/Api/ApiGetTranscript.php:200
-#: includes/Core/CustomPostTypes/Transcript.php:154
-#: includes/Core/Sources/YouTube.php:191
->>>>>>> origin/staging:languages/ear2words-it_IT.po
+#: includes/Core/Sources/YouTube.php:194
 msgid "Unable to create transcriptions. Invalid product license"
 msgstr ""
 "Impossibile creare i sottotitoli. La  licenza del prodotto non è valida"
 
-<<<<<<< HEAD:languages/wubtitle-it_IT.po
-#: includes/Api/ApiGetTranscript.php:94 includes/Api/ApiPricingPlan.php:63
-#: includes/Api/ApiPricingPlan.php:64 includes/Api/ApiPricingPlan.php:100
-#: includes/Api/ApiPricingPlan.php:165 includes/Api/ApiPricingPlan.php:166
-#: includes/Api/ApiPricingPlan.php:216 includes/Api/ApiPricingPlan.php:217
-#: includes/Api/ApiPricingPlan.php:256 includes/Api/ApiRequest.php:116
-#: includes/Core/CustomPostTypes/Transcript.php:155
-#: includes/Core/Sources/YouTube.php:153
-msgid "Could not contact the server"
-msgstr "Impossibile contattare il server"
-
-#: includes/Api/ApiGetTranscript.php:95 includes/Api/ApiRequest.php:209
-#: includes/Core/CustomPostTypes/Transcript.php:156
-#: includes/Core/Sources/YouTube.php:154
-msgid "Error, no more video left for your subscription plan"
-msgstr "Errore, non hai più video disponibili per il tuo piano di abbonamento"
-
-#: includes/Api/ApiGetTranscript.php:104
-#: includes/Core/CustomPostTypes/Transcript.php:176
-#: includes/Core/Sources/YouTube.php:169
-msgid "Transcript not avaiable for this video."
-msgstr "Trascrizione non disponibile per questo video."
-
-=======
-#: includes/Api/ApiGetTranscript.php:70 includes/Api/ApiGetTranscript.php:201
+#: includes/Api/ApiGetTranscript.php:76 includes/Api/ApiGetTranscript.php:209
 #: includes/Api/ApiPricingPlan.php:63 includes/Api/ApiPricingPlan.php:64
 #: includes/Api/ApiPricingPlan.php:100 includes/Api/ApiPricingPlan.php:165
 #: includes/Api/ApiPricingPlan.php:166 includes/Api/ApiPricingPlan.php:216
 #: includes/Api/ApiPricingPlan.php:217 includes/Api/ApiPricingPlan.php:256
 #: includes/Api/ApiRequest.php:116
 #: includes/Core/CustomPostTypes/Transcript.php:155
-#: includes/Core/Sources/YouTube.php:192
+#: includes/Core/Sources/YouTube.php:195
 msgid "Could not contact the server"
 msgstr "Impossibile contattare il server"
 
-#: includes/Api/ApiGetTranscript.php:71 includes/Api/ApiGetTranscript.php:202
+#: includes/Api/ApiGetTranscript.php:77 includes/Api/ApiGetTranscript.php:210
 #: includes/Api/ApiRequest.php:209
 #: includes/Core/CustomPostTypes/Transcript.php:156
-#: includes/Core/Sources/YouTube.php:193
+#: includes/Core/Sources/YouTube.php:196
 msgid "Error, no more video left for your subscription plan"
 msgstr "Errore, non hai più video disponibili per il tuo piano di abbonamento"
 
-#: includes/Api/ApiGetTranscript.php:78 includes/Api/ApiGetTranscript.php:211
+#: includes/Api/ApiGetTranscript.php:84 includes/Api/ApiGetTranscript.php:219
 #: includes/Core/CustomPostTypes/Transcript.php:176
-#: includes/Core/Sources/YouTube.php:208
+#: includes/Core/Sources/YouTube.php:211
 msgid "Transcript not avaiable for this video."
 msgstr "Trascrizione non disponibile per questo video."
 
-#: includes/Api/ApiGetTranscript.php:144
+#: includes/Api/ApiGetTranscript.php:152
 msgid ""
 "Error: this video doesn't have subtitles yet. It is necessary to generate "
 "them to obtain the transcription"
@@ -184,7 +136,6 @@ msgstr ""
 "Errore: questo video non ha ancora i sottititoli. E' necessario generarli "
 "per ottenere la trascrizione"
 
->>>>>>> origin/staging:languages/ear2words-it_IT.po
 #: includes/Api/ApiPricingPlan.php:33 includes/Api/ApiPricingPlan.php:78
 #: includes/Api/ApiPricingPlan.php:131 includes/Api/ApiPricingPlan.php:189
 #: includes/Api/ApiPricingPlan.php:232
@@ -229,7 +180,7 @@ msgid ""
 "minutes"
 msgstr ""
 "Si è verificato un errore durante la creazione dei sottotitoli. Riprova di "
-"nuovo tra qualche minuto"
+"nuovo tra qualche minuto."
 
 #: includes/Api/ApiRequest.php:115
 msgid "Unable to create subtitles. Invalid product license"
@@ -242,13 +193,8 @@ msgstr "Errore, lingua non supportata per il tuo piano di abbonamento"
 
 #: includes/Api/ApiRequest.php:211
 #: includes/MediaLibrary/MediaLibraryExtented.php:67
-<<<<<<< HEAD:languages/wubtitle-it_IT.po
-#: includes/MediaLibrary/MediaLibraryExtented.php:188 build/index.js:707
-#: src/block/WubtitlePanel.js:92
-=======
 #: includes/MediaLibrary/MediaLibraryExtented.php:188 build/index.js:1
-#: src/block/Ear2WordPanel.js:92
->>>>>>> origin/staging:languages/ear2words-it_IT.po
+#: src/block/WubtitlePanel.js:92
 msgid "Unsupported video format for free plan"
 msgstr "Formato video non supportato per il piano free"
 
@@ -388,13 +334,6 @@ msgstr "Trascrizione aggiornata."
 msgid "Video Transcripts"
 msgstr "Trascrizioni video"
 
-<<<<<<< HEAD:languages/wubtitle-it_IT.po
-#: includes/Core/Sources/YouTube.php:87
-msgid "Autogenerated. YouTube "
-msgstr "Autogenerato. Youtube"
-
-=======
->>>>>>> origin/staging:languages/ear2words-it_IT.po
 #: includes/Dashboard/Settings.php:36
 msgid "Wubtitle Settings"
 msgstr "Impostazioni Wubtitle"
@@ -445,7 +384,7 @@ msgstr "Iscrizione annullata con successo"
 
 #: includes/Dashboard/Settings.php:139
 msgid "Reactivation of the plan successful"
-msgstr ""
+msgstr "Riattivazione del piano andato a buon fine"
 
 #: includes/Dashboard/Settings.php:163
 msgid "Automatic renewal: "
@@ -712,11 +651,7 @@ msgstr "Sottotitoli"
 
 #: includes/MediaLibrary/ListingSubtitles.php:42
 #: includes/MediaLibrary/MediaLibraryExtented.php:50
-<<<<<<< HEAD:languages/wubtitle-it_IT.po
-#: includes/MediaLibrary/MediaLibraryExtented.php:175 build/index.js:952
-=======
 #: includes/MediaLibrary/MediaLibraryExtented.php:175 build/index.js:1
->>>>>>> origin/staging:languages/ear2words-it_IT.po
 #: src/block/labels.js:13
 msgid "Generating"
 msgstr "In Creazione"
@@ -725,11 +660,7 @@ msgstr "In Creazione"
 #: includes/MediaLibrary/MediaLibraryExtented.php:51
 #: includes/MediaLibrary/MediaLibraryExtented.php:116
 #: includes/MediaLibrary/MediaLibraryExtented.php:176
-<<<<<<< HEAD:languages/wubtitle-it_IT.po
-#: includes/MediaLibrary/MediaLibraryExtented.php:248 build/index.js:953
-=======
 #: includes/MediaLibrary/MediaLibraryExtented.php:248 build/index.js:1
->>>>>>> origin/staging:languages/ear2words-it_IT.po
 #: src/block/labels.js:14
 msgid "Draft"
 msgstr "In bozza"
@@ -738,37 +669,23 @@ msgstr "In bozza"
 #: includes/MediaLibrary/MediaLibraryExtented.php:52
 #: includes/MediaLibrary/MediaLibraryExtented.php:115
 #: includes/MediaLibrary/MediaLibraryExtented.php:177
-<<<<<<< HEAD:languages/wubtitle-it_IT.po
-#: includes/MediaLibrary/MediaLibraryExtented.php:247 build/index.js:372
-=======
 #: includes/MediaLibrary/MediaLibraryExtented.php:247 build/index.js:1
->>>>>>> origin/staging:languages/ear2words-it_IT.po
 #: src/block/SubtitleControl.js:65
 msgid "Published"
 msgstr "Pubblicati"
 
 #: includes/MediaLibrary/ListingSubtitles.php:46
 #: includes/MediaLibrary/MediaLibraryExtented.php:54
-<<<<<<< HEAD:languages/wubtitle-it_IT.po
-#: includes/MediaLibrary/MediaLibraryExtented.php:178 build/index.js:689
-#: build/index.js:955 src/block/labels.js:16 src/block/WubtitlePanel.js:64
-=======
 #: includes/MediaLibrary/MediaLibraryExtented.php:178 build/index.js:1
-#: src/block/Ear2WordPanel.js:64 src/block/labels.js:16
+#: src/block/labels.js:16 src/block/WubtitlePanel.js:64
 #: src/block/YoutubeControlPanel.js:11
->>>>>>> origin/staging:languages/ear2words-it_IT.po
 msgid "None"
 msgstr "Nessuno"
 
 #: includes/MediaLibrary/ListingSubtitles.php:47
 #: includes/MediaLibrary/MediaLibraryExtented.php:53
-<<<<<<< HEAD:languages/wubtitle-it_IT.po
-#: includes/MediaLibrary/MediaLibraryExtented.php:179 build/index.js:689
-#: src/block/WubtitlePanel.js:63
-=======
 #: includes/MediaLibrary/MediaLibraryExtented.php:179 build/index.js:1
-#: src/block/Ear2WordPanel.js:63
->>>>>>> origin/staging:languages/ear2words-it_IT.po
+#: src/block/WubtitlePanel.js:63
 msgid "Error"
 msgstr "Errore"
 
@@ -780,48 +697,26 @@ msgid "Language"
 msgstr "Lingua"
 
 #: includes/MediaLibrary/MediaLibraryExtented.php:97
-<<<<<<< HEAD:languages/wubtitle-it_IT.po
-#: includes/MediaLibrary/MediaLibraryExtented.php:275 build/index.js:703
-#: src/block/WubtitlePanel.js:83
-=======
 #: includes/MediaLibrary/MediaLibraryExtented.php:275 build/index.js:1
-#: src/block/Ear2WordPanel.js:83
->>>>>>> origin/staging:languages/ear2words-it_IT.po
+#: src/block/WubtitlePanel.js:83
 msgid "GENERATE SUBTITLES"
 msgstr "GENERA SOTTOTITOLI"
 
 #: includes/MediaLibrary/MediaLibraryExtented.php:148
-<<<<<<< HEAD:languages/wubtitle-it_IT.po
-#: includes/MediaLibrary/MediaLibraryExtented.php:347 build/index.js:944
-#: build/index.js:959 build/index.js:978 src/block/labels.js:4
-#: src/block/labels.js:22 src/block/labels.js:49
-=======
 #: includes/MediaLibrary/MediaLibraryExtented.php:347 build/index.js:1
 #: src/block/labels.js:4 src/block/labels.js:22 src/block/labels.js:49
->>>>>>> origin/staging:languages/ear2words-it_IT.po
 msgid "Italian"
 msgstr "Italiano"
 
 #: includes/MediaLibrary/MediaLibraryExtented.php:149
-<<<<<<< HEAD:languages/wubtitle-it_IT.po
-#: includes/MediaLibrary/MediaLibraryExtented.php:348 build/index.js:945
-#: build/index.js:962 build/index.js:982 src/block/labels.js:5
-#: src/block/labels.js:26 src/block/labels.js:54
-=======
 #: includes/MediaLibrary/MediaLibraryExtented.php:348 build/index.js:1
 #: src/block/labels.js:5 src/block/labels.js:26 src/block/labels.js:54
->>>>>>> origin/staging:languages/ear2words-it_IT.po
 msgid "English"
 msgstr "Inglese"
 
 #: includes/MediaLibrary/MediaLibraryExtented.php:150
-<<<<<<< HEAD:languages/wubtitle-it_IT.po
-#: includes/MediaLibrary/MediaLibraryExtented.php:349 build/index.js:946
-#: build/index.js:965 src/block/labels.js:6 src/block/labels.js:30
-=======
 #: includes/MediaLibrary/MediaLibraryExtented.php:349 build/index.js:1
 #: src/block/labels.js:6 src/block/labels.js:30
->>>>>>> origin/staging:languages/ear2words-it_IT.po
 msgid "Spanish"
 msgstr "Spagnolo"
 
@@ -830,24 +725,14 @@ msgid "German"
 msgstr "Tedesco"
 
 #: includes/MediaLibrary/MediaLibraryExtented.php:152
-<<<<<<< HEAD:languages/wubtitle-it_IT.po
-#: includes/MediaLibrary/MediaLibraryExtented.php:351 build/index.js:948
-#: build/index.js:971 src/block/labels.js:8 src/block/labels.js:38
-=======
 #: includes/MediaLibrary/MediaLibraryExtented.php:351 build/index.js:1
 #: src/block/labels.js:8 src/block/labels.js:38
->>>>>>> origin/staging:languages/ear2words-it_IT.po
 msgid "Chinese"
 msgstr "Cinese"
 
 #: includes/MediaLibrary/MediaLibraryExtented.php:153
-<<<<<<< HEAD:languages/wubtitle-it_IT.po
-#: includes/MediaLibrary/MediaLibraryExtented.php:352 build/index.js:949
-#: build/index.js:974 src/block/labels.js:9 src/block/labels.js:42
-=======
 #: includes/MediaLibrary/MediaLibraryExtented.php:352 build/index.js:1
 #: src/block/labels.js:9 src/block/labels.js:42
->>>>>>> origin/staging:languages/ear2words-it_IT.po
 msgid "French"
 msgstr "Francese"
 
@@ -867,13 +752,8 @@ msgstr ""
 "Attendi che vengano creati i sottotitoli. I sottotitoli saranno disponibili "
 "il prima possibile"
 
-<<<<<<< HEAD:languages/wubtitle-it_IT.po
-#: includes/MediaLibrary/MediaLibraryExtented.php:350 build/index.js:947
-#: build/index.js:968 src/block/labels.js:7 src/block/labels.js:34
-=======
 #: includes/MediaLibrary/MediaLibraryExtented.php:350 build/index.js:1
 #: src/block/labels.js:7 src/block/labels.js:34
->>>>>>> origin/staging:languages/ear2words-it_IT.po
 msgid "German "
 msgstr "Tedesco "
 
@@ -881,15 +761,6 @@ msgstr "Tedesco "
 msgid "Add transcription"
 msgstr "Aggiungi trascrizione"
 
-<<<<<<< HEAD:languages/wubtitle-it_IT.po
-#: build/index.js:274 build/index.js:367 build/index.js:690
-#: src/block/PendingSubtitle.js:7 src/block/SubtitleControl.js:59
-#: src/block/WubtitlePanel.js:67
-msgid "Status: "
-msgstr "Stato: "
-
-#: build/index.js:274 build/index.js:371 src/block/PendingSubtitle.js:8
-=======
 #: build/index.js:1 src/block/labels.js:15
 msgid "Enabled"
 msgstr "Attivati"
@@ -910,131 +781,32 @@ msgstr "Cinese (solo Pro)"
 msgid "French (Pro only)"
 msgstr "Francese (solo Pro)"
 
-#: build/index.js:1 src/block/Ear2WordPanel.js:67
-#: src/block/PendingSubtitle.js:7 src/block/SubtitleControl.js:59
-#: src/block/YoutubeControlPanel.js:56
+#: build/index.js:1 src/block/PendingSubtitle.js:7
+#: src/block/SubtitleControl.js:59 src/block/WubtitlePanel.js:67
 msgid "Status: "
 msgstr "Stato: "
 
 #: build/index.js:1 src/block/PendingSubtitle.js:8
->>>>>>> origin/staging:languages/ear2words-it_IT.po
 #: src/block/SubtitleControl.js:62
 msgid "Language: "
 msgstr "Lingua: "
 
-<<<<<<< HEAD:languages/wubtitle-it_IT.po
-#: build/index.js:337 build/index.js:440 build/index.js:852
-#: src/block/SubtitleControl.js:29 src/block/TranscriptPanel.js:15
-#: src/block/YoutubeControlPanel.js:11
-msgid "Getting transcript..."
-msgstr "Generazione trascrizione..."
-
-#: build/index.js:382 build/index.js:878 src/block/SubtitleControl.js:72
-#: src/block/YoutubeControlPanel.js:42
-msgid "Get Transcribe"
-msgstr "Ottieni trascrizione"
-
-#: build/index.js:449 src/block/TranscriptPanel.js:27
-msgid "Done"
-msgstr "Fatto"
-
-#: build/index.js:474 src/block/TranscriptPanel.js:57
-msgid "Get transcript"
-msgstr "Ottieni trascrizione"
-
-#: build/index.js:591 src/block/TranscriptionEditBlock.js:70
-msgid "Wubtitle transcriptions"
-msgstr "Trascrizioni Wubtitle"
-
-#: build/index.js:597 src/block/TranscriptionEditBlock.js:74
-msgid "Insert transcriptions"
-msgstr "Inserisci trascrizioni"
-
-#: build/index.js:691 src/block/WubtitlePanel.js:69
-msgid "Select the video language"
-msgstr "Seleziona la lingua del video"
-
-#: build/index.js:722 src/block/WubtitlePanel.js:112
-msgid "Subtitle creation successfully started"
-msgstr "Creazione dei sottotitoli avviata con successo"
-
-#: build/index.js:954 src/block/labels.js:15
-msgid "Enabled"
-msgstr "Attivati"
-
-#: build/index.js:986 src/block/labels.js:59
-msgid "Spanish (Pro only)"
-msgstr "Spagnolo (solo Pro)"
-
-#: build/index.js:990 src/block/labels.js:64
-msgid "German (Pro only)"
-msgstr "Tedesco (solo Pro)"
-
-#: build/index.js:994 src/block/labels.js:69
-msgid "Chinese (Pro only)"
-msgstr "Cinese (solo Pro)"
-
-#: build/index.js:998 src/block/labels.js:74
-msgid "French (Pro only)"
-msgstr "Francese (solo Pro)"
-
-#: build/index.js:1026 src/block/trascriptionBlock.js:6
-msgid "Trascription"
-msgstr "Trascrizione"
-
-#: build/index.js:1028 src/block/trascriptionBlock.js:8
-msgid "Enter the transcript of your video"
-msgstr "Inserisci la trascrizione del tuo video"
-
-#: src/editor/transcriptionModalScript.js:30
-#: src/editor/transcriptionModalScript.js:36
-msgid "Wubtitle Transcription"
-msgstr "Trascrizioni Wubtitle"
-
-#~ msgid ""
-#~ "Error: this video doesn't have subtitles yet. It is necessary to generate "
-#~ "them to obtain the transcription"
-#~ msgstr ""
-#~ "Errore: questo video non ha ancora i sottititoli. E' necessario generarli "
-#~ "per ottenere la trascrizione"
-
-#~ msgid "Created"
-#~ msgstr "Creata"
-
-#~ msgid "Transcription of the video"
-#~ msgstr "Trascrizione del video"
-
-#~ msgid "Error, language not selected"
-#~ msgstr "Errore, lingua non selezionata "
-
-#~ msgid "Select language"
-#~ msgstr "Seleziona la lingua "
-
-#~ msgid ""
-#~ "Error: this video does not contain subtitles. Select a video with "
-#~ "subtitles to generate the transcript"
-#~ msgstr ""
-#~ "Errore: questo video non contiene sottotitoli. Selezionare un video con "
-#~ "sottotitoli per generare la trascrizione"
-
-#~ msgid "Language of trascription "
-#~ msgstr "Lingua della trascrizione "
-=======
 #: build/index.js:1 src/block/SubtitleControl.js:29
-#: src/block/TranscriptPanel.js:15 src/block/YoutubeControlPanel.js:31
+#: src/block/TranscriptPanel.js:15 src/block/YoutubeControlPanel.js:37
 msgid "Getting transcript..."
 msgstr "Generazione trascrizione..."
 
 #: build/index.js:1 src/block/SubtitleControl.js:72
-#: src/block/YoutubeControlPanel.js:65
+#: src/block/YoutubeControlPanel.js:117
 msgid "Get Transcribe"
 msgstr "Ottieni trascrizione"
 
-#: build/index.js:1 src/block/Ear2WordPanel.js:69
+#: build/index.js:1 src/block/WubtitlePanel.js:69
+#: src/block/YoutubeControlPanel.js:99
 msgid "Select the video language"
 msgstr "Seleziona la lingua del video"
 
-#: build/index.js:1 src/block/Ear2WordPanel.js:112
+#: build/index.js:1 src/block/WubtitlePanel.js:112
 msgid "Subtitle creation successfully started"
 msgstr "Creazione dei sottotitoli avviata con successo"
 
@@ -1046,17 +818,34 @@ msgstr "Fatto"
 msgid "Get transcript"
 msgstr "Ottieni trascrizione"
 
-#: build/index.js:1 src/block/YoutubeControlPanel.js:26
+#: build/index.js:1 src/block/YoutubeControlPanel.js:30
+#: src/block/YoutubeControlPanel.js:55
 msgid "Created"
 msgstr "Creata"
 
-#: build/index.js:1 src/block/TranscriptionEditBlock.js:70
+#: build/index.js:1 src/block/YoutubeControlPanel.js:95
+msgid "Transcript status : "
+msgstr "Stato trascrizione: "
+
+#: build/index.js:1 src/block/YoutubeControlPanel.js:81
+#: src/editor/transcriptionModalScript.js:112
+#: src/editor/transcriptionModalScript.js:136
+#: src/editor/transcriptionModalScript.js:157
+#: src/editor/transcriptionModalScript.js:179
+msgid "Select language"
+msgstr "Seleziona la lingua "
+
+#: build/index.js:1 src/block/TranscriptionEditBlock.js:98
 msgid "Wubtitle transcriptions"
 msgstr "Trascrizioni Wubtitle"
 
-#: build/index.js:1 src/block/TranscriptionEditBlock.js:74
+#: build/index.js:1 src/block/TranscriptionEditBlock.js:102
 msgid "Insert transcriptions"
 msgstr "Inserisci trascrizioni"
+
+#: build/index.js:1 src/block/TranscriptionEditBlock.js:107
+msgid "Enter the title of the video you want to transcribe"
+msgstr "Scrivi il titolo del video del quale vuoi inserire la trascrizione"
 
 #: build/index.js:1 src/block/trascriptionBlock.js:6
 msgid "Trascription"
@@ -1074,13 +863,6 @@ msgstr "Trascrizione del video"
 msgid "Error, language not selected"
 msgstr "Errore, lingua non selezionata "
 
-#: src/editor/transcriptionModalScript.js:112
-#: src/editor/transcriptionModalScript.js:136
-#: src/editor/transcriptionModalScript.js:157
-#: src/editor/transcriptionModalScript.js:179
-msgid "Select language"
-msgstr "Seleziona la lingua "
-
 #: src/editor/transcriptionModalScript.js:118
 msgid ""
 "Error: this video does not contain subtitles. Select a video with subtitles "
@@ -1092,10 +874,3 @@ msgstr ""
 #: src/editor/transcriptionModalScript.js:150
 msgid "Language of trascription "
 msgstr "Lingua della trascrizione "
-
-#~ msgid "Autogenerated. YouTube "
-#~ msgstr "Autogenerato. Youtube"
-
-#~ msgid "Wubtitle Transcription"
-#~ msgstr "Trascrizioni Wubtitle"
->>>>>>> origin/staging:languages/ear2words-it_IT.po
