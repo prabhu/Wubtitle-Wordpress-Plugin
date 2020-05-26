@@ -244,17 +244,20 @@ class Transcript {
 		);
 
 		$args = array(
-			'label'         => __( 'Transcripts', 'wubtitle' ),
-			'labels'        => $labels,
-			'description'   => __( 'Video Transcripts', 'wubtitle' ),
-			'show_ui'       => true,
-			'show_in_rest'  => true,
-			'map_meta_cap'  => true,
-			'hierarchical'  => false,
-			'menu_position' => 83,
-			'menu_icon'     => 'dashicons-format-chat',
-			'supports'      => array( 'title', 'editor', 'revisions' ),
+			'label'        => __( 'Transcripts', 'wubtitle' ),
+			'labels'       => $labels,
+			'description'  => __( 'Video Transcripts', 'wubtitle' ),
+			'show_in_rest' => true,
+			'map_meta_cap' => true,
+			'hierarchical' => false,
+			'supports'     => array( 'title', 'editor', 'revisions' ),
 		);
+
+		if ( WP_DEBUG ) {
+			$args['show_ui']       = true;
+			$args['menu_position'] = 83;
+			$args['menu_icon']     = 'dashicons-format-chat';
+		}
 
 		register_post_type( 'transcript', $args );
 	}

@@ -19,37 +19,8 @@ class TrascriptionsExtends {
 	 * Setup delle action.
 	 */
 	public function run() {
-		add_filter( 'embed_oembed_html', array( $this, 'wubtitle_embed_shortcode' ), 10, 4 );
 		add_action( 'media_buttons', array( $this, 'add_transcriptions_media_button' ), 15 );
 		add_action( 'wp_enqueue_media', array( $this, 'include_transcription_modal_script' ) );
-	}
-	/**
-	 * Fa l'override dello shortcode.
-	 *
-	 * @param string $html html dello shortcode nativo.
-	 * @param string $url url del video.
-	 * @param array  $attr attributi dello shortcode.
-	 */
-	public function wubtitle_embed_shortcode( $html, $url, $attr ) {
-		$url_parts    = wp_parse_url( $url );
-		$allowed_urls = array(
-			'www.youtube.com',
-			'www.youtu.be',
-		);
-		if ( empty( $attr['transcription'] ) || 'enable' !== $attr['transcription'] ) {
-			return $html;
-		}
-		if ( ! in_array( $url_parts['host'], $allowed_urls, true ) ) {
-			$html = '<p style="color:red">' . __( 'Url not a valid youtube url', 'wubtitle' ) . '</p>';
-			return $html;
-		}
-		$transcript_response = Loader::get( 'youtube_source' )->send_job_and_get_transcription( $url, 'default_post_type' );
-		if ( ! $transcript_response['success'] ) {
-			$html = '<p style="color:red">' . $transcript_response['data'] . '</p>';
-			return $html;
-		}
-		$html .= '[transcript id="' . $transcript_response['data'] . '" ]';
-		return $html;
 	}
 	/**
 	 * Include il file javascript.
@@ -57,6 +28,13 @@ class TrascriptionsExtends {
 	public function include_transcription_modal_script() {
 		wp_enqueue_script( 'transcription_modal_script', WUBTITLE_URL . '/src/editor/transcriptionModalScript.js', null, 'transcription_script', true );
 		wp_set_script_translations( 'transcription_modal_script', 'wubtitle', WUBTITLE_DIR . 'languages' );
+		wp_localize_script(
+			'transcription_modal_script',
+			'wubtitle_object_modal',
+			array(
+				'ajaxnonce' => wp_create_nonce( 'itr_ajax_nonce' ),
+			)
+		);
 	}
 	/**
 	 * Aggiunge il bottone custom.

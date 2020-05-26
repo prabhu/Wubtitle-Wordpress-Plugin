@@ -18,6 +18,24 @@ class TranscriptionBlock {
 	 */
 	public function run() {
 		add_action( 'init', array( $this, 'create_transcription_block' ) );
+		add_filter( 'rest_transcript_query', array( $this, 'add_parameters_query' ), 10, 2 );
+	}
+	/**
+	 * Aggiunge i parametri per il posttype transcript.
+	 *
+	 * @param array  $args argomenti per la query.
+	 * @param object $request oggetto contente i parametri custom.
+	 */
+	public function add_parameters_query( $args, $request ) {
+		$url_parts    = wp_parse_url( $request->get_param( 'metaValue' ) );
+		$query_params = array();
+		parse_str( $url_parts['query'], $query_params );
+		$id_video = $query_params['v'];
+		if ( $request->get_param( 'metaKey' ) ) {
+				$args['meta_key']   = $request->get_param( 'metaKey' );
+				$args['meta_value'] = $id_video;
+		}
+		return $args;
 	}
 	/**
 	 * Registra un nuovo block type.

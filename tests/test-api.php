@@ -70,7 +70,7 @@ class TestApiRequest extends WP_Ajax_UnitTestCase {
        * Verifica che il body è stato creato correttamente
        */
        public function test_body_request(){
-         $src = 'http://test';
+         $src = 'http://test.com';
          $attachment_data = array(
             'guid'           => '/test',
             'post_mime_type' => 'video',
