@@ -27,6 +27,10 @@ class TrascriptionsExtends {
 	 * Aggiunge un div per inserire dinamicamente da javascript delle notice
 	 */
 	public function wubtitle_admin_notice() {
+		$screen = get_current_screen();
+		if ( ! $screen || 'post' !== $screen->base ) {
+			return;
+		}
 		echo '<div id="wubtitle-notice" class="notice notice-error"></div>';
 	}
 	/**

@@ -129,7 +129,8 @@ document.addEventListener("DOMContentLoaded", function() {
 					).innerHTML += `<option value=${subtitle.baseUrl}>${subtitle.name.simpleText}</option>`;
 				});
 			})
-			.fail(() => {
+			.fail(response => {
+				errorMessage.innerHTML = response;
 				document.getElementById(
 					"transcript-select-lang"
 				).innerHTML = `<option value="">${wp.i18n.__(
@@ -168,7 +169,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	const addListenerFunction = () => {
 		const inputUrl = document.getElementById("embed-url-field");
 		if (inputUrl) {
-			if (inputUrl.value !== "") {
+			if (pattern.test(inputUrl.value)) {
 				getLanguages(inputUrl.value);
 			}
 			inputUrl.addEventListener("input", () => {
