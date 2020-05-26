@@ -35,7 +35,13 @@ const YoutubeControlPanel = props => {
 	});
 
 	const handleClick = () => {
-		setMessage(__("Getting transcript...", "wubtitle"));
+		const selectedBlockIndex = wp.data
+			.select("core/block-editor")
+			.getBlockIndex(
+				wp.data.select("core/block-editor").getSelectedBlock().clientId
+			);
+
+		setMessage(__("Getting transcript...", "ear2words"));
 		wp.ajax
 			.send("get_transcript_yt", {
 				type: "POST",
@@ -51,7 +57,10 @@ const YoutubeControlPanel = props => {
 				const block = wp.blocks.createBlock("wubtitle/transcription", {
 					contentId: response
 				});
-				wp.data.dispatch("core/block-editor").insertBlocks(block);
+				const blockPosition = selectedBlockIndex + 1;
+				wp.data
+					.dispatch("core/block-editor")
+					.insertBlocks(block, blockPosition);
 				setMessage("");
 				setStatus(__("Created", "wubtitle"));
 			})
