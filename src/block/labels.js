@@ -1,77 +1,77 @@
 import { __ } from "@wordpress/i18n";
 
 const langExten = {
-	it: __("Italian", "ear2words"),
-	en: __("English", "ear2words"),
-	es: __("Spanish", "ear2words"),
-	de: __("German ", "ear2words"),
-	zh: __("Chinese", "ear2words"),
-	fr: __("French", "ear2words")
+	it: __("Italian", "wubtitle"),
+	en: __("English", "wubtitle"),
+	es: __("Spanish", "wubtitle"),
+	de: __("German ", "wubtitle"),
+	zh: __("Chinese", "wubtitle"),
+	fr: __("French", "wubtitle")
 };
 
 const statusExten = {
-	pending: __("Generating", "ear2words"),
-	draft: __("Draft", "ear2words"),
-	enabled: __("Enabled", "ear2words"),
-	notfound: __("None", "ear2words")
+	pending: __("Generating", "wubtitle"),
+	draft: __("Draft", "wubtitle"),
+	enabled: __("Enabled", "wubtitle"),
+	notfound: __("None", "wubtitle")
 };
 
 const selectOptions = [
 	{
 		value: "it",
-		label: __("Italian", "ear2words")
+		label: __("Italian", "wubtitle")
 	},
 	{
 		value: "en",
-		label: __("English", "ear2words")
+		label: __("English", "wubtitle")
 	},
 	{
 		value: "es",
-		label: __("Spanish", "ear2words")
+		label: __("Spanish", "wubtitle")
 	},
 	{
 		value: "de",
-		label: __("German ", "ear2words")
+		label: __("German ", "wubtitle")
 	},
 	{
 		value: "zh",
-		label: __("Chinese", "ear2words")
+		label: __("Chinese", "wubtitle")
 	},
 	{
 		value: "fr",
-		label: __("French", "ear2words")
+		label: __("French", "wubtitle")
 	}
 ];
 
 const selectOptionsFreePlan = [
 	{
 		value: "it",
-		label: __("Italian", "ear2words"),
+		label: __("Italian", "wubtitle"),
 		disabled: false
 	},
 	{
 		value: "en",
-		label: __("English", "ear2words"),
+		label: __("English", "wubtitle"),
 		disabled: false
 	},
 	{
 		value: "es",
-		label: __("Spanish (Pro only)", "ear2words"),
+		label: __("Spanish (Pro only)", "wubtitle"),
 		disabled: true
 	},
 	{
 		value: "de",
-		label: __("German (Pro only)", "ear2words"),
+		label: __("German (Pro only)", "wubtitle"),
 		disabled: true
 	},
 	{
 		value: "zh",
-		label: __("Chinese (Pro only)", "ear2words"),
+		label: __("Chinese (Pro only)", "wubtitle"),
 		disabled: true
 	},
 	{
 		value: "fr",
-		label: __("French (Pro only)", "ear2words"),
+		label: __("French (Pro only)", "wubtitle"),
 		disabled: true
 	}
 ];

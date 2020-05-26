@@ -4,7 +4,7 @@
  *
  * @author     Alessio Catania
  * @since      0.1.0
- * @package    Ear2Words\Dashboard\Templates
+ * @package    Wubtitle\Dashboard\Templates
  */
 
 /**
@@ -28,7 +28,7 @@
 		}
 	</script>
 	<script src="https://js.stripe.com/v3/"></script>
-	<script src="<?php echo esc_url(EAR2WORDS_URL . 'src/payment/update_template.js'); ?>"></script>
+	<script src="<?php echo esc_url(WUBTITLE_URL . 'src/payment/update_template.js'); ?>"></script>
 	<?php // phpcs:enable ?>
 </body>
 </html>

@@ -16,6 +16,18 @@ const TranscriptionEditBlock = ({ attributes, setAttributes, className }) => {
 		});
 	};
 
+	const replaceBlock = content => {
+		const Paragraph = wp.blocks.createBlock("core/paragraph", {
+			content
+		});
+		const selectedBlock = wp.data
+			.select("core/block-editor")
+			.getSelectedBlock().clientId;
+		wp.data
+			.dispatch("core/block-editor")
+			.replaceBlocks(selectedBlock, Paragraph);
+	};
+
 	useEffect(() => {
 		setTextSearch(debouncedCurrentValue);
 	}, [debouncedCurrentValue]);
@@ -88,34 +100,22 @@ const TranscriptionEditBlock = ({ attributes, setAttributes, className }) => {
 		}
 	};
 
-	const replaceBlock = content => {
-		const Paragraph = wp.blocks.createBlock("core/paragraph", {
-			content
-		});
-		const selectedBlock = wp.data
-			.select("core/block-editor")
-			.getSelectedBlock().clientId;
-		wp.data
-			.dispatch("core/block-editor")
-			.replaceBlocks(selectedBlock, Paragraph);
-	};
-
 	return (
 		<>
 			<FormTokenField
 				className={className}
-				label={__("Wubtitle transcriptions", "ear2words")}
+				label={__("Wubtitle transcriptions", "wubtitle")}
 				value={tokens}
 				suggestions={suggestions}
 				onChange={token => setTokenFunction(token)}
-				placeholder={__("Insert transcriptions", "ear2words")}
+				placeholder={__("Insert transcriptions", "wubtitle")}
 				onInputChange={value => setValue(value)}
 				maxLength={1}
 			/>
 			<p className="helperText">
 				{__(
 					"Enter the title of the video you want to transcribe",
-					"ear2words"
+					"wubtitle"
 				)}
 			</p>
 		</>

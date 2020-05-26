@@ -4,10 +4,10 @@
  *
  * @author     Alessio Catania
  * @since      0.1.0
- * @package    Ear2Words\Api
+ * @package    Wubtitle\Api
  */
 
-namespace Ear2Words\Api;
+namespace Wubtitle\Api;
 
 /**
  * Questa classe implementa la chiamata alla APIGateway,
@@ -59,11 +59,11 @@ class ApiRequest {
 		);
 		$lang       = $data['lang'];
 		if ( ! array_key_exists( $lang, $languanges ) ) {
-			wp_send_json_error( __( 'Error, invalid language selected', 'ear2words' ) );
+			wp_send_json_error( __( 'Error, invalid language selected', 'wubtitle' ) );
 		}
 		$id_attachment = (int) $data['id_attachment'];
 		$video_data    = $this->get_media_metadata( $id_attachment );
-		if ( ! is_numeric( $id_attachment ) || $video_data['filesize'] <= 0 || $video_data['length'] <= 0 || ! filter_var( $data['src_attachment'], FILTER_VALIDATE_URL ) ) {
+		if ( ! is_numeric( $id_attachment ) || $video_data['filesize'] <= 0 || $video_data['length'] <= 0 || ! wp_http_validate_url( $data['src_attachment'] ) ) {
 			return false;
 		}
 		$body = array(
@@ -82,23 +82,23 @@ class ApiRequest {
 	 * Da qui invierò la richiesta HTTP.
 	 */
 	public function send_request() {
-		$license_key = get_option( 'ear2words_license_key' );
+		$license_key = get_option( 'wubtitle_license_key' );
 
 		if ( ! isset( $_POST['_ajax_nonce'] ) ) {
-			wp_send_json_error( __( 'An error occurred while creating the subtitles. Please try again in a few minutes.', 'ear2words' ) );
+			wp_send_json_error( __( 'An error occurred while creating the subtitles. Please try again in a few minutes.', 'wubtitle' ) );
 		}
 		$nonce = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
 		check_ajax_referer( 'itr_ajax_nonce', $nonce );
 		$data_attachment = $this->sanitize_input( $_POST );
 		if ( ! $data_attachment ) {
-			wp_send_json_error( __( 'An error occurred while creating the subtitles. Please try again in a few minutes.', 'ear2words' ) );
+			wp_send_json_error( __( 'An error occurred while creating the subtitles. Please try again in a few minutes.', 'wubtitle' ) );
 		}
 		if ( empty( $license_key ) ) {
-			wp_send_json_error( __( 'Unable to create subtitles. The product license key is missing.', 'ear2words' ) );
+			wp_send_json_error( __( 'Unable to create subtitles. The product license key is missing.', 'wubtitle' ) );
 		}
 			$body = $this->set_body_request( $data_attachment );
 		if ( ! $body ) {
-			wp_send_json_error( __( 'An error occurred while creating the subtitles. Please try again in a few minutes.', 'ear2words' ) );
+			wp_send_json_error( __( 'An error occurred while creating the subtitles. Please try again in a few minutes.', 'wubtitle' ) );
 		}
 			$response = $this->send_job_to_backend( $body, $license_key );
 
@@ -110,10 +110,10 @@ class ApiRequest {
 		}
 
 			$message = array(
-				'400' => __( 'An error occurred while creating the subtitles. Please try again in a few minutes', 'ear2words' ),
-				'401' => __( 'An error occurred while creating the subtitles. Please try again in a few minutes', 'ear2words' ),
-				'403' => __( 'Unable to create subtitles. Invalid product license', 'ear2words' ),
-				'500' => __( 'Could not contact the server', 'ear2words' ),
+				'400' => __( 'An error occurred while creating the subtitles. Please try again in a few minutes', 'wubtitle' ),
+				'401' => __( 'An error occurred while creating the subtitles. Please try again in a few minutes', 'wubtitle' ),
+				'403' => __( 'Unable to create subtitles. Invalid product license', 'wubtitle' ),
+				'500' => __( 'Could not contact the server', 'wubtitle' ),
 			);
 			if ( 201 !== $code_response ) {
 				wp_send_json_error( $message[ $code_response ] );
@@ -144,7 +144,7 @@ class ApiRequest {
 	public function status_register_meta() {
 		register_post_meta(
 			'attachment',
-			'ear2words_status',
+			'wubtitle_status',
 			array(
 				'show_in_rest'  => true,
 				'type'          => 'string',
@@ -156,7 +156,7 @@ class ApiRequest {
 		);
 		register_post_meta(
 			'attachment',
-			'ear2words_lang_video',
+			'wubtitle_lang_video',
 			array(
 				'show_in_rest' => true,
 				'type'         => 'string',
@@ -192,9 +192,9 @@ class ApiRequest {
 	 * @param string $job_id uuid ricevuto dall'endpoint.
 	 */
 	public function update_uuid_status_and_lang( $id_attachment, $lang, $job_id ) {
-		update_post_meta( $id_attachment, 'ear2words_lang_video', $lang );
-		update_post_meta( $id_attachment, 'ear2words_job_uuid', $job_id );
-		update_post_meta( $id_attachment, 'ear2words_status', 'pending' );
+		update_post_meta( $id_attachment, 'wubtitle_lang_video', $lang );
+		update_post_meta( $id_attachment, 'wubtitle_job_uuid', $job_id );
+		update_post_meta( $id_attachment, 'wubtitle_status', 'pending' );
 	}
 	/**
 	 * Crea un messaggio errore per l'errore 429 e lo ritorna.
@@ -206,14 +206,14 @@ class ApiRequest {
 		$title_error   = json_decode( $response_body->errors->title );
 		$reason        = $title_error->reason;
 		$error_message = array(
-			'NO_AVAILABLE_JOBS'     => __( 'Error, no more video left for your subscription plan', 'ear2words' ),
-			'NO_AVAILABLE_LANGUAGE' => __( 'Error, language not supported for your subscription plan', 'ear2words' ),
-			'NO_AVAILABLE_FORMAT'   => __( 'Unsupported video format for free plan', 'ear2words' ),
+			'NO_AVAILABLE_JOBS'     => __( 'Error, no more video left for your subscription plan', 'wubtitle' ),
+			'NO_AVAILABLE_LANGUAGE' => __( 'Error, language not supported for your subscription plan', 'wubtitle' ),
+			'NO_AVAILABLE_FORMAT'   => __( 'Unsupported video format for free plan', 'wubtitle' ),
 		);
 		if ( 'NO_AVAILABLE_MINUTES' === $reason ) {
 			// phpcs:disable
 			// camelcase object
-			$error_message['NO_AVAILABLE_MINUTES'] = __( 'Error, video length is longer than minutes available for your subscription plan (minutes left ', 'ear2words' ) . date_i18n( 'i:s', $title_error->videoTimeLeft ) . __( ', video left ', 'ear2words' ) . $title_error->jobsLeft . ')';
+			$error_message['NO_AVAILABLE_MINUTES'] = __( 'Error, video length is longer than minutes available for your subscription plan (minutes left ', 'wubtitle' ) . date_i18n( 'i:s', $title_error->videoTimeLeft ) . __( ', video left ', 'wubtitle' ) . $title_error->jobsLeft . ')';
 			// phpcs:enable
 		}
 		return $error_message[ $reason ];

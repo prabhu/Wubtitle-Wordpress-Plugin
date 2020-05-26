@@ -4,10 +4,10 @@
  *
  * @author     Nicola Palermo
  * @since      0.1.0
- * @package    Ear2Words\Core
+ * @package    Wubtitle\Core
  */
 
-namespace Ear2Words\Core;
+namespace Wubtitle\Core;
 
 /**
  * This class handle subtitles.
@@ -26,7 +26,7 @@ class Subtitle {
 	 * @param int $id_deleted_attachment parametri del file.
 	 */
 	public function delete_subtitle( $id_deleted_attachment ) {
-		$releted_vtt = get_post_meta( $id_deleted_attachment, 'ear2words_subtitle', true );
+		$releted_vtt = get_post_meta( $id_deleted_attachment, 'wubtitle_subtitle', true );
 		wp_delete_attachment( $releted_vtt );
 	}
 

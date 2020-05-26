@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function() {
 				wp.media.editor.insert(
 					`<p> ${wp.i18n.__(
 						"Transcription of the video",
-						"ear2words"
+						"wubtitle"
 					)} ${response.post_title} </p> <p> ${
 						response.post_content
 					} </p>`
@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", function() {
 			wp.media.editor.insert(
 				`<p style='color:red'> ${wp.i18n.__(
 					"Error, language not selected",
-					"ear2words"
+					"wubtitle"
 				)} </p>`
 			);
 			return;
@@ -111,13 +111,13 @@ document.addEventListener("DOMContentLoaded", function() {
 			.then(response => {
 				selectInput.innerHTML = `<option value="">${wp.i18n.__(
 					"Select language",
-					"ear2words"
+					"wubtitle"
 				)}</option>`;
 				videoTitle = response.title;
 				if (!response.languages) {
 					errorMessage.innerHTML = wp.i18n.__(
 						"Error: this video does not contain subtitles. Select a video with subtitles to generate the transcript",
-						"ear2words"
+						"wubtitle"
 					);
 					selectInput.disabled = true;
 					return;
@@ -135,7 +135,7 @@ document.addEventListener("DOMContentLoaded", function() {
 					"transcript-select-lang"
 				).innerHTML = `<option value="">${wp.i18n.__(
 					"Select language",
-					"ear2words"
+					"wubtitle"
 				)}</option>`;
 			});
 	};
@@ -147,7 +147,7 @@ document.addEventListener("DOMContentLoaded", function() {
 			);
 			const header = document.createElement("h2");
 			const textHeader = document.createTextNode(
-				wp.i18n.__("Language of trascription ", "ear2words")
+				wp.i18n.__("Language of trascription ", "wubtitle")
 			);
 			header.appendChild(textHeader);
 			const select = document.createElement("SELECT");
@@ -156,7 +156,7 @@ document.addEventListener("DOMContentLoaded", function() {
 			errorMessage.setAttribute("id", "error-message-transcript");
 			select.innerHTML = `<option value="">${wp.i18n.__(
 				"Select language",
-				"ear2words"
+				"wubtitle"
 			)}</option>`;
 			if (divModal.length > 0) {
 				divModal[0].appendChild(header);
@@ -178,7 +178,7 @@ document.addEventListener("DOMContentLoaded", function() {
 						"transcript-select-lang"
 					).innerHTML = `<option value="">${wp.i18n.__(
 						"Select language",
-						"ear2words"
+						"wubtitle"
 					)}</option>`;
 				}
 				if (pattern.test(inputUrl.value)) {
