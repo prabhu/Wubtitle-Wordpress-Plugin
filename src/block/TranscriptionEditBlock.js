@@ -10,6 +10,12 @@ const TranscriptionEditBlock = ({ attributes, setAttributes, className }) => {
 	const [tokens, setTokens] = useState([]);
 	const debouncedCurrentValue = useDebounce(currentValue, 500);
 
+	const decodeHtmlEntities = str => {
+		return str.replace(/&#(\d+);/g, (_match, dec) => {
+			return String.fromCharCode(dec);
+		});
+	};
+
 	const replaceBlock = content => {
 		const Paragraph = wp.blocks.createBlock("core/paragraph", {
 			content
@@ -66,12 +72,15 @@ const TranscriptionEditBlock = ({ attributes, setAttributes, className }) => {
 	const options = new Map();
 	const suggestions = [];
 	for (let i = 0; i < postsCurrent.length; i++) {
-		options.set(postsCurrent[i].title.rendered, postsCurrent[i].id);
 		options.set(
-			`${postsCurrent[i].title.rendered} content`,
+			decodeHtmlEntities(postsCurrent[i].title.rendered),
+			postsCurrent[i].id
+		);
+		options.set(
+			decodeHtmlEntities(`${postsCurrent[i].title.rendered} content`),
 			postsCurrent[i].content.rendered
 		);
-		suggestions[i] = postsCurrent[i].title.rendered;
+		suggestions[i] = decodeHtmlEntities(postsCurrent[i].title.rendered);
 	}
 
 	let contentText = "";
