@@ -31,7 +31,7 @@ class TrascriptionsExtends {
 		if ( ! $screen || 'post' !== $screen->base ) {
 			return;
 		}
-		echo '<div id="wubtitle-notice" class="notice notice-error"></div>';
+		echo '<div id="wubtitle-notice" class="notice notice-error" style="display:none"></div>';
 	}
 	/**
 	 * Include il file javascript.

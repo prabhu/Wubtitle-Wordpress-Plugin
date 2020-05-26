@@ -10,7 +10,6 @@ document.addEventListener("DOMContentLoaded", function() {
 	let isOpened = false;
 	let videoTitle;
 	const myNotice = document.getElementById("wubtitle-notice");
-	myNotice.style.visibility = "hidden";
 	const button = document.getElementById("insert-my-media");
 	if (button) {
 		button.addEventListener("click", () => {
@@ -43,6 +42,7 @@ document.addEventListener("DOMContentLoaded", function() {
 				}
 			})
 			.then(response => {
+				myNotice.style.display = "none";
 				wp.media.editor.insert(
 					`<p> ${wp.i18n.__(
 						"Transcription of the video",
@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function() {
 				);
 			})
 			.fail(response => {
-				myNotice.style.visibility = "visible";
+				myNotice.style.display = "";
 				myNotice.innerHTML = `<p>  ${response} </p>`;
 			});
 	});
@@ -83,13 +83,14 @@ document.addEventListener("DOMContentLoaded", function() {
 				}
 			})
 			.then(response => {
+				myNotice.style.display = "none";
 				wp.media.editor.insert(
 					`[embed]  ${embedUrl} [/embed]
 					<p> ${response} </p>`
 				);
 			})
 			.fail(response => {
-				myNotice.style.visibility = "visible";
+				myNotice.style.display = "";
 				myNotice.innerHTML = `<p>  ${response} </p>`;
 			});
 	});
