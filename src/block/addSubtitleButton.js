@@ -1,6 +1,6 @@
 import { createHigherOrderComponent } from "@wordpress/compose";
 import { addFilter } from "@wordpress/hooks";
-import Ear2WordPanel from "./Ear2WordPanel";
+import WubtitlePanel from "./WubtitlePanel";
 import { Fragment } from "@wordpress/element";
 
 const withInspectorControls = BlockEdit => {
@@ -11,7 +11,7 @@ const withInspectorControls = BlockEdit => {
 		return (
 			<Fragment>
 				<BlockEdit {...props} />
-				<Ear2WordPanel
+				<WubtitlePanel
 					{...props.attributes}
 					setAttributes={props.setAttributes}
 				/>
@@ -27,6 +27,6 @@ const ExtendVideoBlock = createHigherOrderComponent(
 
 addFilter(
 	"editor.BlockEdit",
-	"ear2words/with-inspector-controls",
+	"wubtitle/with-inspector-controls",
 	ExtendVideoBlock
 );

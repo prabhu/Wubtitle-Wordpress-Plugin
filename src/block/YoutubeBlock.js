@@ -27,6 +27,6 @@ const ExtendVideoBlock = createHigherOrderComponent(
 
 addFilter(
 	"editor.BlockEdit",
-	"ear2words/with-inspector-controls",
+	"wubtitle/with-inspector-controls",
 	ExtendVideoBlock
 );

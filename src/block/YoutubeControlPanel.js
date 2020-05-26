@@ -8,7 +8,7 @@ import { useState } from "@wordpress/element";
 
 const YoutubeControlPanel = props => {
 	const [message, setMessage] = useState("");
-	const [status, setStatus] = useState(__("None", "ear2words"));
+	const [status, setStatus] = useState(__("None", "wubtitle"));
 	const [languageSelected, setLanguage] = useState("");
 	const [langReady, setReady] = useState(false);
 	const [options, setOptions] = useState([]);
@@ -27,7 +27,7 @@ const YoutubeControlPanel = props => {
 				metaValue: props.url
 			}
 		);
-		const createdStatus = __("Created", "ear2words");
+		const createdStatus = __("Created", "wubtitle");
 		if (transcript && transcript.length > 0 && status !== createdStatus) {
 			setStatus(createdStatus);
 		}
@@ -49,7 +49,7 @@ const YoutubeControlPanel = props => {
 					urlSubtitle: languageSelected,
 					videoTitle: title,
 					from: "default_post_type",
-					_ajax_nonce: ear2words_button_object.ajaxnonce
+					_ajax_nonce: wubtitle_button_object.ajaxnonce
 				}
 			})
 			.then(response => {
@@ -61,7 +61,7 @@ const YoutubeControlPanel = props => {
 					.dispatch("core/block-editor")
 					.insertBlocks(block, blockPosition);
 				setMessage("");
-				setStatus(__("Created", "ear2words"));
+				setStatus(__("Created", "wubtitle"));
 			})
 			.fail(response => {
 				setMessage(response);
@@ -74,7 +74,7 @@ const YoutubeControlPanel = props => {
 				type: "POST",
 				data: {
 					url: props.url,
-					_ajax_nonce: ear2words_button_object.ajaxnonce
+					_ajax_nonce: wubtitle_button_object.ajaxnonce
 				}
 			})
 			.then(response => {
@@ -87,7 +87,7 @@ const YoutubeControlPanel = props => {
 				});
 				arrayLang.unshift({
 					value: "none",
-					label: __("Select language", "ear2words")
+					label: __("Select language", "wubtitle")
 				});
 				setOptions(arrayLang);
 				setTitle(response.title);
@@ -101,11 +101,11 @@ const YoutubeControlPanel = props => {
 		<InspectorControls>
 			<PanelBody title="Wubtitle">
 				<p style={{ margin: "0", marginBottom: "20px" }}>
-					{`${__("Transcript status : ", "ear2words")} ${status}`}
+					{`${__("Transcript status : ", "wubtitle")} ${status}`}
 				</p>
 				{props.url && langReady ? (
 					<SelectControl
-						label={__("Select the video language", "ear2words")}
+						label={__("Select the video language", "wubtitle")}
 						value={languageSelected}
 						onChange={lingua => {
 							setLanguage(lingua);
@@ -123,7 +123,7 @@ const YoutubeControlPanel = props => {
 					onClick={handleClick}
 					disabled={disabled}
 				>
-					{__("Get Transcribe", "ear2words")}
+					{__("Get Transcribe", "wubtitle")}
 				</Button>
 				<p>{message}</p>
 			</PanelBody>

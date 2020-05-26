@@ -1,5 +1,5 @@
 {
-    "name": "ctmobi/wp-ear2words",
+    "name": "ctmobi/wubtitle",
     "type": "project",
     "authors": [
         {
@@ -8,7 +8,7 @@
         }
     ],
     "autoload": {
-        "psr-4": {"Ear2Words\\": "./includes"}
+        "psr-4": {"Wubtitle\\": "./includes"}
     },
     "scripts": {
         "phpcs": "phpcs ./",

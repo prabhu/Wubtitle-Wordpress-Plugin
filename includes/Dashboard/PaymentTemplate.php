@@ -4,10 +4,10 @@
  *
  * @author     Nicola Palermo
  * @since      0.1.0
- * @package    Ear2Words\Dashboard
+ * @package    Wubtitle\Dashboard
  */
 
-namespace Ear2Words\Dashboard;
+namespace Wubtitle\Dashboard;
 
 /**
  * This class handle Payment Templates .
@@ -32,9 +32,9 @@ class PaymentTemplate {
 			'plan_HBBbNjLjVk3w4w' => 1,
 			'plan_HBBS5I9usXvwQR' => 2,
 		);
-		$plan          = get_option( 'ear2words_plan' );
+		$plan          = get_option( 'wubtitle_plan' );
 		$current_plan  = $map_plans[ $plan ];
-		$plan          = get_option( 'ear2words_wanted_plan' );
+		$plan          = get_option( 'wubtitle_wanted_plan' );
 		$wanted_plan   = $map_plans[ $plan ];
 		$includes_file = 'Templates/downgrade_plan_template.php';
 		if ( $wanted_plan > $current_plan ) {

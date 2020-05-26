@@ -4,7 +4,7 @@
  *
  * @author     Alessio Catania
  * @since      0.1.0
- * @package    Ear2Words\Dashboard\Templates
+ * @package    Wubtitle\Dashboard\Templates
  */
 
 /**

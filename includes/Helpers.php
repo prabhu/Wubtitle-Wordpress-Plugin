@@ -4,10 +4,10 @@
  *
  * @author     Nicola Palermo
  * @since      1.0.0
- * @package    Ear2Words
+ * @package    Wubtitle
  */
 
-namespace Ear2Words;
+namespace Wubtitle;
 
 /**
  * This class handles some helper methods used throughout the plugin.

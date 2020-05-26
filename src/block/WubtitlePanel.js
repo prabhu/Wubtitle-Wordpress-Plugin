@@ -1,4 +1,4 @@
-/*  global ear2words_button_object  */
+/*  global wubtitle_button_object  */
 import { useSelect, useDispatch } from "@wordpress/data";
 import apiFetch from "@wordpress/api-fetch";
 import { PanelBody, Button, SelectControl } from "@wordpress/components";
@@ -9,17 +9,17 @@ import PendingSubtitle from "./PendingSubtitle";
 import SubtitleControl from "./SubtitleControl";
 import { selectOptions, selectOptionsFreePlan } from "./labels";
 
-const Ear2WordPanel = props => {
+const WubtitlePanel = props => {
 	const extensionsFile =
 		props.id !== undefined
 			? props.src.substring(props.src.lastIndexOf(".") + 1)
 			: "mp4";
 	const languages =
-		ear2words_button_object.isFree === "1"
+		wubtitle_button_object.isFree === "1"
 			? ["it", "en"]
 			: ["it", "en", "es", "de", "zh"];
-	const lang = languages.includes(ear2words_button_object.lang)
-		? ear2words_button_object.lang
+	const lang = languages.includes(wubtitle_button_object.lang)
+		? wubtitle_button_object.lang
 		: "en";
 	const metaValues = useSelect(select => {
 		let attachment;
@@ -45,8 +45,8 @@ const Ear2WordPanel = props => {
 	let languageSaved;
 	let status;
 	if (metaValues !== undefined) {
-		languageSaved = metaValues.ear2words_lang_video;
-		status = metaValues.ear2words_status;
+		languageSaved = metaValues.wubtitle_lang_video;
+		status = metaValues.wubtitle_status;
 	}
 	const noticeDispatcher = useDispatch("core/notices");
 	const entityDispatcher = useDispatch("core");
@@ -54,19 +54,19 @@ const Ear2WordPanel = props => {
 	const isDisabled = status === "pending" || props.id === undefined;
 	const isPublished = status === "enabled";
 	const optionLanguage =
-		ear2words_button_object.isFree === "1"
+		wubtitle_button_object.isFree === "1"
 			? selectOptionsFreePlan
 			: selectOptions;
 	const GenerateSubtitles = () => {
 		status =
 			status === "error"
-				? __("Error", "ear2words")
-				: __("None", "ear2words");
+				? __("Error", "wubtitle")
+				: __("None", "wubtitle");
 		return (
 			<Fragment>
-				<div>{__("Status: ", "ear2words") + status}</div>
+				<div>{__("Status: ", "wubtitle") + status}</div>
 				<SelectControl
-					label={__("Select the video language", "ear2words")}
+					label={__("Select the video language", "wubtitle")}
 					value={languageSelected}
 					onChange={lingua => {
 						setLanguage(lingua);
@@ -80,7 +80,7 @@ const Ear2WordPanel = props => {
 					isPrimary
 					onClick={onClick}
 				>
-					{__("GENERATE SUBTITLES", "ear2words")}
+					{__("GENERATE SUBTITLES", "wubtitle")}
 				</Button>
 			</Fragment>
 		);
@@ -89,7 +89,7 @@ const Ear2WordPanel = props => {
 	const FormatNotSupported = () => (
 		<Fragment>
 			<div>
-				{__("Unsupported video format for free plan", "ear2words")}
+				{__("Unsupported video format for free plan", "wubtitle")}
 			</div>
 		</Fragment>
 	);
@@ -98,18 +98,18 @@ const Ear2WordPanel = props => {
 		const idAttachment = props.id;
 		const srcAttachment = props.src;
 		apiFetch({
-			url: ear2words_button_object.ajax_url,
+			url: wubtitle_button_object.ajax_url,
 			method: "POST",
 			headers: {
 				"Content-Type":
 					"application/x-www-form-urlencoded; charset=utf-8"
 			},
-			body: `action=submitVideo&_ajax_nonce=${ear2words_button_object.ajaxnonce}&id_attachment=${idAttachment}&src_attachment=${srcAttachment}&lang=${languageSelected}&`
+			body: `action=submitVideo&_ajax_nonce=${wubtitle_button_object.ajaxnonce}&id_attachment=${idAttachment}&src_attachment=${srcAttachment}&lang=${languageSelected}&`
 		}).then(res => {
 			if (res.data === 201) {
 				noticeDispatcher.createNotice(
 					"success",
-					__("Subtitle creation successfully started", "ear2words")
+					__("Subtitle creation successfully started", "wubtitle")
 				);
 				entityDispatcher.editEntityRecord(
 					"postType",
@@ -117,8 +117,8 @@ const Ear2WordPanel = props => {
 					props.id,
 					{
 						meta: {
-							ear2words_status: "pending",
-							ear2words_lang_video: languageSelected
+							wubtitle_status: "pending",
+							wubtitle_lang_video: languageSelected
 						}
 					}
 				);
@@ -128,11 +128,8 @@ const Ear2WordPanel = props => {
 		});
 	}
 
-	const Ear2wordsPanelContent = () => {
-		if (
-			ear2words_button_object.isFree === "1" &&
-			extensionsFile !== "mp4"
-		) {
+	const WubtitlePanelContent = () => {
+		if (wubtitle_button_object.isFree === "1" && extensionsFile !== "mp4") {
 			return <FormatNotSupported />;
 		}
 		switch (status) {
@@ -161,7 +158,7 @@ const Ear2WordPanel = props => {
 	return (
 		<InspectorControls>
 			<PanelBody title="Wubtitle">
-				<Ear2wordsPanelContent
+				<WubtitlePanelContent
 					status={status}
 					languageSaved={languageSaved}
 				/>
@@ -170,4 +167,4 @@ const Ear2WordPanel = props => {
 	);
 };
 
-export default Ear2WordPanel;
+export default WubtitlePanel;

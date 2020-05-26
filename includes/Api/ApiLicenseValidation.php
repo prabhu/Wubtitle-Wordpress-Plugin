@@ -4,10 +4,10 @@
  *
  * @author     Nicola Palermo
  * @since      0.1.0
- * @package    Ear2Words\Api
+ * @package    Wubtitle\Api
  */
 
-namespace Ear2Words\Api;
+namespace Wubtitle\Api;
 
 use WP_Error;
 use WP_REST_Response;
@@ -29,7 +29,7 @@ class ApiLicenseValidation {
 	 */
 	public function register_license_validation_route() {
 		register_rest_route(
-			'ear2words/v1',
+			'wubtitle/v1',
 			'/job-list',
 			array(
 				'methods'  => 'GET',
@@ -46,7 +46,7 @@ class ApiLicenseValidation {
 	public function auth_and_get_job_list( $request ) {
 		$headers        = $request->get_headers();
 		$jwt            = $headers['jwt'][0];
-		$db_license_key = get_option( 'ear2words_license_key' );
+		$db_license_key = get_option( 'wubtitle_license_key' );
 		try {
 			JWT::decode( $jwt, $db_license_key, array( 'HS256' ) );
 		} catch ( \Exception $e ) {
@@ -74,13 +74,13 @@ class ApiLicenseValidation {
 		$args     = array(
 			'post_type'      => 'attachment',
 			'posts_per_page' => -1,
-			'meta_key'       => 'ear2words_status',
+			'meta_key'       => 'wubtitle_status',
 			'meta_value'     => 'pending',
 		);
 		$media    = get_posts( $args );
 		$job_list = array();
 		foreach ( $media as  $file ) {
-			$job_list[] = get_post_meta( $file->ID, 'ear2words_job_uuid', true );
+			$job_list[] = get_post_meta( $file->ID, 'wubtitle_job_uuid', true );
 		}
 		$data = array(
 			'data' => array(

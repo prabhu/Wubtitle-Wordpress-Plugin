@@ -1,9 +1,9 @@
 <?php
-use Ear2Words\Api\ApiStoreSubtitle;
+use Wubtitle\Api\ApiStoreSubtitle;
 /**
  * Class TestEndpointCallback
  *
- * @package Ear2Words
+ * @package Wubtitle
  */
 
  /**
@@ -25,9 +25,9 @@ class TestEndpointCallback extends WP_UnitTestCase {
 			);
 		$attachment_id = $this->factory()->attachment->create($attachment_data);
 		//aggiungo uno job uuid all'attachment.
-		update_post_meta($attachment_id,'ear2words_job_uuid','provauuid');
+		update_post_meta($attachment_id,'wubtitle_job_uuid','provauuid');
 		// lo metto in stato pending.
-		update_post_meta($attachment_id,'ear2words_status','pending');
+		update_post_meta($attachment_id,'wubtitle_status','pending');
 		$this->attachment_id = $attachment_id;
 	}
 	/**
@@ -43,7 +43,7 @@ class TestEndpointCallback extends WP_UnitTestCase {
 		$request = new WP_REST_Request;
 		$request->set_default_params( $request_data );
 		$response = $this->instance->get_jobs_failed($request);
-		$result_status = get_post_meta( $this->attachment_id, 'ear2words_status', true );
+		$result_status = get_post_meta( $this->attachment_id, 'wubtitle_status', true );
 		$expected_response = array(
 			'data' => array(
 				'status' => '200',

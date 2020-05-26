@@ -4,15 +4,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wubtitle 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-ear2words\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"POT-Creation-Date: 2020-05-26T11:04:18+02:00\n"
+"PO-Revision-Date: 2020-05-26 11:04+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: it_IT\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-05-22T15:40:18+02:00\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.4.0\n"
-"X-Domain: ear2words\n"
+"X-Generator: Poedit 2.3.1\n"
+"X-Domain: wubtitle\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. Plugin Name of the plugin
 #: includes/Dashboard/Settings.php:36
@@ -49,15 +51,15 @@ msgstr ""
 
 #: includes/Api/ApiCancelSubscription.php:54
 msgid "Deleted successfully"
-msgstr ""
+msgstr "Abbonamento cancellato"
 
 #: includes/Api/ApiCancelSubscription.php:55
 msgid "Bad Request. Please try again in a few minutes"
-msgstr ""
+msgstr "Richiesta non valida. Riprova di nuovo tra qualche minuto"
 
 #: includes/Api/ApiCancelSubscription.php:56
 msgid "Unauthorized"
-msgstr ""
+msgstr "Non autorizzato"
 
 #: includes/Api/ApiCancelSubscription.php:57
 msgid "Forbidden"
@@ -65,154 +67,148 @@ msgstr ""
 
 #: includes/Api/ApiCancelSubscription.php:58
 msgid "Not Found"
-msgstr ""
+msgstr "Non trovato"
 
 #: includes/Api/ApiCancelSubscription.php:59
 msgid "Internal server error"
-msgstr ""
+msgstr "Impossibile contattare il server"
 
 #: includes/Api/ApiCancelSubscription.php:60
 msgid "Bad gateway"
 msgstr ""
 
-#: includes/Api/ApiGetTranscript.php:34
-#: includes/Api/ApiGetTranscript.php:67
-#: includes/Api/ApiGetTranscript.php:68
-#: includes/Api/ApiGetTranscript.php:87
-#: includes/Api/ApiGetTranscript.php:127
-#: includes/Api/ApiGetTranscript.php:162
-#: includes/Api/ApiGetTranscript.php:198
-#: includes/Api/ApiGetTranscript.php:199
+#: includes/Api/ApiGetTranscript.php:34 includes/Api/ApiGetTranscript.php:73
+#: includes/Api/ApiGetTranscript.php:74 includes/Api/ApiGetTranscript.php:95
+#: includes/Api/ApiGetTranscript.php:135 includes/Api/ApiGetTranscript.php:170
+#: includes/Api/ApiGetTranscript.php:206 includes/Api/ApiGetTranscript.php:207
 #: includes/Core/CustomPostTypes/Transcript.php:152
 #: includes/Core/CustomPostTypes/Transcript.php:153
-#: includes/Core/Sources/YouTube.php:189
-#: includes/Core/Sources/YouTube.php:190
-msgid "An error occurred while creating the transcriptions. Please try again in a few minutes"
+#: includes/Core/Sources/YouTube.php:192 includes/Core/Sources/YouTube.php:193
+msgid ""
+"An error occurred while creating the transcriptions. Please try again in a "
+"few minutes"
 msgstr ""
+"Si è verificato un errore durante la creazione dei sottotitoli. Riprova di "
+"nuovo tra qualche minuto"
 
-#: includes/Api/ApiGetTranscript.php:48
-#: includes/Api/ApiGetTranscript.php:98
-#: includes/Api/ApiGetTranscript.php:103
-#: includes/Api/ApiGetTranscript.php:184
+#: includes/Api/ApiGetTranscript.php:53 includes/Api/ApiGetTranscript.php:106
+#: includes/Api/ApiGetTranscript.php:111 includes/Api/ApiGetTranscript.php:192
 #: includes/Core/CustomPostTypes/Transcript.php:130
 msgid "Url not a valid youtube url"
-msgstr ""
+msgstr "Url youtube non valida"
 
-#: includes/Api/ApiGetTranscript.php:69
-#: includes/Api/ApiGetTranscript.php:200
+#: includes/Api/ApiGetTranscript.php:75 includes/Api/ApiGetTranscript.php:208
 #: includes/Core/CustomPostTypes/Transcript.php:154
-#: includes/Core/Sources/YouTube.php:191
+#: includes/Core/Sources/YouTube.php:194
 msgid "Unable to create transcriptions. Invalid product license"
 msgstr ""
+"Impossibile creare i sottotitoli. La  licenza del prodotto non è valida"
 
-#: includes/Api/ApiGetTranscript.php:70
-#: includes/Api/ApiGetTranscript.php:201
-#: includes/Api/ApiPricingPlan.php:63
-#: includes/Api/ApiPricingPlan.php:64
-#: includes/Api/ApiPricingPlan.php:100
-#: includes/Api/ApiPricingPlan.php:165
-#: includes/Api/ApiPricingPlan.php:166
-#: includes/Api/ApiPricingPlan.php:216
-#: includes/Api/ApiPricingPlan.php:217
-#: includes/Api/ApiPricingPlan.php:256
+#: includes/Api/ApiGetTranscript.php:76 includes/Api/ApiGetTranscript.php:209
+#: includes/Api/ApiPricingPlan.php:63 includes/Api/ApiPricingPlan.php:64
+#: includes/Api/ApiPricingPlan.php:100 includes/Api/ApiPricingPlan.php:165
+#: includes/Api/ApiPricingPlan.php:166 includes/Api/ApiPricingPlan.php:216
+#: includes/Api/ApiPricingPlan.php:217 includes/Api/ApiPricingPlan.php:256
 #: includes/Api/ApiRequest.php:116
 #: includes/Core/CustomPostTypes/Transcript.php:155
-#: includes/Core/Sources/YouTube.php:192
+#: includes/Core/Sources/YouTube.php:195
 msgid "Could not contact the server"
-msgstr ""
+msgstr "Impossibile contattare il server"
 
-#: includes/Api/ApiGetTranscript.php:71
-#: includes/Api/ApiGetTranscript.php:202
+#: includes/Api/ApiGetTranscript.php:77 includes/Api/ApiGetTranscript.php:210
 #: includes/Api/ApiRequest.php:209
 #: includes/Core/CustomPostTypes/Transcript.php:156
-#: includes/Core/Sources/YouTube.php:193
+#: includes/Core/Sources/YouTube.php:196
 msgid "Error, no more video left for your subscription plan"
-msgstr ""
+msgstr "Errore, non hai più video disponibili per il tuo piano di abbonamento"
 
-#: includes/Api/ApiGetTranscript.php:78
-#: includes/Api/ApiGetTranscript.php:211
+#: includes/Api/ApiGetTranscript.php:84 includes/Api/ApiGetTranscript.php:219
 #: includes/Core/CustomPostTypes/Transcript.php:176
-#: includes/Core/Sources/YouTube.php:208
+#: includes/Core/Sources/YouTube.php:211
 msgid "Transcript not avaiable for this video."
-msgstr ""
+msgstr "Trascrizione non disponibile per questo video."
 
-#: includes/Api/ApiGetTranscript.php:144
-msgid "Error: this video doesn't have subtitles yet. It is necessary to generate them to obtain the transcription"
+#: includes/Api/ApiGetTranscript.php:152
+msgid ""
+"Error: this video doesn't have subtitles yet. It is necessary to generate "
+"them to obtain the transcription"
 msgstr ""
+"Errore: questo video non ha ancora i sottititoli. E' necessario generarli "
+"per ottenere la trascrizione"
 
-#: includes/Api/ApiPricingPlan.php:33
-#: includes/Api/ApiPricingPlan.php:78
-#: includes/Api/ApiPricingPlan.php:131
-#: includes/Api/ApiPricingPlan.php:189
+#: includes/Api/ApiPricingPlan.php:33 includes/Api/ApiPricingPlan.php:78
+#: includes/Api/ApiPricingPlan.php:131 includes/Api/ApiPricingPlan.php:189
 #: includes/Api/ApiPricingPlan.php:232
 msgid "An error occurred. Please try again in a few minutes."
-msgstr ""
+msgstr "Si è verificato un errore. Riprova di nuovo tra qualche minuto."
 
-#: includes/Api/ApiPricingPlan.php:45
-#: includes/Api/ApiPricingPlan.php:84
-#: includes/Api/ApiPricingPlan.php:141
-#: includes/Api/ApiPricingPlan.php:195
+#: includes/Api/ApiPricingPlan.php:45 includes/Api/ApiPricingPlan.php:84
+#: includes/Api/ApiPricingPlan.php:141 includes/Api/ApiPricingPlan.php:195
 #: includes/Api/ApiRequest.php:97
 msgid "Unable to create subtitles. The product license key is missing."
-msgstr ""
+msgstr "Impossibile creare i sottotitoli. La  licenza del prodotto è assente."
 
-#: includes/Api/ApiPricingPlan.php:60
-#: includes/Api/ApiPricingPlan.php:61
-#: includes/Api/ApiPricingPlan.php:98
-#: includes/Api/ApiPricingPlan.php:162
-#: includes/Api/ApiPricingPlan.php:163
-#: includes/Api/ApiPricingPlan.php:213
-#: includes/Api/ApiPricingPlan.php:214
-#: includes/Api/ApiPricingPlan.php:254
+#: includes/Api/ApiPricingPlan.php:60 includes/Api/ApiPricingPlan.php:61
+#: includes/Api/ApiPricingPlan.php:98 includes/Api/ApiPricingPlan.php:162
+#: includes/Api/ApiPricingPlan.php:163 includes/Api/ApiPricingPlan.php:213
+#: includes/Api/ApiPricingPlan.php:214 includes/Api/ApiPricingPlan.php:254
 msgid "An error occurred. Please try again in a few minutes"
-msgstr ""
+msgstr "Si è verificato un errore.  Riprova di nuovo tra qualche minuto"
 
-#: includes/Api/ApiPricingPlan.php:62
-#: includes/Api/ApiPricingPlan.php:99
-#: includes/Api/ApiPricingPlan.php:164
-#: includes/Api/ApiPricingPlan.php:215
+#: includes/Api/ApiPricingPlan.php:62 includes/Api/ApiPricingPlan.php:99
+#: includes/Api/ApiPricingPlan.php:164 includes/Api/ApiPricingPlan.php:215
 #: includes/Api/ApiPricingPlan.php:255
 msgid "Access denied"
-msgstr ""
+msgstr "Accesso negato"
 
 #: includes/Api/ApiRequest.php:62
 msgid "Error, invalid language selected"
-msgstr ""
+msgstr "Errore, lingua selezionata non valida"
 
-#: includes/Api/ApiRequest.php:88
-#: includes/Api/ApiRequest.php:94
+#: includes/Api/ApiRequest.php:88 includes/Api/ApiRequest.php:94
 #: includes/Api/ApiRequest.php:101
-msgid "An error occurred while creating the subtitles. Please try again in a few minutes."
+msgid ""
+"An error occurred while creating the subtitles. Please try again in a few "
+"minutes."
 msgstr ""
+"Si è verificato un errore durante la creazione dei sottotitoli. Riprova di "
+"nuovo tra qualche minuto."
 
-#: includes/Api/ApiRequest.php:113
-#: includes/Api/ApiRequest.php:114
-msgid "An error occurred while creating the subtitles. Please try again in a few minutes"
+#: includes/Api/ApiRequest.php:113 includes/Api/ApiRequest.php:114
+msgid ""
+"An error occurred while creating the subtitles. Please try again in a few "
+"minutes"
 msgstr ""
+"Si è verificato un errore durante la creazione dei sottotitoli. Riprova di "
+"nuovo tra qualche minuto."
 
 #: includes/Api/ApiRequest.php:115
 msgid "Unable to create subtitles. Invalid product license"
 msgstr ""
+"Impossibile creare i sottotitoli. La  licenza del prodotto non è valida"
 
 #: includes/Api/ApiRequest.php:210
 msgid "Error, language not supported for your subscription plan"
-msgstr ""
+msgstr "Errore, lingua non supportata per il tuo piano di abbonamento"
 
 #: includes/Api/ApiRequest.php:211
 #: includes/MediaLibrary/MediaLibraryExtented.php:67
-#: includes/MediaLibrary/MediaLibraryExtented.php:188
-#: build/index.js:1
-#: src/block/Ear2WordPanel.js:92
+#: includes/MediaLibrary/MediaLibraryExtented.php:188 build/index.js:1
+#: src/block/WubtitlePanel.js:92
 msgid "Unsupported video format for free plan"
-msgstr ""
+msgstr "Formato video non supportato per il piano free"
 
 #: includes/Api/ApiRequest.php:216
-msgid "Error, video length is longer than minutes available for your subscription plan (minutes left "
+msgid ""
+"Error, video length is longer than minutes available for your subscription "
+"plan (minutes left "
 msgstr ""
+"Errore, la durata del video è maggiore dei minuti disponibili per il tuo "
+"piano di abbonamento (minuti rimasti "
 
 #: includes/Api/ApiRequest.php:216
 msgid ", video left "
-msgstr ""
+msgstr ", video rimasti "
 
 #: includes/Core/CustomPostTypes/Transcript.php:40
 msgid "Shortcode"
@@ -228,58 +224,58 @@ msgstr ""
 
 #: includes/Core/CustomPostTypes/Transcript.php:91
 msgid "Insert url youtube video"
-msgstr ""
+msgstr "Inserisci l' url del video youtube"
 
 #: includes/Core/CustomPostTypes/Transcript.php:216
 #: includes/Core/CustomPostTypes/Transcript.php:218
 #: includes/Core/CustomPostTypes/Transcript.php:247
 msgid "Transcripts"
-msgstr ""
+msgstr "Trascrizioni"
 
 #: includes/Core/CustomPostTypes/Transcript.php:217
 #: includes/Core/CustomPostTypes/Transcript.php:237
 msgid "Transcript"
-msgstr ""
+msgstr "Trascrizione"
 
 #: includes/Core/CustomPostTypes/Transcript.php:219
 msgid "All transcripts"
-msgstr ""
+msgstr "Tutte le trascrizioni"
 
 #: includes/Core/CustomPostTypes/Transcript.php:220
 msgid "Add new"
-msgstr ""
+msgstr "Aggiungi nuovo"
 
 #: includes/Core/CustomPostTypes/Transcript.php:221
 msgid "Add new transcript"
-msgstr ""
+msgstr "Aggiungi nuova trascrizione"
 
 #: includes/Core/CustomPostTypes/Transcript.php:222
 msgid "Edit transcript"
-msgstr ""
+msgstr "Modifica trascrizione"
 
 #: includes/Core/CustomPostTypes/Transcript.php:223
 msgid "New transcript"
-msgstr ""
+msgstr "Nuova trascrizione"
 
 #: includes/Core/CustomPostTypes/Transcript.php:224
 msgid "View transcript"
-msgstr ""
+msgstr "Vedi trascrizione"
 
 #: includes/Core/CustomPostTypes/Transcript.php:225
 msgid "View transcripts"
-msgstr ""
+msgstr "Vedi trascrizioni"
 
 #: includes/Core/CustomPostTypes/Transcript.php:226
 msgid "Search transcripts"
-msgstr ""
+msgstr "Cerca trascrizioni"
 
 #: includes/Core/CustomPostTypes/Transcript.php:227
 msgid "No Transcripts found"
-msgstr ""
+msgstr "Nessuna trascrizione trovata"
 
 #: includes/Core/CustomPostTypes/Transcript.php:228
 msgid "No Transcripts found in trash"
-msgstr ""
+msgstr "Nessuna trascrizione trovata nel cestino"
 
 #: includes/Core/CustomPostTypes/Transcript.php:229
 #: includes/Core/CustomPostTypes/Transcript.php:243
@@ -288,159 +284,165 @@ msgstr ""
 
 #: includes/Core/CustomPostTypes/Transcript.php:230
 msgid "Transcript archives"
-msgstr ""
+msgstr "Archivio trascrizioni"
 
 #: includes/Core/CustomPostTypes/Transcript.php:231
 msgid "Insert into Transcript"
-msgstr ""
+msgstr "Inserisci nella trascrizione"
 
 #: includes/Core/CustomPostTypes/Transcript.php:232
 msgid "Upload to this Transcript"
-msgstr ""
+msgstr "Aggiorna trascrizione"
 
 #: includes/Core/CustomPostTypes/Transcript.php:233
 msgid "Filter Transcripts list"
-msgstr ""
+msgstr "Filtra lista trascrizioni"
 
 #: includes/Core/CustomPostTypes/Transcript.php:234
 msgid "Transcripts list navigation"
-msgstr ""
+msgstr "Lista navigazione trascrizioni"
 
 #: includes/Core/CustomPostTypes/Transcript.php:235
 msgid "Transcripts list"
-msgstr ""
+msgstr "Lista trascrizioni"
 
 #: includes/Core/CustomPostTypes/Transcript.php:236
 msgid "Transcripts attributes"
-msgstr ""
+msgstr "Attributi trascrizioni"
 
 #: includes/Core/CustomPostTypes/Transcript.php:238
 msgid "Transcript published"
-msgstr ""
+msgstr "Trascrizione pubblicata"
 
 #: includes/Core/CustomPostTypes/Transcript.php:239
 msgid "Transcript published privately."
-msgstr ""
+msgstr "Trascrizione pubblicata privatamente."
 
 #: includes/Core/CustomPostTypes/Transcript.php:240
 msgid "Transcript reverted to draft."
-msgstr ""
+msgstr "Trascrizione ripristinata in bozza."
 
 #: includes/Core/CustomPostTypes/Transcript.php:241
 msgid "Transcript scheduled"
-msgstr ""
+msgstr "Trascrizione pianificata"
 
 #: includes/Core/CustomPostTypes/Transcript.php:242
 msgid "Transcript updated."
-msgstr ""
+msgstr "Trascrizione aggiornata."
 
 #: includes/Core/CustomPostTypes/Transcript.php:249
 msgid "Video Transcripts"
-msgstr ""
+msgstr "Trascrizioni video"
 
 #: includes/Dashboard/Settings.php:36
 msgid "Wubtitle Settings"
-msgstr ""
+msgstr "Impostazioni Wubtitle"
 
 #: includes/Dashboard/Settings.php:51
 msgid "Free Plan"
-msgstr ""
+msgstr "Piano Free"
 
 #: includes/Dashboard/Settings.php:52
 msgid "Standard Plan"
-msgstr ""
+msgstr "Piano Standard"
 
 #: includes/Dashboard/Settings.php:53
 msgid "Elite Plan"
-msgstr ""
+msgstr "Piano Elite"
 
 #: includes/Dashboard/Settings.php:78
 msgid "Licensing"
-msgstr ""
+msgstr "Licenza"
 
 #: includes/Dashboard/Settings.php:90
 msgid "Generated video subtitles: "
-msgstr ""
+msgstr "Sottotitoli generati: "
 
 #: includes/Dashboard/Settings.php:96
 msgid "Video time spent: "
-msgstr ""
+msgstr "Tempo video utilizzato: "
 
 #: includes/Dashboard/Settings.php:98
 msgid " hours"
-msgstr ""
+msgstr " ore"
 
 #: includes/Dashboard/Settings.php:127
 msgid "Payment successful"
-msgstr ""
+msgstr "Pagamento effettuato"
 
 #: includes/Dashboard/Settings.php:130
 msgid "Payment information updated"
-msgstr ""
+msgstr "Metodo di pagamento aggiornato"
 
 #: includes/Dashboard/Settings.php:133
 msgid "License key sent, check your email!"
-msgstr ""
+msgstr "Licenza inviata, controlla l'email!"
 
 #: includes/Dashboard/Settings.php:136
 msgid "Unsubscription successful"
-msgstr ""
+msgstr "Iscrizione annullata con successo"
 
 #: includes/Dashboard/Settings.php:139
 msgid "Reactivation of the plan successful"
-msgstr ""
+msgstr "Riattivazione del piano andato a buon fine"
 
 #: includes/Dashboard/Settings.php:163
 msgid "Automatic renewal: "
-msgstr ""
+msgstr "Rinnovo automatico: "
 
 #: includes/Dashboard/Settings.php:165
-msgid "You requested the subscription cancellation. Your plan will be valid until  "
+msgid ""
+"You requested the subscription cancellation. Your plan will be valid until  "
 msgstr ""
+"Hai richiesto la cancellazione dell'abbonamento. Il tuo piano sarà valido "
+"fino al "
 
 #: includes/Dashboard/Settings.php:178
 msgid "Unsubscribe"
-msgstr ""
+msgstr "Annulla l'iscrizione"
 
 #: includes/Dashboard/Settings.php:181
 msgid "Update email or payment detail"
-msgstr ""
+msgstr "Aggiorna email o dettagli pagamento"
 
 #: includes/Dashboard/Settings.php:184
 msgid "Modify plan"
-msgstr ""
+msgstr "Modifica piano"
 
 #: includes/Dashboard/Settings.php:190
 msgid "Reactivate plan"
-msgstr ""
+msgstr "Riattiva piano"
 
 #: includes/Dashboard/Settings.php:221
 msgid "Unable to update. Expired product license."
-msgstr ""
+msgstr "Impossibile aggiornare. Licenza del prodotto scaduta."
 
 #: includes/Dashboard/Settings.php:222
 msgid "Unable to update. Invalid product license."
-msgstr ""
+msgstr "Impossibile aggiornare. Licenza del prodotto non valida."
 
 #: includes/Dashboard/Settings.php:223
-msgid "An error occurred while updating licence. Please try again in a few minutes."
+msgid ""
+"An error occurred while updating licence. Please try again in a few minutes."
 msgstr ""
+"Si è verificato un errore durante l'aggiornamento della licenza. Riprova di "
+"nuovo tra qualche minuto."
 
 #: includes/Dashboard/Settings.php:224
 msgid "Could not contact the server."
-msgstr ""
+msgstr "Impossibile contattare il server."
 
 #: includes/Dashboard/Settings.php:225
 msgid "An error occurred."
-msgstr ""
+msgstr "Si è verificato un errore."
 
 #: includes/Dashboard/Settings.php:240
 msgid "Valid product license. Subscription plan updated."
-msgstr ""
+msgstr "Licenza del prodotto valida. Piano di abbonamento aggiornato."
 
 #: includes/Dashboard/Settings.php:299
 msgid "Unlock more features!"
-msgstr ""
+msgstr "Sblocca più funzionalità!"
 
 #: includes/Dashboard/Settings.php:304
 msgid "Upgrade"
@@ -448,74 +450,89 @@ msgstr ""
 
 #: includes/Dashboard/Settings.php:311
 msgid "License Number"
-msgstr ""
+msgstr "Numero licenza"
 
 #: includes/Dashboard/Settings.php:318
 msgid "License key"
-msgstr ""
+msgstr "Licenza"
 
 #: includes/Dashboard/Settings.php:320
 msgid "Please enter the license key you received after successful checkout"
 msgstr ""
+"Inserisci la chiave di licenza ricevuta dopo aver effettuato il checkout"
 
 #: includes/Dashboard/Settings.php:341
 msgid "Reset license key"
-msgstr ""
+msgstr "Reset Licenza"
 
 #: includes/Dashboard/Settings.php:359
 msgid "now!"
-msgstr ""
+msgstr " "
 
 #: includes/Dashboard/Templates/cancel_template.php:33
 msgid "Are you sure you want to unsubscribe?"
-msgstr ""
+msgstr "Sei sicuro che vuoi annullare l'iscrizione?"
 
 #: includes/Dashboard/Templates/cancel_template.php:34
-msgid "Are you sure you want to cancel your subscription? If you choose to continue, when the subscription expires your plan will return to free version and you will lose all the additional features"
+msgid ""
+"Are you sure you want to cancel your subscription? If you choose to "
+"continue, when the subscription expires your plan will return to free "
+"version and you will lose all the additional features"
 msgstr ""
+"Sei sicuro di voler annullare la tua iscrizione? Se scegli di continuare, "
+"allo scadere dell'abbonamento il tuo piano tornerà alla versione gratuita e "
+"perderai tutte le funzionalità aggiuntive"
 
 #: includes/Dashboard/Templates/cancel_template.php:36
 msgid "Return to free version"
-msgstr ""
+msgstr "Ritorna alla versione free"
 
 #: includes/Dashboard/Templates/cancel_template.php:37
 #: includes/Dashboard/Templates/downgrade_plan_template.php:50
 #: includes/Dashboard/Templates/upgrade_plan_template.php:50
 msgid "Forget it"
-msgstr ""
+msgstr "Annulla"
 
 #: includes/Dashboard/Templates/cancel_template.php:43
 msgid "Or choose another plan"
-msgstr ""
+msgstr "O scegli un'altro piano"
 
 #: includes/Dashboard/Templates/cancel_template.php:57
 #: includes/Dashboard/Templates/payment_template.php:43
 msgid "Per month"
-msgstr ""
+msgstr "Per mese"
 
 #: includes/Dashboard/Templates/downgrade_plan_template.php:30
 msgid "Subscription plan downgrade"
-msgstr ""
+msgstr "Modifica piano di abbonamento"
 
 #: includes/Dashboard/Templates/downgrade_plan_template.php:31
-msgid "Downgrading now, you will earn a credit that will be billed to you at the next charge"
+msgid ""
+"Downgrading now, you will earn a credit that will be billed to you at the "
+"next charge"
 msgstr ""
+"Scegliendo un piano di abbonamento inferiore, guadagnerai un credito che "
+"verrà utilizzato al pagamento successivo"
 
 #: includes/Dashboard/Templates/downgrade_plan_template.php:38
 msgid " credit earnings"
-msgstr ""
+msgstr " di credito"
 
 #: includes/Dashboard/Templates/downgrade_plan_template.php:47
-msgid "The subtitles already created and the minutes already used will be counted on the new subscription plan"
+msgid ""
+"The subtitles already created and the minutes already used will be counted "
+"on the new subscription plan"
 msgstr ""
+"I sottotitoli già creati e i minuti già utilizzati verranno conteggiati nel "
+"nuovo piano di abbonamento"
 
 #: includes/Dashboard/Templates/downgrade_plan_template.php:49
 msgid "Downgrade Now"
-msgstr ""
+msgstr "Modifica piano"
 
 #: includes/Dashboard/Templates/payment_template.php:29
 msgid "Choose the right plan for your project"
-msgstr ""
+msgstr "Scegli il piano giusto per il tuo progetto"
 
 #: includes/Dashboard/Templates/plans_array.php:16
 msgid "Free"
@@ -525,7 +542,7 @@ msgstr ""
 #: includes/Dashboard/Templates/plans_array.php:37
 #: includes/Dashboard/Templates/plans_array.php:55
 msgid "Number of video"
-msgstr ""
+msgstr "Numero di video"
 
 #: includes/Dashboard/Templates/plans_array.php:19
 msgid "3"
@@ -535,7 +552,7 @@ msgstr ""
 #: includes/Dashboard/Templates/plans_array.php:38
 #: includes/Dashboard/Templates/plans_array.php:56
 msgid "Total length of videos"
-msgstr ""
+msgstr "Lunghezza totale dei video"
 
 #: includes/Dashboard/Templates/plans_array.php:20
 msgid "30 min"
@@ -543,17 +560,17 @@ msgstr ""
 
 #: includes/Dashboard/Templates/plans_array.php:23
 msgid "Mp4 Video format allowed"
-msgstr ""
+msgstr "Formato video consentito: mp4"
 
 #: includes/Dashboard/Templates/plans_array.php:24
 msgid "Recognized languages: English and Italian"
-msgstr ""
+msgstr "Linguaggi supportati Inglese e Italiano"
 
 #: includes/Dashboard/Templates/plans_array.php:30
 #: includes/Dashboard/Templates/plans_array.php:48
 #: includes/Dashboard/Templates/plans_array.php:66
 msgid "Choose this plan"
-msgstr ""
+msgstr "Scegli il piano"
 
 #: includes/Dashboard/Templates/plans_array.php:34
 msgid "Standard"
@@ -565,17 +582,19 @@ msgstr ""
 
 #: includes/Dashboard/Templates/plans_array.php:38
 msgid "3 hours"
-msgstr ""
+msgstr "3 ore"
 
 #: includes/Dashboard/Templates/plans_array.php:41
 #: includes/Dashboard/Templates/plans_array.php:59
 msgid "All wordpress formats supported by wordpress"
-msgstr ""
+msgstr "Tutti i formati supportati da wordpress"
 
 #: includes/Dashboard/Templates/plans_array.php:42
 #: includes/Dashboard/Templates/plans_array.php:60
-msgid "Recognized languuages: English, Italian, German, French, Spanish and Chinese"
+msgid ""
+"Recognized languuages: English, Italian, German, French, Spanish and Chinese"
 msgstr ""
+"Lingue supportate: Inglese, Italiano, Tedesco, Francese, Spagnolo, Cinese"
 
 #: includes/Dashboard/Templates/plans_array.php:52
 msgid "Elite"
@@ -587,285 +606,271 @@ msgstr ""
 
 #: includes/Dashboard/Templates/plans_array.php:56
 msgid "10 hours"
-msgstr ""
+msgstr "10 ore"
 
 #: includes/Dashboard/Templates/plans_array.php:70
-msgid "Unable this select this plan during the first month of subscription for current plan"
+msgid ""
+"Unable this select this plan during the first month of subscription for "
+"current plan"
 msgstr ""
+"Non è possibile selezionare questo piano durante il primo mese di "
+"abbonamento per il piano corrente"
 
 #: includes/Dashboard/Templates/plans_array.php:74
 #: includes/Dashboard/Templates/plans_array.php:82
 #: includes/Dashboard/Templates/plans_array.php:92
 msgid "Your plan"
-msgstr ""
+msgstr "Il tuo piano"
 
 #: includes/Dashboard/Templates/upgrade_plan_template.php:31
 msgid "Subscription plan upgrade"
-msgstr ""
+msgstr "Modifica piano di abbonamento"
 
 #: includes/Dashboard/Templates/upgrade_plan_template.php:32
-msgid "Upgrading now, for the first month you are entired to a partial refund of previous monthly subscription plan"
+msgid ""
+"Upgrading now, for the first month you are entired to a partial refund of "
+"previous monthly subscription plan"
 msgstr ""
+"Scegliendo un piano di abbonamento superiore, per il primo mese verrà "
+"applicato uno sconto pari al credito residuo della mensilità "
+"dell'abbonamento precedente"
 
 #: includes/Dashboard/Templates/upgrade_plan_template.php:41
 msgid "Only for first month (Until "
-msgstr ""
+msgstr "Solo per il primo mese (Fino al "
 
 #: includes/Dashboard/Templates/upgrade_plan_template.php:51
 msgid "Upgrade Now"
-msgstr ""
+msgstr "Modifica piano"
 
 #: includes/MediaLibrary/ListingSubtitles.php:31
 #: includes/MediaLibrary/MediaLibraryExtented.php:75
 #: includes/MediaLibrary/MediaLibraryExtented.php:106
 msgid "Subtitle"
-msgstr ""
+msgstr "Sottotitoli"
 
 #: includes/MediaLibrary/ListingSubtitles.php:42
 #: includes/MediaLibrary/MediaLibraryExtented.php:50
-#: includes/MediaLibrary/MediaLibraryExtented.php:175
-#: build/index.js:1
+#: includes/MediaLibrary/MediaLibraryExtented.php:175 build/index.js:1
 #: src/block/labels.js:13
 msgid "Generating"
-msgstr ""
+msgstr "In Creazione"
 
 #: includes/MediaLibrary/ListingSubtitles.php:43
 #: includes/MediaLibrary/MediaLibraryExtented.php:51
 #: includes/MediaLibrary/MediaLibraryExtented.php:116
 #: includes/MediaLibrary/MediaLibraryExtented.php:176
-#: includes/MediaLibrary/MediaLibraryExtented.php:248
-#: build/index.js:1
+#: includes/MediaLibrary/MediaLibraryExtented.php:248 build/index.js:1
 #: src/block/labels.js:14
 msgid "Draft"
-msgstr ""
+msgstr "In bozza"
 
 #: includes/MediaLibrary/ListingSubtitles.php:44
 #: includes/MediaLibrary/MediaLibraryExtented.php:52
 #: includes/MediaLibrary/MediaLibraryExtented.php:115
 #: includes/MediaLibrary/MediaLibraryExtented.php:177
-#: includes/MediaLibrary/MediaLibraryExtented.php:247
-#: build/index.js:1
+#: includes/MediaLibrary/MediaLibraryExtented.php:247 build/index.js:1
 #: src/block/SubtitleControl.js:65
 msgid "Published"
-msgstr ""
+msgstr "Pubblicati"
 
 #: includes/MediaLibrary/ListingSubtitles.php:46
 #: includes/MediaLibrary/MediaLibraryExtented.php:54
-#: includes/MediaLibrary/MediaLibraryExtented.php:178
-#: build/index.js:1
-#: src/block/Ear2WordPanel.js:64
-#: src/block/labels.js:16
+#: includes/MediaLibrary/MediaLibraryExtented.php:178 build/index.js:1
+#: src/block/labels.js:16 src/block/WubtitlePanel.js:64
 #: src/block/YoutubeControlPanel.js:11
 msgid "None"
-msgstr ""
+msgstr "Nessuno"
 
 #: includes/MediaLibrary/ListingSubtitles.php:47
 #: includes/MediaLibrary/MediaLibraryExtented.php:53
-#: includes/MediaLibrary/MediaLibraryExtented.php:179
-#: build/index.js:1
-#: src/block/Ear2WordPanel.js:63
+#: includes/MediaLibrary/MediaLibraryExtented.php:179 build/index.js:1
+#: src/block/WubtitlePanel.js:63
 msgid "Error"
-msgstr ""
+msgstr "Errore"
 
 #: includes/MediaLibrary/MediaLibraryExtented.php:84
 #: includes/MediaLibrary/MediaLibraryExtented.php:123
 #: includes/MediaLibrary/MediaLibraryExtented.php:222
 #: includes/MediaLibrary/MediaLibraryExtented.php:263
 msgid "Language"
-msgstr ""
+msgstr "Lingua"
 
 #: includes/MediaLibrary/MediaLibraryExtented.php:97
-#: includes/MediaLibrary/MediaLibraryExtented.php:275
-#: build/index.js:1
-#: src/block/Ear2WordPanel.js:83
+#: includes/MediaLibrary/MediaLibraryExtented.php:275 build/index.js:1
+#: src/block/WubtitlePanel.js:83
 msgid "GENERATE SUBTITLES"
-msgstr ""
+msgstr "GENERA SOTTOTITOLI"
 
 #: includes/MediaLibrary/MediaLibraryExtented.php:148
-#: includes/MediaLibrary/MediaLibraryExtented.php:347
-#: build/index.js:1
-#: src/block/labels.js:4
-#: src/block/labels.js:22
-#: src/block/labels.js:49
+#: includes/MediaLibrary/MediaLibraryExtented.php:347 build/index.js:1
+#: src/block/labels.js:4 src/block/labels.js:22 src/block/labels.js:49
 msgid "Italian"
-msgstr ""
+msgstr "Italiano"
 
 #: includes/MediaLibrary/MediaLibraryExtented.php:149
-#: includes/MediaLibrary/MediaLibraryExtented.php:348
-#: build/index.js:1
-#: src/block/labels.js:5
-#: src/block/labels.js:26
-#: src/block/labels.js:54
+#: includes/MediaLibrary/MediaLibraryExtented.php:348 build/index.js:1
+#: src/block/labels.js:5 src/block/labels.js:26 src/block/labels.js:54
 msgid "English"
-msgstr ""
+msgstr "Inglese"
 
 #: includes/MediaLibrary/MediaLibraryExtented.php:150
-#: includes/MediaLibrary/MediaLibraryExtented.php:349
-#: build/index.js:1
-#: src/block/labels.js:6
-#: src/block/labels.js:30
+#: includes/MediaLibrary/MediaLibraryExtented.php:349 build/index.js:1
+#: src/block/labels.js:6 src/block/labels.js:30
 msgid "Spanish"
-msgstr ""
+msgstr "Spagnolo"
 
 #: includes/MediaLibrary/MediaLibraryExtented.php:151
 msgid "German"
-msgstr ""
+msgstr "Tedesco"
 
 #: includes/MediaLibrary/MediaLibraryExtented.php:152
-#: includes/MediaLibrary/MediaLibraryExtented.php:351
-#: build/index.js:1
-#: src/block/labels.js:8
-#: src/block/labels.js:38
+#: includes/MediaLibrary/MediaLibraryExtented.php:351 build/index.js:1
+#: src/block/labels.js:8 src/block/labels.js:38
 msgid "Chinese"
-msgstr ""
+msgstr "Cinese"
 
 #: includes/MediaLibrary/MediaLibraryExtented.php:153
-#: includes/MediaLibrary/MediaLibraryExtented.php:352
-#: build/index.js:1
-#: src/block/labels.js:9
-#: src/block/labels.js:42
+#: includes/MediaLibrary/MediaLibraryExtented.php:352 build/index.js:1
+#: src/block/labels.js:9 src/block/labels.js:42
 msgid "French"
-msgstr ""
+msgstr "Francese"
 
 #: includes/MediaLibrary/MediaLibraryExtented.php:201
 msgid "Subtitles"
-msgstr ""
+msgstr "Sottotitoli"
 
 #: includes/MediaLibrary/MediaLibraryExtented.php:205
 msgid "Status"
-msgstr ""
+msgstr "Stato"
 
 #: includes/MediaLibrary/MediaLibraryExtented.php:228
-msgid "Wait while subtitles are created. Subtitles will be available as soon as possible"
+msgid ""
+"Wait while subtitles are created. Subtitles will be available as soon as "
+"possible"
 msgstr ""
+"Attendi che vengano creati i sottotitoli. I sottotitoli saranno disponibili "
+"il prima possibile"
 
-#: includes/MediaLibrary/MediaLibraryExtented.php:350
-#: build/index.js:1
-#: src/block/labels.js:7
-#: src/block/labels.js:34
+#: includes/MediaLibrary/MediaLibraryExtented.php:350 build/index.js:1
+#: src/block/labels.js:7 src/block/labels.js:34
 msgid "German "
-msgstr ""
+msgstr "Tedesco "
 
 #: includes/MediaLibrary/TrascriptionsExtends.php:43
 msgid "Add transcription"
-msgstr ""
+msgstr "Aggiungi trascrizione"
 
-#: build/index.js:1
-#: src/block/labels.js:15
+#: build/index.js:1 src/block/labels.js:15
 msgid "Enabled"
-msgstr ""
+msgstr "Attivati"
 
-#: build/index.js:1
-#: src/block/labels.js:59
+#: build/index.js:1 src/block/labels.js:59
 msgid "Spanish (Pro only)"
-msgstr ""
+msgstr "Spagnolo (solo Pro)"
 
-#: build/index.js:1
-#: src/block/labels.js:64
+#: build/index.js:1 src/block/labels.js:64
 msgid "German (Pro only)"
-msgstr ""
+msgstr "Tedesco (solo Pro)"
 
-#: build/index.js:1
-#: src/block/labels.js:69
+#: build/index.js:1 src/block/labels.js:69
 msgid "Chinese (Pro only)"
-msgstr ""
+msgstr "Cinese (solo Pro)"
 
-#: build/index.js:1
-#: src/block/labels.js:74
+#: build/index.js:1 src/block/labels.js:74
 msgid "French (Pro only)"
-msgstr ""
+msgstr "Francese (solo Pro)"
 
-#: build/index.js:1
-#: src/block/Ear2WordPanel.js:67
-#: src/block/PendingSubtitle.js:7
-#: src/block/SubtitleControl.js:59
-#: src/block/YoutubeControlPanel.js:56
+#: build/index.js:1 src/block/PendingSubtitle.js:7
+#: src/block/SubtitleControl.js:59 src/block/WubtitlePanel.js:67
 msgid "Status: "
-msgstr ""
+msgstr "Stato: "
 
-#: build/index.js:1
-#: src/block/PendingSubtitle.js:8
+#: build/index.js:1 src/block/PendingSubtitle.js:8
 #: src/block/SubtitleControl.js:62
 msgid "Language: "
-msgstr ""
+msgstr "Lingua: "
 
-#: build/index.js:1
-#: src/block/SubtitleControl.js:29
-#: src/block/TranscriptPanel.js:15
-#: src/block/YoutubeControlPanel.js:31
+#: build/index.js:1 src/block/SubtitleControl.js:29
+#: src/block/TranscriptPanel.js:15 src/block/YoutubeControlPanel.js:37
 msgid "Getting transcript..."
-msgstr ""
+msgstr "Generazione trascrizione..."
 
-#: build/index.js:1
-#: src/block/SubtitleControl.js:72
-#: src/block/YoutubeControlPanel.js:65
+#: build/index.js:1 src/block/SubtitleControl.js:72
+#: src/block/YoutubeControlPanel.js:117
 msgid "Get Transcribe"
-msgstr ""
+msgstr "Ottieni trascrizione"
 
-#: build/index.js:1
-#: src/block/Ear2WordPanel.js:69
+#: build/index.js:1 src/block/WubtitlePanel.js:69
+#: src/block/YoutubeControlPanel.js:99
 msgid "Select the video language"
-msgstr ""
+msgstr "Seleziona la lingua del video"
 
-#: build/index.js:1
-#: src/block/Ear2WordPanel.js:112
+#: build/index.js:1 src/block/WubtitlePanel.js:112
 msgid "Subtitle creation successfully started"
-msgstr ""
+msgstr "Creazione dei sottotitoli avviata con successo"
 
-#: build/index.js:1
-#: src/block/TranscriptPanel.js:27
+#: build/index.js:1 src/block/TranscriptPanel.js:27
 msgid "Done"
-msgstr ""
+msgstr "Fatto"
 
-#: build/index.js:1
-#: src/block/TranscriptPanel.js:57
+#: build/index.js:1 src/block/TranscriptPanel.js:57
 msgid "Get transcript"
-msgstr ""
+msgstr "Ottieni trascrizione"
 
-#: build/index.js:1
-#: src/block/YoutubeControlPanel.js:26
+#: build/index.js:1 src/block/YoutubeControlPanel.js:30
+#: src/block/YoutubeControlPanel.js:55
 msgid "Created"
-msgstr ""
+msgstr "Creata"
 
-#: build/index.js:1
-#: src/block/TranscriptionEditBlock.js:70
-msgid "Wubtitle transcriptions"
-msgstr ""
+#: build/index.js:1 src/block/YoutubeControlPanel.js:95
+msgid "Transcript status : "
+msgstr "Stato trascrizione: "
 
-#: build/index.js:1
-#: src/block/TranscriptionEditBlock.js:74
-msgid "Insert transcriptions"
-msgstr ""
-
-#: build/index.js:1
-#: src/block/trascriptionBlock.js:6
-msgid "Trascription"
-msgstr ""
-
-#: build/index.js:1
-#: src/block/trascriptionBlock.js:8
-msgid "Enter the transcript of your video"
-msgstr ""
-
-#: src/editor/transcriptionModalScript.js:45
-msgid "Transcription of the video"
-msgstr ""
-
-#: src/editor/transcriptionModalScript.js:68
-msgid "Error, language not selected"
-msgstr ""
-
+#: build/index.js:1 src/block/YoutubeControlPanel.js:81
 #: src/editor/transcriptionModalScript.js:112
 #: src/editor/transcriptionModalScript.js:136
 #: src/editor/transcriptionModalScript.js:157
 #: src/editor/transcriptionModalScript.js:179
 msgid "Select language"
-msgstr ""
+msgstr "Seleziona la lingua "
+
+#: build/index.js:1 src/block/TranscriptionEditBlock.js:98
+msgid "Wubtitle transcriptions"
+msgstr "Trascrizioni Wubtitle"
+
+#: build/index.js:1 src/block/TranscriptionEditBlock.js:102
+msgid "Insert transcriptions"
+msgstr "Inserisci trascrizioni"
+
+#: build/index.js:1 src/block/TranscriptionEditBlock.js:107
+msgid "Enter the title of the video you want to transcribe"
+msgstr "Scrivi il titolo del video del quale vuoi inserire la trascrizione"
+
+#: build/index.js:1 src/block/trascriptionBlock.js:6
+msgid "Trascription"
+msgstr "Trascrizione"
+
+#: build/index.js:1 src/block/trascriptionBlock.js:8
+msgid "Enter the transcript of your video"
+msgstr "Inserisci la trascrizione del tuo video"
+
+#: src/editor/transcriptionModalScript.js:45
+msgid "Transcription of the video"
+msgstr "Trascrizione del video"
+
+#: src/editor/transcriptionModalScript.js:68
+msgid "Error, language not selected"
+msgstr "Errore, lingua non selezionata "
 
 #: src/editor/transcriptionModalScript.js:118
-msgid "Error: this video does not contain subtitles. Select a video with subtitles to generate the transcript"
+msgid ""
+"Error: this video does not contain subtitles. Select a video with subtitles "
+"to generate the transcript"
 msgstr ""
+"Errore: questo video non contiene sottotitoli. Selezionare un video con "
+"sottotitoli per generare la trascrizione"
 
 #: src/editor/transcriptionModalScript.js:150
 msgid "Language of trascription "
-msgstr ""
+msgstr "Lingua della trascrizione "
