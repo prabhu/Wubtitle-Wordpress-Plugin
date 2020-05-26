@@ -4,10 +4,10 @@
  *
  * @author     Nicola Palermo
  * @since      1.0.0
- * @package    Ear2Words\Api
+ * @package    Wubtitle\Api
  */
 
-namespace Ear2Words\Api;
+namespace Wubtitle\Api;
 
 use WP_REST_Response;
 use \Firebase\JWT\JWT;
@@ -29,7 +29,7 @@ class ApiAuthUpgradePlan {
 	 */
 	public function register_auth_plan_route() {
 		register_rest_route(
-			'ear2words/v1',
+			'wubtitle/v1',
 			'/auth-plan',
 			array(
 				'methods'  => 'POST',
@@ -42,7 +42,7 @@ class ApiAuthUpgradePlan {
 	 */
 	public function register_reactivate_plan_route() {
 		register_rest_route(
-			'ear2words/v1',
+			'wubtitle/v1',
 			'/reactivate-plan',
 			array(
 				'methods'  => 'POST',
@@ -59,7 +59,7 @@ class ApiAuthUpgradePlan {
 	public function reactivate_plan( $request ) {
 		$headers        = $request->get_headers();
 		$jwt            = $headers['jwt'][0];
-		$db_license_key = get_option( 'ear2words_license_key' );
+		$db_license_key = get_option( 'wubtitle_license_key' );
 		try {
 			JWT::decode( $jwt, $db_license_key, array( 'HS256' ) );
 		} catch ( \Exception $e ) {
@@ -77,8 +77,8 @@ class ApiAuthUpgradePlan {
 
 			return $response;
 		}
-		$is_reactivating = (bool) get_option( 'ear2words_is_reactivating' );
-		update_option( 'ear2words_is_reactivating', false );
+		$is_reactivating = (bool) get_option( 'wubtitle_is_reactivating' );
+		update_option( 'wubtitle_is_reactivating', false );
 		$message = array(
 			'data' => array(
 				'is_reactivating' => $is_reactivating,
@@ -95,7 +95,7 @@ class ApiAuthUpgradePlan {
 	public function auth_and_get_plan( $request ) {
 		$headers        = $request->get_headers();
 		$jwt            = $headers['jwt'][0];
-		$db_license_key = get_option( 'ear2words_license_key' );
+		$db_license_key = get_option( 'wubtitle_license_key' );
 		try {
 			JWT::decode( $jwt, $db_license_key, array( 'HS256' ) );
 		} catch ( \Exception $e ) {
@@ -120,7 +120,7 @@ class ApiAuthUpgradePlan {
 	 * Ottiene e restitutisce al backend il piano desiderato.
 	 */
 	public function return_plan() {
-		$plan_to_upgrade = get_option( 'ear2words_wanted_plan' );
+		$plan_to_upgrade = get_option( 'wubtitle_wanted_plan' );
 
 		$data = array(
 			'data' => array(

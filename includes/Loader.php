@@ -2,10 +2,10 @@
 /**
  * Effettua il bootstrap del plugin
  *
- * @package Ear2Words
+ * @package Wubtitle
  */
 
-namespace Ear2Words;
+namespace Wubtitle;
 
 /**
  * This class describes the plugin loader.
@@ -21,7 +21,7 @@ class Loader {
 	 * Istanzia le classi Principali
 	 */
 	public static function init() {
-		load_plugin_textdomain( 'ear2words', false, EAR2WORDS_NAME . '/languages' );
+		load_plugin_textdomain( 'wubtitle', false, WUBTITLE_NAME . '/languages' );
 		$classes = array(
 			'gutenber'                => Gutenberg\VideoBlock::class,
 			'settings'                => Dashboard\Settings::class,

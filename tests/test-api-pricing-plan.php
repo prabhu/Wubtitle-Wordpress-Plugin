@@ -1,9 +1,9 @@
 <?php
-use Ear2Words\Api\ApiPricingPlan;
+use Wubtitle\Api\ApiPricingPlan;
 /**
  * Class TestAPIPricingPlan
  *
- * @package Ear2Words
+ * @package Wubtitle
  */
 
  /**

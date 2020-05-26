@@ -1,4 +1,4 @@
-/*  global ear2words_button_object  */
+/*  global wubtitle_button_object  */
 import { ToggleControl, Button } from "@wordpress/components";
 import { Fragment, useState } from "@wordpress/element";
 import { __ } from "@wordpress/i18n";
@@ -26,13 +26,13 @@ const SubtitleControl = ({ statusText, langText, isPublished, postId }) => {
 	};
 
 	const onClick = () => {
-		setMessage(__("Getting transcript...", "ear2words"));
+		setMessage(__("Getting transcript...", "wubtitle"));
 		wp.ajax
 			.send("get_transcript_internal_video", {
 				type: "POST",
 				data: {
 					id: postId,
-					_ajax_nonce: ear2words_button_object.ajaxnonce
+					_ajax_nonce: wubtitle_button_object.ajaxnonce
 				}
 			})
 			.then(response => {
@@ -49,27 +49,27 @@ const SubtitleControl = ({ statusText, langText, isPublished, postId }) => {
 
 	const editStatus = statusToEdit => {
 		entityDispatcher.editEntityRecord("postType", "attachment", postId, {
-			meta: { ear2words_status: statusToEdit }
+			meta: { wubtitle_status: statusToEdit }
 		});
 	};
 
 	return (
 		<Fragment>
 			<p style={{ margin: "0" }}>
-				{__("Status: ", "ear2words") + statusExten[statusText]}
+				{__("Status: ", "wubtitle") + statusExten[statusText]}
 			</p>
 			<p style={{ margin: "8px 0" }}>
-				{__("Language: ", "ear2words") + langExten[langText]}
+				{__("Language: ", "wubtitle") + langExten[langText]}
 			</p>
 			<ToggleControl
-				label={__("Published", "ear2words")}
+				label={__("Published", "wubtitle")}
 				checked={isPublished}
 				onChange={() => {
 					updateStatus(isPublished);
 				}}
 			/>
 			<Button name="sottotitoli" id={postId} isPrimary onClick={onClick}>
-				{__("Get Transcribe", "ear2words")}
+				{__("Get Transcribe", "wubtitle")}
 			</Button>
 			<p>{message}</p>
 		</Fragment>

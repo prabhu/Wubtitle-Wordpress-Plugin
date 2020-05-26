@@ -2,7 +2,7 @@
 /**
  * Class SampleTest
  *
- * @package Ear2words
+ * @package Wubtitle
  */
 
 /**
