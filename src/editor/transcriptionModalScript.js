@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	);
 	let isOpened = false;
 	let videoTitle;
+	const myNotice = document.getElementById("wubtitle-notice");
 	const button = document.getElementById("insert-my-media");
 	if (button) {
 		button.addEventListener("click", () => {
@@ -41,6 +42,7 @@ document.addEventListener("DOMContentLoaded", function() {
 				}
 			})
 			.then(response => {
+				myNotice.style.display = "none";
 				wp.media.editor.insert(
 					`<p> ${wp.i18n.__(
 						"Transcription of the video",
@@ -51,9 +53,8 @@ document.addEventListener("DOMContentLoaded", function() {
 				);
 			})
 			.fail(response => {
-				wp.media.editor.insert(
-					`<p style='color:red'>  ${response} </p>`
-				);
+				myNotice.style.display = "";
+				myNotice.innerHTML = `<p>  ${response} </p>`;
 			});
 	});
 
@@ -64,12 +65,11 @@ document.addEventListener("DOMContentLoaded", function() {
 		);
 		const languageSubtitle = languageSelect.value;
 		if (languageSubtitle === "") {
-			wp.media.editor.insert(
-				`<p style='color:red'> ${wp.i18n.__(
-					"Error, language not selected",
-					"wubtitle"
-				)} </p>`
-			);
+			myNotice.style.visibility = "visible";
+			myNotice.innerHTML = `<p>  ${wp.i18n.__(
+				"Error, language not selected",
+				"wubtitle"
+			)}  </p>`;
 			return;
 		}
 		wp.ajax
@@ -83,15 +83,15 @@ document.addEventListener("DOMContentLoaded", function() {
 				}
 			})
 			.then(response => {
+				myNotice.style.display = "none";
 				wp.media.editor.insert(
 					`[embed]  ${embedUrl} [/embed]
 					<p> ${response} </p>`
 				);
 			})
 			.fail(response => {
-				wp.media.editor.insert(
-					`<p style='color:red'> ${response} </p>`
-				);
+				myNotice.style.display = "";
+				myNotice.innerHTML = `<p>  ${response} </p>`;
 			});
 	});
 
@@ -130,7 +130,8 @@ document.addEventListener("DOMContentLoaded", function() {
 					).innerHTML += `<option value=${subtitle.baseUrl}>${subtitle.name.simpleText}</option>`;
 				});
 			})
-			.fail(() => {
+			.fail(response => {
+				errorMessage.innerHTML = response;
 				document.getElementById(
 					"transcript-select-lang"
 				).innerHTML = `<option value="">${wp.i18n.__(
@@ -169,7 +170,7 @@ document.addEventListener("DOMContentLoaded", function() {
 	const addListenerFunction = () => {
 		const inputUrl = document.getElementById("embed-url-field");
 		if (inputUrl) {
-			if (inputUrl.value !== "") {
+			if (pattern.test(inputUrl.value)) {
 				getLanguages(inputUrl.value);
 			}
 			inputUrl.addEventListener("input", () => {
