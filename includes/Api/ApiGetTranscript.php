@@ -115,10 +115,18 @@ class ApiGetTranscript {
 
 		$file_info = array();
 
-		$response = wp_remote_get( $get_info_url );
+		$response = wp_remote_get(
+			$get_info_url,
+			array(
+				'headers' => array( 'Accept-Language' => get_locale() ),
+			)
+		);
 		$file     = wp_remote_retrieve_body( $response );
 
 		parse_str( $file, $file_info );
+		if ( 'fail' === $file_info['status'] ) {
+			wp_send_json_error( __( 'Url not a valid youtube url', 'wubtitle' ) );
+		}
 		$title_video = json_decode( $file_info['player_response'] )->videoDetails->title;
 		$languages   = json_decode( $file_info['player_response'] )->captions->playerCaptionsTracklistRenderer->captionTracks;
 		$video_info  = array(

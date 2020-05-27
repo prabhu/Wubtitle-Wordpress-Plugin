@@ -21,6 +21,17 @@ class TrascriptionsExtends {
 	public function run() {
 		add_action( 'media_buttons', array( $this, 'add_transcriptions_media_button' ), 15 );
 		add_action( 'wp_enqueue_media', array( $this, 'include_transcription_modal_script' ) );
+		add_action( 'admin_notices', array( $this, 'wubtitle_admin_notice' ) );
+	}
+	/**
+	 * Aggiunge un div per inserire dinamicamente da javascript delle notice
+	 */
+	public function wubtitle_admin_notice() {
+		$screen = get_current_screen();
+		if ( ! $screen || 'post' !== $screen->base ) {
+			return;
+		}
+		echo '<div id="wubtitle-notice" class="notice notice-error" style="display:none"></div>';
 	}
 	/**
 	 * Include il file javascript.
