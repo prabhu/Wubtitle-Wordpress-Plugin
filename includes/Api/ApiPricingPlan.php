@@ -3,11 +3,11 @@
  * Questo file implementa le funzioni relative a stripe.
  *
  * @author     Alessio Catania
- * @since      0.1.0
- * @package    Ear2Words\Api
+ * @since      1.0.0
+ * @package    Wubtitle\Api
  */
 
-namespace Ear2Words\Api;
+namespace Wubtitle\Api;
 
 /**
  * Questa classe implementa le funzioni relative a stripe
@@ -18,6 +18,91 @@ class ApiPricingPlan {
 	 */
 	public function run() {
 		add_action( 'wp_ajax_submit_plan', array( $this, 'send_plan' ) );
+
+		add_action( 'wp_ajax_reset_license', array( $this, 'reset_license' ) );
+		add_action( 'wp_ajax_reactivate_plan', array( $this, 'reactivate_plan' ) );
+		add_action( 'wp_ajax_update_payment_method', array( $this, 'update_payment_method' ) );
+		add_action( 'wp_ajax_change_plan', array( $this, 'change_plan' ) );
+	}
+	/**
+	 * Esegue la chiamata all'endpoint aws per confermare il cambio del piano.
+	 */
+	public function change_plan() {
+		$wanted_plan = get_option( 'wubtitle_wanted_plan' );
+		if ( ! isset( $_POST['_ajax_nonce'] ) || empty( $wanted_plan ) ) {
+			wp_send_json_error( __( 'An error occurred. Please try again in a few minutes.', 'wubtitle' ) );
+		}
+		$nonce = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
+		check_ajax_referer( 'itr_ajax_nonce', $nonce );
+		$body        = array(
+			'data' => array(
+				'planId' => $wanted_plan,
+			),
+			'type' => 'plan',
+		);
+		$license_key = get_option( 'wubtitle_license_key' );
+		if ( empty( $license_key ) ) {
+			wp_send_json_error( __( 'Unable to create subtitles. The product license key is missing.', 'wubtitle' ) );
+		}
+		$response      = wp_remote_post(
+			ENDPOINT . 'stripe/customer/update',
+			array(
+				'method'  => 'POST',
+				'headers' => array(
+					'licenseKey'   => $license_key,
+					'Content-Type' => 'application/json; charset=utf-8',
+				),
+				'body'    => wp_json_encode( $body ),
+			)
+		);
+		$code_response = $this->is_successful_response( $response ) ? wp_remote_retrieve_response_code( $response ) : '500';
+		$message       = array(
+			'400' => __( 'An error occurred. Please try again in a few minutes', 'wubtitle' ),
+			'401' => __( 'An error occurred. Please try again in a few minutes', 'wubtitle' ),
+			'403' => __( 'Access denied', 'wubtitle' ),
+			'500' => __( 'Could not contact the server', 'wubtitle' ),
+			''    => __( 'Could not contact the server', 'wubtitle' ),
+		);
+		if ( 200 !== $code_response ) {
+			wp_send_json_error( $message[ $code_response ] );
+		}
+		delete_option( 'wubtitle_amount_preview' );
+		delete_option( 'wubtitle_wanted_plan' );
+		wp_send_json_success();
+	}
+	/**
+	 * Chiama l'endpoint per fare la riattivazione del piano.
+	 */
+	public function reactivate_plan() {
+		if ( ! isset( $_POST['_ajax_nonce'] ) ) {
+			wp_send_json_error( __( 'An error occurred. Please try again in a few minutes.', 'wubtitle' ) );
+		}
+		$nonce = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
+		check_ajax_referer( 'itr_ajax_nonce', $nonce );
+		$license_key = get_option( 'wubtitle_license_key' );
+		if ( empty( $license_key ) ) {
+			wp_send_json_error( __( 'Unable to create subtitles. The product license key is missing.', 'wubtitle' ) );
+		}
+		update_option( 'wubtitle_is_reactivating', true );
+		$response      = wp_remote_post(
+			ENDPOINT . 'stripe/customer/reactivate',
+			array(
+				'method'  => 'POST',
+				'headers' => array(
+					'licenseKey' => $license_key,
+				),
+			)
+		);
+		$code_response = $this->is_successful_response( $response ) ? wp_remote_retrieve_response_code( $response ) : '500';
+		$message       = array(
+			'400' => __( 'An error occurred. Please try again in a few minutes', 'wubtitle' ),
+			'403' => __( 'Access denied', 'wubtitle' ),
+			'500' => __( 'Could not contact the server', 'wubtitle' ),
+		);
+		if ( 200 !== $code_response ) {
+			wp_send_json_error( $message[ $code_response ] );
+		}
+		wp_send_json_success();
 	}
 	/**
 	 *  Creo il body della richiesta.
@@ -33,6 +118,7 @@ class ApiPricingPlan {
 			'data' => array(
 				'planId'    => $pricing_plan,
 				'domainUrl' => $site_url,
+				'siteLang'  => explode( '_', get_locale(), 2 )[0],
 			),
 		);
 	}
@@ -42,17 +128,119 @@ class ApiPricingPlan {
 	public function send_plan() {
 		$site_url = get_site_url();
 		if ( ! isset( $_POST['_ajax_nonce'] ) || ! isset( $_POST['pricing_plan'] ) || ! isset( $site_url ) ) {
-			wp_send_json_error( __( 'An error occurred. Please try again in a few minutes.', 'ear2words' ) );
+			wp_send_json_error( __( 'An error occurred. Please try again in a few minutes.', 'wubtitle' ) );
 		}
 		$pricing_plan = sanitize_text_field( wp_unslash( $_POST['pricing_plan'] ) );
 		$site_url     = sanitize_text_field( wp_unslash( $site_url ) );
 		$nonce        = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
-		if ( ! check_ajax_referer( 'itr_ajax_nonce', $nonce ) ) {
-			wp_send_json_error( __( 'Error, invalid request', 'ear2words' ) );
+		check_ajax_referer( 'itr_ajax_nonce', $nonce );
+		$body         = $this->set_body_request( $pricing_plan, $site_url );
+		$url_endpoint = ENDPOINT . 'stripe/session/create';
+		$license_key  = get_option( 'wubtitle_license_key' );
+		if ( empty( $license_key ) ) {
+			wp_send_json_error( __( 'Unable to create subtitles. The product license key is missing.', 'wubtitle' ) );
 		}
-		$body          = $this->set_body_request( $pricing_plan, $site_url );
+		// se non è free contatto l'endpoint per aggiorna il piano.
+		if ( ! get_option( 'wubtitle_free' ) ) {
+			$url_endpoint = ENDPOINT . 'stripe/customer/update/preview';
+			unset( $body['data']['siteLang'] );
+			unset( $body['data']['domainUrl'] );
+		}
 		$response      = wp_remote_post(
-			ENDPOINT . 'stripe/session/create',
+			$url_endpoint,
+			array(
+				'method'  => 'POST',
+				'headers' => array(
+					'licenseKey'   => $license_key,
+					'Content-Type' => 'application/json; charset=utf-8',
+				),
+				'body'    => wp_json_encode( $body ),
+			)
+		);
+		$code_response = $this->is_successful_response( $response ) ? wp_remote_retrieve_response_code( $response ) : '500';
+		$message       = array(
+			'400' => __( 'An error occurred. Please try again in a few minutes', 'wubtitle' ),
+			'401' => __( 'An error occurred. Please try again in a few minutes', 'wubtitle' ),
+			'403' => __( 'Access denied', 'wubtitle' ),
+			'500' => __( 'Could not contact the server', 'wubtitle' ),
+			''    => __( 'Could not contact the server', 'wubtitle' ),
+		);
+		// 200 se è un downgrade o un upgrade
+		if ( 200 === $code_response ) {
+			$response_body  = json_decode( wp_remote_retrieve_body( $response ) );
+			$amount_preview = $response_body->data->amountPreview;
+			update_option( 'wubtitle_amount_preview', $amount_preview );
+			update_option( 'wubtitle_wanted_plan', $pricing_plan );
+			wp_send_json_success( 'change_plan' );
+		}
+		// 201 se è il primo pagamento
+		if ( 201 !== $code_response ) {
+			wp_send_json_error( $message[ $code_response ] );
+		}
+		$response_body = json_decode( wp_remote_retrieve_body( $response ) );
+		$session_id    = $response_body->data->sessionId;
+		wp_send_json_success( $session_id );
+	}
+	/**
+	 * Riceve i dati da javascript e li invia all'endpoint per effettuare l'aggiornamento dei dati di pagamento.
+	 */
+	public function update_payment_method() {
+		if ( ! isset( $_POST['_ajax_nonce'] ) ) {
+			wp_send_json_error( __( 'An error occurred. Please try again in a few minutes.', 'wubtitle' ) );
+		}
+		$nonce = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
+		check_ajax_referer( 'itr_ajax_nonce', $nonce );
+		$license_key = get_option( 'wubtitle_license_key' );
+		if ( empty( $license_key ) ) {
+			wp_send_json_error( __( 'Unable to create subtitles. The product license key is missing.', 'wubtitle' ) );
+		}
+		$body          = array(
+			'type' => 'payment',
+		);
+		$response      = wp_remote_post(
+			ENDPOINT . 'stripe/customer/update',
+			array(
+				'method'  => 'POST',
+				'headers' => array(
+					'Content-Type' => 'application/json; charset=utf-8',
+					'licenseKey'   => $license_key,
+				),
+				'body'    => wp_json_encode( $body ),
+			)
+		);
+		$code_response = $this->is_successful_response( $response ) ? wp_remote_retrieve_response_code( $response ) : '500';
+		$message       = array(
+			'400' => __( 'An error occurred. Please try again in a few minutes', 'wubtitle' ),
+			'401' => __( 'An error occurred. Please try again in a few minutes', 'wubtitle' ),
+			'403' => __( 'Access denied', 'wubtitle' ),
+			'500' => __( 'Could not contact the server', 'wubtitle' ),
+			''    => __( 'Could not contact the server', 'wubtitle' ),
+		);
+		if ( 201 !== $code_response ) {
+			wp_send_json_error( $message[ $code_response ] );
+		}
+		$response_body = json_decode( wp_remote_retrieve_body( $response ) );
+		$session_id    = $response_body->data->sessionId;
+		wp_send_json_success( $session_id );
+	}
+	/**
+	 * Riceve i dati da javascript e li invia all'endpoint per resettare la licenza.
+	 */
+	public function reset_license() {
+		$site_url = get_site_url();
+		if ( ! isset( $_POST['_ajax_nonce'] ) ) {
+			wp_send_json_error( __( 'An error occurred. Please try again in a few minutes.', 'wubtitle' ) );
+		}
+		$nonce    = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
+		$site_url = sanitize_text_field( wp_unslash( $site_url ) );
+		check_ajax_referer( 'itr_ajax_nonce', $nonce );
+		$body          = array(
+			'data' => array(
+				'domainUrl' => $site_url,
+			),
+		);
+		$response      = wp_remote_post(
+			ENDPOINT . 'key/fetch',
 			array(
 				'method'  => 'POST',
 				'headers' => array(
@@ -63,18 +251,14 @@ class ApiPricingPlan {
 		);
 		$code_response = $this->is_successful_response( $response ) ? wp_remote_retrieve_response_code( $response ) : '500';
 		$message       = array(
-			'400' => __( 'An error occurred. Please try again in a few minutes', 'ear2words' ),
-			'401' => __( 'An error occurred. Please try again in a few minutes', 'ear2words' ),
-			'403' => __( 'Access denied', 'ear2words' ),
-			'500' => __( 'Could not contact the server', 'ear2words' ),
-			''    => __( 'Could not contact the server', 'ear2words' ),
+			'400' => __( 'An error occurred. Please try again in a few minutes', 'wubtitle' ),
+			'403' => __( 'Access denied', 'wubtitle' ),
+			'500' => __( 'Could not contact the server', 'wubtitle' ),
 		);
-		if ( 201 !== $code_response ) {
+		if ( 200 !== $code_response ) {
 			wp_send_json_error( $message[ $code_response ] );
 		}
-		$response_body = json_decode( wp_remote_retrieve_body( $response ) );
-		$session_id    = $response_body->data->sessionId;
-		wp_send_json_success( $session_id );
+		wp_send_json_success();
 	}
 	/**
 	 * Verifico che la chiamata non sia andata in errore.

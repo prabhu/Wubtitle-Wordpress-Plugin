@@ -1,9 +1,9 @@
 <?php
-use Ear2Words\Api\ApiRequest;
+use Wubtitle\Api\ApiRequest;
 /**
  * Class TestAPI
  *
- * @package Ear2Words
+ * @package Wubtitle
  */
 
  /**
@@ -16,7 +16,7 @@ class TestApiRequest extends WP_Ajax_UnitTestCase {
    public function SetUp(){
      parent::setUp();
      update_option('siteurl','http://wordpress01.local');
-     $this->instance = new Ear2Words\Api\ApiRequest();
+     $this->instance = new Wubtitle\Api\ApiRequest();
    }
    /**
     * tearDown function.
@@ -26,7 +26,7 @@ class TestApiRequest extends WP_Ajax_UnitTestCase {
     }
 
    /**
-    * Effuettua la chiamata senza nonce
+    * Effettua la chiamata senza nonce
     */
     public function test_negative_send_request(){
       try {
@@ -70,7 +70,7 @@ class TestApiRequest extends WP_Ajax_UnitTestCase {
        * Verifica che il body è stato creato correttamente
        */
        public function test_body_request(){
-         $src = 'http://test';
+         $src = 'http://test.com';
          $attachment_data = array(
             'guid'           => '/test',
             'post_mime_type' => 'video',
@@ -91,6 +91,7 @@ class TestApiRequest extends WP_Ajax_UnitTestCase {
          );
          $result = $this->instance->set_body_request($data);
          $expected_body = array(
+           'source' => 'INTERNAL',
     			 'data' => array(
     				 'attachmentId' => $attachment_id,
     				 'url'          => $src,
