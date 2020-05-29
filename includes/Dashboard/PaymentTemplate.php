@@ -1,6 +1,6 @@
 <?php
 /**
- * This file describes handle Templates.
+ * This file handle payment template.
  *
  * @author     Nicola Palermo
  * @since      0.1.0
@@ -10,7 +10,7 @@
 namespace Wubtitle\Dashboard;
 
 /**
- * This class handle Payment Templates .
+ * This class handle Payment Templates.
  */
 class PaymentTemplate {
 	/**
@@ -24,7 +24,7 @@ class PaymentTemplate {
 
 
 	/**
-	 * Include il template che viene caricato nella finestra popup per l'acquisto della licenza al click del bottone "acquista".
+	 * Popup window template displayed on license buying button click.
 	 */
 	public function change_plan_template() {
 		$map_plans     = array(
@@ -52,7 +52,7 @@ class PaymentTemplate {
 		wp_die();
 	}
 	/**
-	 * Include il template che viene caricato nella finestra popup per l'acquisto della licenza al click del bottone "acquista".
+	 * Load the payment template
 	 */
 	public function load_payment_template() {
 		if ( current_user_can( 'manage_options' ) ) {
@@ -67,7 +67,7 @@ class PaymentTemplate {
 		wp_die();
 	}
 	/**
-	 * Include il template che viene caricato nella finestra popup per l'aggiornamento dei dati di pagamento.
+	 * Load the update template.
 	 */
 	public function load_update_template() {
 		if ( current_user_can( 'manage_options' ) ) {

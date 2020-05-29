@@ -29,21 +29,22 @@ class Settings {
 	}
 
 	/**
-	 * Crea un nuova voce nel menu della dashbord
+	 * Create a new dashboard menu item.
 	 */
 	public function create_settings_menu() {
 		// TODO: Cambiare $icon_url e $position (attualmente subito dopo "Impostazioni") quando verranno date indicazioni UX.
 		add_menu_page( __( 'Wubtitle Settings', 'wubtitle' ), __( 'Wubtitle', 'wubtitle' ), 'manage_options', 'wubtitle_settings', array( $this, 'render_settings_page' ), 'dashicons-format-status', 81 );
 	}
+
 	/**
-	 *  Faccio l'enqueue dello style per i settings.
+	 *  Enqueue settings style.
 	 */
 	public function wubtitle_settings_style() {
 		wp_enqueue_style( 'wubtitle_settings_style', WUBTITLE_URL . 'src/css/settingsStyle.css', null, true );
 	}
 
 	/**
-	 * Crea la pagina dei settings
+	 * Setting page render.
 	 */
 	public function render_settings_page() {
 		Loader::get( 'cron' )->get_remote_data();
@@ -113,8 +114,9 @@ class Settings {
 		</form>
 		<?php
 	}
+
 	/**
-	 * Controlla se ci sono i parametri in get e da una notice all'utente.
+	 * Check GET parameters e relative notice to user.
 	 */
 	public function check_notice_stripe() {
 		$message = false;
@@ -195,7 +197,7 @@ class Settings {
 
 
 	/**
-	 * Aggiunge una nuova impostazione
+	 * Add a new setting.
 	 */
 	public function init_settings() {
 		register_setting(
@@ -244,9 +246,9 @@ class Settings {
 	}
 
 	/**
-	 * Chiamata ad endpoint remoto per check license key.
+	 * Remote licence key check request.
 	 *
-	 * @param string $license_key license key dell'input.
+	 * @param string $license_key input license key.
 	 */
 	private function remote_request( $license_key ) {
 		$headers = array(
@@ -275,7 +277,7 @@ class Settings {
 
 		$validation['verified'] = $retrieved['data']['verified'];
 
-		// xxx indica un errore da gestire con un messaggio generico, 4xx e 5xx tutti gli errori 400 o 500.
+		// xxx handle a generic error, 4xx and 5xx handles all 400 or 500 errors.
 		$validation['error'] = 'xxx';
 		if ( 200 === $status && ! $validation['verified'] ) {
 			$validation['error'] = $retrieved['data']['errorType'];
@@ -289,7 +291,7 @@ class Settings {
 	}
 
 	/**
-	 * Aggiunge un nuovo campo all'impostazione precedentemente creata
+	 * Add a new field to the previous setting.
 	 */
 	public function init_settings_field() {
 		add_settings_section( 'wubtitle-main-settings', null, null, 'wubtitle-settings' );
@@ -323,9 +325,9 @@ class Settings {
 	}
 
 	/**
-	 * Crea un componente input da richiamare nel form
+	 * Create an input component needed in the form.
 	 *
-	 * @param array $args Parametri dell'input.
+	 * @param array $args input parameters.
 	 */
 	public function input_field( $args ) {
 		$option = '';
@@ -347,9 +349,9 @@ class Settings {
 		<?php
 	}
 	/**
-	 * Crea il bottone per fare l'upgrade del bottone.
+	 * Upgrade button.
 	 *
-	 * @param array $args Parametri dell'input.
+	 * @param array $args input parameters.
 	 */
 	public function upgrade_button( $args ) {
 		?>
@@ -361,9 +363,9 @@ class Settings {
 	}
 
 	/**
-	 * Includo gli script.
+	 * Enqueue scripts.
 	 *
-	 * @param string $hook valore presente nell'hook admin_enqueue_scripts.
+	 * @param string $hook value admin_enqueue_scripts hook.
 	 */
 	public function e2w_settings_scripts( $hook ) {
 		if ( 'toplevel_page_wubtitle_settings' === $hook ) {

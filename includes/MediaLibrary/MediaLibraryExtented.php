@@ -13,11 +13,12 @@ use Wubtitle\Loader;
 use Wubtitle\Helpers;
 
 /**
- * Classe che estende la media library
+ * This class che extends the media library
  */
 class MediaLibraryExtented {
+
 	/**
-	 * Setup delle action.
+	 * Actions setup.
 	 */
 	public function run() {
 		$helpers = new Helpers();
@@ -31,7 +32,7 @@ class MediaLibraryExtented {
 	}
 
 	/**
-	 *  Faccio l'enqueue dello style per i settings.
+	 *  Enqueue settings style.
 	 */
 	public function wubtitle_medialibrary_style() {
 		wp_enqueue_style( 'wubtitle_medialibrary_style', WUBTITLE_URL . '/src/css/mediaStyle.css', null, true );
@@ -40,8 +41,9 @@ class MediaLibraryExtented {
 
 	/**
 	 *  Aggiunge il form di wubtitle nella scheda "add media".
+	 *  Add wubtitle form into "add media" tab.
 	 *
-	 * @param array $form_fields campi finestra modale.
+	 * @param array $form_fields modal window fields.
 	 * @param array $post attachment.
 	 */
 	public function add_generate_subtitle_form( $form_fields, $post ) {
@@ -69,7 +71,8 @@ class MediaLibraryExtented {
 			);
 			return $form_fields;
 		}
-		// Aggiunge lo stato del sottotitolo.
+
+		// Add subtitle state.
 		$status                    = $post->wubtitle_status;
 		$form_fields['e2w_status'] = array(
 			'label' => __( 'Subtitle', 'wubtitle' ),
@@ -78,7 +81,7 @@ class MediaLibraryExtented {
 			'value' => $post->ID,
 		);
 
-		// Aggiunge la select della lingua e il bottone per generare i sottotitoli se il video non è ancora stato processato da e2w.
+		// Add language select and subtitle button.
 		if ( '' === $status || 'error' === $status ) {
 			$form_fields['e2w_form'] = array(
 				'label' => __( 'Language', 'wubtitle' ),
@@ -100,7 +103,8 @@ class MediaLibraryExtented {
 			$form_fields['e2w_form']['html'] .= ob_get_clean();
 			return $form_fields;
 		}
-		// Sostituisce lo stato con una select per pubblicare o disabilitare i sottotitoli se lo stato è uno tra enabled e draft.
+
+		// Replace state with a select to enable/disable subtitles.
 		if ( 'draft' === $status || 'enabled' === $status ) {
 			$form_fields['e2w_status'] = array(
 				'label' => __( 'Subtitle', 'wubtitle' ),
@@ -118,7 +122,8 @@ class MediaLibraryExtented {
 			<?php
 			$form_fields['e2w_status']['html'] .= ob_get_clean();
 		}
-		// Aggiunge una label per la lingua del video.
+
+		// Add a label for video language.
 		$form_fields['e2w_lang'] = array(
 			'label' => __( 'Language', 'wubtitle' ),
 			'input' => 'html',
@@ -129,7 +134,7 @@ class MediaLibraryExtented {
 	}
 
 	/**
-	 *  Check sulla lingua disponibile nel piano free.
+	 * Check free plan languages.
 	 *
 	 * @param string $lang_code language code.
 	 */
@@ -139,7 +144,7 @@ class MediaLibraryExtented {
 	}
 
 	/**
-	 *  Ritorna le options delle lingue selezionabili nelle select "genera sottotitoli".
+	 * Language select options.
 	 *
 	 * @param string $lang language code.
 	 */
@@ -164,9 +169,9 @@ class MediaLibraryExtented {
 	}
 
 	/**
-	 *  Aggiunge il form di wubtitle nella scheda "add media".
+	 * Add wubtitle form into "add media" tab.
 	 *
-	 * @param array $form_fields campi finestra modale.
+	 * @param array $form_fields modal window fields.
 	 * @param array $post attachment.
 	 */
 	public function add_generate_subtitle_form_into_media_library( $form_fields, $post ) {
@@ -192,15 +197,16 @@ class MediaLibraryExtented {
 		}
 		$status = empty( $post->wubtitle_status ) ? 'none' : $post->wubtitle_status;
 
-		// Aggiunge una select per pubblicare o disabilitare i sottotitoli se lo stato è uno tra enabled e draft.
+		// Add a select to enable/disable subtitles.
 		if ( 'draft' === $status || 'enabled' === $status ) {
 			$form_fields = $this->create_toolbar_and_select( $status, $post->ID );
 			return $form_fields;
 		}
-		// Aggiunge l'header.
+
+		// Add header.
 		$form_fields['e2w_header']['tr'] = '<strong> ' . __( 'Subtitles', 'wubtitle' ) . ' </strong>';
 
-		// Aggiunge lo stato del sottotitolo.
+		// Add subtitle state.
 		$form_fields['e2w_status'] = array(
 			'label' => __( 'Status', 'wubtitle' ),
 			'input' => 'html',
@@ -211,29 +217,31 @@ class MediaLibraryExtented {
 			'none',
 			'error',
 		);
-		// Aggiunge la select della lingua e il bottone per generare i sottotitoli se il video non è ancora stato processato da e2w.
+
+		// Add language select and subtitle button.
 		if ( in_array( $status, $status_none, true ) ) {
 			$form_fields['e2w_form'] = $this->create_select_and_button( $post->ID );
 			return $form_fields;
 		}
 
-		// Aggiunge una label per la lingua del video.
+		// Add video language label.
 		$form_fields['e2w_lang'] = array(
 			'label' => __( 'Language', 'wubtitle' ),
 			'input' => 'html',
 			'html'  => '<label for="attachments-' . $post->ID . '-e2w_lang">' . $this->get_video_language( $post->ID ) . '</label>',
 			'value' => $post->ID,
 		);
-		// Aggiunge paragrafo.
+
+		// Add a paragraph.
 		$form_fields['e2w_lang']['helps'] = __( 'Wait while subtitles are created. Subtitles will be available as soon as possible', 'wubtitle' );
 		return $form_fields;
 	}
 
 	/**
-	 * Crea la toolbar e inserisce una label per la lingua del sottotitolo e una select per scegliere se pubblicare o meno i stottotitoli.
+	 * Toolbar creation, add subtitles languages label and publishing select.
 	 *
-	 * @param string $status stato dei stottotitoli.
-	 * @param int    $id_video id del video.
+	 * @param string $status subtitles state.
+	 * @param int    $id_video video id.
 	 */
 	private function create_toolbar_and_select( $status, $id_video ) {
 		$form_fields = array();
@@ -254,9 +262,9 @@ class MediaLibraryExtented {
 			return $form_fields;
 	}
 	/**
-	 * Crea la select della lingua e il bottone per generare i sottotitoli.
+	 * Create language select and subtitle generation button.
 	 *
-	 * @param int $id_video id del video.
+	 * @param int $id_video video id.
 	 */
 	private function create_select_and_button( $id_video ) {
 		$form_fields = array(
@@ -280,10 +288,10 @@ class MediaLibraryExtented {
 	}
 
 	/**
-	 * Esegue la chiamata all'endpoint per generare i sottotitoli, se la chiamata va a buon fine salva uuid e stato.
+	 * Request subtitle generation to endpoint, then save uuid and state.
 	 *
-	 * @param array $post contiene i dati dell'attachment.
-	 * @param array $attachment contiene i dati degli input custom.
+	 * @param array $post attachment data.
+	 * @param array $attachment custom input data.
 	 */
 	public function video_attachment_fields_to_save( $post, $attachment ) {
 		if ( isset( $attachment['select-status'] ) ) {
@@ -317,10 +325,10 @@ class MediaLibraryExtented {
 		return $post;
 	}
 	/**
-	 * Sovrascrive lo shortcode video aggiungendo i sottotitoli come file_get_content
+	 * Add subtitles overriding video shortcode.
 	 *
-	 * @param string $html html generato dallo shortcode.
-	 * @param array  $attr attributi dello shortcode.
+	 * @param string $html shortcode html.
+	 * @param array  $attr shortcode attributes.
 	 */
 	public function wubtitle_video_shortcode( $html, $attr ) {
 		remove_filter( 'wp_video_shortcode_override', array( $this, 'wubtitle_video_shortcode' ), 10 );
@@ -337,9 +345,9 @@ class MediaLibraryExtented {
 		return $html;
 	}
 	/**
-	 * Ritorna la lingua prendendola dal post meta del video. Inoltre la traduce.
+	 * Get and translate video language.
 	 *
-	 * @param int $id_video id del video.
+	 * @param int $id_video video id.
 	 */
 	public function get_video_language( $id_video ) {
 		$lang     = get_post_meta( $id_video, 'wubtitle_lang_video', true );

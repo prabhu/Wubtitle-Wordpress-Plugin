@@ -1,6 +1,6 @@
 <?php
 /**
- * Pagina per la conferma dell'upgrade del piano.
+ * Plan upgrade page.
  *
  * @author     Nicola Palermo
  * @since      0.1.0
@@ -8,7 +8,7 @@
  */
 
 /**
- * Pagina per l'upgrade del piano.
+ * Plan upgrade page.
  */
 require WUBTITLE_DIR . 'includes/Dashboard/Templates/plans_array.php';
 
