@@ -32,9 +32,9 @@ class Transcript {
 	}
 
 	/**
-	 * Aggiunge una nuova colonna.
+	 * Add new column.
 	 *
-	 * @param array $columns array delle colonne del post.
+	 * @param array $columns columns of the post.
 	 */
 	public function set_custom_transcript_column( $columns ) {
 		$columns['shortcode'] = __( 'Shortcode', 'wubtitle' );
@@ -42,10 +42,10 @@ class Transcript {
 	}
 
 	/**
-	 * Gestisce il contenuto delle colonne.
+	 * Manage the content of the columns
 	 *
-	 * @param string $column colonna da gestire.
-	 * @param int    $post_id id del post nel loop.
+	 * @param string $column column to manage.
+	 * @param int    $post_id id of post.
 	 */
 	public function transcript_custom_column_values( $column, $post_id ) {
 		switch ( $column ) {
@@ -56,7 +56,7 @@ class Transcript {
 	}
 
 	/**
-	 * Aggiunge custom box per meta value source.
+	 * Add custom box for source meta value.
 	 */
 	public function add_source_box() {
 		add_meta_box(
@@ -74,9 +74,9 @@ class Transcript {
 
 
 	/**
-	 * Render del box source.
+	 * Render of source box.
 	 *
-	 * @param array $post array del post.
+	 * @param array $post array of post.
 	 */
 	public function source_box_html( $post ) {
 		?>
@@ -97,7 +97,7 @@ class Transcript {
 	/**
 	 * Check and generate content.
 	 *
-	 *  @param string $content contenuto ritornato dall'hook content_save_pre.
+	 *  @param string $content content returned from the content_save_pre hook.
 	 */
 	public function transcript_content( $content ) {
 		if ( ! isset( $_POST['url'] ) &&
@@ -180,7 +180,7 @@ class Transcript {
 	/**
 	 * Update option hook callback.
 	 *
-	 *  @param string $post_id id del post.
+	 *  @param string $post_id id of post.
 	 */
 	public function save_postdata( $post_id ) {
 		if ( wp_is_post_autosave( $post_id ) || wp_is_post_revision( $post_id ) ) {
@@ -209,7 +209,7 @@ class Transcript {
 
 
 	/**
-	 * Registra un nuovo post type.
+	 * Register a new post type.
 	 */
 	public function register_transcript_cpt() {
 		$labels = array(

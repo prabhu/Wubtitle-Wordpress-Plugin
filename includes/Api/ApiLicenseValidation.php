@@ -1,6 +1,6 @@
 <?php
 /**
- * Questo file crea un nuovo endpoint per la validazione della license key.
+ * This file create a new endpoint for the license key validation
  *
  * @author     Nicola Palermo
  * @since      0.1.0
@@ -14,7 +14,7 @@ use WP_REST_Response;
 use \Firebase\JWT\JWT;
 
 /**
- * Questa classe gestisce l'endpoint per la validazione della license key.
+ * This class manages endpoint for the license key validation.
  */
 class ApiLicenseValidation {
 	/**
@@ -25,7 +25,7 @@ class ApiLicenseValidation {
 	}
 
 	/**
-	 * Crea nuova rotta REST.
+	 * Create new REST route.
 	 */
 	public function register_license_validation_route() {
 		register_rest_route(
@@ -39,7 +39,7 @@ class ApiLicenseValidation {
 	}
 
 	/**
-	 * Autenticazione JWT.
+	 * JWT Authentication.
 	 *
 	 * @param array $request valori della richiesta.
 	 */
@@ -68,7 +68,7 @@ class ApiLicenseValidation {
 	}
 
 	/**
-	 * Ottiene gli uuid dei post.
+	 * Get uuid jobs and returns it.
 	 */
 	public function get_job_list() {
 		$args     = array(

@@ -23,7 +23,7 @@ class ApiCancelSubscription {
 	}
 
 	/**
-	 * Chiamata ad endpoint remoto per richiesta cancellazione.
+	 * Endpoint call to unsubscribe.
 	 */
 	public function remote_request() {
 		if ( ! isset( $_POST['_ajax_nonce'] ) ) {
@@ -49,7 +49,6 @@ class ApiCancelSubscription {
 
 		$code_response = wp_remote_retrieve_response_code( $response );
 
-		// TODO: Cambiare messaggi quando saranno disponibili mockup e copy.
 		$message = array(
 			'200' => __( 'Deleted successfully', 'wubtitle' ),
 			'400' => __( 'Bad Request. Please try again in a few minutes', 'wubtitle' ),

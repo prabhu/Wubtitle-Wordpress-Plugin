@@ -1,6 +1,6 @@
 <?php
 /**
- * Questo file implementa la chiamata http.
+ * This file implements the request to the APIGateway..
  *
  * @author     Alessio Catania
  * @since      0.1.0
@@ -10,7 +10,7 @@
 namespace Wubtitle\Api;
 
 /**
- * Questa classe implementa la chiamata alla APIGateway,
+ * This class implements the request to the APIGateway.
  */
 class ApiRequest {
 	/**
@@ -24,14 +24,14 @@ class ApiRequest {
 	/**
 	 * Get media attachment.
 	 *
-	 * @param integer $id_attachment id del video.
+	 * @param integer $id_attachment video id.
 	 */
 	public function get_media_metadata( $id_attachment ) {
 		return wp_get_attachment_metadata( $id_attachment );
 	}
 
 	/**
-	 * Verifica la validazione
+	 * Check the validation and sanitize input.
 	 *
 	 *  @param array $array post.
 	 */
@@ -44,9 +44,9 @@ class ApiRequest {
 		return $array;
 	}
 	/**
-	 *  Creo il body della richiesta.
+	 *  Create body request.
 	 *
-	 * @param array $data contiene id_attachment e src_attachment.
+	 * @param array $data it contains id_attachment and src_attachment.
 	 */
 	public function set_body_request( $data ) {
 		$languanges = array(
@@ -79,7 +79,7 @@ class ApiRequest {
 		return $body;
 	}
 	/**
-	 * Da qui invierò la richiesta HTTP.
+	 * Send the request to start the job.
 	 */
 	public function send_request() {
 		$license_key = get_option( 'wubtitle_license_key' );
@@ -123,9 +123,9 @@ class ApiRequest {
 			wp_send_json_success( $code_response );
 	}
 	/**
-	 * Verifico che la chiamata non sia andata in errore.
+	 * Check if the request was successful.
 	 *
-	 * @param array | WP_ERROR $response risposta chiamata.
+	 * @param array | WP_ERROR $response response to the request.
 	 */
 	private function is_successful_response( $response ) {
 		if ( ! is_wp_error( $response ) ) {
@@ -139,7 +139,7 @@ class ApiRequest {
 		return false;
 	}
 	/**
-	 * Registro post meta per lo stato.
+	 * Register wubtitle status.
 	 */
 	public function status_register_meta() {
 		register_post_meta(
@@ -165,10 +165,10 @@ class ApiRequest {
 		);
 	}
 	/**
-	 * Effettua la chiamata all'endpoint e ritorna la risposta.
+	 * Call to the endpoint and return the response.
 	 *
-	 * @param array  $body contiene il body della richiesta da inviare.
-	 * @param string $license_key licenza utente.
+	 * @param array  $body body request.
+	 * @param string $license_key user license.
 	 */
 	public function send_job_to_backend( $body, $license_key ) {
 		$response = wp_remote_post(
@@ -185,11 +185,11 @@ class ApiRequest {
 		return $response;
 	}
 	/**
-	 * Aggiorna o aggiunge l'uuid e lo stato
+	 * Update or add uuid, status and video lang.
 	 *
-	 * @param int    $id_attachment id dell'attachment.
-	 * @param string $lang lingua del video.
-	 * @param string $job_id uuid ricevuto dall'endpoint.
+	 * @param int    $id_attachment video id .
+	 * @param string $lang video lang.
+	 * @param string $job_id uuid jobs.
 	 */
 	public function update_uuid_status_and_lang( $id_attachment, $lang, $job_id ) {
 		update_post_meta( $id_attachment, 'wubtitle_lang_video', $lang );
@@ -197,9 +197,9 @@ class ApiRequest {
 		update_post_meta( $id_attachment, 'wubtitle_status', 'pending' );
 	}
 	/**
-	 * Crea un messaggio errore per l'errore 429 e lo ritorna.
+	 * Manage error 429.
 	 *
-	 * @param array $response risposta dell'endpoint aws.
+	 * @param array $response response aws enpoint.
 	 */
 	public function get_error_message( $response ) {
 		$response_body = json_decode( wp_remote_retrieve_body( $response ) );

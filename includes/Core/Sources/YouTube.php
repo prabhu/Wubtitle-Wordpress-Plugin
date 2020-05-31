@@ -15,9 +15,9 @@ namespace Wubtitle\Core\Sources;
 class YouTube implements \Wubtitle\Core\VideoSource {
 
 	/**
-	 * Effettua la chiamata all'endpoint.
+	 * Send job to aws endpoint.
 	 *
-	 * @param string $id_video il body della richiesta da inviare.
+	 * @param string $id_video id video youtube.
 	 */
 	public function send_job_to_backend( $id_video ) {
 		$response = wp_remote_post(
@@ -42,12 +42,12 @@ class YouTube implements \Wubtitle\Core\VideoSource {
 	}
 
 	/**
-	 * Recupera la trascrizione.
+	 * Get trascription.
 	 *
-	 * @param string $url_subtitle url sottotitoli youtube.
+	 * @param string $url_subtitle url youtube subtitle.
 	 * @param string $id_video id video.
-	 * @param string $title_video titolo video.
-	 * @param string $from da dove parte la richiesta.
+	 * @param string $title_video video title.
+	 * @param string $from where the request starts.
 	 */
 	public function get_subtitle_to_url( $url_subtitle, $id_video, $title_video, $from = '' ) {
 		if ( empty( $url_subtitle ) ) {
@@ -80,10 +80,10 @@ class YouTube implements \Wubtitle\Core\VideoSource {
 	}
 
 	/**
-	 * Recupera la trascrizioni.
+	 * Get the transcription.
 	 *
-	 * @param string $id_video id del video youtube.
-	 * @param string $from post type dal quale viene fatta la richiesta.
+	 * @param string $id_video id youtube video.
+	 * @param string $from where the request starts.
 	 */
 	public function get_subtitle( $id_video, $from ) {
 		$get_info_url = "https://www.youtube.com/get_video_info?video_id=$id_video";
@@ -143,9 +143,9 @@ class YouTube implements \Wubtitle\Core\VideoSource {
 
 
 	/**
-	 * Esegue la chiamata e poi recupera le trascrizioni.
+	 * Find url of auto-generated captions
 	 *
-	 * @param array $caption_tracks array di oggetti trascrizioni.
+	 * @param array $caption_tracks array of objects.
 	 */
 	public function find_url( $caption_tracks ) {
 		$url = '';
@@ -161,10 +161,10 @@ class YouTube implements \Wubtitle\Core\VideoSource {
 	}
 
 	/**
-	 * Esegue la chiamata e poi recupera le trascrizioni.
+	 * Call the aws endpoint and then retrieve the transcripts.
 	 *
-	 * @param string $url_video url del video youtube.
-	 * @param string $from post type dal quale viene fatta la richiesta.
+	 * @param string $url_video url of the youtube video.
+	 * @param string $from where the request starts.
 	 */
 	public function send_job_and_get_transcription( $url_video, $from ) {
 		$url_parts    = wp_parse_url( $url_video );
