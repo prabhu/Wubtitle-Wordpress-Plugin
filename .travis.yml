@@ -11,8 +11,10 @@ services:
   - mysql
 
 cache:
+  apt: true
   directories:
     - $HOME/.composer/cache
+    - node_modules
 
 # Explicitly test against supported versions of PHP
 #
