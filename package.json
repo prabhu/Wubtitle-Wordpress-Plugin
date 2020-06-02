@@ -33,7 +33,7 @@
     "lint:js:src": "wp-scripts lint-js ./src"
   },
   "dependencies": {
-    "@wordpress/api-fetch": "^3.11.0",
+    "@wordpress/api-fetch": "^3.16.0",
     "@wordpress/i18n": "^3.10.0"
   }
 }
