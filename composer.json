@@ -11,7 +11,7 @@
         "psr-4": {"Wubtitle\\": "./includes"}
     },
     "scripts": {
-	"analyze": "./vendor/bin/phpstan analyze",
+        "analyze": "./vendor/bin/phpstan analyze",
         "phpcs": "phpcs ./",
         "fixphp": "phpcbf",
         "phpmd": "phpmd ./ ansi ./phpmd.xml",
