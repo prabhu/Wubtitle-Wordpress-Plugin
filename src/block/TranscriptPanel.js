@@ -20,17 +20,17 @@ const TranscriptPanel = () => {
 				data: {
 					url: inputValue,
 					source: "youtube",
-					from: "transcript_post_type"
-				}
+					from: "transcript_post_type",
+				},
 			})
-			.then(response => {
+			.then((response) => {
 				setMessage(__("Done", "wubtitle"));
 				const block = wp.blocks.createBlock("core/paragraph", {
-					content: response
+					content: response,
 				});
 				wp.data.dispatch("core/block-editor").insertBlocks(block);
 			})
-			.fail(response => {
+			.fail((response) => {
 				setMessage(response);
 			});
 	};
@@ -44,7 +44,7 @@ const TranscriptPanel = () => {
 					label="video url"
 					id="input"
 					value={inputValue}
-					onChange={urlVideo => {
+					onChange={(urlVideo) => {
 						setInputValue(urlVideo);
 					}}
 				/>
@@ -67,6 +67,6 @@ domReady(() => {
 
 	registerPlugin("transcript-panel", {
 		render: TranscriptPanel,
-		icon: ""
+		icon: "",
 	});
 });

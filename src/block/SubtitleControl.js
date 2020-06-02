@@ -8,7 +8,7 @@ import { useDispatch } from "@wordpress/data";
 const SubtitleControl = ({ statusText, langText, isPublished, postId }) => {
 	const [message, setMessage] = useState("");
 	const entityDispatcher = useDispatch("core");
-	const updateStatus = published => {
+	const updateStatus = (published) => {
 		published = !published;
 
 		let state = "draft";
@@ -32,24 +32,24 @@ const SubtitleControl = ({ statusText, langText, isPublished, postId }) => {
 				type: "POST",
 				data: {
 					id: postId,
-					_ajax_nonce: wubtitle_button_object.ajaxnonce
-				}
+					_ajax_nonce: wubtitle_button_object.ajaxnonce,
+				},
 			})
-			.then(response => {
+			.then((response) => {
 				setMessage("Done");
 				const block = wp.blocks.createBlock("wubtitle/transcription", {
-					contentId: response
+					contentId: response,
 				});
 				wp.data.dispatch("core/block-editor").insertBlocks(block);
 			})
-			.fail(response => {
+			.fail((response) => {
 				setMessage(response);
 			});
 	};
 
-	const editStatus = statusToEdit => {
+	const editStatus = (statusToEdit) => {
 		entityDispatcher.editEntityRecord("postType", "attachment", postId, {
-			meta: { wubtitle_status: statusToEdit }
+			meta: { wubtitle_status: statusToEdit },
 		});
 	};
 
