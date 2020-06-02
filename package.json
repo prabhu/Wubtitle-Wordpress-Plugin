@@ -18,10 +18,14 @@
     "start": "wp-scripts start",
     "build": "wp-scripts build",
     "fixjs": "eslint --fix ./src",
-    "lint:js:src": "wp-scripts lint-js ./src"
+    "lint:js:src": "wp-scripts lint-js ./src",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "dependencies": {
     "@wordpress/api-fetch": "^3.16.0",
-    "@wordpress/i18n": "^3.10.0"
-  }
+    "@wordpress/i18n": "^3.10.0",
+    "snyk": "^1.334.0"
+  },
+  "snyk": true
 }
