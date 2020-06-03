@@ -3,8 +3,8 @@ import { addFilter } from "@wordpress/hooks";
 import YoutubeControlPanel from "./YoutubeControlPanel";
 import { Fragment } from "@wordpress/element";
 
-const withInspectorControls = BlockEdit => {
-	return props => {
+const withInspectorControls = (BlockEdit) => {
+	return (props) => {
 		if (props.name !== "core-embed/youtube") {
 			return <BlockEdit {...props} />;
 		}

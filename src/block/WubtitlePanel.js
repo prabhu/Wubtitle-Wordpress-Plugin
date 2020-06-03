@@ -9,7 +9,7 @@ import PendingSubtitle from "./PendingSubtitle";
 import SubtitleControl from "./SubtitleControl";
 import { selectOptions, selectOptionsFreePlan } from "./labels";
 
-const WubtitlePanel = props => {
+const WubtitlePanel = (props) => {
 	const extensionsFile =
 		props.id !== undefined
 			? props.src.substring(props.src.lastIndexOf(".") + 1)
@@ -21,7 +21,7 @@ const WubtitlePanel = props => {
 	const lang = languages.includes(wubtitle_button_object.lang)
 		? wubtitle_button_object.lang
 		: "en";
-	const metaValues = useSelect(select => {
+	const metaValues = useSelect((select) => {
 		let attachment;
 		if (props.id !== undefined) {
 			attachment = select("core").getEntityRecord(
@@ -68,7 +68,7 @@ const WubtitlePanel = props => {
 				<SelectControl
 					label={__("Select the video language", "wubtitle")}
 					value={languageSelected}
-					onChange={lingua => {
+					onChange={(lingua) => {
 						setLanguage(lingua);
 					}}
 					options={optionLanguage}
@@ -102,10 +102,10 @@ const WubtitlePanel = props => {
 			method: "POST",
 			headers: {
 				"Content-Type":
-					"application/x-www-form-urlencoded; charset=utf-8"
+					"application/x-www-form-urlencoded; charset=utf-8",
 			},
-			body: `action=submitVideo&_ajax_nonce=${wubtitle_button_object.ajaxnonce}&id_attachment=${idAttachment}&src_attachment=${srcAttachment}&lang=${languageSelected}&`
-		}).then(res => {
+			body: `action=submitVideo&_ajax_nonce=${wubtitle_button_object.ajaxnonce}&id_attachment=${idAttachment}&src_attachment=${srcAttachment}&lang=${languageSelected}&`,
+		}).then((res) => {
 			if (res.data === 201) {
 				noticeDispatcher.createNotice(
 					"success",
@@ -118,8 +118,8 @@ const WubtitlePanel = props => {
 					{
 						meta: {
 							wubtitle_status: "pending",
-							wubtitle_lang_video: languageSelected
-						}
+							wubtitle_lang_video: languageSelected,
+						},
 					}
 				);
 			} else {
