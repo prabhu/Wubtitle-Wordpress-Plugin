@@ -1,4 +1,4 @@
-import { useState, useEffect } from "@wordpress/element";
+import { useState, useEffect } from '@wordpress/element';
 
 export function useDebounce(value, wait = 100) {
 	const [debouncedValue, setDebouncedValue] = useState(value);

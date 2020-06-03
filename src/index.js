@@ -9,7 +9,7 @@
  * Webpack is compiling as the input file.
  */
 
-import "./block/addSubtitleButton";
-import "./block/TranscriptPanel";
-import "./block/YoutubeBlock";
-import "./block/trascriptionBlock";
+import './block/addSubtitleButton';
+import './block/TranscriptPanel';
+import './block/YoutubeBlock';
+import './block/trascriptionBlock';
