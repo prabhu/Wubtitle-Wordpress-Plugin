@@ -74,6 +74,9 @@ class Updater {
 			return $transient;
 		}
 		$this->get_release_info();
+		if ( ! property_exists( $this->release_info, 'tag_name' ) ) {
+			return $transient;
+		}
 		$do_update = version_compare( $this->release_info->tag_name, $transient->checked[ WUBTITLE_NAME ], '>' );
 		if ( $do_update ) {
 			$package                              = $this->release_info->zipball_url;
@@ -96,7 +99,7 @@ class Updater {
 	public function set_release_info( ...$args ) {
 		$response = $args[2];
 		$this->get_release_info();
-		if ( WUBTITLE_NAME !== $response->slug ) {
+		if ( ! array_key_exists( 'slug', $response ) || WUBTITLE_NAME !== $response->slug ) {
 			return false;
 		}
 		$response->last_updated  = $this->release_info->published_at;
@@ -119,7 +122,7 @@ class Updater {
 	 */
 	public function post_install( ...$args ) {
 		$result        = $args[2];
-		$was_activated = is_plugin_activate( WUBTITLE_NAME );
+		$was_activated = is_plugin_active( WUBTITLE_NAME );
 
 		global $wp_filesystem;
 		$wp_filesystem->move( $result['destination'], WUBTITLE_DIR );
