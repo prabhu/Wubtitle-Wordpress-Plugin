@@ -83,6 +83,6 @@ script:
   - ./vendor/bin/phpunit
   - composer check-php
   - npm run lint:js:src
+  - npm run csslint
   - npm run build
-  - node_modules/.bin/csslint src/ || return 0
 
