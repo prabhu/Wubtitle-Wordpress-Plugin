@@ -1,46 +1,46 @@
-const changePlanModule = (function(document) {
+const changePlanModule = (function (document) {
 	const { adminAjax, nonce } = WP_GLOBALS;
 
 	const handleConfirm = () => {
 		fetch(adminAjax, {
-			method: "POST",
-			credentials: "include",
+			method: 'POST',
+			credentials: 'include',
 			headers: new Headers({
-				"Content-Type": "application/x-www-form-urlencoded"
+				'Content-Type': 'application/x-www-form-urlencoded',
 			}),
-			body: `action=change_plan&_ajax_nonce=${nonce}`
+			body: `action=change_plan&_ajax_nonce=${nonce}`,
 		})
-			.then(resp => resp.json())
-			.then(response => {
+			.then((resp) => resp.json())
+			.then((response) => {
 				if (response.success) {
 					window.unonload = window.opener.redirectToCallback(
-						"notices-code=payment"
+						'notices-code=payment'
 					);
 					window.close();
 				} else {
-					document.getElementById("error-message").innerHTML =
+					document.getElementById('error-message').innerHTML =
 						response.data;
 				}
 			});
 	};
 
 	const init = () => {
-		const confirmButton = document.querySelector("#confirm_changes");
-		const closeButton = document.querySelector("#forget");
+		const confirmButton = document.querySelector('#confirm_changes');
+		const closeButton = document.querySelector('#forget');
 		if (confirmButton) {
-			confirmButton.addEventListener("click", () => {
+			confirmButton.addEventListener('click', () => {
 				handleConfirm();
 			});
 		}
 		if (closeButton) {
-			closeButton.addEventListener("click", () => {
+			closeButton.addEventListener('click', () => {
 				window.close();
 			});
 		}
 	};
 
 	return {
-		init
+		init,
 	};
 })(document);
 

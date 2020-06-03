@@ -1,36 +1,36 @@
 /* eslint-disable no-console */
-import { registerPlugin } from "@wordpress/plugins";
-import { PluginDocumentSettingPanel } from "@wordpress/edit-post";
-import { TextControl, Button } from "@wordpress/components";
-import { useState, Fragment } from "@wordpress/element";
-import { __ } from "@wordpress/i18n";
-import { select } from "@wordpress/data";
-import domReady from "@wordpress/dom-ready";
+import { registerPlugin } from '@wordpress/plugins';
+import { PluginDocumentSettingPanel } from '@wordpress/edit-post';
+import { TextControl, Button } from '@wordpress/components';
+import { useState, Fragment } from '@wordpress/element';
+import { __ } from '@wordpress/i18n';
+import { select } from '@wordpress/data';
+import domReady from '@wordpress/dom-ready';
 
 const TranscriptPanel = () => {
-	const [message, setMessage] = useState("");
-	const [inputValue, setInputValue] = useState("");
-	const isDisabled = inputValue === "";
+	const [message, setMessage] = useState('');
+	const [inputValue, setInputValue] = useState('');
+	const isDisabled = inputValue === '';
 	const getTranscript = () => {
-		setMessage(__("Getting transcript...", "wubtitle"));
+		setMessage(__('Getting transcript…', 'wubtitle'));
 
 		wp.ajax
-			.send("get_transcript", {
-				type: "POST",
+			.send('get_transcript', {
+				type: 'POST',
 				data: {
 					url: inputValue,
-					source: "youtube",
-					from: "transcript_post_type"
-				}
+					source: 'youtube',
+					from: 'transcript_post_type',
+				},
 			})
-			.then(response => {
-				setMessage(__("Done", "wubtitle"));
-				const block = wp.blocks.createBlock("core/paragraph", {
-					content: response
+			.then((response) => {
+				setMessage(__('Done', 'wubtitle'));
+				const block = wp.blocks.createBlock('core/paragraph', {
+					content: response,
 				});
-				wp.data.dispatch("core/block-editor").insertBlocks(block);
+				wp.data.dispatch('core/block-editor').insertBlocks(block);
 			})
-			.fail(response => {
+			.fail((response) => {
 				setMessage(response);
 			});
 	};
@@ -44,7 +44,7 @@ const TranscriptPanel = () => {
 					label="video url"
 					id="input"
 					value={inputValue}
-					onChange={urlVideo => {
+					onChange={(urlVideo) => {
 						setInputValue(urlVideo);
 					}}
 				/>
@@ -54,7 +54,7 @@ const TranscriptPanel = () => {
 					onClick={getTranscript}
 					disabled={isDisabled}
 				>
-					{__("Get transcript", "wubtitle")}
+					{__('Get transcript', 'wubtitle')}
 				</Button>
 				<p>{message}</p>
 			</PluginDocumentSettingPanel>
@@ -63,10 +63,10 @@ const TranscriptPanel = () => {
 };
 
 domReady(() => {
-	if (select("core/editor").getCurrentPostType() !== "transcript") return;
+	if (select('core/editor').getCurrentPostType() !== 'transcript') return;
 
-	registerPlugin("transcript-panel", {
+	registerPlugin('transcript-panel', {
 		render: TranscriptPanel,
-		icon: ""
+		icon: '',
 	});
 });

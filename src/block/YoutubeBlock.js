@@ -1,11 +1,11 @@
-import { createHigherOrderComponent } from "@wordpress/compose";
-import { addFilter } from "@wordpress/hooks";
-import YoutubeControlPanel from "./YoutubeControlPanel";
-import { Fragment } from "@wordpress/element";
+import { createHigherOrderComponent } from '@wordpress/compose';
+import { addFilter } from '@wordpress/hooks';
+import YoutubeControlPanel from './YoutubeControlPanel';
+import { Fragment } from '@wordpress/element';
 
-const withInspectorControls = BlockEdit => {
-	return props => {
-		if (props.name !== "core-embed/youtube") {
+const withInspectorControls = (BlockEdit) => {
+	return (props) => {
+		if (props.name !== 'core-embed/youtube') {
 			return <BlockEdit {...props} />;
 		}
 		return (
@@ -22,11 +22,11 @@ const withInspectorControls = BlockEdit => {
 
 const ExtendVideoBlock = createHigherOrderComponent(
 	withInspectorControls,
-	"withInspectorControls"
+	'withInspectorControls'
 );
 
 addFilter(
-	"editor.BlockEdit",
-	"wubtitle/with-inspector-controls",
+	'editor.BlockEdit',
+	'wubtitle/with-inspector-controls',
 	ExtendVideoBlock
 );
