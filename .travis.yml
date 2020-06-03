@@ -80,7 +80,7 @@ install:
 script:
   # Search for PHP syntax errors.
   - find -L . -path ./vendor -prune -o -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l
-  - ./vendor/bin/phpunit
+  - composer test
   - composer check-php
   - npm run lint:js:src
   - npm run csslint
