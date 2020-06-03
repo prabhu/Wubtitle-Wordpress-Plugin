@@ -10,15 +10,15 @@ const TranscriptionEditBlock = ({ attributes, setAttributes, className }) => {
 	const [tokens, setTokens] = useState([]);
 	const debouncedCurrentValue = useDebounce(currentValue, 500);
 
-	const decodeHtmlEntities = str => {
+	const decodeHtmlEntities = (str) => {
 		return str.replace(/&#(\d+);/g, (_match, dec) => {
 			return String.fromCharCode(dec);
 		});
 	};
 
-	const replaceBlock = content => {
+	const replaceBlock = (content) => {
 		const Paragraph = wp.blocks.createBlock("core/paragraph", {
-			content
+			content,
 		});
 		const selectedBlock = wp.data
 			.select("core/block-editor")
@@ -32,11 +32,11 @@ const TranscriptionEditBlock = ({ attributes, setAttributes, className }) => {
 		setTextSearch(debouncedCurrentValue);
 	}, [debouncedCurrentValue]);
 
-	useSelect(select => {
+	useSelect((select) => {
 		if (attributes.contentId && tokens.length === 0) {
 			const queryPost = {
 				per_page: 1,
-				include: attributes.contentId
+				include: attributes.contentId,
 			};
 			const resultPost = select("core").getEntityRecords(
 				"postType",
@@ -53,11 +53,11 @@ const TranscriptionEditBlock = ({ attributes, setAttributes, className }) => {
 		}
 	});
 
-	const postsCurrent = useSelect(select => {
+	const postsCurrent = useSelect((select) => {
 		if (textSearch.length > 2) {
 			const query = {
 				per_page: 10,
-				search: textSearch
+				search: textSearch,
 			};
 			const suggestions = select("core").getEntityRecords(
 				"postType",
@@ -84,7 +84,7 @@ const TranscriptionEditBlock = ({ attributes, setAttributes, className }) => {
 	}
 
 	let contentText = "";
-	const setTokenFunction = token => {
+	const setTokenFunction = (token) => {
 		if (token.length === 0) {
 			setAttributes({ contentId: null });
 			setTokens(token);
@@ -107,9 +107,9 @@ const TranscriptionEditBlock = ({ attributes, setAttributes, className }) => {
 				label={__("Wubtitle transcriptions", "wubtitle")}
 				value={tokens}
 				suggestions={suggestions}
-				onChange={token => setTokenFunction(token)}
+				onChange={(token) => setTokenFunction(token)}
 				placeholder={__("Insert transcriptions", "wubtitle")}
-				onInputChange={value => setValue(value)}
+				onInputChange={(value) => setValue(value)}
 				maxLength={1}
 			/>
 			<p className="helperText">
