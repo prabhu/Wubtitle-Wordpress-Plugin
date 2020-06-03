@@ -18,50 +18,50 @@ function confirmPlanChange(){
 }
 /* eslint-enable */
 
-document.addEventListener("DOMContentLoaded", function () {
-	const buyButton = document.querySelector("#buy-license-button");
+document.addEventListener('DOMContentLoaded', function () {
+	const buyButton = document.querySelector('#buy-license-button');
 	if (buyButton) {
-		buyButton.addEventListener("click", (e) => {
+		buyButton.addEventListener('click', (e) => {
 			e.preventDefault();
 			showBuyLicenseWindow();
 		});
 	}
 
-	const modifyPlan = document.querySelector("#modify-plan");
+	const modifyPlan = document.querySelector('#modify-plan');
 	if (modifyPlan) {
-		modifyPlan.addEventListener("click", (e) => {
+		modifyPlan.addEventListener('click', (e) => {
 			e.preventDefault();
 			showBuyLicenseWindow();
 		});
 	}
 
-	const resetLicense = document.querySelector("#reset-license");
+	const resetLicense = document.querySelector('#reset-license');
 	if (resetLicense) {
-		resetLicense.addEventListener("click", (e) => {
+		resetLicense.addEventListener('click', (e) => {
 			e.preventDefault();
 			resetLicenseFunction();
 		});
 	}
 
-	const cancelButton = document.querySelector("#cancel-license-button");
+	const cancelButton = document.querySelector('#cancel-license-button');
 	if (cancelButton) {
-		cancelButton.addEventListener("click", (e) => {
+		cancelButton.addEventListener('click', (e) => {
 			e.preventDefault();
 			showCancelSubscriptionWindow();
 		});
 	}
 
-	const updateButton = document.querySelector("#update-plan-button");
+	const updateButton = document.querySelector('#update-plan-button');
 	if (updateButton) {
-		updateButton.addEventListener("click", (e) => {
+		updateButton.addEventListener('click', (e) => {
 			e.preventDefault();
 			showUpdatePlanWindow();
 		});
 	}
 
-	const reactivateButton = document.querySelector("#reactivate-plan-button");
+	const reactivateButton = document.querySelector('#reactivate-plan-button');
 	if (reactivateButton) {
-		reactivateButton.addEventListener("click", (e) => {
+		reactivateButton.addEventListener('click', (e) => {
 			e.preventDefault();
 			reactivateFunction();
 		});
@@ -77,13 +77,13 @@ const showUpdatePlanWindow = () => {
             scrollbars=yes,
         `;
 		wp.ajax
-			.send("update_template", {
-				type: "GET",
+			.send('update_template', {
+				type: 'GET',
 			})
 			.done((response) => {
 				UpdatePlanWindow = window.open(
-					"",
-					"Update-Plan",
+					'',
+					'Update-Plan',
 					windowFeatures
 				);
 				UpdatePlanWindow.document.write(response);
@@ -103,13 +103,13 @@ const showBuyLicenseWindow = () => {
             scrollbars=yes,
         `;
 		wp.ajax
-			.send("payment_template", {
-				type: "GET",
+			.send('payment_template', {
+				type: 'GET',
 			})
 			.done((response) => {
 				BuyLicenseWindow = window.open(
-					"",
-					"Buy-license",
+					'',
+					'Buy-license',
 					windowFeatures
 				);
 				BuyLicenseWindow.document.write(response);
@@ -130,13 +130,13 @@ const confirmPlanChangeWindow = () => {
             scrollbars=yes,
         `;
 		wp.ajax
-			.send("change_plan_template", {
-				type: "GET",
+			.send('change_plan_template', {
+				type: 'GET',
 			})
 			.done((response) => {
 				BuyLicenseWindow = window.open(
-					"",
-					"Buy-license",
+					'',
+					'Buy-license',
 					windowFeatures
 				);
 				BuyLicenseWindow.document.write(response);
@@ -157,13 +157,13 @@ const showCancelSubscriptionWindow = () => {
 			scrollbars=yes,
         `;
 		wp.ajax
-			.send("cancel_template", {
-				type: "GET",
+			.send('cancel_template', {
+				type: 'GET',
 			})
 			.done((response) => {
 				CancelSubscriptionWindow = window.open(
-					"",
-					"Cancel subscription",
+					'',
+					'Cancel subscription',
 					windowFeatures
 				);
 				CancelSubscriptionWindow.document.write(response);
@@ -174,33 +174,33 @@ const showCancelSubscriptionWindow = () => {
 };
 const resetLicenseFunction = () => {
 	fetch(settings_object.ajax_url, {
-		method: "POST",
-		credentials: "include",
+		method: 'POST',
+		credentials: 'include',
 		headers: new Headers({
-			"Content-Type": "application/x-www-form-urlencoded",
+			'Content-Type': 'application/x-www-form-urlencoded',
 		}),
 		body: `action=reset_license&_ajax_nonce=${settings_object.ajaxnonce}`,
 	})
 		.then((resp) => resp.json())
 		.then((response) => {
 			if (response.success) {
-				redirectToCallback("notices-code=reset");
+				redirectToCallback('notices-code=reset');
 			}
 		});
 };
 const reactivateFunction = () => {
 	fetch(settings_object.ajax_url, {
-		method: "POST",
-		credentials: "include",
+		method: 'POST',
+		credentials: 'include',
 		headers: new Headers({
-			"Content-Type": "application/x-www-form-urlencoded",
+			'Content-Type': 'application/x-www-form-urlencoded',
 		}),
 		body: `action=reactivate_plan&_ajax_nonce=${settings_object.ajaxnonce}`,
 	})
 		.then((resp) => resp.json())
 		.then((response) => {
 			if (response.success) {
-				redirectToCallback("notices-code=reactivate");
+				redirectToCallback('notices-code=reactivate');
 			}
 		});
 };

@@ -11,10 +11,10 @@ const paymentModule = (function (Stripe, document) {
 
 	const handleSubmit = () => {
 		fetch(adminAjax, {
-			method: "POST",
-			credentials: "include",
+			method: 'POST',
+			credentials: 'include',
 			headers: new Headers({
-				"Content-Type": "application/x-www-form-urlencoded",
+				'Content-Type': 'application/x-www-form-urlencoded',
 			}),
 			body: `action=update_payment_method&_ajax_nonce=${nonce}`,
 		})
@@ -23,14 +23,14 @@ const paymentModule = (function (Stripe, document) {
 				if (response.success) {
 					openStripeForm(response.data, stripe);
 				} else {
-					document.getElementById("error-message").innerHTML =
+					document.getElementById('error-message').innerHTML =
 						response.data;
 				}
 			});
 	};
 
 	const init = () => {
-		stripe = Stripe("pk_test_nfUYjFiwdkzYpPOfCZkVZiMK00lOAFcAK7");
+		stripe = Stripe('pk_test_nfUYjFiwdkzYpPOfCZkVZiMK00lOAFcAK7');
 		handleSubmit();
 	};
 
