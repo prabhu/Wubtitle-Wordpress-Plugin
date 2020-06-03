@@ -11,8 +11,10 @@ services:
   - mysql
 
 cache:
+  apt: true
   directories:
     - $HOME/.composer/cache
+    - node_modules
 
 # Explicitly test against supported versions of PHP
 #
@@ -76,20 +78,11 @@ install:
   - bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION
 
 script:
-  - |
-    # If we've set the $WP_TRAVISCI variable to run PHPCS, do that instead
-    # of running PHPUnit.
-    if [[ "$WP_TRAVISCI" == "phpcs" ]]; then
-      ./vendor/bin/phpcs
-
-    else
-      # Execute the test suite
-      ./vendor/bin/phpunit
-
-      # Optionally run the tests again in a multisite environment
-      #WP_MULTISITE=1 ./vendor/bin/phpunit
-    fi
+  # Search for PHP syntax errors.
+  - find -L . -path ./vendor -prune -o -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l
+  - composer test
   - composer check-php
   - npm run lint:js:src
+  - npm run csslint
   - npm run build
 
