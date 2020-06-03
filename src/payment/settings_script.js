@@ -18,10 +18,10 @@ function confirmPlanChange(){
 }
 /* eslint-enable */
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
 	const buyButton = document.querySelector("#buy-license-button");
 	if (buyButton) {
-		buyButton.addEventListener("click", e => {
+		buyButton.addEventListener("click", (e) => {
 			e.preventDefault();
 			showBuyLicenseWindow();
 		});
@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 	const modifyPlan = document.querySelector("#modify-plan");
 	if (modifyPlan) {
-		modifyPlan.addEventListener("click", e => {
+		modifyPlan.addEventListener("click", (e) => {
 			e.preventDefault();
 			showBuyLicenseWindow();
 		});
@@ -37,7 +37,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 	const resetLicense = document.querySelector("#reset-license");
 	if (resetLicense) {
-		resetLicense.addEventListener("click", e => {
+		resetLicense.addEventListener("click", (e) => {
 			e.preventDefault();
 			resetLicenseFunction();
 		});
@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 	const cancelButton = document.querySelector("#cancel-license-button");
 	if (cancelButton) {
-		cancelButton.addEventListener("click", e => {
+		cancelButton.addEventListener("click", (e) => {
 			e.preventDefault();
 			showCancelSubscriptionWindow();
 		});
@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 	const updateButton = document.querySelector("#update-plan-button");
 	if (updateButton) {
-		updateButton.addEventListener("click", e => {
+		updateButton.addEventListener("click", (e) => {
 			e.preventDefault();
 			showUpdatePlanWindow();
 		});
@@ -61,7 +61,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 	const reactivateButton = document.querySelector("#reactivate-plan-button");
 	if (reactivateButton) {
-		reactivateButton.addEventListener("click", e => {
+		reactivateButton.addEventListener("click", (e) => {
 			e.preventDefault();
 			reactivateFunction();
 		});
@@ -78,9 +78,9 @@ const showUpdatePlanWindow = () => {
         `;
 		wp.ajax
 			.send("update_template", {
-				type: "GET"
+				type: "GET",
 			})
-			.done(response => {
+			.done((response) => {
 				UpdatePlanWindow = window.open(
 					"",
 					"Update-Plan",
@@ -104,9 +104,9 @@ const showBuyLicenseWindow = () => {
         `;
 		wp.ajax
 			.send("payment_template", {
-				type: "GET"
+				type: "GET",
 			})
-			.done(response => {
+			.done((response) => {
 				BuyLicenseWindow = window.open(
 					"",
 					"Buy-license",
@@ -131,9 +131,9 @@ const confirmPlanChangeWindow = () => {
         `;
 		wp.ajax
 			.send("change_plan_template", {
-				type: "GET"
+				type: "GET",
 			})
-			.done(response => {
+			.done((response) => {
 				BuyLicenseWindow = window.open(
 					"",
 					"Buy-license",
@@ -158,9 +158,9 @@ const showCancelSubscriptionWindow = () => {
         `;
 		wp.ajax
 			.send("cancel_template", {
-				type: "GET"
+				type: "GET",
 			})
-			.done(response => {
+			.done((response) => {
 				CancelSubscriptionWindow = window.open(
 					"",
 					"Cancel subscription",
@@ -177,12 +177,12 @@ const resetLicenseFunction = () => {
 		method: "POST",
 		credentials: "include",
 		headers: new Headers({
-			"Content-Type": "application/x-www-form-urlencoded"
+			"Content-Type": "application/x-www-form-urlencoded",
 		}),
-		body: `action=reset_license&_ajax_nonce=${settings_object.ajaxnonce}`
+		body: `action=reset_license&_ajax_nonce=${settings_object.ajaxnonce}`,
 	})
-		.then(resp => resp.json())
-		.then(response => {
+		.then((resp) => resp.json())
+		.then((response) => {
 			if (response.success) {
 				redirectToCallback("notices-code=reset");
 			}
@@ -193,18 +193,18 @@ const reactivateFunction = () => {
 		method: "POST",
 		credentials: "include",
 		headers: new Headers({
-			"Content-Type": "application/x-www-form-urlencoded"
+			"Content-Type": "application/x-www-form-urlencoded",
 		}),
-		body: `action=reactivate_plan&_ajax_nonce=${settings_object.ajaxnonce}`
+		body: `action=reactivate_plan&_ajax_nonce=${settings_object.ajaxnonce}`,
 	})
-		.then(resp => resp.json())
-		.then(response => {
+		.then((resp) => resp.json())
+		.then((response) => {
 			if (response.success) {
 				redirectToCallback("notices-code=reactivate");
 			}
 		});
 };
-window.onunload = function() {
+window.onunload = function () {
 	if (BuyLicenseWindow !== null) {
 		BuyLicenseWindow.close();
 	}

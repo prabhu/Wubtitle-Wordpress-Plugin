@@ -1,9 +1,9 @@
-const paymentModule = (function(Stripe, document) {
+const paymentModule = (function (Stripe, document) {
 	let stripe = null;
 
 	const { adminAjax, nonce } = WP_GLOBALS;
 
-	const openStripeForm = sessionId => {
+	const openStripeForm = (sessionId) => {
 		if (sessionId) {
 			stripe.redirectToCheckout({ sessionId });
 		}
@@ -14,12 +14,12 @@ const paymentModule = (function(Stripe, document) {
 			method: "POST",
 			credentials: "include",
 			headers: new Headers({
-				"Content-Type": "application/x-www-form-urlencoded"
+				"Content-Type": "application/x-www-form-urlencoded",
 			}),
-			body: `action=update_payment_method&_ajax_nonce=${nonce}`
+			body: `action=update_payment_method&_ajax_nonce=${nonce}`,
 		})
-			.then(resp => resp.json())
-			.then(response => {
+			.then((resp) => resp.json())
+			.then((response) => {
 				if (response.success) {
 					openStripeForm(response.data, stripe);
 				} else {
@@ -35,7 +35,7 @@ const paymentModule = (function(Stripe, document) {
 	};
 
 	return {
-		init
+		init,
 	};
 })(Stripe, document);
 

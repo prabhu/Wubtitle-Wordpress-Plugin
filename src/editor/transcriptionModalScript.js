@@ -1,5 +1,5 @@
 /* global wubtitle_object_modal */
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
 	const pattern = new RegExp(
 		"^(https?:\\/\\/)?" + // protocol
 		"((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,})" + // domain name
@@ -22,8 +22,8 @@ document.addEventListener("DOMContentLoaded", function() {
 		frame: "post",
 		state: "embed",
 		library: {
-			type: ["video"]
-		}
+			type: ["video"],
+		},
 	});
 
 	windowTrascriptions.on("insert", () => {
@@ -38,10 +38,10 @@ document.addEventListener("DOMContentLoaded", function() {
 				data: {
 					id: media.id,
 					_ajax_nonce: wubtitle_object_modal.ajaxnonce,
-					from: "classic_editor"
-				}
+					from: "classic_editor",
+				},
 			})
-			.then(response => {
+			.then((response) => {
 				myNotice.style.display = "none";
 				wp.media.editor.insert(
 					`<p> ${wp.i18n.__(
@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", function() {
 					} </p>`
 				);
 			})
-			.fail(response => {
+			.fail((response) => {
 				myNotice.style.display = "";
 				myNotice.innerHTML = `<p>  ${response} </p>`;
 			});
@@ -79,23 +79,23 @@ document.addEventListener("DOMContentLoaded", function() {
 					_ajax_nonce: wubtitle_object_modal.ajaxnonce,
 					urlVideo: embedUrl,
 					urlSubtitle: languageSubtitle,
-					videoTitle
-				}
+					videoTitle,
+				},
 			})
-			.then(response => {
+			.then((response) => {
 				myNotice.style.display = "none";
 				wp.media.editor.insert(
 					`[embed]  ${embedUrl} [/embed]
 					<p> ${response} </p>`
 				);
 			})
-			.fail(response => {
+			.fail((response) => {
 				myNotice.style.display = "";
 				myNotice.innerHTML = `<p>  ${response} </p>`;
 			});
 	});
 
-	const getLanguages = inputUrl => {
+	const getLanguages = (inputUrl) => {
 		const selectInput = document.getElementById("transcript-select-lang");
 		const errorMessage = document.getElementById(
 			"error-message-transcript"
@@ -105,10 +105,10 @@ document.addEventListener("DOMContentLoaded", function() {
 				type: "POST",
 				data: {
 					_ajax_nonce: wubtitle_object_modal.ajaxnonce,
-					url: inputUrl
-				}
+					url: inputUrl,
+				},
 			})
-			.then(response => {
+			.then((response) => {
 				selectInput.innerHTML = `<option value="">${wp.i18n.__(
 					"Select language",
 					"wubtitle"
@@ -124,13 +124,13 @@ document.addEventListener("DOMContentLoaded", function() {
 				}
 				errorMessage.innerHTML = "";
 				selectInput.disabled = false;
-				response.languages.forEach(subtitle => {
+				response.languages.forEach((subtitle) => {
 					document.getElementById(
 						"transcript-select-lang"
 					).innerHTML += `<option value=${subtitle.baseUrl}>${subtitle.name.simpleText}</option>`;
 				});
 			})
-			.fail(response => {
+			.fail((response) => {
 				errorMessage.innerHTML = response;
 				document.getElementById(
 					"transcript-select-lang"

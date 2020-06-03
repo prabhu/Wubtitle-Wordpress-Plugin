@@ -14,5 +14,5 @@ export function useDebounce(value, wait = 100) {
 }
 
 export default {
-	useDebounce
+	useDebounce,
 };

@@ -1,4 +1,4 @@
-const changePlanModule = (function(document) {
+const changePlanModule = (function (document) {
 	const { adminAjax, nonce } = WP_GLOBALS;
 
 	const handleConfirm = () => {
@@ -6,12 +6,12 @@ const changePlanModule = (function(document) {
 			method: "POST",
 			credentials: "include",
 			headers: new Headers({
-				"Content-Type": "application/x-www-form-urlencoded"
+				"Content-Type": "application/x-www-form-urlencoded",
 			}),
-			body: `action=change_plan&_ajax_nonce=${nonce}`
+			body: `action=change_plan&_ajax_nonce=${nonce}`,
 		})
-			.then(resp => resp.json())
-			.then(response => {
+			.then((resp) => resp.json())
+			.then((response) => {
 				if (response.success) {
 					window.unonload = window.opener.redirectToCallback(
 						"notices-code=payment"
@@ -40,7 +40,7 @@ const changePlanModule = (function(document) {
 	};
 
 	return {
-		init
+		init,
 	};
 })(document);
 

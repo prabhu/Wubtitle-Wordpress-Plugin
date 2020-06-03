@@ -3,8 +3,8 @@ import { addFilter } from "@wordpress/hooks";
 import WubtitlePanel from "./WubtitlePanel";
 import { Fragment } from "@wordpress/element";
 
-const withInspectorControls = BlockEdit => {
-	return props => {
+const withInspectorControls = (BlockEdit) => {
+	return (props) => {
 		if (props.name !== "core/video") {
 			return <BlockEdit {...props} />;
 		}

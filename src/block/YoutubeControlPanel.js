@@ -6,7 +6,7 @@ import { InspectorControls } from "@wordpress/block-editor";
 import { __ } from "@wordpress/i18n";
 import { useState } from "@wordpress/element";
 
-const YoutubeControlPanel = props => {
+const YoutubeControlPanel = (props) => {
 	const [message, setMessage] = useState("");
 	const [status, setStatus] = useState(__("None", "wubtitle"));
 	const [languageSelected, setLanguage] = useState("");
@@ -16,7 +16,7 @@ const YoutubeControlPanel = props => {
 	const [disabled, setDisabled] = useState(true);
 	const noticeDispatcher = useDispatch("core/notices");
 
-	useSelect(select => {
+	useSelect((select) => {
 		if (props.url === undefined) {
 			return;
 		}
@@ -25,7 +25,7 @@ const YoutubeControlPanel = props => {
 			"transcript",
 			{
 				metaKey: "_video_id",
-				metaValue: props.url
+				metaValue: props.url,
 			}
 		);
 		const createdStatus = __("Created", "wubtitle");
@@ -50,12 +50,12 @@ const YoutubeControlPanel = props => {
 					urlSubtitle: languageSelected,
 					videoTitle: title,
 					from: "default_post_type",
-					_ajax_nonce: wubtitle_button_object.ajaxnonce
-				}
+					_ajax_nonce: wubtitle_button_object.ajaxnonce,
+				},
 			})
-			.then(response => {
+			.then((response) => {
 				const block = wp.blocks.createBlock("wubtitle/transcription", {
-					contentId: response
+					contentId: response,
 				});
 				const blockPosition = selectedBlockIndex + 1;
 				wp.data
@@ -64,7 +64,7 @@ const YoutubeControlPanel = props => {
 				setMessage("");
 				setStatus(__("Created", "wubtitle"));
 			})
-			.fail(response => {
+			.fail((response) => {
 				noticeDispatcher.createNotice("error", response);
 				setMessage("");
 			});
@@ -76,25 +76,25 @@ const YoutubeControlPanel = props => {
 				type: "POST",
 				data: {
 					url: props.url,
-					_ajax_nonce: wubtitle_button_object.ajaxnonce
-				}
+					_ajax_nonce: wubtitle_button_object.ajaxnonce,
+				},
 			})
-			.then(response => {
+			.then((response) => {
 				setReady(true);
-				const arrayLang = response.languages.map(lang => {
+				const arrayLang = response.languages.map((lang) => {
 					return {
 						value: lang.baseUrl,
-						label: lang.name.simpleText
+						label: lang.name.simpleText,
 					};
 				});
 				arrayLang.unshift({
 					value: "none",
-					label: __("Select language", "wubtitle")
+					label: __("Select language", "wubtitle"),
 				});
 				setOptions(arrayLang);
 				setTitle(response.title);
 			})
-			.fail(response => {
+			.fail((response) => {
 				console.log(response);
 			});
 	};
@@ -109,7 +109,7 @@ const YoutubeControlPanel = props => {
 					<SelectControl
 						label={__("Select the video language", "wubtitle")}
 						value={languageSelected}
-						onChange={lingua => {
+						onChange={(lingua) => {
 							setLanguage(lingua);
 							setDisabled(lingua === "none");
 						}}
