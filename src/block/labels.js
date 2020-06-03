@@ -6,74 +6,74 @@ const langExten = {
 	es: __("Spanish", "wubtitle"),
 	de: __("German ", "wubtitle"),
 	zh: __("Chinese", "wubtitle"),
-	fr: __("French", "wubtitle")
+	fr: __("French", "wubtitle"),
 };
 
 const statusExten = {
 	pending: __("Generating", "wubtitle"),
 	draft: __("Draft", "wubtitle"),
 	enabled: __("Enabled", "wubtitle"),
-	notfound: __("None", "wubtitle")
+	notfound: __("None", "wubtitle"),
 };
 
 const selectOptions = [
 	{
 		value: "it",
-		label: __("Italian", "wubtitle")
+		label: __("Italian", "wubtitle"),
 	},
 	{
 		value: "en",
-		label: __("English", "wubtitle")
+		label: __("English", "wubtitle"),
 	},
 	{
 		value: "es",
-		label: __("Spanish", "wubtitle")
+		label: __("Spanish", "wubtitle"),
 	},
 	{
 		value: "de",
-		label: __("German ", "wubtitle")
+		label: __("German ", "wubtitle"),
 	},
 	{
 		value: "zh",
-		label: __("Chinese", "wubtitle")
+		label: __("Chinese", "wubtitle"),
 	},
 	{
 		value: "fr",
-		label: __("French", "wubtitle")
-	}
+		label: __("French", "wubtitle"),
+	},
 ];
 
 const selectOptionsFreePlan = [
 	{
 		value: "it",
 		label: __("Italian", "wubtitle"),
-		disabled: false
+		disabled: false,
 	},
 	{
 		value: "en",
 		label: __("English", "wubtitle"),
-		disabled: false
+		disabled: false,
 	},
 	{
 		value: "es",
 		label: __("Spanish (Pro only)", "wubtitle"),
-		disabled: true
+		disabled: true,
 	},
 	{
 		value: "de",
 		label: __("German (Pro only)", "wubtitle"),
-		disabled: true
+		disabled: true,
 	},
 	{
 		value: "zh",
 		label: __("Chinese (Pro only)", "wubtitle"),
-		disabled: true
+		disabled: true,
 	},
 	{
 		value: "fr",
 		label: __("French (Pro only)", "wubtitle"),
-		disabled: true
-	}
+		disabled: true,
+	},
 ];
 
 export { langExten, statusExten, selectOptions, selectOptionsFreePlan };
