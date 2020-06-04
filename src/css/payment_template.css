@@ -184,7 +184,7 @@ html {
 	color: #ff0;
 	content: "\2022";
 	display: inline-block;
-	font-weight: bold;
+	font-weight: 700;
 	margin-left: -1em;
 	width: 1em;
 }
@@ -231,7 +231,7 @@ html {
 .unsubscribe-section .buttons .unsubscribe,
 .confirm-change-section .buttons .unsubscribe {
 	background: none;
-	border: 2px #ffff00;
+	border: 2px #ff0;
 	border-style: solid;
 	color: #ff0;
 }
