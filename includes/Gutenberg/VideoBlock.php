@@ -43,7 +43,7 @@ class VideoBlock {
 	}
 
 	/**
-	 * Register block type overriding core/video block.
+	 * This function overrides the core/video block.
 	 */
 	public function video_block_dynamic() {
 		register_block_type(

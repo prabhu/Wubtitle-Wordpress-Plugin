@@ -8,7 +8,7 @@
  */
 
 /**
- * This template displays plan update page..
+ * This template displays the update plan page.
  */
 ?>
 <!DOCTYPE html>

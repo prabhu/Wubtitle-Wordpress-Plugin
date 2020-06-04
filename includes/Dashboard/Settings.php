@@ -44,7 +44,7 @@ class Settings {
 	}
 
 	/**
-	 * Setting page render.
+	 * Renders the setting page.
 	 */
 	public function render_settings_page() {
 		Loader::get( 'cron' )->get_remote_data();
@@ -291,7 +291,7 @@ class Settings {
 	}
 
 	/**
-	 * Add a new field to the previous setting.
+	 * This function handles the setup of wubtitle_settings fields.
 	 */
 	public function init_settings_field() {
 		add_settings_section( 'wubtitle-main-settings', null, null, 'wubtitle-settings' );

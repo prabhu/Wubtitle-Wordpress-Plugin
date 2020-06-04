@@ -40,8 +40,7 @@ class MediaLibraryExtented {
 
 
 	/**
-	 *  Aggiunge il form di wubtitle nella scheda "add media".
-	 *  Add wubtitle form into "add media" tab.
+	 *  Add wubtitle form into the "add media" tab.
 	 *
 	 * @param array $form_fields modal window fields.
 	 * @param array $post attachment.

@@ -1,6 +1,6 @@
 <?php
 /**
- * Does plugin bootstrap.
+ * Loads the plugin classes.
  *
  * @package Wubtitle
  */

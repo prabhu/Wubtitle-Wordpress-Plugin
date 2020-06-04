@@ -10,7 +10,7 @@
 namespace Wubtitle\Dashboard;
 
 /**
- * This class Stripe callbacks pages.
+ * This class handles the Stripe pages.
  */
 class RegisterStripeCallbackPages {
 
