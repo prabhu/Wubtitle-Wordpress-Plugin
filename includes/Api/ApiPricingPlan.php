@@ -25,7 +25,7 @@ class ApiPricingPlan {
 		add_action( 'wp_ajax_change_plan', array( $this, 'change_plan' ) );
 	}
 	/**
-	 * Call the aws endpoint to confirm the plan change.
+	 * Call the backend endpoint to confirm the plan change.
 	 */
 	public function change_plan() {
 		$wanted_plan = get_option( 'wubtitle_wanted_plan' );

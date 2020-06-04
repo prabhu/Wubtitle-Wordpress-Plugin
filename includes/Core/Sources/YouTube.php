@@ -15,7 +15,7 @@ namespace Wubtitle\Core\Sources;
 class YouTube implements \Wubtitle\Core\VideoSource {
 
 	/**
-	 * Send job to aws endpoint.
+	 * Send job to backend endpoint.
 	 *
 	 * @param string $id_video id video youtube.
 	 */
@@ -161,7 +161,7 @@ class YouTube implements \Wubtitle\Core\VideoSource {
 	}
 
 	/**
-	 * Call the aws endpoint and then retrieve the transcripts.
+	 * Call the backend endpoint and then retrieve the transcripts.
 	 *
 	 * @param string $url_video url of the youtube video.
 	 * @param string $from where the request starts.

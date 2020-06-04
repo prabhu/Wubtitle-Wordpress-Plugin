@@ -1,6 +1,6 @@
 <?php
 /**
- * This file implements the recovery of transcripts.
+ * This file implements the logic to get transcripts for videos.
  *
  * @author     Nicola Palermo
  * @since      1.0.0
@@ -233,7 +233,7 @@ class ApiGetTranscript {
 	 * Get data if post exists and return it.
 	 *
 	 * @param int    $id_video unique id of the video.
-	 * @param string $from indicates where the call originates.
+	 * @param string $from indicates where the caller source.
 	 */
 	public function get_data_transcript( $id_video, $from ) {
 		$args  = array(
