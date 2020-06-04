@@ -15,7 +15,7 @@ namespace Wubtitle\Core\Sources;
 class YouTube implements \Wubtitle\Core\VideoSource {
 
 	/**
-	 * Send job to backend endpoint.
+	 * Sends job to backend endpoint.
 	 *
 	 * @param string $id_video id video youtube.
 	 */
@@ -42,7 +42,7 @@ class YouTube implements \Wubtitle\Core\VideoSource {
 	}
 
 	/**
-	 * Get trascription.
+	 * Gets trascription.
 	 *
 	 * @param string $url_subtitle url youtube subtitle.
 	 * @param string $id_video id video.
@@ -80,7 +80,7 @@ class YouTube implements \Wubtitle\Core\VideoSource {
 	}
 
 	/**
-	 * Get the transcription.
+	 * Gets the transcription.
 	 *
 	 * @param string $id_video id youtube video.
 	 * @param string $from where the request starts.
@@ -143,7 +143,7 @@ class YouTube implements \Wubtitle\Core\VideoSource {
 
 
 	/**
-	 * Find url of auto-generated captions
+	 * Finds the url of auto-generated captions
 	 *
 	 * @param array $caption_tracks array of objects.
 	 */
@@ -161,7 +161,7 @@ class YouTube implements \Wubtitle\Core\VideoSource {
 	}
 
 	/**
-	 * Call the backend endpoint and then retrieve the transcripts.
+	 * Calls the backend endpoint and then retrieve the transcripts.
 	 *
 	 * @param string $url_video url of the youtube video.
 	 * @param string $from where the request starts.

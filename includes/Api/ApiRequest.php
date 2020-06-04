@@ -31,7 +31,7 @@ class ApiRequest {
 	}
 
 	/**
-	 * Check the validation and sanitize input.
+	 * Checks the validation and sanitize input.
 	 *
 	 *  @param array $array post.
 	 */
@@ -44,7 +44,7 @@ class ApiRequest {
 		return $array;
 	}
 	/**
-	 *  Create body request.
+	 *  Creates body request.
 	 *
 	 * @param array $data it contains id_attachment and src_attachment.
 	 */
@@ -79,7 +79,7 @@ class ApiRequest {
 		return $body;
 	}
 	/**
-	 * Send the request to start the job.
+	 * Sends the request to start the job.
 	 */
 	public function send_request() {
 		$license_key = get_option( 'wubtitle_license_key' );
@@ -123,7 +123,7 @@ class ApiRequest {
 			wp_send_json_success( $code_response );
 	}
 	/**
-	 * Check if the request was successful.
+	 * Checks if the request was successful.
 	 *
 	 * @param array | WP_ERROR $response response to the request.
 	 */
@@ -139,7 +139,7 @@ class ApiRequest {
 		return false;
 	}
 	/**
-	 * Register wubtitle status.
+	 * Registers wubtitle status.
 	 */
 	public function status_register_meta() {
 		register_post_meta(
@@ -165,7 +165,7 @@ class ApiRequest {
 		);
 	}
 	/**
-	 * Call to the endpoint and return the response.
+	 * Calls to the endpoint and return the response.
 	 *
 	 * @param array  $body body request.
 	 * @param string $license_key user license.
@@ -185,7 +185,7 @@ class ApiRequest {
 		return $response;
 	}
 	/**
-	 * Update or add uuid, status and video lang.
+	 * Updates or adds uuid, status and video lang.
 	 *
 	 * @param int    $id_attachment video id .
 	 * @param string $lang video lang.
@@ -197,9 +197,9 @@ class ApiRequest {
 		update_post_meta( $id_attachment, 'wubtitle_status', 'pending' );
 	}
 	/**
-	 * Manage error 429.
+	 * Manages error 429.
 	 *
-	 * @param array $response response aws enpoint.
+	 * @param array $response aws endpoint response.
 	 */
 	public function get_error_message( $response ) {
 		$response_body = json_decode( wp_remote_retrieve_body( $response ) );

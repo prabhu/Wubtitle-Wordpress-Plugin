@@ -12,7 +12,7 @@ namespace Wubtitle\Api;
 use \Wubtitle\Core\Sources\YouTube;
 
 /**
- * Manage ajax and send http request.
+ * Manages ajax and sends http request.
  */
 class ApiGetTranscript {
 
@@ -27,7 +27,7 @@ class ApiGetTranscript {
 	}
 
 	/**
-	 * Get yotube video transcription and returns it.
+	 * Gets yotube video transcription and returns it.
 	 */
 	public function get_transcript_yt() {
 		if ( ! isset( $_POST['urlVideo'], $_POST['urlSubtitle'], $_POST['_ajax_nonce'], $_POST['videoTitle'] ) ) {
@@ -88,7 +88,7 @@ class ApiGetTranscript {
 
 
 	/**
-	 * Get video info e returns it.
+	 * Gets video info e returns it.
 	 */
 	public function get_video_info() {
 		if ( ! isset( $_POST['url'] ) || ! isset( $_POST['_ajax_nonce'] ) ) {
@@ -136,7 +136,7 @@ class ApiGetTranscript {
 		wp_send_json_success( $video_info );
 	}
 	/**
-	 * Get internal video transcription and returns it.
+	 * Gets internal video transcription and returns it.
 	 */
 	public function get_transcript_internal_video() {
 		if ( ! isset( $_POST['id'] ) || ! isset( $_POST['_ajax_nonce'] ) ) {
@@ -230,10 +230,10 @@ class ApiGetTranscript {
 		wp_send_json_success( $transcript );
 	}
 	/**
-	 * Get data if post exists and return it.
+	 * Gets data if post exists and returns it.
 	 *
 	 * @param int    $id_video unique id of the video.
-	 * @param string $from indicates where the caller source.
+	 * @param string $from indicates the caller source.
 	 */
 	public function get_data_transcript( $id_video, $from ) {
 		$args  = array(

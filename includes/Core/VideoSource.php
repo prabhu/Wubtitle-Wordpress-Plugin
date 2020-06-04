@@ -24,7 +24,7 @@ interface VideoSource {
 	/**
 	 * Interface method send job to backend.
 	 *
-	 * @param string $id_video id of video.
+	 * @param string $id_video video id .
 	 */
 	public function send_job_to_backend( $id_video );
 

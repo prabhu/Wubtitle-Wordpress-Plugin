@@ -25,7 +25,7 @@ class ApiPricingPlan {
 		add_action( 'wp_ajax_change_plan', array( $this, 'change_plan' ) );
 	}
 	/**
-	 * Call the backend endpoint to confirm the plan change.
+	 * Calls the backend endpoint to confirm the plan change.
 	 */
 	public function change_plan() {
 		$wanted_plan = get_option( 'wubtitle_wanted_plan' );
@@ -71,7 +71,7 @@ class ApiPricingPlan {
 		wp_send_json_success();
 	}
 	/**
-	 * Call the endpoint for plan reactivating.
+	 * Calls the endpoint for plan reactivation.
 	 */
 	public function reactivate_plan() {
 		if ( ! isset( $_POST['_ajax_nonce'] ) ) {
@@ -105,7 +105,7 @@ class ApiPricingPlan {
 		wp_send_json_success();
 	}
 	/**
-	 *  Create request body.
+	 *  Creates request body.
 	 *
 	 * @param string $pricing_plan pricing plan.
 	 * @param string $site_url site url.
@@ -123,7 +123,7 @@ class ApiPricingPlan {
 		);
 	}
 	/**
-	 * It gets the data from JavaScript and sends it to the endpoint.
+	 * Gets the data from JavaScript and sends it to the endpoint.
 	 */
 	public function send_plan() {
 		$site_url = get_site_url();
@@ -140,7 +140,7 @@ class ApiPricingPlan {
 		if ( empty( $license_key ) ) {
 			wp_send_json_error( __( 'Unable to create subtitles. The product license key is missing.', 'wubtitle' ) );
 		}
-		// if not free call endpoint for plan update.
+		// If the plan is not free calls the endpoint for plan update.
 		if ( ! get_option( 'wubtitle_free' ) ) {
 			$url_endpoint = ENDPOINT . 'stripe/customer/update/preview';
 			unset( $body['data']['siteLang'] );
@@ -182,7 +182,7 @@ class ApiPricingPlan {
 		wp_send_json_success( $session_id );
 	}
 	/**
-	 * It gets the data from JavaScript and sends it to the endpoint for payment update.
+	 * Gets the data from JavaScript and sends it to the endpoint for payment update.
 	 */
 	public function update_payment_method() {
 		if ( ! isset( $_POST['_ajax_nonce'] ) ) {
@@ -224,7 +224,7 @@ class ApiPricingPlan {
 		wp_send_json_success( $session_id );
 	}
 	/**
-	 * It gets the data from JavaScript and sends it to the endpoint for license reset.
+	 * Gets the data from JavaScript and sends it to the endpoint for license reset.
 	 */
 	public function reset_license() {
 		$site_url = get_site_url();
@@ -261,7 +261,7 @@ class ApiPricingPlan {
 		wp_send_json_success();
 	}
 	/**
-	 * Check if the request was successful.
+	 * Checks if the request was successful.
 	 *
 	 * @param array | WP_ERROR $response response to the request.
 	 */

@@ -21,7 +21,7 @@ class Activation {
 	}
 
 	/**
-	 * When the plugin is activated call the endpoint to receive the license key.
+	 * When the plugin is activated calls the endpoint to receive the license key.
 	 */
 	public function wubtitle_activation_license_key() {
 		$site_url      = get_site_url();

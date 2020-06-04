@@ -32,7 +32,7 @@ class Transcript {
 	}
 
 	/**
-	 * Add new column.
+	 * Adds new column.
 	 *
 	 * @param array $columns columns of the post.
 	 */
@@ -42,7 +42,7 @@ class Transcript {
 	}
 
 	/**
-	 * Manage the content of the columns
+	 * Manages the content of the columns
 	 *
 	 * @param string $column column to manage.
 	 * @param int    $post_id id of post.
@@ -56,7 +56,7 @@ class Transcript {
 	}
 
 	/**
-	 * Add custom box for source meta value.
+	 * Adds custom box for source meta value.
 	 */
 	public function add_source_box() {
 		add_meta_box(
@@ -180,7 +180,7 @@ class Transcript {
 	/**
 	 * Update option hook callback.
 	 *
-	 *  @param string $post_id id of post.
+	 *  @param string $post_id id of the post.
 	 */
 	public function save_postdata( $post_id ) {
 		if ( wp_is_post_autosave( $post_id ) || wp_is_post_revision( $post_id ) ) {
@@ -209,7 +209,7 @@ class Transcript {
 
 
 	/**
-	 * Register a new post type.
+	 * Registers a new post type.
 	 */
 	public function register_transcript_cpt() {
 		$labels = array(

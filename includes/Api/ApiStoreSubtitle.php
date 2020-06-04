@@ -1,6 +1,6 @@
 <?php
 /**
- * This file create a new endpoint for file store
+ * This file creates a new endpoint for file store
  *
  * @author     Nicola Palermo
  * @since      0.1.0
@@ -14,7 +14,7 @@ use \Firebase\JWT\JWT;
 use \download_url;
 
 /**
- * This class manage file storage.
+ * This class manages file storage.
  */
 class ApiStoreSubtitle {
 	/**
@@ -26,7 +26,7 @@ class ApiStoreSubtitle {
 	}
 
 	/**
-	 * Create new REST route.
+	 * Creates new REST route.
 	 */
 	public function register_store_subtitle_route() {
 		register_rest_route(
@@ -70,7 +70,7 @@ class ApiStoreSubtitle {
 	}
 
 	/**
-	 * Get the subtitle file, save it and add video posts meta.
+	 * Gets the subtitle file, save it and add video posts meta.
 	 *
 	 * @param array $params file parameters.
 	 */
@@ -158,7 +158,7 @@ class ApiStoreSubtitle {
 	}
 
 	/**
-	 * Generate post transcription.
+	 * Generates post transcription.
 	 *
 	 * @param string $transcript transcription text.
 	 * @param string $id_attachment video id.
@@ -178,7 +178,7 @@ class ApiStoreSubtitle {
 	}
 
 	/**
-	 * Create a new endpoint to manage filed jobs.
+	 * Creates a new endpoint to manage filed jobs.
 	 */
 	public function register_error_jobs_route() {
 		register_rest_route(
@@ -191,7 +191,7 @@ class ApiStoreSubtitle {
 		);
 	}
 	/**
-	 * Get failed jobs.
+	 * Gets failed jobs.
 	 *
 	 * @param array $request request values.
 	 */

@@ -25,7 +25,7 @@ class ApiAuthUpgradePlan {
 	}
 
 	/**
-	 * Create new REST route
+	 * Creates new REST route
 	 */
 	public function register_auth_plan_route() {
 		register_rest_route(
@@ -38,7 +38,7 @@ class ApiAuthUpgradePlan {
 		);
 	}
 	/**
-	 * Create a rest endpoint for the plan reactivation
+	 * Creates a rest endpoint for the reactivation plan.
 	 */
 	public function register_reactivate_plan_route() {
 		register_rest_route(
@@ -117,7 +117,7 @@ class ApiAuthUpgradePlan {
 	}
 
 	/**
-	 * Get and returns the chosen plan to backend
+	 * Gets and returns the chosen plan to backend
 	 */
 	public function return_plan() {
 		$plan_to_upgrade = get_option( 'wubtitle_wanted_plan' );
