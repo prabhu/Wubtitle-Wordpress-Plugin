@@ -1,9 +1,8 @@
 # Wubtitle
 
 Wubtitle is a plugin that generates:
-  - subtitles and transcript of uploaded videos in media library
-  - transcript of youtube video
-
+- subtitles and transcript of uploaded videos in media library
+- transcript of youtube video
 
 ## Functionality
 
