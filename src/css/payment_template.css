@@ -89,7 +89,7 @@ html {
 	display: inline;
 	font-family: "Days One", sans-serif;
 	font-size: 20px;
-	font-weight: bold;
+	font-weight: 700;
 	letter-spacing: 0;
 	line-height: 28px;
 }
@@ -165,7 +165,7 @@ html {
 	align-items: center;
 	color: #ff1744;
 	display: flex;
-	font-family: "Open Sans Semibold";
+	font-family: "Open Sans Semibold", sans-serif;
 	font-size: 10px;
 	height: 37px;
 	margin-top: auto;
@@ -231,7 +231,7 @@ html {
 .unsubscribe-section .buttons .unsubscribe,
 .confirm-change-section .buttons .unsubscribe {
 	background: none;
-	border: 2px #FFFF00 ;
+	border: 2px #ffff00;
 	border-style: solid;
 	color: #ff0;
 }
