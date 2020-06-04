@@ -12,7 +12,7 @@ namespace Wubtitle\MediaLibrary;
 use Wubtitle\Loader;
 
 /**
- * Add trascriptions section to media library.
+ * Adds trascriptions section to media library.
  */
 class TrascriptionsExtends {
 
@@ -37,7 +37,7 @@ class TrascriptionsExtends {
 	}
 
 	/**
-	 * Enqueue script.
+	 * Enqueues script.
 	 */
 	public function include_transcription_modal_script() {
 		wp_enqueue_script( 'transcription_modal_script', WUBTITLE_URL . '/src/editor/transcriptionModalScript.js', null, 'transcription_script', true );
@@ -52,7 +52,7 @@ class TrascriptionsExtends {
 	}
 
 	/**
-	 * Add custom button.
+	 * Adds custom button.
 	 */
 	public function add_transcriptions_media_button() {
 		echo '<a href="#" id="insert-my-media" class="button">' . esc_html( __( 'Add transcription', 'wubtitle' ) ) . '</a>';

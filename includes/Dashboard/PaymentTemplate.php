@@ -1,6 +1,6 @@
 <?php
 /**
- * This file handle payment template.
+ * This file handles the payment template.
  *
  * @author     Nicola Palermo
  * @since      0.1.0
@@ -10,7 +10,7 @@
 namespace Wubtitle\Dashboard;
 
 /**
- * This class handle Payment Templates.
+ * This class handles Payment Templates.
  */
 class PaymentTemplate {
 	/**

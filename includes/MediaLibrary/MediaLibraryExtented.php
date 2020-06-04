@@ -13,7 +13,7 @@ use Wubtitle\Loader;
 use Wubtitle\Helpers;
 
 /**
- * This class che extends the media library
+ * This class extends the media library
  */
 class MediaLibraryExtented {
 
@@ -40,7 +40,7 @@ class MediaLibraryExtented {
 
 
 	/**
-	 *  Add wubtitle form into the "add media" tab.
+	 *  Adds wubtitle form into the "add media" tab.
 	 *
 	 * @param array $form_fields modal window fields.
 	 * @param array $post attachment.
@@ -71,7 +71,7 @@ class MediaLibraryExtented {
 			return $form_fields;
 		}
 
-		// Add subtitle state.
+		// Adds subtitle state.
 		$status                    = $post->wubtitle_status;
 		$form_fields['e2w_status'] = array(
 			'label' => __( 'Subtitle', 'wubtitle' ),
@@ -80,7 +80,7 @@ class MediaLibraryExtented {
 			'value' => $post->ID,
 		);
 
-		// Add language select and subtitle button.
+		// Adds language select and subtitle button.
 		if ( '' === $status || 'error' === $status ) {
 			$form_fields['e2w_form'] = array(
 				'label' => __( 'Language', 'wubtitle' ),
@@ -122,7 +122,7 @@ class MediaLibraryExtented {
 			$form_fields['e2w_status']['html'] .= ob_get_clean();
 		}
 
-		// Add a label for video language.
+		// Adds a label for video language.
 		$form_fields['e2w_lang'] = array(
 			'label' => __( 'Language', 'wubtitle' ),
 			'input' => 'html',
@@ -133,7 +133,7 @@ class MediaLibraryExtented {
 	}
 
 	/**
-	 * Check free plan languages.
+	 * Checks free plan languages.
 	 *
 	 * @param string $lang_code language code.
 	 */
@@ -196,16 +196,16 @@ class MediaLibraryExtented {
 		}
 		$status = empty( $post->wubtitle_status ) ? 'none' : $post->wubtitle_status;
 
-		// Add a select to enable/disable subtitles.
+		// Adds a select to enable/disable subtitles.
 		if ( 'draft' === $status || 'enabled' === $status ) {
 			$form_fields = $this->create_toolbar_and_select( $status, $post->ID );
 			return $form_fields;
 		}
 
-		// Add header.
+		// Adds header.
 		$form_fields['e2w_header']['tr'] = '<strong> ' . __( 'Subtitles', 'wubtitle' ) . ' </strong>';
 
-		// Add subtitle state.
+		// Adds subtitle state.
 		$form_fields['e2w_status'] = array(
 			'label' => __( 'Status', 'wubtitle' ),
 			'input' => 'html',
@@ -217,13 +217,13 @@ class MediaLibraryExtented {
 			'error',
 		);
 
-		// Add language select and subtitle button.
+		// Adds language select and subtitle button.
 		if ( in_array( $status, $status_none, true ) ) {
 			$form_fields['e2w_form'] = $this->create_select_and_button( $post->ID );
 			return $form_fields;
 		}
 
-		// Add video language label.
+		// Adds video language label.
 		$form_fields['e2w_lang'] = array(
 			'label' => __( 'Language', 'wubtitle' ),
 			'input' => 'html',
@@ -231,13 +231,13 @@ class MediaLibraryExtented {
 			'value' => $post->ID,
 		);
 
-		// Add a paragraph.
+		// Adds a paragraph.
 		$form_fields['e2w_lang']['helps'] = __( 'Wait while subtitles are created. Subtitles will be available as soon as possible', 'wubtitle' );
 		return $form_fields;
 	}
 
 	/**
-	 * Toolbar creation, add subtitles languages label and publishing select.
+	 * Toolbar creation, adds subtitles languages label and publishing select.
 	 *
 	 * @param string $status subtitles state.
 	 * @param int    $id_video video id.
@@ -324,7 +324,7 @@ class MediaLibraryExtented {
 		return $post;
 	}
 	/**
-	 * Add subtitles overriding video shortcode.
+	 * Adds subtitles overriding video shortcode.
 	 *
 	 * @param string $html shortcode html.
 	 * @param array  $attr shortcode attributes.
@@ -344,7 +344,7 @@ class MediaLibraryExtented {
 		return $html;
 	}
 	/**
-	 * Get and translate video language.
+	 * Gets and translates video language.
 	 *
 	 * @param int $id_video video id.
 	 */

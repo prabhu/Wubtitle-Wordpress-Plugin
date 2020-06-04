@@ -116,7 +116,7 @@ class Settings {
 	}
 
 	/**
-	 * Check GET parameters e relative notice to user.
+	 * Checks GET parameters and relative notice to the user.
 	 */
 	public function check_notice_stripe() {
 		$message = false;
@@ -197,7 +197,7 @@ class Settings {
 
 
 	/**
-	 * Add a new setting.
+	 * Adds a new setting.
 	 */
 	public function init_settings() {
 		register_setting(
@@ -211,7 +211,7 @@ class Settings {
 	}
 
 	/**
-	 * Check license
+	 * Checks license
 	 */
 	public function check_license() {
 		$submitted_license = get_option( 'wubtitle_license_key' );
@@ -277,7 +277,7 @@ class Settings {
 
 		$validation['verified'] = $retrieved['data']['verified'];
 
-		// xxx handle a generic error, 4xx and 5xx handles all 400 or 500 errors.
+		// xxx handles a generic error, 4xx and 5xx handles all 400 or 500 errors.
 		$validation['error'] = 'xxx';
 		if ( 200 === $status && ! $validation['verified'] ) {
 			$validation['error'] = $retrieved['data']['errorType'];
