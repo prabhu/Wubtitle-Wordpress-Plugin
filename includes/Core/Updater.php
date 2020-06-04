@@ -54,15 +54,16 @@ class Updater {
 		if ( ! empty( $this->release_info ) ) {
 			return;
 		}
-		$repo_url        = "https://api.github.com/repos/{$this->username}/{$this->repo}/releases";
+		$repo_url        = "https://api.github.com/repos/{$this->username}/{$this->repo}/releases/latest";
 		$github_response = wp_remote_get( $repo_url );
-		if ( empty( $github_response ) ) {
+		if ( is_wp_error( $github_response ) || empty( $github_response ) ) {
+			return;
+		}
+		$code_response = wp_remote_retrieve_response_code( $github_response );
+		if ( 200 !== $code_response ) {
 			return;
 		}
 		$this->release_info = json_decode( wp_remote_retrieve_body( $github_response ) );
-		if ( is_array( $this->release_info ) ) {
-			$this->release_info = $this->release_info[0];
-		}
 	}
 	/**
 	 * Set transient for release details.
