@@ -14,28 +14,28 @@ Wubtitle is a plugin that generates:
 
 ## Requirements
 
-*   npm
-*   composer
+-   npm
+-   composer
 
 ## Development configuration
 
-*   Clone the repository:
-  *   via https: `git clone https://gitlab.com/ear2words/wp-ear2words.git`
-  *   via ssh: `git clone git@gitlab.com:ear2words/wp-ear2words.git`
+-   Clone the repository:
+    -   via https: `git clone https://gitlab.com/ear2words/wp-ear2words.git`
+    -   via ssh: `git clone git@gitlab.com:ear2words/wp-ear2words.git`
 
-*   Install composer and npm, then build
-  *   `composer install`
-  *   `npm install`
-  *   `npm run build`
+-   Install composer and npm, then build
+    -   `composer install`
+    -   `npm install`
+    -   `npm run build`
 
 ## Other pipeline commands
 
-*   `composer phpcs`
+-   `composer phpcs`
 
-*   `composer phpmd`
+-   `composer phpmd`
 
-*   `composer check-php`
+-   `composer check-php`
 
-*   `composer fixphp`
+-   `composer fixphp`
 
-*   `npm run fixjs`
+-   `npm run fixjs`
