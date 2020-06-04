@@ -20,7 +20,7 @@ define( 'WUBTITLE_DIR', plugin_dir_path( __FILE__ ) );
 define( 'WUBTITLE_URL', plugin_dir_url( __FILE__ ) );
 define( 'WUBTITLE_NAME', dirname( plugin_basename( __FILE__ ) ) );
 define( 'WUBTITLE_VER', '1.0' );
-define( 'ENDPOINT', 'https://9st488q4sl.execute-api.eu-west-1.amazonaws.com/milestone3/' );
+define( 'ENDPOINT', 'https://t8az9n7xwe.execute-api.eu-west-1.amazonaws.com/dev/' );
 if ( file_exists( dirname( __FILE__ ) . '/vendor/autoload.php' ) ) {
 	require_once dirname( __FILE__ ) . '/vendor/autoload.php';
 }
