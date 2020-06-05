@@ -50,6 +50,7 @@ const paymentModule = (function (Stripe, document) {
 				const plan = button.getAttribute('plan');
 				if (plan === 'plan_0') {
 					handleUnsubscription();
+					return;
 				}
 				handleChoice(plan);
 			});
