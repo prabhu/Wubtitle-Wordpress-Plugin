@@ -48,6 +48,9 @@ const paymentModule = (function (Stripe, document) {
 		buttons.forEach((button) => {
 			button.addEventListener('click', () => {
 				const plan = button.getAttribute('plan');
+				if (plan === 'plan_0') {
+					handleUnsubscription();
+				}
 				handleChoice(plan);
 			});
 		});
