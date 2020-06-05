@@ -46,6 +46,7 @@ class Loader {
 			'shortcode'               => Core\Shortcode::class,
 			'youtube_source'          => Core\Sources\YouTube::class,
 			'trascription_block'      => Gutenberg\TranscriptionBlock::class,
+			'update_manager'          => Core\Updater::class,
 		);
 
 		foreach ( $classes as $key => $class ) {
