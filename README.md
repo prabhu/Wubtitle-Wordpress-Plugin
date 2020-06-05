@@ -2,14 +2,14 @@
 
 Wubtitle is a plugin that generates:
 -   Subtitles and transcript of uploaded videos in media library
--   Transcript of youtube video
+-   Transcripts of youtube video
 
 ## Functionality
 
--   Subtitle generation
--   Subtitle ActivaRequirementstion \ Deactivation
--   Generation of video transcription (average video and youtube video)
--   Transcript insertion in the article through gutenberg block or modal window from classic editor
+-   Automatic subtitle generation
+-   Ability to enable or disable generated subtitle
+-   Generates video transcriptions from Wordpress Media library and from YouTube
+-   Support both Gutenberg and classic editor
 -   Editing and management of all transcriptions
 
 ## Requirements
@@ -20,15 +20,15 @@ Wubtitle is a plugin that generates:
 ## Development configuration
 
 -   Clone the repository:
-    -   via https: `git clone https://gitlab.com/ear2words/wp-ear2words.git`
-    -   via ssh: `git clone git@gitlab.com:ear2words/wp-ear2words.git`
+    -   via https: `git clone https://github.com/CTMobi/Wubtitle-Wordpress-Plugin.git`
+    -   via ssh: `git clone git@github.com:CTMobi/Wubtitle-Wordpress-Plugin.git`
 
 -   Install composer and npm, then build
     -   `composer install`
     -   `npm install`
     -   `npm run build`
 
-## Other pipeline commands
+## Developer code quality commands
 
 -   `composer phpcs`
 
