@@ -1,6 +1,6 @@
 <?php
 /**
- * This file implements the cancel subscription request.
+ * In this file is implemented the cancel subscription request.
  *
  * @author     Nicola Palermo
  * @since      0.1.0

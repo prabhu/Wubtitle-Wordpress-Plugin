@@ -1,6 +1,6 @@
 <?php
 /**
- * This file implements stripe related functions.
+ * In this file is implemented stripe related functions.
  *
  * @author     Alessio Catania
  * @since      1.0.0

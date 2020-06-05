@@ -1,6 +1,6 @@
 <?php
 /**
- * This file implements the logic to get transcripts for videos.
+ * In this file is implemented the logic to get transcripts for videos.
  *
  * @author     Nicola Palermo
  * @since      1.0.0
@@ -136,7 +136,7 @@ class ApiGetTranscript {
 		wp_send_json_success( $video_info );
 	}
 	/**
-	 * Gets internal video transcription and returns it.
+	 * Gets internal video transcriptions and returns it.
 	 */
 	public function get_transcript_internal_video() {
 		if ( ! isset( $_POST['id'] ) || ! isset( $_POST['_ajax_nonce'] ) ) {

@@ -1,6 +1,6 @@
 <?php
 /**
- * This file creates a new endpoint for file store
+ * In this file is created a new endpoint for file store
  *
  * @author     Nicola Palermo
  * @since      0.1.0

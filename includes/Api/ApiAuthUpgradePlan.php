@@ -1,6 +1,6 @@
 <?php
 /**
- * This file creates a new endpoint for plan change authorization.
+ * In this file is created a new endpoint for plan change authorization.
  *
  * @author     Nicola Palermo
  * @since      1.0.0

@@ -1,6 +1,6 @@
 <?php
 /**
- * This file implements the request to the APIGateway..
+ * In this file is implemented the request to the APIGateway.
  *
  * @author     Alessio Catania
  * @since      0.1.0

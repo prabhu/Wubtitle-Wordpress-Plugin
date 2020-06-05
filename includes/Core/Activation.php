@@ -1,6 +1,6 @@
 <?php
 /**
- * This file implements the functions performed when the plugin is activated.
+ * In this file is implemented the functions performed when the plugin is activated.
  *
  * @author     Alessio Catania
  * @since      0.1.0

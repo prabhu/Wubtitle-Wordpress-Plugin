@@ -42,7 +42,7 @@ class YouTube implements \Wubtitle\Core\VideoSource {
 	}
 
 	/**
-	 * Gets trascription.
+	 * Gets the trascription.
 	 *
 	 * @param string $url_subtitle url youtube subtitle.
 	 * @param string $id_video id video.
