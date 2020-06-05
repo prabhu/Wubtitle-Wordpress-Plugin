@@ -2,12 +2,12 @@
 
 Wubtitle is a plugin that generates:
 -   Subtitles and transcript of uploaded videos in media library
--   Transcripts of youtube video
+-   Transcripts of youtube videos
 
 ## Functionality
 
 -   Automatic subtitle generation
--   Ability to enable or disable generated subtitle
+-   Ability to enable or disable generated subtitles
 -   Generates video transcriptions from Wordpress Media library and from YouTube
 -   Support both Gutenberg and classic editor
 -   Editing and management of all transcriptions
