@@ -1,6 +1,6 @@
 <?php
 /**
- * Questo file implementa le funzioni relative a stripe.
+ * In this file is implemented stripe related functions.
  *
  * @author     Alessio Catania
  * @since      1.0.0
@@ -10,7 +10,7 @@
 namespace Wubtitle\Api;
 
 /**
- * Questa classe implementa le funzioni relative a stripe
+ * This class implements stripe related functions.
  */
 class ApiPricingPlan {
 	/**
@@ -25,7 +25,7 @@ class ApiPricingPlan {
 		add_action( 'wp_ajax_change_plan', array( $this, 'change_plan' ) );
 	}
 	/**
-	 * Esegue la chiamata all'endpoint aws per confermare il cambio del piano.
+	 * Calls the backend endpoint to confirm the plan change.
 	 */
 	public function change_plan() {
 		$wanted_plan = get_option( 'wubtitle_wanted_plan' );
@@ -71,7 +71,7 @@ class ApiPricingPlan {
 		wp_send_json_success();
 	}
 	/**
-	 * Chiama l'endpoint per fare la riattivazione del piano.
+	 * Calls the endpoint for plan reactivation.
 	 */
 	public function reactivate_plan() {
 		if ( ! isset( $_POST['_ajax_nonce'] ) ) {
@@ -105,10 +105,10 @@ class ApiPricingPlan {
 		wp_send_json_success();
 	}
 	/**
-	 *  Creo il body della richiesta.
+	 *  Creates request body.
 	 *
 	 * @param string $pricing_plan pricing plan.
-	 * @param string $site_url url del sito.
+	 * @param string $site_url site url.
 	 */
 	public function set_body_request( $pricing_plan, $site_url ) {
 		if ( ! is_string( $pricing_plan ) || ! filter_var( $site_url, FILTER_VALIDATE_URL ) ) {
@@ -123,7 +123,7 @@ class ApiPricingPlan {
 		);
 	}
 	/**
-	 * Riceve i dati da javascript e li invia all'endpoint.
+	 * Gets the data from JavaScript and sends it to the endpoint.
 	 */
 	public function send_plan() {
 		$site_url = get_site_url();
@@ -140,7 +140,7 @@ class ApiPricingPlan {
 		if ( empty( $license_key ) ) {
 			wp_send_json_error( __( 'Unable to create subtitles. The product license key is missing.', 'wubtitle' ) );
 		}
-		// se non è free contatto l'endpoint per aggiorna il piano.
+		// If the plan is not free calls the endpoint for plan update.
 		if ( ! get_option( 'wubtitle_free' ) ) {
 			$url_endpoint = ENDPOINT . 'stripe/customer/update/preview';
 			unset( $body['data']['siteLang'] );
@@ -165,7 +165,7 @@ class ApiPricingPlan {
 			'500' => __( 'Could not contact the server', 'wubtitle' ),
 			''    => __( 'Could not contact the server', 'wubtitle' ),
 		);
-		// 200 se è un downgrade o un upgrade
+		// 200 if it is not the first payment.
 		if ( 200 === $code_response ) {
 			$response_body  = json_decode( wp_remote_retrieve_body( $response ) );
 			$amount_preview = $response_body->data->amountPreview;
@@ -173,7 +173,7 @@ class ApiPricingPlan {
 			update_option( 'wubtitle_wanted_plan', $pricing_plan );
 			wp_send_json_success( 'change_plan' );
 		}
-		// 201 se è il primo pagamento
+		// 201 if it is the first payment
 		if ( 201 !== $code_response ) {
 			wp_send_json_error( $message[ $code_response ] );
 		}
@@ -182,7 +182,7 @@ class ApiPricingPlan {
 		wp_send_json_success( $session_id );
 	}
 	/**
-	 * Riceve i dati da javascript e li invia all'endpoint per effettuare l'aggiornamento dei dati di pagamento.
+	 * Gets the data from JavaScript and sends it to the endpoint for payment update.
 	 */
 	public function update_payment_method() {
 		if ( ! isset( $_POST['_ajax_nonce'] ) ) {
@@ -224,7 +224,7 @@ class ApiPricingPlan {
 		wp_send_json_success( $session_id );
 	}
 	/**
-	 * Riceve i dati da javascript e li invia all'endpoint per resettare la licenza.
+	 * Gets the data from JavaScript and sends it to the endpoint for license reset.
 	 */
 	public function reset_license() {
 		$site_url = get_site_url();
@@ -261,9 +261,9 @@ class ApiPricingPlan {
 		wp_send_json_success();
 	}
 	/**
-	 * Verifico che la chiamata non sia andata in errore.
+	 * Checks if the request was successful.
 	 *
-	 * @param array | WP_ERROR $response risposta chiamata.
+	 * @param array | WP_ERROR $response response to the request.
 	 */
 	private function is_successful_response( $response ) {
 		if ( ! is_wp_error( $response ) ) {
