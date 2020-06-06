@@ -24,20 +24,20 @@ interface VideoSource {
 	/**
 	 * Interface method send job to backend.
 	 *
-	 * @param string $id_video id del del video.
+	 * @param string $id_video video id .
 	 */
 	public function send_job_to_backend( $id_video );
 
 	/**
-	 * Interfaccia metodo per eseguire la chiamata e recuperare le trascrizioni.
+	 * Interface method for calling and retrieving transcripts.
 	 *
-	 * @param string $url_video url del video youtube.
-	 * @param string $from post type dal quale viene fatta la richiesta.
+	 * @param string $url_video youtube video url.
+	 * @param string $from where the request starts.
 	 */
 	public function send_job_and_get_transcription( $url_video, $from );
 
 	/**
-	 * Interfaccia metodo per recuperare la trascrizione.
+	 * Interface method for retrieving transcripts from url.
 	 *
 	 * @param string $url_subtitle url sottotitoli youtube.
 	 * @param string $id_video id video.

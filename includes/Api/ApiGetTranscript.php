@@ -1,6 +1,6 @@
 <?php
 /**
- * Questo file implementa la chiamata http.
+ * In this file is implemented the logic to get transcripts for videos.
  *
  * @author     Nicola Palermo
  * @since      1.0.0
@@ -12,7 +12,7 @@ namespace Wubtitle\Api;
 use \Wubtitle\Core\Sources\YouTube;
 
 /**
- * Questa classe gestisce il custom hook ajax
+ * Manages ajax and sends http request.
  */
 class ApiGetTranscript {
 
@@ -27,7 +27,7 @@ class ApiGetTranscript {
 	}
 
 	/**
-	 * Recupera le trascrizioni per il video yt e le ritorna.
+	 * Gets yotube video transcription and returns it.
 	 */
 	public function get_transcript_yt() {
 		if ( ! isset( $_POST['urlVideo'], $_POST['urlSubtitle'], $_POST['_ajax_nonce'], $_POST['videoTitle'] ) ) {
@@ -88,7 +88,7 @@ class ApiGetTranscript {
 
 
 	/**
-	 * Recupera le informazioni del video.
+	 * Gets video info e returns it.
 	 */
 	public function get_video_info() {
 		if ( ! isset( $_POST['url'] ) || ! isset( $_POST['_ajax_nonce'] ) ) {
@@ -136,7 +136,7 @@ class ApiGetTranscript {
 		wp_send_json_success( $video_info );
 	}
 	/**
-	 * Recupera le trascrizioni per il video interno e le ritorna.
+	 * Gets internal video transcriptions and returns it.
 	 */
 	public function get_transcript_internal_video() {
 		if ( ! isset( $_POST['id'] ) || ! isset( $_POST['_ajax_nonce'] ) ) {
@@ -230,10 +230,10 @@ class ApiGetTranscript {
 		wp_send_json_success( $transcript );
 	}
 	/**
-	 * Recupera i dati se il post esiste e li ritorna.
+	 * Gets data if post exists and returns it.
 	 *
-	 * @param int    $id_video id univoco del video.
-	 * @param string $from indica da dove viene eseguita la chiamata.
+	 * @param int    $id_video unique id of the video.
+	 * @param string $from indicates the caller source.
 	 */
 	public function get_data_transcript( $id_video, $from ) {
 		$args  = array(
