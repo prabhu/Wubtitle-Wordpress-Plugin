@@ -1,6 +1,6 @@
 <?php
 /**
- * Questo file crea un nuovo endpoint per lo store del file .
+ * In this file is created a new endpoint for file store
  *
  * @author     Nicola Palermo
  * @since      0.1.0
@@ -14,7 +14,7 @@ use \Firebase\JWT\JWT;
 use \download_url;
 
 /**
- * Questa classe gestisce lo store dei file vtt.
+ * This class manages file storage.
  */
 class ApiStoreSubtitle {
 	/**
@@ -26,7 +26,7 @@ class ApiStoreSubtitle {
 	}
 
 	/**
-	 * Crea nuova rotta REST.
+	 * Creates new REST route.
 	 */
 	public function register_store_subtitle_route() {
 		register_rest_route(
@@ -40,9 +40,9 @@ class ApiStoreSubtitle {
 	}
 
 	/**
-	 * Autenticazione JWT.
+	 * JWT authentication.
 	 *
-	 * @param array $request valori della richiesta.
+	 * @param array $request request values.
 	 */
 	public function auth_and_get_subtitle( $request ) {
 		$headers        = $request->get_headers();
@@ -70,9 +70,9 @@ class ApiStoreSubtitle {
 	}
 
 	/**
-	 * Ottiene il file dei sottotitoli e lo salva, inoltre aggiunge dei post meta al video.
+	 * Gets the subtitle file, save it and add video posts meta.
 	 *
-	 * @param array $params parametri del file.
+	 * @param array $params file parameters.
 	 */
 	public function get_subtitle( $params ) {
 		if ( ! function_exists( 'download_url' ) ) {
@@ -158,10 +158,10 @@ class ApiStoreSubtitle {
 	}
 
 	/**
-	 * Genera post trascrizione.
+	 * Generates post transcription.
 	 *
-	 * @param string $transcript testo della trascrizione.
-	 * @param string $id_attachment id del video.
+	 * @param string $transcript transcription text.
+	 * @param string $id_attachment video id.
 	 */
 	public function add_post_trascript( $transcript, $id_attachment ) {
 		$related_attachment = get_post( $id_attachment );
@@ -178,7 +178,7 @@ class ApiStoreSubtitle {
 	}
 
 	/**
-	 * Crea un nuovo endpoint per ricevere i jobs andati in errori.
+	 * Creates a new endpoint to manage filed jobs.
 	 */
 	public function register_error_jobs_route() {
 		register_rest_route(
@@ -191,9 +191,9 @@ class ApiStoreSubtitle {
 		);
 	}
 	/**
-	 * Recupera i job falliti.
+	 * Gets failed jobs.
 	 *
-	 * @param array $request valori della richiesta.
+	 * @param array $request request values.
 	 */
 	public function get_jobs_failed( $request ) {
 		$params   = $request->get_param( 'data' );

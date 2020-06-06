@@ -30,7 +30,7 @@ class Shortcode {
 	/**
 	 * Register transcript shortcode callback.
 	 *
-	 * @param array $atts parametri passati dallo shortcode.
+	 * @param array $atts shortcode parameters.
 	 */
 	public function shortcode_transcript( $atts ) {
 		$post = get_post( $atts['id'] );

@@ -1,6 +1,6 @@
 <?php
 /**
- * Questo file implementa le funzioni che vengono eseguite all'attivazione del plugin.
+ * In this file is implemented the functions performed when the plugin is activated.
  *
  * @author     Alessio Catania
  * @since      0.1.0
@@ -10,7 +10,7 @@
 namespace Wubtitle\Core;
 
 /**
- * Questa classe mplementa le funzioni che vengono eseguite all'attivazione del plugin.
+ * This class implements the functions performed when the plugin is activated.
  */
 class Activation {
 	/**
@@ -21,7 +21,7 @@ class Activation {
 	}
 
 	/**
-	 * All'attivazione del plugin chiama l'endpoint per ricevere la license key.
+	 * When the plugin is activated calls the endpoint to receive the license key.
 	 */
 	public function wubtitle_activation_license_key() {
 		$site_url      = get_site_url();

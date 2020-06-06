@@ -23,7 +23,7 @@ class Subtitle {
 	/**
 	 * Handle the subtitle deletion.
 	 *
-	 * @param int $id_deleted_attachment parametri del file.
+	 * @param int $id_deleted_attachment file params.
 	 */
 	public function delete_subtitle( $id_deleted_attachment ) {
 		$releted_vtt = get_post_meta( $id_deleted_attachment, 'wubtitle_subtitle', true );
