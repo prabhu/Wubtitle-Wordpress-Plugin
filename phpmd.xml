@@ -10,13 +10,16 @@
 		Rules for Wordpress plugin
 	</description>
 	<rule ref="rulesets/cleancode.xml">
+		<!-- To allow static access to the \Firebase\JWT\JWT class -->
 		<exclude name="StaticAccess" />
 	</rule>
 	<rule ref="rulesets/unusedcode.xml"></rule>
 	<rule ref="rulesets/codesize.xml">
+		<!-- The settings class needs more than 10 public methods-->
 		<exclude name="TooManyPublicMethods"></exclude>
 	</rule>
 	<rule ref="rulesets/naming.xml">
+		<!-- We use descriptive variables with more than 20 characters -->
 		<exclude name="LongVariable"></exclude>
 	</rule>
 	<rule ref="rulesets/naming.xml/LongVariable">
@@ -25,6 +28,7 @@
 		</properties>
 	</rule>
 	<rule ref="rulesets/design.xml">
+		<!-- The Loader class requires more than 13 dependencies to instantiate the plug-in's main classes -->
 		<exclude name="CouplingBetweenObjects"></exclude>
 	</rule>
 
