@@ -1,6 +1,6 @@
 <?php
 /**
- * Pagina per l'url cancel dell' update del motodo di pagamento.
+ * Update payment method url template.
  *
  * @author     Alessio Catania
  * @since      0.1.0
@@ -8,7 +8,7 @@
  */
 
 /**
- * Cancel update page.
+ * Update page template.
  */
 ?>
 <!DOCTYPE html>

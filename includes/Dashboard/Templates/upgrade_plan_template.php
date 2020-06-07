@@ -1,6 +1,6 @@
 <?php
 /**
- * Pagina per la conferma dell'upgrade del piano.
+ * Confirm plan upgrade page.
  *
  * @author     Alessio Catania
  * @since      1.0.0

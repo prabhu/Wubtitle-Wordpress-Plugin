@@ -21,7 +21,7 @@ class CancelPage {
 	}
 
 	/**
-	 * Include il template che viene caricato nella finestra popup per la cancellazione della licenza al click del bottone "cancella".
+	 * Popup window template displayed on license "cancel" button click.
 	 */
 	public function load_cancel_template() {
 		if ( current_user_can( 'manage_options' ) ) {
