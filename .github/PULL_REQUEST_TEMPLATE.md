@@ -1,7 +1,7 @@
 ### All Submissions:
 
-* [ ] Does your code follow the [WordPress' coding standards](https://make.wordpress.org/core/handbook/best-practices/coding-standards/)?
-* [ ] Does your code has proper inline documentation? <!-- Guidelines: https://make.wordpress.org/core/handbook/best-practices/inline-documentation-standards/javascript/ -->
+*   [ ] Does your code follow the [WordPress' coding standards](https://make.wordpress.org/core/handbook/best-practices/coding-standards/)?
+*   [ ] Does your code has proper inline documentation? <!-- Guidelines: https://make.wordpress.org/core/handbook/best-practices/inline-documentation-standards/javascript/ -->
 
 
 <!-- Mark completed items with an [x] -->
@@ -22,9 +22,9 @@ Closes # .
 
 ### Other information:
 
-* [ ] Have you added an explanation of what your changes do and why you'd like us to include them?
-* [ ] Have you written new tests for your changes, as applicable?
-* [ ] Have you successfully run tests with your changes locally?
+*   [ ] Have you added an explanation of what your changes do and why you'd like us to include them?
+*   [ ] Have you written new tests for your changes, as applicable?
+*   [ ] Have you successfully run tests with your changes locally?
 
 <!-- Mark completed items with an [x] -->
 
