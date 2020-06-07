@@ -42,8 +42,6 @@ matrix:
       env: WP_VERSION=5.2
     - php: 7.4
       env: WP_VERSION=5.3
-    - php: 7.4
-      env: WP_VERSION=latest
 
   include:
     # Run PHP_CodeSniffer
@@ -81,7 +79,7 @@ script:
   # Search for PHP syntax errors.
   - find -L . -path ./vendor -prune -o -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l
   - composer test
-  - bash <(curl -Ls https://coverage.codacy.com/get.sh)
+  - bash <(curl -Ls https://coverage.codacy.com/get.sh) || return 0
   - composer check-php
   - npm run lint:js:src
   - npm run csslint
