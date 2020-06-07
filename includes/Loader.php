@@ -1,6 +1,6 @@
 <?php
 /**
- * Effettua il bootstrap del plugin
+ * Loads the plugin classes.
  *
  * @package Wubtitle
  */
@@ -13,12 +13,14 @@ namespace Wubtitle;
 class Loader {
 	/**
 	 * L'array che contiene gli oggetti istanziati dal Loader.
+	 * Array containing Loader instantiated objects.
 	 *
 	 * @var array
 	 */
 	private static $services = array();
+
 	/**
-	 * Istanzia le classi Principali
+	 * Instantiate main classes.
 	 */
 	public static function init() {
 		load_plugin_textdomain( 'wubtitle', false, WUBTITLE_NAME . '/languages' );
@@ -57,19 +59,21 @@ class Loader {
 			}
 		}
 	}
+
 	/**
-	 * Aggiunge l'istanza della classe al container.
+	 * Add to container class instance.
 	 *
-	 * @param string $key nome instanza.
-	 * @param class  $item instanza della classe.
+	 * @param string $key instance name.
+	 * @param class  $item class instance.
 	 */
 	public static function bind( $key, $item ) {
 		( self::$services )[ $key ] = $item;
 	}
+
 	/**
-	 * Cerca nel container e se esiste restituisce l'istanza di una classe.
+	 * Search in the container, then return a class instance.
 	 *
-	 * @param string $key nome instanza.
+	 * @param string $key instance name.
 	 */
 	public static function get( $key ) {
 		if ( ! isset( self::$services[ $key ] ) ) {
