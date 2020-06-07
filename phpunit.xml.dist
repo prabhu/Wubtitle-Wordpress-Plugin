@@ -16,7 +16,15 @@
 	</testsuites>
         <filter>
                 <whitelist processUncoveredFilesFromWhitelist="true">
-                       <directory prefix="test-" suffix=".php">./tests/</directory>
+			<directory prefix="test-" suffix=".php">./tests/</directory>
+			<exclude>./tests/test-sample.php</exclude>
+			<exclude>./tests/test-youtube-api.php</exclude>
                 </whitelist>
-        </filter>
+	</filter>
+	<logging>
+		<log type="coverage-clover" target="reports/clover.xml"/>
+		<log type="junit" target="reports/unitreport.xml"/>
+		<log type="coverage-html" target="reports/html"/>
+		<log type="coverage-text" target="reports/report.txt"/>
+	</logging>
 </phpunit>
