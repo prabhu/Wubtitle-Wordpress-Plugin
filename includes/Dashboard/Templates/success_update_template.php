@@ -1,6 +1,6 @@
 <?php
 /**
- * Pagina per l'url success dell' update del motodo di pagamento.
+ * Update paiment method success url.
  *
  * @author     Alessio Catania
  * @since      0.1.0

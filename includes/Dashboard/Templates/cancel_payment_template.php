@@ -1,6 +1,6 @@
 <?php
 /**
- * Pagina per l'url cancel del pagamento.
+ * Cancel payment template.
  *
  * @author     Alessio Catania
  * @since      0.1.0
@@ -8,7 +8,7 @@
  */
 
 /**
- * Cancel payment page
+ * Cancel payment page.
  */
 ?>
 <!DOCTYPE html>

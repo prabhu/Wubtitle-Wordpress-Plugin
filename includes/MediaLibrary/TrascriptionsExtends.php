@@ -12,19 +12,21 @@ namespace Wubtitle\MediaLibrary;
 use Wubtitle\Loader;
 
 /**
- * Classe che estende la media library aggiungendo la sezione per le trascrizioni
+ * Adds trascriptions section to media library.
  */
 class TrascriptionsExtends {
+
 	/**
-	 * Setup delle action.
+	 * Actions setup.
 	 */
 	public function run() {
 		add_action( 'media_buttons', array( $this, 'add_transcriptions_media_button' ), 15 );
 		add_action( 'wp_enqueue_media', array( $this, 'include_transcription_modal_script' ) );
 		add_action( 'admin_notices', array( $this, 'wubtitle_admin_notice' ) );
 	}
+
 	/**
-	 * Aggiunge un div per inserire dinamicamente da javascript delle notice
+	 * Javascript notice div container.
 	 */
 	public function wubtitle_admin_notice() {
 		$screen = get_current_screen();
@@ -33,8 +35,9 @@ class TrascriptionsExtends {
 		}
 		echo '<div id="wubtitle-notice" class="notice notice-error" style="display:none"></div>';
 	}
+
 	/**
-	 * Include il file javascript.
+	 * Enqueues script.
 	 */
 	public function include_transcription_modal_script() {
 		wp_enqueue_script( 'transcription_modal_script', WUBTITLE_URL . '/src/editor/transcriptionModalScript.js', null, 'transcription_script', true );
@@ -47,8 +50,9 @@ class TrascriptionsExtends {
 			)
 		);
 	}
+
 	/**
-	 * Aggiunge il bottone custom.
+	 * Adds custom button.
 	 */
 	public function add_transcriptions_media_button() {
 		echo '<a href="#" id="insert-my-media" class="button">' . esc_html( __( 'Add transcription', 'wubtitle' ) ) . '</a>';

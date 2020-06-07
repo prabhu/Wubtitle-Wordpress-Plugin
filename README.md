@@ -1,40 +1,41 @@
-# WP-Ear2Words
-Ear2Words è un plugin per la generazione automatica dei sottotitoli dei video caricati sui media e della trascrizione dei video caricati e dei video youtube.
+# Wubtitle
 
+Wubtitle is a plugin that generates:
+-   Subtitles and transcript of uploaded videos in media library
+-   Transcripts of youtube videos
 
-## Funzionalità
+## Functionality
 
-- Generazione dei sottotitoli
-- Attivazione\Disattivazione dei sottotitoli
-- Generazione transcrizione dei video ( video nella media e video youtube )
-- Inserimento trascrizione nell'articolo tramite blocco gutenberg o finestra modale da classic editor
-- Possibilità di utilizzare lo shortcode per inserire la trascrizione nell'articolo
-- Modifica e gestione di tutte le trascrizioni
+-   Automatic subtitle generation
+-   Ability to enable or disable generated subtitles
+-   Generates video transcriptions from Wordpress Media library and from YouTube
+-   Support both Gutenberg and classic editor
+-   Editing and management of all transcriptions
 
-## Requisiti
+## Requirements
 
-* npm
-* composer
+-   npm
+-   composer
 
-## Configurazione sviluppo
+## Development configuration
 
-* Fai il clone del repository:
-    * con https: `git clone https://gitlab.com/ear2words/wp-ear2words.git`
-    * con ssh: `git clone git@gitlab.com:ear2words/wp-ear2words.git`
-* Installa composer e npm e eseguil il build
-    * `composer install`
-    * `npm install`
-    * `npm run build`
+-   Clone the repository:
+    -   via https: `git clone https://github.com/CTMobi/Wubtitle-Wordpress-Plugin.git`
+    -   via ssh: `git clone git@github.com:CTMobi/Wubtitle-Wordpress-Plugin.git`
 
+-   Install composer and npm, then build
+    -   `composer install`
+    -   `npm install`
+    -   `npm run build`
 
-## Altri comandi pipeline
+## Developer code quality commands
 
-* `composer phpcs`
+-   `composer phpcs`
 
-* `composer phpmd`
+-   `composer phpmd`
 
-* `composer check-php`
+-   `composer check-php`
 
-* `composer fixphp`
+-   `composer fixphp`
 
-* `npm run fixjs`
+-   `npm run fixjs`
