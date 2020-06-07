@@ -8,7 +8,7 @@
  */
 
 /**
- * This is a template.
+ * This template displays cancel page.
  */
 
 require WUBTITLE_DIR . 'includes/Dashboard/Templates/plans_array.php';

@@ -1,6 +1,6 @@
 <?php
 /**
- * Pagina per la conferma del downgrade del piano.
+ * Confirm plan downgrade template.
  *
  * @author     Alessio Catania
  * @since      1.0.0
@@ -8,7 +8,7 @@
  */
 
 /**
- * Pagina per il downgrade.
+ * Downgrade page template.
  */
 require WUBTITLE_DIR . 'includes/Dashboard/Templates/plans_array.php';
 $amount_preview = (float) get_option( 'wubtitle_amount_preview' );
