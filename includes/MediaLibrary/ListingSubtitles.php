@@ -13,6 +13,7 @@ namespace Wubtitle\MediaLibrary;
  * This class implements new coumns to media library.
  */
 class ListingSubtitles {
+
 	/**
 	 * Init class actions
 	 */
@@ -22,20 +23,22 @@ class ListingSubtitles {
 		add_action( 'admin_print_styles-upload.php', array( $this, 'wubtitle_column_width' ) );
 		add_action( 'pre_get_posts', array( $this, 'wubtitle_exclude_subtitle_file' ) );
 	}
+
 	/**
-	 * Aggiungo una colonna
+	 * Add a new column
 	 *
-	 * @param array $cols colonne media library.
+	 * @param array $cols media library columns.
 	 */
 	public function wubtitle_status_column( $cols ) {
 		$cols['wubtitle_status'] = __( 'Subtitle', 'wubtitle' );
 		return $cols;
 	}
+
 	/**
-	 * Mostro lo stato dei sottotitoli.
+	 * Shows subtitles state.
 	 *
-	 * @param string $column_name nome colonna.
-	 * @param int    $id_media id dell'attachment.
+	 * @param string $column_name column name.
+	 * @param int    $id_media attachment id.
 	 */
 	public function wubtitle_status_value( $column_name, $id_media ) {
 		$all_status = array(
@@ -54,14 +57,16 @@ class ListingSubtitles {
 			echo esc_html( $all_status[ $status ] );
 		}
 	}
+
 	/**
-	 *  Faccio l'enqueue dello stile che devo dare alla nuova colonna.
+	 *  Enqueue new column style.
 	 */
 	public function wubtitle_column_width() {
 		wp_enqueue_style( 'wubtitle_column_style', plugins_url( '../../src/css/columnStyle.css', __FILE__ ), null, true );
 	}
+
 	/**
-	 * Esclude i file sottotitoli dalla libreria media.
+	 * Exclude subtitles files from media library.
 	 *
 	 * @param WP_Query $query instanza di WP_QUERY.
 	 */

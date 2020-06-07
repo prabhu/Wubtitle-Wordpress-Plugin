@@ -15,7 +15,7 @@ namespace Wubtitle;
 class Helpers {
 
 	/**
-	 * Verifica se gutenberg è attivo.
+	 * Check if gutenberg is active.
 	 */
 	public function is_gutenberg_active() {
 		// Gutenberg plugin is installed and activated.
@@ -37,8 +37,9 @@ class Helpers {
 
 		return true;
 	}
+
 	/**
-	 * Verifica se il classic editor è attivo.
+	 * Check if classic editor is active.
 	 */
 	public function is_classic_editor_active() {
 		if ( ! function_exists( 'is_plugin_active' ) ) {
