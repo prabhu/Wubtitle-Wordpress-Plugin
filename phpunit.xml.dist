@@ -17,8 +17,10 @@
         <filter>
                 <whitelist processUncoveredFilesFromWhitelist="true">
 			<directory prefix="test-" suffix=".php">./tests/</directory>
-			<exclude>./tests/test-sample.php</exclude>
-			<exclude>./tests/test-youtube-api.php</exclude>
+			<exclude>
+				<file>./tests/test-sample.php</file>
+				<file>./tests/test-youtube-api.php</file>
+			</exclude>
                 </whitelist>
 	</filter>
 	<logging>
