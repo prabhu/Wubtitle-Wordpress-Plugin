@@ -44,12 +44,6 @@ matrix:
       env: WP_VERSION=5.3
 
   include:
-    # Run PHP_CodeSniffer
-    - name: Coding standards
-      php: 7.4
-      env: WP_VERSION=latest
-
-
     # Nightly versions of PHP and WordPress.
     - name: Bleeding edge
       php: 7.4
