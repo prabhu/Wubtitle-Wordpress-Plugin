@@ -6,9 +6,9 @@ parameters:
     inferPrivatePropertyTypeFromConstructor: true
     checkMissingIterableValueType: false
     paths:
-        - src/
+        - ./
     excludes_analyse:
-        - src/Core/CompiledContainer.php
+        - vendor/
     autoload_files:
         - vendor/php-stubs/wordpress-stubs/wordpress-stubs.php
     ignoreErrors:
