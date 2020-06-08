@@ -14,4 +14,19 @@
 			<exclude>./tests/test-youtube-api.php</exclude>
 		</testsuite>
 	</testsuites>
+	<filter>
+                <whitelist processUncoveredFilesFromWhitelist="true">
+			<directory prefix="test-" suffix=".php">./tests/</directory>
+			<exclude>
+				<file>./tests/test-sample.php</file>
+				<file>./tests/test-youtube-api.php</file>
+			</exclude>
+                </whitelist>
+	</filter>
+	<logging>
+		<log type="coverage-clover" target="reports/clover.xml"/>
+		<log type="junit" target="reports/unitreport.xml"/>
+		<log type="coverage-html" target="reports/html"/>
+		<log type="coverage-text" target="reports/report.txt"/>
+	</logging>
 </phpunit>
