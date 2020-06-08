@@ -1,6 +1,6 @@
 <?php
 /**
- * Pagina per l'url success del pagamento.
+ * Page used for the payment method success url.
  *
  * @author     Alessio Catania
  * @since      0.1.0
