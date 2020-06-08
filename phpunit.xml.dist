@@ -16,10 +16,11 @@
 	</testsuites>
 	<filter>
                 <whitelist processUncoveredFilesFromWhitelist="true">
-			<directory prefix="test-" suffix=".php">./tests/</directory>
+			<directory suffix=".php">./</directory>
 			<exclude>
-				<file>./tests/test-sample.php</file>
-				<file>./tests/test-youtube-api.php</file>
+				<directory>./vendor</directory>
+				<directory>./includes/Dashboard/Templates</directory>
+				<directory>./tests</directory>
 			</exclude>
                 </whitelist>
 	</filter>
