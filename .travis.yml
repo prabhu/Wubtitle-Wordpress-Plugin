@@ -42,16 +42,8 @@ matrix:
       env: WP_VERSION=5.2
     - php: 7.4
       env: WP_VERSION=5.3
-    - php: 7.4
-      env: WP_VERSION=latest
 
   include:
-    # Run PHP_CodeSniffer
-    - name: Coding standards
-      php: 7.4
-      env: WP_VERSION=latest
-
-
     # Nightly versions of PHP and WordPress.
     - name: Bleeding edge
       php: 7.4
@@ -66,7 +58,7 @@ before_install:
   - export PATH="$HOME/.composer/vendor/bin:$PATH"
 
   # Unless we need XDebug, disable it for improved performance.
-  - phpenv config-rm xdebug.ini || return 0
+  #- phpenv config-rm xdebug.ini || return 0
 
 install:
   # Install our Composer dependencies
@@ -81,6 +73,7 @@ script:
   # Search for PHP syntax errors.
   - find -L . -path ./vendor -prune -o -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l
   - composer test
+  - bash <(curl -Ls https://coverage.codacy.com/get.sh) || return 0
   - composer check-php
   - npm run lint:js:src
   - npm run csslint
