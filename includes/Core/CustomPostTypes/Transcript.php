@@ -82,7 +82,7 @@ class Transcript {
 	/**
 	 * Render of source box.
 	 *
-	 * @param object $post array of post.
+	 * @param mixed $post object of the post.
 	 *
 	 * @return void
 	 */
@@ -190,7 +190,7 @@ class Transcript {
 	/**
 	 * Update option hook callback.
 	 *
-	 *  @param string $post_id id of the post.
+	 *  @param int $post_id id of the post.
 	 *
 	 * @return void
 	 */

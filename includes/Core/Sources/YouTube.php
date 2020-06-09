@@ -154,18 +154,18 @@ class YouTube implements \Wubtitle\Core\VideoSource {
 	/**
 	 * Finds the url of auto-generated captions
 	 *
-	 * @param array $caption_tracks array of objects.
+	 * @param mixed $caption_tracks array of objects.
 	 * @return string
 	 */
 	public function find_url( $caption_tracks ) {
 		$url = '';
 		foreach ( $caption_tracks as  $track ) {
-			if ( isset( $track->kind ) && 'asr' === $track->kind ) {
-				// phpcs:disable
-				// phpcs segnala "Object property baseUrl is not in valid snake_case format", ma è un oggetto ottenuto da youtube.
+			// phpcs:disable
+			// phpcs segnala "Object property baseUrl is not in valid snake_case format", ma è un oggetto ottenuto da youtube.
+			if ( isset( $track->kind ) && isset( $track->baseUrl ) && 'asr' === $track->kind ) {
 				$url = $track->baseUrl . '&fmt=json3&xorb=2&xobt=3&xovt=3';
-				// phpcs:enable
 			}
+			// phpcs:enable
 		}
 		return $url;
 	}

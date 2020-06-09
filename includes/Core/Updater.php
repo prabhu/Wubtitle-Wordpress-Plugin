@@ -34,7 +34,7 @@ class Updater {
 	/**
 	 * Github response.
 	 *
-	 * @var object
+	 * @var mixed
 	 */
 	private $release_info;
 
@@ -72,7 +72,7 @@ class Updater {
 	/**
 	 * Set transient for release details.
 	 *
-	 * @param object $transient contains the release info.
+	 * @param mixed $transient contains the release info.
 	 * @return object
 	 */
 	public function set_transient( $transient ) {
@@ -85,14 +85,15 @@ class Updater {
 		}
 		$do_update = version_compare( $this->release_info->tag_name, $transient->checked[ WUBTITLE_NAME ], '>' );
 		if ( $do_update ) {
-			$package                              = $this->release_info->zipball_url;
-			$plugin_url                           = $this->plugin_data['PluginURI'];
-			$transient_obj                        = array(
+			$package       = $this->release_info->zipball_url;
+			$plugin_url    = $this->plugin_data['PluginURI'];
+			$transient_obj = array(
 				'slug'        => WUBTITLE_NAME,
 				'new_version' => $this->release_info->tag_name,
 				'url'         => $plugin_url,
 				'package'     => $package,
 			);
+			// @phpstan-ignore-next-line.
 			$transient->response[ WUBTITLE_NAME ] = $transient_obj;
 		}
 		return $transient;
@@ -100,7 +101,7 @@ class Updater {
 	/**
 	 * Push information to get the update information.
 	 *
-	 * @param array|object ...$args plugin info.
+	 * @param mixed ...$args plugin info.
 	 * @return false|object
 	 */
 	public function set_release_info( ...$args ) {

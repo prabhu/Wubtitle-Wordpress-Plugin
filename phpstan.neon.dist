@@ -13,7 +13,9 @@ parameters:
     bootstrapFiles:
         - wubtitle.php
     ignoreErrors:
-        - '#Parameter \$str of function sanitize_text_field expects string, array<string>|string given.#'
+        # false positive, to the sanitize_text_field function I input wp_unslash output and it is never an array
+        # wp_unslash returns an array only when it receives an array as input
+        - '#Parameter \#[0-9]+ \$[a-zA-Z0-9\\_]+ of function sanitize_text_field expects string, array<string>\|string given.#'
+        # get_posts () always returns WP_Post if args is not null. 
         - '#Cannot access property [a-zA-Z0-9\\_]+ on int|WP_Post.#'
-        - '#Access to an undefined property object::+#'
 
