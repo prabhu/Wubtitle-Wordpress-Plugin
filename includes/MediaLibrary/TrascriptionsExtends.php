@@ -18,6 +18,8 @@ class TrascriptionsExtends {
 
 	/**
 	 * Actions setup.
+	 *
+	 * @return void
 	 */
 	public function run() {
 		add_action( 'media_buttons', array( $this, 'add_transcriptions_media_button' ), 15 );
@@ -27,6 +29,8 @@ class TrascriptionsExtends {
 
 	/**
 	 * Javascript notice div container.
+	 *
+	 * @return void
 	 */
 	public function wubtitle_admin_notice() {
 		$screen = get_current_screen();
@@ -38,9 +42,11 @@ class TrascriptionsExtends {
 
 	/**
 	 * Enqueues script.
+	 *
+	 * @return void
 	 */
 	public function include_transcription_modal_script() {
-		wp_enqueue_script( 'transcription_modal_script', WUBTITLE_URL . '/src/editor/transcriptionModalScript.js', null, 'transcription_script', true );
+		wp_enqueue_script( 'transcription_modal_script', WUBTITLE_URL . '/src/editor/transcriptionModalScript.js', array(), 'transcription_script', true );
 		wp_set_script_translations( 'transcription_modal_script', 'wubtitle', WUBTITLE_DIR . 'languages' );
 		wp_localize_script(
 			'transcription_modal_script',
@@ -53,6 +59,8 @@ class TrascriptionsExtends {
 
 	/**
 	 * Adds custom button.
+	 *
+	 * @return void
 	 */
 	public function add_transcriptions_media_button() {
 		echo '<a href="#" id="insert-my-media" class="button">' . esc_html( __( 'Add transcription', 'wubtitle' ) ) . '</a>';

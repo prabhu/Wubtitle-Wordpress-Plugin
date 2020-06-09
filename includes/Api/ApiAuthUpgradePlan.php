@@ -18,6 +18,8 @@ use \Firebase\JWT\JWT;
 class ApiAuthUpgradePlan {
 	/**
 	 * Init class action.
+	 *
+	 * @return void
 	 */
 	public function run() {
 		add_action( 'rest_api_init', array( $this, 'register_auth_plan_route' ) );
@@ -26,6 +28,8 @@ class ApiAuthUpgradePlan {
 
 	/**
 	 * Creates new REST route
+	 *
+	 * @return void
 	 */
 	public function register_auth_plan_route() {
 		register_rest_route(
@@ -39,6 +43,8 @@ class ApiAuthUpgradePlan {
 	}
 	/**
 	 * Creates a rest endpoint for the reactivation plan.
+	 *
+	 * @return void
 	 */
 	public function register_reactivate_plan_route() {
 		register_rest_route(
@@ -54,7 +60,8 @@ class ApiAuthUpgradePlan {
 	/**
 	 * JWT authentication.
 	 *
-	 * @param array $request request values.
+	 * @param \WP_REST_Request $request request values.
+	 * @return WP_REST_Response|array
 	 */
 	public function reactivate_plan( $request ) {
 		$headers        = $request->get_headers();
@@ -90,7 +97,8 @@ class ApiAuthUpgradePlan {
 	/**
 	 * JWT Authentication.
 	 *
-	 * @param array $request request values.
+	 * @param \WP_REST_Request $request values.
+	 * @return WP_REST_Response|array
 	 */
 	public function auth_and_get_plan( $request ) {
 		$headers        = $request->get_headers();
@@ -118,6 +126,8 @@ class ApiAuthUpgradePlan {
 
 	/**
 	 * Gets and returns the chosen plan to backend
+	 *
+	 * @return array
 	 */
 	public function return_plan() {
 		$plan_to_upgrade = get_option( 'wubtitle_wanted_plan' );

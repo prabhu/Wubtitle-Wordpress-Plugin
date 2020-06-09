@@ -40,6 +40,8 @@ class Updater {
 
 	/**
 	 * Init actions
+	 *
+	 * @return void
 	 */
 	public function run() {
 		$this->plugin_data = get_plugin_data( WUBTITLE_FILE_URL );
@@ -49,6 +51,8 @@ class Updater {
 	}
 	/**
 	 * Get release info from github repository.
+	 *
+	 * @return void
 	 */
 	private function get_release_info() {
 		if ( ! empty( $this->release_info ) ) {
@@ -69,6 +73,7 @@ class Updater {
 	 * Set transient for release details.
 	 *
 	 * @param object $transient contains the release info.
+	 * @return object
 	 */
 	public function set_transient( $transient ) {
 		if ( empty( $transient->checked ) ) {
@@ -95,12 +100,13 @@ class Updater {
 	/**
 	 * Push information to get the update information.
 	 *
-	 * @param array ...$args plugin info.
+	 * @param array|object ...$args plugin info.
+	 * @return false|object
 	 */
 	public function set_release_info( ...$args ) {
-		$response = $args[2];
+		$response = (object) $args[2];
 		$this->get_release_info();
-		if ( ! array_key_exists( 'slug', $response ) || WUBTITLE_NAME !== $response->slug ) {
+		if ( ! property_exists( $response, 'slug' ) || WUBTITLE_NAME !== $response->slug ) {
 			return false;
 		}
 		$response->last_updated  = $this->release_info->published_at;
@@ -120,6 +126,7 @@ class Updater {
 	 * Reactivate the plugin and rename the folder with the original name.
 	 *
 	 * @param array ...$args installation result data.
+	 * @return array
 	 */
 	public function post_install( ...$args ) {
 		$result        = $args[2];

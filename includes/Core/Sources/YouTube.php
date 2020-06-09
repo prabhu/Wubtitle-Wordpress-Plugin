@@ -18,6 +18,7 @@ class YouTube implements \Wubtitle\Core\VideoSource {
 	 * Sends job to backend endpoint.
 	 *
 	 * @param string $id_video id video youtube.
+	 * @return array|\WP_Error
 	 */
 	public function send_job_to_backend( $id_video ) {
 		$response = wp_remote_post(
@@ -48,6 +49,7 @@ class YouTube implements \Wubtitle\Core\VideoSource {
 	 * @param string $id_video id video.
 	 * @param string $title_video video title.
 	 * @param string $from where the request starts.
+	 * @return bool|string|int|\WP_Error
 	 */
 	public function get_subtitle_to_url( $url_subtitle, $id_video, $title_video, $from = '' ) {
 		if ( empty( $url_subtitle ) ) {
@@ -55,7 +57,10 @@ class YouTube implements \Wubtitle\Core\VideoSource {
 		}
 		$url_subtitle = $url_subtitle . '&fmt=json3';
 		$response     = wp_remote_get( $url_subtitle );
-		$text         = '';
+		if ( is_wp_error( $response ) ) {
+			return false;
+		}
+		$text = '';
 		foreach ( json_decode( $response['body'] )->events as $event ) {
 			if ( isset( $event->segs ) ) {
 				foreach ( $event->segs as $seg ) {
@@ -84,6 +89,7 @@ class YouTube implements \Wubtitle\Core\VideoSource {
 	 *
 	 * @param string $id_video id youtube video.
 	 * @param string $from where the request starts.
+	 * @return bool|string|int|\WP_Error
 	 */
 	public function get_subtitle( $id_video, $from ) {
 		$get_info_url = "https://www.youtube.com/get_video_info?video_id=$id_video";
@@ -110,6 +116,9 @@ class YouTube implements \Wubtitle\Core\VideoSource {
 		}
 
 		$response = wp_remote_get( $url );
+		if ( is_wp_error( $response ) ) {
+			return '';
+		}
 
 		$text = '';
 
@@ -146,6 +155,7 @@ class YouTube implements \Wubtitle\Core\VideoSource {
 	 * Finds the url of auto-generated captions
 	 *
 	 * @param array $caption_tracks array of objects.
+	 * @return string
 	 */
 	public function find_url( $caption_tracks ) {
 		$url = '';
@@ -165,6 +175,7 @@ class YouTube implements \Wubtitle\Core\VideoSource {
 	 *
 	 * @param string $url_video url of the youtube video.
 	 * @param string $from where the request starts.
+	 * @return array
 	 */
 	public function send_job_and_get_transcription( $url_video, $from ) {
 		$url_parts    = wp_parse_url( $url_video );

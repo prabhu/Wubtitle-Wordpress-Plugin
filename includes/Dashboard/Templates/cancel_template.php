@@ -43,8 +43,9 @@ require WUBTITLE_DIR . 'includes/Dashboard/Templates/plans_array.php';
 		<h1 class="title"><?php echo esc_html_e( 'Or choose another plan', 'wubtitle' ); ?></h1>
 		<div class="row">
 		<?php
-		foreach ( $plans as $plan ) :
-			?>
+		if ( isset( $plans ) ) :
+			foreach ( $plans as $plan ) :
+				?>
 			<div class="column one-quarter">
 				<div class="card <?php echo $plan['zoom'] ? 'zoom' : ''; ?>">
 					<div class="card__header">
@@ -74,14 +75,16 @@ require WUBTITLE_DIR . 'includes/Dashboard/Templates/plans_array.php';
 					</div>
 				</div>
 			</div>
-			<?php
+				<?php
 		endforeach;
+	endif;
 		?>
 		</div>
 		<div class="row">
 		<?php
-		foreach ( $plans as $plan ) :
-			?>
+		if ( isset( $plans ) ) :
+			foreach ( $plans as $plan ) :
+				?>
 			<div class="column one-quarter">
 				<ul class="features-list">
 					<?php
@@ -93,8 +96,9 @@ require WUBTITLE_DIR . 'includes/Dashboard/Templates/plans_array.php';
 					?>
 				</ul>
 			</div>
-			<?php
-		endforeach;
+				<?php
+			endforeach;
+		endif;
 		?>
 		</div>
 	</div>

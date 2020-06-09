@@ -16,9 +16,12 @@ class Helpers {
 
 	/**
 	 * Check if gutenberg is active.
+	 *
+	 * @return bool
 	 */
 	public function is_gutenberg_active() {
 		// Gutenberg plugin is installed and activated.
+		// @phpstan-ignore-next-line.
 		$gutenberg = ! ( false === has_filter( 'replace_editor', 'gutenberg_init' ) );
 
 		// Block editor since 5.0.
@@ -40,6 +43,8 @@ class Helpers {
 
 	/**
 	 * Check if classic editor is active.
+	 *
+	 * @return bool
 	 */
 	public function is_classic_editor_active() {
 		if ( ! function_exists( 'is_plugin_active' ) ) {

@@ -19,6 +19,8 @@ class MediaLibraryExtented {
 
 	/**
 	 * Actions setup.
+	 *
+	 * @return void
 	 */
 	public function run() {
 		$helpers = new Helpers();
@@ -27,23 +29,26 @@ class MediaLibraryExtented {
 		}
 		add_action( 'attachment_fields_to_edit', array( $this, 'add_generate_subtitle_form_into_media_library' ), 99, 2 );
 		add_action( 'admin_enqueue_scripts', array( $this, 'wubtitle_medialibrary_style' ) );
-		add_filter( 'attachment_fields_to_save', array( $this, 'video_attachment_fields_to_save' ), null, 2 );
+		add_filter( 'attachment_fields_to_save', array( $this, 'video_attachment_fields_to_save' ), 10, 2 );
 		add_filter( 'wp_video_shortcode_override', array( $this, 'wubtitle_video_shortcode' ), 10, 4 );
 	}
 
 	/**
 	 *  Enqueue settings style.
+	 *
+	 * @return void
 	 */
 	public function wubtitle_medialibrary_style() {
-		wp_enqueue_style( 'wubtitle_medialibrary_style', WUBTITLE_URL . '/src/css/mediaStyle.css', null, true );
+		wp_enqueue_style( 'wubtitle_medialibrary_style', WUBTITLE_URL . '/src/css/mediaStyle.css', array(), true );
 	}
 
 
 	/**
 	 *  Adds wubtitle form into the "add media" tab.
 	 *
-	 * @param array $form_fields modal window fields.
-	 * @param array $post attachment.
+	 * @param array    $form_fields modal window fields.
+	 * @param \WP_Post $post attachment.
+	 * @return array
 	 */
 	public function add_generate_subtitle_form( $form_fields, $post ) {
 		global $pagenow;
@@ -91,11 +96,11 @@ class MediaLibraryExtented {
 			$lang                    = explode( '_', get_locale(), 2 )[0];
 			ob_start();
 			?>
-			<select name="attachments[<?php echo esc_html( $post->ID ); ?>][select-lang]" id="Profile Image Select">
+			<select name="attachments[<?php echo esc_html( (string) $post->ID ); ?>][select-lang]" id="Profile Image Select">
 				<?php $this->language_options( $lang ); ?>
 			</select>
-			<label onclick="this.setAttribute('disabled','true')" class="button-primary" style="margin-top:16px;" for="attachments-<?php echo esc_html( $post->ID ); ?>-e2w_form">
-				<input type="checkbox" style="display:none" id="attachments-<?php echo esc_html( $post->ID ); ?>-e2w_form" name="attachments[<?php echo esc_html( $post->ID ); ?>][e2w_form]" value="<?php echo esc_html( $post->ID ); ?>" />
+			<label onclick="this.setAttribute('disabled','true')" class="button-primary" style="margin-top:16px;" for="attachments-<?php echo esc_html( (string) $post->ID ); ?>-e2w_form">
+				<input type="checkbox" style="display:none" id="attachments-<?php echo esc_html( (string) $post->ID ); ?>-e2w_form" name="attachments[<?php echo esc_html( (string) $post->ID ); ?>][e2w_form]" value="<?php echo esc_html( (string) $post->ID ); ?>" />
 				<?php esc_html_e( 'GENERATE SUBTITLES', 'wubtitle' ); ?>
 			</label>
 			<?php
@@ -114,7 +119,7 @@ class MediaLibraryExtented {
 			$lang                      = explode( '_', get_locale(), 2 )[0];
 			ob_start();
 			?>
-			<select name="attachments[<?php echo esc_html( $post->ID ); ?>][select-status]" id="Profile Image Select">
+			<select name="attachments[<?php echo esc_html( (string) $post->ID ); ?>][select-status]" id="Profile Image Select">
 				<option <?php echo selected( $status, 'enabled', false ); ?> value="enabled"> <?php esc_html_e( 'Published', 'wubtitle' ); ?></option>
 				<option <?php echo selected( $status, 'draft', false ); ?> value="draft"> <?php esc_html_e( 'Draft', 'wubtitle' ); ?></option>
 			</select>
@@ -136,6 +141,7 @@ class MediaLibraryExtented {
 	 * Checks free plan languages.
 	 *
 	 * @param string $lang_code language code.
+	 * @return bool
 	 */
 	private function is_pro_only( $lang_code ) {
 		$free_lang = array( 'it', 'en' );
@@ -146,6 +152,7 @@ class MediaLibraryExtented {
 	 * Language select options.
 	 *
 	 * @param string $lang language code.
+	 * @return void
 	 */
 	private function language_options( $lang ) {
 		$languages = array(
@@ -170,8 +177,9 @@ class MediaLibraryExtented {
 	/**
 	 * Add wubtitle form into "add media" tab.
 	 *
-	 * @param array $form_fields modal window fields.
-	 * @param array $post attachment.
+	 * @param array   $form_fields modal window fields.
+	 * @param WP_Post $post attachment.
+	 * @return array
 	 */
 	public function add_generate_subtitle_form_into_media_library( $form_fields, $post ) {
 		global $pagenow;
@@ -241,6 +249,7 @@ class MediaLibraryExtented {
 	 *
 	 * @param string $status subtitles state.
 	 * @param int    $id_video video id.
+	 * @return array
 	 */
 	private function create_toolbar_and_select( $status, $id_video ) {
 		$form_fields = array();
@@ -250,7 +259,7 @@ class MediaLibraryExtented {
 			<label for="attachments-' . $post->ID . '-e2w_lang">
 				<strong>Subtitles: </strong><?php echo esc_html( $this->get_video_language( $id_video ) ); ?>
 			</label>
-			<select class="e2w-select-status" name="attachments[<?php echo esc_html( $id_video ); ?>][select-status]" id="Profile Image Select">
+			<select class="e2w-select-status" name="attachments[<?php echo esc_html( (string) $id_video ); ?>][select-status]" id="Profile Image Select">
 				<option <?php echo selected( $status, 'enabled', false ); ?> value="enabled"> <?php esc_html_e( 'Published', 'wubtitle' ); ?></option>
 				<option <?php echo selected( $status, 'draft', false ); ?> value="draft"> <?php esc_html_e( 'Draft', 'wubtitle' ); ?></option>
 			</select>
@@ -264,6 +273,7 @@ class MediaLibraryExtented {
 	 * Create language select and subtitle generation button.
 	 *
 	 * @param int $id_video video id.
+	 * @return array
 	 */
 	private function create_select_and_button( $id_video ) {
 		$form_fields = array(
@@ -275,10 +285,10 @@ class MediaLibraryExtented {
 		$lang        = explode( '_', get_locale(), 2 )[0];
 		ob_start();
 		?>
-			<select style="width:100%" name="attachments[<?php echo esc_html( $id_video ); ?>][select-lang]" id="Profile Image Select">
+			<select style="width:100%" name="attachments[<?php echo esc_html( (string) $id_video ); ?>][select-lang]" id="Profile Image Select">
 				<?php $this->language_options( $lang ); ?>
 			</select>
-			<button type="submit" class="button-primary" style="margin-top:16px;" id="attachments-<?php echo esc_html( $id_video ); ?>-e2w_form" name="attachments[<?php echo esc_html( $id_video ); ?>][e2w_form]" value="invio">
+			<button type="submit" class="button-primary" style="margin-top:16px;" id="attachments-<?php echo esc_html( (string) $id_video ); ?>-e2w_form" name="attachments[<?php echo esc_html( (string) $id_video ); ?>][e2w_form]" value="invio">
 			<?php esc_html_e( 'GENERATE SUBTITLES', 'wubtitle' ); ?>
 			</button>
 			<?php
@@ -291,6 +301,7 @@ class MediaLibraryExtented {
 	 *
 	 * @param array $post attachment data.
 	 * @param array $attachment custom input data.
+	 * @return void|array
 	 */
 	public function video_attachment_fields_to_save( $post, $attachment ) {
 		if ( isset( $attachment['select-status'] ) ) {
@@ -328,6 +339,7 @@ class MediaLibraryExtented {
 	 *
 	 * @param string $html shortcode html.
 	 * @param array  $attr shortcode attributes.
+	 * @return string|void
 	 */
 	public function wubtitle_video_shortcode( $html, $attr ) {
 		remove_filter( 'wp_video_shortcode_override', array( $this, 'wubtitle_video_shortcode' ), 10 );
@@ -347,6 +359,7 @@ class MediaLibraryExtented {
 	 * Gets and translates video language.
 	 *
 	 * @param int $id_video video id.
+	 * @return string
 	 */
 	public function get_video_language( $id_video ) {
 		$lang     = get_post_meta( $id_video, 'wubtitle_lang_video', true );

@@ -15,6 +15,8 @@ namespace Wubtitle\Api;
 class ApiRequest {
 	/**
 	 * Init class action.
+	 *
+	 * @return void
 	 */
 	public function run() {
 		add_action( 'wp_ajax_submitVideo', array( $this, 'send_request' ) );
@@ -25,6 +27,7 @@ class ApiRequest {
 	 * Get media attachment.
 	 *
 	 * @param integer $id_attachment video id.
+	 * @return mixed
 	 */
 	public function get_media_metadata( $id_attachment ) {
 		return wp_get_attachment_metadata( $id_attachment );
@@ -33,7 +36,8 @@ class ApiRequest {
 	/**
 	 * Checks the validation and sanitize input.
 	 *
-	 *  @param array $array post.
+	 * @param array $array post.
+	 * @return array|false
 	 */
 	public function sanitize_input( $array ) {
 		if ( ! isset( $array['id_attachment'] ) || ! isset( $array['src_attachment'] ) || ! isset( $array['lang'] ) ) {
@@ -47,6 +51,7 @@ class ApiRequest {
 	 *  Creates body request.
 	 *
 	 * @param array $data it contains id_attachment and src_attachment.
+	 * @return false|array
 	 */
 	public function set_body_request( $data ) {
 		$languanges = array(
@@ -80,6 +85,8 @@ class ApiRequest {
 	}
 	/**
 	 * Sends the request to start the job.
+	 *
+	 * @return void
 	 */
 	public function send_request() {
 		$license_key = get_option( 'wubtitle_license_key' );
@@ -105,7 +112,7 @@ class ApiRequest {
 			$code_response = $this->is_successful_response( $response ) ? wp_remote_retrieve_response_code( $response ) : '500';
 
 		if ( 429 === $code_response ) {
-			$message_error = $this->get_error_message( $response );
+			$message_error = $this->get_error_message( (array) $response );
 			wp_send_json_error( $message_error );
 		}
 
@@ -125,7 +132,8 @@ class ApiRequest {
 	/**
 	 * Checks if the request was successful.
 	 *
-	 * @param array | WP_ERROR $response response to the request.
+	 * @param array|\WP_Error $response response to the request.
+	 * @return bool
 	 */
 	private function is_successful_response( $response ) {
 		if ( ! is_wp_error( $response ) ) {
@@ -140,6 +148,8 @@ class ApiRequest {
 	}
 	/**
 	 * Registers wubtitle status.
+	 *
+	 * @return void
 	 */
 	public function status_register_meta() {
 		register_post_meta(
@@ -169,6 +179,7 @@ class ApiRequest {
 	 *
 	 * @param array  $body body request.
 	 * @param string $license_key user license.
+	 * @return array|\WP_Error
 	 */
 	public function send_job_to_backend( $body, $license_key ) {
 		$response = wp_remote_post(
@@ -190,6 +201,7 @@ class ApiRequest {
 	 * @param int    $id_attachment video id .
 	 * @param string $lang video lang.
 	 * @param string $job_id uuid jobs.
+	 * @return void
 	 */
 	public function update_uuid_status_and_lang( $id_attachment, $lang, $job_id ) {
 		update_post_meta( $id_attachment, 'wubtitle_lang_video', $lang );
@@ -200,6 +212,7 @@ class ApiRequest {
 	 * Manages error 429.
 	 *
 	 * @param array $response aws endpoint response.
+	 * @return string
 	 */
 	public function get_error_message( $response ) {
 		$response_body = json_decode( wp_remote_retrieve_body( $response ) );

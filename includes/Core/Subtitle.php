@@ -15,6 +15,8 @@ namespace Wubtitle\Core;
 class Subtitle {
 	/**
 	 * Init class actions
+	 *
+	 * @return void
 	 */
 	public function run() {
 		add_action( 'delete_attachment', array( $this, 'delete_subtitle' ) );
@@ -24,6 +26,7 @@ class Subtitle {
 	 * Handle the subtitle deletion.
 	 *
 	 * @param int $id_deleted_attachment file params.
+	 * @return void
 	 */
 	public function delete_subtitle( $id_deleted_attachment ) {
 		$releted_vtt = get_post_meta( $id_deleted_attachment, 'wubtitle_subtitle', true );

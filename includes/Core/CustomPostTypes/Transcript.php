@@ -17,6 +17,8 @@ use \Wubtitle\Core\Sources\YouTube;
 class Transcript {
 	/**
 	 * Init class actions.
+	 *
+	 * @return void
 	 */
 	public function run() {
 		add_action( 'init', array( $this, 'register_transcript_cpt' ) );
@@ -35,6 +37,7 @@ class Transcript {
 	 * Adds new column.
 	 *
 	 * @param array $columns columns of the post.
+	 * @return array
 	 */
 	public function set_custom_transcript_column( $columns ) {
 		$columns['shortcode'] = __( 'Shortcode', 'wubtitle' );
@@ -46,6 +49,7 @@ class Transcript {
 	 *
 	 * @param string $column column to manage.
 	 * @param int    $post_id id of post.
+	 * @return void
 	 */
 	public function transcript_custom_column_values( $column, $post_id ) {
 		switch ( $column ) {
@@ -57,6 +61,8 @@ class Transcript {
 
 	/**
 	 * Adds custom box for source meta value.
+	 *
+	 * @return void
 	 */
 	public function add_source_box() {
 		add_meta_box(
@@ -76,7 +82,9 @@ class Transcript {
 	/**
 	 * Render of source box.
 	 *
-	 * @param array $post array of post.
+	 * @param object $post array of post.
+	 *
+	 * @return void
 	 */
 	public function source_box_html( $post ) {
 		?>
@@ -98,6 +106,7 @@ class Transcript {
 	 * Check and generate content.
 	 *
 	 *  @param string $content content returned from the content_save_pre hook.
+	 *  @return string|bool|int|void|\WP_Error
 	 */
 	public function transcript_content( $content ) {
 		if ( ! isset( $_POST['url'] ) &&
@@ -169,7 +178,8 @@ class Transcript {
 	/**
 	 * Check content.
 	 *
-	 *  @param string $content id del post.
+	 *  @param string|int|\WP_Error|bool $content id del post.
+	 *  @return string|void
 	 */
 	public function has_content( $content ) {
 		if ( ! $content ) {
@@ -181,6 +191,8 @@ class Transcript {
 	 * Update option hook callback.
 	 *
 	 *  @param string $post_id id of the post.
+	 *
+	 * @return void
 	 */
 	public function save_postdata( $post_id ) {
 		if ( wp_is_post_autosave( $post_id ) || wp_is_post_revision( $post_id ) ) {
@@ -210,6 +222,8 @@ class Transcript {
 
 	/**
 	 * Registers a new post type.
+	 *
+	 * @return void
 	 */
 	public function register_transcript_cpt() {
 		$labels = array(

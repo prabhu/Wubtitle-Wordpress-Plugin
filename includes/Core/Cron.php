@@ -15,6 +15,8 @@ namespace Wubtitle\Core;
 class Cron {
 	/**
 	 * Init class actions.
+	 *
+	 * @return void
 	 */
 	public function run() {
 		add_action( 'e2w_cron', array( $this, 'get_remote_data' ) );
@@ -25,6 +27,8 @@ class Cron {
 
 	/**
 	 * Add new scedule cron.
+	 *
+	 * @return void
 	 */
 	public function schedule_cron() {
 		if ( ! wp_next_scheduled( 'e2w_cron' ) ) {
@@ -35,17 +39,23 @@ class Cron {
 
 	/**
 	 * Remove cron on plugin disable.
+	 *
+	 * @return void
 	 */
 	public function unschedule_cron() {
 		// when the last event was scheduled.
 		$timestamp = wp_next_scheduled( '' );
 		// unschedule previous event if any.
-		wp_unschedule_event( $timestamp, '' );
+		if ( $timestamp ) {
+			wp_unschedule_event( $timestamp, '' );
+		}
 	}
 
 
 	/**
 	 * Get info from remote and DB update.
+	 *
+	 * @return void
 	 */
 	public function get_remote_data() {
 		$license_key = get_option( 'wubtitle_license_key' );

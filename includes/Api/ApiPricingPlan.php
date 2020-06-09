@@ -15,6 +15,8 @@ namespace Wubtitle\Api;
 class ApiPricingPlan {
 	/**
 	 * Init delle action
+	 *
+	 * @return void
 	 */
 	public function run() {
 		add_action( 'wp_ajax_submit_plan', array( $this, 'send_plan' ) );
@@ -26,6 +28,8 @@ class ApiPricingPlan {
 	}
 	/**
 	 * Calls the backend endpoint to confirm the plan change.
+	 *
+	 * @return void
 	 */
 	public function change_plan() {
 		$wanted_plan = get_option( 'wubtitle_wanted_plan' );
@@ -72,6 +76,8 @@ class ApiPricingPlan {
 	}
 	/**
 	 * Calls the endpoint for plan reactivation.
+	 *
+	 * @return void
 	 */
 	public function reactivate_plan() {
 		if ( ! isset( $_POST['_ajax_nonce'] ) ) {
@@ -109,6 +115,7 @@ class ApiPricingPlan {
 	 *
 	 * @param string $pricing_plan pricing plan.
 	 * @param string $site_url site url.
+	 * @return array|false
 	 */
 	public function set_body_request( $pricing_plan, $site_url ) {
 		if ( ! is_string( $pricing_plan ) || ! filter_var( $site_url, FILTER_VALIDATE_URL ) ) {
@@ -124,17 +131,22 @@ class ApiPricingPlan {
 	}
 	/**
 	 * Gets the data from JavaScript and sends it to the endpoint.
+	 *
+	 * @return void
 	 */
 	public function send_plan() {
 		$site_url = get_site_url();
-		if ( ! isset( $_POST['_ajax_nonce'] ) || ! isset( $_POST['pricing_plan'] ) || ! isset( $site_url ) ) {
+		if ( ! isset( $_POST['_ajax_nonce'], $_POST['pricing_plan'] ) ) {
 			wp_send_json_error( __( 'An error occurred. Please try again in a few minutes.', 'wubtitle' ) );
 		}
 		$pricing_plan = sanitize_text_field( wp_unslash( $_POST['pricing_plan'] ) );
 		$site_url     = sanitize_text_field( wp_unslash( $site_url ) );
 		$nonce        = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
 		check_ajax_referer( 'itr_ajax_nonce', $nonce );
-		$body         = $this->set_body_request( $pricing_plan, $site_url );
+		$body = $this->set_body_request( $pricing_plan, $site_url );
+		if ( ! $body ) {
+			wp_send_json_error( __( 'An error occurred. Please try again in a few minutes.', 'wubtitle' ) );
+		}
 		$url_endpoint = ENDPOINT . 'stripe/session/create';
 		$license_key  = get_option( 'wubtitle_license_key' );
 		if ( empty( $license_key ) ) {
@@ -183,6 +195,8 @@ class ApiPricingPlan {
 	}
 	/**
 	 * Gets the data from JavaScript and sends it to the endpoint for payment update.
+	 *
+	 * @return void
 	 */
 	public function update_payment_method() {
 		if ( ! isset( $_POST['_ajax_nonce'] ) ) {
@@ -225,6 +239,8 @@ class ApiPricingPlan {
 	}
 	/**
 	 * Gets the data from JavaScript and sends it to the endpoint for license reset.
+	 *
+	 * @return void
 	 */
 	public function reset_license() {
 		$site_url = get_site_url();
@@ -263,7 +279,8 @@ class ApiPricingPlan {
 	/**
 	 * Checks if the request was successful.
 	 *
-	 * @param array | WP_ERROR $response response to the request.
+	 * @param array|\WP_Error $response response to the request.
+	 * @return bool
 	 */
 	private function is_successful_response( $response ) {
 		if ( ! is_wp_error( $response ) ) {

@@ -15,6 +15,8 @@ namespace Wubtitle\Core;
 class Activation {
 	/**
 	 * Init class action.
+	 *
+	 * @return void
 	 */
 	public function run() {
 		register_activation_hook( WUBTITLE_FILE_URL, array( $this, 'wubtitle_activation_license_key' ) );
@@ -22,6 +24,8 @@ class Activation {
 
 	/**
 	 * When the plugin is activated calls the endpoint to receive the license key.
+	 *
+	 * @return void
 	 */
 	public function wubtitle_activation_license_key() {
 		$site_url      = get_site_url();

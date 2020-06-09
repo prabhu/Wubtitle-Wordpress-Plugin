@@ -19,6 +19,8 @@ use \Firebase\JWT\JWT;
 class ApiLicenseValidation {
 	/**
 	 * Init class action.
+	 *
+	 * @return void
 	 */
 	public function run() {
 		add_action( 'rest_api_init', array( $this, 'register_license_validation_route' ) );
@@ -26,6 +28,8 @@ class ApiLicenseValidation {
 
 	/**
 	 * Creates new REST route.
+	 *
+	 * @return void
 	 */
 	public function register_license_validation_route() {
 		register_rest_route(
@@ -41,7 +45,8 @@ class ApiLicenseValidation {
 	/**
 	 * JWT Authentication.
 	 *
-	 * @param array $request valori della richiesta.
+	 * @param \WP_REST_Request $request valori della richiesta.
+	 * @return WP_REST_Response|array
 	 */
 	public function auth_and_get_job_list( $request ) {
 		$headers        = $request->get_headers();
@@ -69,6 +74,8 @@ class ApiLicenseValidation {
 
 	/**
 	 * Gets uuid jobs and returns it.
+	 *
+	 * @return array
 	 */
 	public function get_job_list() {
 		$args     = array(

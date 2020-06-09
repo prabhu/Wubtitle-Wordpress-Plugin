@@ -14,7 +14,9 @@
 
 // Your code starts here.
 //
-defined( 'ABSPATH' ) || exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 define( 'WUBTITLE_FILE_URL', __FILE__ );
 define( 'WUBTITLE_DIR', plugin_dir_path( __FILE__ ) );
 define( 'WUBTITLE_URL', plugin_dir_url( __FILE__ ) );

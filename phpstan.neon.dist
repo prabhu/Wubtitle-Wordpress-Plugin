@@ -9,6 +9,11 @@ parameters:
         - ./
     excludes_analyse:
         - vendor/
-    autoload_files:
-        - vendor/php-stubs/wordpress-stubs/wordpress-stubs.php
+        - test/
+    bootstrapFiles:
+        - wubtitle.php
     ignoreErrors:
+        - '#Parameter \$str of function sanitize_text_field expects string, array<string>|string given.#'
+        - '#Cannot access property [a-zA-Z0-9\\_]+ on int|WP_Post.#'
+        - '#Access to an undefined property object::+#'
+

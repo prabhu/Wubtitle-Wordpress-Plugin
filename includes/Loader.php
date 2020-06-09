@@ -21,6 +21,8 @@ class Loader {
 
 	/**
 	 * Instantiate main classes.
+	 *
+	 * @return void
 	 */
 	public static function init() {
 		load_plugin_textdomain( 'wubtitle', false, WUBTITLE_NAME . '/languages' );
@@ -64,7 +66,8 @@ class Loader {
 	 * Add to container class instance.
 	 *
 	 * @param string $key instance name.
-	 * @param class  $item class instance.
+	 * @param mixed  $item class instance.
+	 * @return void
 	 */
 	public static function bind( $key, $item ) {
 		( self::$services )[ $key ] = $item;
@@ -74,6 +77,7 @@ class Loader {
 	 * Search in the container, then return a class instance.
 	 *
 	 * @param string $key instance name.
+	 * @return mixed|false
 	 */
 	public static function get( $key ) {
 		if ( ! isset( self::$services[ $key ] ) ) {
