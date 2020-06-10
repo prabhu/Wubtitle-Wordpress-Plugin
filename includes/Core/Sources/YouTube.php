@@ -161,7 +161,7 @@ class YouTube implements \Wubtitle\Core\VideoSource {
 		$url = '';
 		foreach ( $caption_tracks as  $track ) {
 			// phpcs:disable
-			// phpcs segnala "Object property baseUrl is not in valid snake_case format", ma è un oggetto ottenuto da youtube.
+			// phpcs reports "Object property baseUrl is not in valid snake_case format", but it is an object obtained from youtube.
 			if ( isset( $track->kind ) && isset( $track->baseUrl ) && 'asr' === $track->kind ) {
 				$url = $track->baseUrl . '&fmt=json3&xorb=2&xobt=3&xovt=3';
 			}
