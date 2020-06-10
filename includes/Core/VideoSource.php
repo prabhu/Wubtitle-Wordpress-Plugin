@@ -26,7 +26,7 @@ interface VideoSource {
 	 * Interface method send job to backend.
 	 *
 	 * @param string $id_video video id.
-	 * @return array|\WP_Error
+	 * @return array<string>|\WP_Error
 	 */
 	public function send_job_to_backend( $id_video );
 
@@ -35,7 +35,7 @@ interface VideoSource {
 	 *
 	 * @param string $url_video youtube video url.
 	 * @param string $from where the request starts.
-	 * @return array
+	 * @return array<string,int|bool|string|\WP_Error>
 	 */
 	public function send_job_and_get_transcription( $url_video, $from );
 

@@ -29,8 +29,8 @@ class ListingSubtitles {
 	/**
 	 * Add a new column
 	 *
-	 * @param array $cols media library columns.
-	 * @return array
+	 * @param array<string> $cols media library columns.
+	 * @return array<string>
 	 */
 	public function wubtitle_status_column( $cols ) {
 		$cols['wubtitle_status'] = __( 'Subtitle', 'wubtitle' );

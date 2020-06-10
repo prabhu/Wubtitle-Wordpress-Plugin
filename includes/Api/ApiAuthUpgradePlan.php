@@ -61,7 +61,7 @@ class ApiAuthUpgradePlan {
 	 * JWT authentication.
 	 *
 	 * @param \WP_REST_Request $request request values.
-	 * @return WP_REST_Response|array
+	 * @return WP_REST_Response|array<string,array<string,bool>>
 	 */
 	public function reactivate_plan( $request ) {
 		$headers        = $request->get_headers();
@@ -98,7 +98,7 @@ class ApiAuthUpgradePlan {
 	 * JWT Authentication.
 	 *
 	 * @param \WP_REST_Request $request values.
-	 * @return WP_REST_Response|array
+	 * @return WP_REST_Response|array<array<string>>
 	 */
 	public function auth_and_get_plan( $request ) {
 		$headers        = $request->get_headers();
@@ -127,7 +127,7 @@ class ApiAuthUpgradePlan {
 	/**
 	 * Gets and returns the chosen plan to backend
 	 *
-	 * @return array
+	 * @return array<array<string>>
 	 */
 	public function return_plan() {
 		$plan_to_upgrade = get_option( 'wubtitle_wanted_plan' );

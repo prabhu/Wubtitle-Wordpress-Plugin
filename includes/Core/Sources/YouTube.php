@@ -18,7 +18,7 @@ class YouTube implements \Wubtitle\Core\VideoSource {
 	 * Sends job to backend endpoint.
 	 *
 	 * @param string $id_video id video youtube.
-	 * @return array|\WP_Error
+	 * @return array<string>|\WP_Error
 	 */
 	public function send_job_to_backend( $id_video ) {
 		$response = wp_remote_post(
@@ -175,7 +175,7 @@ class YouTube implements \Wubtitle\Core\VideoSource {
 	 *
 	 * @param string $url_video url of the youtube video.
 	 * @param string $from where the request starts.
-	 * @return array
+	 * @return array<string,int|bool|string|\WP_Error>
 	 */
 	public function send_job_and_get_transcription( $url_video, $from ) {
 		$url_parts    = wp_parse_url( $url_video );

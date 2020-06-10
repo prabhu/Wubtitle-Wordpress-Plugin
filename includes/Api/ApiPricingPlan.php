@@ -115,7 +115,7 @@ class ApiPricingPlan {
 	 *
 	 * @param string $pricing_plan pricing plan.
 	 * @param string $site_url site url.
-	 * @return array|false
+	 * @return array<array<string>>|false
 	 */
 	public function set_body_request( $pricing_plan, $site_url ) {
 		if ( ! is_string( $pricing_plan ) || ! filter_var( $site_url, FILTER_VALIDATE_URL ) ) {
@@ -279,7 +279,7 @@ class ApiPricingPlan {
 	/**
 	 * Checks if the request was successful.
 	 *
-	 * @param array|\WP_Error $response response to the request.
+	 * @param array<string>|\WP_Error $response response to the request.
 	 * @return bool
 	 */
 	private function is_successful_response( $response ) {

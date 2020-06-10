@@ -15,7 +15,7 @@ class Loader {
 	 * L'array che contiene gli oggetti istanziati dal Loader.
 	 * Array containing Loader instantiated objects.
 	 *
-	 * @var array
+	 * @var array<string,mixed>
 	 */
 	private static $services = array();
 

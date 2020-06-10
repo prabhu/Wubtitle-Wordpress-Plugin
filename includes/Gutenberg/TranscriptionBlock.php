@@ -25,9 +25,9 @@ class TranscriptionBlock {
 	/**
 	 * Adds the parameters used by the transcript custom post type.
 	 *
-	 * @param array            $args argomenti per la query.
+	 * @param array<string>    $args argomenti per la query.
 	 * @param \WP_REST_Request $request oggetto contente i parametri custom.
-	 * @return array
+	 * @return array<string>
 	 */
 	public function add_parameters_query( $args, $request ) {
 		$url_parts    = wp_parse_url( $request->get_param( 'metaValue' ) );

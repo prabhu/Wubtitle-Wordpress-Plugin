@@ -36,8 +36,8 @@ class Transcript {
 	/**
 	 * Adds new column.
 	 *
-	 * @param array $columns columns of the post.
-	 * @return array
+	 * @param array<string> $columns columns of the post.
+	 * @return array<string>
 	 */
 	public function set_custom_transcript_column( $columns ) {
 		$columns['shortcode'] = __( 'Shortcode', 'wubtitle' );

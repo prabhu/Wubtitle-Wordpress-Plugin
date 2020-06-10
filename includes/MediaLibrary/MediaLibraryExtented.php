@@ -46,9 +46,9 @@ class MediaLibraryExtented {
 	/**
 	 *  Adds wubtitle form into the "add media" tab.
 	 *
-	 * @param array    $form_fields modal window fields.
-	 * @param \WP_Post $post attachment.
-	 * @return array
+	 * @param array<mixed> $form_fields modal window fields.
+	 * @param \WP_Post     $post attachment.
+	 * @return array<mixed>
 	 */
 	public function add_generate_subtitle_form( $form_fields, $post ) {
 		global $pagenow;
@@ -177,9 +177,9 @@ class MediaLibraryExtented {
 	/**
 	 * Add wubtitle form into "add media" tab.
 	 *
-	 * @param array   $form_fields modal window fields.
-	 * @param WP_Post $post attachment.
-	 * @return array
+	 * @param array<mixed> $form_fields modal window fields.
+	 * @param WP_Post      $post attachment.
+	 * @return array<mixed>
 	 */
 	public function add_generate_subtitle_form_into_media_library( $form_fields, $post ) {
 		global $pagenow;
@@ -249,7 +249,7 @@ class MediaLibraryExtented {
 	 *
 	 * @param string $status subtitles state.
 	 * @param int    $id_video video id.
-	 * @return array
+	 * @return array<string,array<string, string|false>>>
 	 */
 	private function create_toolbar_and_select( $status, $id_video ) {
 		$form_fields = array();
@@ -273,7 +273,7 @@ class MediaLibraryExtented {
 	 * Create language select and subtitle generation button.
 	 *
 	 * @param int $id_video video id.
-	 * @return array
+	 * @return array<string,int|string>
 	 */
 	private function create_select_and_button( $id_video ) {
 		$form_fields = array(
@@ -299,9 +299,9 @@ class MediaLibraryExtented {
 	/**
 	 * Request subtitle generation to endpoint, then save uuid and state.
 	 *
-	 * @param array $post attachment data.
-	 * @param array $attachment custom input data.
-	 * @return void|array
+	 * @param array<string,int> $post attachment data.
+	 * @param array<string|int> $attachment custom input data.
+	 * @return void|array<string,int>
 	 */
 	public function video_attachment_fields_to_save( $post, $attachment ) {
 		if ( isset( $attachment['select-status'] ) ) {
@@ -337,8 +337,8 @@ class MediaLibraryExtented {
 	/**
 	 * Adds subtitles overriding video shortcode.
 	 *
-	 * @param string $html shortcode html.
-	 * @param array  $attr shortcode attributes.
+	 * @param string        $html shortcode html.
+	 * @param array<string> $attr shortcode attributes.
 	 * @return string|void
 	 */
 	public function wubtitle_video_shortcode( $html, $attr ) {

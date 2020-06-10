@@ -266,7 +266,7 @@ class Settings {
 	 *
 	 * @param string $license_key input license key.
 	 *
-	 * @return array
+	 * @return array<string>
 	 */
 	private function remote_request( $license_key ) {
 		$headers = array(
@@ -347,7 +347,7 @@ class Settings {
 	/**
 	 * Create an input component needed in the form.
 	 *
-	 * @param array $args input parameters.
+	 * @param array<string> $args input parameters.
 	 *
 	 * @return void
 	 */
@@ -373,7 +373,7 @@ class Settings {
 	/**
 	 * Upgrade button.
 	 *
-	 * @param array $args input parameters.
+	 * @param array<string> $args input parameters.
 	 *
 	 * @return void
 	 */

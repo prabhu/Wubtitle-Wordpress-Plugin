@@ -16,7 +16,7 @@ class Updater {
 	/**
 	 * Plugin data.
 	 *
-	 * @var array
+	 * @var array<mixed>
 	 */
 	private $plugin_data;
 	/**
@@ -126,8 +126,8 @@ class Updater {
 	/**
 	 * Reactivate the plugin and rename the folder with the original name.
 	 *
-	 * @param array ...$args installation result data.
-	 * @return array
+	 * @param array<mixed> ...$args installation result data.
+	 * @return array<mixed>
 	 */
 	public function post_install( ...$args ) {
 		$result        = $args[2];

@@ -46,7 +46,7 @@ class ApiLicenseValidation {
 	 * JWT Authentication.
 	 *
 	 * @param \WP_REST_Request $request valori della richiesta.
-	 * @return WP_REST_Response|array
+	 * @return WP_REST_Response|array<string,array<string,array<int,mixed>>>
 	 */
 	public function auth_and_get_job_list( $request ) {
 		$headers        = $request->get_headers();
@@ -75,7 +75,7 @@ class ApiLicenseValidation {
 	/**
 	 * Gets uuid jobs and returns it.
 	 *
-	 * @return array
+	 * @return array<string,array<string,array<int,mixed>>>
 	 */
 	public function get_job_list() {
 		$args     = array(

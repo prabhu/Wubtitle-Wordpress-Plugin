@@ -34,7 +34,7 @@ class Shortcode {
 	/**
 	 * Register transcript shortcode callback.
 	 *
-	 * @param array $atts shortcode parameters.
+	 * @param array<mixed> $atts shortcode parameters.
 	 * @return mixed|void
 	 */
 	public function shortcode_transcript( $atts ) {

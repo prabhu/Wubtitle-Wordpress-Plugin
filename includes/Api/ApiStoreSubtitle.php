@@ -47,7 +47,7 @@ class ApiStoreSubtitle {
 	 * JWT authentication.
 	 *
 	 * @param \WP_REST_Request $request request values.
-	 * @return WP_REST_Response|array
+	 * @return WP_REST_Response
 	 */
 	public function auth_and_get_subtitle( $request ) {
 		$headers        = $request->get_headers();
@@ -77,8 +77,8 @@ class ApiStoreSubtitle {
 	/**
 	 * Gets the subtitle file, save it and add video posts meta.
 	 *
-	 * @param array $params file parameters.
-	 * @return WP_REST_Response|array
+	 * @param array<mixed> $params file parameters.
+	 * @return WP_REST_Response
 	 */
 	public function get_subtitle( $params ) {
 		if ( ! function_exists( 'download_url' ) ) {
@@ -206,7 +206,7 @@ class ApiStoreSubtitle {
 	 * Gets failed jobs.
 	 *
 	 * @param \WP_REST_Request $request request values.
-	 * @return WP_REST_Response|array
+	 * @return WP_REST_Response|array<array<string>>
 	 */
 	public function get_jobs_failed( $request ) {
 		$params   = $request->get_param( 'data' );

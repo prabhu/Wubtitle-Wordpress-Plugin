@@ -36,8 +36,8 @@ class ApiRequest {
 	/**
 	 * Checks the validation and sanitize input.
 	 *
-	 * @param array $array post.
-	 * @return array|false
+	 * @param array<string> $array post.
+	 * @return array<mixed>|false
 	 */
 	public function sanitize_input( $array ) {
 		if ( ! isset( $array['id_attachment'] ) || ! isset( $array['src_attachment'] ) || ! isset( $array['lang'] ) ) {
@@ -50,8 +50,8 @@ class ApiRequest {
 	/**
 	 *  Creates body request.
 	 *
-	 * @param array $data it contains id_attachment and src_attachment.
-	 * @return false|array
+	 * @param array<string> $data it contains id_attachment and src_attachment.
+	 * @return false|array<mixed>
 	 */
 	public function set_body_request( $data ) {
 		$languanges = array(
@@ -132,7 +132,7 @@ class ApiRequest {
 	/**
 	 * Checks if the request was successful.
 	 *
-	 * @param array|\WP_Error $response response to the request.
+	 * @param array<mixed>|\WP_Error $response response to the request.
 	 * @return bool
 	 */
 	private function is_successful_response( $response ) {
@@ -177,9 +177,9 @@ class ApiRequest {
 	/**
 	 * Calls to the endpoint and return the response.
 	 *
-	 * @param array  $body body request.
-	 * @param string $license_key user license.
-	 * @return array|\WP_Error
+	 * @param array<mixed> $body body request.
+	 * @param string       $license_key user license.
+	 * @return array<string>|\WP_Error
 	 */
 	public function send_job_to_backend( $body, $license_key ) {
 		$response = wp_remote_post(
@@ -211,7 +211,7 @@ class ApiRequest {
 	/**
 	 * Manages error 429.
 	 *
-	 * @param array $response aws endpoint response.
+	 * @param array<mixed> $response aws endpoint response.
 	 * @return string
 	 */
 	public function get_error_message( $response ) {
