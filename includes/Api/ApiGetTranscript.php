@@ -18,6 +18,8 @@ class ApiGetTranscript {
 
 	/**
 	 * Init class action.
+	 *
+	 * @return void
 	 */
 	public function run() {
 		add_action( 'wp_ajax_get_transcript', array( $this, 'get_transcript' ) );
@@ -27,7 +29,9 @@ class ApiGetTranscript {
 	}
 
 	/**
-	 * Gets yotube video transcription and returns it.
+	 * Gets youtube video transcription and returns it.
+	 *
+	 * @return void
 	 */
 	public function get_transcript_yt() {
 		if ( ! isset( $_POST['urlVideo'], $_POST['urlSubtitle'], $_POST['_ajax_nonce'], $_POST['videoTitle'] ) ) {
@@ -89,6 +93,8 @@ class ApiGetTranscript {
 
 	/**
 	 * Gets video info e returns it.
+	 *
+	 * @return void
 	 */
 	public function get_video_info() {
 		if ( ! isset( $_POST['url'] ) || ! isset( $_POST['_ajax_nonce'] ) ) {
@@ -137,6 +143,8 @@ class ApiGetTranscript {
 	}
 	/**
 	 * Gets internal video transcriptions and returns it.
+	 *
+	 * @return void
 	 */
 	public function get_transcript_internal_video() {
 		if ( ! isset( $_POST['id'] ) || ! isset( $_POST['_ajax_nonce'] ) ) {
@@ -171,17 +179,18 @@ class ApiGetTranscript {
 
 	/**
 	 * Get transcript.
+	 *
+	 * @return void
 	 */
 	public function get_transcript() {
-		// phpcs:disable
-		if ( ! isset( $_POST['url'] ) || ! isset( $_POST['source'] ) || ! isset( $_POST['from'] ) ) {
+		if ( ! isset( $_POST['url'], $_POST['source'], $_POST['from'], $_POST['_ajax_nonce'] ) ) {
 			wp_send_json_error( __( 'An error occurred while creating the transcriptions. Please try again in a few minutes', 'wubtitle' ) );
 		}
-
+		$nonce = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
+		check_ajax_referer( 'itr_ajax_nonce', $nonce );
 		$url_video = sanitize_text_field( wp_unslash( $_POST['url'] ) );
-		$source = sanitize_text_field( wp_unslash( $_POST['source'] ) );
-		$from = sanitize_text_field( wp_unslash( $_POST['from'] ) );
-		// phpcs:enable
+		$source    = sanitize_text_field( wp_unslash( $_POST['source'] ) );
+		$from      = sanitize_text_field( wp_unslash( $_POST['from'] ) );
 
 		switch ( $source ) {
 			case 'youtube':
@@ -232,8 +241,9 @@ class ApiGetTranscript {
 	/**
 	 * Gets data if post exists and returns it.
 	 *
-	 * @param int    $id_video unique id of the video.
+	 * @param string $id_video unique id of the video.
 	 * @param string $from indicates the caller source.
+	 * @return bool|int|string
 	 */
 	public function get_data_transcript( $id_video, $from ) {
 		$args  = array(

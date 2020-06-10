@@ -17,6 +17,8 @@ use Wubtitle\Loader;
 class ApiCancelSubscription {
 	/**
 	 * Init class actions
+	 *
+	 * @return void
 	 */
 	public function run() {
 		add_action( 'wp_ajax_cancel_subscription', array( $this, 'remote_request' ) );
@@ -24,6 +26,8 @@ class ApiCancelSubscription {
 
 	/**
 	 * Endpoint call to unsubscribe.
+	 *
+	 * @return void
 	 */
 	public function remote_request() {
 		if ( ! isset( $_POST['_ajax_nonce'] ) ) {

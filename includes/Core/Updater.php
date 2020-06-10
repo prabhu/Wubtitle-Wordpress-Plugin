@@ -16,7 +16,7 @@ class Updater {
 	/**
 	 * Plugin data.
 	 *
-	 * @var array
+	 * @var array<mixed>
 	 */
 	private $plugin_data;
 	/**
@@ -34,12 +34,14 @@ class Updater {
 	/**
 	 * Github response.
 	 *
-	 * @var object
+	 * @var mixed
 	 */
 	private $release_info;
 
 	/**
 	 * Init actions
+	 *
+	 * @return void
 	 */
 	public function run() {
 		$this->plugin_data = get_plugin_data( WUBTITLE_FILE_URL );
@@ -49,6 +51,8 @@ class Updater {
 	}
 	/**
 	 * Get release info from github repository.
+	 *
+	 * @return void
 	 */
 	private function get_release_info() {
 		if ( ! empty( $this->release_info ) ) {
@@ -68,7 +72,8 @@ class Updater {
 	/**
 	 * Set transient for release details.
 	 *
-	 * @param object $transient contains the release info.
+	 * @param mixed $transient contains the release info.
+	 * @return object
 	 */
 	public function set_transient( $transient ) {
 		if ( empty( $transient->checked ) ) {
@@ -80,14 +85,15 @@ class Updater {
 		}
 		$do_update = version_compare( $this->release_info->tag_name, $transient->checked[ WUBTITLE_NAME ], '>' );
 		if ( $do_update ) {
-			$package                              = $this->release_info->zipball_url;
-			$plugin_url                           = $this->plugin_data['PluginURI'];
-			$transient_obj                        = array(
+			$package       = $this->release_info->zipball_url;
+			$plugin_url    = $this->plugin_data['PluginURI'];
+			$transient_obj = array(
 				'slug'        => WUBTITLE_NAME,
 				'new_version' => $this->release_info->tag_name,
 				'url'         => $plugin_url,
 				'package'     => $package,
 			);
+			// @phpstan-ignore-next-line. reports response as an undefined property
 			$transient->response[ WUBTITLE_NAME ] = $transient_obj;
 		}
 		return $transient;
@@ -95,12 +101,13 @@ class Updater {
 	/**
 	 * Push information to get the update information.
 	 *
-	 * @param array ...$args plugin info.
+	 * @param mixed ...$args plugin info.
+	 * @return false|object
 	 */
 	public function set_release_info( ...$args ) {
-		$response = $args[2];
+		$response = (object) $args[2];
 		$this->get_release_info();
-		if ( ! array_key_exists( 'slug', $response ) || WUBTITLE_NAME !== $response->slug ) {
+		if ( ! property_exists( $response, 'slug' ) || WUBTITLE_NAME !== $response->slug ) {
 			return false;
 		}
 		$response->last_updated  = $this->release_info->published_at;
@@ -119,7 +126,8 @@ class Updater {
 	/**
 	 * Reactivate the plugin and rename the folder with the original name.
 	 *
-	 * @param array ...$args installation result data.
+	 * @param array<mixed> ...$args installation result data.
+	 * @return array<mixed>
 	 */
 	public function post_install( ...$args ) {
 		$result        = $args[2];
