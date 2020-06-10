@@ -93,7 +93,7 @@ class Updater {
 				'url'         => $plugin_url,
 				'package'     => $package,
 			);
-			// @phpstan-ignore-next-line.
+			// @phpstan-ignore-next-line. reports response as an undefined property
 			$transient->response[ WUBTITLE_NAME ] = $transient_obj;
 		}
 		return $transient;

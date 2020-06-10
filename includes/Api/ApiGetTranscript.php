@@ -183,15 +183,14 @@ class ApiGetTranscript {
 	 * @return void
 	 */
 	public function get_transcript() {
-		// phpcs:disable
-		if ( ! isset( $_POST['url'] ) || ! isset( $_POST['source'] ) || ! isset( $_POST['from'] ) ) {
+		if ( ! isset( $_POST['url'], $_POST['source'], $_POST['from'], $_POST['_ajax_nonce'] ) ) {
 			wp_send_json_error( __( 'An error occurred while creating the transcriptions. Please try again in a few minutes', 'wubtitle' ) );
 		}
-
+		$nonce = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
+		check_ajax_referer( 'itr_ajax_nonce', $nonce );
 		$url_video = sanitize_text_field( wp_unslash( $_POST['url'] ) );
-		$source = sanitize_text_field( wp_unslash( $_POST['source'] ) );
-		$from = sanitize_text_field( wp_unslash( $_POST['from'] ) );
-		// phpcs:enable
+		$source    = sanitize_text_field( wp_unslash( $_POST['source'] ) );
+		$from      = sanitize_text_field( wp_unslash( $_POST['from'] ) );
 
 		switch ( $source ) {
 			case 'youtube':
