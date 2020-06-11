@@ -87,7 +87,7 @@ class Updater {
 		if ( $do_update ) {
 			$package       = $this->release_info->zipball_url;
 			$plugin_url    = $this->plugin_data['PluginURI'];
-			$transient_obj = array(
+			$transient_obj = (object) array(
 				'slug'        => WUBTITLE_NAME,
 				'new_version' => $this->release_info->tag_name,
 				'url'         => $plugin_url,
