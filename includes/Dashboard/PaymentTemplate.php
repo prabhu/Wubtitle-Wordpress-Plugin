@@ -15,6 +15,8 @@ namespace Wubtitle\Dashboard;
 class PaymentTemplate {
 	/**
 	 * Init class actions
+	 *
+	 * @return void
 	 */
 	public function run() {
 		add_action( 'wp_ajax_payment_template', array( $this, 'load_payment_template' ) );
@@ -25,6 +27,8 @@ class PaymentTemplate {
 
 	/**
 	 * Popup window template displayed on license buying button click.
+	 *
+	 * @return void
 	 */
 	public function change_plan_template() {
 		$map_plans     = array(
@@ -45,14 +49,14 @@ class PaymentTemplate {
 			include $includes_file;
 			$html = ob_get_clean();
 			wp_send_json_success( $html );
-			wp_die();
 		}
 		$html = 'Error';
 		wp_send_json_error( $html );
-		wp_die();
 	}
 	/**
 	 * Load the payment template
+	 *
+	 * @return void
 	 */
 	public function load_payment_template() {
 		if ( current_user_can( 'manage_options' ) ) {
@@ -60,14 +64,14 @@ class PaymentTemplate {
 			include 'Templates/payment_template.php';
 			$html = ob_get_clean();
 			wp_send_json_success( $html );
-			wp_die();
 		}
 		$html = 'Error';
 		wp_send_json_error( $html );
-		wp_die();
 	}
 	/**
 	 * Load the update template.
+	 *
+	 * @return void
 	 */
 	public function load_update_template() {
 		if ( current_user_can( 'manage_options' ) ) {
@@ -75,11 +79,9 @@ class PaymentTemplate {
 			include 'Templates/update_template.php';
 			$html = ob_get_clean();
 			wp_send_json_success( $html );
-			wp_die();
 		}
 		$html = 'Error';
 		wp_send_json_error( $html );
-		wp_die();
 	}
 
 }

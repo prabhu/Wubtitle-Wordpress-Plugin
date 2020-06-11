@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+/*  global wubtitle_button_object  */
 import { registerPlugin } from '@wordpress/plugins';
 import { PluginDocumentSettingPanel } from '@wordpress/edit-post';
 import { TextControl, Button } from '@wordpress/components';
@@ -21,6 +21,7 @@ const TranscriptPanel = () => {
 					url: inputValue,
 					source: 'youtube',
 					from: 'transcript_post_type',
+					_ajax_nonce: wubtitle_button_object.ajaxnonce,
 				},
 			})
 			.then((response) => {

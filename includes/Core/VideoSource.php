@@ -18,13 +18,15 @@ interface VideoSource {
 	 *
 	 * @param string $id_video id del del video.
 	 * @param string $from post type dal quale viene fatta la richiesta.
+	 * @return bool|string|int
 	 */
 	public function get_subtitle( $id_video, $from );
 
 	/**
 	 * Interface method send job to backend.
 	 *
-	 * @param string $id_video video id .
+	 * @param string $id_video video id.
+	 * @return array<string>|\WP_Error
 	 */
 	public function send_job_to_backend( $id_video );
 
@@ -33,6 +35,7 @@ interface VideoSource {
 	 *
 	 * @param string $url_video youtube video url.
 	 * @param string $from where the request starts.
+	 * @return array<string,int|bool|string|\WP_Error>
 	 */
 	public function send_job_and_get_transcription( $url_video, $from );
 
@@ -42,6 +45,7 @@ interface VideoSource {
 	 * @param string $url_subtitle url sottotitoli youtube.
 	 * @param string $id_video id video.
 	 * @param string $title_video titolo video.
+	 * @return bool|string|int
 	 */
 	public function get_subtitle_to_url( $url_subtitle, $id_video, $title_video );
 }

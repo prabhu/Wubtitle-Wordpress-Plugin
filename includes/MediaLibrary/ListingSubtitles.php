@@ -16,6 +16,8 @@ class ListingSubtitles {
 
 	/**
 	 * Init class actions
+	 *
+	 * @return void
 	 */
 	public function run() {
 		add_filter( 'manage_media_columns', array( $this, 'wubtitle_status_column' ) );
@@ -27,7 +29,8 @@ class ListingSubtitles {
 	/**
 	 * Add a new column
 	 *
-	 * @param array $cols media library columns.
+	 * @param array<string> $cols media library columns.
+	 * @return array<string>
 	 */
 	public function wubtitle_status_column( $cols ) {
 		$cols['wubtitle_status'] = __( 'Subtitle', 'wubtitle' );
@@ -39,6 +42,7 @@ class ListingSubtitles {
 	 *
 	 * @param string $column_name column name.
 	 * @param int    $id_media attachment id.
+	 * @return void
 	 */
 	public function wubtitle_status_value( $column_name, $id_media ) {
 		$all_status = array(
@@ -51,8 +55,12 @@ class ListingSubtitles {
 		);
 		$status     = get_post_meta( $id_media, 'wubtitle_status', true );
 		$status     = '' === $status ? 'notfound' : $status;
-		$mime_type  = explode( '/', get_post_mime_type( $id_media ) )[0];
-		$status     = ( 'video' !== $mime_type ) ? 'notvideo' : $status;
+		$type       = get_post_mime_type( $id_media );
+		if ( ! $type ) {
+			$type = 'none';
+		}
+		$mime_type = explode( '/', $type )[0];
+		$status    = ( 'video' !== $mime_type ) ? 'notvideo' : $status;
 		if ( 'wubtitle_status' === $column_name ) {
 			echo esc_html( $all_status[ $status ] );
 		}
@@ -60,15 +68,18 @@ class ListingSubtitles {
 
 	/**
 	 *  Enqueue new column style.
+	 *
+	 * @return void
 	 */
 	public function wubtitle_column_width() {
-		wp_enqueue_style( 'wubtitle_column_style', plugins_url( '../../src/css/columnStyle.css', __FILE__ ), null, true );
+		wp_enqueue_style( 'wubtitle_column_style', plugins_url( '../../src/css/columnStyle.css', __FILE__ ), array(), true );
 	}
 
 	/**
 	 * Exclude subtitles files from media library.
 	 *
-	 * @param WP_Query $query instanza di WP_QUERY.
+	 * @param \WP_Query $query instanza di WP_QUERY.
+	 * @return void
 	 */
 	public function wubtitle_exclude_subtitle_file( $query ) {
 		if ( is_admin() && 'attachment' === $query->get( 'post_type' ) ) {

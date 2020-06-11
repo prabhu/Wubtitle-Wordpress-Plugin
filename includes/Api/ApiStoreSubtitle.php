@@ -19,6 +19,8 @@ use \download_url;
 class ApiStoreSubtitle {
 	/**
 	 * Init class action.
+	 *
+	 * @return void
 	 */
 	public function run() {
 		add_action( 'rest_api_init', array( $this, 'register_store_subtitle_route' ) );
@@ -27,6 +29,8 @@ class ApiStoreSubtitle {
 
 	/**
 	 * Creates new REST route.
+	 *
+	 * @return void
 	 */
 	public function register_store_subtitle_route() {
 		register_rest_route(
@@ -42,7 +46,8 @@ class ApiStoreSubtitle {
 	/**
 	 * JWT authentication.
 	 *
-	 * @param array $request request values.
+	 * @param \WP_REST_Request $request request values.
+	 * @return WP_REST_Response
 	 */
 	public function auth_and_get_subtitle( $request ) {
 		$headers        = $request->get_headers();
@@ -72,7 +77,8 @@ class ApiStoreSubtitle {
 	/**
 	 * Gets the subtitle file, save it and add video posts meta.
 	 *
-	 * @param array $params file parameters.
+	 * @param array<mixed> $params file parameters.
+	 * @return WP_REST_Response
 	 */
 	public function get_subtitle( $params ) {
 		if ( ! function_exists( 'download_url' ) ) {
@@ -161,11 +167,15 @@ class ApiStoreSubtitle {
 	 * Generates post transcription.
 	 *
 	 * @param string $transcript transcription text.
-	 * @param string $id_attachment video id.
+	 * @param int    $id_attachment video id.
+	 * @return void
 	 */
 	public function add_post_trascript( $transcript, $id_attachment ) {
 		$related_attachment = get_post( $id_attachment );
-		$trascript_post     = array(
+		if ( empty( $related_attachment ) ) {
+			return;
+		}
+		$trascript_post = array(
 			'post_title'   => $related_attachment->post_title,
 			'post_content' => $transcript,
 			'post_status'  => 'publish',
@@ -179,6 +189,8 @@ class ApiStoreSubtitle {
 
 	/**
 	 * Creates a new endpoint to manage filed jobs.
+	 *
+	 * @return void
 	 */
 	public function register_error_jobs_route() {
 		register_rest_route(
@@ -193,7 +205,8 @@ class ApiStoreSubtitle {
 	/**
 	 * Gets failed jobs.
 	 *
-	 * @param array $request request values.
+	 * @param \WP_REST_Request $request request values.
+	 * @return WP_REST_Response|array<array<string>>
 	 */
 	public function get_jobs_failed( $request ) {
 		$params   = $request->get_param( 'data' );

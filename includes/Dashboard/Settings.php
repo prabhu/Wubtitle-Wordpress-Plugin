@@ -17,6 +17,8 @@ use Wubtitle\Loader;
 class Settings {
 	/**
 	 * Init class actions
+	 *
+	 * @return void
 	 */
 	public function run() {
 		add_action( 'admin_menu', array( $this, 'create_settings_menu' ) );
@@ -30,6 +32,8 @@ class Settings {
 
 	/**
 	 * Create a new dashboard menu item.
+	 *
+	 * @return void
 	 */
 	public function create_settings_menu() {
 		// TODO: Cambiare $icon_url e $position (attualmente subito dopo "Impostazioni") quando verranno date indicazioni UX.
@@ -38,13 +42,17 @@ class Settings {
 
 	/**
 	 *  Enqueue settings style.
+	 *
+	 * @return void
 	 */
 	public function wubtitle_settings_style() {
-		wp_enqueue_style( 'wubtitle_settings_style', WUBTITLE_URL . 'src/css/settingsStyle.css', null, true );
+		wp_enqueue_style( 'wubtitle_settings_style', WUBTITLE_URL . 'src/css/settingsStyle.css', array(), true );
 	}
 
 	/**
 	 * Renders the setting page.
+	 *
+	 * @return void
 	 */
 	public function render_settings_page() {
 		Loader::get( 'cron' )->get_remote_data();
@@ -117,6 +125,8 @@ class Settings {
 
 	/**
 	 * Checks GET parameters and relative notice to the user.
+	 *
+	 * @return void
 	 */
 	public function check_notice_stripe() {
 		$message = false;
@@ -159,6 +169,7 @@ class Settings {
 	 * @param string  $plan stripe plan code.
 	 * @param boolean $cancelling state of user plan.
 	 * @param string  $date renewal date.
+	 * @return void
 	 */
 	private function render_plan_renewal( $plan, $cancelling, $date ) {
 		if ( 'plan_0' !== $plan && ! $cancelling ) {
@@ -172,6 +183,7 @@ class Settings {
 	 * Render name plan in render settengs method
 	 *
 	 * @param boolean $cancelling state of user plan.
+	 * @return void
 	 */
 	private function render_plan_update( $cancelling ) {
 		if ( ! $cancelling && ! get_option( 'wubtitle_free' ) ) {
@@ -198,6 +210,8 @@ class Settings {
 
 	/**
 	 * Adds a new setting.
+	 *
+	 * @return void
 	 */
 	public function init_settings() {
 		register_setting(
@@ -212,6 +226,8 @@ class Settings {
 
 	/**
 	 * Checks license
+	 *
+	 * @return void
 	 */
 	public function check_license() {
 		$submitted_license = get_option( 'wubtitle_license_key' );
@@ -249,6 +265,8 @@ class Settings {
 	 * Remote licence key check request.
 	 *
 	 * @param string $license_key input license key.
+	 *
+	 * @return array<string>
 	 */
 	private function remote_request( $license_key ) {
 		$headers = array(
@@ -292,9 +310,11 @@ class Settings {
 
 	/**
 	 * This function handles the setup of wubtitle_settings fields.
+	 *
+	 * @return void
 	 */
 	public function init_settings_field() {
-		add_settings_section( 'wubtitle-main-settings', null, null, 'wubtitle-settings' );
+		add_settings_section( 'wubtitle-main-settings', '', function(){}, 'wubtitle-settings' );
 		if ( 'plan_HBBS5I9usXvwQR' !== get_option( 'wubtitle_plan' ) ) {
 			add_settings_field(
 				'buy-license-button',
@@ -327,7 +347,9 @@ class Settings {
 	/**
 	 * Create an input component needed in the form.
 	 *
-	 * @param array $args input parameters.
+	 * @param array<string> $args input parameters.
+	 *
+	 * @return void
 	 */
 	public function input_field( $args ) {
 		$option = '';
@@ -351,7 +373,9 @@ class Settings {
 	/**
 	 * Upgrade button.
 	 *
-	 * @param array $args input parameters.
+	 * @param array<string> $args input parameters.
+	 *
+	 * @return void
 	 */
 	public function upgrade_button( $args ) {
 		?>
@@ -366,6 +390,8 @@ class Settings {
 	 * Enqueue scripts.
 	 *
 	 * @param string $hook value admin_enqueue_scripts hook.
+	 *
+	 * @return void
 	 */
 	public function e2w_settings_scripts( $hook ) {
 		if ( 'toplevel_page_wubtitle_settings' === $hook ) {
