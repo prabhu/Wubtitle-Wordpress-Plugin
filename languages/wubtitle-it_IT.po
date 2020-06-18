@@ -343,8 +343,8 @@ msgid "Free Plan"
 msgstr "Piano Free"
 
 #: includes/Dashboard/Settings.php:52
-msgid "Standard Plan"
-msgstr "Piano Standard"
+msgid "Professional Plan"
+msgstr "Piano Professional"
 
 #: includes/Dashboard/Settings.php:53
 msgid "Elite Plan"
@@ -573,7 +573,7 @@ msgid "Choose this plan"
 msgstr "Scegli il piano"
 
 #: includes/Dashboard/Templates/plans_array.php:34
-msgid "Standard"
+msgid "Professional"
 msgstr ""
 
 #: includes/Dashboard/Templates/plans_array.php:37
