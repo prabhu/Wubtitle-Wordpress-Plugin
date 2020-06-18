@@ -347,7 +347,7 @@ msgid "Free Plan"
 msgstr ""
 
 #: includes/Dashboard/Settings.php:52
-msgid "Standard Plan"
+msgid "Professional Plan"
 msgstr ""
 
 #: includes/Dashboard/Settings.php:53
@@ -556,7 +556,7 @@ msgid "Choose this plan"
 msgstr ""
 
 #: includes/Dashboard/Templates/plans_array.php:34
-msgid "Standard"
+msgid "Professional"
 msgstr ""
 
 #: includes/Dashboard/Templates/plans_array.php:37
