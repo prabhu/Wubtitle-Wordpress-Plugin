@@ -31,7 +31,7 @@ $plans = array(
 	),
 	array(
 		'stripe_code'    => 'plan_HBBbNjLjVk3w4w',
-		'name'           => __( 'Standard', 'wubtitle' ),
+		'name'           => __( 'Professional', 'wubtitle' ),
 		'price'          => 19,
 		'features'       => array(
 			__( 'Number of video', 'wubtitle' )        => __( '10', 'wubtitle' ),
