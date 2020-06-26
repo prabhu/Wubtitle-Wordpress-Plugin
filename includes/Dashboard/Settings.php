@@ -58,7 +58,7 @@ class Settings {
 		Loader::get( 'cron' )->get_remote_data();
 		$plans        = array(
 			'plan_0'              => __( 'Free Plan', 'wubtitle' ),
-			'plan_HBBbNjLjVk3w4w' => __( 'Standard Plan', 'wubtitle' ),
+			'plan_HBBbNjLjVk3w4w' => __( 'Professional Plan', 'wubtitle' ),
 			'plan_HBBS5I9usXvwQR' => __( 'Elite Plan', 'wubtitle' ),
 		);
 		$plan_saved   = get_option( 'wubtitle_plan' );
