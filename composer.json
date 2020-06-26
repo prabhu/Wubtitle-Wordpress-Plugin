@@ -25,7 +25,7 @@
         "squizlabs/php_codesniffer": "*",
         "phpmd/phpmd": "@stable",
         "phpunit/phpunit": "^7",
-        "dealerdirect/phpcodesniffer-composer-installer": "^0.6.2",
+        "dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
         "wp-coding-standards/wpcs": "*",
         "phpcompatibility/phpcompatibility-wp": "*",
         "szepeviktor/phpstan-wordpress": "^0.6.1"
