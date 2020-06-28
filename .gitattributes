@@ -2,6 +2,7 @@ gitattributes
 # Directories
 /.wordpress-org export-ignore
 /.github export-ignore
+/bin export-ignore
 
 # Files
 /.gitattributes export-ignore
