@@ -1,9 +1,11 @@
-name: Deploy
 on:
-  release:
-    types: [published]
+  push:
+    # Sequence of patterns matched against refs/tags
+    tags:
+    - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+name: Deploy
 jobs:
-  tag:
+  build:
     name: New release
     runs-on: ubuntu-latest
     steps:
