@@ -55,7 +55,6 @@ class Settings {
 	 * @return void
 	 */
 	public function render_settings_page() {
-		Loader::get( 'cron' )->get_remote_data();
 		$plans        = array(
 			'plan_0'              => __( 'Free Plan', 'wubtitle' ),
 			'plan_HBBbNjLjVk3w4w' => __( 'Professional Plan', 'wubtitle' ),
@@ -314,6 +313,12 @@ class Settings {
 	 * @return void
 	 */
 	public function init_settings_field() {
+		// phpcs:disable
+		// Report a warning because the nonce is missing, since it is a parameter of the URL of the wubtitle page, the nonce is not necessary.
+		if ( isset( $_GET['page'] ) && 'wubtitle_settings' === $_GET['page'] ) {
+			// phpcs:enable
+			Loader::get( 'cron' )->get_remote_data();
+		}
 		add_settings_section( 'wubtitle-main-settings', '', function(){}, 'wubtitle-settings' );
 		if ( 'plan_HBBS5I9usXvwQR' !== get_option( 'wubtitle_plan' ) ) {
 			add_settings_field(
