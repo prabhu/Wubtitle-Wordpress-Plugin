@@ -1,13 +1,13 @@
 <?php
 /**
  * Plugin Name:     Wubtitle
- * Plugin URI:      PLUGIN SITE HERE
- * Description:     Plugin che crea dei sottotitoli per ogni video
+ * Plugin URI:      https://www.wubtitle.com
+ * Description:     Automatically generates subtitele for your videos
  * Author:          CTMobi
- * Author URI:      YOUR SITE HERE
+ * Author URI:      https://www.ctmobi.it
  * Text Domain:     wubtitle
  * Domain Path:     /languages
- * Version:         1.0.0
+ * Version:         0.1.0
  *
  * @package         Wubtitle
  */

@@ -80,14 +80,14 @@ class Updater {
 			return $transient;
 		}
 		$this->get_release_info();
-		if ( ! property_exists( $this->release_info, 'tag_name' ) ) {
+		if ( ! is_object( $this->release_info ) || ! property_exists( $this->release_info, 'tag_name' ) || ! property_exists( $this->release_info, 'zipball_url' ) ) {
 			return $transient;
 		}
 		$do_update = version_compare( $this->release_info->tag_name, $transient->checked[ WUBTITLE_NAME ], '>' );
 		if ( $do_update ) {
 			$package       = $this->release_info->zipball_url;
 			$plugin_url    = $this->plugin_data['PluginURI'];
-			$transient_obj = array(
+			$transient_obj = (object) array(
 				'slug'        => WUBTITLE_NAME,
 				'new_version' => $this->release_info->tag_name,
 				'url'         => $plugin_url,
