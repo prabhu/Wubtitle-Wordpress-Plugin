@@ -48,6 +48,8 @@ class Updater {
 		add_filter( 'pre_set_site_transient_update_plugins', array( $this, 'set_transient' ) );
 		add_filter( 'plugins_api', array( $this, 'set_release_info' ), 10, 3 );
 		add_filter( 'upgrader_post_install', array( $this, 'post_install' ), 10, 3 );
+		$this->username = 'CTMobi';
+		$this->repo     = 'Wubtitle-Wordpress-Plugin';
 	}
 	/**
 	 * Get release info from github repository.
@@ -83,7 +85,7 @@ class Updater {
 		if ( ! is_object( $this->release_info ) || ! property_exists( $this->release_info, 'tag_name' ) || ! property_exists( $this->release_info, 'zipball_url' ) ) {
 			return $transient;
 		}
-		$do_update = version_compare( $this->release_info->tag_name, $transient->checked[ WUBTITLE_NAME ], '>' );
+		$do_update = version_compare( $this->release_info->tag_name, $transient->checked[ WUBTITLE_NAME . '/wubtitle.php' ], '>' );
 		if ( $do_update ) {
 			$package       = $this->release_info->zipball_url;
 			$plugin_url    = $this->plugin_data['PluginURI'];
@@ -94,7 +96,7 @@ class Updater {
 				'package'     => $package,
 			);
 			// @phpstan-ignore-next-line. reports response as an undefined property
-			$transient->response[ WUBTITLE_NAME ] = $transient_obj;
+			$transient->response[ WUBTITLE_NAME . '/wubtitle.php' ] = $transient_obj;
 		}
 		return $transient;
 	}
