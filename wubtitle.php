@@ -2,12 +2,12 @@
 /**
  * Plugin Name:     Wubtitle
  * Plugin URI:      https://www.wubtitle.com
- * Description:     Automatically generates subtitele for your videos
+ * Description:     Automatically generates subtitle for your videos
  * Author:          CTMobi
  * Author URI:      https://www.ctmobi.it
  * Text Domain:     wubtitle
  * Domain Path:     /languages
- * Version:         0.1.0
+ * Version:         v0.1.0
  *
  * @package         Wubtitle
  */
