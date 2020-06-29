@@ -37,6 +37,12 @@ class Updater {
 	 * @var mixed
 	 */
 	private $release_info;
+	/**
+	 * Plugin Activated
+	 *
+	 * @var boolean
+	 */
+	private $plugin_activated;
 
 	/**
 	 * Init actions
@@ -47,6 +53,7 @@ class Updater {
 		$this->plugin_data = get_plugin_data( WUBTITLE_FILE_URL );
 		add_filter( 'pre_set_site_transient_update_plugins', array( $this, 'set_transient' ) );
 		add_filter( 'plugins_api', array( $this, 'set_release_info' ), 10, 3 );
+		add_filter( 'upgrader_pre_install', array( $this, 'pre_install' ), 10 );
 		add_filter( 'upgrader_post_install', array( $this, 'post_install' ), 10, 3 );
 		$this->username = 'CTMobi';
 		$this->repo     = 'Wubtitle-Wordpress-Plugin';
@@ -132,17 +139,24 @@ class Updater {
 	 * @return array<mixed>
 	 */
 	public function post_install( ...$args ) {
-		$result        = $args[2];
-		$was_activated = is_plugin_active( WUBTITLE_NAME );
+		$result = $args[2];
 
 		global $wp_filesystem;
 		$wp_filesystem->move( $result['destination'], WUBTITLE_DIR );
 		$result['destination'] = WUBTITLE_DIR;
 
 		// if the plug-in was activated, it must be reactivated after installation.
-		if ( $was_activated ) {
-			activate_plugin( WUBTITLE_NAME );
+		if ( $this->plugin_activated ) {
+			activate_plugin( WUBTITLE_NAME . '/wubtitle.php' );
 		}
 		return $result;
+	}
+	/**
+	 * Check if the plugin is active before installing the update
+	 *
+	 *  @return void
+	 */
+	public function pre_install() {
+		$this->plugin_activated = is_plugin_active( WUBTITLE_NAME . '/wubtitle.php' );
 	}
 }
