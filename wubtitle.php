@@ -7,7 +7,7 @@
  * Author URI:      https://www.ctmobi.it
  * Text Domain:     wubtitle
  * Domain Path:     /languages
- * Version:         v0.1.0
+ * Version:         0.1.0
  *
  * @package         Wubtitle
  */
