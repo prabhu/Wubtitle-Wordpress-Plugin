@@ -2,7 +2,7 @@ on:
   push:
     # Sequence of patterns matched against refs/tags
     tags:
-    - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+    - '*' # Push events to matching v*, i.e. v1.0, v20.15.10
 name: Deploy
 jobs:
   build:
@@ -13,9 +13,16 @@ jobs:
       uses: actions/checkout@v2
     - name: Build
       run: |
+        mkdir Wubtitle
+        git archive HEAD | tar -x -C Wubtitle/
+        cd Wubtitle/
         composer install --no-dev --prefer-dist --no-interaction
         npm ci --prefer-offline --progress=false
-        git archive -o ${{ github.event.repository.name }}.zip  HEAD
+        npm run build
+        rm -rf src/ tests/  
+        npm ci --prefer-offline --progress=false --only=prod
+        cd ..
+        zip -r ${{ github.event.repository.name }}.zip Wubtitle
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
