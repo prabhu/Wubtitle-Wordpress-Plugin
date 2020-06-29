@@ -24,8 +24,11 @@ class Helpers {
 		// @phpstan-ignore-next-line. False positive, does not recognize gutenberg_init as a callback.
 		$gutenberg = ! ( false === has_filter( 'replace_editor', 'gutenberg_init' ) );
 
+		$block_editor = false;
 		// Block editor since 5.0.
-		$block_editor = version_compare( $GLOBALS['wp_version'], '5.0-beta', '>' );
+		if ( isset( $GLOBALS['wp_version'] ) ) {
+			$block_editor = version_compare( $GLOBALS['wp_version'], '5.0-beta', '>' );
+		}
 
 		if ( ! $gutenberg && ! $block_editor ) {
 			return false;
