@@ -29,7 +29,7 @@
 		}
 	</script>
 	<script src="https://js.stripe.com/v3/"></script>
-	<script src="<?php echo esc_url(WUBTITLE_URL . 'src/payment/update_template.js'); ?>"></script>
+	<script src="<?php echo esc_url(WUBTITLE_URL . 'assets/payment/update_template.js'); ?>"></script>
 	<?php // phpcs:enable ?>
 </body>
 </html>
