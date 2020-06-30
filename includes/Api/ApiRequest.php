@@ -183,7 +183,7 @@ class ApiRequest {
 	 */
 	public function send_job_to_backend( $body, $license_key ) {
 		$response = wp_remote_post(
-			ENDPOINT . 'job/create',
+			WUBTITLE_ENDPOINT . 'job/create',
 			array(
 				'method'  => 'POST',
 				'headers' => array(
