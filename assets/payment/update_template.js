@@ -33,7 +33,7 @@ const paymentModule = (function (Stripe, document) {
 		const stripeKey =
 			wubtitleEnv === 'development'
 				? 'pk_test_lFmjf2Dz7VURTslihG0xys7m00NjW2BOPI'
-				: 'pk_test_nfUYjFiwdkzYpPOfCZkVZiMK00lOAFcAK7';
+				: 'pk_live_PvwHkJ49ry3lfXwkXIx2YKBE00S15aBYz7';
 		stripe = Stripe(stripeKey);
 		handleSubmit();
 	};
