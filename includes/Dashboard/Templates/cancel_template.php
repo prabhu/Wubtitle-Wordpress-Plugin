@@ -10,6 +10,9 @@
 /**
  * This template displays cancel page.
  */
+if ( ! defined( 'WP_ADMIN' ) ) {
+	define( 'WP_ADMIN', true );
+}
 
 require WUBTITLE_DIR . 'includes/Dashboard/Templates/plans_array.php';
 

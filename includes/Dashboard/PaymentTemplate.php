@@ -45,7 +45,6 @@ class PaymentTemplate {
 			$includes_file = 'Templates/upgrade_plan_template.php';
 		}
 		if ( current_user_can( 'manage_options' ) ) {
-			wp_cache_flush();
 			ob_start();
 			include $includes_file;
 			$html = ob_get_clean();
@@ -61,7 +60,6 @@ class PaymentTemplate {
 	 */
 	public function load_payment_template() {
 		if ( current_user_can( 'manage_options' ) ) {
-			wp_cache_flush();
 			ob_start();
 			include 'Templates/payment_template.php';
 			$html = ob_get_clean();
@@ -77,7 +75,6 @@ class PaymentTemplate {
 	 */
 	public function load_update_template() {
 		if ( current_user_can( 'manage_options' ) ) {
-			wp_cache_flush();
 			ob_start();
 			include 'Templates/update_template.php';
 			$html = ob_get_clean();
