@@ -19,8 +19,8 @@ jobs:
         composer install --no-dev --prefer-dist --no-interaction
         npm ci --prefer-offline --progress=false
         npm run build
-        rm -rf src/ tests/ composer.json composer.lock package.json package-lock.json
         npm ci --prefer-offline --progress=false --only=prod
+        rm -rf src/ tests/ composer.json composer.lock package.json package-lock.json
         cd ..
         zip -r ${{ github.event.repository.name }}.zip Wubtitle
     - name: Create Release
