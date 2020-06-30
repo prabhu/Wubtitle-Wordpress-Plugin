@@ -23,9 +23,11 @@ define( 'WUBTITLE_URL', plugin_dir_url( __FILE__ ) );
 define( 'WUBTITLE_NAME', dirname( plugin_basename( __FILE__ ) ) );
 define( 'WUBTITLE_VER', '0.1.1' );
 define( 'WUBTITLE_ENDPOINT', 'https://api.wubtitle.com/' );
+$endpoint = 'https://api.wubtitle.com/';
 if ( defined( 'WP_WUBTITLE_ENV' ) && 'development' === WP_WUBTITLE_ENV ) {
-	define( 'WUBTITLE_ENDPOINT', 'https://dev.api.wubtitle.com/' );
+	$endpoint = 'https://dev.api.wubtitle.com/';
 }
+define( 'WUBTITLE_ENDPOINT', $endpoint );
 if ( file_exists( dirname( __FILE__ ) . '/vendor/autoload.php' ) ) {
 	require_once dirname( __FILE__ ) . '/vendor/autoload.php';
 }
