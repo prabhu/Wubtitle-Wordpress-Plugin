@@ -401,7 +401,7 @@ class Settings {
 	public function e2w_settings_scripts( $hook ) {
 		if ( 'toplevel_page_wubtitle_settings' === $hook ) {
 			wp_enqueue_script( 'wp-util' );
-			wp_enqueue_script( 'settings_scripts', WUBTITLE_URL . '/assets/payment/settings_script.js', array( 'wp-util' ), 'settings_scripts', true );
+			wp_enqueue_script( 'settings_scripts', WUBTITLE_URL . '/assets/payment/settings_script.js', array( 'wp-util' ), WUBTITLE_VER, true );
 			wp_localize_script(
 				'settings_scripts',
 				'settings_object',

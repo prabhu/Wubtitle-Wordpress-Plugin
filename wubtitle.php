@@ -21,6 +21,7 @@ define( 'WUBTITLE_FILE_URL', __FILE__ );
 define( 'WUBTITLE_DIR', plugin_dir_path( __FILE__ ) );
 define( 'WUBTITLE_URL', plugin_dir_url( __FILE__ ) );
 define( 'WUBTITLE_NAME', dirname( plugin_basename( __FILE__ ) ) );
+define( 'WUBTITLE_VER', '0.1.0' );
 define( 'WUBTITLE_ENDPOINT', 'https://api.wubtitle.com/' );
 if ( defined( 'WP_WUBTITLE_ENV' ) && 'development' === WP_WUBTITLE_ENV ) {
 	define( 'WUBTITLE_ENDPOINT', 'https://dev.api.wubtitle.com/' );
