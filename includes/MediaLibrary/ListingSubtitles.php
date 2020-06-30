@@ -72,7 +72,7 @@ class ListingSubtitles {
 	 * @return void
 	 */
 	public function wubtitle_column_width() {
-		wp_enqueue_style( 'wubtitle_column_style', plugins_url( '../../assets/css/columnStyle.css', __FILE__ ), array(), true );
+		wp_enqueue_style( 'wubtitle_column_style', plugins_url( '../../assets/css/columnStyle.css', __FILE__ ), array(), WUBTITLE_VER );
 	}
 
 	/**

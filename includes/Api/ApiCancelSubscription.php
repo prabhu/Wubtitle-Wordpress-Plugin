@@ -41,7 +41,7 @@ class ApiCancelSubscription {
 		$license_key = get_option( 'wubtitle_license_key' );
 
 		$response = wp_remote_post(
-			ENDPOINT . 'stripe/customer/unsubscribe',
+			WUBTITLE_ENDPOINT . 'stripe/customer/unsubscribe',
 			array(
 				'method'  => 'POST',
 				'headers' => array(
