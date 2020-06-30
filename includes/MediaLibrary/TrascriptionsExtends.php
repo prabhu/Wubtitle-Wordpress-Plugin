@@ -46,7 +46,7 @@ class TrascriptionsExtends {
 	 * @return void
 	 */
 	public function include_transcription_modal_script() {
-		wp_enqueue_script( 'transcription_modal_script', WUBTITLE_URL . '/src/editor/transcriptionModalScript.js', array(), 'transcription_script', true );
+		wp_enqueue_script( 'transcription_modal_script', WUBTITLE_URL . '/assets/editor/transcriptionModalScript.js', array(), 'transcription_script', true );
 		wp_set_script_translations( 'transcription_modal_script', 'wubtitle', WUBTITLE_DIR . 'languages' );
 		wp_localize_script(
 			'transcription_modal_script',

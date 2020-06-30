@@ -21,7 +21,7 @@ require WUBTITLE_DIR . 'includes/Dashboard/Templates/plans_array.php';
 	<title>Payment</title>
 	<?php // phpcs:disable ?>
 	<link href="https://fonts.googleapis.com/css?family=Days+One|Open+Sans&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="<?php echo esc_url( WUBTITLE_URL . 'src/css/payment_template.css' ); ?>">
+	<link rel="stylesheet" href="<?php echo esc_url( WUBTITLE_URL . 'assets/css/payment_template.css' ); ?>">
 	<?php // phpcs:enable ?>
 </head>
 <body>
@@ -38,7 +38,7 @@ require WUBTITLE_DIR . 'includes/Dashboard/Templates/plans_array.php';
 						<h2 class="card__title">
 							<?php echo esc_html( $plan['name'] ); ?>
 						</h2>
-						<img class="card__logo" src="<?php echo esc_url( WUBTITLE_URL . 'src/img/' . $plan['icon'] ); ?>">
+						<img class="card__logo" src="<?php echo esc_url( WUBTITLE_URL . 'assets/img/' . $plan['icon'] ); ?>">
 					</div>
 					<div class="card__price">
 						<?php echo esc_html_e( 'Per month', 'wubtitle' ); ?>
@@ -97,7 +97,7 @@ require WUBTITLE_DIR . 'includes/Dashboard/Templates/plans_array.php';
 		}
 	</script>
 	<script src="https://js.stripe.com/v3/"></script>
-	<script src="<?php echo esc_url(WUBTITLE_URL . 'src/payment/payment_template.js'); ?>"></script>
+	<script src="<?php echo esc_url(WUBTITLE_URL . 'assets/payment/payment_template.js'); ?>"></script>
 	<?php // phpcs:enable ?>
 </body>
 </html>
