@@ -39,7 +39,7 @@ class MediaLibraryExtented {
 	 * @return void
 	 */
 	public function wubtitle_medialibrary_style() {
-		wp_enqueue_style( 'wubtitle_medialibrary_style', WUBTITLE_URL . '/assets/css/mediaStyle.css', array(), true );
+		wp_enqueue_style( 'wubtitle_medialibrary_style', WUBTITLE_URL . '/assets/css/mediaStyle.css', array(), WUBTITLE_VER );
 	}
 
 

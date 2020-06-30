@@ -46,7 +46,7 @@ class Settings {
 	 * @return void
 	 */
 	public function wubtitle_settings_style() {
-		wp_enqueue_style( 'wubtitle_settings_style', WUBTITLE_URL . 'assets/css/settingsStyle.css', array(), true );
+		wp_enqueue_style( 'wubtitle_settings_style', WUBTITLE_URL . 'assets/css/settingsStyle.css', array(), WUBTITLE_VER );
 	}
 
 	/**
