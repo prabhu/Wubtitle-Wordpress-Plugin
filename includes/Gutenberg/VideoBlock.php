@@ -68,7 +68,7 @@ class VideoBlock {
 	 * @return string|false
 	 */
 	public function video_dynamic_block_render_callback( $attributes, $content ) {
-		wp_enqueue_style( 'wubtitle_test', WUBTITLE_URL . '/src/css/subtitles.css', array(), true );
+		wp_enqueue_style( 'wubtitle_test', WUBTITLE_URL . '/assets/css/subtitles.css', array(), true );
 		if ( empty( $attributes['id'] ) ) {
 			return $content;
 		}
