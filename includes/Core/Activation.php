@@ -36,7 +36,7 @@ class Activation {
 			),
 		);
 		$response      = wp_remote_post(
-			ENDPOINT . 'key/create',
+			WUBTITLE_ENDPOINT . 'key/create',
 			array(
 				'method'  => 'POST',
 				'headers' => array(

@@ -61,7 +61,7 @@ class Cron {
 		$license_key = get_option( 'wubtitle_license_key' );
 
 		$response = wp_remote_post(
-			ENDPOINT . 'subscription/info',
+			WUBTITLE_ENDPOINT . 'subscription/info',
 			array(
 				'method'  => 'POST',
 				'headers' => array(
