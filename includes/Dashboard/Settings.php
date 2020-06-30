@@ -46,7 +46,7 @@ class Settings {
 	 * @return void
 	 */
 	public function wubtitle_settings_style() {
-		wp_enqueue_style( 'wubtitle_settings_style', WUBTITLE_URL . 'src/css/settingsStyle.css', array(), true );
+		wp_enqueue_style( 'wubtitle_settings_style', WUBTITLE_URL . 'assets/css/settingsStyle.css', array(), true );
 	}
 
 	/**
@@ -76,7 +76,7 @@ class Settings {
 			<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
 			<form action="options.php" method="post">
 			<div class="form-header">
-				<img class="logo" src="<?php echo esc_url( WUBTITLE_URL . 'src/img/logo.svg' ); ?>">
+				<img class="logo" src="<?php echo esc_url( WUBTITLE_URL . 'assets/img/logo.svg' ); ?>">
 				<?php
 				settings_errors();
 				submit_button();
@@ -401,7 +401,7 @@ class Settings {
 	public function e2w_settings_scripts( $hook ) {
 		if ( 'toplevel_page_wubtitle_settings' === $hook ) {
 			wp_enqueue_script( 'wp-util' );
-			wp_enqueue_script( 'settings_scripts', WUBTITLE_URL . '/src/payment/settings_script.js', array( 'wp-util' ), WUBTITLE_VER, true );
+			wp_enqueue_script( 'settings_scripts', WUBTITLE_URL . '/assets/payment/settings_script.js', array( 'wp-util' ), WUBTITLE_VER, true );
 			wp_localize_script(
 				'settings_scripts',
 				'settings_object',
