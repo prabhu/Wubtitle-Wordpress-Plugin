@@ -22,7 +22,7 @@ $amount_preview = -$amount_preview;
 	<title>Payment</title>
 	<?php // phpcs:disable ?>
 	<link href="https://fonts.googleapis.com/css?family=Days+One|Open+Sans&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="<?php echo esc_url( WUBTITLE_URL . 'src/css/payment_template.css' ); ?>">
+	<link rel="stylesheet" href="<?php echo esc_url( WUBTITLE_URL . 'assets/css/payment_template.css' ); ?>">
 	<?php // phpcs:enable ?>
 </head>
 <body>
@@ -32,17 +32,17 @@ $amount_preview = -$amount_preview;
 		<div class="row margin_medium">
 			<?php if ( isset( $plans, $wanted_plan ) ) : ?> 
 			<div class="column one-quarter">
-				<img class="card_plan" src="<?php echo esc_url( WUBTITLE_URL . 'src/img/' . $plans[ $wanted_plan ]['icon'] ); ?>">
+				<img class="card_plan" src="<?php echo esc_url( WUBTITLE_URL . 'assets/img/' . $plans[ $wanted_plan ]['icon'] ); ?>">
 				<h1 class="title" >  <?php echo esc_html( $plans[ $wanted_plan ]['name'] ); ?> </h1>
 			</div>
 			<?php endif; ?>
 			<div class="column one-quarter">
 				<h1 style="text-align:center; margin-top:64px;"> <span class="refund"><?php echo esc_html( $amount_preview . '€' . __( ' credit earnings', 'wubtitle' ) ); ?></span> </h1>
-		<img class="arrowdown" src="<?php echo esc_url( WUBTITLE_URL . 'src/img/arrowdown.svg' ); ?>">
+		<img class="arrowdown" src="<?php echo esc_url( WUBTITLE_URL . 'assets/img/arrowdown.svg' ); ?>">
 			</div>
 			<?php if ( isset( $plans, $current_plan ) ) : ?>
 			<div class="column one-quarter">
-				<img class="card_plan" src="<?php echo esc_url( WUBTITLE_URL . 'src/img/' . $plans[ $current_plan ]['icon'] ); ?>">
+				<img class="card_plan" src="<?php echo esc_url( WUBTITLE_URL . 'assets/img/' . $plans[ $current_plan ]['icon'] ); ?>">
 				<h1 class="title" > <?php echo esc_html( $plans[ $current_plan ]['name'] ); ?> </h1>
 			</div>
 			<?php endif; ?>
@@ -63,7 +63,7 @@ $amount_preview = -$amount_preview;
 	}
 	</script>
 	<script src="https://js.stripe.com/v3/"></script>
-	<script src="<?php echo esc_url(WUBTITLE_URL . 'src/payment/change_plan_script.js'); ?>"></script>
+	<script src="<?php echo esc_url(WUBTITLE_URL . 'assets/payment/change_plan_script.js'); ?>"></script>
 	<?php // phpcs:enable ?>
 </body>
 </html>
