@@ -10,6 +10,9 @@
 /**
  * This array describes all avaiable plans for users.
  */
+
+wp_cache_delete( 'wubtitle_plan', 'options' );
+wp_cache_delete( 'wubtitle_is_first_month', 'options' );
 $plans = array(
 	array(
 		'stripe_code'    => 'plan_0',
@@ -92,7 +95,6 @@ switch ( get_option( 'wubtitle_plan' ) ) {
 		$plans[2]['message_button'] = __( 'Your plan', 'wubtitle' );
 		break;
 }
-
 switch ( get_option( 'wubtitle_plan' ) ) {
 	case 'plan_0':
 		$plans[1]['zoom'] = true;
