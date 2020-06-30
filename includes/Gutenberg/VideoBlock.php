@@ -32,7 +32,7 @@ class VideoBlock {
 	 * @return void
 	 */
 	public function add_subtitle_button_enqueue() {
-		wp_enqueue_script( 'add_subtitle_button-script', plugins_url( '../../build/index.js', __FILE__ ), array( 'wp-compose', 'wp-data', 'wp-element', 'wp-hooks', 'wp-api-fetch', 'wp-components', 'wp-block-editor', 'wp-edit-post', 'wp-i18n' ), 'add_subtitle_button', false );
+		wp_enqueue_script( 'add_subtitle_button-script', plugins_url( '../../build/index.js', __FILE__ ), array( 'wp-compose', 'wp-data', 'wp-element', 'wp-hooks', 'wp-api-fetch', 'wp-components', 'wp-block-editor', 'wp-edit-post', 'wp-i18n' ), WUBTITLE_VER, false );
 		wp_set_script_translations( 'add_subtitle_button-script', 'wubtitle', WUBTITLE_DIR . 'languages' );
 		wp_localize_script(
 			'add_subtitle_button-script',
@@ -68,7 +68,7 @@ class VideoBlock {
 	 * @return string|false
 	 */
 	public function video_dynamic_block_render_callback( $attributes, $content ) {
-		wp_enqueue_style( 'wubtitle_test', WUBTITLE_URL . '/assets/css/subtitles.css', array(), true );
+		wp_enqueue_style( 'wubtitle_test', WUBTITLE_URL . '/assets/css/subtitles.css', array(), WUBTITLE_VER );
 		if ( empty( $attributes['id'] ) ) {
 			return $content;
 		}

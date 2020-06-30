@@ -49,7 +49,7 @@ class ApiPricingPlan {
 			wp_send_json_error( __( 'Unable to create subtitles. The product license key is missing.', 'wubtitle' ) );
 		}
 		$response      = wp_remote_post(
-			ENDPOINT . 'stripe/customer/update',
+			WUBTITLE_ENDPOINT . 'stripe/customer/update',
 			array(
 				'method'  => 'POST',
 				'headers' => array(
@@ -91,7 +91,7 @@ class ApiPricingPlan {
 		}
 		update_option( 'wubtitle_is_reactivating', true );
 		$response      = wp_remote_post(
-			ENDPOINT . 'stripe/customer/reactivate',
+			WUBTITLE_ENDPOINT . 'stripe/customer/reactivate',
 			array(
 				'method'  => 'POST',
 				'headers' => array(
@@ -147,14 +147,14 @@ class ApiPricingPlan {
 		if ( ! $body ) {
 			wp_send_json_error( __( 'An error occurred. Please try again in a few minutes.', 'wubtitle' ) );
 		}
-		$url_endpoint = ENDPOINT . 'stripe/session/create';
+		$url_endpoint = WUBTITLE_ENDPOINT . 'stripe/session/create';
 		$license_key  = get_option( 'wubtitle_license_key' );
 		if ( empty( $license_key ) ) {
 			wp_send_json_error( __( 'Unable to create subtitles. The product license key is missing.', 'wubtitle' ) );
 		}
 		// If the plan is not free calls the endpoint for plan update.
 		if ( ! get_option( 'wubtitle_free' ) ) {
-			$url_endpoint = ENDPOINT . 'stripe/customer/update/preview';
+			$url_endpoint = WUBTITLE_ENDPOINT . 'stripe/customer/update/preview';
 			unset( $body['data']['siteLang'] );
 			unset( $body['data']['domainUrl'] );
 		}
@@ -212,7 +212,7 @@ class ApiPricingPlan {
 			'type' => 'payment',
 		);
 		$response      = wp_remote_post(
-			ENDPOINT . 'stripe/customer/update',
+			WUBTITLE_ENDPOINT . 'stripe/customer/update',
 			array(
 				'method'  => 'POST',
 				'headers' => array(
@@ -256,7 +256,7 @@ class ApiPricingPlan {
 			),
 		);
 		$response      = wp_remote_post(
-			ENDPOINT . 'key/fetch',
+			WUBTITLE_ENDPOINT . 'key/fetch',
 			array(
 				'method'  => 'POST',
 				'headers' => array(
