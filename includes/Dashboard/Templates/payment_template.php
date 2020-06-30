@@ -92,7 +92,8 @@ require WUBTITLE_DIR . 'includes/Dashboard/Templates/plans_array.php';
 	<script>
 		const WP_GLOBALS = {
 			adminAjax: "<?php echo esc_html( admin_url( 'admin-ajax.php' ) ); ?>",
-			nonce: "<?php echo esc_js( wp_create_nonce( 'itr_ajax_nonce' ) ); ?>"
+			nonce: "<?php echo esc_js( wp_create_nonce( 'itr_ajax_nonce' ) ); ?>",
+			wubtitleEnv: "<?php echo defined( 'WP_WUBTITLE_ENV' ) ? WP_WUBTITLE_ENV : ''; ?>"
 		}
 	</script>
 	<script src="https://js.stripe.com/v3/"></script>

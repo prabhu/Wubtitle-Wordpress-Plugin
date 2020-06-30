@@ -1,7 +1,7 @@
 const paymentModule = (function (Stripe, document) {
 	let stripe = null;
 
-	const { adminAjax, nonce } = WP_GLOBALS;
+	const { adminAjax, nonce, wubtitleEnv } = WP_GLOBALS;
 
 	const openStripeForm = (sessionId) => {
 		if (sessionId) {
@@ -30,7 +30,11 @@ const paymentModule = (function (Stripe, document) {
 	};
 
 	const init = () => {
-		stripe = Stripe('pk_test_nfUYjFiwdkzYpPOfCZkVZiMK00lOAFcAK7');
+		const stripeKey =
+			wubtitleEnv === 'development'
+				? 'pk_test_lFmjf2Dz7VURTslihG0xys7m00NjW2BOPI'
+				: 'pk_test_nfUYjFiwdkzYpPOfCZkVZiMK00lOAFcAK7';
+		stripe = Stripe(stripeKey);
 		handleSubmit();
 	};
 
