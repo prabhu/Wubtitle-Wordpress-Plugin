@@ -1,5 +1,7 @@
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/fe8dec042ddf47a5a00fb1b7fbf814dd)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CTMobi/Wubtitle-Wordpress-Plugin&amp;utm_campaign=Badge_Grade)   [![Codacy Badge](https://app.codacy.com/project/badge/Coverage/fe8dec042ddf47a5a00fb1b7fbf814dd)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CTMobi/Wubtitle-Wordpress-Plugin&amp;utm_campaign=Badge_Coverage)
 
+![Wubtitle](https://repository-images.githubusercontent.com/265305990/7c8dc700-ba14-11ea-8f3d-6fedc4bcd93d)
+
 # Wubtitle
 
 Wubtitle is a plugin that generates:
