@@ -1,13 +1,13 @@
 <?php
 /**
  * Plugin Name:     Wubtitle
- * Plugin URI:      https://www.wubtitle.com
+ * Plugin URI:      https://github.com/CTMobi/Wubtitle-Wordpress-Plugin
  * Description:     Automatically generates subtitle for your videos
  * Author:          CTMobi
  * Author URI:      https://www.ctmobi.it
  * Text Domain:     wubtitle
  * Domain Path:     /languages
- * Version:         0.1.0
+ * Version:         0.1.1
  *
  * @package         Wubtitle
  */
