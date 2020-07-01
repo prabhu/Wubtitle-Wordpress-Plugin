@@ -12,10 +12,15 @@
  */
 
 wp_cache_delete( 'wubtitle_plan', 'options' );
+wp_cache_delete( 'wubtitle_plan_rank', 'options' );
+wp_cache_delete( 'wubtitle_plans', 'options' );
 wp_cache_delete( 'wubtitle_is_first_month', 'options' );
-$plans                     = get_option( 'wubtitle_plans' );
-$currentplan               = get_option( 'wubtitle_plan' );
-$is_first_month            = get_option( 'wubtitle_is_first_month' );
+
+$plans          = get_option( 'wubtitle_plans' );
+$current_plan   = get_option( 'wubtitle_plan' );
+$current_rank   = get_option( 'wubtitle_plan_rank' );
+$is_first_month = get_option( 'wubtitle_is_first_month' );
+
 $disable_downgrade_message = __( 'Unable this select this plan during the first month of subscription for current plan', 'wubtitle' );
 
 foreach ( $plans as $key => $plan ) {
@@ -26,9 +31,15 @@ foreach ( $plans as $key => $plan ) {
 		__( 'Number of video', 'wubtitle' )        => $plans[ $key ]['totalJobs'],
 		__( 'Total length of videos', 'wubtitle' ) => date_i18n( 'H:i', $plans[ $key ]['totalSeconds'] ) . ' h',
 	);
-	if ( $plans[ $key ]['stripe_code'] === $currentplan ) {
-		$plans[ $key ]['current_plan']   = true;
-		$plans[ $key ]['class_button']   = 'current-plan';
-		$plans[ $key ]['message_button'] = __( 'Your plan', 'wubtitle' );
+	if ( $is_first_month && $key < $current_rank ) {
+		$plans[ $key ]['class_button']   = 'disable-downgrade';
+		$plans[ $key ]['message_button'] = $disable_downgrade_message;
+	}
+	if ( $key === $current_rank + 1 ) {
+		$plans[ $key ]['zoom'] = true;
 	}
 }
+
+$plans[ $current_rank ]['current_plan']   = true;
+$plans[ $current_rank ]['class_button']   = 'current-plan';
+$plans[ $current_rank ]['message_button'] = __( 'Your plan', 'wubtitle' );
