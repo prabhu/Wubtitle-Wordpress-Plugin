@@ -72,16 +72,45 @@ class Cron {
 		);
 
 		$code_response = wp_remote_retrieve_response_code( $response );
-		if ( 200 === $code_response ) {
-			$body_response = json_decode( wp_remote_retrieve_body( $response ) );
-			update_option( 'wubtitle_plan', $body_response->data->plan );
-			$is_free_plan = 'plan_0' === $body_response->data->plan;
+		if ( 201 === $code_response ) {
+			$body_response      = json_decode( wp_remote_retrieve_body( $response ) );
+			$plans              = $body_response->data->plans;
+			$wubtitle_plans     = array();
+			$wubtitle_plan_rank = '';
+			$total_jobs         = 0;
+			$total_seconds      = 0;
+			foreach ( $plans as $plan ) {
+				$wubtitle_plans[ $plan->rank ] = array(
+					'name'         => $plan->name,
+					'stripe_code'  => $plan->id,
+					// phpcs:disable 
+					// warning camel case
+					'totalJobs'    => $plan->totalJobs,
+					'totalSeconds' => $plan->totalSeconds,
+					// phpcs:enable
+					'price'        => $plan->price,
+					'dot_list'     => $plan->dot_list,
+					'icon'         => $plan->icon,
+				);
+				if ( $body_response->data->currentPlan === $plan->id ) {
+					$wubtitle_plan_rank = $plan->rank;
+					// phpcs:disable 
+					// warning camel case
+					$total_jobs         = $plan->totalJobs;
+					$total_seconds      = $plan->totalSeconds;
+					// phpcs:enable
+				}
+			}
+			update_option( 'wubtitle_plan', $body_response->data->currentPlan );
+			update_option( 'wubtitle_plan_rank', $body_response->data->currentPlan );
+			update_option( 'wubtitle_all_plans', $wubtitle_plans );
+			$is_free_plan = 0 === $wubtitle_plan_rank;
 			update_option( 'wubtitle_free', $is_free_plan );
 			update_option( 'wubtitle_expiration_date', $body_response->data->expirationDate );
 			update_option( 'wubtitle_is_first_month', $body_response->data->isFirstMonth );
 			update_option( 'wubtitle_is_canceling', $body_response->data->isCanceling );
-			update_option( 'wubtitle_total_jobs', $body_response->data->totalJobs );
-			update_option( 'wubtitle_total_seconds', $body_response->data->totalSeconds );
+			update_option( 'wubtitle_total_jobs', $total_jobs );
+			update_option( 'wubtitle_total_seconds', $total_seconds );
 			update_option( 'wubtitle_jobs_done', $body_response->data->consumedJobs );
 			update_option( 'wubtitle_seconds_done', $body_response->data->consumedSeconds );
 		}

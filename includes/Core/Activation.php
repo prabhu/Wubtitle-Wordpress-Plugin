@@ -50,6 +50,23 @@ class Activation {
 			$response_body = json_decode( wp_remote_retrieve_body( $response ) );
 			update_option( 'wubtitle_free', $response_body->data->isFree );
 			update_option( 'wubtitle_license_key', $response_body->data->licenseKey );
+			$plans          = $response_body->data->plans;
+			$wubtitle_plans = array();
+			foreach ( $plans as $plan ) {
+				$wubtitle_plans[ $plan->rank ] = array(
+					'name'         => $plan->name,
+					'stripe_code'  => $plan->id,
+					// phpcs:disable 
+					// warning camel case
+					'totalJobs'    => $plan->totalJobs,
+					'totalSeconds' => $plan->totalSeconds,
+					// phpcs:enable
+					'price'        => $plan->price,
+					'dot_list'     => $plan->dot_list,
+					'icon'         => $plan->icon,
+				);
+			}
+			update_option( 'wubtitle_all_plans', $wubtitle_plans );
 		}
 	}
 }
