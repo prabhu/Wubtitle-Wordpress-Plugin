@@ -79,7 +79,7 @@ class Cron {
 		);
 
 		$code_response = wp_remote_retrieve_response_code( $response );
-		if ( 201 === $code_response ) {
+		if ( 200 === $code_response ) {
 			$body_response      = json_decode( wp_remote_retrieve_body( $response ) );
 			$plans              = $body_response->data->plans;
 			$wubtitle_plans     = array();
@@ -109,7 +109,7 @@ class Cron {
 				}
 			}
 			update_option( 'wubtitle_plan', $body_response->data->currentPlan, false );
-			update_option( 'wubtitle_plan_rank', $body_response->data->currentPlan, false );
+			update_option( 'wubtitle_plan_rank', $wubtitle_plan_rank, false );
 			update_option( 'wubtitle_all_plans', $wubtitle_plans, false );
 			$is_free_plan = 0 === $wubtitle_plan_rank;
 			update_option( 'wubtitle_free', $is_free_plan, false );
