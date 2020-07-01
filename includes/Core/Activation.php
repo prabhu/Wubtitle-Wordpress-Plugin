@@ -62,7 +62,7 @@ class Activation {
 					'totalSeconds' => $plan->totalSeconds,
 					// phpcs:enable
 					'price'        => $plan->price,
-					'dot_list'     => $plan->dot_list,
+					'dot_list'     => $plan->dotlist,
 					'icon'         => $plan->icon,
 				);
 			}
