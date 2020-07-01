@@ -13,10 +13,10 @@
 
 wp_cache_delete( 'wubtitle_plan', 'options' );
 wp_cache_delete( 'wubtitle_plan_rank', 'options' );
-wp_cache_delete( 'wubtitle_plans', 'options' );
+wp_cache_delete( 'wubtitle_all_plans', 'options' );
 wp_cache_delete( 'wubtitle_is_first_month', 'options' );
 
-$plans          = get_option( 'wubtitle_plans' );
+$plans          = get_option( 'wubtitle_all_plans' );
 $current_plan   = get_option( 'wubtitle_plan' );
 $current_rank   = get_option( 'wubtitle_plan_rank' );
 $is_first_month = get_option( 'wubtitle_is_first_month' );
@@ -25,6 +25,7 @@ $disable_downgrade_message = __( 'Unable this select this plan during the first 
 
 foreach ( $plans as $key => $plan ) {
 	$plans[ $key ]['current_plan']   = false;
+	$plans[ $key ]['zoom']           = false;
 	$plans[ $key ]['class_button']   = 'button-choose-plan';
 	$plans[ $key ]['message_button'] = __( 'Choose this plan', 'wubtitle' );
 	$plans[ $key ]['features']       = array(
