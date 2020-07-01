@@ -89,12 +89,12 @@ class Updater {
 			return $transient;
 		}
 		$this->get_release_info();
-		if ( ! is_object( $this->release_info ) || ! property_exists( $this->release_info, 'tag_name' ) || ! property_exists( $this->release_info, 'zipball_url' ) ) {
+		if ( ! is_object( $this->release_info ) || ! property_exists( $this->release_info, 'tag_name' ) || ! property_exists( $this->release_info, 'assets' ) ) {
 			return $transient;
 		}
 		$do_update = version_compare( $this->release_info->tag_name, $transient->checked[ WUBTITLE_NAME . '/wubtitle.php' ], '>' );
 		if ( $do_update ) {
-			$package       = $this->release_info->zipball_url;
+			$package       = $this->release_info->assets[0]->browser_download_url;
 			$plugin_url    = $this->plugin_data['PluginURI'];
 			$transient_obj = (object) array(
 				'slug'        => WUBTITLE_NAME,
@@ -125,7 +125,7 @@ class Updater {
 		$response->version       = $this->release_info->tag_name;
 		$response->author        = $this->plugin_data['AuthorName'];
 		$response->homepage      = $this->plugin_data['PluginURI'];
-		$response->download_link = $this->release_info->zipball_url;
+		$response->download_link = $this->release_info->assets[0]->browser_download_url;
 		$response->sections      = array(
 			'description' => $this->plugin_data['Description'],
 			'changelog'   => $this->release_info->body,
