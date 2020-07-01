@@ -60,6 +60,12 @@ class Cron {
 	public function get_remote_data() {
 		$license_key = get_option( 'wubtitle_license_key' );
 
+		$body = array(
+			'data' => array(
+				'siteLang' => explode( '_', get_locale(), 2 )[0],
+			),
+		);
+
 		$response = wp_remote_post(
 			WUBTITLE_ENDPOINT . 'subscription/info',
 			array(
@@ -68,6 +74,7 @@ class Cron {
 					'Content-Type' => 'application/json; charset=utf-8',
 					'licenseKey'   => $license_key,
 				),
+				'body'    => wp_json_encode( $body ),
 			)
 		);
 
