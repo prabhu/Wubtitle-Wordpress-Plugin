@@ -101,18 +101,18 @@ class Cron {
 					// phpcs:enable
 				}
 			}
-			update_option( 'wubtitle_plan', $body_response->data->currentPlan );
-			update_option( 'wubtitle_plan_rank', $body_response->data->currentPlan );
-			update_option( 'wubtitle_all_plans', $wubtitle_plans );
+			update_option( 'wubtitle_plan', $body_response->data->currentPlan, false );
+			update_option( 'wubtitle_plan_rank', $body_response->data->currentPlan, false );
+			update_option( 'wubtitle_all_plans', $wubtitle_plans, false );
 			$is_free_plan = 0 === $wubtitle_plan_rank;
-			update_option( 'wubtitle_free', $is_free_plan );
-			update_option( 'wubtitle_expiration_date', $body_response->data->expirationDate );
-			update_option( 'wubtitle_is_first_month', $body_response->data->isFirstMonth );
-			update_option( 'wubtitle_is_canceling', $body_response->data->isCanceling );
-			update_option( 'wubtitle_total_jobs', $total_jobs );
-			update_option( 'wubtitle_total_seconds', $total_seconds );
-			update_option( 'wubtitle_jobs_done', $body_response->data->consumedJobs );
-			update_option( 'wubtitle_seconds_done', $body_response->data->consumedSeconds );
+			update_option( 'wubtitle_free', $is_free_plan, false );
+			update_option( 'wubtitle_expiration_date', $body_response->data->expirationDate, false );
+			update_option( 'wubtitle_is_first_month', $body_response->data->isFirstMonth, false );
+			update_option( 'wubtitle_is_canceling', $body_response->data->isCanceling, false );
+			update_option( 'wubtitle_total_jobs', $total_jobs, false );
+			update_option( 'wubtitle_total_seconds', $total_seconds, false );
+			update_option( 'wubtitle_jobs_done', $body_response->data->consumedJobs, false );
+			update_option( 'wubtitle_seconds_done', $body_response->data->consumedSeconds, false );
 		}
 	}
 }

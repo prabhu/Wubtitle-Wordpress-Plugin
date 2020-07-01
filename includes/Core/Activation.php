@@ -48,8 +48,8 @@ class Activation {
 		$code_response = wp_remote_retrieve_response_code( $response );
 		if ( 201 === $code_response ) {
 			$response_body = json_decode( wp_remote_retrieve_body( $response ) );
-			update_option( 'wubtitle_free', $response_body->data->isFree );
-			update_option( 'wubtitle_license_key', $response_body->data->licenseKey );
+			update_option( 'wubtitle_free', $response_body->data->isFree, false );
+			update_option( 'wubtitle_license_key', $response_body->data->licenseKey, false );
 			$plans          = $response_body->data->plans;
 			$wubtitle_plans = array();
 			foreach ( $plans as $plan ) {
@@ -66,7 +66,7 @@ class Activation {
 					'icon'         => $plan->icon,
 				);
 			}
-			update_option( 'wubtitle_all_plans', $wubtitle_plans );
+			update_option( 'wubtitle_all_plans', $wubtitle_plans, false );
 		}
 	}
 }
