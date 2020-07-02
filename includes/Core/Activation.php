@@ -51,22 +51,31 @@ class Activation {
 			update_option( 'wubtitle_free', $response_body->data->isFree, false );
 			update_option( 'wubtitle_license_key', $response_body->data->licenseKey, false );
 			$plans          = $response_body->data->plans;
-			$wubtitle_plans = array();
-			foreach ( $plans as $plan ) {
-				$wubtitle_plans[ $plan->rank ] = array(
-					'name'         => $plan->name,
-					'stripe_code'  => $plan->id,
-					// phpcs:disable 
-					// warning camel case
-					'totalJobs'    => $plan->totalJobs,
-					'totalSeconds' => $plan->totalSeconds,
-					// phpcs:enable
-					'price'        => $plan->price,
-					'dot_list'     => $plan->dotlist,
-					'icon'         => $plan->icon,
-				);
-			}
+			$wubtitle_plans = array_reduce( $plans, array( $this, 'plans_reduce' ), array() );
 			update_option( 'wubtitle_all_plans', $wubtitle_plans, false );
 		}
+	}
+	/**
+	 * Callback function array_reduce
+	 *
+	 * @param mixed $accumulator empty array.
+	 * @param mixed $item object to reduce.
+	 *
+	 * @return mixed
+	 */
+	public function plans_reduce( $accumulator, $item ) {
+		$accumulator[ $item->rank ] = array(
+			'name'         => $item->name,
+			'stripe_code'  => $item->id,
+			// phpcs:disable 
+			// warning camel case
+			'totalJobs'    => $item->totalJobs,
+			'totalSeconds' => $item->totalSeconds,
+			// phpcs:enable
+			'price'        => $item->price,
+			'dot_list'     => $item->dotlist,
+			'icon'         => $item->icon,
+		);
+		return $accumulator;
 	}
 }
