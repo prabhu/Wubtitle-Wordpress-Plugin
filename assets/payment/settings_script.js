@@ -3,7 +3,7 @@
 let BuyLicenseWindow = null;
 let UpdatePlanWindow = null;
 let CancelSubscriptionWindow = null;
-
+let wait = false;
 /* eslint-disable */
 function redirectToCallback(param) {
 	window.location.href += "&" + param;
@@ -94,14 +94,15 @@ const showUpdatePlanWindow = () => {
 	}
 };
 const showBuyLicenseWindow = () => {
-	if (BuyLicenseWindow === null || BuyLicenseWindow.closed) {
+	if (!wait && (BuyLicenseWindow === null || BuyLicenseWindow.closed)) {
 		const windowFeatures = `
             left=500,
             top=200,
             width=1200,
             height=700,
             scrollbars=yes,
-        `;
+		`;
+		wait = true;
 		wp.ajax
 			.send('payment_template', {
 				type: 'GET',
@@ -113,6 +114,7 @@ const showBuyLicenseWindow = () => {
 					windowFeatures
 				);
 				BuyLicenseWindow.document.write(response);
+				wait = false;
 			});
 	} else {
 		BuyLicenseWindow.focus();
@@ -148,14 +150,18 @@ const confirmPlanChangeWindow = () => {
 };
 
 const showCancelSubscriptionWindow = () => {
-	if (CancelSubscriptionWindow === null || CancelSubscriptionWindow.closed) {
+	if (
+		!wait &&
+		(CancelSubscriptionWindow === null || CancelSubscriptionWindow.closed)
+	) {
 		const windowFeatures = `
 			left=500,
 			top=200,
 			width=1200,
 			height=700,
 			scrollbars=yes,
-        `;
+		`;
+		wait = true;
 		wp.ajax
 			.send('cancel_template', {
 				type: 'GET',
@@ -167,6 +173,7 @@ const showCancelSubscriptionWindow = () => {
 					windowFeatures
 				);
 				CancelSubscriptionWindow.document.write(response);
+				wait = false;
 			});
 	} else {
 		CancelSubscriptionWindow.focus();
