@@ -101,6 +101,10 @@ class Updater {
 				'new_version' => $this->release_info->tag_name,
 				'url'         => $plugin_url,
 				'package'     => $package,
+				'icons'       => array(
+					'1x' => WUBTITLE_URL . 'assets/img/icon128.png',
+					'2x' => WUBTITLE_URL . 'assets/img/icon256.png',
+				),
 			);
 			// @phpstan-ignore-next-line. reports response as an undefined property
 			$transient->response[ WUBTITLE_NAME . '/wubtitle.php' ] = $transient_obj;
@@ -130,6 +134,11 @@ class Updater {
 			'description' => $this->plugin_data['Description'],
 			'changelog'   => $this->release_info->body,
 		);
+		$response->banners       = array(
+			'low'  => WUBTITLE_URL . 'assets/img/bannerlow.png',
+			'high' => WUBTITLE_URL . 'assets/img/bannerhigh.png',
+		);
+		$response->name          = 'WUBTITLE';
 		return $response;
 	}
 	/**
