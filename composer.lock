@@ -937,16 +937,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "0.12.31",
+            "version": "0.12.32",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "776c8056b401e1b67f277b9e9fb334d1a274671d"
+                "reference": "d03863f504c8432b3de4d1881f73f6acb8c0e67c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/776c8056b401e1b67f277b9e9fb334d1a274671d",
-                "reference": "776c8056b401e1b67f277b9e9fb334d1a274671d",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/d03863f504c8432b3de4d1881f73f6acb8c0e67c",
+                "reference": "d03863f504c8432b3de4d1881f73f6acb8c0e67c",
                 "shasum": ""
             },
             "require": {
@@ -989,7 +989,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-06-24T20:55:29+00:00"
+            "time": "2020-07-01T11:57:52+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -2639,16 +2639,16 @@
         },
         {
             "name": "szepeviktor/phpstan-wordpress",
-            "version": "v0.6.1",
+            "version": "v0.6.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/szepeviktor/phpstan-wordpress.git",
-                "reference": "796cc50374ed88ec997d946e030fa21736139e32"
+                "reference": "f621f7d6e7cd6c649c41d77092d4f869a837beed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/szepeviktor/phpstan-wordpress/zipball/796cc50374ed88ec997d946e030fa21736139e32",
-                "reference": "796cc50374ed88ec997d946e030fa21736139e32",
+                "url": "https://api.github.com/repos/szepeviktor/phpstan-wordpress/zipball/f621f7d6e7cd6c649c41d77092d4f869a837beed",
+                "reference": "f621f7d6e7cd6c649c41d77092d4f869a837beed",
                 "shasum": ""
             },
             "require": {
@@ -2659,7 +2659,7 @@
             },
             "require-dev": {
                 "composer/composer": "^1.8.6",
-                "dealerdirect/phpcodesniffer-composer-installer": "^0.6.2",
+                "dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
                 "php-parallel-lint/php-parallel-lint": "^1.1",
                 "phpstan/phpstan-strict-rules": "^0.12",
                 "szepeviktor/phpcs-psr-12-neutron-hybrid-ruleset": "^0.4.3"
@@ -2695,7 +2695,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2020-06-08T15:49:50+00:00"
+            "time": "2020-07-01T02:05:01+00:00"
         },
         {
             "name": "theseer/tokenizer",
