@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Wubtitle plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Wubtitle 0.1.0\n"
+"Project-Id-Version: Wubtitle 0.1.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/Wubtitle-Wordpress-Plugin\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-06-30T11:42:24+02:00\n"
+"POT-Creation-Date: 2020-07-02T13:03:23+02:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: wubtitle\n"
@@ -20,7 +20,7 @@ msgid "Wubtitle"
 msgstr ""
 
 #. Plugin URI of the plugin
-msgid "https://www.wubtitle.com"
+msgid "https://github.com/CTMobi/Wubtitle-Wordpress-Plugin"
 msgstr ""
 
 #. Description of the plugin
@@ -468,30 +468,30 @@ msgstr ""
 msgid "now!"
 msgstr ""
 
-#: includes/Dashboard/Templates/cancel_template.php:33
+#: includes/Dashboard/Templates/cancel_template.php:36
 msgid "Are you sure you want to unsubscribe?"
 msgstr ""
 
-#: includes/Dashboard/Templates/cancel_template.php:34
+#: includes/Dashboard/Templates/cancel_template.php:37
 msgid "Are you sure you want to cancel your subscription? If you choose to continue, when the subscription expires your plan will return to free version and you will lose all the additional features"
 msgstr ""
 
-#: includes/Dashboard/Templates/cancel_template.php:36
+#: includes/Dashboard/Templates/cancel_template.php:39
 msgid "Return to free version"
 msgstr ""
 
-#: includes/Dashboard/Templates/cancel_template.php:37
+#: includes/Dashboard/Templates/cancel_template.php:40
 #: includes/Dashboard/Templates/downgrade_plan_template.php:54
 #: includes/Dashboard/Templates/upgrade_plan_template.php:54
 msgid "Forget it"
 msgstr ""
 
-#: includes/Dashboard/Templates/cancel_template.php:43
+#: includes/Dashboard/Templates/cancel_template.php:46
 msgid "Or choose another plan"
 msgstr ""
 
-#: includes/Dashboard/Templates/cancel_template.php:58
-#: includes/Dashboard/Templates/payment_template.php:44
+#: includes/Dashboard/Templates/cancel_template.php:61
+#: includes/Dashboard/Templates/payment_template.php:48
 msgid "Per month"
 msgstr ""
 
@@ -515,89 +515,35 @@ msgstr ""
 msgid "Downgrade Now"
 msgstr ""
 
-#: includes/Dashboard/Templates/payment_template.php:29
+#: includes/Dashboard/Templates/payment_template.php:33
 msgid "Choose the right plan for your project"
 msgstr ""
 
-#: includes/Dashboard/Templates/plans_array.php:16
-msgid "Free"
-msgstr ""
-
-#: includes/Dashboard/Templates/plans_array.php:19
-#: includes/Dashboard/Templates/plans_array.php:37
-#: includes/Dashboard/Templates/plans_array.php:55
-msgid "Number of video"
-msgstr ""
-
-#: includes/Dashboard/Templates/plans_array.php:19
-msgid "3"
-msgstr ""
-
-#: includes/Dashboard/Templates/plans_array.php:20
-#: includes/Dashboard/Templates/plans_array.php:38
-#: includes/Dashboard/Templates/plans_array.php:56
-msgid "Total length of videos"
-msgstr ""
-
-#: includes/Dashboard/Templates/plans_array.php:20
-msgid "30 min"
-msgstr ""
-
-#: includes/Dashboard/Templates/plans_array.php:23
-msgid "Mp4 Video format allowed"
-msgstr ""
-
 #: includes/Dashboard/Templates/plans_array.php:24
-msgid "Recognized languages: English and Italian"
+msgid "Unable this select this plan during the first month of subscription for current plan"
 msgstr ""
 
-#: includes/Dashboard/Templates/plans_array.php:30
-#: includes/Dashboard/Templates/plans_array.php:48
-#: includes/Dashboard/Templates/plans_array.php:66
+#: includes/Dashboard/Templates/plans_array.php:27
+msgid " Minutes"
+msgstr ""
+
+#: includes/Dashboard/Templates/plans_array.php:27
+msgid " Hours"
+msgstr ""
+
+#: includes/Dashboard/Templates/plans_array.php:32
 msgid "Choose this plan"
 msgstr ""
 
 #: includes/Dashboard/Templates/plans_array.php:34
-msgid "Professional"
+msgid "Number of video"
 msgstr ""
 
-#: includes/Dashboard/Templates/plans_array.php:37
-msgid "10"
+#: includes/Dashboard/Templates/plans_array.php:35
+msgid "Total length of videos"
 msgstr ""
 
-#: includes/Dashboard/Templates/plans_array.php:38
-msgid "3 hours"
-msgstr ""
-
-#: includes/Dashboard/Templates/plans_array.php:41
-#: includes/Dashboard/Templates/plans_array.php:59
-msgid "All wordpress formats supported by wordpress"
-msgstr ""
-
-#: includes/Dashboard/Templates/plans_array.php:42
-#: includes/Dashboard/Templates/plans_array.php:60
-msgid "Recognized languuages: English, Italian, German, French, Spanish and Chinese"
-msgstr ""
-
-#: includes/Dashboard/Templates/plans_array.php:52
-msgid "Elite"
-msgstr ""
-
-#: includes/Dashboard/Templates/plans_array.php:55
-msgid "30"
-msgstr ""
-
-#: includes/Dashboard/Templates/plans_array.php:56
-msgid "10 hours"
-msgstr ""
-
-#: includes/Dashboard/Templates/plans_array.php:70
-msgid "Unable this select this plan during the first month of subscription for current plan"
-msgstr ""
-
-#: includes/Dashboard/Templates/plans_array.php:74
-#: includes/Dashboard/Templates/plans_array.php:82
-#: includes/Dashboard/Templates/plans_array.php:92
+#: includes/Dashboard/Templates/plans_array.php:48
 msgid "Your plan"
 msgstr ""
 
