@@ -24,13 +24,15 @@ $is_first_month = get_option( 'wubtitle_is_first_month' );
 $disable_downgrade_message = __( 'Unable this select this plan during the first month of subscription for current plan', 'wubtitle' );
 
 foreach ( $plans as $key => $plan ) {
+	$max_lenght = $plans[ $key ]['totalSeconds'] < 3600 ? date_i18n( 'i', $plans[ $key ]['totalSeconds'] ) . __( ' Minutes', 'wubtitle' ) : date_i18n( 'g', $plans[ $key ]['totalSeconds'] ) . __( ' Hours', 'wubtitle' );
+
 	$plans[ $key ]['current_plan']   = false;
 	$plans[ $key ]['zoom']           = false;
 	$plans[ $key ]['class_button']   = 'button-choose-plan';
 	$plans[ $key ]['message_button'] = __( 'Choose this plan', 'wubtitle' );
 	$plans[ $key ]['features']       = array(
 		__( 'Number of video', 'wubtitle' )        => $plans[ $key ]['totalJobs'],
-		__( 'Total length of videos', 'wubtitle' ) => date_i18n( 'H:i', $plans[ $key ]['totalSeconds'] ) . ' h',
+		__( 'Total length of videos', 'wubtitle' ) => $max_lenght,
 	);
 	if ( $is_first_month && $key < $current_rank ) {
 		$plans[ $key ]['class_button']   = 'disable-downgrade';
