@@ -55,13 +55,9 @@ class Settings {
 	 * @return void
 	 */
 	public function render_settings_page() {
-		$plans        = array(
-			'plan_0'              => __( 'Free Plan', 'wubtitle' ),
-			'plan_HBBbNjLjVk3w4w' => __( 'Professional Plan', 'wubtitle' ),
-			'plan_HBBS5I9usXvwQR' => __( 'Elite Plan', 'wubtitle' ),
-		);
-		$plan_saved   = get_option( 'wubtitle_plan' );
-		$current_plan = array_key_exists( $plan_saved, $plans ) ? $plans[ $plan_saved ] : '';
+		$plans        = get_option( 'wubtitle_all_plans' );
+		$plan_rank    = get_option( 'wubtitle_plan_rank' );
+		$current_plan = array_key_exists( $plan_rank, $plans ) ? $plans[ $plan_rank ]['name'] : '';
 		$seconds_max  = get_option( 'wubtitle_total_seconds' );
 		$jobs_max     = get_option( 'wubtitle_total_jobs' );
 		$seconds      = get_option( 'wubtitle_seconds_done' );
@@ -86,11 +82,11 @@ class Settings {
 				<h2 class="hndle ui-sortable-handle e2w-title" ><span><?php esc_html_e( 'Licensing', 'wubtitle' ); ?></span></h2>
 				<div class="inside">
 					<div class="plan-state">
-						<?php echo esc_html( $current_plan ); ?>
+						<?php echo esc_html_e( 'Plan: ', 'wubtitle' ) . esc_html( $current_plan ); ?>
 					</div>
 					<div class="plan-renewal">
 						<?php
-						$this->render_plan_renewal( $plan_saved, $wubtitle_is_canceling, $friendly_expiration_date );
+						$this->render_plan_renewal( $plan_rank, $wubtitle_is_canceling, $friendly_expiration_date );
 						?>
 					</div>
 					<p style="font-weight:400">
@@ -171,9 +167,9 @@ class Settings {
 	 * @return void
 	 */
 	private function render_plan_renewal( $plan, $cancelling, $date ) {
-		if ( 'plan_0' !== $plan && ! $cancelling ) {
+		if ( '0' !== $plan && ! $cancelling ) {
 			echo esc_html( __( 'Automatic renewal: ', 'wubtitle' ) . $date );
-		} elseif ( 'plan_0' !== $plan && $cancelling ) {
+		} elseif ( '0' !== $plan && $cancelling ) {
 			echo esc_html( __( 'You requested the subscription cancellation. Your plan will be valid until  ', 'wubtitle' ) . $date );
 		}
 	}
@@ -320,7 +316,8 @@ class Settings {
 			Loader::get( 'cron' )->get_remote_data();
 		}
 		add_settings_section( 'wubtitle-main-settings', '', function(){}, 'wubtitle-settings' );
-		if ( 'plan_HBBS5I9usXvwQR' !== get_option( 'wubtitle_plan' ) ) {
+		$plans = get_option( 'wubtitle_all_plans' );
+		if ( get_option( 'wubtitle_plan_rank' ) < count( $plans ) - 1 ) {
 			add_settings_field(
 				'buy-license-button',
 				__( 'Unlock more features!', 'wubtitle' ),
