@@ -5,8 +5,8 @@ msgstr ""
 "Project-Id-Version: Wubtitle 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/Wubtitle-"
 "Wordpress-Plugin\n"
-"POT-Creation-Date: 2020-07-02T13:03:23+02:00\n"
-"PO-Revision-Date: 2020-07-02 13:08+0200\n"
+"POT-Creation-Date: 2020-07-06T18:15:06+02:00\n"
+"PO-Revision-Date: 2020-07-06 18:16+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -340,134 +340,126 @@ msgstr "Trascrizioni video"
 msgid "Wubtitle Settings"
 msgstr "Impostazioni Wubtitle"
 
-#: includes/Dashboard/Settings.php:59
-msgid "Free Plan"
-msgstr "Piano Free"
-
-#: includes/Dashboard/Settings.php:60
-msgid "Professional Plan"
-msgstr "Piano Professional"
-
-#: includes/Dashboard/Settings.php:61
-msgid "Elite Plan"
-msgstr "Piano Elite"
-
-#: includes/Dashboard/Settings.php:86
+#: includes/Dashboard/Settings.php:82
 msgid "Licensing"
 msgstr "Licenza"
 
-#: includes/Dashboard/Settings.php:98
+#: includes/Dashboard/Settings.php:85
+msgid "Plan: "
+msgstr "Piano: "
+
+#: includes/Dashboard/Settings.php:94
 msgid "Generated video subtitles: "
 msgstr "Sottotitoli generati: "
 
-#: includes/Dashboard/Settings.php:104
+#: includes/Dashboard/Settings.php:100
 msgid "Video time spent: "
 msgstr "Tempo video utilizzato: "
 
-#: includes/Dashboard/Settings.php:106
+#: includes/Dashboard/Settings.php:102
 msgid " hours"
 msgstr " ore"
 
-#: includes/Dashboard/Settings.php:138
+#: includes/Dashboard/Settings.php:134
 msgid "Payment successful"
 msgstr "Pagamento effettuato"
 
-#: includes/Dashboard/Settings.php:141
+#: includes/Dashboard/Settings.php:137
 msgid "Payment information updated"
 msgstr "Metodo di pagamento aggiornato"
 
-#: includes/Dashboard/Settings.php:144
+#: includes/Dashboard/Settings.php:140
 msgid "License key sent, check your email!"
 msgstr "Licenza inviata, controlla l'email!"
 
-#: includes/Dashboard/Settings.php:147
+#: includes/Dashboard/Settings.php:143
 msgid "Unsubscription successful"
 msgstr "Iscrizione annullata con successo"
 
-#: includes/Dashboard/Settings.php:150
+#: includes/Dashboard/Settings.php:146
 msgid "Reactivation of the plan successful"
 msgstr "Riattivazione del piano andato a buon fine"
 
-#: includes/Dashboard/Settings.php:175
+#: includes/Dashboard/Settings.php:171
 msgid "Automatic renewal: "
 msgstr "Rinnovo automatico: "
 
-#: includes/Dashboard/Settings.php:177
+#: includes/Dashboard/Settings.php:173
 msgid ""
 "You requested the subscription cancellation. Your plan will be valid until  "
 msgstr ""
 "Hai richiesto la cancellazione dell'abbonamento. Il tuo piano sarà valido "
 "fino al "
 
-#: includes/Dashboard/Settings.php:191
+#: includes/Dashboard/Settings.php:187
 msgid "Unsubscribe"
 msgstr "Annulla l'iscrizione"
 
-#: includes/Dashboard/Settings.php:194
+#: includes/Dashboard/Settings.php:190
 msgid "Update email or payment detail"
 msgstr "Aggiorna email o dettagli pagamento"
 
-#: includes/Dashboard/Settings.php:197
+#: includes/Dashboard/Settings.php:193
 msgid "Modify plan"
 msgstr "Modifica piano"
 
-#: includes/Dashboard/Settings.php:203
+#: includes/Dashboard/Settings.php:199
 msgid "Reactivate plan"
 msgstr "Riattiva piano"
 
-#: includes/Dashboard/Settings.php:238
+#: includes/Dashboard/Settings.php:234
 msgid "Unable to update. Expired product license."
 msgstr "Impossibile aggiornare. Licenza del prodotto scaduta."
 
-#: includes/Dashboard/Settings.php:239
+#: includes/Dashboard/Settings.php:235
 msgid "Unable to update. Invalid product license."
 msgstr "Impossibile aggiornare. Licenza del prodotto non valida."
 
-#: includes/Dashboard/Settings.php:240
+#: includes/Dashboard/Settings.php:236
 msgid ""
 "An error occurred while updating licence. Please try again in a few minutes."
 msgstr ""
 "Si è verificato un errore durante l'aggiornamento della licenza. Riprova di "
 "nuovo tra qualche minuto."
 
-#: includes/Dashboard/Settings.php:241
+#: includes/Dashboard/Settings.php:237
 msgid "Could not contact the server."
 msgstr "Impossibile contattare il server."
 
-#: includes/Dashboard/Settings.php:242
+#: includes/Dashboard/Settings.php:238
 msgid "An error occurred."
 msgstr "Si è verificato un errore."
 
-#: includes/Dashboard/Settings.php:257
+#: includes/Dashboard/Settings.php:253
 msgid "Valid product license. Subscription plan updated."
 msgstr "Licenza del prodotto valida. Piano di abbonamento aggiornato."
 
-#: includes/Dashboard/Settings.php:326
+#: includes/Dashboard/Settings.php:323
 msgid "Unlock more features!"
 msgstr "Sblocca più funzionalità!"
 
-#: includes/Dashboard/Settings.php:331
+#: includes/Dashboard/Settings.php:328
 msgid "Upgrade"
 msgstr ""
 
-#: includes/Dashboard/Settings.php:338
+#: includes/Dashboard/Settings.php:335
 msgid "License Number"
 msgstr "Numero licenza"
 
-#: includes/Dashboard/Settings.php:345
+#: includes/Dashboard/Settings.php:342
 msgid "License key"
 msgstr "Licenza"
 
-#: includes/Dashboard/Settings.php:347
+#: includes/Dashboard/Settings.php:344
 msgid "Please enter the license key you received after successful checkout"
 msgstr ""
 "Inserisci la chiave di licenza ricevuta dopo aver effettuato il checkout"
 
-#: includes/Dashboard/Settings.php:370
+#: includes/Dashboard/Settings.php:367
 msgid "Reset license key"
 msgstr "Reset Licenza"
 
-#: includes/Dashboard/Settings.php:390
+#: includes/Dashboard/Settings.php:387
 msgid "now!"
 msgstr " "
 
@@ -820,6 +812,15 @@ msgstr "Trascrizione"
 #: build/index.js:1 src/block/trascriptionBlock.js:8
 msgid "Enter the transcript of your video"
 msgstr "Inserisci la trascrizione del tuo video"
+
+#~ msgid "Free Plan"
+#~ msgstr "Piano Free"
+
+#~ msgid "Professional Plan"
+#~ msgstr "Piano Professional"
+
+#~ msgid "Elite Plan"
+#~ msgstr "Piano Elite"
 
 #~ msgid "Mp4 Video format allowed"
 #~ msgstr "Formato video consentito: mp4"
