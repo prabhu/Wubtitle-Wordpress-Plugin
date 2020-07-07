@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Wubtitle plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Wubtitle 0.1.0\n"
+"Project-Id-Version: Wubtitle 0.1.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/Wubtitle-Wordpress-Plugin\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-06-30T11:42:24+02:00\n"
+"POT-Creation-Date: 2020-07-07T12:30:53+02:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: wubtitle\n"
@@ -20,7 +20,7 @@ msgid "Wubtitle"
 msgstr ""
 
 #. Plugin URI of the plugin
-msgid "https://www.wubtitle.com"
+msgid "https://github.com/CTMobi/Wubtitle-Wordpress-Plugin"
 msgstr ""
 
 #. Description of the plugin
@@ -344,154 +344,146 @@ msgstr ""
 msgid "Wubtitle Settings"
 msgstr ""
 
-#: includes/Dashboard/Settings.php:59
-msgid "Free Plan"
-msgstr ""
-
-#: includes/Dashboard/Settings.php:60
-msgid "Professional Plan"
-msgstr ""
-
-#: includes/Dashboard/Settings.php:61
-msgid "Elite Plan"
-msgstr ""
-
-#: includes/Dashboard/Settings.php:86
+#: includes/Dashboard/Settings.php:82
 msgid "Licensing"
 msgstr ""
 
-#: includes/Dashboard/Settings.php:98
+#: includes/Dashboard/Settings.php:85
+msgid "Plan: "
+msgstr ""
+
+#: includes/Dashboard/Settings.php:94
 msgid "Generated video subtitles: "
 msgstr ""
 
-#: includes/Dashboard/Settings.php:104
+#: includes/Dashboard/Settings.php:100
 msgid "Video time spent: "
 msgstr ""
 
-#: includes/Dashboard/Settings.php:106
+#: includes/Dashboard/Settings.php:102
 msgid " hours"
 msgstr ""
 
-#: includes/Dashboard/Settings.php:138
+#: includes/Dashboard/Settings.php:134
 msgid "Payment successful"
 msgstr ""
 
-#: includes/Dashboard/Settings.php:141
+#: includes/Dashboard/Settings.php:137
 msgid "Payment information updated"
 msgstr ""
 
-#: includes/Dashboard/Settings.php:144
+#: includes/Dashboard/Settings.php:140
 msgid "License key sent, check your email!"
 msgstr ""
 
-#: includes/Dashboard/Settings.php:147
+#: includes/Dashboard/Settings.php:143
 msgid "Unsubscription successful"
 msgstr ""
 
-#: includes/Dashboard/Settings.php:150
+#: includes/Dashboard/Settings.php:146
 msgid "Reactivation of the plan successful"
 msgstr ""
 
-#: includes/Dashboard/Settings.php:175
+#: includes/Dashboard/Settings.php:171
 msgid "Automatic renewal: "
 msgstr ""
 
-#: includes/Dashboard/Settings.php:177
+#: includes/Dashboard/Settings.php:173
 msgid "You requested the subscription cancellation. Your plan will be valid until  "
 msgstr ""
 
-#: includes/Dashboard/Settings.php:191
+#: includes/Dashboard/Settings.php:187
 msgid "Unsubscribe"
 msgstr ""
 
-#: includes/Dashboard/Settings.php:194
+#: includes/Dashboard/Settings.php:190
 msgid "Update email or payment detail"
 msgstr ""
 
-#: includes/Dashboard/Settings.php:197
+#: includes/Dashboard/Settings.php:193
 msgid "Modify plan"
 msgstr ""
 
-#: includes/Dashboard/Settings.php:203
+#: includes/Dashboard/Settings.php:199
 msgid "Reactivate plan"
 msgstr ""
 
-#: includes/Dashboard/Settings.php:238
+#: includes/Dashboard/Settings.php:234
 msgid "Unable to update. Expired product license."
 msgstr ""
 
-#: includes/Dashboard/Settings.php:239
+#: includes/Dashboard/Settings.php:235
 msgid "Unable to update. Invalid product license."
 msgstr ""
 
-#: includes/Dashboard/Settings.php:240
+#: includes/Dashboard/Settings.php:236
 msgid "An error occurred while updating licence. Please try again in a few minutes."
 msgstr ""
 
-#: includes/Dashboard/Settings.php:241
+#: includes/Dashboard/Settings.php:237
 msgid "Could not contact the server."
 msgstr ""
 
-#: includes/Dashboard/Settings.php:242
+#: includes/Dashboard/Settings.php:238
 msgid "An error occurred."
 msgstr ""
 
-#: includes/Dashboard/Settings.php:257
+#: includes/Dashboard/Settings.php:253
 msgid "Valid product license. Subscription plan updated."
 msgstr ""
 
-#: includes/Dashboard/Settings.php:326
+#: includes/Dashboard/Settings.php:323
 msgid "Unlock more features!"
 msgstr ""
 
-#: includes/Dashboard/Settings.php:331
+#: includes/Dashboard/Settings.php:328
 msgid "Upgrade"
 msgstr ""
 
-#: includes/Dashboard/Settings.php:338
+#: includes/Dashboard/Settings.php:335
 msgid "License Number"
 msgstr ""
 
-#: includes/Dashboard/Settings.php:345
+#: includes/Dashboard/Settings.php:342
 msgid "License key"
 msgstr ""
 
-#: includes/Dashboard/Settings.php:347
+#: includes/Dashboard/Settings.php:344
 msgid "Please enter the license key you received after successful checkout"
 msgstr ""
 
-#: includes/Dashboard/Settings.php:370
+#: includes/Dashboard/Settings.php:367
 msgid "Reset license key"
 msgstr ""
 
-#: includes/Dashboard/Settings.php:390
+#: includes/Dashboard/Settings.php:387
 msgid "now!"
 msgstr ""
 
-#: includes/Dashboard/Templates/cancel_template.php:33
+#: includes/Dashboard/Templates/cancel_template.php:36
 msgid "Are you sure you want to unsubscribe?"
 msgstr ""
 
-#: includes/Dashboard/Templates/cancel_template.php:34
+#: includes/Dashboard/Templates/cancel_template.php:37
 msgid "Are you sure you want to cancel your subscription? If you choose to continue, when the subscription expires your plan will return to free version and you will lose all the additional features"
 msgstr ""
 
-#: includes/Dashboard/Templates/cancel_template.php:36
+#: includes/Dashboard/Templates/cancel_template.php:39
 msgid "Return to free version"
 msgstr ""
 
-#: includes/Dashboard/Templates/cancel_template.php:37
+#: includes/Dashboard/Templates/cancel_template.php:40
 #: includes/Dashboard/Templates/downgrade_plan_template.php:54
 #: includes/Dashboard/Templates/upgrade_plan_template.php:54
 msgid "Forget it"
 msgstr ""
 
-#: includes/Dashboard/Templates/cancel_template.php:43
+#: includes/Dashboard/Templates/cancel_template.php:46
 msgid "Or choose another plan"
 msgstr ""
 
-#: includes/Dashboard/Templates/cancel_template.php:58
-#: includes/Dashboard/Templates/payment_template.php:44
+#: includes/Dashboard/Templates/cancel_template.php:61
+#: includes/Dashboard/Templates/payment_template.php:48
 msgid "Per month"
 msgstr ""
 
@@ -515,89 +507,35 @@ msgstr ""
 msgid "Downgrade Now"
 msgstr ""
 
-#: includes/Dashboard/Templates/payment_template.php:29
+#: includes/Dashboard/Templates/payment_template.php:33
 msgid "Choose the right plan for your project"
 msgstr ""
 
-#: includes/Dashboard/Templates/plans_array.php:16
-msgid "Free"
-msgstr ""
-
-#: includes/Dashboard/Templates/plans_array.php:19
-#: includes/Dashboard/Templates/plans_array.php:37
-#: includes/Dashboard/Templates/plans_array.php:55
-msgid "Number of video"
-msgstr ""
-
-#: includes/Dashboard/Templates/plans_array.php:19
-msgid "3"
-msgstr ""
-
-#: includes/Dashboard/Templates/plans_array.php:20
-#: includes/Dashboard/Templates/plans_array.php:38
-#: includes/Dashboard/Templates/plans_array.php:56
-msgid "Total length of videos"
-msgstr ""
-
-#: includes/Dashboard/Templates/plans_array.php:20
-msgid "30 min"
-msgstr ""
-
-#: includes/Dashboard/Templates/plans_array.php:23
-msgid "Mp4 Video format allowed"
-msgstr ""
-
 #: includes/Dashboard/Templates/plans_array.php:24
-msgid "Recognized languages: English and Italian"
+msgid "Unable to select this plan during the first month of subscription for current plan"
 msgstr ""
 
-#: includes/Dashboard/Templates/plans_array.php:30
-#: includes/Dashboard/Templates/plans_array.php:48
-#: includes/Dashboard/Templates/plans_array.php:66
+#: includes/Dashboard/Templates/plans_array.php:27
+msgid " Minutes"
+msgstr ""
+
+#: includes/Dashboard/Templates/plans_array.php:27
+msgid " Hours"
+msgstr ""
+
+#: includes/Dashboard/Templates/plans_array.php:32
 msgid "Choose this plan"
 msgstr ""
 
 #: includes/Dashboard/Templates/plans_array.php:34
-msgid "Professional"
+msgid "Number of video"
 msgstr ""
 
-#: includes/Dashboard/Templates/plans_array.php:37
-msgid "10"
+#: includes/Dashboard/Templates/plans_array.php:35
+msgid "Total length of videos"
 msgstr ""
 
-#: includes/Dashboard/Templates/plans_array.php:38
-msgid "3 hours"
-msgstr ""
-
-#: includes/Dashboard/Templates/plans_array.php:41
-#: includes/Dashboard/Templates/plans_array.php:59
-msgid "All wordpress formats supported by wordpress"
-msgstr ""
-
-#: includes/Dashboard/Templates/plans_array.php:42
-#: includes/Dashboard/Templates/plans_array.php:60
-msgid "Recognized languuages: English, Italian, German, French, Spanish and Chinese"
-msgstr ""
-
-#: includes/Dashboard/Templates/plans_array.php:52
-msgid "Elite"
-msgstr ""
-
-#: includes/Dashboard/Templates/plans_array.php:55
-msgid "30"
-msgstr ""
-
-#: includes/Dashboard/Templates/plans_array.php:56
-msgid "10 hours"
-msgstr ""
-
-#: includes/Dashboard/Templates/plans_array.php:70
-msgid "Unable this select this plan during the first month of subscription for current plan"
-msgstr ""
-
-#: includes/Dashboard/Templates/plans_array.php:74
-#: includes/Dashboard/Templates/plans_array.php:82
-#: includes/Dashboard/Templates/plans_array.php:92
+#: includes/Dashboard/Templates/plans_array.php:48
 msgid "Your plan"
 msgstr ""
 
