@@ -21,7 +21,7 @@ $current_plan   = get_option( 'wubtitle_plan' );
 $current_rank   = get_option( 'wubtitle_plan_rank' );
 $is_first_month = get_option( 'wubtitle_is_first_month' );
 
-$disable_downgrade_message = __( 'Unable this select this plan during the first month of subscription for current plan', 'wubtitle' );
+$disable_downgrade_message = __( 'Unable to select this plan during the first month of subscription for current plan', 'wubtitle' );
 
 foreach ( $plans as $key => $plan ) {
 	$max_lenght = $plans[ $key ]['totalSeconds'] < 3600 ? date_i18n( 'i', $plans[ $key ]['totalSeconds'] ) . __( ' Minutes', 'wubtitle' ) : date_i18n( 'g', $plans[ $key ]['totalSeconds'] ) . __( ' Hours', 'wubtitle' );
