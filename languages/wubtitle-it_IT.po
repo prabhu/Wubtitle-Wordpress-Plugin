@@ -812,33 +812,3 @@ msgstr "Trascrizione"
 #: build/index.js:1 src/block/trascriptionBlock.js:8
 msgid "Enter the transcript of your video"
 msgstr "Inserisci la trascrizione del tuo video"
-
-#~ msgid "Free Plan"
-#~ msgstr "Piano Free"
-
-#~ msgid "Professional Plan"
-#~ msgstr "Piano Professional"
-
-#~ msgid "Elite Plan"
-#~ msgstr "Piano Elite"
-
-#~ msgid "Mp4 Video format allowed"
-#~ msgstr "Formato video consentito: mp4"
-
-#~ msgid "Recognized languages: English and Italian"
-#~ msgstr "Linguaggi supportati Inglese e Italiano"
-
-#~ msgid "3 hours"
-#~ msgstr "3 ore"
-
-#~ msgid "All wordpress formats supported by wordpress"
-#~ msgstr "Tutti i formati supportati da wordpress"
-
-#~ msgid ""
-#~ "Recognized languuages: English, Italian, German, French, Spanish and "
-#~ "Chinese"
-#~ msgstr ""
-#~ "Lingue supportate: Inglese, Italiano, Tedesco, Francese, Spagnolo, Cinese"
-
-#~ msgid "10 hours"
-#~ msgstr "10 ore"
