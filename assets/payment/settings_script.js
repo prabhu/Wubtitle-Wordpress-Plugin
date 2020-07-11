@@ -3,6 +3,7 @@
 let BuyLicenseWindow = null;
 let UpdatePlanWindow = null;
 let CancelSubscriptionWindow = null;
+let CustomFormWindow = null;
 let wait = false;
 /* eslint-disable */
 function redirectToCallback(param) {
@@ -15,6 +16,10 @@ function cancelPayment(){
 function confirmPlanChange(){
 	BuyLicenseWindow.close();
 	confirmPlanChangeWindow();
+}
+function customStripeForm(clientId){
+	BuyLicenseWindow.close();
+	showCustomFormWindow(clientId);
 }
 /* eslint-enable */
 
@@ -67,6 +72,36 @@ document.addEventListener('DOMContentLoaded', function () {
 		});
 	}
 });
+const showCustomFormWindow = (clientId) => {
+	if (CustomFormWindow === null || CustomFormWindow.closed) {
+		const windowFeatures = `
+            left=500,
+            top=200,
+            width=1200,
+            height=700,
+            scrollbars=yes,
+        `;
+		wp.ajax
+			.send('custom_form_template', {
+				type: 'POST',
+				data: {
+					_ajax_nonce: settings_object.ajaxnonce,
+					clientId,
+				},
+			})
+			.done((response) => {
+				CustomFormWindow = window.open(
+					'',
+					'custom_form',
+					windowFeatures
+				);
+				CustomFormWindow.document.write(response);
+			});
+	} else {
+		CustomFormWindow.focus();
+		return CustomFormWindow;
+	}
+};
 const showUpdatePlanWindow = () => {
 	if (UpdatePlanWindow === null || UpdatePlanWindow.closed) {
 		const windowFeatures = `

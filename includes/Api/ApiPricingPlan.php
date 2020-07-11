@@ -150,7 +150,7 @@ class ApiPricingPlan {
 		$url_endpoint = WUBTITLE_ENDPOINT . 'stripe/session/create';
 		$license_key  = get_option( 'wubtitle_license_key' );
 		if ( empty( $license_key ) ) {
-			wp_send_json_error( __( 'Unable to create subtitles. The product license key is missing.', 'wubtitle' ) );
+			wp_send_json_error( __( 'The product license key is missing.', 'wubtitle' ) );
 		}
 		// If the plan is not free calls the endpoint for plan update.
 		if ( ! get_option( 'wubtitle_free' ) ) {
@@ -190,8 +190,8 @@ class ApiPricingPlan {
 			wp_send_json_error( $message[ $code_response ] );
 		}
 		$response_body = json_decode( wp_remote_retrieve_body( $response ) );
-		$session_id    = $response_body->data->sessionId;
-		wp_send_json_success( $session_id );
+		$client_secret = $response_body->data->clientSecret;
+		wp_send_json_success( $client_secret );
 	}
 	/**
 	 * Gets the data from JavaScript and sends it to the endpoint for payment update.

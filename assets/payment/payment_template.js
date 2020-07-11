@@ -3,12 +3,6 @@ const paymentModule = (function (Stripe, document) {
 
 	const { adminAjax, nonce, wubtitleEnv } = WP_GLOBALS;
 
-	const openStripeForm = (sessionId) => {
-		if (sessionId) {
-			stripe.redirectToCheckout({ sessionId });
-		}
-	};
-
 	const handleChoice = (plan) => {
 		fetch(adminAjax, {
 			method: 'POST',
@@ -24,7 +18,7 @@ const paymentModule = (function (Stripe, document) {
 					if (response.data === 'change_plan') {
 						window.opener.confirmPlanChange();
 					}
-					openStripeForm(response.data, stripe);
+					window.opener.customStripeForm(response.data);
 				}
 			});
 	};

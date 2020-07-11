@@ -11,6 +11,8 @@ namespace Wubtitle\Dashboard;
 
 /**
  * This class handles Payment Templates.
+ *
+ * @SuppressWarnings(PHPMD.UnusedLocalVariable)
  */
 class PaymentTemplate {
 	/**
@@ -22,6 +24,7 @@ class PaymentTemplate {
 		add_action( 'wp_ajax_payment_template', array( $this, 'load_payment_template' ) );
 		add_action( 'wp_ajax_update_template', array( $this, 'load_update_template' ) );
 		add_action( 'wp_ajax_change_plan_template', array( $this, 'change_plan_template' ) );
+		add_action( 'wp_ajax_custom_form_template', array( $this, 'load_custom_form' ) );
 	}
 
 
@@ -83,5 +86,25 @@ class PaymentTemplate {
 		$html = 'Error';
 		wp_send_json_error( $html );
 	}
-
+	/**
+	 * Load stripe custom form template.
+	 *
+	 * @return void
+	 */
+	public function load_custom_form() {
+		if ( ! isset( $_POST['_ajax_nonce'], $_POST['clientId'] ) ) {
+			wp_send_json_error( __( 'An error occurred. Please try again in a few minutes.', 'wubtitle' ) );
+		}
+		$nonce = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
+		check_ajax_referer( 'itr_ajax_nonce', $nonce );
+		if ( current_user_can( 'manage_options' ) ) {
+			ob_start();
+			$client_id = sanitize_text_field( wp_unslash( $_POST['clientId'] ) );
+			include 'Templates/custom_form.php';
+			$html = ob_get_clean();
+			wp_send_json_success( $html );
+		}
+		$html = 'Error';
+		wp_send_json_error( $html );
+	}
 }
