@@ -18,7 +18,7 @@
     }
   },
   "scripts": {
-    "build": "wp-scripts build",
+    "build": "wp-scripts build && wp-scripts build src/stripe/index.js --output-path=build_form --webpack-no-externals",
     "check-engines": "wp-scripts check-engines",
     "check-licenses": "wp-scripts check-licenses",
     "format:js": "wp-scripts format-js",
@@ -37,6 +37,8 @@
     "csslint": "node_modules/.bin/csslint src/ || return 0"
   },
   "dependencies": {
+    "@stripe/react-stripe-js": "^1.1.2",
+    "@stripe/stripe-js": "^1.8.0",
     "@wordpress/api-fetch": "^3.18.0",
     "@wordpress/i18n": "^3.14.0"
   }
