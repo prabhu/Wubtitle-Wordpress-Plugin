@@ -4,7 +4,7 @@ import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
 import CardSection from './CardSection';
 
 export default function CheckoutForm() {
-	const { clientId } = WP_GLOBALS;
+	const { planId, ajaxUrl, ajaxNonce } = WP_GLOBALS;
 	const [error, setError] = useState(null);
 	const [name, setName] = useState('');
 	const [email, setEmail] = useState('');
@@ -12,33 +12,43 @@ export default function CheckoutForm() {
 	const elements = useElements();
 
 	const handleSubmit = async (event) => {
-		// We don't want to let default form submission happen here,
-		// which would refresh the page.
 		event.preventDefault();
 
 		if (!stripe || !elements) {
-			// Stripe.js has not yet loaded.
-			// Make sure to disable form submission until Stripe.js has loaded.
 			return;
 		}
 
-		const result = await stripe.confirmCardPayment(clientId, {
-			payment_method: {
-				card: elements.getElement(CardElement),
+		const cardElement = elements.getElement(CardElement);
+
+		const createSubscription = (paymentMethodId) => {
+			fetch(ajaxUrl, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/x-www-form-urlencoded',
+				},
+				body: `action=create_subscription&paymentMethodId=${paymentMethodId}&planId=${planId}&email=${email}&_ajax_nonce=${ajaxNonce}`,
+			})
+				.then((resp) => resp.json())
+				.then((response) => {
+					if (!response.success) {
+						setError(response.data);
+					} else {
+						setError(null);
+					}
+				});
+		};
+
+		await stripe
+			.createPaymentMethod({
+				type: 'card',
+				card: cardElement,
 				billing_details: {
 					name,
-					email,
 				},
-			},
-		});
-
-		if (result.error) {
-			// Show error to your customer (e.g., insufficient funds)
-			setError(result.error.message);
-		} else {
-			setError(null);
-			//TODO: send token
-		}
+			})
+			.then((response) => {
+				createSubscription(response.paymentMethod.id);
+			});
 	};
 
 	return (

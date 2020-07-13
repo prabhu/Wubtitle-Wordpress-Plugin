@@ -18,7 +18,7 @@ const paymentModule = (function (Stripe, document) {
 					if (response.data === 'change_plan') {
 						window.opener.confirmPlanChange();
 					}
-					window.opener.customStripeForm(response.data);
+					window.opener.customStripeForm(plan);
 				}
 			});
 	};

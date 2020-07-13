@@ -25,7 +25,9 @@
 	</body>
 	<script>
 		const WP_GLOBALS = {
-			clientId: "<?php echo isset( $client_id ) ? esc_html( $client_id ) : ''; ?>"
+			planId: "<?php echo isset( $plan_id ) ? esc_html( $plan_id ) : ''; ?>",
+			ajaxUrl: "<?php echo isset( $ajax_url ) ? esc_html( $ajax_url ) : ''; ?>",
+			ajaxNonce: "<?php echo esc_js( wp_create_nonce( 'itr_ajax_nonce' ) ); ?>"
 		}
 	</script>
 	<?php // phpcs:disable ?>
