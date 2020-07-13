@@ -8,11 +8,13 @@ export default function CheckoutForm() {
 	const [error, setError] = useState(null);
 	const [name, setName] = useState('');
 	const [email, setEmail] = useState('');
+	const [isDisabled, setIsDisabled] = useState(false);
 	const stripe = useStripe();
 	const elements = useElements();
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
+		setIsDisabled(true);
 
 		if (!stripe || !elements) {
 			return;
@@ -35,6 +37,7 @@ export default function CheckoutForm() {
 					} else {
 						setError(null);
 					}
+					setIsDisabled(false);
 				});
 		};
 
@@ -83,7 +86,12 @@ export default function CheckoutForm() {
 				{error}
 			</div>
 			<CardSection />
-			<button disabled={!stripe}>Confirm order</button>
+			<button
+				disabled={!stripe || isDisabled}
+				className={isDisabled ? 'disabled' : ''}
+			>
+				Confirm order
+			</button>
 		</form>
 	);
 }
