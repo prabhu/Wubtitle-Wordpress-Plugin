@@ -31,7 +31,8 @@
 		const WP_GLOBALS = {
 			planId: "<?php echo isset( $plan_id ) ? esc_html( $plan_id ) : ''; ?>",
 			ajaxUrl: "<?php echo isset( $ajax_url ) ? esc_html( $ajax_url ) : ''; ?>",
-			ajaxNonce: "<?php echo esc_js( wp_create_nonce( 'itr_ajax_nonce' ) ); ?>"
+			ajaxNonce: "<?php echo esc_js( wp_create_nonce( 'itr_ajax_nonce' ) ); ?>",
+			wubtitleEnv: "<?php echo defined( 'WP_WUBTITLE_ENV' ) ? esc_html( WP_WUBTITLE_ENV ) : ''; ?>"
 		}
 	</script>
 	<?php // phpcs:disable ?>

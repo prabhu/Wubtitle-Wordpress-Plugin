@@ -4,9 +4,12 @@ import CheckoutForm from './Components/CheckoutForm';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 
-// Make sure to call `loadStripe` outside of a component’s render to avoid
-// recreating the `Stripe` object on every render.
-const stripePromise = loadStripe('pk_test_nfUYjFiwdkzYpPOfCZkVZiMK00lOAFcAK7');
+const { wubtitleEnv } = WP_GLOBALS;
+const stripeKey =
+	wubtitleEnv === 'development'
+		? 'pk_test_lFmjf2Dz7VURTslihG0xys7m00NjW2BOPI'
+		: 'pk_live_PvwHkJ49ry3lfXwkXIx2YKBE00S15aBYz7';
+const stripePromise = loadStripe(stripeKey);
 
 function App() {
 	return (
