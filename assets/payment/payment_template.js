@@ -1,7 +1,5 @@
-const paymentModule = (function (Stripe, document) {
-	let stripe = null;
-
-	const { adminAjax, nonce, wubtitleEnv } = WP_GLOBALS;
+const paymentModule = (function (document) {
+	const { adminAjax, nonce } = WP_GLOBALS;
 
 	const handleChoice = (plan) => {
 		fetch(adminAjax, {
@@ -37,11 +35,6 @@ const paymentModule = (function (Stripe, document) {
 	};
 
 	const init = () => {
-		const stripeKey =
-			wubtitleEnv === 'development'
-				? 'pk_test_lFmjf2Dz7VURTslihG0xys7m00NjW2BOPI'
-				: 'pk_live_PvwHkJ49ry3lfXwkXIx2YKBE00S15aBYz7';
-		stripe = Stripe(stripeKey);
 		const buttons = document.querySelectorAll('.button-choose-plan');
 		buttons.forEach((button) => {
 			button.addEventListener('click', () => {
@@ -71,6 +64,6 @@ const paymentModule = (function (Stripe, document) {
 	return {
 		init,
 	};
-})(Stripe, document);
+})(document);
 
 paymentModule.init();
