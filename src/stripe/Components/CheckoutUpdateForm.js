@@ -9,13 +9,13 @@ export default function CheckoutForm() {
 	const [name, setName] = useState('');
 	const [lastname, setLastname] = useState('');
 	const [email, setEmail] = useState('');
-	const [isDisabled, setIsDisabled] = useState(false);
+	const [loading, setLoading] = useState(false);
 	const stripe = useStripe();
 	const elements = useElements();
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
-		setIsDisabled(true);
+		setLoading(true);
 
 		if (!stripe || !elements) {
 			return;
@@ -38,7 +38,7 @@ export default function CheckoutForm() {
 					} else {
 						setError(null);
 					}
-					setIsDisabled(false);
+					setLoading(false);
 				});
 		};
 
@@ -103,9 +103,12 @@ export default function CheckoutForm() {
 			</div>
 			<CardSection />
 			<button
-				disabled={!stripe || isDisabled}
-				className={isDisabled ? 'disabled' : ''}
+				disabled={!stripe || loading}
+				className={loading ? 'disabled' : ''}
 			>
+				{loading && (
+					<i className="fa fa-refresh fa-spin loading-margin" />
+				)}
 				Update Payment
 			</button>
 		</form>

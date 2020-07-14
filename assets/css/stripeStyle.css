@@ -98,3 +98,7 @@ button {
   .error-message{
     color: red;
   }
+
+  .loading-margin {
+    margin-right: 8px;
+  }

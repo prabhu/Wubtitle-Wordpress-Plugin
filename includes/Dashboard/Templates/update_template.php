@@ -18,6 +18,10 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<?php // phpcs:disable ?>
 	<link rel="stylesheet" href="<?php echo esc_url( WUBTITLE_URL . 'assets/css/stripeStyle.css' ); ?>">
+	<link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css"
+    />
 	<?php // phpcs:enable ?>
 	<title>Update Payment</title>
 </head>
