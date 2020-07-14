@@ -77,24 +77,32 @@ export default function CheckoutForm() {
 		>
 			{({ errors, touched }) => (
 				<Form>
-					<label htmlFor="name">Name</label>
-					<Field name="name" placeholder="Name" />
-					{touched.name && errors.name && (
-						<div className="error-message">{errors.name}</div>
-					)}
-					<label htmlFor="lastname">Lastname</label>
-					<Field name="lastname" placeholder="Lastname" />
-					{touched.lastname && errors.lastname && (
-						<div className="error-message">{errors.lastname}</div>
-					)}
-					<label htmlFor="email">E-Mail</label>
-					<Field name="email" placeholder="Email" />
-					{touched.email && errors.email && (
-						<div className="error-message">{errors.email}</div>
-					)}
-					<CardSection />
-					<div className="error-message" role="alert">
-						{error}
+					<div className="form-field-container">
+						<label htmlFor="name">Name</label>
+						<Field name="name" placeholder="Name" />
+						<p className="error-message">
+							{touched.name && errors.name}
+						</p>
+					</div>
+					<div className="form-field-container">
+						<label htmlFor="lastname">Lastname</label>
+						<Field name="lastname" placeholder="Lastname" />
+						<p className="error-message">
+							{touched.lastname && errors.lastname}
+						</p>
+					</div>
+					<div className="form-field-container">
+						<label htmlFor="email">E-Mail</label>
+						<Field name="email" placeholder="Email" />
+						<p className="error-message">
+							{touched.email && errors.email}
+						</p>
+					</div>
+					<div className="form-field-container">
+						<CardSection />
+					</div>
+					<div className="error-message-container" role="alert">
+						<p className="error-message">{error}</p>
 					</div>
 					<button
 						disabled={!stripe || loading}

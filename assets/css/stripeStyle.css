@@ -5,7 +5,7 @@
 body,
 html {
     background-color: #f6f9fc;
-    font-size: 18px;
+    font-size: 13px;
     font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
     margin: 0;
 }
@@ -54,7 +54,6 @@ button {
   input,
   .StripeElement {
     display: block;
-    margin: 10px 0 20px 0;
     max-width: 500px;
     padding: 10px 14px;
     font-size: 1em;
@@ -91,7 +90,7 @@ button {
   }
   
   form {
-    width: 500px;
+    width: 380px;
     margin: 0 auto;
   }
 
@@ -101,4 +100,7 @@ button {
 
   .loading-margin {
     margin-right: 8px;
+  }
+  .form-field-container {
+    margin: 10px 0 20px 0;
   }
