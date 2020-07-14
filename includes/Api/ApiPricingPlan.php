@@ -195,10 +195,14 @@ class ApiPricingPlan {
 	 * @return void
 	 */
 	public function update_payment_method() {
-		if ( ! isset( $_POST['_ajax_nonce'] ) ) {
+		if ( ! isset( $_POST['_ajax_nonce'], $_POST['email'], $_POST['paymentMethodId'], $_POST['name'], $_POST['lastname'] ) ) {
 			wp_send_json_error( __( 'An error occurred. Please try again in a few minutes.', 'wubtitle' ) );
 		}
-		$nonce = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
+		$nonce             = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
+		$payment_method_id = sanitize_text_field( wp_unslash( $_POST['paymentMethodId'] ) );
+		$name              = sanitize_text_field( wp_unslash( $_POST['name'] ) );
+		$lastname          = sanitize_text_field( wp_unslash( $_POST['lastname'] ) );
+		$email             = sanitize_text_field( wp_unslash( $_POST['email'] ) );
 		check_ajax_referer( 'itr_ajax_nonce', $nonce );
 		$license_key = get_option( 'wubtitle_license_key' );
 		if ( empty( $license_key ) ) {
@@ -206,6 +210,14 @@ class ApiPricingPlan {
 		}
 		$body          = array(
 			'type' => 'payment',
+			'data' => array(
+				'email'           => $email,
+				'siteLang'        => explode( '_', get_locale(), 2 )[0],
+				'paymentMethodId' => $payment_method_id,
+				'name'            => $name,
+				'lastname'        => $lastname,
+				'invoiceDetails'  => array(),
+			),
 		);
 		$response      = wp_remote_post(
 			WUBTITLE_ENDPOINT . 'stripe/customer/update',
@@ -227,7 +239,9 @@ class ApiPricingPlan {
 			''    => __( 'Could not contact the server', 'wubtitle' ),
 		);
 		if ( 201 !== $code_response ) {
-			wp_send_json_error( $message[ $code_response ] );
+			$response_body = json_decode( wp_remote_retrieve_body( $response ) );
+			$message       = 402 === $code_response ? $response_body->errors->title : $message[ $code_response ];
+			wp_send_json_error( $message );
 		}
 		$response_body = json_decode( wp_remote_retrieve_body( $response ) );
 		$session_id    = $response_body->data->sessionId;

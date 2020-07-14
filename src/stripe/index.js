@@ -3,3 +3,4 @@
  */
 
 import './SubscriptionForm';
+import './UpdateForm';
