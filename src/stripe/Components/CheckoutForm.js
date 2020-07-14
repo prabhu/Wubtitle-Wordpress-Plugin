@@ -42,12 +42,14 @@ export default function CheckoutForm() {
 				});
 		};
 
+		const fullName = `${name} ${lastname}`;
+
 		await stripe
 			.createPaymentMethod({
 				type: 'card',
 				card: cardElement,
 				billing_details: {
-					name,
+					name: fullName,
 				},
 			})
 			.then((response) => {
