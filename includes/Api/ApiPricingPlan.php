@@ -243,9 +243,7 @@ class ApiPricingPlan {
 			$message       = 402 === $code_response ? $response_body->errors->title : $message[ $code_response ];
 			wp_send_json_error( $message );
 		}
-		$response_body = json_decode( wp_remote_retrieve_body( $response ) );
-		$session_id    = $response_body->data->sessionId;
-		wp_send_json_success( $session_id );
+		wp_send_json_success();
 	}
 	/**
 	 * Gets the data from JavaScript and sends it to the endpoint for license reset.
@@ -337,9 +335,10 @@ class ApiPricingPlan {
 		$license_key = get_option( 'wubtitle_license_key' );
 		// TODO change endpoint.
 		$response      = wp_remote_post(
-			'https://jn8vowoh4e.execute-api.eu-west-1.amazonaws.com/dev/stripe/checkout/test',
+			'https://jn8vowoh4e.execute-api.eu-west-1.amazonaws.com/dev/stripe/checkout/create',
 			array(
 				'method'  => 'POST',
+				'timeout' => 10,
 				'headers' => array(
 					'Content-Type' => 'application/json; charset=utf-8',
 					'licenseKey'   => $license_key,
