@@ -1,20 +1,25 @@
 import { useState } from 'react';
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
+import * as Yup from 'yup';
+import { Formik, Form, Field } from 'formik';
 
 import CardSection from './CardSection';
 
 export default function CheckoutForm() {
 	const { ajaxUrl, ajaxNonce } = WP_GLOBALS;
 	const [error, setError] = useState(null);
-	const [name, setName] = useState('');
-	const [lastname, setLastname] = useState('');
-	const [email, setEmail] = useState('');
 	const [loading, setLoading] = useState(false);
 	const stripe = useStripe();
 	const elements = useElements();
 
-	const handleSubmit = async (event) => {
-		event.preventDefault();
+	const DisplayingErrorMessagesSchema = Yup.object().shape({
+		name: Yup.string().required('Required'),
+		email: Yup.string().email('Invalid email').required('Required'),
+		lastname: Yup.string().required('Required'),
+	});
+
+	const handleSubmit = async (values) => {
+		const { name, lastname, email } = values;
 		setLoading(true);
 
 		if (!stripe || !elements) {
@@ -59,59 +64,49 @@ export default function CheckoutForm() {
 	};
 
 	return (
-		<form onSubmit={handleSubmit}>
-			<div className="form-row">
-				<label htmlFor="name">Name</label>
-				<input
-					id="name"
-					name="name"
-					placeholder="Name"
-					required
-					value={name}
-					onChange={(event) => {
-						setName(event.target.value);
-					}}
-				/>
-			</div>
-			<div className="form-row">
-				<label htmlFor="name">Lastname</label>
-				<input
-					id="lastname"
-					name="lastname"
-					placeholder="Lastname"
-					required
-					value={lastname}
-					onChange={(event) => {
-						setLastname(event.target.value);
-					}}
-				/>
-			</div>
-			<div className="form-row">
-				<label htmlFor="email">Email</label>
-				<input
-					id="email"
-					name="email"
-					placeholder="Email"
-					required
-					value={email}
-					onChange={(event) => {
-						setEmail(event.target.value);
-					}}
-				/>
-			</div>
-			<div className="error-message" role="alert">
-				{error}
-			</div>
-			<CardSection />
-			<button
-				disabled={!stripe || loading}
-				className={loading ? 'disabled' : ''}
-			>
-				{loading && (
-					<i className="fa fa-refresh fa-spin loading-margin" />
-				)}
-				Update Payment
-			</button>
-		</form>
+		<Formik
+			initialValues={{
+				name: '',
+				email: '',
+				lastname: '',
+			}}
+			validationSchema={DisplayingErrorMessagesSchema}
+			onSubmit={(values) => {
+				handleSubmit(values);
+			}}
+		>
+			{({ errors, touched }) => (
+				<Form>
+					<label htmlFor="name">Name</label>
+					<Field name="name" placeholder="Name" />
+					{touched.name && errors.name && (
+						<div className="error-message">{errors.name}</div>
+					)}
+					<label htmlFor="lastname">Lastname</label>
+					<Field name="lastname" placeholder="Lastname" />
+					{touched.lastname && errors.lastname && (
+						<div className="error-message">{errors.lastname}</div>
+					)}
+					<label htmlFor="email">E-Mail</label>
+					<Field name="email" placeholder="Email" />
+					{touched.email && errors.email && (
+						<div className="error-message">{errors.email}</div>
+					)}
+					<CardSection />
+					<div className="error-message" role="alert">
+						{error}
+					</div>
+					<button
+						disabled={!stripe || loading}
+						className={loading ? 'disabled' : ''}
+					>
+						{loading && (
+							<i className="fa fa-refresh fa-spin loading-margin" />
+						)}
+						Update Payment
+					</button>
+				</Form>
+			)}
+		</Formik>
 	);
 }
