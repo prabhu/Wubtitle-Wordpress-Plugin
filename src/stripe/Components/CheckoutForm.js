@@ -7,6 +7,7 @@ export default function CheckoutForm() {
 	const { planId, ajaxUrl, ajaxNonce } = WP_GLOBALS;
 	const [error, setError] = useState(null);
 	const [name, setName] = useState('');
+	const [lastname, setLastname] = useState('');
 	const [email, setEmail] = useState('');
 	const [isDisabled, setIsDisabled] = useState(false);
 	const stripe = useStripe();
@@ -28,7 +29,7 @@ export default function CheckoutForm() {
 				headers: {
 					'Content-Type': 'application/x-www-form-urlencoded',
 				},
-				body: `action=create_subscription&paymentMethodId=${paymentMethodId}&planId=${planId}&email=${email}&_ajax_nonce=${ajaxNonce}`,
+				body: `action=create_subscription&paymentMethodId=${paymentMethodId}&planId=${planId}&email=${email}&_ajax_nonce=${ajaxNonce}&name=${name}&lastname=${lastname}`,
 			})
 				.then((resp) => resp.json())
 				.then((response) => {
@@ -66,6 +67,19 @@ export default function CheckoutForm() {
 					value={name}
 					onChange={(event) => {
 						setName(event.target.value);
+					}}
+				/>
+			</div>
+			<div className="form-row">
+				<label htmlFor="name">Lastname</label>
+				<input
+					id="lastname"
+					name="lastname"
+					placeholder="Lastname"
+					required
+					value={lastname}
+					onChange={(event) => {
+						setLastname(event.target.value);
 					}}
 				/>
 			</div>

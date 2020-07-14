@@ -297,28 +297,31 @@ class ApiPricingPlan {
 	 */
 	public function create_subscription() {
 		$site_url = get_site_url();
-		if ( ! isset( $_POST['_ajax_nonce'], $_POST['email'], $_POST['paymentMethodId'], $_POST['planId'] ) ) {
+		if ( ! isset( $_POST['_ajax_nonce'], $_POST['email'], $_POST['paymentMethodId'], $_POST['planId'], $_POST['name'], $_POST['lastname'] ) ) {
 			wp_send_json_error( __( 'An error occurred. Please try again in a few minutes.', 'wubtitle' ) );
 		}
 		$email             = sanitize_text_field( wp_unslash( $_POST['email'] ) );
 		$payment_method_id = sanitize_text_field( wp_unslash( $_POST['paymentMethodId'] ) );
 		$plan_id           = sanitize_text_field( wp_unslash( $_POST['planId'] ) );
+		$name              = sanitize_text_field( wp_unslash( $_POST['name'] ) );
+		$lastname          = sanitize_text_field( wp_unslash( $_POST['lastname'] ) );
 		$nonce             = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
 		$site_url          = sanitize_text_field( wp_unslash( $site_url ) );
 		check_ajax_referer( 'itr_ajax_nonce', $nonce );
-		$body          = array(
+		$body        = array(
 			'data' => array(
 				'email'           => $email,
-				'domainUrl'       => get_site_url(),
-				'siteLang'        => $site_url,
+				'domainUrl'       => $site_url,
+				'siteLang'        => explode( '_', get_locale(), 2 )[0],
 				'paymentMethodId' => $payment_method_id,
 				'planId'          => $plan_id,
-				'name'            => 'zlatan',
-				'lastname'        => 'ibrahimovic',
+				'name'            => $name,
+				'lastname'        => $lastname,
 				'invoiceDetails'  => array(),
 			),
 		);
-		$license_key   = get_option( 'wubtitle_license_key' );
+		$license_key = get_option( 'wubtitle_license_key' );
+		// TODO change endpoint.
 		$response      = wp_remote_post(
 			'https://jn8vowoh4e.execute-api.eu-west-1.amazonaws.com/dev/stripe/checkout/test',
 			array(
