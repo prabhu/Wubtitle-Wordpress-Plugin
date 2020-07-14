@@ -33,12 +33,15 @@ export default function CheckoutForm() {
 			})
 				.then((resp) => resp.json())
 				.then((response) => {
-					if (!response.success) {
-						setError(response.data);
-					} else {
-						setError(null);
-					}
 					setLoading(false);
+					if (response.success) {
+						setError(null);
+						window.opener.redirectToCallback(
+							'notices-code=payment'
+						);
+						window.close();
+					}
+					setError(response.data);
 				});
 		};
 
