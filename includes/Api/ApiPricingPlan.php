@@ -309,7 +309,7 @@ class ApiPricingPlan {
 	 */
 	public function create_subscription() {
 		$site_url = get_site_url();
-		if ( ! isset( $_POST['_ajax_nonce'], $_POST['email'], $_POST['paymentMethodId'], $_POST['planId'], $_POST['name'], $_POST['lastname'] ) ) {
+		if ( ! isset( $_POST['_ajax_nonce'], $_POST['email'], $_POST['paymentMethodId'], $_POST['planId'], $_POST['name'], $_POST['lastname'], $_POST['invoiceObject'] ) ) {
 			wp_send_json_error( __( 'An error occurred. Please try again in a few minutes.', 'wubtitle' ) );
 		}
 		$email             = sanitize_text_field( wp_unslash( $_POST['email'] ) );
@@ -318,9 +318,17 @@ class ApiPricingPlan {
 		$name              = sanitize_text_field( wp_unslash( $_POST['name'] ) );
 		$lastname          = sanitize_text_field( wp_unslash( $_POST['lastname'] ) );
 		$nonce             = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
+		$invoice_data      = sanitize_text_field( wp_unslash( $_POST['invoiceObject'] ) );
+		$invoice_object    = json_decode( $invoice_data );
 		$site_url          = sanitize_text_field( wp_unslash( $site_url ) );
 		check_ajax_referer( 'itr_ajax_nonce', $nonce );
-		$body        = array(
+
+		$invoice_details = $this->build_invoice_array( $invoice_object );
+		if ( ! $invoice_details ) {
+			wp_send_json_error( __( 'An error occurred. Please try again in a few minutes.', 'wubtitle' ) );
+		}
+
+		$body = array(
 			'data' => array(
 				'email'           => $email,
 				'domainUrl'       => $site_url,
@@ -329,13 +337,14 @@ class ApiPricingPlan {
 				'planId'          => $plan_id,
 				'name'            => $name,
 				'lastname'        => $lastname,
-				'invoiceDetails'  => array(),
+				'invoiceDetails'  => $invoice_details,
 			),
 		);
+
 		$license_key = get_option( 'wubtitle_license_key' );
 		// TODO change endpoint.
 		$response      = wp_remote_post(
-			'https://jn8vowoh4e.execute-api.eu-west-1.amazonaws.com/dev/stripe/checkout/create',
+			WUBTITLE_ENDPOINT . 'stripe/checkout/create',
 			array(
 				'method'  => 'POST',
 				'timeout' => 10,
@@ -360,6 +369,44 @@ class ApiPricingPlan {
 			wp_send_json_error( $message );
 		}
 		wp_send_json_success();
+	}
+
+	/**
+	 * Build a array containing the invoice data.
+	 *
+	 * @param object $invoice_object invoice data object.
+	 *
+	 * @return array<string>|false
+	 */
+	public function build_invoice_array( $invoice_object ) {
+		if ( ! isset( $invoice_object->invoice_name, $invoice_object->invoice_lastname, $invoice_object->invoice_email, $invoice_object->telephone, $invoice_object->address, $invoice_object->cap, $invoice_object->city, $invoice_object->province, $invoice_object->country ) ) {
+			return false;
+		}
+		$invoice_details = array(
+			'Name'       => $invoice_object->invoice_name,
+			'LastName'   => $invoice_object->invoice_lastname,
+			'Email'      => $invoice_object->invoice_email,
+			'Telephone'  => $invoice_object->telephone,
+			'Address'    => $invoice_object->address,
+			'PostalCode' => $invoice_object->cap,
+			'City'       => $invoice_object->city,
+			'Province'   => $invoice_object->province,
+			'Country'    => $invoice_object->country,
+		);
+		if ( ! empty( $invoice_object->company_name ) ) {
+			if ( ! isset( $invoice_object->vat_code ) ) {
+				wp_send_json_error( __( 'An error occurred. Please try again in a few minutes.', 'wubtitle' ) );
+			}
+			$invoice_details['CompanyName'] = $invoice_object->company_name;
+			$invoice_details['VatCode']     = $invoice_object->vat_code;
+		}
+		if ( empty( $invoice_object->company_name ) ) {
+			if ( ! isset( $invoice_object->fiscal_code ) ) {
+				wp_send_json_error( __( 'An error occurred. Please try again in a few minutes.', 'wubtitle' ) );
+			}
+			$invoice_details['FiscalCode'] = $invoice_object->fiscal_code;
+		}
+		return $invoice_details;
 	}
 }
 
