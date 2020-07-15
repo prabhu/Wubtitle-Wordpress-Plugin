@@ -379,7 +379,7 @@ class Settings {
 	 */
 	public function upgrade_button( $args ) {
 		?>
-		<button id="buy-license-button" class="button-primary <?php echo esc_html( $args['disabled'] ); ?>">
+		<button id="buy-license-button" class="button-primary <?php echo esc_attr( $args['disabled'] ); ?>">
 			<?php echo esc_html( $args['name'] ); ?>
 		</button>
 		<p style="display:inline; margin-left:4px;"> <?php esc_html_e( 'now!', 'wubtitle' ); ?> </p>
