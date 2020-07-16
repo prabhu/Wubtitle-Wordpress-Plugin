@@ -236,7 +236,6 @@ class Settings {
 				'INVALID' => __( 'Unable to update. Invalid product license.', 'wubtitle' ),
 				'4xx'     => __( 'An error occurred while updating licence. Please try again in a few minutes.', 'wubtitle' ),
 				'5xx'     => __( 'Could not contact the server.', 'wubtitle' ),
-				'xxx'     => __( 'An error occurred.', 'wubtitle' ),
 			);
 
 			add_settings_error(
@@ -292,7 +291,7 @@ class Settings {
 		$validation['verified'] = $retrieved['data']['verified'];
 
 		$helpers             = new Helpers();
-		$validation['error'] = $helpers->validation_error( $status, $validation['verified'], $retrieved['data']['errorType'] );
+		$validation['error'] = $helpers->error_message( $status, $validation['verified'], $retrieved['data']['errorType'] );
 
 		return $validation;
 	}
