@@ -86,6 +86,9 @@ class InvoiceHelper {
 		if ( empty( $invoice_object->company_name ) && isset( $invoice_object->fiscal_code ) ) {
 			$invoice_details['FiscalCode'] = $invoice_object->fiscal_code;
 		}
+		if ( ! empty( $invoice_object->destination_code ) ) {
+			$invoice_details['DestinationCode'] = $invoice_object->destination_code;
+		}
 		return $invoice_details;
 	}
 }

@@ -269,6 +269,23 @@ export default function CheckoutForm() {
 							{touched.telephone && errors.telephone}
 						</p>
 					</div>
+					<div
+						className={`form-field-container ${
+							values.country !== 'IT' ? 'hidden' : ''
+						}`}
+					>
+						<label htmlFor="destination-code">
+							Destination Code
+						</label>
+						<Field
+							name="destination_code"
+							placeholder="Destination Code"
+						/>
+						<p className="error-message">
+							{touched.destination_code &&
+								errors.destination_code}
+						</p>
+					</div>
 					<button
 						disabled={!stripe || loading}
 						className={loading ? 'disabled' : ''}
