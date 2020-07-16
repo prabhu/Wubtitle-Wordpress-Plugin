@@ -90,7 +90,7 @@ button {
     height: 40px;
   }
   
-  form {
+  .wrapper-form {
     width: 380px;
     margin: 0 auto;
   }
