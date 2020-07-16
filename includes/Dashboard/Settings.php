@@ -291,7 +291,7 @@ class Settings {
 		$validation['verified'] = $retrieved['data']['verified'];
 
 		$helpers             = new Helpers();
-		$validation['error'] = $helpers->error_message( $status, $validation['verified'], $retrieved['data']['errorType'] );
+		$validation['error'] = $helpers->check_has_error( $status, $validation['verified'], $retrieved['data']['errorType'] );
 
 		return $validation;
 	}
