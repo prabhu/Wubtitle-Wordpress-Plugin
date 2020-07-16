@@ -2,7 +2,9 @@ import { useState } from 'react';
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
 import * as Yup from 'yup';
 import { Formik, Form, Field } from 'formik';
-
+import countries from '../data/countries.json';
+import provinces from '../data/provinces.json';
+import euCountries from '../data/europeanCountries.json';
 import CardSection from './CardSection';
 
 export default function CheckoutForm() {
@@ -24,15 +26,20 @@ export default function CheckoutForm() {
 			invoice_lastname: Yup.string().required('Required'),
 			telephone: Yup.string().required('Required'),
 			address: Yup.string().required('Required'),
-			cap: Yup.string().required('Required'),
 			city: Yup.string().required('Required'),
-			province: Yup.string().required('Required'),
 			country: Yup.string().required('Required'),
 		};
+		if (!euCountries.includes(values.country)) {
+			return Yup.object().shape(yupObject);
+		}
 		if (values.company_name) {
 			yupObject.vat_code = Yup.string().required('Required');
-		} else {
+		} else if (values.country === 'IT') {
 			yupObject.fiscal_code = Yup.string().required('Required');
+		}
+		if (values.country === 'IT') {
+			yupObject.cap = Yup.string().required('Required');
+			yupObject.province = Yup.string().required('Required');
 		}
 		return Yup.object().shape(yupObject);
 	});
@@ -114,7 +121,7 @@ export default function CheckoutForm() {
 				handleSubmit(values);
 			}}
 		>
-			{({ errors, touched }) => (
+			{({ errors, touched, values }) => (
 				<Form>
 					<div className="form-field-container">
 						<label htmlFor="name">Name</label>
@@ -169,13 +176,6 @@ export default function CheckoutForm() {
 						</p>
 					</div>
 					<div className="form-field-container">
-						<label htmlFor="telephone">Telephone</label>
-						<Field name="telephone" placeholder="Telephone" />
-						<p className="error-message">
-							{touched.telephone && errors.telephone}
-						</p>
-					</div>
-					<div className="form-field-container">
 						<label htmlFor="companyName">Company Name</label>
 						<Field name="company_name" placeholder="Company Name" />
 						<p className="error-message">
@@ -183,17 +183,31 @@ export default function CheckoutForm() {
 						</p>
 					</div>
 					<div className="form-field-container">
-						<label htmlFor="address">Address</label>
-						<Field name="address" placeholder="Address" />
+						<label htmlFor="country">Country</label>
+						<Field name="country" component="select">
+							<option value="" label={'Select a country'} />
+							{Object.entries(countries).map(([key, value]) => (
+								<option key={key} value={key} label={value} />
+							))}
+						</Field>
 						<p className="error-message">
-							{touched.address && errors.address}
+							{touched.country && errors.country}
 						</p>
 					</div>
-					<div className="form-field-container">
-						<label htmlFor="cap">CAP</label>
-						<Field name="cap" placeholder="CAP" />
+					<div
+						className={`form-field-container ${
+							values.country !== 'IT' ? 'hidden' : ''
+						}`}
+					>
+						<label htmlFor="province">Province</label>
+						<Field name="province" component="select">
+							<option value="" label={'Select a province'} />
+							{Object.entries(provinces).map(([key, value]) => (
+								<option key={key} value={key} label={value} />
+							))}
+						</Field>
 						<p className="error-message">
-							{touched.cap && errors.cap}
+							{touched.province && errors.province}
 						</p>
 					</div>
 					<div className="form-field-container">
@@ -204,31 +218,55 @@ export default function CheckoutForm() {
 						</p>
 					</div>
 					<div className="form-field-container">
-						<label htmlFor="province">Province</label>
-						<Field name="province" placeholder="Province" />
+						<label htmlFor="address">Address</label>
+						<Field name="address" placeholder="Address" />
 						<p className="error-message">
-							{touched.province && errors.province}
+							{touched.address && errors.address}
 						</p>
 					</div>
-					<div className="form-field-container">
-						<label htmlFor="country">Country</label>
-						<Field name="country" placeholder="Country" />
+					<div
+						className={`form-field-container ${
+							values.country !== 'IT' ? 'hidden' : ''
+						}`}
+					>
+						<label htmlFor="cap">CAP</label>
+						<Field name="cap" placeholder="CAP" />
 						<p className="error-message">
-							{touched.country && errors.country}
+							{touched.cap && errors.cap}
 						</p>
 					</div>
-					<div className="form-field-container">
+					<div
+						className={`form-field-container ${
+							!values.company_name ||
+							!euCountries.includes(values.country)
+								? 'hidden'
+								: ''
+						}`}
+					>
 						<label htmlFor="vatCode">Vat Code</label>
 						<Field name="vat_code" placeholder="Vat Code" />
 						<p className="error-message">
 							{touched.vat_code && errors.vat_code}
 						</p>
 					</div>
-					<div className="form-field-container">
+					<div
+						className={`form-field-container ${
+							values.company_name || 'IT' !== values.country
+								? 'hidden'
+								: ''
+						}`}
+					>
 						<label htmlFor="fiscalCode">Fiscal Code</label>
 						<Field name="fiscal_code" placeholder="Fiscal Code" />
 						<p className="error-message">
 							{touched.fiscal_code && errors.fiscal_code}
+						</p>
+					</div>
+					<div className="form-field-container">
+						<label htmlFor="telephone">Telephone</label>
+						<Field name="telephone" placeholder="Telephone" />
+						<p className="error-message">
+							{touched.telephone && errors.telephone}
 						</p>
 					</div>
 					<button

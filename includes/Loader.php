@@ -12,7 +12,6 @@ namespace Wubtitle;
  */
 class Loader {
 	/**
-	 * L'array che contiene gli oggetti istanziati dal Loader.
 	 * Array containing Loader instantiated objects.
 	 *
 	 * @var array<string,mixed>
@@ -50,6 +49,7 @@ class Loader {
 			'youtube_source'         => Core\Sources\YouTube::class,
 			'trascription_block'     => Gutenberg\TranscriptionBlock::class,
 			'update_manager'         => Core\Updater::class,
+			'invoice_helper'         => Utils\InvoiceHelper::class,
 		);
 
 		foreach ( $classes as $key => $class ) {
