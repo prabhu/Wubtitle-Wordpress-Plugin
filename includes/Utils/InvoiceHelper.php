@@ -15,22 +15,6 @@ namespace Wubtitle\Utils;
 class InvoiceHelper {
 
 	/**
-	 * European Countries file contents
-	 *
-	 * @var array<string>|\WP_Error
-	 */
-	private $eu_countries_file = array();
-
-	/**
-	 * Init file contents
-	 *
-	 * @return void
-	 */
-	public function run() {
-		$this->eu_countries_file = wp_remote_get( WUBTITLE_URL . 'build_form/europeanCountries.json' );
-	}
-
-	/**
 	 * Build a array containing the invoice data.
 	 *
 	 * @param object $invoice_object invoice data object.
@@ -38,7 +22,8 @@ class InvoiceHelper {
 	 * @return array<string>|false
 	 */
 	public function build_invoice_array( $invoice_object ) {
-		$eu_countries = json_decode( wp_remote_retrieve_body( $this->eu_countries_file ) );
+		$eu_countries_file = wp_remote_get( WUBTITLE_URL . 'build_form/europeanCountries.json' );
+		$eu_countries      = json_decode( wp_remote_retrieve_body( $eu_countries_file ) );
 		if ( ! isset( $invoice_object->invoice_name, $invoice_object->invoice_lastname, $invoice_object->invoice_email, $invoice_object->telephone, $invoice_object->address, $invoice_object->city, $invoice_object->country ) ) {
 			return false;
 		}
