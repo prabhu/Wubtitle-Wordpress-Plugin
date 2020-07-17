@@ -208,7 +208,7 @@ class ApiPricingPlan {
 		check_ajax_referer( 'itr_ajax_nonce', $nonce );
 		$license_key = get_option( 'wubtitle_license_key' );
 		if ( empty( $license_key ) ) {
-			wp_send_json_error( __( 'Unable to create subtitles. The product license key is missing.', 'wubtitle' ) );
+			wp_send_json_error( __( 'Unable to update payment data. The product license key is missing.', 'wubtitle' ) );
 		}
 		$body          = array(
 			'type' => 'payment',
