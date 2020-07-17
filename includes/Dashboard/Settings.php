@@ -63,7 +63,13 @@ class Settings {
 		) {
 			$plans = get_option( 'wubtitle_all_plans' );
 		}
-		$plan_rank    = get_option( 'wubtitle_plan_rank' );
+		$plan_rank = '';
+		if (
+			get_option( 'wubtitle_plan_rank' ) ||
+			get_option( 'wubtitle_plan_rank' ) === ''
+		) {
+			$plan_rank = get_option( 'wubtitle_all_plans' );
+		}
 		$current_plan = array_key_exists( $plan_rank, $plans ) ? $plans[ $plan_rank ]['name'] : '';
 		$seconds_max  = get_option( 'wubtitle_total_seconds' );
 		$jobs_max     = get_option( 'wubtitle_total_jobs' );
