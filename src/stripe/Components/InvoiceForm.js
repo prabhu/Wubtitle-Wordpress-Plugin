@@ -15,7 +15,9 @@ export default function CheckoutForm(props) {
 				.email('Invalid email')
 				.required('Required'),
 			invoice_lastname: Yup.string().required('Required'),
-			telephone: Yup.string().required('Required'),
+			telephone: Yup.string()
+				.required('Required')
+				.matches('^[0-9]*$', 'Only numbers'),
 			address: Yup.string().required('Required'),
 			city: Yup.string().required('Required'),
 			country: Yup.string().required('Required'),
@@ -26,11 +28,23 @@ export default function CheckoutForm(props) {
 		if (values.company_name) {
 			yupObject.vat_code = Yup.string().required('Required');
 		} else if (values.country === 'IT') {
-			yupObject.fiscal_code = Yup.string().required('Required');
+			yupObject.fiscal_code = Yup.string()
+				.required('Required')
+				.length(16, 'Fiscal Code must be exactly 16 characters');
+			yupObject.vat_code = Yup.string()
+				.required('Required')
+				.length(11, 'Vat Code must be exactly 11 characters');
 		}
 		if (values.country === 'IT') {
-			yupObject.cap = Yup.string().required('Required');
+			yupObject.cap = Yup.string()
+				.required('Required')
+				.length(5, 'Postal Code must be exactly 5 characters')
+				.matches('^[0-9]*$', 'Only numbers');
 			yupObject.province = Yup.string().required('Required');
+			yupObject.destination_code = Yup.string().length(
+				7,
+				'Destination Code must be exactly 7 characters'
+			);
 		}
 		return Yup.object().shape(yupObject);
 	});
