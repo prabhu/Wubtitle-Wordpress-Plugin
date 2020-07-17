@@ -31,28 +31,35 @@ export default function CheckoutForm(props) {
 		}
 		return Yup.object().shape(yupObject);
 	});
+	const { invoicePreValues, handleSubmit } = props;
+	let initValues = {
+		invoice_name: '',
+		invoice_email: '',
+		invoice_lastname: '',
+		telephone: '',
+		company_name: '',
+		address: '',
+		cap: '',
+		city: '',
+		province: '',
+		country: '',
+		vat_code: '',
+		fiscal_code: '',
+		destination_code: '0000000',
+	};
+	if (invoicePreValues) {
+		initValues = {
+			...invoicePreValues,
+		};
+	}
 
 	return (
 		<div className="wrapper-form">
 			<Formik
-				initialValues={{
-					invoice_name: '',
-					invoice_email: '',
-					invoice_lastname: '',
-					telephone: '',
-					company_name: '',
-					address: '',
-					cap: '',
-					city: '',
-					province: '',
-					country: '',
-					vat_code: '',
-					fiscal_code: '',
-					destination_code: '0000000',
-				}}
+				initialValues={initValues}
 				validationSchema={DisplayingErrorMessagesSchema}
 				onSubmit={(values) => {
-					props.handleSubmit(values);
+					handleSubmit(values);
 				}}
 			>
 				{({ errors, touched, values }) => (
