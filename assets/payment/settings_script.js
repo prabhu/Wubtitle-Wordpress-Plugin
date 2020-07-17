@@ -17,9 +17,9 @@ function confirmPlanChange(){
 	BuyLicenseWindow.close();
 	confirmPlanChangeWindow();
 }
-function customStripeForm(planId){
+function customStripeForm(planRank){
 	BuyLicenseWindow.close();
-	showCustomFormWindow(planId);
+	showCustomFormWindow(planRank);
 }
 /* eslint-enable */
 
@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		});
 	}
 });
-const showCustomFormWindow = (planId) => {
+const showCustomFormWindow = (planRank) => {
 	if (CustomFormWindow === null || CustomFormWindow.closed) {
 		const windowFeatures = `
             left=500,
@@ -86,7 +86,7 @@ const showCustomFormWindow = (planId) => {
 				type: 'POST',
 				data: {
 					_ajax_nonce: settings_object.ajaxnonce,
-					planId,
+					planRank,
 				},
 			})
 			.done((response) => {

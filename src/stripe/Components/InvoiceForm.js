@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import * as Yup from 'yup';
 import { Formik, Form, Field } from 'formik';
 import countries from '../data/countries.json';
@@ -5,6 +6,8 @@ import provinces from '../data/provinces.json';
 import euCountries from '../data/europeanCountries.json';
 
 export default function CheckoutForm(props) {
+	const { invoicePreValues, handleSubmit, error } = props;
+	const [loading, setLoading] = useState(false);
 	const DisplayingErrorMessagesSchema = Yup.lazy((values) => {
 		const yupObject = {
 			invoice_name: Yup.string().required('Required'),
@@ -31,7 +34,6 @@ export default function CheckoutForm(props) {
 		}
 		return Yup.object().shape(yupObject);
 	});
-	const { invoicePreValues, handleSubmit } = props;
 	let initValues = {
 		invoice_name: '',
 		invoice_email: '',
@@ -59,7 +61,9 @@ export default function CheckoutForm(props) {
 				initialValues={initValues}
 				validationSchema={DisplayingErrorMessagesSchema}
 				onSubmit={(values) => {
+					setLoading(true);
 					handleSubmit(values);
+					setLoading(false);
 				}}
 			>
 				{({ errors, touched, values }) => (
@@ -218,7 +222,15 @@ export default function CheckoutForm(props) {
 									errors.destination_code}
 							</p>
 						</div>
-						<button>Summary</button>
+						<div className="error-message-container" role="alert">
+							<p className="error-message">{error}</p>
+						</div>
+						<button>
+							{loading && (
+								<i className="fa fa-refresh fa-spin loading-margin" />
+							)}
+							Summary
+						</button>
 					</Form>
 				)}
 			</Formik>

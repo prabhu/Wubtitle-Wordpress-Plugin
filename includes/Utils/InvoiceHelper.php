@@ -15,6 +15,67 @@ namespace Wubtitle\Utils;
 class InvoiceHelper {
 
 	/**
+	 * Init delle action
+	 *
+	 * @return void
+	 */
+	public function run() {
+		add_action( 'wp_ajax_check_vat_code', array( $this, 'check_vat_code' ) );
+	}
+
+	/**
+	 * Calls the backend endpoint to check vat code.
+	 *
+	 * @return void
+	 */
+	public function check_vat_code() {
+		if ( ! isset( $_POST['_ajax_nonce'], $_POST['price_plan'], $_POST['vat_code'], $_POST['country'] ) ) {
+			wp_send_json_error( __( 'An error occurred. Please try again in a few minutes.', 'wubtitle' ) );
+		}
+		$nonce    = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
+		$price    = (float) sanitize_text_field( wp_unslash( $_POST['price_plan'] ) );
+		$vat_code = sanitize_text_field( wp_unslash( $_POST['vat_code'] ) );
+		$country  = sanitize_text_field( wp_unslash( $_POST['country'] ) );
+		check_ajax_referer( 'itr_ajax_nonce', $nonce );
+		$body        = array(
+			'data' => array(
+				'vatCode'     => $vat_code,
+				'price'       => $price,
+				'countryCode' => $country,
+			),
+		);
+		$license_key = get_option( 'wubtitle_license_key' );
+		if ( empty( $license_key ) ) {
+			wp_send_json_error( __( 'Error. The product license key is missing.', 'wubtitle' ) );
+		}
+		$response      = wp_remote_post(
+			WUBTITLE_ENDPOINT . 'stripe/customer/tax',
+			array(
+				'method'  => 'POST',
+				'headers' => array(
+					'licenseKey'   => $license_key,
+					'Content-Type' => 'application/json; charset=utf-8',
+				),
+				'body'    => wp_json_encode( $body ),
+			)
+		);
+		$code_response = wp_remote_retrieve_response_code( $response );
+		$message       = array(
+			'400' => __( 'An error occurred. Please try again in a few minutes', 'wubtitle' ),
+			'401' => __( 'An error occurred. Please try again in a few minutes', 'wubtitle' ),
+			'403' => __( 'Access denied', 'wubtitle' ),
+			'500' => __( 'Could not contact the server', 'wubtitle' ),
+			''    => __( 'Could not contact the server', 'wubtitle' ),
+		);
+		if ( 200 !== $code_response ) {
+			wp_send_json_error( $message[ $code_response ] );
+		}
+		$response_body = json_decode( wp_remote_retrieve_body( $response ) );
+		$tax           = $response_body->data->taxAmount;
+		wp_send_json_success( $tax );
+	}
+
+	/**
 	 * Build a array containing the invoice data.
 	 *
 	 * @param object $invoice_object invoice data object.

@@ -1,8 +1,12 @@
 export default function InvoiceSummary(props) {
-	const { invoiceValues } = props;
+	const { invoiceValues, price } = props;
 
 	return (
 		<div>
+			<h2>PRICE</h2>
+			<p>
+				<strong>{price}</strong>+<strong>{invoiceValues.tax}</strong>
+			</p>
 			<h2>SUMMARY</h2>
 			<h3>Name</h3>
 			<p>{invoiceValues.invoice_name}</p>

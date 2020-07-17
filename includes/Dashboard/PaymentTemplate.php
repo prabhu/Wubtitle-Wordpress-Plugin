@@ -92,15 +92,17 @@ class PaymentTemplate {
 	 * @return void
 	 */
 	public function load_custom_form() {
-		if ( ! isset( $_POST['_ajax_nonce'], $_POST['planId'] ) ) {
+		if ( ! isset( $_POST['_ajax_nonce'], $_POST['planRank'] ) ) {
 			wp_send_json_error( __( 'An error occurred. Please try again in a few minutes.', 'wubtitle' ) );
 		}
 		$nonce = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
 		check_ajax_referer( 'itr_ajax_nonce', $nonce );
 		if ( current_user_can( 'manage_options' ) ) {
 			ob_start();
-			$plan_id  = sanitize_text_field( wp_unslash( $_POST['planId'] ) );
-			$ajax_url = admin_url( 'admin-ajax.php' );
+			$plan_rank   = sanitize_text_field( wp_unslash( $_POST['planRank'] ) );
+			$plans       = get_option( 'wubtitle_all_plans' );
+			$wanted_plan = $plans[ $plan_rank ];
+			$ajax_url    = admin_url( 'admin-ajax.php' );
 			include 'Templates/custom_form.php';
 			$html = ob_get_clean();
 			wp_send_json_success( $html );

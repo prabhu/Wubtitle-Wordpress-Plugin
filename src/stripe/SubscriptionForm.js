@@ -7,7 +7,7 @@ import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 
 function App() {
-	const { wubtitleEnv, planId, ajaxUrl, ajaxNonce } = WP_GLOBALS;
+	const { wubtitleEnv, planId, ajaxUrl, ajaxNonce, pricePlan } = WP_GLOBALS;
 	const stripeKey =
 		wubtitleEnv === 'development'
 			? 'pk_test_lFmjf2Dz7VURTslihG0xys7m00NjW2BOPI'
@@ -18,7 +18,23 @@ function App() {
 	const [invoiceValues, setInvoiceValues] = useState(null);
 
 	const handleSubmit = (values) => {
-		setInvoiceValues(values);
+		fetch(ajaxUrl, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded',
+			},
+			body: `action=check_vat_code&_ajax_nonce=${ajaxNonce}&vat_code=${values.vat_code}&country=${values.country}&price_plan=${pricePlan}`,
+		})
+			.then((resp) => resp.json())
+			.then((response) => {
+				if (response.success) {
+					setError(null);
+					values.tax = response.data;
+					setInvoiceValues(values);
+				} else {
+					setError(response.data);
+				}
+			});
 	};
 
 	const createSubscription = (paymentMethodId, values) => {
@@ -47,7 +63,10 @@ function App() {
 		<Elements stripe={stripePromise}>
 			{invoiceValues ? (
 				<div className="wrapper-form">
-					<InvoiceSummary invoiceValues={invoiceValues} />
+					<InvoiceSummary
+						invoiceValues={invoiceValues}
+						price={pricePlan}
+					/>
 					<CheckoutForm
 						createSubscription={createSubscription}
 						error={error}
@@ -57,6 +76,7 @@ function App() {
 				<InvoiceForm
 					handleSubmit={handleSubmit}
 					invoicePreValues={null}
+					error={error}
 				/>
 			)}
 		</Elements>

@@ -7,7 +7,13 @@ import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 
 function App() {
-	const { wubtitleEnv, ajaxUrl, ajaxNonce, invoicePreValues } = WP_GLOBALS;
+	const {
+		wubtitleEnv,
+		ajaxUrl,
+		ajaxNonce,
+		pricePlan,
+		invoicePreValues,
+	} = WP_GLOBALS;
 	const stripeKey =
 		wubtitleEnv === 'development'
 			? 'pk_test_lFmjf2Dz7VURTslihG0xys7m00NjW2BOPI'
@@ -45,7 +51,10 @@ function App() {
 		<Elements stripe={stripePromise}>
 			{invoiceValues ? (
 				<div className="wrapper-form">
-					<InvoiceSummary invoiceValues={invoiceValues} />
+					<InvoiceSummary
+						invoiceValues={invoiceValues}
+						price={pricePlan}
+					/>
 					<CheckoutForm
 						createSubscription={createSubscription}
 						error={error}
@@ -55,6 +64,7 @@ function App() {
 				<InvoiceForm
 					handleSubmit={handleSubmit}
 					invoicePreValues={invoicePreValues}
+					error={error}
 				/>
 			)}
 		</Elements>

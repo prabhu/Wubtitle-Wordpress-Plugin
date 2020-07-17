@@ -29,10 +29,12 @@
 	</body>
 	<script>
 		const WP_GLOBALS = {
-			planId: "<?php echo isset( $plan_id ) ? esc_html( $plan_id ) : ''; ?>",
-			ajaxUrl: "<?php echo isset( $ajax_url ) ? esc_html( $ajax_url ) : ''; ?>",
+			planId: "<?php echo isset( $wanted_plan ) ? esc_js( $wanted_plan['stripe_code'] ) : ''; ?>",
+			pricePlan: "<?php echo isset( $wanted_plan ) ? esc_js( $wanted_plan['price'] ) : ''; ?>",
+			namePlan: "<?php echo isset( $wanted_plan ) ? esc_js( $wanted_plan['name'] ) : ''; ?>",
+			ajaxUrl: "<?php echo isset( $ajax_url ) ? esc_js( $ajax_url ) : ''; ?>",
 			ajaxNonce: "<?php echo esc_js( wp_create_nonce( 'itr_ajax_nonce' ) ); ?>",
-			wubtitleEnv: "<?php echo defined( 'WP_WUBTITLE_ENV' ) ? esc_html( WP_WUBTITLE_ENV ) : ''; ?>"
+			wubtitleEnv: "<?php echo defined( 'WP_WUBTITLE_ENV' ) ? esc_js( WP_WUBTITLE_ENV ) : ''; ?>"
 		}
 	</script>
 	<?php // phpcs:disable ?>
