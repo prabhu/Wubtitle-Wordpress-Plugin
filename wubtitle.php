@@ -22,11 +22,9 @@ define( 'WUBTITLE_DIR', plugin_dir_path( __FILE__ ) );
 define( 'WUBTITLE_URL', plugin_dir_url( __FILE__ ) );
 define( 'WUBTITLE_NAME', dirname( plugin_basename( __FILE__ ) ) );
 define( 'WUBTITLE_VER', '0.1.3' );
-define( 'WP_WUBTITLE_ENV', 'development' );
 $endpoint = 'https://api.wubtitle.com/';
 if ( defined( 'WP_WUBTITLE_ENV' ) && 'development' === WP_WUBTITLE_ENV ) {
-	// https://dev.api.wubtitle.com/.
-	$endpoint = 'https://jn8vowoh4e.execute-api.eu-west-1.amazonaws.com/dev/';
+	$endpoint = 'https://dev.api.wubtitle.com/';
 }
 define( 'WUBTITLE_ENDPOINT', $endpoint );
 if ( file_exists( dirname( __FILE__ ) . '/vendor/autoload.php' ) ) {
