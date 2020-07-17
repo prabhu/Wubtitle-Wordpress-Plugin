@@ -56,7 +56,13 @@ class Settings {
 	 * @return void
 	 */
 	public function render_settings_page() {
-		$plans        = get_option( 'wubtitle_all_plans' ) !== '' ? get_option( 'wubtitle_all_plans' ) : array();
+		$plans = array();
+		if (
+			get_option( 'wubtitle_all_plans' ) ||
+			get_option( 'wubtitle_all_plans' ) === ''
+		) {
+			$plans = get_option( 'wubtitle_all_plans' );
+		}
 		$plan_rank    = get_option( 'wubtitle_plan_rank' );
 		$current_plan = array_key_exists( $plan_rank, $plans ) ? $plans[ $plan_rank ]['name'] : '';
 		$seconds_max  = get_option( 'wubtitle_total_seconds' );
@@ -125,28 +131,12 @@ class Settings {
 	 * @return void
 	 */
 	public function check_notice_stripe() {
-		$message = false;
 		// phpcs:disable
 		if ( empty( $_GET['notices-code'] ) || isset( $_GET['settings-updated'] ) ) {
 			return;
 		}
-		switch ( $_GET['notices-code'] ) {
-			case 'payment':
-				$message = __( 'Payment successful', 'wubtitle' );
-				break;
-			case 'update':
-				$message = __( 'Payment information updated', 'wubtitle' );
-				break;
-			case 'reset':
-				$message = __( 'License key sent, check your email!', 'wubtitle' );
-				break;
-			case 'delete':
-				$message = __( 'Unsubscription successful', 'wubtitle' );
-				break;
-			case 'reactivate':
-				$message = __( 'Reactivation of the plan successful', 'wubtitle' );
-				break;
-		}
+		$helpers= new Helpers();
+		$message = $helpers->switch_message($_GET['notices-code']);
 		if ( ! $message ) {
 			return;
 		}
