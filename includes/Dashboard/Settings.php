@@ -309,7 +309,15 @@ class Settings {
 			Loader::get( 'cron' )->get_remote_data();
 		}
 		add_settings_section( 'wubtitle-main-settings', '', function(){}, 'wubtitle-settings' );
-		$plans    = get_option( 'wubtitle_all_plans' ) !== '' ? get_option( 'wubtitle_all_plans' ) : array();
+
+		$plans = array();
+		if (
+			get_option( 'wubtitle_all_plans' ) ||
+			get_option( 'wubtitle_all_plans' ) === ''
+		) {
+			$plans = get_option( 'wubtitle_all_plans' );
+		}
+
 		$disabled = count( $plans ) === 0 ? 'disabled' : '';
 		$message  = count( $plans ) === 0 ? __( 'Upgrade feature temporarily disabled due to error loading the page. Please refresh the page and try again.', 'wubtitle' ) : '';
 		if ( count( $plans ) === 0 || get_option( 'wubtitle_plan_rank' ) < count( $plans ) - 1 ) {
