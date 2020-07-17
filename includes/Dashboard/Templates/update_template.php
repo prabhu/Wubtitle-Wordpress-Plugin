@@ -29,6 +29,7 @@
 	<div id="update-form"></div>
 	<script>
 		const WP_GLOBALS = {
+			pricePlan: "<?php echo isset( $current_plan ) ? esc_js( $current_plan['price'] ) : ''; ?>",
 			ajaxUrl: "<?php echo esc_html( admin_url( 'admin-ajax.php' ) ); ?>",
 			ajaxNonce: "<?php echo esc_js( wp_create_nonce( 'itr_ajax_nonce' ) ); ?>",
 			wubtitleEnv: "<?php echo defined( 'WP_WUBTITLE_ENV' ) ? esc_html( WP_WUBTITLE_ENV ) : ''; ?>"

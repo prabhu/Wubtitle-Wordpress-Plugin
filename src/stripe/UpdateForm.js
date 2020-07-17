@@ -24,7 +24,23 @@ function App() {
 	const [invoiceValues, setInvoiceValues] = useState(null);
 
 	const handleSubmit = (values) => {
-		setInvoiceValues(values);
+		fetch(ajaxUrl, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded',
+			},
+			body: `action=check_vat_code&_ajax_nonce=${ajaxNonce}&vat_code=${values.vat_code}&country=${values.country}&price_plan=${pricePlan}`,
+		})
+			.then((resp) => resp.json())
+			.then((response) => {
+				if (response.success) {
+					setError(null);
+					values.tax = response.data;
+					setInvoiceValues(values);
+				} else {
+					setError(response.data);
+				}
+			});
 	};
 
 	const createSubscription = (paymentMethodId, values) => {

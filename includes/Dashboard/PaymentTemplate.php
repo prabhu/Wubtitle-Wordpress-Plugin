@@ -77,8 +77,11 @@ class PaymentTemplate {
 	 * @return void
 	 */
 	public function load_update_template() {
+		$plan_rank = get_option( 'wubtitle_plan_rank' );
+		$plans     = get_option( 'wubtitle_all_plans' );
 		if ( current_user_can( 'manage_options' ) ) {
 			ob_start();
+			$current_plan = $plans[ $plan_rank ];
 			include 'Templates/update_template.php';
 			$html = ob_get_clean();
 			wp_send_json_success( $html );
