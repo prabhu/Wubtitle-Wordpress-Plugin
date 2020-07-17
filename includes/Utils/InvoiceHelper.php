@@ -37,20 +37,21 @@ class InvoiceHelper {
 			'Country'   => $invoice_object->country,
 		);
 
-		if ( ! empty( $invoice_object->company_name ) ) {
-			$invoice_details['CompanyName'] = $invoice_object->company_name;
-		}
 		if ( ! in_array( $invoice_object->country, $eu_countries, true ) ) {
+			if ( ! empty( $invoice_object->company_name ) ) {
+				$invoice_details['CompanyName'] = $invoice_object->company_name;
+			}
 			return $invoice_details;
 		}
-		if ( empty( $invoice_object->fiscal_code ) && empty( $invoice_object->vat_code ) ) {
-			return false;
+		if ( ! empty( $invoice_object->company_name ) ) {
+			$invoice_details['CompanyName'] = $invoice_object->company_name;
+			if ( empty( $invoice_object->vat_code ) ) {
+				return false;
+			}
+			$invoice_details['VatCode'] = $invoice_object->vat_code;
 		}
 		if ( 'IT' === $invoice_object->country ) {
 			$invoice_details = $this->italian_invoice( $invoice_details, $invoice_object );
-		}
-		if ( ! isset( $invoice_details['FiscalCode'] ) && isset( $invoice_object->vat_code ) ) {
-			$invoice_details['VatCode'] = $invoice_object->vat_code;
 		}
 		return $invoice_details;
 	}
@@ -61,14 +62,15 @@ class InvoiceHelper {
 	 * @param array<string> $invoice_details array content init value.
 	 * @param object        $invoice_object invoice data object.
 	 *
-	 * @return array<string>
+	 * @return array<string>|false
 	 */
 	public function italian_invoice( $invoice_details, $invoice_object ) {
-		if ( isset( $invoice_object->cap, $invoice_object->province ) ) {
-			$invoice_details['PostCode'] = $invoice_object->cap;
-			$invoice_details['Province'] = $invoice_object->province;
+		if ( empty( $invoice_object->cap ) || empty( $invoice_object->province ) ) {
+			return false;
 		}
-		if ( empty( $invoice_object->company_name ) && isset( $invoice_object->fiscal_code ) ) {
+		$invoice_details['PostCode'] = $invoice_object->cap;
+		$invoice_details['Province'] = $invoice_object->province;
+		if ( ! empty( $invoice_object->fiscal_code ) ) {
 			$invoice_details['FiscalCode'] = $invoice_object->fiscal_code;
 		}
 		if ( ! empty( $invoice_object->destination_code ) ) {
