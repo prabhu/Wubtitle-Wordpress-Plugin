@@ -11,8 +11,6 @@ namespace Wubtitle\Dashboard;
 
 /**
  * This class handles Payment Templates.
- *
- * @SuppressWarnings(PHPMD.UnusedLocalVariable)
  */
 class PaymentTemplate {
 	/**
