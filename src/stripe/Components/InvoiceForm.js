@@ -10,6 +10,7 @@ export default function CheckoutForm(props) {
 	const { invoicePreValues, handleSubmit, error } = props;
 	const [loading, setLoading] = useState(false);
 	const requiredMessage = __('Required', 'wubtitle');
+
 	const DisplayingErrorMessagesSchema = Yup.lazy((values) => {
 		const yupObject = {
 			invoice_name: Yup.string().required(requiredMessage),
@@ -18,8 +19,12 @@ export default function CheckoutForm(props) {
 				.required(requiredMessage),
 			invoice_lastname: Yup.string().required(requiredMessage),
 			telephone: Yup.string()
-				.required(requiredMessage)
+				.required(__('Telephone number required ', 'wubtitle'))
 				.matches('^[0-9]*$', __('Only numbers', 'wubtitle')),
+			prefix_telephone: Yup.string()
+				.required(__('Prefix required ', 'wubtitle'))
+				.matches('^[0-9]*$', __('Prefix is only numbers ', 'wubtitle'))
+				.max(3, __('Prefix must be max 3 numbers', 'wubtitle')),
 			address: Yup.string().required(requiredMessage),
 			city: Yup.string().required(requiredMessage),
 			country: Yup.string().required(requiredMessage),
@@ -29,18 +34,20 @@ export default function CheckoutForm(props) {
 		}
 		if (values.company_name) {
 			yupObject.vat_code = Yup.string().required(requiredMessage);
+			if (values.country === 'IT') {
+				yupObject.vat_code = Yup.string()
+					.required(requiredMessage)
+					.length(
+						11,
+						__('Vat Code must be exactly 11 characters', 'wubtitle')
+					);
+			}
 		} else if (values.country === 'IT') {
 			yupObject.fiscal_code = Yup.string()
 				.required(requiredMessage)
 				.length(
 					16,
 					__('Fiscal Code must be exactly 16 characters', 'wubtitle')
-				);
-			yupObject.vat_code = Yup.string()
-				.required(requiredMessage)
-				.length(
-					11,
-					__('Vat Code must be exactly 11 characters', 'wubtitle')
 				);
 		}
 		if (values.country === 'IT') {
@@ -63,6 +70,7 @@ export default function CheckoutForm(props) {
 		invoice_name: '',
 		invoice_email: '',
 		invoice_lastname: '',
+		prefix_telephone: '',
 		telephone: '',
 		company_name: '',
 		address: '',
@@ -79,6 +87,13 @@ export default function CheckoutForm(props) {
 			...invoicePreValues,
 		};
 	}
+
+	const prefixLimit = (prefix) => {
+		if (prefix.length > 3) {
+			return prefix.substring(0, prefix.length - 1);
+		}
+		return prefix;
+	};
 
 	return (
 		<div className="wrapper-form">
@@ -222,7 +237,16 @@ export default function CheckoutForm(props) {
 							<label htmlFor="vatCode">
 								{__('Vat Code', 'wubtitle')}
 							</label>
-							<Field name="vat_code" placeholder="Vat Code" />
+							<div>
+								<span className="prefix-input input">
+									{values.country}
+								</span>
+								<Field
+									className="input-with-prefix"
+									name="vat_code"
+									placeholder="Vat Code"
+								/>
+							</div>
 							<p className="error-message">
 								{touched.vat_code && errors.vat_code}
 							</p>
@@ -247,8 +271,22 @@ export default function CheckoutForm(props) {
 							<label htmlFor="telephone">
 								{__('Telephone', 'wubtitle')}
 							</label>
-							<Field name="telephone" placeholder="Telephone" />
+							<div>
+								<Field
+									className="prefix-input"
+									name="prefix_telephone"
+									placeholder="+"
+									value={prefixLimit(values.prefix_telephone)}
+								/>
+								<Field
+									className="input-with-prefix"
+									name="telephone"
+									placeholder="Telephone"
+								/>
+							</div>
 							<p className="error-message">
+								{touched.prefix_telephone &&
+									errors.prefix_telephone}
 								{touched.telephone && errors.telephone}
 							</p>
 						</div>
