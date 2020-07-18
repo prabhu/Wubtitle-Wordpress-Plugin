@@ -2,6 +2,7 @@
  * Use the CSS tab above to style your Element's container.
  */
 import React from 'react';
+import { __ } from '@wordpress/i18n';
 import { CardElement } from '@stripe/react-stripe-js';
 
 const CARD_ELEMENT_OPTIONS = {
@@ -25,7 +26,7 @@ const CARD_ELEMENT_OPTIONS = {
 function CardSection() {
 	return (
 		<label htmlFor="form">
-			Card details
+			{__('Card details', 'wubtitle')}
 			<CardElement options={CARD_ELEMENT_OPTIONS} />
 		</label>
 	);

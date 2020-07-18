@@ -18,7 +18,7 @@
     }
   },
   "scripts": {
-    "build-stripe": "wp-scripts build src/stripe/index.js --output-path=build_form --webpack-no-externals",
+    "build-stripe": "wp-scripts build src/stripe/index.js --output-path=build_form",
     "build-data": "cp src/stripe/data/europeanCountries.json build_form/",
     "build": "wp-scripts build && npm run build-stripe && npm run build-data",
     "check-engines": "wp-scripts check-engines",

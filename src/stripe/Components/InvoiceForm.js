@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import * as Yup from 'yup';
+import { __ } from '@wordpress/i18n';
 import { Formik, Form, Field } from 'formik';
 import countries from '../data/countries.json';
 import provinces from '../data/provinces.json';
@@ -8,42 +9,52 @@ import euCountries from '../data/europeanCountries.json';
 export default function CheckoutForm(props) {
 	const { invoicePreValues, handleSubmit, error } = props;
 	const [loading, setLoading] = useState(false);
+	const requiredMessage = __('Required', 'wubtitle');
 	const DisplayingErrorMessagesSchema = Yup.lazy((values) => {
 		const yupObject = {
-			invoice_name: Yup.string().required('Required'),
+			invoice_name: Yup.string().required(requiredMessage),
 			invoice_email: Yup.string()
-				.email('Invalid email')
-				.required('Required'),
-			invoice_lastname: Yup.string().required('Required'),
+				.email(__('Invalid email', 'wubtitle'))
+				.required(requiredMessage),
+			invoice_lastname: Yup.string().required(requiredMessage),
 			telephone: Yup.string()
-				.required('Required')
-				.matches('^[0-9]*$', 'Only numbers'),
-			address: Yup.string().required('Required'),
-			city: Yup.string().required('Required'),
-			country: Yup.string().required('Required'),
+				.required(requiredMessage)
+				.matches('^[0-9]*$', __('Only numbers', 'wubtitle')),
+			address: Yup.string().required(requiredMessage),
+			city: Yup.string().required(requiredMessage),
+			country: Yup.string().required(requiredMessage),
 		};
 		if (!euCountries.includes(values.country)) {
 			return Yup.object().shape(yupObject);
 		}
 		if (values.company_name) {
-			yupObject.vat_code = Yup.string().required('Required');
+			yupObject.vat_code = Yup.string().required(requiredMessage);
 		} else if (values.country === 'IT') {
 			yupObject.fiscal_code = Yup.string()
-				.required('Required')
-				.length(16, 'Fiscal Code must be exactly 16 characters');
+				.required(requiredMessage)
+				.length(
+					16,
+					__('Fiscal Code must be exactly 16 characters', 'wubtitle')
+				);
 			yupObject.vat_code = Yup.string()
-				.required('Required')
-				.length(11, 'Vat Code must be exactly 11 characters');
+				.required(requiredMessage)
+				.length(
+					11,
+					__('Vat Code must be exactly 11 characters', 'wubtitle')
+				);
 		}
 		if (values.country === 'IT') {
 			yupObject.cap = Yup.string()
-				.required('Required')
-				.length(5, 'Postal Code must be exactly 5 characters')
+				.required(requiredMessage)
+				.length(
+					5,
+					__('Postal Code must be exactly 5 characters', 'wubtitle')
+				)
 				.matches('^[0-9]*$', 'Only numbers');
-			yupObject.province = Yup.string().required('Required');
+			yupObject.province = Yup.string().required(requiredMessage);
 			yupObject.destination_code = Yup.string().length(
 				7,
-				'Destination Code must be exactly 7 characters'
+				__('Destination Code must be exactly 7 characters', 'wubtitle')
 			);
 		}
 		return Yup.object().shape(yupObject);
@@ -85,14 +96,18 @@ export default function CheckoutForm(props) {
 						<h2> Billing Details</h2>
 
 						<div className="form-field-container">
-							<label htmlFor="invoiceName">Name</label>
+							<label htmlFor="invoiceName">
+								{__('Name', 'wubtitle')}
+							</label>
 							<Field name="invoice_name" placeholder="Name" />
 							<p className="error-message">
 								{touched.invoice_name && errors.invoice_name}
 							</p>
 						</div>
 						<div className="form-field-container">
-							<label htmlFor="invoiceLastname">Lastname</label>
+							<label htmlFor="invoiceLastname">
+								{__('Lastname', 'wubtitle')}
+							</label>
 							<Field
 								name="invoice_lastname"
 								placeholder="Lastname"
@@ -110,7 +125,9 @@ export default function CheckoutForm(props) {
 							</p>
 						</div>
 						<div className="form-field-container">
-							<label htmlFor="companyName">Company Name</label>
+							<label htmlFor="companyName">
+								{__('Company Name', 'wubtitle')}
+							</label>
 							<Field
 								name="company_name"
 								placeholder="Company Name"
@@ -120,7 +137,9 @@ export default function CheckoutForm(props) {
 							</p>
 						</div>
 						<div className="form-field-container">
-							<label htmlFor="country">Country</label>
+							<label htmlFor="country">
+								{__('Country', 'wubtitle')}
+							</label>
 							<Field name="country" component="select">
 								<option value="" label={'Select a country'} />
 								{Object.entries(countries).map(
@@ -142,7 +161,9 @@ export default function CheckoutForm(props) {
 								values.country !== 'IT' ? 'hidden' : ''
 							}`}
 						>
-							<label htmlFor="province">Province</label>
+							<label htmlFor="province">
+								{__('Province', 'wubtitle')}
+							</label>
 							<Field name="province" component="select">
 								<option value="" label={'Select a province'} />
 								{Object.entries(provinces).map(
@@ -160,14 +181,18 @@ export default function CheckoutForm(props) {
 							</p>
 						</div>
 						<div className="form-field-container">
-							<label htmlFor="city">City</label>
+							<label htmlFor="city">
+								{__('City', 'wubtitle')}
+							</label>
 							<Field name="city" placeholder="City" />
 							<p className="error-message">
 								{touched.city && errors.city}
 							</p>
 						</div>
 						<div className="form-field-container">
-							<label htmlFor="address">Address</label>
+							<label htmlFor="address">
+								{__('Address', 'wubtitle')}
+							</label>
 							<Field name="address" placeholder="Address" />
 							<p className="error-message">
 								{touched.address && errors.address}
@@ -178,7 +203,9 @@ export default function CheckoutForm(props) {
 								values.country !== 'IT' ? 'hidden' : ''
 							}`}
 						>
-							<label htmlFor="cap">CAP</label>
+							<label htmlFor="cap">
+								{__('Postal Code', 'wubtitle')}
+							</label>
 							<Field name="cap" placeholder="CAP" />
 							<p className="error-message">
 								{touched.cap && errors.cap}
@@ -192,7 +219,9 @@ export default function CheckoutForm(props) {
 									: ''
 							}`}
 						>
-							<label htmlFor="vatCode">Vat Code</label>
+							<label htmlFor="vatCode">
+								{__('Vat Code', 'wubtitle')}
+							</label>
 							<Field name="vat_code" placeholder="Vat Code" />
 							<p className="error-message">
 								{touched.vat_code && errors.vat_code}
@@ -203,7 +232,9 @@ export default function CheckoutForm(props) {
 								'IT' !== values.country ? 'hidden' : ''
 							}`}
 						>
-							<label htmlFor="fiscalCode">Fiscal Code</label>
+							<label htmlFor="fiscalCode">
+								{__('Fiscal Code', 'wubtitle')}
+							</label>
 							<Field
 								name="fiscal_code"
 								placeholder="Fiscal Code"
@@ -213,7 +244,9 @@ export default function CheckoutForm(props) {
 							</p>
 						</div>
 						<div className="form-field-container">
-							<label htmlFor="telephone">Telephone</label>
+							<label htmlFor="telephone">
+								{__('Telephone', 'wubtitle')}
+							</label>
 							<Field name="telephone" placeholder="Telephone" />
 							<p className="error-message">
 								{touched.telephone && errors.telephone}
@@ -225,7 +258,7 @@ export default function CheckoutForm(props) {
 							}`}
 						>
 							<label htmlFor="destination-code">
-								Destination Code
+								{__('Destination Code', 'wubtitle')}
 							</label>
 							<Field
 								name="destination_code"
@@ -243,7 +276,7 @@ export default function CheckoutForm(props) {
 							{loading && (
 								<i className="fa fa-refresh fa-spin loading-margin" />
 							)}
-							Summary
+							{__('Summary', 'wubtitle')}
 						</button>
 					</Form>
 				)}

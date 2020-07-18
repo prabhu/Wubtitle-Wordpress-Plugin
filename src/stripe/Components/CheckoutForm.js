@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import * as Yup from 'yup';
+import { __ } from '@wordpress/i18n';
 import { Formik, Form, Field } from 'formik';
 import CardSection from './CardSection';
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
@@ -9,10 +10,13 @@ export default function CheckoutForm(props) {
 	const stripe = useStripe();
 	const elements = useElements();
 	const [loading, setLoading] = useState(false);
+	const requiredMessage = __('Required', 'wubtitle');
 	const DisplayingErrorMessagesSchema = Yup.object().shape({
-		name: Yup.string().required('Required'),
-		email: Yup.string().email('Invalid email').required('Required'),
-		lastname: Yup.string().required('Required'),
+		name: Yup.string().required(requiredMessage),
+		email: Yup.string()
+			.email(__('Invalid email', 'wubtitle'))
+			.required(requiredMessage),
+		lastname: Yup.string().required(requiredMessage),
 	});
 
 	const handleSubmit = async (values) => {
@@ -54,14 +58,16 @@ export default function CheckoutForm(props) {
 			{({ errors, touched }) => (
 				<Form>
 					<div className="form-field-container">
-						<label htmlFor="name">Name</label>
+						<label htmlFor="name">{__('Name', 'wubtitle')}</label>
 						<Field name="name" placeholder="Name" />
 						<p className="error-message">
 							{touched.name && errors.name}
 						</p>
 					</div>
 					<div className="form-field-container">
-						<label htmlFor="lastname">Lastname</label>
+						<label htmlFor="lastname">
+							{__('Lastname', 'wubtitle')}
+						</label>
 						<Field name="lastname" placeholder="Lastname" />
 						<p className="error-message">
 							{touched.lastname && errors.lastname}
@@ -87,7 +93,7 @@ export default function CheckoutForm(props) {
 						{loading && (
 							<i className="fa fa-refresh fa-spin loading-margin" />
 						)}
-						Confirm order
+						{__('Confirm order', 'wubtitle')}
 					</button>
 				</Form>
 			)}
