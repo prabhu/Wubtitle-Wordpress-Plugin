@@ -119,7 +119,21 @@ class PaymentTemplate {
 			$plan_rank   = sanitize_text_field( wp_unslash( $_POST['planRank'] ) );
 			$plans       = get_option( 'wubtitle_all_plans' );
 			$wanted_plan = $plans[ $plan_rank ];
-			$ajax_url    = admin_url( 'admin-ajax.php' );
+			wp_enqueue_script( 'wubtitle_stripe_form', WUBTITLE_URL . 'build_form/index.js', array( 'wp-element', 'wp-i18n' ), WUBTITLE_VER, true );
+			wp_localize_script(
+				'wubtitle_stripe_form',
+				'WP_GLOBALS',
+				array(
+					'pricePlan'   => $wanted_plan['price'],
+					'planId'      => $wanted_plan['stripe-code'],
+					'namePlan'    => $wanted_plan['name'],
+					'ajaxUrl'     => admin_url( 'admin-ajax.php' ),
+					'ajaxNonce'   => wp_create_nonce( 'itr_ajax_nonce' ),
+					'wubtitleEnv' => defined( 'WP_WUBTITLE_ENV' ) ? esc_html( WP_WUBTITLE_ENV ) : '',
+				)
+			);
+			wp_enqueue_style( 'wubtitle_style_form', WUBTITLE_URL . 'assets/css/stripeStyle.css', array(), WUBTITLE_VER );
+			wp_enqueue_style( 'wubtitle_font_awesome', 'https://maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css', array(), WUBTITLE_VER );
 			include 'Templates/custom_form.php';
 			$html = ob_get_clean();
 			wp_send_json_success( $html );
