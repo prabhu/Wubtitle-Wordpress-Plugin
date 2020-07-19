@@ -10,7 +10,7 @@ function redirectToCallback(param) {
 	window.location.href += "&" + param;
 }
 function cancelPayment(){
-	BuyLicenseWindow.close();
+	CustomFormWindow.close();
 	showBuyLicenseWindow();
 }
 function confirmPlanChange(){

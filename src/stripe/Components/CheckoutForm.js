@@ -6,7 +6,7 @@ import CardSection from './CardSection';
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
 
 export default function CheckoutForm(props) {
-	const { createSubscription, error } = props;
+	const { createSubscription, backFunction, error } = props;
 	const stripe = useStripe();
 	const elements = useElements();
 	const [loading, setLoading] = useState(false);
@@ -86,6 +86,9 @@ export default function CheckoutForm(props) {
 					<div className="error-message-container" role="alert">
 						<p className="error-message">{error}</p>
 					</div>
+					<button onClick={() => backFunction()}>
+						{__('Cancel', 'wubtitle')}
+					</button>
 					<button
 						disabled={!stripe || loading}
 						className={loading ? 'disabled' : ''}

@@ -22,6 +22,7 @@ function App() {
 
 	const [error, setError] = useState(null);
 	const [invoiceValues, setInvoiceValues] = useState(null);
+	const [isBack, setIsBack] = useState(false);
 
 	const handleSubmit = (values) => {
 		fetch(ajaxUrl, {
@@ -37,6 +38,9 @@ function App() {
 					setError(null);
 					values.tax = response.data;
 					setInvoiceValues(values);
+					if (isBack) {
+						setIsBack(false);
+					}
 				} else {
 					setError(response.data);
 				}
@@ -63,9 +67,18 @@ function App() {
 			});
 	};
 
+	const backFunction = () => {
+		setIsBack(true);
+		setError(null);
+	};
+
+	const cancelFunction = () => {
+		window.close();
+	};
+
 	return (
 		<Elements stripe={stripePromise}>
-			{invoiceValues ? (
+			{invoiceValues && !isBack ? (
 				<div className="wrapper-form">
 					<InvoiceSummary
 						invoiceValues={invoiceValues}
@@ -73,14 +86,16 @@ function App() {
 					/>
 					<CheckoutForm
 						createSubscription={createSubscription}
+						backFunction={backFunction}
 						error={error}
 					/>
 				</div>
 			) : (
 				<InvoiceForm
 					handleSubmit={handleSubmit}
-					invoicePreValues={invoicePreValues}
+					invoicePreValues={invoiceValues || invoicePreValues}
 					error={error}
+					cancelFunction={cancelFunction}
 				/>
 			)}
 		</Elements>

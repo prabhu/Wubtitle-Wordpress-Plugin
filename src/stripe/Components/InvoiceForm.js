@@ -7,7 +7,7 @@ import provinces from '../data/provinces.json';
 import euCountries from '../data/europeanCountries.json';
 
 export default function CheckoutForm(props) {
-	const { invoicePreValues, handleSubmit, error } = props;
+	const { invoicePreValues, handleSubmit, cancelFunction, error } = props;
 	const [loading, setLoading] = useState(false);
 	const requiredMessage = __('Required', 'wubtitle');
 
@@ -310,6 +310,9 @@ export default function CheckoutForm(props) {
 						<div className="error-message-container" role="alert">
 							<p className="error-message">{error}</p>
 						</div>
+						<button onClick={() => cancelFunction()}>
+							{__('Cancel', 'wubtitle')}
+						</button>
 						<button>
 							{loading && (
 								<i className="fa fa-refresh fa-spin loading-margin" />
