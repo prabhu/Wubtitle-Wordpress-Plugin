@@ -343,8 +343,7 @@ class ApiPricingPlan {
 			),
 		);
 
-		$license_key = get_option( 'wubtitle_license_key' );
-		// TODO change endpoint.
+		$license_key   = get_option( 'wubtitle_license_key' );
 		$response      = wp_remote_post(
 			WUBTITLE_ENDPOINT . 'stripe/checkout/create',
 			array(
