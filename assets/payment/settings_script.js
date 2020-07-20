@@ -17,7 +17,7 @@ function confirmPlanChange(){
 	BuyLicenseWindow.close();
 	confirmPlanChangeWindow();
 }
-//this function it's used by dialog CustomFormWindow 
+//this function is used by the dialog CustomFormWindow 
 function customStripeForm(planRank){
 	BuyLicenseWindow.close();
 	showCustomFormWindow(planRank);
