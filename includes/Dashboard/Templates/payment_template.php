@@ -60,7 +60,7 @@ require WUBTITLE_DIR . 'includes/Dashboard/Templates/plans_array.php';
 						<?php
 						endforeach;
 					?>
-					<div class="<?php echo esc_attr( $plan['class_button'] ); ?>" plan="<?php echo esc_html( $key_plan ); ?>">
+					<div class="<?php echo esc_attr( $plan['class_button'] ); ?>" plan="<?php echo esc_attr( $key_plan ); ?>">
 						<?php echo esc_html( $plan['message_button'] ); ?>
 					</div>
 				</div>

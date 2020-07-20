@@ -17,6 +17,7 @@ function confirmPlanChange(){
 	BuyLicenseWindow.close();
 	confirmPlanChangeWindow();
 }
+//this function it's used by dialog CustomFormWindow 
 function customStripeForm(planRank){
 	BuyLicenseWindow.close();
 	showCustomFormWindow(planRank);
@@ -73,7 +74,7 @@ document.addEventListener('DOMContentLoaded', function () {
 	}
 });
 const showCustomFormWindow = (planRank) => {
-	if (CustomFormWindow === null || CustomFormWindow.closed) {
+	if (!CustomFormWindow || CustomFormWindow.closed) {
 		const windowFeatures = `
             left=500,
             top=200,
