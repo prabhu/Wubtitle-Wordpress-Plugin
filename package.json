@@ -36,7 +36,9 @@
     "fixjs": "eslint --fix ./src",
     "lint:js:src": "wp-scripts lint-js ./src",
     "fix:js:src": "wp-scripts lint-js --fix ./src",
-    "csslint": "node_modules/.bin/csslint src/ || return 0"
+    "csslint": "node_modules/.bin/csslint src/ || return 0",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "dependencies": {
     "@stripe/react-stripe-js": "^1.1.2",
@@ -44,6 +46,8 @@
     "@wordpress/api-fetch": "^3.18.0",
     "@wordpress/i18n": "^3.14.0",
     "formik": "^2.1.4",
-    "yup": "^0.29.1"
-  }
+    "yup": "^0.29.1",
+    "snyk": "^1.363.0"
+  },
+  "snyk": true
 }
