@@ -235,3 +235,13 @@ table tr {
 	background: none;
 	color: #616161;
 }
+
+
+.summary {
+	padding: 1rem;
+}
+
+.summary h2 {
+	padding-top: 2rem;
+	color: #304FFE;
+}
