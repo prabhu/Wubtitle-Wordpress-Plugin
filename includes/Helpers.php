@@ -79,37 +79,4 @@ class Helpers {
 		return $error;
 	}
 
-
-	/**
-	 * Switch message based on code.
-	 *
-	 * @param string $code message code.
-	 *
-	 * @return string|false
-	 */
-	public function switch_message( $code ) {
-		$message = false;
-
-		switch ( $code ) {
-			case 'payment':
-				$message = __( 'Payment successful', 'wubtitle' );
-				break;
-			case 'update':
-				$message = __( 'Payment information updated', 'wubtitle' );
-				break;
-			case 'reset':
-				$message = __( 'License key sent, check your email!', 'wubtitle' );
-				break;
-			case 'delete':
-				$message = __( 'Unsubscription successful', 'wubtitle' );
-				break;
-			case 'reactivate':
-				$message = __( 'Reactivation of the plan successful', 'wubtitle' );
-				break;
-		}
-
-		return $message;
-	}
-
-
 }

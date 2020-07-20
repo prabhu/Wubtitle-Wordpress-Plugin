@@ -131,21 +131,33 @@ class Settings {
 	 * @return void
 	 */
 	public function check_notice_stripe() {
+		$message = false;
+
 		// phpcs:disable
 		if ( empty( $_GET['notices-code'] ) || isset( $_GET['settings-updated'] ) ) {
 			return;
 		}
-		$helpers= new Helpers();
-		$message = $helpers->switch_message($_GET['notices-code']);
+		$notice_code = sanitize_text_field( wp_unslash( $_GET['notices-code'] ) );
+		// phpcs:enable
+
+		$notice_messages = array(
+			'payment'    => __( 'Payment successful', 'wubtitle' ),
+			'update'     => __( 'Payment information updated', 'wubtitle' ),
+			'reset'      => __( 'License key sent, check your email!', 'wubtitle' ),
+			'delete'     => __( 'Unsubscription successful', 'wubtitle' ),
+			'reactivate' => __( 'Reactivation of the plan successful', 'wubtitle' ),
+		);
+
+		$message = $notice_messages[ $notice_code ];
+
 		if ( ! $message ) {
 			return;
 		}
 		?>
-		 <div class="notice notice-success is-dismissible">
-			 <p> <?php echo esc_html( $message ); ?></p>
-		 </div>
+		<div class="notice notice-success is-dismissible">
+			<p> <?php echo esc_html( $message ); ?></p>
+		</div>
 		<?php
-		// phpcs:enable
 	}
 
 
