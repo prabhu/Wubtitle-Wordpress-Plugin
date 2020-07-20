@@ -148,8 +148,17 @@ input:focus {
 
 .price-column {
 	width: 33%;
-	background-color: #6772e5;
+	background: transparent linear-gradient(233deg, #D500F9 0%, #2962FF 99%) 0% 0% no-repeat padding-box;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	color: #fff;
 }
+
+
+
+
+
 
 .wrapper-form {
 	width: 67%;

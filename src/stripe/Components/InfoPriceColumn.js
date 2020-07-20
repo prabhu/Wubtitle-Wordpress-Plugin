@@ -7,8 +7,14 @@ import React from 'react';
 const InfoPriceColumn = () => {
 	return (
 		<div className="column price-column">
-			<p>Price</p>
-			<p>a</p>
+			<div className="price">
+				<p>Price</p>
+				<p>a</p>
+			</div>
+			<div className="disclaimer">
+				<p>lorem lorevareg sdgv ergvre grgergerge gergreg wefrgwergw</p>
+				<p>terms and cond</p>
+			</div>
 		</div>
 	);
 };
