@@ -2,7 +2,7 @@
  * Use the CSS tab above to style your Element's container.
  */
 import React from 'react';
-// import { __ } from '@wordpress/i18n';
+import { __ } from '@wordpress/i18n';
 
 const InfoPriceColumn = (props) => {
 	const { price, name } = props;
@@ -12,39 +12,54 @@ const InfoPriceColumn = (props) => {
 	return (
 		<div className="column price-column">
 			<div className="price">
-				<p className="price-name">Subscribe to {name} plan</p>
+				<p className="price-name">
+					{__('Subscribe to', 'wubtitle')} {name}{' '}
+					{__('plan', 'wubtitle')}
+				</p>
 				<table>
 					<tr>
-						<td>Price</td>
-						<td className="val">{price}</td>
+						<td>{__('Price', 'wubtitle')}</td>
+						<td className="val">{price} &euro;</td>
 					</tr>
 					<tr>
-						<td>VAT ({vatPer}%)</td>
-						<td className="val">{vat}</td>
+						<td>
+							{__('VAT', 'wubtitle')} ({vatPer}%)
+						</td>
+						<td className="val">{vat} &euro;</td>
 					</tr>
 					<tr className="total">
-						<td>Total</td>
-						<td className="val">{total} per month</td>
+						<td>{__('Total', 'wubtitle')}</td>
+						<td className="val">
+							{total} &euro;{' '}
+							<span className="valxm">
+								{__('per mounth', 'wubtitle')}
+							</span>
+						</td>
 					</tr>
 				</table>
 			</div>
 			<div className="disclaimer">
-				<p>lorem lorevareg sdgv ergvre grgergerge gergreg wefrgwergw</p>
+				<p>
+					{__(
+						'When ordering within the EU an order may be exempt to VAT if a valid VAT registration number is provided.',
+						'wubtitle'
+					)}
+				</p>
 				<p>
 					<a
-						href="https://google.it"
+						href="https://stripe.com/checkout/terms"
 						rel="noreferrer"
 						target="_blank"
 					>
-						Terms and conditions
+						{__('Terms and conditions', 'wubtitle')}
 					</a>
-					|
+					<span> | </span>
 					<a
-						href="https://google.it"
+						href="https://stripe.com/it/privacy"
 						target="_blank"
 						rel="noreferrer"
 					>
-						Privacy
+						{__('Privacy', 'wubtitle')}
 					</a>
 				</p>
 			</div>
