@@ -96,7 +96,7 @@ export default function CheckoutForm(props) {
 	};
 
 	return (
-		<div className="wrapper-form">
+		<div className="wrapper-form column">
 			<Formik
 				initialValues={initValues}
 				validationSchema={DisplayingErrorMessagesSchema}

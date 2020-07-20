@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import CheckoutForm from './Components/CheckoutForm';
 import InvoiceForm from './Components/InvoiceForm';
 import InvoiceSummary from './Components/InvoiceSummary';
+import InfoPriceColumn from './Components/InfoPriceColumn';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 
@@ -71,28 +72,31 @@ function App() {
 	};
 
 	return (
-		<Elements stripe={stripePromise}>
-			{invoiceValues && !isBack ? (
-				<div className="wrapper-form">
-					<InvoiceSummary
-						invoiceValues={invoiceValues}
-						price={pricePlan}
-					/>
-					<CheckoutForm
-						createSubscription={createSubscription}
+		<div className="columns">
+			<InfoPriceColumn />
+			<Elements stripe={stripePromise}>
+				{invoiceValues && !isBack ? (
+					<div className="wrapper-form">
+						<InvoiceSummary
+							invoiceValues={invoiceValues}
+							price={pricePlan}
+						/>
+						<CheckoutForm
+							createSubscription={createSubscription}
+							error={error}
+							backFunction={backFunction}
+						/>
+					</div>
+				) : (
+					<InvoiceForm
+						handleSubmit={handleSubmit}
+						invoicePreValues={invoiceValues}
 						error={error}
-						backFunction={backFunction}
+						cancelFunction={cancelFunction}
 					/>
-				</div>
-			) : (
-				<InvoiceForm
-					handleSubmit={handleSubmit}
-					invoicePreValues={invoiceValues}
-					error={error}
-					cancelFunction={cancelFunction}
-				/>
-			)}
-		</Elements>
+				)}
+			</Elements>
+		</div>
 	);
 }
 if (document.getElementById('root')) {
