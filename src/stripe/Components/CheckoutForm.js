@@ -90,7 +90,7 @@ export default function CheckoutForm(props) {
 					<div className="error-message-container" role="alert">
 						<p className="error-message">{error}</p>
 					</div>
-					<button onClick={() => backFunction()}>
+					<button className="cancel" onClick={() => backFunction()}>
 						{__('Cancel', 'wubtitle')}
 					</button>
 					<button

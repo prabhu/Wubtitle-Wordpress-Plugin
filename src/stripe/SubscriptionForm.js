@@ -8,7 +8,14 @@ import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 
 function App() {
-	const { wubtitleEnv, planId, ajaxUrl, ajaxNonce, pricePlan } = WP_GLOBALS;
+	const {
+		wubtitleEnv,
+		planId,
+		ajaxUrl,
+		ajaxNonce,
+		pricePlan,
+		namePlan,
+	} = WP_GLOBALS;
 	const stripeKey =
 		wubtitleEnv === 'development'
 			? 'pk_test_lFmjf2Dz7VURTslihG0xys7m00NjW2BOPI'
@@ -73,7 +80,8 @@ function App() {
 
 	return (
 		<div className="columns">
-			<InfoPriceColumn />
+			<InfoPriceColumn price={pricePlan} name={namePlan} />
+
 			<Elements stripe={stripePromise}>
 				{invoiceValues && !isBack ? (
 					<div className="wrapper-form">
