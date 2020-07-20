@@ -133,6 +133,25 @@ input:focus {
 	display: none;
 }
 
+
+
+form {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+form h2 {
+	width: 100%;
+}
+
+.form-field-container {
+	width: 50%;
+	padding: 1rem;
+}
+
+
+
+
 .columns {
 	height: 100vh;
 	width: 100%;
@@ -146,6 +165,7 @@ input:focus {
 	padding: 1rem;
 }
 
+
 .price-column {
 	width: 33%;
 	background: transparent linear-gradient(233deg, #D500F9 0%, #2962FF 99%) 0% 0% no-repeat padding-box;
@@ -154,10 +174,6 @@ input:focus {
 	justify-content: space-between;
 	color: #fff;
 }
-
-
-
-
 
 
 .wrapper-form {
