@@ -32,7 +32,10 @@ class ApiPricingPlan {
 	 * @return void
 	 */
 	public function change_plan() {
-		$wanted_plan = get_option( 'wubtitle_wanted_plan' );
+		$wanted_plan_rank = get_option( 'wubtitle_wanted_plan_rank' );
+		$all_plans        = get_option( 'wubtitle_all_plans' );
+		$wanted_plan      = $all_plans[ $wanted_plan_rank ]['stripe_code'];
+
 		if ( ! isset( $_POST['_ajax_nonce'] ) || empty( $wanted_plan ) ) {
 			wp_send_json_error( __( 'An error occurred. Please try again in a few minutes.', 'wubtitle' ) );
 		}
@@ -71,7 +74,7 @@ class ApiPricingPlan {
 			wp_send_json_error( $message[ $code_response ] );
 		}
 		delete_option( 'wubtitle_amount_preview' );
-		delete_option( 'wubtitle_wanted_plan' );
+		delete_option( 'wubtitle_wanted_plan_rank' );
 		wp_send_json_success();
 	}
 	/**
@@ -136,14 +139,16 @@ class ApiPricingPlan {
 	 */
 	public function send_plan() {
 		$site_url = get_site_url();
-		if ( ! isset( $_POST['_ajax_nonce'], $_POST['pricing_plan'] ) ) {
+		if ( ! isset( $_POST['_ajax_nonce'], $_POST['plan_rank'] ) ) {
 			wp_send_json_error( __( 'An error occurred. Please try again in a few minutes.', 'wubtitle' ) );
 		}
-		$pricing_plan = sanitize_text_field( wp_unslash( $_POST['pricing_plan'] ) );
-		$site_url     = sanitize_text_field( wp_unslash( $site_url ) );
-		$nonce        = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
+		$plan_rank = sanitize_text_field( wp_unslash( $_POST['plan_rank'] ) );
+		$site_url  = sanitize_text_field( wp_unslash( $site_url ) );
+		$nonce     = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
 		check_ajax_referer( 'itr_ajax_nonce', $nonce );
-		$body = $this->set_body_request( $pricing_plan, $site_url );
+		$all_plans    = get_option( 'wubtitle_all_plans' );
+		$pricing_plan = $all_plans[ $plan_rank ]['stripe_code'];
+		$body         = $this->set_body_request( $pricing_plan, $site_url );
 		if ( ! $body ) {
 			wp_send_json_error( __( 'An error occurred. Please try again in a few minutes.', 'wubtitle' ) );
 		}
@@ -182,7 +187,7 @@ class ApiPricingPlan {
 			$response_body  = json_decode( wp_remote_retrieve_body( $response ) );
 			$amount_preview = $response_body->data->amountPreview;
 			update_option( 'wubtitle_amount_preview', $amount_preview );
-			update_option( 'wubtitle_wanted_plan', $pricing_plan );
+			update_option( 'wubtitle_wanted_plan_rank', $plan_rank );
 			wp_send_json_success( 'change_plan' );
 		}
 		// 201 if it is the first payment

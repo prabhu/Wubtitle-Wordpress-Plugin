@@ -9,14 +9,14 @@ const paymentModule = (function (Stripe, document) {
 		}
 	};
 
-	const handleChoice = (plan) => {
+	const handleChoice = (planRank) => {
 		fetch(adminAjax, {
 			method: 'POST',
 			credentials: 'include',
 			headers: new Headers({
 				'Content-Type': 'application/x-www-form-urlencoded',
 			}),
-			body: `action=submit_plan&_ajax_nonce=${nonce}&pricing_plan=${plan}`,
+			body: `action=submit_plan&_ajax_nonce=${nonce}&plan_rank=${planRank}`,
 		})
 			.then((resp) => resp.json())
 			.then((response) => {
@@ -51,11 +51,11 @@ const paymentModule = (function (Stripe, document) {
 		const buttons = document.querySelectorAll('.button-choose-plan');
 		buttons.forEach((button) => {
 			button.addEventListener('click', () => {
-				const plan = button.getAttribute('plan');
-				if (plan === 'plan_0') {
+				const planRank = button.getAttribute('plan');
+				if (planRank === '0') {
 					handleUnsubscription();
 				} else {
-					handleChoice(plan);
+					handleChoice(planRank);
 				}
 			});
 		});
