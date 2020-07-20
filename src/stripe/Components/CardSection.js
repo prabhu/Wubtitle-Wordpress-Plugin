@@ -31,9 +31,9 @@ function CardSection() {
 	return (
 		<label htmlFor="form">
 			{__('Card details', 'wubtitle')}
-			<CardNumberElement options={CARD_ELEMENT_OPTIONS} />
-			<CardExpiryElement options={CARD_ELEMENT_OPTIONS} />
-			<CardCvcElement options={CARD_ELEMENT_OPTIONS} />
+			<CardNumberElement options={CARD_ELEMENT_OPTIONS} className="num" />
+			<CardExpiryElement options={CARD_ELEMENT_OPTIONS} className="exp" />
+			<CardCvcElement options={CARD_ELEMENT_OPTIONS} className="cvc" />
 		</label>
 	);
 }

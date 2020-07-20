@@ -79,7 +79,7 @@ function App() {
 	};
 
 	return (
-		<div className="columns">
+		<div className="main columns">
 			<InfoPriceColumn price={pricePlan} name={namePlan} />
 
 			<Elements stripe={stripePromise}>
