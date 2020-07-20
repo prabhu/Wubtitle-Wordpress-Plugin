@@ -15,6 +15,7 @@ const paymentModule = (function (document) {
 				if (response.success) {
 					if (response.data === 'change_plan') {
 						window.opener.confirmPlanChange();
+						return;
 					}
 					window.opener.customStripeForm(planRank);
 				}

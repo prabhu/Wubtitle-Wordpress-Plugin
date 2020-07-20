@@ -194,7 +194,7 @@ class ApiPricingPlan {
 		$response_body  = json_decode( wp_remote_retrieve_body( $response ) );
 		$amount_preview = $response_body->data->amountPreview;
 		update_option( 'wubtitle_amount_preview', $amount_preview );
-		update_option( 'wubtitle_wanted_plan', $pricing_plan );
+		update_option( 'wubtitle_wanted_plan_rank', $plan_rank );
 		wp_send_json_success( 'change_plan' );
 	}
 	/**
