@@ -137,10 +137,14 @@ form h2 {
 }
 
 
-.form-field-container input {
+.form-field-container input,
+.form-field-container select {
 	margin-top: 1rem;
 }
 
+.form-field-container input.prefix-input {
+	margin-top: 0;
+}
 
 
 

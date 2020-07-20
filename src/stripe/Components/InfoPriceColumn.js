@@ -23,7 +23,7 @@ const InfoPriceColumn = (props) => {
 					</tr>
 					<tr>
 						<td>
-							{__('vat', 'wubtitle')} ({vatPer}%)
+							{__('VAT', 'wubtitle')} ({vatPer}%)
 						</td>
 						<td className="val">{vat} &euro;</td>
 					</tr>
