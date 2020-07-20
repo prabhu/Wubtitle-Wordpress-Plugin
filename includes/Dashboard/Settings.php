@@ -56,13 +56,7 @@ class Settings {
 	 * @return void
 	 */
 	public function render_settings_page() {
-		$plans = array();
-		if (
-			get_option( 'wubtitle_all_plans' ) ||
-			get_option( 'wubtitle_all_plans' ) === ''
-		) {
-			$plans = get_option( 'wubtitle_all_plans' );
-		}
+		$plans        = get_option( 'wubtitle_all_plans', array() );
 		$plan_rank    = get_option( 'wubtitle_plan_rank' );
 		$current_plan = array_key_exists( $plan_rank, $plans ) ? $plans[ $plan_rank ]['name'] : '';
 		$seconds_max  = get_option( 'wubtitle_total_seconds' );
@@ -312,14 +306,7 @@ class Settings {
 		}
 		add_settings_section( 'wubtitle-main-settings', '', function(){}, 'wubtitle-settings' );
 
-		$plans = array();
-		if (
-			get_option( 'wubtitle_all_plans' ) ||
-			get_option( 'wubtitle_all_plans' ) === ''
-		) {
-			$plans = get_option( 'wubtitle_all_plans' );
-		}
-
+		$plans    = get_option( 'wubtitle_all_plans', array() );
 		$disabled = count( $plans ) === 0 ? 'disabled' : '';
 		$message  = count( $plans ) === 0 ? __( 'Upgrade feature temporarily disabled due to error loading the page. Please refresh the page and try again.', 'wubtitle' ) : '';
 		if ( count( $plans ) === 0 || get_option( 'wubtitle_plan_rank' ) < count( $plans ) - 1 ) {
