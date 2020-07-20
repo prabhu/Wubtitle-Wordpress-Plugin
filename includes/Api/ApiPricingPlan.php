@@ -9,6 +9,8 @@
 
 namespace Wubtitle\Api;
 
+use Wubtitle\Loader;
+
 /**
  * This class implements stripe related functions.
  */
@@ -25,6 +27,7 @@ class ApiPricingPlan {
 		add_action( 'wp_ajax_reactivate_plan', array( $this, 'reactivate_plan' ) );
 		add_action( 'wp_ajax_update_payment_method', array( $this, 'update_payment_method' ) );
 		add_action( 'wp_ajax_change_plan', array( $this, 'change_plan' ) );
+		add_action( 'wp_ajax_create_subscription', array( $this, 'create_subscription' ) );
 	}
 	/**
 	 * Calls the backend endpoint to confirm the plan change.
@@ -139,6 +142,9 @@ class ApiPricingPlan {
 	 * @return void
 	 */
 	public function send_plan() {
+		if ( get_option( 'wubtitle_free' ) ) {
+			wp_send_json_success();
+		}
 		$site_url = get_site_url();
 		if ( ! isset( $_POST['_ajax_nonce'], $_POST['plan_rank'] ) ) {
 			wp_send_json_error( __( 'An error occurred. Please try again in a few minutes.', 'wubtitle' ) );
@@ -153,17 +159,15 @@ class ApiPricingPlan {
 		if ( ! $body ) {
 			wp_send_json_error( __( 'An error occurred. Please try again in a few minutes.', 'wubtitle' ) );
 		}
-		$url_endpoint = WUBTITLE_ENDPOINT . 'stripe/session/create';
-		$license_key  = get_option( 'wubtitle_license_key' );
+		$license_key = get_option( 'wubtitle_license_key' );
 		if ( empty( $license_key ) ) {
-			wp_send_json_error( __( 'Unable to create subtitles. The product license key is missing.', 'wubtitle' ) );
+			wp_send_json_error( __( 'The product license key is missing.', 'wubtitle' ) );
 		}
-		// If the plan is not free calls the endpoint for plan update.
-		if ( ! get_option( 'wubtitle_free' ) ) {
-			$url_endpoint = WUBTITLE_ENDPOINT . 'stripe/customer/update/preview';
-			unset( $body['data']['siteLang'] );
-			unset( $body['data']['domainUrl'] );
-		}
+
+		$url_endpoint = WUBTITLE_ENDPOINT . 'stripe/customer/update/preview';
+		unset( $body['data']['siteLang'] );
+		unset( $body['data']['domainUrl'] );
+
 		$response      = wp_remote_post(
 			$url_endpoint,
 			array(
@@ -184,20 +188,14 @@ class ApiPricingPlan {
 			''    => __( 'Could not contact the server', 'wubtitle' ),
 		);
 		// 200 if it is not the first payment.
-		if ( 200 === $code_response ) {
-			$response_body  = json_decode( wp_remote_retrieve_body( $response ) );
-			$amount_preview = $response_body->data->amountPreview;
-			update_option( 'wubtitle_amount_preview', $amount_preview );
-			update_option( 'wubtitle_wanted_plan_rank', $plan_rank );
-			wp_send_json_success( 'change_plan' );
-		}
-		// 201 if it is the first payment
-		if ( 201 !== $code_response ) {
+		if ( 200 !== $code_response ) {
 			wp_send_json_error( $message[ $code_response ] );
 		}
-		$response_body = json_decode( wp_remote_retrieve_body( $response ) );
-		$session_id    = $response_body->data->sessionId;
-		wp_send_json_success( $session_id );
+		$response_body  = json_decode( wp_remote_retrieve_body( $response ) );
+		$amount_preview = $response_body->data->amountPreview;
+		update_option( 'wubtitle_amount_preview', $amount_preview );
+		update_option( 'wubtitle_wanted_plan', $pricing_plan );
+		wp_send_json_success( 'change_plan' );
 	}
 	/**
 	 * Gets the data from JavaScript and sends it to the endpoint for payment update.
@@ -205,17 +203,29 @@ class ApiPricingPlan {
 	 * @return void
 	 */
 	public function update_payment_method() {
-		if ( ! isset( $_POST['_ajax_nonce'] ) ) {
+		if ( ! isset( $_POST['_ajax_nonce'], $_POST['email'], $_POST['paymentMethodId'], $_POST['name'], $_POST['lastname'] ) ) {
 			wp_send_json_error( __( 'An error occurred. Please try again in a few minutes.', 'wubtitle' ) );
 		}
-		$nonce = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
+		$nonce             = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
+		$payment_method_id = sanitize_text_field( wp_unslash( $_POST['paymentMethodId'] ) );
+		$name              = sanitize_text_field( wp_unslash( $_POST['name'] ) );
+		$lastname          = sanitize_text_field( wp_unslash( $_POST['lastname'] ) );
+		$email             = sanitize_text_field( wp_unslash( $_POST['email'] ) );
 		check_ajax_referer( 'itr_ajax_nonce', $nonce );
 		$license_key = get_option( 'wubtitle_license_key' );
 		if ( empty( $license_key ) ) {
-			wp_send_json_error( __( 'Unable to create subtitles. The product license key is missing.', 'wubtitle' ) );
+			wp_send_json_error( __( 'Unable to update payment data. The product license key is missing.', 'wubtitle' ) );
 		}
 		$body          = array(
 			'type' => 'payment',
+			'data' => array(
+				'email'           => $email,
+				'siteLang'        => explode( '_', get_locale(), 2 )[0],
+				'paymentMethodId' => $payment_method_id,
+				'name'            => $name,
+				'lastname'        => $lastname,
+				'invoiceDetails'  => array(),
+			),
 		);
 		$response      = wp_remote_post(
 			WUBTITLE_ENDPOINT . 'stripe/customer/update',
@@ -237,11 +247,11 @@ class ApiPricingPlan {
 			''    => __( 'Could not contact the server', 'wubtitle' ),
 		);
 		if ( 201 !== $code_response ) {
-			wp_send_json_error( $message[ $code_response ] );
+			$response_body = json_decode( wp_remote_retrieve_body( $response ) );
+			$message       = 402 === $code_response ? $response_body->errors->title : $message[ $code_response ];
+			wp_send_json_error( $message );
 		}
-		$response_body = json_decode( wp_remote_retrieve_body( $response ) );
-		$session_id    = $response_body->data->sessionId;
-		wp_send_json_success( $session_id );
+		wp_send_json_success();
 	}
 	/**
 	 * Gets the data from JavaScript and sends it to the endpoint for license reset.
@@ -299,4 +309,73 @@ class ApiPricingPlan {
 		}
 		return false;
 	}
+
+	/**
+	 * Create stripe subscription.
+	 *
+	 * @return void
+	 */
+	public function create_subscription() {
+		$site_url = get_site_url();
+		if ( ! isset( $_POST['_ajax_nonce'], $_POST['email'], $_POST['paymentMethodId'], $_POST['planId'], $_POST['name'], $_POST['lastname'], $_POST['invoiceObject'] ) ) {
+			wp_send_json_error( __( 'An error occurred. Please try again in a few minutes.', 'wubtitle' ) );
+		}
+		$email             = sanitize_text_field( wp_unslash( $_POST['email'] ) );
+		$payment_method_id = sanitize_text_field( wp_unslash( $_POST['paymentMethodId'] ) );
+		$plan_id           = sanitize_text_field( wp_unslash( $_POST['planId'] ) );
+		$name              = sanitize_text_field( wp_unslash( $_POST['name'] ) );
+		$lastname          = sanitize_text_field( wp_unslash( $_POST['lastname'] ) );
+		$nonce             = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
+		$invoice_data      = sanitize_text_field( wp_unslash( $_POST['invoiceObject'] ) );
+		$invoice_object    = json_decode( $invoice_data );
+		$site_url          = sanitize_text_field( wp_unslash( $site_url ) );
+		check_ajax_referer( 'itr_ajax_nonce', $nonce );
+
+		$invoice_details = Loader::get( 'invoice_helper' )->build_invoice_array( $invoice_object );
+		if ( ! $invoice_details ) {
+			wp_send_json_error( __( 'An error occurred. Please try again in a few minutes.', 'wubtitle' ) );
+		}
+
+		$body = array(
+			'data' => array(
+				'email'           => $email,
+				'domainUrl'       => $site_url,
+				'siteLang'        => explode( '_', get_locale(), 2 )[0],
+				'paymentMethodId' => $payment_method_id,
+				'planId'          => $plan_id,
+				'name'            => $name,
+				'lastname'        => $lastname,
+				'invoiceDetails'  => $invoice_details,
+			),
+		);
+
+		$license_key   = get_option( 'wubtitle_license_key' );
+		$response      = wp_remote_post(
+			WUBTITLE_ENDPOINT . 'stripe/checkout/create',
+			array(
+				'method'  => 'POST',
+				'timeout' => 10,
+				'headers' => array(
+					'Content-Type' => 'application/json; charset=utf-8',
+					'licenseKey'   => $license_key,
+				),
+				'body'    => wp_json_encode( $body ),
+			)
+		);
+		$code_response = $this->is_successful_response( $response ) ? wp_remote_retrieve_response_code( $response ) : '500';
+		$message       = array(
+			'400' => __( 'An error occurred. Please try again in a few minutes', 'wubtitle' ),
+			'401' => __( 'An error occurred. Please try again in a few minutes', 'wubtitle' ),
+			'403' => __( 'Access denied', 'wubtitle' ),
+			'500' => __( 'Could not contact the server', 'wubtitle' ),
+			''    => __( 'Could not contact the server', 'wubtitle' ),
+		);
+		if ( 201 !== $code_response ) {
+			$response_body = json_decode( wp_remote_retrieve_body( $response ) );
+			$message       = 402 === $code_response ? $response_body->errors->title : $message[ $code_response ];
+			wp_send_json_error( $message );
+		}
+		wp_send_json_success();
+	}
 }
+

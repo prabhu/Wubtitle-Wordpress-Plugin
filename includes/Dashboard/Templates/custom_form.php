@@ -1,6 +1,6 @@
 <?php
 /**
- * This file is a template.
+ * Stripe Form template.
  *
  * @author     Alessio Catania
  * @since      0.1.0
@@ -8,18 +8,18 @@
  */
 
 /**
- * This template displays the update plan page.
+ * Stripe Form template.
  */
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Update Payment</title>
+	<title>Payment</title>
 </head>
 <body>
-	<div id="update-form"></div>
+	<div id="root"></div>
 	<?php wp_footer(); ?>
 </body>
 </html>

@@ -8,5 +8,6 @@ node_modules/
 *.zip
 vendor/
 build/
+build_form/
 .codacy-coverage/
 reports/

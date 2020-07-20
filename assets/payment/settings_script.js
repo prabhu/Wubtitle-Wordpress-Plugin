@@ -3,18 +3,24 @@
 let BuyLicenseWindow = null;
 let UpdatePlanWindow = null;
 let CancelSubscriptionWindow = null;
+let CustomFormWindow = null;
 let wait = false;
 /* eslint-disable */
 function redirectToCallback(param) {
 	window.location.href += "&" + param;
 }
 function cancelPayment(){
-	BuyLicenseWindow.close();
+	CustomFormWindow.close();
 	showBuyLicenseWindow();
 }
 function confirmPlanChange(){
 	BuyLicenseWindow.close();
 	confirmPlanChangeWindow();
+}
+//this function is used by the dialog CustomFormWindow 
+function customStripeForm(planRank){
+	BuyLicenseWindow.close();
+	showCustomFormWindow(planRank);
 }
 /* eslint-enable */
 
@@ -67,13 +73,43 @@ document.addEventListener('DOMContentLoaded', function () {
 		});
 	}
 });
+const showCustomFormWindow = (planRank) => {
+	if (!CustomFormWindow || CustomFormWindow.closed) {
+		const windowFeatures = `
+            left=500,
+            top=200,
+            width=1200,
+            height=700,
+            scrollbars=yes,
+        `;
+		wp.ajax
+			.send('custom_form_template', {
+				type: 'POST',
+				data: {
+					_ajax_nonce: settings_object.ajaxnonce,
+					planRank,
+				},
+			})
+			.done((response) => {
+				CustomFormWindow = window.open(
+					'',
+					'custom_form',
+					windowFeatures
+				);
+				CustomFormWindow.document.write(response);
+			});
+	} else {
+		CustomFormWindow.focus();
+		return CustomFormWindow;
+	}
+};
 const showUpdatePlanWindow = () => {
 	if (UpdatePlanWindow === null || UpdatePlanWindow.closed) {
 		const windowFeatures = `
             left=500,
             top=200,
-            width=500,
-            height=500,
+            width=1200,
+            height=700,
             scrollbars=yes,
         `;
 		wp.ajax
