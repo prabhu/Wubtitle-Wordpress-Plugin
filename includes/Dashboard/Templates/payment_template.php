@@ -34,7 +34,7 @@ require WUBTITLE_DIR . 'includes/Dashboard/Templates/plans_array.php';
 		<div class="row">
 		<?php
 		if ( isset( $plans ) ) :
-			foreach ( $plans as $plan ) :
+			foreach ( $plans as $key_plan => $plan ) :
 				?>
 			<div class="column one-quarter">
 				<div class="card <?php echo $plan['zoom'] ? 'zoom' : ''; ?>">
@@ -60,7 +60,7 @@ require WUBTITLE_DIR . 'includes/Dashboard/Templates/plans_array.php';
 						<?php
 						endforeach;
 					?>
-					<div class="<?php echo esc_attr( $plan['class_button'] ); ?>" plan="<?php echo esc_html( $plan['stripe_code'] ); ?>">
+					<div class="<?php echo esc_attr( $plan['class_button'] ); ?>" plan="<?php echo esc_attr( $key_plan ); ?>">
 						<?php echo esc_html( $plan['message_button'] ); ?>
 					</div>
 				</div>
