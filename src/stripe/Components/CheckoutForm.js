@@ -3,7 +3,11 @@ import * as Yup from 'yup';
 import { __ } from '@wordpress/i18n';
 import { Formik, Form, Field } from 'formik';
 import CardSection from './CardSection';
-import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
+import {
+	useStripe,
+	useElements,
+	CardNumberElement,
+} from '@stripe/react-stripe-js';
 
 export default function CheckoutForm(props) {
 	const { createSubscription, backFunction, error } = props;
@@ -25,14 +29,14 @@ export default function CheckoutForm(props) {
 			return;
 		}
 		setLoading(true);
-		const cardElement = elements.getElement(CardElement);
+		const cardNumber = elements.getElement(CardNumberElement);
 
 		const fullName = `${name} ${lastname}`;
 
 		await stripe
 			.createPaymentMethod({
 				type: 'card',
-				card: cardElement,
+				card: cardNumber,
 				billing_details: {
 					name: fullName,
 				},

@@ -3,7 +3,11 @@
  */
 import React from 'react';
 import { __ } from '@wordpress/i18n';
-import { CardElement } from '@stripe/react-stripe-js';
+import {
+	CardNumberElement,
+	CardExpiryElement,
+	CardCvcElement,
+} from '@stripe/react-stripe-js';
 
 const CARD_ELEMENT_OPTIONS = {
 	style: {
@@ -27,7 +31,9 @@ function CardSection() {
 	return (
 		<label htmlFor="form">
 			{__('Card details', 'wubtitle')}
-			<CardElement options={CARD_ELEMENT_OPTIONS} />
+			<CardNumberElement options={CARD_ELEMENT_OPTIONS} />
+			<CardExpiryElement options={CARD_ELEMENT_OPTIONS} />
+			<CardCvcElement options={CARD_ELEMENT_OPTIONS} />
 		</label>
 	);
 }
