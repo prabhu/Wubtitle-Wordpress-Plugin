@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Days+One&family=Open+Sans:wght@400;600;800&display=swap');
+@import url(https://fonts.googleapis.com/css2?family=Days+One&family=Open+Sans:wght@400;600;800&display=swap);
 
 * {
 	box-sizing: border-box;
@@ -106,13 +106,13 @@ input:focus {
 
 .form-field-container {
 	margin: 10px 0 20px 0;
+	width: 50%;
+	padding: 0.5rem;
 }
 
 .hidden {
 	display: none;
 }
-
-
 
 form {
 	display: flex;
@@ -123,16 +123,11 @@ form {
 form h2 {
 	width: 100%;
 	padding: 0.5rem;
-	color: #304FFE;
-}
-
-.form-field-container {
-	width: 50%;
-	padding: 0.5rem;
+	color: #304ffe;
 }
 
 .form-field-container label {
-	font: 600 12px/17px 'Open Sans';
+	font: 600 12px/17px "Open Sans";
 	color: #616161;
 }
 
@@ -161,6 +156,7 @@ form h2 {
 	width: calc(50% - 0.5rem);
 	float: left;
 }
+
 .form-field-container.card .exp {
 	width: calc(25% - 0.25rem);
 	float: left;
@@ -168,13 +164,13 @@ form h2 {
 	border-top-right-radius: 0;
 	border-bottom-right-radius: 0;
 }
+
 .form-field-container.card .cvc {
 	width: calc(25% - 0.25rem);
 	float: right;
 	border-top-left-radius: 0;
 	border-bottom-left-radius: 0;
 }
-
 
 .columns {	
 	width: 100%;
@@ -193,30 +189,30 @@ form h2 {
 
 .price-column {
 	width: 33%;
-	background: transparent linear-gradient(233deg, #D500F9 0%, #2962FF 99%) 0% 0% no-repeat padding-box;
+	background: transparent linear-gradient(233deg, #d500f9 0%, #2962ff 99%) 0% 0% no-repeat padding-box;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
 	color: #fff;
 	padding: 1rem;
 	height: 100%;
-	font: 400 14px/19px 'Open Sans';
+	font: 400 14px/19px "Open Sans";
 }
 
 .price-name {
-	font: 600 16px/22px 'Open Sans';
+	font: 600 16px/22px "Open Sans";
 }
 
 .price .val {
-	font: 400 14px/18px 'Days One';
+	font: 400 14px/18px "Days One";
 }
 
 .price .total.val {
-	font: 400 24px/31px 'Days One';;
+	font: 400 24px/31px "Days One";
 }
 
 .price .valxm {
-	font: 400 14px/19px 'Open Sans';
+	font: 400 14px/19px "Open Sans";
 }
 
 table tr {
@@ -224,7 +220,7 @@ table tr {
 }
 
 .disclaimer {
-	font: 400 12px/17px 'Open Sans';
+	font: 400 12px/17px "Open Sans";
 }
 
 .disclaimer a {
@@ -241,9 +237,9 @@ table tr {
 
 .button-bar {
 	position: fixed;
-    display: flex;
-    width: 67%;
-    justify-content: space-between;
+	display: flex;
+	width: 67%;
+	justify-content: space-between;
 	bottom: 0;
 	background-color: #fff;
 	padding: 1rem;
@@ -253,11 +249,11 @@ table tr {
 
 
 .button-bar button {
-	background: transparent linear-gradient(257deg, #D500F9 0%, #2962FF 99%) 0% 0% no-repeat padding-box;
+	background: transparent linear-gradient(257deg, #d500f9 0%, #2962ff 99%) 0% 0% no-repeat padding-box;
 	border-radius: 16px;
 	color: #fff;
 	padding: 0.5rem 1rem;
-	font-family: 'Days One', sans-serif;
+	font-family: "Days One", sans-serif;
 	white-space: nowrap;
 	border: 0;
 	outline: 0;
@@ -278,5 +274,5 @@ table tr {
 }
 
 .summary h2 {
-	color: #304FFE;
+	color: #304ffe;
 }
