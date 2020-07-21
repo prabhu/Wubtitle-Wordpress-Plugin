@@ -89,6 +89,7 @@ class PaymentTemplate {
 					'pricePlan'   => $current_plan['price'],
 					'ajaxUrl'     => admin_url( 'admin-ajax.php' ),
 					'ajaxNonce'   => wp_create_nonce( 'itr_ajax_nonce' ),
+					'namePlan'    => $current_plan['name'],
 					'wubtitleEnv' => defined( 'WP_WUBTITLE_ENV' ) ? esc_html( WP_WUBTITLE_ENV ) : '',
 				)
 			);

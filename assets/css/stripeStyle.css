@@ -93,10 +93,9 @@ input:focus {
 
 .wrapper-form {
 	margin: 0 auto;
-	width: 67%;
-	overflow-y: scroll;
+	overflow-y: auto;
 	position: relative;
-	height: 89%;
+	height: 92%;
 }
 
 .error-message {
@@ -185,6 +184,11 @@ form h2 {
 
 .column {
 	width: 50%;
+}
+
+
+.wrapper-form.column {
+	width: 67%;
 }
 
 .price-column {
