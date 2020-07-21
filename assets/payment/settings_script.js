@@ -19,7 +19,11 @@ function confirmPlanChange(){
 }
 //this function is used by the dialog CustomFormWindow 
 function customStripeForm(planRank){
-	BuyLicenseWindow.close();
+	if (BuyLicenseWindow && !BuyLicenseWindow.closed) {
+		BuyLicenseWindow.close();
+	} else if (CancelSubscriptionWindow && !CancelSubscriptionWindow.closed) {
+		CancelSubscriptionWindow.close();
+	}
 	showCustomFormWindow(planRank);
 }
 /* eslint-enable */
