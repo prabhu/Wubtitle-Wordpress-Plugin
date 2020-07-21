@@ -85,14 +85,15 @@ class InvoiceHelper {
 	public function build_invoice_array( $invoice_object ) {
 		$eu_countries_file = wp_remote_get( WUBTITLE_URL . 'build_form/europeanCountries.json' );
 		$eu_countries      = json_decode( wp_remote_retrieve_body( $eu_countries_file ) );
-		if ( ! isset( $invoice_object->invoice_name, $invoice_object->invoice_lastname, $invoice_object->invoice_email, $invoice_object->telephone, $invoice_object->address, $invoice_object->city, $invoice_object->country ) ) {
+		if ( ! isset( $invoice_object->invoice_name, $invoice_object->invoice_lastname, $invoice_object->invoice_email, $invoice_object->telephone, $invoice_object->prefix_telephone, $invoice_object->address, $invoice_object->city, $invoice_object->country ) ) {
 			return false;
 		}
+		$telephone       = $invoice_object->prefix_telephone . $invoice_object->telephone;
 		$invoice_details = array(
 			'Name'      => $invoice_object->invoice_name,
 			'LastName'  => $invoice_object->invoice_lastname,
 			'Email'     => $invoice_object->invoice_email,
-			'Telephone' => $invoice_object->telephone,
+			'Telephone' => $telephone,
 			'Address'   => $invoice_object->address,
 			'City'      => $invoice_object->city,
 			'Country'   => $invoice_object->country,
