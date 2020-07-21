@@ -32,21 +32,25 @@ class PaymentTemplate {
 	 * @return void
 	 */
 	public function change_plan_template() {
-		$map_plans     = array(
-			'plan_0'              => 0,
-			'plan_HBBbNjLjVk3w4w' => 1,
-			'plan_HBBS5I9usXvwQR' => 2,
-		);
-		$plan          = get_option( 'wubtitle_plan' );
-		$current_plan  = $map_plans[ $plan ];
-		$plan          = get_option( 'wubtitle_wanted_plan' );
-		$wanted_plan   = $map_plans[ $plan ];
-		$includes_file = 'Templates/downgrade_plan_template.php';
-		if ( $wanted_plan > $current_plan ) {
+		$plan_rank        = get_option( 'wubtitle_plan_rank' );
+		$wanted_plan_rank = get_option( 'wubtitle_wanted_plan_rank' );
+		$includes_file    = 'Templates/downgrade_plan_template.php';
+		if ( $wanted_plan_rank > $plan_rank ) {
 			$includes_file = 'Templates/upgrade_plan_template.php';
 		}
 		if ( current_user_can( 'manage_options' ) ) {
 			ob_start();
+			wp_enqueue_style( 'wubtitle_font_family', 'https://fonts.googleapis.com/css?family=Days+One|Open+Sans&display=swap', array(), WUBTITLE_VER );
+			wp_enqueue_style( 'wubtitle_style_template', WUBTITLE_URL . 'assets/css/payment_template.css', array(), WUBTITLE_VER );
+			wp_enqueue_script( 'wubtitle_change_plan', WUBTITLE_URL . 'assets/payment/change_plan_script.js', array(), WUBTITLE_VER, true );
+			wp_localize_script(
+				'wubtitle_change_plan',
+				'WP_GLOBALS',
+				array(
+					'adminAjax' => admin_url( 'admin-ajax.php' ),
+					'nonce'     => wp_create_nonce( 'itr_ajax_nonce' ),
+				)
+			);
 			include $includes_file;
 			$html = ob_get_clean();
 			wp_send_json_success( $html );
@@ -62,6 +66,18 @@ class PaymentTemplate {
 	public function load_payment_template() {
 		if ( current_user_can( 'manage_options' ) ) {
 			ob_start();
+			wp_enqueue_style( 'wubtitle_font_family', 'https://fonts.googleapis.com/css?family=Days+One|Open+Sans&display=swap', array(), WUBTITLE_VER );
+			wp_enqueue_style( 'wubtitle_style_template', WUBTITLE_URL . 'assets/css/payment_template.css', array(), WUBTITLE_VER );
+			wp_enqueue_script( 'wubtitle_change_plan', WUBTITLE_URL . 'assets/payment/payment_template.js', array(), WUBTITLE_VER, true );
+			wp_localize_script(
+				'wubtitle_change_plan',
+				'WP_GLOBALS',
+				array(
+					'adminAjax'   => admin_url( 'admin-ajax.php' ),
+					'nonce'       => wp_create_nonce( 'itr_ajax_nonce' ),
+					'wubtitleEnv' => defined( 'WP_WUBTITLE_ENV' ) ? esc_html( WP_WUBTITLE_ENV ) : '',
+				)
+			);
 			include 'Templates/payment_template.php';
 			$html = ob_get_clean();
 			wp_send_json_success( $html );

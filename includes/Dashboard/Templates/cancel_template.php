@@ -23,10 +23,6 @@ require WUBTITLE_DIR . 'includes/Dashboard/Templates/plans_array.php';
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Cancel subscription</title>
-	<?php // phpcs:disable ?>
-	<link href="https://fonts.googleapis.com/css?family=Days+One|Open+Sans&display=swap" rel="stylesheet">
-	<link rel="stylesheet" href="<?php echo esc_url( WUBTITLE_URL . 'assets/css/payment_template.css' ); ?>">
-	<?php // phpcs:enable ?>
 </head>
 <body>
 	<div class="container">
@@ -47,7 +43,7 @@ require WUBTITLE_DIR . 'includes/Dashboard/Templates/plans_array.php';
 		<div class="row">
 		<?php
 		if ( isset( $plans ) ) :
-			foreach ( $plans as $plan ) :
+			foreach ( $plans as $key_plan => $plan ) :
 				?>
 			<div class="column one-quarter">
 				<div class="card <?php echo $plan['zoom'] ? 'zoom' : ''; ?>">
@@ -73,7 +69,7 @@ require WUBTITLE_DIR . 'includes/Dashboard/Templates/plans_array.php';
 						<?php
 					endforeach;
 					?>
-					<div class="<?php echo esc_attr( $plan['class_button'] ); ?>" plan="<?php echo esc_html( $plan['stripe_code'] ); ?>">
+					<div class="<?php echo esc_attr( $plan['class_button'] ); ?>" plan="<?php echo esc_html( $key_plan ); ?>">
 						<?php echo esc_html( $plan['message_button'] ); ?>
 					</div>
 				</div>
@@ -105,17 +101,6 @@ require WUBTITLE_DIR . 'includes/Dashboard/Templates/plans_array.php';
 		?>
 		</div>
 	</div>
-
-	<?php // phpcs:disable ?>
-	<script src="https://js.stripe.com/v3/"></script>
-	<script>
-		const WP_GLOBALS = {
-			adminAjax: "<?php echo esc_html( admin_url( 'admin-ajax.php' ) ); ?>",
-			nonce: "<?php echo esc_js( wp_create_nonce( 'itr_ajax_nonce' ) ); ?>",
-			wubtitleEnv: "<?php echo defined( 'WP_WUBTITLE_ENV' ) ? WP_WUBTITLE_ENV : ''; ?>"
-		}
-	</script>
-	<script src="<?php echo esc_url(WUBTITLE_URL . 'assets/payment/payment_template.js'); ?>"></script>
-	<?php // phpcs:enable ?>
+	<?php wp_footer(); ?>
 </body>
 </html>

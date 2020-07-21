@@ -1,22 +1,23 @@
 const paymentModule = (function (document) {
 	const { adminAjax, nonce } = WP_GLOBALS;
 
-	const handleChoice = (plan) => {
+	const handleChoice = (planRank) => {
 		fetch(adminAjax, {
 			method: 'POST',
 			credentials: 'include',
 			headers: new Headers({
 				'Content-Type': 'application/x-www-form-urlencoded',
 			}),
-			body: `action=submit_plan&_ajax_nonce=${nonce}&pricing_plan=${plan}`,
+			body: `action=submit_plan&_ajax_nonce=${nonce}&plan_rank=${planRank}`,
 		})
 			.then((resp) => resp.json())
 			.then((response) => {
 				if (response.success) {
 					if (response.data === 'change_plan') {
 						window.opener.confirmPlanChange();
+						return;
 					}
-					window.opener.customStripeForm(plan);
+					window.opener.customStripeForm(planRank);
 				}
 			});
 	};
@@ -38,11 +39,11 @@ const paymentModule = (function (document) {
 		const buttons = document.querySelectorAll('.button-choose-plan');
 		buttons.forEach((button) => {
 			button.addEventListener('click', () => {
-				const plan = button.getAttribute('plan');
-				if (plan === 'plan_0') {
+				const planRank = button.getAttribute('plan');
+				if (planRank === '0') {
 					handleUnsubscription();
 				} else {
-					handleChoice(plan);
+					handleChoice(planRank);
 				}
 			});
 		});
