@@ -1,18 +1,12 @@
-/**
- * Use the CSS tab above to style your Element's container.
- */
 import React from 'react';
 import { __ } from '@wordpress/i18n';
 
 const InfoPriceColumn = (props) => {
-	// const { price, name, taxPercentage, taxAmount } = props;
-	const { price, name } = props;
-	const taxAmount = '0';
+	const { price, name, taxPercentage, taxAmount } = props;
 	const total = parseFloat(price) + parseFloat(taxAmount);
 
 	let cutVat = false;
-	const taxPercentage = '0';
-	if (taxPercentage === '0') {
+	if (taxPercentage === 0) {
 		cutVat = ((price / 100) * 22).toFixed(2);
 	}
 
@@ -34,7 +28,12 @@ const InfoPriceColumn = (props) => {
 						</td>
 						<td className="val">
 							{cutVat ? (
-								<span className="cut-vat">{cutVat} &euro;</span>
+								<span className="cut-vat">
+									{cutVat} &euro;
+									<span className="cut-line">
+										{/* css only */}
+									</span>
+								</span>
 							) : (
 								''
 							)}

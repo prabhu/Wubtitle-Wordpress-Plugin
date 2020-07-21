@@ -100,8 +100,8 @@ class Cron {
 					'icon'           => $plan->icon,
 					// phpcs:disable 
 					// warning camel case
-					// 'tax_percentage' => $plan->taxPercentage,
-					// 'tax_amount'     => $plan->taxAmount,
+					'tax_percentage' => $plan->taxPercentage,
+					'tax_amount'     => $plan->taxAmount,
 					// phpcs:enable
 				);
 				if ( $body_response->data->currentPlan === $plan->id ) {
