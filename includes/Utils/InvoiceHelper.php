@@ -165,32 +165,21 @@ class InvoiceHelper {
 		}
 		$response_body  = json_decode( wp_remote_retrieve_body( $response ) );
 		$invoice_object = (object) array(
-			'invoice_name'     => $this->check_response_field( $response_body->data->Name ),
-			'invoice_email'    => $this->check_response_field( $response_body->data->Email ),
-			'invoice_lastname' => $this->check_response_field( $response_body->data->LastName ),
-			'telephone'        => $this->check_response_field( $response_body->data->Telephone ),
-			'prefix_telephone' => $this->check_response_field( $response_body->data->TelephonePrefix ),
-			'company_name'     => $this->check_response_field( $response_body->data->CompanyName ),
-			'address'          => $this->check_response_field( $response_body->data->Address ),
-			'cap'              => $this->check_response_field( $response_body->data->PostCode ),
-			'city'             => $this->check_response_field( $response_body->data->City ),
-			'province'         => $this->check_response_field( $response_body->data->Province ),
-			'country'          => $this->check_response_field( $response_body->data->Country ),
-			'vat_code'         => $this->check_response_field( $response_body->data->VatCode ),
-			'fiscal_code'      => $this->check_response_field( $response_body->data->FiscalCode ),
-			'destination_code' => $this->check_response_field( $response_body->data->DestinationCode ),
+			'invoice_name'     => $response_body->data->Name,
+			'invoice_email'    => $response_body->data->Email,
+			'invoice_lastname' => $response_body->data->LastName,
+			'telephone'        => $response_body->data->Telephone,
+			'prefix_telephone' => $response_body->data->TelephonePrefix,
+			'company_name'     => $response_body->data->CompanyName,
+			'address'          => $response_body->data->Address,
+			'cap'              => $response_body->data->PostCode,
+			'city'             => $response_body->data->City,
+			'province'         => $response_body->data->Province,
+			'country'          => $response_body->data->Country,
+			'vat_code'         => $response_body->data->VatCode,
+			'fiscal_code'      => $response_body->data->FiscalCode,
+			'destination_code' => $response_body->data->DestinationCode,
 		);
 		return $invoice_object;
-	}
-
-	/**
-	 * Check if field is not undefined.
-	 *
-	 * @param string $data response field.
-	 *
-	 * @return string
-	 */
-	public function check_response_field( $data ) {
-		return $data ? $data : '';
 	}
 }
