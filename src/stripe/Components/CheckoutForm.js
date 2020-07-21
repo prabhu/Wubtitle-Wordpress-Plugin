@@ -24,21 +24,19 @@ export default function CheckoutForm(props) {
 	});
 
 	const handleSubmit = async (values) => {
-		const { name, lastname } = values;
+		const { name } = values;
 		if (!stripe || !elements) {
 			return;
 		}
 		setLoading(true);
 		const cardNumber = elements.getElement(CardNumberElement);
 
-		const fullName = `${name} ${lastname}`;
-
 		await stripe
 			.createPaymentMethod({
 				type: 'card',
 				card: cardNumber,
 				billing_details: {
-					name: fullName,
+					name,
 				},
 			})
 			.then((response) => {
@@ -52,7 +50,6 @@ export default function CheckoutForm(props) {
 			initialValues={{
 				name: '',
 				email: '',
-				lastname: '',
 			}}
 			validationSchema={DisplayingErrorMessagesSchema}
 			onSubmit={(values) => {
@@ -69,22 +66,14 @@ export default function CheckoutForm(props) {
 						</p>
 					</div>
 					<div className="form-field-container">
-						<label htmlFor="name">{__('Name', 'wubtitle')}</label>
-						<Field name="name" placeholder="Name" />
+						<label htmlFor="name">
+							{__('Card Holder', 'wubtitle')}
+						</label>
+						<Field name="name" placeholder="Card Holder" />
 						<p className="error-message">
 							{touched.name && errors.name}
 						</p>
 					</div>
-					{/* <div className="form-field-container">
-						<label htmlFor="lastname">
-							{__('Lastname', 'wubtitle')}
-						</label>
-						<Field name="lastname" placeholder="Lastname" />
-						<p className="error-message">
-							{touched.lastname && errors.lastname}
-						</p>
-					</div> */}
-
 					<div className="form-field-container card">
 						<CardSection />
 					</div>

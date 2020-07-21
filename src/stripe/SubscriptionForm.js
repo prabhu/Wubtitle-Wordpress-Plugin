@@ -57,13 +57,13 @@ function App() {
 		window.opener.cancelPayment();
 	};
 	const createSubscription = (paymentMethodId, values) => {
-		const { name, lastname, email } = values;
+		const { email } = values;
 		fetch(ajaxUrl, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded',
 			},
-			body: `action=create_subscription&paymentMethodId=${paymentMethodId}&planId=${planId}&email=${email}&_ajax_nonce=${ajaxNonce}&name=${name}&lastname=${lastname}&invoiceObject=${JSON.stringify(
+			body: `action=create_subscription&paymentMethodId=${paymentMethodId}&planId=${planId}&email=${email}&_ajax_nonce=${ajaxNonce}&invoiceObject=${JSON.stringify(
 				invoiceValues
 			)}`,
 		})

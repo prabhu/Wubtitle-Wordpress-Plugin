@@ -311,14 +311,12 @@ class ApiPricingPlan {
 	 */
 	public function create_subscription() {
 		$site_url = get_site_url();
-		if ( ! isset( $_POST['_ajax_nonce'], $_POST['email'], $_POST['paymentMethodId'], $_POST['planId'], $_POST['name'], $_POST['lastname'], $_POST['invoiceObject'] ) ) {
+		if ( ! isset( $_POST['_ajax_nonce'], $_POST['email'], $_POST['paymentMethodId'], $_POST['planId'], $_POST['invoiceObject'] ) ) {
 			wp_send_json_error( __( 'An error occurred. Please try again in a few minutes.', 'wubtitle' ) );
 		}
 		$email             = sanitize_text_field( wp_unslash( $_POST['email'] ) );
 		$payment_method_id = sanitize_text_field( wp_unslash( $_POST['paymentMethodId'] ) );
 		$plan_id           = sanitize_text_field( wp_unslash( $_POST['planId'] ) );
-		$name              = sanitize_text_field( wp_unslash( $_POST['name'] ) );
-		$lastname          = sanitize_text_field( wp_unslash( $_POST['lastname'] ) );
 		$nonce             = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
 		$invoice_data      = sanitize_text_field( wp_unslash( $_POST['invoiceObject'] ) );
 		$invoice_object    = json_decode( $invoice_data );
@@ -337,8 +335,6 @@ class ApiPricingPlan {
 				'siteLang'        => explode( '_', get_locale(), 2 )[0],
 				'paymentMethodId' => $payment_method_id,
 				'planId'          => $plan_id,
-				'name'            => $name,
-				'lastname'        => $lastname,
 				'invoiceDetails'  => $invoice_details,
 			),
 		);
