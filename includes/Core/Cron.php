@@ -88,16 +88,21 @@ class Cron {
 			$total_seconds      = 0;
 			foreach ( $plans as $plan ) {
 				$wubtitle_plans[ $plan->rank ] = array(
-					'name'         => $plan->name,
-					'stripe_code'  => $plan->id,
+					'name'           => $plan->name,
+					'stripe_code'    => $plan->id,
 					// phpcs:disable 
 					// warning camel case
 					'totalJobs'    => $plan->totalJobs,
 					'totalSeconds' => $plan->totalSeconds,
 					// phpcs:enable
-					'price'        => $plan->price,
-					'dot_list'     => $plan->dotlist,
-					'icon'         => $plan->icon,
+					'price'          => $plan->price,
+					'dot_list'       => $plan->dotlist,
+					'icon'           => $plan->icon,
+					// phpcs:disable 
+					// warning camel case
+					'tax_percentage' => $plan->taxPercentage,
+					'tax_amount'     => $plan->taxAmount,
+					// phpcs:enable
 				);
 				if ( $body_response->data->currentPlan === $plan->id ) {
 					$wubtitle_plan_rank = $plan->rank;
