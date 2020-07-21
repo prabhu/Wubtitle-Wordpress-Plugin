@@ -123,7 +123,7 @@ class PaymentTemplate {
 				'WP_GLOBALS',
 				array(
 					'pricePlan'   => $wanted_plan['price'],
-					'planId'      => $wanted_plan['stripe-code'],
+					'planId'      => $wanted_plan['stripe_code'],
 					'namePlan'    => $wanted_plan['name'],
 					'ajaxUrl'     => admin_url( 'admin-ajax.php' ),
 					'ajaxNonce'   => wp_create_nonce( 'itr_ajax_nonce' ),
