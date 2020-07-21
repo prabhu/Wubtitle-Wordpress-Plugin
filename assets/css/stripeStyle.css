@@ -152,6 +152,30 @@ form h2 {
 
 
 
+.form-field-container.card label {
+	width: 100%;
+	float: left;
+}
+
+.form-field-container.card .num {
+	width: calc(50% - 0.5rem);
+	float: left;
+}
+.form-field-container.card .exp {
+	width: calc(25% - 0.25rem);
+	float: left;
+	margin-left: 1rem;
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+}
+.form-field-container.card .cvc {
+	width: calc(25% - 0.25rem);
+	float: right;
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+}
+
+
 .columns {	
 	width: 100%;
 	display: flex;

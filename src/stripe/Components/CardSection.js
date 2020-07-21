@@ -29,12 +29,12 @@ const CARD_ELEMENT_OPTIONS = {
 
 function CardSection() {
 	return (
-		<label htmlFor="form">
-			{__('Card details', 'wubtitle')}
+		<>
+			<label htmlFor="form">{__('Card details', 'wubtitle')}</label>
 			<CardNumberElement options={CARD_ELEMENT_OPTIONS} className="num" />
 			<CardExpiryElement options={CARD_ELEMENT_OPTIONS} className="exp" />
 			<CardCvcElement options={CARD_ELEMENT_OPTIONS} className="cvc" />
-		</label>
+		</>
 	);
 }
 
