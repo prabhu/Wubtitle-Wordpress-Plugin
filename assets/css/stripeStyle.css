@@ -279,7 +279,7 @@ table tr {
 	height: 2px;
 	background-color: #ffd600;
 	display: inline-block;
-    margin-left: -58px;
-    position: absolute;
-    transform: rotate(-18deg) translateY(8px);
+	margin-left: -58px;
+	position: absolute;
+	transform: rotate(-18deg) translateY(8px);
 }
