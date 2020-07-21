@@ -228,13 +228,6 @@ table tr {
 	text-decoration: none;
 }
 
-.wrapper-form {
-	width: 67%;
-	overflow-y: scroll;
-	position: relative;
-	height: 89%;
-}
-
 .button-bar {
 	position: fixed;
 	display: flex;
