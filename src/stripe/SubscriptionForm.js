@@ -15,6 +15,8 @@ function App() {
 		ajaxNonce,
 		pricePlan,
 		namePlan,
+		taxPercentage,
+		taxAmount,
 	} = WP_GLOBALS;
 	const stripeKey =
 		wubtitleEnv === 'development'
@@ -80,7 +82,12 @@ function App() {
 
 	return (
 		<div className="main columns">
-			<InfoPriceColumn price={pricePlan} name={namePlan} />
+			<InfoPriceColumn
+				price={pricePlan}
+				name={namePlan}
+				taxPercentage={taxPercentage}
+				taxAmount={taxAmount}
+			/>
 
 			<Elements stripe={stripePromise}>
 				{invoiceValues && !isBack ? (
