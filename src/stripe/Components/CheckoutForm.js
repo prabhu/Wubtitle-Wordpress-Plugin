@@ -80,23 +80,21 @@ export default function CheckoutForm(props) {
 					<div className="error-message-container" role="alert">
 						<p className="error-message">{error}</p>
 					</div>
-					<div className="button-bar">
-						<button
-							className="cancel"
-							onClick={() => backFunction()}
-						>
-							{__('Cancel', 'wubtitle')}
-						</button>
-						<button
-							disabled={!stripe || loading}
-							className={loading ? 'disabled' : ''}
-						>
-							{loading && (
-								<i className="fa fa-refresh fa-spin loading-margin" />
-							)}
-							{__('Confirm order', 'wubtitle')}
-						</button>
-					</div>
+					{/* <div className="button-bar"> */}
+					<button className="cancel" onClick={() => backFunction()}>
+						{__('Cancel', 'wubtitle')}
+					</button>
+					<button
+						type="submit"
+						disabled={!stripe || loading}
+						className={loading ? 'disabled' : ''}
+					>
+						{loading && (
+							<i className="fa fa-refresh fa-spin loading-margin" />
+						)}
+						{__('Confirm order', 'wubtitle')}
+					</button>
+					{/* </div> */}
 				</Form>
 			)}
 		</Formik>

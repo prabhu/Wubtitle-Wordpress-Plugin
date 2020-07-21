@@ -19,18 +19,27 @@ export default function InvoiceSummary(props) {
 						<strong>{__('Country', 'wubtitle')}: </strong>
 						{invoiceValues.country}
 					</p>
-					<p>
-						<strong>{__('Postal Code', 'wubtitle')}: </strong>
-						{invoiceValues.cap}
-					</p>
+					{invoiceValues.cap ? (
+						<p>
+							<strong>{__('Postal Code', 'wubtitle')}: </strong>
+							{invoiceValues.cap}
+						</p>
+					) : (
+						''
+					)}
 					<p>
 						<strong>{__('Address', 'wubtitle')}: </strong>
 						{invoiceValues.address}
 					</p>
-					<p>
-						<strong>{__('VAT Code', 'wubtitle')}: </strong>
-						{invoiceValues.vat_code}
-					</p>
+
+					{invoiceValues.vat_code ? (
+						<p>
+							<strong>{__('VAT Code', 'wubtitle')}: </strong>
+							{invoiceValues.vat_code}
+						</p>
+					) : (
+						''
+					)}
 				</div>
 
 				<div className="column">
@@ -42,22 +51,37 @@ export default function InvoiceSummary(props) {
 						<strong>{__('Company Name', 'wubtitle')}: </strong>
 						{invoiceValues.company_name}
 					</p>
-					<p>
-						<strong>{__('Province', 'wubtitle')}: </strong>
-						{invoiceValues.province}
-					</p>
+					{invoiceValues.province ? (
+						<p>
+							<strong>{__('Province', 'wubtitle')}: </strong>
+							{invoiceValues.province}
+						</p>
+					) : (
+						''
+					)}
+
 					<p>
 						<strong>{__('City', 'wubtitle')}: </strong>
 						{invoiceValues.city}
 					</p>
-					<p>
-						<strong>{__('Fiscal Code', 'wubtitle')}: </strong>
-						{invoiceValues.fiscal_code}
-					</p>
-					<p>
-						<strong>{__('Destination Code', 'wubtitle')}: </strong>
-						{invoiceValues.destination_code}
-					</p>
+					{invoiceValues.fiscal_code ? (
+						<p>
+							<strong>{__('Fiscal Code', 'wubtitle')}: </strong>
+							{invoiceValues.fiscal_code}
+						</p>
+					) : (
+						''
+					)}
+					{invoiceValues.destination_code !== '0000000' ? (
+						<p>
+							<strong>
+								{__('Destination Code', 'wubtitle')}:{' '}
+							</strong>
+							{invoiceValues.destination_code}
+						</p>
+					) : (
+						''
+					)}
 				</div>
 			</div>
 		</div>
