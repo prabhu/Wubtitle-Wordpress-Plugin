@@ -54,7 +54,9 @@ function App() {
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded',
 			},
-			body: `action=update_payment_method&paymentMethodId=${paymentMethodId}&email=${email}&_ajax_nonce=${ajaxNonce}&name=${name}&lastname=${lastname}`,
+			body: `action=update_payment_method&paymentMethodId=${paymentMethodId}&email=${email}&_ajax_nonce=${ajaxNonce}&name=${name}&lastname=${lastname}&invoiceObject=${JSON.stringify(
+				invoiceValues
+			)}`,
 		})
 			.then((resp) => resp.json())
 			.then((response) => {
