@@ -197,7 +197,7 @@ class ApiPricingPlan {
 	 * @return void
 	 */
 	public function update_payment_method() {
-		if ( ! isset( $_POST['_ajax_nonce'], $_POST['email'], $_POST['paymentMethodId'], $_POST['name'], $_POST['lastname'] ) ) {
+		if ( ! isset( $_POST['_ajax_nonce'], $_POST['email'], $_POST['paymentMethodId'], $_POST['name'], $_POST['lastname'], $_POST['invoiceObject'] ) ) {
 			wp_send_json_error( __( 'An error occurred. Please try again in a few minutes.', 'wubtitle' ) );
 		}
 		$nonce             = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
@@ -205,7 +205,14 @@ class ApiPricingPlan {
 		$name              = sanitize_text_field( wp_unslash( $_POST['name'] ) );
 		$lastname          = sanitize_text_field( wp_unslash( $_POST['lastname'] ) );
 		$email             = sanitize_text_field( wp_unslash( $_POST['email'] ) );
+		$invoice_data      = sanitize_text_field( wp_unslash( $_POST['invoiceObject'] ) );
+		$invoice_object    = json_decode( $invoice_data );
 		check_ajax_referer( 'itr_ajax_nonce', $nonce );
+
+		$invoice_details = Loader::get( 'invoice_helper' )->build_invoice_array( $invoice_object );
+		if ( ! $invoice_details ) {
+			wp_send_json_error( __( 'An error occurred. Please try again in a few minutes.', 'wubtitle' ) );
+		}
 		$license_key = get_option( 'wubtitle_license_key' );
 		if ( empty( $license_key ) ) {
 			wp_send_json_error( __( 'Unable to update payment data. The product license key is missing.', 'wubtitle' ) );
@@ -218,7 +225,7 @@ class ApiPricingPlan {
 				'paymentMethodId' => $payment_method_id,
 				'name'            => $name,
 				'lastname'        => $lastname,
-				'invoiceDetails'  => array(),
+				'invoiceDetails'  => $invoice_details,
 			),
 		);
 		$response      = wp_remote_post(
