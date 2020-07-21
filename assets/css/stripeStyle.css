@@ -269,3 +269,8 @@ table tr {
 .summary h2 {
 	color: #304ffe;
 }
+
+.cut-vat {
+	color: red;
+	margin-right: 1rem;
+}

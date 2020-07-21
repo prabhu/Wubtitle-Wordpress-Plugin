@@ -5,8 +5,17 @@ import React from 'react';
 import { __ } from '@wordpress/i18n';
 
 const InfoPriceColumn = (props) => {
-	const { price, name, taxPercentage, taxAmount } = props;
+	// const { price, name, taxPercentage, taxAmount } = props;
+	const { price, name } = props;
+	const taxAmount = '0';
 	const total = parseFloat(price) + parseFloat(taxAmount);
+
+	let cutVat = false;
+	const taxPercentage = '0';
+	if (taxPercentage === '0') {
+		cutVat = ((price / 100) * 22).toFixed(2);
+	}
+
 	return (
 		<div className="column price-column">
 			<div className="price">
@@ -23,7 +32,14 @@ const InfoPriceColumn = (props) => {
 						<td>
 							{__('VAT', 'wubtitle')} ({taxPercentage}%)
 						</td>
-						<td className="val">{taxAmount} &euro;</td>
+						<td className="val">
+							{cutVat ? (
+								<span className="cut-vat">{cutVat} &euro;</span>
+							) : (
+								''
+							)}
+							{taxAmount} &euro;
+						</td>
 					</tr>
 					<tr className="total">
 						<td>{__('Total', 'wubtitle')}</td>
