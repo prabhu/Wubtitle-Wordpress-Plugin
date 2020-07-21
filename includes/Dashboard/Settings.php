@@ -178,6 +178,7 @@ class Settings {
 	 * @return void
 	 */
 	private function render_plan_update( $cancelling ) {
+		// Togliere true, test
 		if ( true || ! $cancelling && ! get_option( 'wubtitle_free' ) ) {
 			?>
 			<a href="#" id="cancel-license-button" style="text-decoration: underline; color:red; margin-right:10px;" >
