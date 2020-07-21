@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import CheckoutForm from './Components/CheckoutForm';
 import InvoiceForm from './Components/InvoiceForm';
 import InvoiceSummary from './Components/InvoiceSummary';
+import InfoPriceColumn from './Components/InfoPriceColumn';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 
@@ -13,6 +14,7 @@ function App() {
 		ajaxNonce,
 		pricePlan,
 		invoicePreValues,
+		namePlan,
 	} = WP_GLOBALS;
 	const stripeKey =
 		wubtitleEnv === 'development'
@@ -79,28 +81,32 @@ function App() {
 	};
 
 	return (
-		<Elements stripe={stripePromise}>
-			{invoiceValues && !isBack ? (
-				<div className="wrapper-form">
-					<InvoiceSummary
-						invoiceValues={invoiceValues}
-						price={pricePlan}
-					/>
-					<CheckoutForm
-						createSubscription={createSubscription}
-						backFunction={backFunction}
+		<div className="main columns">
+			<InfoPriceColumn price={pricePlan} name={namePlan} />
+
+			<Elements stripe={stripePromise}>
+				{invoiceValues && !isBack ? (
+					<div className="wrapper-form">
+						<InvoiceSummary
+							invoiceValues={invoiceValues}
+							price={pricePlan}
+						/>
+						<CheckoutForm
+							createSubscription={createSubscription}
+							backFunction={backFunction}
+							error={error}
+						/>
+					</div>
+				) : (
+					<InvoiceForm
+						handleSubmit={handleSubmit}
+						invoicePreValues={invoiceValues || invoicePreValues}
 						error={error}
+						cancelFunction={cancelFunction}
 					/>
-				</div>
-			) : (
-				<InvoiceForm
-					handleSubmit={handleSubmit}
-					invoicePreValues={invoiceValues || invoicePreValues}
-					error={error}
-					cancelFunction={cancelFunction}
-				/>
-			)}
-		</Elements>
+				)}
+			</Elements>
+		</div>
 	);
 }
 if (document.getElementById('update-form')) {

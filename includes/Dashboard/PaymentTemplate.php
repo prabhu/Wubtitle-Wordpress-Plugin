@@ -109,6 +109,7 @@ class PaymentTemplate {
 					'ajaxUrl'          => admin_url( 'admin-ajax.php' ),
 					'ajaxNonce'        => wp_create_nonce( 'itr_ajax_nonce' ),
 					'wubtitleEnv'      => defined( 'WP_WUBTITLE_ENV' ) ? esc_html( WP_WUBTITLE_ENV ) : '',
+					'namePlan'         => $current_plan['name'],
 					'invoicePreValues' => $invoice_object ? $invoice_object : null,
 				)
 			);
