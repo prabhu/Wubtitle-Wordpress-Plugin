@@ -92,7 +92,7 @@ class InvoiceHelper {
 			'Name'            => $invoice_object->invoice_name,
 			'LastName'        => $invoice_object->invoice_lastname,
 			'Email'           => $invoice_object->invoice_email,
-			'Telephone'       => $invoice_object->prefix_telephone,
+			'Telephone'       => $invoice_object->telephone,
 			'TelephonePrefix' => $invoice_object->prefix_telephone,
 			'Address'         => $invoice_object->address,
 			'City'            => $invoice_object->city,
