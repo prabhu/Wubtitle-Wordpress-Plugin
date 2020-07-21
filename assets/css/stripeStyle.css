@@ -172,7 +172,7 @@ form h2 {
 	border-bottom-left-radius: 0;
 }
 
-.columns {	
+.columns {
 	width: 100%;
 	display: flex;
 	flex-direction: row;
@@ -220,7 +220,7 @@ table tr {
 }
 
 .disclaimer {
-	font: 400 12px/17px "Open Sans";
+	font: 400 12px/17px "Open Sans", sans-serif;
 }
 
 .disclaimer a {
