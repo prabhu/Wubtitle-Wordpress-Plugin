@@ -32,17 +32,10 @@ class PaymentTemplate {
 	 * @return void
 	 */
 	public function change_plan_template() {
-		$map_plans     = array(
-			'plan_0'              => 0,
-			'plan_HBBbNjLjVk3w4w' => 1,
-			'plan_HBBS5I9usXvwQR' => 2,
-		);
-		$plan          = get_option( 'wubtitle_plan' );
-		$current_plan  = $map_plans[ $plan ];
-		$plan          = get_option( 'wubtitle_wanted_plan' );
-		$wanted_plan   = $map_plans[ $plan ];
-		$includes_file = 'Templates/downgrade_plan_template.php';
-		if ( $wanted_plan > $current_plan ) {
+		$plan_rank        = get_option( 'wubtitle_plan_rank' );
+		$wanted_plan_rank = get_option( 'wubtitle_wanted_plan_rank' );
+		$includes_file    = 'Templates/downgrade_plan_template.php';
+		if ( $wanted_plan_rank > $plan_rank ) {
 			$includes_file = 'Templates/upgrade_plan_template.php';
 		}
 		if ( current_user_can( 'manage_options' ) ) {
