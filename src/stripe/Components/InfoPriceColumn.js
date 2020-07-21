@@ -6,6 +6,7 @@ import { __ } from '@wordpress/i18n';
 
 const InfoPriceColumn = (props) => {
 	const { price, name } = props;
+	// TODO: Get vat from db when it will be implemented.
 	const vatPer = 22;
 	const vat = ((price / 100) * vatPer).toFixed(2);
 	const total = parseFloat(price) + parseFloat(vat);
