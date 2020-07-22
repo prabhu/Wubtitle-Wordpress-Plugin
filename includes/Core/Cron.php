@@ -7,6 +7,8 @@
  * @package    Wubtitle\Core
  */
 
+// phpcs:disable WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+
 namespace Wubtitle\Core;
 
 /**
