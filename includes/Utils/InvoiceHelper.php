@@ -143,7 +143,7 @@ class InvoiceHelper {
 	/**
 	 * Calls the aws endpoint to receive the invoice data.
 	 *
-	 * @return object|false
+	 * @return array|false
 	 */
 	public function get_invoice_data() {
 		$license_key = get_option( 'wubtitle_license_key' );
@@ -163,23 +163,33 @@ class InvoiceHelper {
 		if ( 200 !== $code_response ) {
 			return false;
 		}
-		$response_body  = json_decode( wp_remote_retrieve_body( $response ) );
-		$invoice_object = (object) array(
-			'invoice_name'     => $response_body->data->Name,
-			'invoice_email'    => $response_body->data->Email,
-			'invoice_lastname' => $response_body->data->LastName,
-			'telephone'        => $response_body->data->Telephone,
-			'prefix_telephone' => $response_body->data->TelephonePrefix,
-			'company_name'     => $response_body->data->CompanyName,
-			'address'          => $response_body->data->Address,
-			'cap'              => $response_body->data->PostCode,
-			'city'             => $response_body->data->City,
-			'province'         => $response_body->data->Province,
-			'country'          => $response_body->data->Country,
-			'vat_code'         => $response_body->data->VatCode,
-			'fiscal_code'      => $response_body->data->FiscalCode,
-			'destination_code' => $response_body->data->DestinationCode,
+		$response_body = json_decode( wp_remote_retrieve_body( $response ) );
+		$invoice_data  = array(
+			'invoice_name'     => $response_body->data->invoiceDetails->Name,
+			'invoice_email'    => $response_body->data->invoiceDetails->Email,
+			'invoice_lastname' => $response_body->data->invoiceDetails->LastName,
+			'telephone'        => $response_body->data->invoiceDetails->Telephone,
+			'prefix_telephone' => $response_body->data->invoiceDetails->TelephonePrefix,
+			'company_name'     => $response_body->data->invoiceDetails->CompanyName,
+			'address'          => $response_body->data->invoiceDetails->Address,
+			'cap'              => $response_body->data->invoiceDetails->PostCode,
+			'city'             => $response_body->data->invoiceDetails->City,
+			'province'         => $response_body->data->invoiceDetails->Province,
+			'country'          => $response_body->data->invoiceDetails->Country,
+			'vat_code'         => $response_body->data->invoiceDetails->VatCode,
+			'fiscal_code'      => $response_body->data->invoiceDetails->FiscalCode,
+			'destination_code' => $response_body->data->invoiceDetails->DestinationCode,
 		);
-		return $invoice_object;
+		$payment_data  = array(
+			'name'            => $response_body->data->paymentDetails->Name,
+			'email'           => $response_body->data->paymentDetails->Email,
+			'expiration'      => $response_body->data->paymentDetails->Expiration,
+			'cardNumber'      => $response_body->data->paymentDetails->Card,
+			'paymentMethodId' => $response_body->data->paymentDetails->PaymentMethodId,
+		);
+		return array(
+			'invoice_data' => $invoice_data,
+			'payment_data' => $payment_data,
+		);
 	}
 }
