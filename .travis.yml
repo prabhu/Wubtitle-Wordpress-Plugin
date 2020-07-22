@@ -77,14 +77,24 @@ install:
 
 script:
   # Check spelling
+  - pwd
   - bash bin/check-spelling.sh
+  - pwd
   # Search for PHP syntax errors.
   - find -L . -path ./vendor -prune -o -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l
+  - pwd
   - composer test
+  - pwd
   - bash <(curl -Ls https://coverage.codacy.com/get.sh) || return 0
+  - pwd
   - composer check-php
+  - pwd
   - vendor/bin/phpcs ./
+  - pwd
   - npm run lint:js:src
+  - pwd
   - npm run csslint
+  - pwd
   - npm run build
+  - pwd
 
