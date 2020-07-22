@@ -7,6 +7,7 @@
     "@wordpress/plugins": "^2.20.2",
     "@wordpress/scripts": "^12.1.1",
     "csslint": "^1.0.5",
+    "eslint-plugin-scanjs-rules": "^0.2.1",
     "eslint": "^7.5.0",
     "husky": "^4.2.5",
     "prettier": "^2.0.5",
