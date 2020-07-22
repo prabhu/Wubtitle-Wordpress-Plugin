@@ -93,9 +93,13 @@ class PaymentTemplate {
 	 * @return void
 	 */
 	public function load_update_template() {
-		$invoice_object = Loader::get( 'invoice_helper' )->get_invoice_data();
-		$plan_rank      = get_option( 'wubtitle_plan_rank' );
-		$plans          = get_option( 'wubtitle_all_plans' );
+		$data = Loader::get( 'invoice_helper' )->get_invoice_data();
+		if ( $data ) {
+			$invoice_object = (object) $data['invoice_data'];
+			$payment_object = (object) $data['payment_data'];
+		}
+		$plan_rank = get_option( 'wubtitle_plan_rank' );
+		$plans     = get_option( 'wubtitle_all_plans' );
 		if ( current_user_can( 'manage_options' ) ) {
 			ob_start();
 			$current_plan = $plans[ $plan_rank ];
@@ -110,7 +114,8 @@ class PaymentTemplate {
 					'ajaxNonce'        => wp_create_nonce( 'itr_ajax_nonce' ),
 					'wubtitleEnv'      => defined( 'WP_WUBTITLE_ENV' ) ? esc_html( WP_WUBTITLE_ENV ) : '',
 					'namePlan'         => $current_plan['name'],
-					'invoicePreValues' => $invoice_object ? $invoice_object : null,
+					'invoicePreValues' => $data ? $invoice_object : null,
+					'paymentPreValues' => $data ? $payment_object : null,
 				)
 			);
 			wp_enqueue_style( 'wubtitle_style_form', WUBTITLE_URL . 'assets/css/stripeStyle.css', array(), WUBTITLE_VER );
