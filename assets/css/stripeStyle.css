@@ -172,26 +172,10 @@ form h2 {
 
 .columns {
 	width: 100%;
-	display: flex;
-	flex-direction: row;
 }
 
-.main.columns {
-	height: 100vh;
-	overflow: hidden;
-}
-
-.column {
-	width: 50%;
-}
-
-
-.wrapper-form.column {
-	width: 67%;
-}
 
 .price-column {
-	width: 33%;
 	background: transparent linear-gradient(233deg, #d500f9 0%, #2962ff 99%) 0% 0% no-repeat padding-box;
 	display: flex;
 	flex-direction: column;
@@ -234,7 +218,6 @@ table tr {
 .button-bar {
 	position: fixed;
 	display: flex;
-	width: 67%;
 	justify-content: space-between;
 	bottom: 0;
 	background-color: #fff;
@@ -268,3 +251,70 @@ table tr {
 .summary h2 {
 	color: #304ffe;
 }
+
+/* Desktop */
+@media screen and (min-width: 1024px) {
+
+	.columns {
+		display: flex;
+		flex-direction: row;
+	}
+	
+	.main.columns {
+		height: 100vh;
+		overflow: hidden;
+	}
+
+	.column {
+		width: 50%;
+	}
+	
+
+	.wrapper-form.column {
+		width: 67%;
+	}
+
+
+	.price-column {
+		width: 33%;
+	}
+
+	.button-bar {
+		width: 67%;
+	}
+	
+}
+
+/* Tablet */
+@media screen and (max-width: 1023px) {
+	.column {
+		width: 100%;
+	}
+
+
+	.wrapper-form.column {
+		width: 100%;
+	}
+
+	.price-column {
+		width: 100%;
+	}
+
+	.button-bar {
+		width: 100%;
+	}
+
+	.wrapper-form {
+		padding-bottom: 100px;
+	}
+	
+}
+
+
+/* Smartphone */
+@media screen and (max-width: 767px) {
+	.form-field-container {
+		width: 100%;
+	}
+}
+
