@@ -32,17 +32,10 @@ class PaymentTemplate {
 	 * @return void
 	 */
 	public function change_plan_template() {
-		$map_plans     = array(
-			'plan_0'              => 0,
-			'plan_HBBbNjLjVk3w4w' => 1,
-			'plan_HBBS5I9usXvwQR' => 2,
-		);
-		$plan          = get_option( 'wubtitle_plan' );
-		$current_plan  = $map_plans[ $plan ];
-		$plan          = get_option( 'wubtitle_wanted_plan' );
-		$wanted_plan   = $map_plans[ $plan ];
-		$includes_file = 'Templates/downgrade_plan_template.php';
-		if ( $wanted_plan > $current_plan ) {
+		$plan_rank        = get_option( 'wubtitle_plan_rank' );
+		$wanted_plan_rank = get_option( 'wubtitle_wanted_plan_rank' );
+		$includes_file    = 'Templates/downgrade_plan_template.php';
+		if ( $wanted_plan_rank > $plan_rank ) {
 			$includes_file = 'Templates/upgrade_plan_template.php';
 		}
 		if ( current_user_can( 'manage_options' ) ) {
@@ -112,6 +105,7 @@ class PaymentTemplate {
 					'pricePlan'   => $current_plan['price'],
 					'ajaxUrl'     => admin_url( 'admin-ajax.php' ),
 					'ajaxNonce'   => wp_create_nonce( 'itr_ajax_nonce' ),
+					'namePlan'    => $current_plan['name'],
 					'wubtitleEnv' => defined( 'WP_WUBTITLE_ENV' ) ? esc_html( WP_WUBTITLE_ENV ) : '',
 				)
 			);
