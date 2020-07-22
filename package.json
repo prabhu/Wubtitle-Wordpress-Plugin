@@ -4,10 +4,10 @@
   "main": "",
   "author": "CTMobi",
   "devDependencies": {
-    "@wordpress/plugins": "^2.20.1",
+    "@wordpress/plugins": "^2.20.2",
     "@wordpress/scripts": "^12.1.1",
     "csslint": "^1.0.5",
-    "eslint": "^7.4.0",
+    "eslint": "^7.5.0",
     "husky": "^4.2.5",
     "prettier": "^2.0.5",
     "stylelint-config-wordpress": "^17.0.0"
@@ -43,7 +43,7 @@
     "@stripe/stripe-js": "^1.8.0",
     "@wordpress/api-fetch": "^3.18.0",
     "@wordpress/i18n": "^3.14.0",
-    "formik": "^2.1.4",
+    "formik": "^2.1.5",
     "yup": "^0.29.1"
   }
 }
