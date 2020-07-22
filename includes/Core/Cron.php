@@ -90,27 +90,18 @@ class Cron {
 				$wubtitle_plans[ $plan->rank ] = array(
 					'name'           => $plan->name,
 					'stripe_code'    => $plan->id,
-					// phpcs:disable 
-					// warning camel case
-					'totalJobs'    => $plan->totalJobs,
-					'totalSeconds' => $plan->totalSeconds,
-					// phpcs:enable
+					'totalJobs'      => $plan->totalJobs,
+					'totalSeconds'   => $plan->totalSeconds,
 					'price'          => $plan->price,
 					'dot_list'       => $plan->dotlist,
 					'icon'           => $plan->icon,
-					// phpcs:disable 
-					// warning camel case
 					'tax_percentage' => $plan->taxPercentage,
 					'tax_amount'     => $plan->taxAmount,
-					// phpcs:enable
 				);
 				if ( $body_response->data->currentPlan === $plan->id ) {
 					$wubtitle_plan_rank = $plan->rank;
-					// phpcs:disable 
-					// warning camel case
 					$total_jobs         = $plan->totalJobs;
 					$total_seconds      = $plan->totalSeconds;
-					// phpcs:enable
 				}
 			}
 			update_option( 'wubtitle_plan', $body_response->data->currentPlan, false );
