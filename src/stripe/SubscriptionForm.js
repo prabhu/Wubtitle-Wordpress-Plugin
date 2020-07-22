@@ -86,7 +86,8 @@ function App() {
 				price={pricePlan}
 				name={namePlan}
 				taxPercentage={taxPercentage}
-				taxAmount={taxAmount}
+				taxAmount={invoiceValues.tax}
+				cutTax={taxAmount}
 			/>
 
 			<Elements stripe={stripePromise}>

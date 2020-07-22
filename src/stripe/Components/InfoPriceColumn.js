@@ -2,12 +2,12 @@ import React from 'react';
 import { __ } from '@wordpress/i18n';
 
 const InfoPriceColumn = (props) => {
-	const { price, name, taxPercentage, taxAmount } = props;
+	const { price, name, taxPercentage, taxAmount, cutTax } = props;
 	const total = parseFloat(price) + parseFloat(taxAmount);
 
 	let cutVat = false;
-	if (taxPercentage === 0) {
-		cutVat = ((price / 100) * 22).toFixed(2);
+	if (taxAmount === 0) {
+		cutVat = cutTax;
 	}
 
 	return (
