@@ -268,10 +268,10 @@ table tr {
 
 .error-message-container {
 	width: calc(100% - 11px);
-    background-color: #fff;
+	background-color: #fff;
 	border: 1px solid #ccd0d4;
-    border-left-width: 4px;
-    box-shadow: 0 1px 1px rgba(0,0,0,.04);
+	border-left-width: 4px;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
 	border-left: 5px rgb(219, 0, 0) solid;
 	margin-left: 5px;
 }
