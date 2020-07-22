@@ -307,6 +307,11 @@ table tr {
 	.wrapper-form {
 		padding-bottom: 100px;
 	}
+
+	.price-column {
+		height: 80px;
+		overflow: hidden;
+	}
 	
 }
 
@@ -316,5 +321,6 @@ table tr {
 	.form-field-container {
 		width: 100%;
 	}
+	
 }
 
