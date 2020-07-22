@@ -37,7 +37,6 @@ input,
 select,
 .input {
 	display: block;
-	max-width: 500px;
 	padding: 10px 14px;
 	font-size: 1em;
 	font-family: "Source Code Pro", monospace;
