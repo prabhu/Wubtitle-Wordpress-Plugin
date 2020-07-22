@@ -98,10 +98,6 @@ input:focus {
 	height: 92%;
 }
 
-.error-message {
-	color: #f00;
-}
-
 .loading-margin {
 	margin-right: 8px;
 }
@@ -269,3 +265,20 @@ table tr {
 .summary h2 {
 	color: #304ffe;
 }
+
+.error-message-container {
+	width: calc(100% - 11px);
+    background-color: #fff;
+	border: 1px solid #ccd0d4;
+    border-left-width: 4px;
+    box-shadow: 0 1px 1px rgba(0,0,0,.04);
+	border-left: 5px rgb(219, 0, 0) solid;
+	margin-left: 5px;
+}
+
+
+.error-message {
+	color: #080808;
+	padding: 0 1rem;
+}
+
