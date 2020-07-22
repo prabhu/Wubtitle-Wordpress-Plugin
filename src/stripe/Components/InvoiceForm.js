@@ -96,7 +96,7 @@ export default function CheckoutForm(props) {
 	};
 
 	return (
-		<div className="wrapper-form">
+		<div className="wrapper-form column">
 			<Formik
 				initialValues={initValues}
 				validationSchema={DisplayingErrorMessagesSchema}
@@ -310,15 +310,21 @@ export default function CheckoutForm(props) {
 						<div className="error-message-container" role="alert">
 							<p className="error-message">{error}</p>
 						</div>
-						<button onClick={() => cancelFunction()}>
-							{__('Cancel', 'wubtitle')}
-						</button>
-						<button>
-							{loading && (
-								<i className="fa fa-refresh fa-spin loading-margin" />
-							)}
-							{__('Summary', 'wubtitle')}
-						</button>
+
+						<div className="button-bar">
+							<button
+								className="cancel"
+								onClick={() => cancelFunction()}
+							>
+								{__('Cancel', 'wubtitle')}
+							</button>
+							<button>
+								{loading && (
+									<i className="fa fa-refresh fa-spin loading-margin" />
+								)}
+								{__('Summary', 'wubtitle')}
+							</button>
+						</div>
 					</Form>
 				)}
 			</Formik>

@@ -130,7 +130,9 @@ class ApiAuthUpgradePlan {
 	 * @return array<array<string>>
 	 */
 	public function return_plan() {
-		$plan_to_upgrade = get_option( 'wubtitle_wanted_plan' );
+		$plan_rank       = get_option( 'wubtitle_wanted_plan_rank' );
+		$all_plans       = get_option( 'wubtitle_all_plans' );
+		$plan_to_upgrade = $all_plans[ $plan_rank ]['stripe_code'];
 
 		$data = array(
 			'data' => array(
