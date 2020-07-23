@@ -43,7 +43,11 @@ require WUBTITLE_DIR . 'includes/Dashboard/Templates/plans_array.php';
 					<div class="card__price">
 						<?php echo esc_html_e( 'Per month', 'wubtitle' ); ?>
 						<p class="price">
-							<?php echo esc_html( '€' . $plan['price'] ); ?>
+						<?php
+						if ( isset( $price_info_object ) ) {
+							echo esc_html( '€' . $price_info_object[ $key_plan ]->price );
+						}
+						?>
 						</p>
 					</div>
 					<?php

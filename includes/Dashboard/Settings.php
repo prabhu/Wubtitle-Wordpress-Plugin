@@ -17,6 +17,12 @@ use Wubtitle\Helpers;
  */
 class Settings {
 	/**
+	 * Price info all plans.
+	 *
+	 * @var array<string>
+	 */
+	private $price_info_plans = array();
+	/**
 	 * Init class actions
 	 *
 	 * @return void
@@ -302,7 +308,7 @@ class Settings {
 		// Report a warning because the nonce is missing, since it is a parameter of the URL of the wubtitle page, the nonce is not necessary.
 		if ( isset( $_GET['page'] ) && 'wubtitle_settings' === $_GET['page'] ) {
 			// phpcs:enable
-			Loader::get( 'cron' )->get_remote_data();
+			$this->price_info_plans = Loader::get( 'cron' )->get_remote_data();
 		}
 		add_settings_section( 'wubtitle-main-settings', '', function(){}, 'wubtitle-settings' );
 
@@ -406,6 +412,7 @@ class Settings {
 				array(
 					'ajax_url'  => admin_url( 'admin-ajax.php' ),
 					'ajaxnonce' => wp_create_nonce( 'itr_ajax_nonce' ),
+					'infoplans' => $this->price_info_plans,
 				)
 			);
 		}

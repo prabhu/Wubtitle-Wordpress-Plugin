@@ -35,7 +35,14 @@ $amount_preview = get_option( 'wubtitle_amount_preview' );
 			<?php endif; ?>
 			<?php if ( isset( $plans, $wanted_plan_rank ) ) : ?>
 			<div class="column one-quarter">
-				<h1 style="text-align:center"> <span class="old_price"><?php echo esc_html( $plans[ $wanted_plan_rank ]['price'] . '€' ); ?></span> <span class="new_price"> <?php echo esc_html( $amount_preview . '€' ); ?></span> </h1>
+				<h1 style="text-align:center"> 
+					<span class="old_price">
+					<?php
+					if ( isset( $price_info_object ) ) {
+						echo esc_html( '€' . $price_info_object[ $wanted_plan_rank ]->price );
+					}
+					?>
+					</span> <span class="new_price"> <?php echo esc_html( $amount_preview . '€' ); ?></span> </h1>
 				<img class="arrowup" src="<?php echo esc_url( WUBTITLE_URL . 'assets/img/arrowup.svg' ); ?>">
 				<p class="paragraph-center"> <?php echo esc_html( __( 'Only for first month (Until ', 'wubtitle' ) . $data . ')' ); ?> </p>
 			</div>

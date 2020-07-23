@@ -30,8 +30,16 @@ class PaymentTemplate {
 	 * Popup window template displayed on license buying button click.
 	 *
 	 * @return void
+	 * @SuppressWarnings(PHPMD.UnusedLocalVariable)
 	 */
 	public function change_plan_template() {
+		if ( ! isset( $_POST['_ajax_nonce'], $_POST['priceinfo'] ) ) {
+			wp_send_json_error( __( 'An error occurred. Please try again in a few minutes.', 'wubtitle' ) );
+		}
+		$nonce             = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
+		$price_info_data   = sanitize_text_field( wp_unslash( $_POST['priceinfo'] ) );
+		$price_info_object = json_decode( $price_info_data );
+		check_ajax_referer( 'itr_ajax_nonce', $nonce );
 		$plan_rank        = get_option( 'wubtitle_plan_rank' );
 		$wanted_plan_rank = get_option( 'wubtitle_wanted_plan_rank' );
 		$includes_file    = 'Templates/downgrade_plan_template.php';
@@ -62,8 +70,16 @@ class PaymentTemplate {
 	 * Load the payment template
 	 *
 	 * @return void
+	 * @SuppressWarnings(PHPMD.UnusedLocalVariable)
 	 */
 	public function load_payment_template() {
+		if ( ! isset( $_POST['_ajax_nonce'], $_POST['priceinfo'] ) ) {
+			wp_send_json_error( __( 'An error occurred. Please try again in a few minutes.', 'wubtitle' ) );
+		}
+		$nonce             = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
+		$price_info_data   = sanitize_text_field( wp_unslash( $_POST['priceinfo'] ) );
+		$price_info_object = json_decode( $price_info_data );
+		check_ajax_referer( 'itr_ajax_nonce', $nonce );
 		if ( current_user_can( 'manage_options' ) ) {
 			ob_start();
 			wp_enqueue_style( 'wubtitle_font_family', 'https://fonts.googleapis.com/css?family=Days+One|Open+Sans&display=swap', array(), WUBTITLE_VER );
@@ -91,6 +107,13 @@ class PaymentTemplate {
 	 * @return void
 	 */
 	public function load_update_template() {
+		if ( ! isset( $_POST['_ajax_nonce'], $_POST['priceinfo'] ) ) {
+			wp_send_json_error( __( 'An error occurred. Please try again in a few minutes.', 'wubtitle' ) );
+		}
+		$nonce             = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
+		$price_info_data   = sanitize_text_field( wp_unslash( $_POST['priceinfo'] ) );
+		$price_info_object = json_decode( $price_info_data );
+		check_ajax_referer( 'itr_ajax_nonce', $nonce );
 		$plan_rank = get_option( 'wubtitle_plan_rank' );
 		$plans     = get_option( 'wubtitle_all_plans' );
 		if ( current_user_can( 'manage_options' ) ) {
@@ -102,7 +125,7 @@ class PaymentTemplate {
 				'wubtitle_stripe_form',
 				'WP_GLOBALS',
 				array(
-					'pricePlan'   => $current_plan['price'],
+					'pricePlan'   => $price_info_object[ $plan_rank ]->price,
 					'ajaxUrl'     => admin_url( 'admin-ajax.php' ),
 					'ajaxNonce'   => wp_create_nonce( 'itr_ajax_nonce' ),
 					'namePlan'    => $current_plan['name'],
@@ -124,10 +147,12 @@ class PaymentTemplate {
 	 * @return void
 	 */
 	public function load_custom_form() {
-		if ( ! isset( $_POST['_ajax_nonce'], $_POST['planRank'] ) ) {
+		if ( ! isset( $_POST['_ajax_nonce'], $_POST['planRank'], $_POST['priceinfo'] ) ) {
 			wp_send_json_error( __( 'An error occurred. Please try again in a few minutes.', 'wubtitle' ) );
 		}
-		$nonce = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
+		$nonce             = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
+		$price_info_data   = sanitize_text_field( wp_unslash( $_POST['priceinfo'] ) );
+		$price_info_object = json_decode( $price_info_data );
 		check_ajax_referer( 'itr_ajax_nonce', $nonce );
 		if ( current_user_can( 'manage_options' ) ) {
 			ob_start();
@@ -139,7 +164,7 @@ class PaymentTemplate {
 				'wubtitle_stripe_form',
 				'WP_GLOBALS',
 				array(
-					'pricePlan'   => $wanted_plan['price'],
+					'pricePlan'   => $price_info_object[ $plan_rank ]->price,
 					'planId'      => $wanted_plan['stripe_code'],
 					'namePlan'    => $wanted_plan['name'],
 					'ajaxUrl'     => admin_url( 'admin-ajax.php' ),
