@@ -57,11 +57,12 @@ export default function CheckoutForm(props) {
 				email,
 			},
 		});
+		setLoading(false);
 		if (response.error) {
 			setError(response.error.message);
+			return;
 		}
 		createSubscription(response.paymentMethod.id, values);
-		setLoading(false);
 	};
 
 	return (
@@ -123,14 +124,21 @@ export default function CheckoutForm(props) {
 			>
 				{({ errors, touched }) => (
 					<Form>
+						{error && changeOn ? (
+							<div
+								className="error-message-container"
+								role="alert"
+							>
+								<p className="error-message">{error}</p>
+							</div>
+						) : (
+							''
+						)}
 						{!paymentPreValues || changeOn ? (
 							<div className="fields-container">
 								<div className="form-field-container">
 									<label htmlFor="email">E-Mail</label>
 									<Field name="email" placeholder="Email" />
-									<p className="error-message">
-										{touched.email && errors.email}
-									</p>
 								</div>
 								<div className="form-field-container">
 									<label htmlFor="name">
@@ -149,9 +157,6 @@ export default function CheckoutForm(props) {
 								</div>
 							</div>
 						) : null}
-						<div className="error-message-container" role="alert">
-							<p className="error-message">{error}</p>
-						</div>
 						<div className="button-bar">
 							<button
 								className="cancel"
