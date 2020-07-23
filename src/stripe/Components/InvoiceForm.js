@@ -109,7 +109,16 @@ export default function CheckoutForm(props) {
 				{({ errors, touched, values }) => (
 					<Form>
 						<h2> Billing Details</h2>
-
+						{error ? (
+							<div
+								className="error-message-container"
+								role="alert"
+							>
+								<p className="error-message">{error}</p>
+							</div>
+						) : (
+							''
+						)}
 						<div className="form-field-container">
 							<label htmlFor="invoiceName">
 								{__('Name', 'wubtitle')}
@@ -306,9 +315,6 @@ export default function CheckoutForm(props) {
 								{touched.destination_code &&
 									errors.destination_code}
 							</p>
-						</div>
-						<div className="error-message-container" role="alert">
-							<p className="error-message">{error}</p>
 						</div>
 
 						<div className="button-bar">
