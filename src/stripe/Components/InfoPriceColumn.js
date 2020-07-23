@@ -8,13 +8,12 @@ import Disclaimer from './Disclaimer';
 import SubscribeName from './SubscribeName';
 
 const InfoPriceColumn = (props) => {
-	const { price, name } = props;
-	const vatPer = 22;
-	const vat = ((price / 100) * vatPer).toFixed(2);
-	const total = parseFloat(price) + parseFloat(vat);
-
+	const { price, name, taxAmount, taxPercentage, taxable } = props;
+	let total = parseFloat(price);
+	if (taxable) {
+		total = parseFloat(price) + parseFloat(taxAmount);
+	}
 	const [isOpen, setIsOpen] = useState(false);
-
 	return (
 		<div className="column price-column">
 			<div className="price">
@@ -29,8 +28,9 @@ const InfoPriceColumn = (props) => {
 				</p>
 				<PriceTable
 					price={price}
-					vatPer={vatPer}
-					vat={vat}
+					taxPercentage={taxPercentage}
+					taxAmount={taxAmount}
+					taxable={taxable}
 					total={total}
 				/>
 			</div>
@@ -54,8 +54,9 @@ const InfoPriceColumn = (props) => {
 					<SubscribeName name={name} />
 					<PriceTable
 						price={price}
-						vatPer={vatPer}
-						vat={vat}
+						taxPercentage={taxPercentage}
+						taxAmount={taxAmount}
+						taxable={taxable}
 						total={total}
 					/>
 				</div>

@@ -546,3 +546,16 @@ table tr {
 	padding: 0 1rem;
 }
 
+.cut-vat {
+	margin-right: 1rem;
+}
+
+.cut-line {
+	width: 59px;
+	height: 2px;
+	background-color: #ffd600;
+	display: inline-block;
+	margin-left: -58px;
+	position: absolute;
+	transform: rotate(-18deg) translateY(8px);
+}

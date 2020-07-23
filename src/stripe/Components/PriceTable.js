@@ -2,7 +2,7 @@ import React from 'react';
 import { __ } from '@wordpress/i18n';
 
 const PriceTable = (props) => {
-	const { price, vatPer, vat, total } = props;
+	const { price, taxPercentage, taxAmount, total, taxable } = props;
 
 	return (
 		<table className="price-table">
@@ -12,9 +12,19 @@ const PriceTable = (props) => {
 			</tr>
 			<tr>
 				<td>
-					{__('VAT', 'wubtitle')} ({vatPer}%)
+					{__('VAT', 'wubtitle')} ({taxPercentage}%)
 				</td>
-				<td className="val">{vat} &euro;</td>
+				{taxable ? (
+					<td className="val">{taxAmount} &euro;</td>
+				) : (
+					<td className="val">
+						<span className="cut-vat">
+							{taxAmount} &euro;vatPer
+							<span className="cut-line">{/* css only */}</span>
+						</span>
+						0 &euro;
+					</td>
+				)}
 			</tr>
 			<tr className="total">
 				<td>{__('Total', 'wubtitle')}</td>
