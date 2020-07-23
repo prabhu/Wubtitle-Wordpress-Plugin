@@ -105,6 +105,7 @@ const showCustomFormWindow = (planRank, CurrentWindow) => {
 			data: {
 				_ajax_nonce: settings_object.ajaxnonce,
 				planRank,
+				priceinfo: JSON.stringify(settings_object.infoplans),
 			},
 		})
 		.done((response) => {
@@ -123,7 +124,11 @@ const showUpdatePlanWindow = () => {
         `;
 		wp.ajax
 			.send('update_template', {
-				type: 'GET',
+				type: 'POST',
+				data: {
+					_ajax_nonce: settings_object.ajaxnonce,
+					priceinfo: JSON.stringify(settings_object.infoplans),
+				},
 			})
 			.done((response) => {
 				UpdatePlanWindow = window.open(
@@ -150,7 +155,11 @@ const showBuyLicenseWindow = () => {
 		wait = true;
 		wp.ajax
 			.send('payment_template', {
-				type: 'GET',
+				type: 'POST',
+				data: {
+					_ajax_nonce: settings_object.ajaxnonce,
+					priceinfo: JSON.stringify(settings_object.infoplans),
+				},
 			})
 			.done((response) => {
 				BuyLicenseWindow = window.open(
@@ -170,7 +179,11 @@ const showBuyLicenseWindow = () => {
 const confirmPlanChangeWindow = (CurrentWindow) => {
 	wp.ajax
 		.send('change_plan_template', {
-			type: 'GET',
+			type: 'POST',
+			data: {
+				_ajax_nonce: settings_object.ajaxnonce,
+				priceinfo: JSON.stringify(settings_object.infoplans),
+			},
 		})
 		.done((response) => {
 			CurrentWindow.document.body.innerHTML = '';
@@ -193,7 +206,11 @@ const showCancelSubscriptionWindow = () => {
 		wait = true;
 		wp.ajax
 			.send('cancel_template', {
-				type: 'GET',
+				type: 'POST',
+				data: {
+					_ajax_nonce: settings_object.ajaxnonce,
+					priceinfo: JSON.stringify(settings_object.infoplans),
+				},
 			})
 			.done((response) => {
 				CancelSubscriptionWindow = window.open(

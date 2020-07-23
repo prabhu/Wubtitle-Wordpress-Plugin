@@ -16,6 +16,8 @@ function App() {
 		invoicePreValues,
 		paymentPreValues,
 		namePlan,
+		taxAmount,
+		taxPercentage,
 	} = WP_GLOBALS;
 	const stripeKey =
 		wubtitleEnv === 'development'
@@ -82,7 +84,13 @@ function App() {
 
 	return (
 		<div className="main columns">
-			<InfoPriceColumn price={pricePlan} name={namePlan} />
+			<InfoPriceColumn
+				price={pricePlan}
+				name={namePlan}
+				taxAmount={taxAmount}
+				taxPercentage={taxPercentage}
+				taxable={invoiceValues ? invoiceValues.tax : true}
+			/>
 
 			<Elements stripe={stripePromise}>
 				{invoiceValues && !isBack ? (
