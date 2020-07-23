@@ -20,7 +20,11 @@ function cancelPayment(){
 	}
 	wp.ajax
 	.send(template, {
-		type: 'GET',
+		type: 'POST',
+		data: {
+			_ajax_nonce: settings_object.ajaxnonce,
+			priceinfo: JSON.stringify(settings_object.infoplans),
+		},
 	})
 	.done((response) => {
 		CurrentWindow.document.body.innerHTML = '';
