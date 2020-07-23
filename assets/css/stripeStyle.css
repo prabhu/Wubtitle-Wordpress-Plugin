@@ -127,6 +127,11 @@ form h2 {
 	color: #304ffe;
 }
 
+.billing-det {
+	padding: 1rem;
+	color: #304ffe;
+}
+
 .form-field-container label {
 	font: 600 12px/17px "Open Sans", sans-serif;
 	color: #616161;

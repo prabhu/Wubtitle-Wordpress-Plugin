@@ -45,59 +45,62 @@ export default function CheckoutForm(props) {
 	};
 
 	return (
-		<Formik
-			initialValues={{
-				name: '',
-				email: '',
-			}}
-			validationSchema={DisplayingErrorMessagesSchema}
-			onSubmit={(values) => {
-				handleSubmit(values);
-			}}
-		>
-			{({ errors, touched }) => (
-				<Form>
-					<div className="form-field-container">
-						<label htmlFor="email">E-Mail</label>
-						<Field name="email" placeholder="Email" />
-						<p className="error-message">
-							{touched.email && errors.email}
-						</p>
-					</div>
-					<div className="form-field-container">
-						<label htmlFor="name">
-							{__('Card Holder', 'wubtitle')}
-						</label>
-						<Field name="name" placeholder="Card Holder" />
-						<p className="error-message">
-							{touched.name && errors.name}
-						</p>
-					</div>
-					<div className="form-field-container card">
-						<CardSection />
-					</div>
-					<div className="error-message-container" role="alert">
-						<p className="error-message">{error}</p>
-					</div>
-					<div className="button-bar">
-						<button
-							className="cancel"
-							onClick={() => backFunction()}
-						>
-							{__('Cancel', 'wubtitle')}
-						</button>
-						<button
-							disabled={!stripe || loading}
-							className={loading ? 'disabled' : ''}
-						>
-							{loading && (
-								<i className="fa fa-refresh fa-spin loading-margin" />
-							)}
-							{__('Confirm order', 'wubtitle')}
-						</button>
-					</div>
-				</Form>
-			)}
-		</Formik>
+		<>
+			<h2 className="billing-det">{__('Billing Details', 'wubtitle')}</h2>
+			<Formik
+				initialValues={{
+					name: '',
+					email: '',
+				}}
+				validationSchema={DisplayingErrorMessagesSchema}
+				onSubmit={(values) => {
+					handleSubmit(values);
+				}}
+			>
+				{({ errors, touched }) => (
+					<Form>
+						<div className="form-field-container">
+							<label htmlFor="email">E-Mail</label>
+							<Field name="email" placeholder="Email" />
+							<p className="error-message">
+								{touched.email && errors.email}
+							</p>
+						</div>
+						<div className="form-field-container">
+							<label htmlFor="name">
+								{__('Card Holder', 'wubtitle')}
+							</label>
+							<Field name="name" placeholder="Card Holder" />
+							<p className="error-message">
+								{touched.name && errors.name}
+							</p>
+						</div>
+						<div className="form-field-container card">
+							<CardSection />
+						</div>
+						<div className="error-message-container" role="alert">
+							<p className="error-message">{error}</p>
+						</div>
+						<div className="button-bar">
+							<button
+								className="cancel"
+								onClick={() => backFunction()}
+							>
+								{__('Cancel', 'wubtitle')}
+							</button>
+							<button
+								disabled={!stripe || loading}
+								className={loading ? 'disabled' : ''}
+							>
+								{loading && (
+									<i className="fa fa-refresh fa-spin loading-margin" />
+								)}
+								{__('Confirm order', 'wubtitle')}
+							</button>
+						</div>
+					</Form>
+				)}
+			</Formik>
+		</>
 	);
 }
