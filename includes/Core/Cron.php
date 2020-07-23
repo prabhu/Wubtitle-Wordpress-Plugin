@@ -102,7 +102,12 @@ class Cron {
 					'icon'         => $plan->icon,
 				);
 				$price_info_plans[ $plan->rank ] = array(
-					'price' => $plan->price,
+					'price'         => $plan->price,
+					// phpcs:disable 
+					// warning camel case
+					'taxAmount'     => $plan->taxAmount,
+					'taxPercentage' => $plan->taxPercentage,
+					// phpcs:enable
 				);
 				if ( $body_response->data->currentPlan === $plan->id ) {
 					$wubtitle_plan_rank = $plan->rank;

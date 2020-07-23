@@ -125,11 +125,13 @@ class PaymentTemplate {
 				'wubtitle_stripe_form',
 				'WP_GLOBALS',
 				array(
-					'pricePlan'   => $price_info_object[ $plan_rank ]->price,
-					'ajaxUrl'     => admin_url( 'admin-ajax.php' ),
-					'ajaxNonce'   => wp_create_nonce( 'itr_ajax_nonce' ),
-					'namePlan'    => $current_plan['name'],
-					'wubtitleEnv' => defined( 'WP_WUBTITLE_ENV' ) ? esc_html( WP_WUBTITLE_ENV ) : '',
+					'pricePlan'     => $price_info_object[ $plan_rank ]->price,
+					'taxAmount'     => $price_info_object[ $plan_rank ]->taxAmount,
+					'taxPercentage' => $price_info_object[ $plan_rank ]->taxPercentage,
+					'ajaxUrl'       => admin_url( 'admin-ajax.php' ),
+					'ajaxNonce'     => wp_create_nonce( 'itr_ajax_nonce' ),
+					'namePlan'      => $current_plan['name'],
+					'wubtitleEnv'   => defined( 'WP_WUBTITLE_ENV' ) ? esc_html( WP_WUBTITLE_ENV ) : '',
 				)
 			);
 			wp_enqueue_style( 'wubtitle_style_form', WUBTITLE_URL . 'assets/css/stripeStyle.css', array(), WUBTITLE_VER );
@@ -164,12 +166,14 @@ class PaymentTemplate {
 				'wubtitle_stripe_form',
 				'WP_GLOBALS',
 				array(
-					'pricePlan'   => $price_info_object[ $plan_rank ]->price,
-					'planId'      => $wanted_plan['stripe_code'],
-					'namePlan'    => $wanted_plan['name'],
-					'ajaxUrl'     => admin_url( 'admin-ajax.php' ),
-					'ajaxNonce'   => wp_create_nonce( 'itr_ajax_nonce' ),
-					'wubtitleEnv' => defined( 'WP_WUBTITLE_ENV' ) ? esc_html( WP_WUBTITLE_ENV ) : '',
+					'pricePlan'     => $price_info_object[ $plan_rank ]->price,
+					'taxAmount'     => $price_info_object[ $plan_rank ]->taxAmount,
+					'taxPercentage' => $price_info_object[ $plan_rank ]->taxPercentage,
+					'planId'        => $wanted_plan['stripe_code'],
+					'namePlan'      => $wanted_plan['name'],
+					'ajaxUrl'       => admin_url( 'admin-ajax.php' ),
+					'ajaxNonce'     => wp_create_nonce( 'itr_ajax_nonce' ),
+					'wubtitleEnv'   => defined( 'WP_WUBTITLE_ENV' ) ? esc_html( WP_WUBTITLE_ENV ) : '',
 				)
 			);
 			wp_enqueue_style( 'wubtitle_style_form', WUBTITLE_URL . 'assets/css/stripeStyle.css', array(), WUBTITLE_VER );

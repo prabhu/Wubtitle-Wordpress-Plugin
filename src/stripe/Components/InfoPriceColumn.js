@@ -5,11 +5,8 @@ import React from 'react';
 import { __ } from '@wordpress/i18n';
 
 const InfoPriceColumn = (props) => {
-	const { price, name } = props;
-	// TODO: Get vat from db when it will be implemented.
-	const vatPer = 22;
-	const vat = ((price / 100) * vatPer).toFixed(2);
-	const total = parseFloat(price) + parseFloat(vat);
+	const { price, name, taxAmount, taxPercentage } = props;
+	const total = parseFloat(price) + parseFloat(taxAmount);
 	return (
 		<div className="column price-column">
 			<div className="price">
@@ -24,9 +21,9 @@ const InfoPriceColumn = (props) => {
 					</tr>
 					<tr>
 						<td>
-							{__('VAT', 'wubtitle')} ({vatPer}%)
+							{__('VAT', 'wubtitle')} ({taxPercentage}%)
 						</td>
-						<td className="val">{vat} &euro;</td>
+						<td className="val">{taxAmount} &euro;</td>
 					</tr>
 					<tr className="total">
 						<td>{__('Total', 'wubtitle')}</td>
