@@ -14,6 +14,7 @@ function App() {
 		ajaxNonce,
 		pricePlan,
 		invoicePreValues,
+		paymentPreValues,
 		namePlan,
 	} = WP_GLOBALS;
 	const stripeKey =
@@ -25,7 +26,6 @@ function App() {
 	const [error, setError] = useState(null);
 	const [invoiceValues, setInvoiceValues] = useState(null);
 	const [isBack, setIsBack] = useState(false);
-
 	const handleSubmit = (values) => {
 		fetch(ajaxUrl, {
 			method: 'POST',
@@ -94,7 +94,9 @@ function App() {
 						<CheckoutForm
 							createSubscription={createSubscription}
 							backFunction={backFunction}
+							paymentPreValues={paymentPreValues}
 							error={error}
+							setError={setError}
 						/>
 					</div>
 				) : (

@@ -10,43 +10,108 @@ import {
 } from '@stripe/react-stripe-js';
 
 export default function CheckoutForm(props) {
-	const { createSubscription, backFunction, error } = props;
+	const {
+		createSubscription,
+		backFunction,
+		error,
+		paymentPreValues,
+		setError,
+	} = props;
 	const stripe = useStripe();
 	const elements = useElements();
 	const [loading, setLoading] = useState(false);
+	const [changeOn, setChangeOn] = useState(false);
 	const requiredMessage = __('Required', 'wubtitle');
-	const DisplayingErrorMessagesSchema = Yup.object().shape({
-		name: Yup.string().required(requiredMessage),
-		email: Yup.string()
-			.email(__('Invalid email', 'wubtitle'))
-			.required(requiredMessage),
+	const DisplayingErrorMessagesSchema = Yup.lazy(() => {
+		let yupObject = {};
+		if (!paymentPreValues || changeOn) {
+			yupObject = {
+				name: Yup.string().required(requiredMessage),
+				email: Yup.string()
+					.email(__('Invalid email', 'wubtitle'))
+					.required(requiredMessage),
+			};
+		}
+		return Yup.object().shape(yupObject);
 	});
 
 	const handleSubmit = async (values) => {
-		const { name } = values;
+		const { name, email } = values;
 		if (!stripe || !elements) {
 			return;
 		}
+		if (paymentPreValues && !changeOn) {
+			values.name = paymentPreValues.name;
+			values.email = paymentPreValues.email;
+			createSubscription(paymentPreValues.paymentMethod, values);
+			return;
+		}
+
 		setLoading(true);
 		const cardNumber = elements.getElement(CardNumberElement);
-
-		await stripe
-			.createPaymentMethod({
-				type: 'card',
-				card: cardNumber,
-				billing_details: {
-					name,
-				},
-			})
-			.then((response) => {
-				createSubscription(response.paymentMethod.id, values);
-				setLoading(false);
-			});
+		const response = await stripe.createPaymentMethod({
+			type: 'card',
+			card: cardNumber,
+			billing_details: {
+				name,
+				email,
+			},
+		});
+		setLoading(false);
+		if (response.error) {
+			setError(response.error.message);
+			return;
+		}
+		createSubscription(response.paymentMethod.id, values);
 	};
 
 	return (
-		<>
-			<h2 className="billing-det">{__('Billing Details', 'wubtitle')}</h2>
+		<div className="checkout-form">
+			<div className="title-section">
+				<h2>{__('Payment Details', 'wubtitle')}</h2>
+				{paymentPreValues ? (
+					<div className="switch-container">
+						<p>
+							{changeOn
+								? __('editing enabled', 'wubtitle')
+								: __('editing disabled', 'wubtitle')}
+						</p>
+						<label htmlFor="change-data" className="switch">
+							<input
+								type="checkbox"
+								onClick={() => {
+									setChangeOn(!changeOn);
+								}}
+							/>
+							<span className="slider round" />
+						</label>
+					</div>
+				) : null}
+			</div>
+			{paymentPreValues ? (
+				<div className="summary columns">
+					<div className="column">
+						<p>
+							<strong>{__('Email', 'wubtitle')}: </strong>
+							{paymentPreValues.email}
+						</p>
+						<p>
+							<strong>{__('Card Details', 'wubtitle')}: </strong>
+							{paymentPreValues.cardNumber}
+						</p>
+					</div>
+					<div className="column">
+						<p>
+							<strong>{__('Card Holder', 'wubtitle')}: </strong>
+							{paymentPreValues.name}
+						</p>
+						<p>
+							<strong>{__('Expires', 'wubtitle')}: </strong>
+							{paymentPreValues.expiration}
+						</p>
+					</div>
+				</div>
+			) : null}
 			<Formik
 				initialValues={{
 					name: '',
@@ -59,28 +124,39 @@ export default function CheckoutForm(props) {
 			>
 				{({ errors, touched }) => (
 					<Form>
-						<div className="form-field-container">
-							<label htmlFor="email">E-Mail</label>
-							<Field name="email" placeholder="Email" />
-							<p className="error-message">
-								{touched.email && errors.email}
-							</p>
-						</div>
-						<div className="form-field-container">
-							<label htmlFor="name">
-								{__('Card Holder', 'wubtitle')}
-							</label>
-							<Field name="name" placeholder="Card Holder" />
-							<p className="error-message">
-								{touched.name && errors.name}
-							</p>
-						</div>
-						<div className="form-field-container card">
-							<CardSection />
-						</div>
-						<div className="error-message-container" role="alert">
-							<p className="error-message">{error}</p>
-						</div>
+						{error && changeOn ? (
+							<div
+								className="error-message-container"
+								role="alert"
+							>
+								<p className="error-message">{error}</p>
+							</div>
+						) : (
+							''
+						)}
+						{!paymentPreValues || changeOn ? (
+							<div className="fields-container">
+								<div className="form-field-container">
+									<label htmlFor="email">E-Mail</label>
+									<Field name="email" placeholder="Email" />
+								</div>
+								<div className="form-field-container">
+									<label htmlFor="name">
+										{__('Card Holder', 'wubtitle')}
+									</label>
+									<Field
+										name="name"
+										placeholder="Card Holder"
+									/>
+									<p className="error-message">
+										{touched.name && errors.name}
+									</p>
+								</div>
+								<div className="form-field-container card">
+									<CardSection />
+								</div>
+							</div>
+						) : null}
 						<div className="button-bar">
 							<button
 								className="cancel"
@@ -101,6 +177,6 @@ export default function CheckoutForm(props) {
 					</Form>
 				)}
 			</Formik>
-		</>
+		</div>
 	);
 }
