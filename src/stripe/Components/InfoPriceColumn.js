@@ -10,26 +10,8 @@ const InfoPriceColumn = (props) => {
 	const vat = ((price / 100) * vatPer).toFixed(2);
 	const total = parseFloat(price) + parseFloat(vat);
 
-	const [isOpen, setOpen] = useState(false);
-
-	const handleClick = () => {
-		setOpen(!isOpen);
-	};
-
-	const style = {
-		open: {
-			a: 'a',
-			b: 'b'
-		},
-		close: {
-			a: 'a',
-			b: 'b'
-		}
-	};
-
 	return (
 		<div className="column price-column">
-			<span style={isOpen ? style.open : style.close} className="toggle" onClick={handleClick()}>v</span>
 			<div className="price">
 				<p className="price-name">
 					{__('Subscribe to', 'wubtitle')} {name}{' '}
