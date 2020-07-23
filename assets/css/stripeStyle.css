@@ -318,7 +318,7 @@ table tr {
 	.column {
 		width: 50%;
 	}
-	
+
 	.wrapper-form.column {
 		width: 67%;
 	}
@@ -374,7 +374,7 @@ table tr {
 	.mobile-price-info {
 		display: block;
 		display: flex;
-    	align-items: center;
+		align-items: center;
 	}
 
 	.mobile-price-info .info-icon {
@@ -437,12 +437,10 @@ table tr {
 
 	.summary.closed {
 		height: 80px;
-		transition: all .8s cubic-bezier(0.42, 0, 0.15, 1.4);
 	}
 
 	.summary.opened {
 		height: auto;
-		transition: all .8s cubic-bezier(0.42, 0, 0.15, 1.4);
 	}
 }
 	
