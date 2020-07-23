@@ -212,13 +212,11 @@ table tr {
 	height: 3rem;
 }
 
-.disclaimer,
-.mobile-disclaimer {
+.disclaimer {
 	font: 400 12px/17px "Open Sans", sans-serif;
 }
 
-.disclaimer a,
-.mobile-disclaimer a {
+.disclaimer a{
 	color: #fff;
 	text-decoration: none;
 }
@@ -295,10 +293,12 @@ table tr {
 .mobile-price-view .nav-back span {
 	padding: 1rem;
 	padding-left: 0;
+	font: 600 16px/22px "Open Sans", sans-serif;
 }
 
-.mobile-disclaimer {
+.mobile-price-view .disclaimer {
 	margin-top: auto;
+	display: none;
 }
 
 /* Desktop */
@@ -379,11 +379,11 @@ table tr {
 		margin-left: 10px;
 	}
 	
-	.desktop-price-info {
+	.price .price-table {
 		display: none;
 	}
 
-	.disclaimer {
+	.price-column .disclaimer {
 		display: none;
 	}
 }

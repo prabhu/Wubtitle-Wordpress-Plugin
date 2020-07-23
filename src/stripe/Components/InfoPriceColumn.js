@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { __ } from '@wordpress/i18n';
 import { ReactComponent as InfoIcon } from '../../../assets/img/info-white-18dp.svg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import PriceTable from './PriceTable';
+import Disclaimer from './Disclaimer';
+import SubscribeName from './SubscribeName';
 
 const InfoPriceColumn = (props) => {
 	const { price, name } = props;
@@ -11,143 +14,60 @@ const InfoPriceColumn = (props) => {
 	const total = parseFloat(price) + parseFloat(vat);
 
 	const [isOpen, setIsOpen] = useState(false);
-	const [toggleClass, setToggleClass] = useState('closed');
 
-	const handleClick = () => {
-		setIsOpen(!isOpen);
-		if (isOpen) {
-			setToggleClass('opened');
-		} else {
-			setToggleClass('closed');
-		}
-	};
+	useEffect(() => {
+		return isOpen;
+	}, [isOpen]);
 
 	return (
 		<div className="column price-column">
 			<div className="price">
-				<p className="price-name">
-					{__('Subscribe to', 'wubtitle')} {name}{' '}
-					{__('plan', 'wubtitle')}
-				</p>
+				<SubscribeName name={name} />
 				<p className="mobile-price-info">
 					{total} &euro;{' '}
-					<span className="valxm">
-						{__('per mounth', 'wubtitle')}
-					</span>
-					<InfoIcon className="info-icon" onClick={handleClick} />
+					<span className="valxm">{__('per month', 'wubtitle')}</span>
+					<InfoIcon
+						className="info-icon"
+						onClick={() => setIsOpen(!isOpen)}
+					/>
 				</p>
 
-				<table className="desktop-price-info">
-					<tr>
-						<td>{__('Price', 'wubtitle')}</td>
-						<td className="val">{price} &euro;</td>
-					</tr>
-					<tr>
-						<td>
-							{__('VAT', 'wubtitle')} ({vatPer}%)
-						</td>
-						<td className="val">{vat} &euro;</td>
-					</tr>
-					<tr className="total">
-						<td>{__('Total', 'wubtitle')}</td>
-						<td className="val">
-							{total} &euro;{' '}
-							<span className="valxm">
-								{__('per mounth', 'wubtitle')}
+				<PriceTable
+					price={price}
+					vatPer={vatPer}
+					vat={vat}
+					total={total}
+				/>
+			</div>
+
+			<Disclaimer />
+
+			{isOpen ? (
+				<div className="mobile-price-view">
+					<div className="top">
+						<div
+							className="nav-back"
+							onClick={() => setIsOpen(!isOpen)}
+							aria-hidden="true"
+						>
+							<span>
+								<FontAwesomeIcon icon={faArrowLeft} />
+								Subscription details
 							</span>
-						</td>
-					</tr>
-				</table>
-			</div>
-			<div className="disclaimer">
-				<p>
-					{__(
-						'When ordering within the EU an order may be exempt to VAT if a valid VAT registration number is provided.',
-						'wubtitle'
-					)}
-				</p>
-				<p>
-					<a
-						href="https://stripe.com/checkout/terms"
-						rel="noreferrer"
-						target="_blank"
-					>
-						{__('Terms and conditions', 'wubtitle')}
-					</a>
-					<span> | </span>
-					<a
-						href="https://stripe.com/it/privacy"
-						target="_blank"
-						rel="noreferrer"
-					>
-						{__('Privacy', 'wubtitle')}
-					</a>
-				</p>
-			</div>
-			<div className={`mobile-price-view ${toggleClass}`}>
-				<div className="top">
-					<div
-						className="nav-back"
-						onClick={handleClick}
-						aria-hidden="true"
-					>
-						<span>
-							<FontAwesomeIcon icon={faArrowLeft} />
-							Subscription details
-						</span>
+						</div>
+						<SubscribeName name={name} />
+						<PriceTable
+							price={price}
+							vatPer={vatPer}
+							vat={vat}
+							total={total}
+						/>
 					</div>
-					<p className="price-name">
-						{__('Subscribe to', 'wubtitle')} {name}{' '}
-						{__('plan', 'wubtitle')}
-					</p>
-					<table>
-						<tr>
-							<td>{__('Price', 'wubtitle')}</td>
-							<td className="val">{price} &euro;</td>
-						</tr>
-						<tr>
-							<td>
-								{__('VAT', 'wubtitle')} ({vatPer}%)
-							</td>
-							<td className="val">{vat} &euro;</td>
-						</tr>
-						<tr className="total">
-							<td>{__('Total', 'wubtitle')}</td>
-							<td className="val">
-								{total} &euro;{' '}
-								<span className="valxm">
-									{__('per mounth', 'wubtitle')}
-								</span>
-							</td>
-						</tr>
-					</table>
+					<Disclaimer />
 				</div>
-				<div className="mobile-disclaimer">
-					<p>
-						{__(
-							'When ordering within the EU an order may be exempt to VAT if a valid VAT registration number is provided.',
-							'wubtitle'
-						)}
-					</p>
-					<p>
-						<a
-							href="https://stripe.com/checkout/terms"
-							rel="noreferrer"
-							target="_blank"
-						>
-							{__('Terms and conditions', 'wubtitle')}
-						</a>
-						<span> | </span>
-						<a
-							href="https://stripe.com/it/privacy"
-							target="_blank"
-							rel="noreferrer"
-						>
-							{__('Privacy', 'wubtitle')}
-						</a>
-					</p>
-				</div>
-			</div>
+			) : (
+				''
+			)}
 		</div>
 	);
 };
