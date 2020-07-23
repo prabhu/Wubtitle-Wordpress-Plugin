@@ -146,6 +146,8 @@ class InvoiceHelper {
 	 * @return array<mixed>|false
 	 */
 	public function get_invoice_data() {
+		// phpcs:disable WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+		// warning camel case.
 		$license_key = get_option( 'wubtitle_license_key' );
 		if ( empty( $license_key ) ) {
 			wp_send_json_error( __( 'Error. The product license key is missing.', 'wubtitle' ) );
@@ -169,9 +171,7 @@ class InvoiceHelper {
 		}
 		$invoice_details = $response_body->data->invoiceDetails;
 		$payment_details = $response_body->data->paymentDetails;
-		// phpcs:disable WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
-		// warning camel case.
-		$invoice_data = array(
+		$invoice_data    = array(
 			'invoice_name'     => $invoice_details->Name,
 			'invoice_email'    => $invoice_details->Email,
 			'invoice_lastname' => $invoice_details->LastName,
@@ -187,14 +187,13 @@ class InvoiceHelper {
 			'fiscal_code'      => $invoice_details->FiscalCode,
 			'destination_code' => $invoice_details->DestinationCode,
 		);
-		$payment_data = array(
+		$payment_data    = array(
 			'name'            => $payment_details->name,
 			'email'           => $payment_details->email,
 			'expiration'      => $payment_details->expiration,
 			'cardNumber'      => $payment_details->cardNumber,
 			'paymentMethodId' => $payment_details->paymentMethodId,
 		);
-		// phpcs:enable
 		return array(
 			'invoice_data' => $invoice_data,
 			'payment_data' => $payment_data,

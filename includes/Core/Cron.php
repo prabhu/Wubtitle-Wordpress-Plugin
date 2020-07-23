@@ -81,6 +81,8 @@ class Cron {
 			)
 		);
 		$code_response = wp_remote_retrieve_response_code( $response );
+		// phpcs:disable WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+		// warning camel case.
 		if ( 200 === $code_response ) {
 			$body_response      = json_decode( wp_remote_retrieve_body( $response ) );
 			$plans              = $body_response->data->plans;
@@ -93,29 +95,20 @@ class Cron {
 				$wubtitle_plans[ $plan->rank ]   = array(
 					'name'         => $plan->name,
 					'stripe_code'  => $plan->id,
-					// phpcs:disable WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
-					// warning camel case.
 					'totalJobs'    => $plan->totalJobs,
 					'totalSeconds' => $plan->totalSeconds,
-					// phpcs:enable
 					'dot_list'     => $plan->dotlist,
 					'icon'         => $plan->icon,
 				);
 				$price_info_plans[ $plan->rank ] = array(
 					'price'         => $plan->price,
-					// phpcs:disable WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
-					// warning camel case.
 					'taxAmount'     => $plan->taxAmount,
 					'taxPercentage' => $plan->taxPercentage,
-					// phpcs:enable
 				);
 				if ( $body_response->data->currentPlan === $plan->id ) {
 					$wubtitle_plan_rank = $plan->rank;
-					// phpcs:disable WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
-					// warning camel case.
-					$total_jobs    = $plan->totalJobs;
-					$total_seconds = $plan->totalSeconds;
-					// phpcs:enable
+					$total_jobs         = $plan->totalJobs;
+					$total_seconds      = $plan->totalSeconds;
 				}
 			}
 			update_option( 'wubtitle_plan', $body_response->data->currentPlan, false );
