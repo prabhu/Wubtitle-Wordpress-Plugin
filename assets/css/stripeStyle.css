@@ -559,3 +559,7 @@ table tr {
 	position: absolute;
 	transform: rotate(-18deg) translateY(8px);
 }
+
+.as {
+	display: none;
+}
