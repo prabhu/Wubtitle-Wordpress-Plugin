@@ -88,15 +88,15 @@ class InvoiceHelper {
 		if ( ! isset( $invoice_object->invoice_name, $invoice_object->invoice_lastname, $invoice_object->invoice_email, $invoice_object->telephone, $invoice_object->prefix_telephone, $invoice_object->address, $invoice_object->city, $invoice_object->country ) ) {
 			return false;
 		}
-		$telephone       = $invoice_object->prefix_telephone . $invoice_object->telephone;
 		$invoice_details = array(
-			'Name'      => $invoice_object->invoice_name,
-			'LastName'  => $invoice_object->invoice_lastname,
-			'Email'     => $invoice_object->invoice_email,
-			'Telephone' => $telephone,
-			'Address'   => $invoice_object->address,
-			'City'      => $invoice_object->city,
-			'Country'   => $invoice_object->country,
+			'Name'            => $invoice_object->invoice_name,
+			'LastName'        => $invoice_object->invoice_lastname,
+			'Email'           => $invoice_object->invoice_email,
+			'Telephone'       => $invoice_object->telephone,
+			'TelephonePrefix' => $invoice_object->prefix_telephone,
+			'Address'         => $invoice_object->address,
+			'City'            => $invoice_object->city,
+			'Country'         => $invoice_object->country,
 		);
 
 		if ( ! in_array( $invoice_object->country, $eu_countries, true ) ) {
@@ -139,5 +139,65 @@ class InvoiceHelper {
 			$invoice_details['DestinationCode'] = $invoice_object->destination_code;
 		}
 		return $invoice_details;
+	}
+	/**
+	 * Calls the aws endpoint to receive the invoice data.
+	 *
+	 * @return array<mixed>|false
+	 */
+	public function get_invoice_data() {
+		$license_key = get_option( 'wubtitle_license_key' );
+		if ( empty( $license_key ) ) {
+			wp_send_json_error( __( 'Error. The product license key is missing.', 'wubtitle' ) );
+		}
+		$response      = wp_remote_post(
+			WUBTITLE_ENDPOINT . 'stripe/customer/invoice-details',
+			array(
+				'method'  => 'POST',
+				'headers' => array(
+					'licenseKey' => $license_key,
+				),
+			)
+		);
+		$code_response = wp_remote_retrieve_response_code( $response );
+		if ( 200 !== $code_response ) {
+			return false;
+		}
+		$response_body = json_decode( wp_remote_retrieve_body( $response ) );
+		if ( ! isset( $response_body->data->invoiceDetails, $response_body->data->paymentDetails ) ) {
+			return false;
+		}
+		$invoice_details = $response_body->data->invoiceDetails;
+		$payment_details = $response_body->data->paymentDetails;
+		// phpcs:disable 
+		// warning camel case
+		$invoice_data    = array(
+			'invoice_name'     => $invoice_details->Name,
+			'invoice_email'    => $invoice_details->Email,
+			'invoice_lastname' => $invoice_details->LastName,
+			'telephone'        => $invoice_details->Telephone,
+			'prefix_telephone' => $invoice_details->TelephonePrefix,
+			'company_name'     => $invoice_details->CompanyName,
+			'address'          => $invoice_details->Address,
+			'cap'              => $invoice_details->PostCode,
+			'city'             => $invoice_details->City,
+			'province'         => $invoice_details->Province,
+			'country'          => $invoice_details->Country,
+			'vat_code'         => $invoice_details->VatCode,
+			'fiscal_code'      => $invoice_details->FiscalCode,
+			'destination_code' => $invoice_details->DestinationCode,
+		);
+		$payment_data    = array(
+			'name'            => $payment_details->name,
+			'email'           => $payment_details->email,
+			'expiration'      => $payment_details->expiration,
+			'cardNumber'      => $payment_details->card,
+			'paymentMethodId' => $payment_details->paymentMethodId,
+		);
+		// phpcs:enable
+		return array(
+			'invoice_data' => $invoice_data,
+			'payment_data' => $payment_data,
+		);
 	}
 }

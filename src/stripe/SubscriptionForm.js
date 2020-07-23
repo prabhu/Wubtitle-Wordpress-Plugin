@@ -101,6 +101,8 @@ function App() {
 							createSubscription={createSubscription}
 							error={error}
 							backFunction={backFunction}
+							paymentPreValues={null}
+							setError={setError}
 						/>
 					</div>
 				) : (
