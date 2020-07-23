@@ -71,8 +71,8 @@ class InvoiceHelper {
 			wp_send_json_error( $message[ $code_response ] );
 		}
 		$response_body = json_decode( wp_remote_retrieve_body( $response ) );
-		$tax           = $response_body->data->taxAmount;
-		wp_send_json_success( $tax );
+		$taxable       = $response_body->data->taxable;
+		wp_send_json_success( $taxable );
 	}
 
 	/**

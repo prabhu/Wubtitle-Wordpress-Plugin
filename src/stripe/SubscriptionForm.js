@@ -87,6 +87,7 @@ function App() {
 				name={namePlan}
 				taxAmount={taxAmount}
 				taxPercentage={taxPercentage}
+				taxable={invoiceValues ? invoiceValues.tax : true}
 			/>
 
 			<Elements stripe={stripePromise}>
