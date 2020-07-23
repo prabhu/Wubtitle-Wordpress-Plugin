@@ -93,8 +93,8 @@ class Cron {
 				$wubtitle_plans[ $plan->rank ]   = array(
 					'name'         => $plan->name,
 					'stripe_code'  => $plan->id,
-					// phpcs:disable 
-					// warning camel case
+					// phpcs:disable WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+					// warning camel case.
 					'totalJobs'    => $plan->totalJobs,
 					'totalSeconds' => $plan->totalSeconds,
 					// phpcs:enable
@@ -103,18 +103,18 @@ class Cron {
 				);
 				$price_info_plans[ $plan->rank ] = array(
 					'price'         => $plan->price,
-					// phpcs:disable 
-					// warning camel case
+					// phpcs:disable WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+					// warning camel case.
 					'taxAmount'     => $plan->taxAmount,
 					'taxPercentage' => $plan->taxPercentage,
 					// phpcs:enable
 				);
 				if ( $body_response->data->currentPlan === $plan->id ) {
 					$wubtitle_plan_rank = $plan->rank;
-					// phpcs:disable 
-					// warning camel case
-					$total_jobs         = $plan->totalJobs;
-					$total_seconds      = $plan->totalSeconds;
+					// phpcs:disable WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+					// warning camel case.
+					$total_jobs    = $plan->totalJobs;
+					$total_seconds = $plan->totalSeconds;
 					// phpcs:enable
 				}
 			}
