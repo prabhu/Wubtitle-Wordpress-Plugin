@@ -212,11 +212,13 @@ table tr {
 	height: 3rem;
 }
 
-.disclaimer {
+.disclaimer,
+.mobile-disclaimer {
 	font: 400 12px/17px "Open Sans", sans-serif;
 }
 
-.disclaimer a {
+.disclaimer a,
+.mobile-disclaimer a {
 	color: #fff;
 	text-decoration: none;
 }
@@ -262,6 +264,43 @@ table tr {
 	display: none;
 }
 
+.mobile-price-view {
+	display: none;
+}
+
+.mobile-price-view.opened {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	height: 100vh;
+	background: transparent linear-gradient(233deg, #d500f9 0%, #2962ff 99%) 0% 0% no-repeat padding-box;
+	z-index: 100;
+	margin-left: -1rem;
+	padding: 1rem;
+}
+
+.mobile-price-view .nav-back {
+	display: flex;
+    align-items: center;
+}
+
+.mobile-price-view .nav-back svg {
+	margin-right: 10px;
+}
+
+
+.mobile-price-view .nav-back span {
+	padding: 1rem;
+	padding-left: 0;
+}
+
+.mobile-disclaimer {
+	margin-top: auto;
+}
+
 /* Desktop */
 @media screen and (min-width: 1024px) {
 
@@ -290,6 +329,10 @@ table tr {
 
 	.button-bar {
 		width: 67%;
+	}
+
+	.mobile-price-info {
+		display: none;
 	}
 	
 }
@@ -326,11 +369,23 @@ table tr {
 		padding-bottom: 100px;
 	}
 
-	.price-column {
-		height: 80px;
-		overflow: hidden;
+	.mobile-price-info {
+		display: block;
+		display: flex;
+    	align-items: center;
+	}
+
+	.mobile-price-info .info-icon {
+		margin-left: 10px;
 	}
 	
+	.desktop-price-info {
+		display: none;
+	}
+
+	.disclaimer {
+		display: none;
+	}
 }
 
 
