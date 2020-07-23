@@ -143,7 +143,7 @@ class InvoiceHelper {
 	/**
 	 * Calls the aws endpoint to receive the invoice data.
 	 *
-	 * @return array|false
+	 * @return array<mixed>|false
 	 */
 	public function get_invoice_data() {
 		$license_key = get_option( 'wubtitle_license_key' );

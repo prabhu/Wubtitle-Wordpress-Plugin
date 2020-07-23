@@ -114,8 +114,8 @@ class PaymentTemplate {
 					'ajaxNonce'        => wp_create_nonce( 'itr_ajax_nonce' ),
 					'wubtitleEnv'      => defined( 'WP_WUBTITLE_ENV' ) ? esc_html( WP_WUBTITLE_ENV ) : '',
 					'namePlan'         => $current_plan['name'],
-					'invoicePreValues' => $data ? $invoice_object : null,
-					'paymentPreValues' => $data ? $payment_object : null,
+					'invoicePreValues' => $data && isset( $invoice_object ) ? $invoice_object : null,
+					'paymentPreValues' => $data && isset( $payment_object ) ? $payment_object : null,
 				)
 			);
 			wp_enqueue_style( 'wubtitle_style_form', WUBTITLE_URL . 'assets/css/stripeStyle.css', array(), WUBTITLE_VER );
