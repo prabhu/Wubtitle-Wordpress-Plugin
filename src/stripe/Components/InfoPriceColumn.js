@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { __ } from '@wordpress/i18n';
 import { ReactComponent as InfoIcon } from '../../../assets/img/info-white-18dp.svg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -15,23 +15,18 @@ const InfoPriceColumn = (props) => {
 
 	const [isOpen, setIsOpen] = useState(false);
 
-	useEffect(() => {
-		return isOpen;
-	}, [isOpen]);
-
 	return (
 		<div className="column price-column">
 			<div className="price">
 				<SubscribeName name={name} />
 				<p className="mobile-price-info">
-					{total} &euro;{' '}
+					<span className="total">{total} &euro; </span>
 					<span className="valxm">{__('per month', 'wubtitle')}</span>
 					<InfoIcon
 						className="info-icon"
 						onClick={() => setIsOpen(!isOpen)}
 					/>
 				</p>
-
 				<PriceTable
 					price={price}
 					vatPer={vatPer}
@@ -39,35 +34,33 @@ const InfoPriceColumn = (props) => {
 					total={total}
 				/>
 			</div>
-
 			<Disclaimer />
-
-			{isOpen ? (
-				<div className="mobile-price-view">
-					<div className="top">
-						<div
-							className="nav-back"
-							onClick={() => setIsOpen(!isOpen)}
-							aria-hidden="true"
-						>
-							<span>
-								<FontAwesomeIcon icon={faArrowLeft} />
-								Subscription details
-							</span>
-						</div>
-						<SubscribeName name={name} />
-						<PriceTable
-							price={price}
-							vatPer={vatPer}
-							vat={vat}
-							total={total}
-						/>
+			<div
+				className={
+					isOpen ? 'mobile-price-view opened' : 'mobile-price-view'
+				}
+			>
+				<div className="top">
+					<div
+						className="nav-back"
+						onClick={() => setIsOpen(!isOpen)}
+						aria-hidden="true"
+					>
+						<span>
+							<FontAwesomeIcon icon={faArrowLeft} />
+							Subscription details
+						</span>
 					</div>
-					<Disclaimer />
+					<SubscribeName name={name} />
+					<PriceTable
+						price={price}
+						vatPer={vatPer}
+						vat={vat}
+						total={total}
+					/>
 				</div>
-			) : (
-				''
-			)}
+				<Disclaimer />
+			</div>
 		</div>
 	);
 };

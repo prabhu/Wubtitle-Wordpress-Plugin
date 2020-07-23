@@ -196,20 +196,25 @@ form h2 {
 	font: 600 16px/22px "Open Sans", sans-serif;
 }
 
-.price .val {
+.price-table .val {
 	font: 400 14px/18px "Days One", sans-serif;
 }
 
-.price .total.val {
+.price-table .total.val {
 	font: 400 24px/31px "Days One", sans-serif;
 }
 
-.price .valxm {
+.price-table .valxm {
 	font: 400 14px/19px "Open Sans", sans-serif;
 }
 
 table tr {
 	height: 3rem;
+}
+
+.mobile-price-info .total {
+	font: 600 16px/20px "Days One", sans-serif;
+	margin-right: 1rem;
 }
 
 .disclaimer {
@@ -298,7 +303,6 @@ table tr {
 
 .mobile-price-view .disclaimer {
 	margin-top: auto;
-	display: none;
 }
 
 /* Desktop */
@@ -385,6 +389,10 @@ table tr {
 
 	.price-column .disclaimer {
 		display: none;
+	}
+
+	.price-column .mobile-price-view.opened .disclaimer {
+		display: block;
 	}
 }
 
