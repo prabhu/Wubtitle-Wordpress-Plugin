@@ -71,8 +71,8 @@ class InvoiceHelper {
 			wp_send_json_error( $message[ $code_response ] );
 		}
 		$response_body = json_decode( wp_remote_retrieve_body( $response ) );
-		$tax           = $response_body->data->taxAmount;
-		wp_send_json_success( $tax );
+		$taxable       = $response_body->data->taxable;
+		wp_send_json_success( $taxable );
 	}
 
 	/**
@@ -146,6 +146,8 @@ class InvoiceHelper {
 	 * @return array<mixed>|false
 	 */
 	public function get_invoice_data() {
+		// phpcs:disable WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+		// warning camel case.
 		$license_key = get_option( 'wubtitle_license_key' );
 		if ( empty( $license_key ) ) {
 			wp_send_json_error( __( 'Error. The product license key is missing.', 'wubtitle' ) );
@@ -189,7 +191,7 @@ class InvoiceHelper {
 			'name'            => $payment_details->name,
 			'email'           => $payment_details->email,
 			'expiration'      => $payment_details->expiration,
-			'cardNumber'      => $payment_details->card,
+			'cardNumber'      => $payment_details->cardNumber,
 			'paymentMethodId' => $payment_details->paymentMethodId,
 		);
 		return array(

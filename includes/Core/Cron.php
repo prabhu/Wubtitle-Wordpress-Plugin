@@ -9,10 +9,13 @@
 
 namespace Wubtitle\Core;
 
+use Wubtitle\Loader;
+
 /**
  * This class handle WP_Cron functions.
  */
 class Cron {
+
 	/**
 	 * Init class actions.
 	 *
@@ -55,7 +58,7 @@ class Cron {
 	/**
 	 * Get info from remote and DB update.
 	 *
-	 * @return void
+	 * @return array<mixed>|void
 	 */
 	public function get_remote_data() {
 		$license_key = get_option( 'wubtitle_license_key' );
@@ -66,7 +69,7 @@ class Cron {
 			),
 		);
 
-		$response = wp_remote_post(
+		$response      = wp_remote_post(
 			WUBTITLE_ENDPOINT . 'subscription/info',
 			array(
 				'method'  => 'POST',
@@ -77,35 +80,35 @@ class Cron {
 				'body'    => wp_json_encode( $body ),
 			)
 		);
-
 		$code_response = wp_remote_retrieve_response_code( $response );
+		// phpcs:disable WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+		// warning camel case.
 		if ( 200 === $code_response ) {
 			$body_response      = json_decode( wp_remote_retrieve_body( $response ) );
 			$plans              = $body_response->data->plans;
 			$wubtitle_plans     = array();
+			$price_info_plans   = array();
 			$wubtitle_plan_rank = '';
 			$total_jobs         = 0;
 			$total_seconds      = 0;
 			foreach ( $plans as $plan ) {
-				$wubtitle_plans[ $plan->rank ] = array(
+				$wubtitle_plans[ $plan->rank ]   = array(
 					'name'         => $plan->name,
 					'stripe_code'  => $plan->id,
-					// phpcs:disable 
-					// warning camel case
 					'totalJobs'    => $plan->totalJobs,
 					'totalSeconds' => $plan->totalSeconds,
-					// phpcs:enable
-					'price'        => $plan->price,
 					'dot_list'     => $plan->dotlist,
 					'icon'         => $plan->icon,
 				);
+				$price_info_plans[ $plan->rank ] = array(
+					'price'         => $plan->price,
+					'taxAmount'     => $plan->taxAmount,
+					'taxPercentage' => $plan->taxPercentage,
+				);
 				if ( $body_response->data->currentPlan === $plan->id ) {
 					$wubtitle_plan_rank = $plan->rank;
-					// phpcs:disable 
-					// warning camel case
 					$total_jobs         = $plan->totalJobs;
 					$total_seconds      = $plan->totalSeconds;
-					// phpcs:enable
 				}
 			}
 			update_option( 'wubtitle_plan', $body_response->data->currentPlan, false );
@@ -120,6 +123,7 @@ class Cron {
 			update_option( 'wubtitle_total_seconds', $total_seconds, false );
 			update_option( 'wubtitle_jobs_done', $body_response->data->consumedJobs, false );
 			update_option( 'wubtitle_seconds_done', $body_response->data->consumedSeconds, false );
+			return $price_info_plans;
 		}
 	}
 }
