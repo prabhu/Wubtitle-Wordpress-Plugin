@@ -148,6 +148,9 @@ const showUpdatePlanWindow = () => {
 	}
 };
 const showBuyLicenseWindow = () => {
+	if (CancelSubscriptionWindow && !CancelSubscriptionWindow.closed) {
+		CancelSubscriptionWindow.close();
+	}
 	if (!wait && (BuyLicenseWindow === null || BuyLicenseWindow.closed)) {
 		const windowFeatures = `
             left=500,
@@ -196,6 +199,9 @@ const confirmPlanChangeWindow = (CurrentWindow) => {
 };
 
 const showCancelSubscriptionWindow = () => {
+	if (BuyLicenseWindow && !BuyLicenseWindow.closed) {
+		BuyLicenseWindow.close();
+	}
 	if (
 		!wait &&
 		(CancelSubscriptionWindow === null || CancelSubscriptionWindow.closed)
