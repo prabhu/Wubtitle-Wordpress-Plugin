@@ -40,20 +40,15 @@ export default function CheckoutForm(props) {
 		if (!stripe || !elements) {
 			return;
 		}
-		let cardNumber = elements.getElement(CardNumberElement);
 		if (paymentPreValues && !changeOn) {
 			values.name = paymentPreValues.name;
 			values.email = paymentPreValues.email;
-			cardNumber = null;
 			createSubscription(paymentPreValues.paymentMethod, values);
 			return;
 		}
-		if (!cardNumber) {
-			createSubscription(paymentPreValues.paymentMethod, values);
-			return;
-		}
-		setLoading(true);
 
+		setLoading(true);
+		const cardNumber = elements.getElement(CardNumberElement);
 		const response = await stripe.createPaymentMethod({
 			type: 'card',
 			card: cardNumber,
