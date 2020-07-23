@@ -164,28 +164,33 @@ class InvoiceHelper {
 			return false;
 		}
 		$response_body = json_decode( wp_remote_retrieve_body( $response ) );
-		$invoice_data  = array(
-			'invoice_name'     => $response_body->data->invoiceDetails->Name,
-			'invoice_email'    => $response_body->data->invoiceDetails->Email,
-			'invoice_lastname' => $response_body->data->invoiceDetails->LastName,
-			'telephone'        => $response_body->data->invoiceDetails->Telephone,
-			'prefix_telephone' => $response_body->data->invoiceDetails->TelephonePrefix,
-			'company_name'     => $response_body->data->invoiceDetails->CompanyName,
-			'address'          => $response_body->data->invoiceDetails->Address,
-			'cap'              => $response_body->data->invoiceDetails->PostCode,
-			'city'             => $response_body->data->invoiceDetails->City,
-			'province'         => $response_body->data->invoiceDetails->Province,
-			'country'          => $response_body->data->invoiceDetails->Country,
-			'vat_code'         => $response_body->data->invoiceDetails->VatCode,
-			'fiscal_code'      => $response_body->data->invoiceDetails->FiscalCode,
-			'destination_code' => $response_body->data->invoiceDetails->DestinationCode,
+		if ( ! isset( $response_body->data->invoiceDetails, $response_body->data->paymentDetails ) ) {
+			return false;
+		}
+		$invoice_details = $response_body->data->invoiceDetails;
+		$payment_details = $response_body->data->paymentDetails;
+		$invoice_data    = array(
+			'invoice_name'     => $invoiceDetails->Name,
+			'invoice_email'    => $invoiceDetails->Email,
+			'invoice_lastname' => $invoiceDetails->LastName,
+			'telephone'        => $invoiceDetails->Telephone,
+			'prefix_telephone' => $invoiceDetails->TelephonePrefix,
+			'company_name'     => $invoiceDetails->CompanyName,
+			'address'          => $invoiceDetails->Address,
+			'cap'              => $invoiceDetails->PostCode,
+			'city'             => $invoiceDetails->City,
+			'province'         => $invoiceDetails->Province,
+			'country'          => $invoiceDetails->Country,
+			'vat_code'         => $invoiceDetails->VatCode,
+			'fiscal_code'      => $invoiceDetails->FiscalCode,
+			'destination_code' => $invoiceDetails->DestinationCode,
 		);
-		$payment_data  = array(
-			'name'            => $response_body->data->paymentDetails->name,
-			'email'           => $response_body->data->paymentDetails->email,
-			'expiration'      => $response_body->data->paymentDetails->expiration,
-			'cardNumber'      => $response_body->data->paymentDetails->card,
-			'paymentMethodId' => $response_body->data->paymentDetails->paymentMethodId,
+		$payment_data    = array(
+			'name'            => $paymentDetails->name,
+			'email'           => $paymentDetails->email,
+			'expiration'      => $paymentDetails->expiration,
+			'cardNumber'      => $paymentDetails->card,
+			'paymentMethodId' => $paymentDetails->paymentMethodId,
 		);
 		return array(
 			'invoice_data' => $invoice_data,
