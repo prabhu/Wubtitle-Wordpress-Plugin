@@ -84,7 +84,7 @@ function App() {
 
 			<Elements stripe={stripePromise}>
 				{invoiceValues && !isBack ? (
-					<div className="wrapper-form columns">
+					<div className="wrapper-form column">
 						<InvoiceSummary
 							invoiceValues={invoiceValues}
 							price={pricePlan}
