@@ -378,7 +378,7 @@ table tr {
 	.mobile-price-info .info-icon {
 		margin-left: 10px;
 	}
-	
+
 	.price .price-table {
 		display: none;
 	}
@@ -402,7 +402,7 @@ table tr {
 		align-items: center;
 		justify-content: space-between;
 	}
-	
+
 	.toggle {
 		width: 20px;
 		height: 20px;
@@ -410,7 +410,7 @@ table tr {
 		align-items: center;
 		justify-content: center;
 	}
-	
+
 	.toggle.opened {
 		transform: rotate(180deg);
 	}
@@ -427,7 +427,7 @@ table tr {
 	.summary .columns {
 		display: block;
 	}
-	
+
 	.summary .column {
 		width: 100%;
 	}
@@ -441,7 +441,7 @@ table tr {
 		height: auto;
 	}
 }
-	
+
 .switch {
 	position: relative;
 	display: inline-block;
@@ -527,6 +527,7 @@ table tr {
 	position: absolute;
 	right: 1rem;
 }
+
 .error-message-container {
 	width: calc(100% - 11px);
 	background-color: #fff;
