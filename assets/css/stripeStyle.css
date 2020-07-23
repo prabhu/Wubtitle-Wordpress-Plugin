@@ -217,7 +217,7 @@ table tr {
 	font: 400 12px/17px "Open Sans", sans-serif;
 }
 
-.disclaimer a{
+.disclaimer a {
 	color: #fff;
 	text-decoration: none;
 }
@@ -284,7 +284,7 @@ table tr {
 
 .mobile-price-view .nav-back {
 	display: flex;
-    align-items: center;
+	align-items: center;
 }
 
 .mobile-price-view .nav-back svg {
@@ -309,7 +309,7 @@ table tr {
 		display: flex;
 		flex-direction: row;
 	}
-	
+
 	.main.columns {
 		height: 100vh;
 		overflow: hidden;
@@ -340,6 +340,7 @@ table tr {
 
 /* Tablet */
 @media screen and (max-width: 1023px) {
+
 	.column {
 		width: 100%;
 	}
@@ -423,7 +424,6 @@ table tr {
 	.summary {
 		border-bottom: 1px rgb(201, 201, 201) solid;
 		overflow: hidden;
-		transition: all .8s cubic-bezier(0.42, 0, 0.15, 1.4);
 	}
 
 	.summary .columns {
