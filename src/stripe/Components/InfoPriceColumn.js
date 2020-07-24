@@ -18,7 +18,7 @@ const InfoPriceColumn = (props) => {
 		<div className="column price-column">
 			<div className="price">
 				<SubscribeName name={name} />
-				<p className="mobile-price-info">
+				<p className="mobile-price-info is-hidden-on-desktop">
 					<span className="total">{total} &euro; </span>
 					<span className="valxm">{__('per month', 'wubtitle')}</span>
 					<InfoIcon

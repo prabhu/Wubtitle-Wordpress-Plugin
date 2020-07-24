@@ -260,9 +260,6 @@ table tr {
 	color: #304ffe;
 }
 
-.toggle {
-	display: none;
-}
 
 .mobile-price-view {
 	display: none;
@@ -291,7 +288,6 @@ table tr {
 	margin-right: 10px;
 }
 
-
 .mobile-price-view .nav-back span {
 	padding: 1rem;
 	padding-left: 0;
@@ -304,6 +300,10 @@ table tr {
 
 /* Desktop */
 @media screen and (min-width: 1024px) {
+
+	.is-hidden-on-desktop {
+		display: none;
+	}
 
 	.columns {
 		display: flex;
@@ -396,14 +396,14 @@ table tr {
 /* Smartphone */
 @media screen and (max-width: 767px) {
 
-	.toggle-bar {
+	.accordion-bar {
 		display: flex;
 		flex-direction: row;
 		align-items: center;
 		justify-content: space-between;
 	}
 
-	.toggle {
+	.accordion {
 		width: 20px;
 		height: 20px;
 		display: flex;
@@ -411,7 +411,7 @@ table tr {
 		justify-content: center;
 	}
 
-	.toggle.opened {
+	.accordion.opened {
 		transform: rotate(180deg);
 	}
 
@@ -536,7 +536,6 @@ table tr {
 	border-left: 5px rgb(219, 0, 0) solid;
 	margin-left: 5px;
 }
-
 
 .error-message {
 	color: #080808;

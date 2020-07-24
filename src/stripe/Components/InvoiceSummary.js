@@ -6,23 +6,23 @@ import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 export default function InvoiceSummary(props) {
 	const { invoiceValues } = props;
 	const [isOpen, setIsOpen] = useState(false);
-	const [toggleClass, setToggleClass] = useState('closed');
+	const [accordionClass, setAccordionClass] = useState('closed');
 
 	const handleClick = () => {
 		setIsOpen(!isOpen);
 		if (isOpen) {
-			setToggleClass('opened');
+			setAccordionClass('opened');
 		} else {
-			setToggleClass('closed');
+			setAccordionClass('closed');
 		}
 	};
 
 	return (
-		<div className={`summary ${toggleClass}`}>
-			<div className="toggle-bar">
+		<div className={`summary ${accordionClass}`}>
+			<div className="accordion-bar">
 				<h2>{__('Billing Recap', 'wubtitle')}</h2>
 				<span
-					className={`toggle ${toggleClass}`}
+					className={`accordion is-hidden-on-desktop ${accordionClass}`}
 					onClick={handleClick}
 					aria-hidden="true"
 				>
