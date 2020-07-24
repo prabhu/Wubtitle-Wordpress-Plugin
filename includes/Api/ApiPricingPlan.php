@@ -238,6 +238,7 @@ class ApiPricingPlan {
 			WUBTITLE_ENDPOINT . 'stripe/customer/update',
 			array(
 				'method'  => 'POST',
+				'timeout' => 15,
 				'headers' => array(
 					'Content-Type' => 'application/json; charset=utf-8',
 					'licenseKey'   => $license_key,
