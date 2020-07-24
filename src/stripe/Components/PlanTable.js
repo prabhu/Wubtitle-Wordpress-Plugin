@@ -4,18 +4,13 @@ import { __ } from '@wordpress/i18n';
 const PlanTable = (props) => {
 	const { currentPlan, currentPrice, renewal, taxable, taxAmount } = props;
 
+	console.log(props);
+
 	return (
 		<table className="price-table">
 			<tr>
 				<td>{__('Your plan', 'wubtitle')}</td>
 				<td className="val">{currentPlan}</td>
-			</tr>
-			<tr className="total">
-				<td>{__('Price', 'wubtitle')}</td>
-				<td className="val">
-					{currentPrice} &euro;
-					<span className="valxm">{__('per month', 'wubtitle')}</span>
-				</td>
 			</tr>
 			<tr>
 				<td>
@@ -23,7 +18,8 @@ const PlanTable = (props) => {
 				</td>
 				{taxable ? (
 					<td className="val">
-						{currentPrice} &euro;
+						{parseFloat(currentPrice) + parseFloat(taxAmount)}{' '}
+						&euro;{' '}
 						<span className="valxm">
 							{__('per month', 'wubtitle')}
 						</span>
