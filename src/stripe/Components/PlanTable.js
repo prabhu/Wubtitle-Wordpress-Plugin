@@ -17,10 +17,14 @@ const PlanTable = (props) => {
 					<span className="valxm">{__('per month', 'wubtitle')}</span>
 				</td>
 			</tr>
-			<tr className="total">
-				<td>{__('Automatic renewal', 'wubtitle')}</td>
-				<td className="val">{renewal}</td>
-			</tr>
+			{renewal ? (
+				<tr className="total">
+					<td>{__('Automatic renewal', 'wubtitle')}</td>
+					<td className="val">{renewal}</td>
+				</tr>
+			) : (
+				''
+			)}
 		</table>
 	);
 };
