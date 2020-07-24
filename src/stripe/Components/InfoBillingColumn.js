@@ -5,10 +5,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 import PriceTable from './PriceTable';
 import Disclaimer from './Disclaimer';
-import ColumnTitle from './ColumnTitle';
+import SubscribeName from './SubscribeName';
 
 const InfoPriceColumn = (props) => {
-	const { update, price, name, taxAmount, taxPercentage, taxable } = props;
+	const { price, name, taxAmount, taxPercentage, taxable } = props;
 	let total = parseFloat(price);
 	if (taxable) {
 		total = parseFloat(price) + parseFloat(taxAmount);
@@ -17,7 +17,7 @@ const InfoPriceColumn = (props) => {
 	return (
 		<div className="column price-column">
 			<div className="price">
-				<ColumnTitle name={name} update={update} />
+				<SubscribeName name={name} />
 				<p className="mobile-price-info is-hidden-on-desktop">
 					<span className="total">{total} &euro; </span>
 					<span className="valxm">{__('per month', 'wubtitle')}</span>
@@ -51,7 +51,7 @@ const InfoPriceColumn = (props) => {
 							Subscription details
 						</span>
 					</div>
-					<ColumnTitle name={name} update={update} />
+					<SubscribeName name={name} />
 					<PriceTable
 						price={price}
 						taxPercentage={taxPercentage}

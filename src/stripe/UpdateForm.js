@@ -85,13 +85,13 @@ function App() {
 	return (
 		<div className="main columns">
 			<InfoPriceColumn
+				update={true}
 				price={pricePlan}
 				name={namePlan}
 				taxAmount={taxAmount}
 				taxPercentage={taxPercentage}
 				taxable={invoiceValues ? invoiceValues.tax : true}
 			/>
-
 			<Elements stripe={stripePromise}>
 				{invoiceValues && !isBack ? (
 					<div className="wrapper-form column">
