@@ -16,11 +16,10 @@ wp_cache_delete( 'wubtitle_plan_rank', 'options' );
 wp_cache_delete( 'wubtitle_all_plans', 'options' );
 wp_cache_delete( 'wubtitle_is_first_month', 'options' );
 
-$plans            = get_option( 'wubtitle_all_plans' );
-$current_plan     = get_option( 'wubtitle_plan' );
-$current_rank     = get_option( 'wubtitle_plan_rank' );
-$is_first_month   = get_option( 'wubtitle_is_first_month' );
-$wanted_plan_rank = get_option( 'wubtitle_wanted_plan_rank' );
+$plans          = get_option( 'wubtitle_all_plans' );
+$current_plan   = get_option( 'wubtitle_plan' );
+$current_rank   = get_option( 'wubtitle_plan_rank' );
+$is_first_month = get_option( 'wubtitle_is_first_month' );
 
 $disable_downgrade_message = __( 'Unable to select this plan during the first month of subscription for current plan', 'wubtitle' );
 
