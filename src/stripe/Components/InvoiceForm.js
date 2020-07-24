@@ -40,7 +40,8 @@ export default function CheckoutForm(props) {
 					.length(
 						11,
 						__('Vat Code must be exactly 11 characters', 'wubtitle')
-					);
+					)
+					.matches('^[0-9]*$', __('Only numbers', 'wubtitle'));
 			}
 		} else if (values.country === 'IT') {
 			yupObject.fiscal_code = Yup.string()
@@ -57,7 +58,7 @@ export default function CheckoutForm(props) {
 					5,
 					__('Postal Code must be exactly 5 characters', 'wubtitle')
 				)
-				.matches('^[0-9]*$', 'Only numbers');
+				.matches('^[0-9]*$', __('Only numbers', 'wubtitle'));
 			yupObject.province = Yup.string().required(requiredMessage);
 			yupObject.destination_code = Yup.string().length(
 				7,
