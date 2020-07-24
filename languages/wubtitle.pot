@@ -2,20 +2,20 @@
 # This file is distributed under the same license as the Wubtitle plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Wubtitle 0.1.2\n"
+"Project-Id-Version: Wubtitle 0.1.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/Wubtitle-Wordpress-Plugin\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2020-07-07T12:30:53+02:00\n"
+"POT-Creation-Date: 2020-07-24T18:34:14+02:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.4.0\n"
 "X-Domain: wubtitle\n"
 
 #. Plugin Name of the plugin
-#: includes/Dashboard/Settings.php:40
+#: includes/Dashboard/Settings.php:47
 msgid "Wubtitle"
 msgstr ""
 
@@ -108,17 +108,21 @@ msgstr ""
 
 #: includes/Api/ApiGetTranscript.php:80
 #: includes/Api/ApiGetTranscript.php:226
-#: includes/Api/ApiPricingPlan.php:67
-#: includes/Api/ApiPricingPlan.php:68
-#: includes/Api/ApiPricingPlan.php:106
-#: includes/Api/ApiPricingPlan.php:177
-#: includes/Api/ApiPricingPlan.php:178
-#: includes/Api/ApiPricingPlan.php:230
-#: includes/Api/ApiPricingPlan.php:231
-#: includes/Api/ApiPricingPlan.php:272
+#: includes/Api/ApiPricingPlan.php:74
+#: includes/Api/ApiPricingPlan.php:75
+#: includes/Api/ApiPricingPlan.php:112
+#: includes/Api/ApiPricingPlan.php:186
+#: includes/Api/ApiPricingPlan.php:187
+#: includes/Api/ApiPricingPlan.php:255
+#: includes/Api/ApiPricingPlan.php:256
+#: includes/Api/ApiPricingPlan.php:297
+#: includes/Api/ApiPricingPlan.php:375
+#: includes/Api/ApiPricingPlan.php:376
 #: includes/Api/ApiRequest.php:123
 #: includes/Core/CustomPostTypes/Transcript.php:164
 #: includes/Core/Sources/YouTube.php:206
+#: includes/Utils/InvoiceHelper.php:67
+#: includes/Utils/InvoiceHelper.php:68
 msgid "Could not contact the server"
 msgstr ""
 
@@ -141,40 +145,61 @@ msgstr ""
 msgid "Error: this video doesn't have subtitles yet. It is necessary to generate them to obtain the transcription"
 msgstr ""
 
-#: includes/Api/ApiPricingPlan.php:37
-#: includes/Api/ApiPricingPlan.php:84
-#: includes/Api/ApiPricingPlan.php:140
-#: includes/Api/ApiPricingPlan.php:148
-#: includes/Api/ApiPricingPlan.php:203
-#: includes/Api/ApiPricingPlan.php:248
+#: includes/Api/ApiPricingPlan.php:43
+#: includes/Api/ApiPricingPlan.php:90
+#: includes/Api/ApiPricingPlan.php:149
+#: includes/Api/ApiPricingPlan.php:159
+#: includes/Api/ApiPricingPlan.php:208
+#: includes/Api/ApiPricingPlan.php:221
+#: includes/Api/ApiPricingPlan.php:273
+#: includes/Api/ApiPricingPlan.php:330
+#: includes/Api/ApiPricingPlan.php:343
+#: includes/Dashboard/CancelPage.php:33
+#: includes/Dashboard/PaymentTemplate.php:39
+#: includes/Dashboard/PaymentTemplate.php:80
+#: includes/Dashboard/PaymentTemplate.php:119
+#: includes/Dashboard/PaymentTemplate.php:165
+#: includes/Utils/InvoiceHelper.php:33
 msgid "An error occurred. Please try again in a few minutes."
 msgstr ""
 
-#: includes/Api/ApiPricingPlan.php:49
-#: includes/Api/ApiPricingPlan.php:90
-#: includes/Api/ApiPricingPlan.php:153
-#: includes/Api/ApiPricingPlan.php:209
+#: includes/Api/ApiPricingPlan.php:55
+#: includes/Api/ApiPricingPlan.php:96
 #: includes/Api/ApiRequest.php:104
 msgid "Unable to create subtitles. The product license key is missing."
 msgstr ""
 
-#: includes/Api/ApiPricingPlan.php:64
-#: includes/Api/ApiPricingPlan.php:65
-#: includes/Api/ApiPricingPlan.php:104
-#: includes/Api/ApiPricingPlan.php:174
-#: includes/Api/ApiPricingPlan.php:175
-#: includes/Api/ApiPricingPlan.php:227
-#: includes/Api/ApiPricingPlan.php:228
-#: includes/Api/ApiPricingPlan.php:270
+#: includes/Api/ApiPricingPlan.php:71
+#: includes/Api/ApiPricingPlan.php:72
+#: includes/Api/ApiPricingPlan.php:110
+#: includes/Api/ApiPricingPlan.php:183
+#: includes/Api/ApiPricingPlan.php:184
+#: includes/Api/ApiPricingPlan.php:252
+#: includes/Api/ApiPricingPlan.php:253
+#: includes/Api/ApiPricingPlan.php:295
+#: includes/Api/ApiPricingPlan.php:372
+#: includes/Api/ApiPricingPlan.php:373
+#: includes/Utils/InvoiceHelper.php:64
+#: includes/Utils/InvoiceHelper.php:65
 msgid "An error occurred. Please try again in a few minutes"
 msgstr ""
 
-#: includes/Api/ApiPricingPlan.php:66
-#: includes/Api/ApiPricingPlan.php:105
-#: includes/Api/ApiPricingPlan.php:176
-#: includes/Api/ApiPricingPlan.php:229
-#: includes/Api/ApiPricingPlan.php:271
+#: includes/Api/ApiPricingPlan.php:73
+#: includes/Api/ApiPricingPlan.php:111
+#: includes/Api/ApiPricingPlan.php:185
+#: includes/Api/ApiPricingPlan.php:254
+#: includes/Api/ApiPricingPlan.php:296
+#: includes/Api/ApiPricingPlan.php:374
+#: includes/Utils/InvoiceHelper.php:66
 msgid "Access denied"
+msgstr ""
+
+#: includes/Api/ApiPricingPlan.php:163
+msgid "The product license key is missing."
+msgstr ""
+
+#: includes/Api/ApiPricingPlan.php:225
+msgid "Unable to update payment data. The product license key is missing."
 msgstr ""
 
 #: includes/Api/ApiRequest.php:67
@@ -340,103 +365,103 @@ msgstr ""
 msgid "Video Transcripts"
 msgstr ""
 
-#: includes/Dashboard/Settings.php:40
+#: includes/Dashboard/Settings.php:47
 msgid "Wubtitle Settings"
 msgstr ""
 
-#: includes/Dashboard/Settings.php:82
+#: includes/Dashboard/Settings.php:89
 msgid "Licensing"
 msgstr ""
 
-#: includes/Dashboard/Settings.php:85
+#: includes/Dashboard/Settings.php:92
 msgid "Plan: "
 msgstr ""
 
-#: includes/Dashboard/Settings.php:94
+#: includes/Dashboard/Settings.php:101
 msgid "Generated video subtitles: "
 msgstr ""
 
-#: includes/Dashboard/Settings.php:100
+#: includes/Dashboard/Settings.php:107
 msgid "Video time spent: "
 msgstr ""
 
-#: includes/Dashboard/Settings.php:102
+#: includes/Dashboard/Settings.php:109
 msgid " hours"
 msgstr ""
 
-#: includes/Dashboard/Settings.php:134
+#: includes/Dashboard/Settings.php:144
 msgid "Payment successful"
 msgstr ""
 
-#: includes/Dashboard/Settings.php:137
+#: includes/Dashboard/Settings.php:145
 msgid "Payment information updated"
 msgstr ""
 
-#: includes/Dashboard/Settings.php:140
+#: includes/Dashboard/Settings.php:146
 msgid "License key sent, check your email!"
 msgstr ""
 
-#: includes/Dashboard/Settings.php:143
+#: includes/Dashboard/Settings.php:147
 msgid "Unsubscription successful"
 msgstr ""
 
-#: includes/Dashboard/Settings.php:146
+#: includes/Dashboard/Settings.php:148
 msgid "Reactivation of the plan successful"
 msgstr ""
 
-#: includes/Dashboard/Settings.php:171
+#: includes/Dashboard/Settings.php:174
 msgid "Automatic renewal: "
 msgstr ""
 
-#: includes/Dashboard/Settings.php:173
+#: includes/Dashboard/Settings.php:176
 msgid "You requested the subscription cancellation. Your plan will be valid until  "
 msgstr ""
 
-#: includes/Dashboard/Settings.php:187
+#: includes/Dashboard/Settings.php:190
 msgid "Unsubscribe"
 msgstr ""
 
-#: includes/Dashboard/Settings.php:190
+#: includes/Dashboard/Settings.php:193
 msgid "Update email or payment detail"
 msgstr ""
 
-#: includes/Dashboard/Settings.php:193
+#: includes/Dashboard/Settings.php:196
 msgid "Modify plan"
 msgstr ""
 
-#: includes/Dashboard/Settings.php:199
+#: includes/Dashboard/Settings.php:202
 msgid "Reactivate plan"
 msgstr ""
 
-#: includes/Dashboard/Settings.php:234
+#: includes/Dashboard/Settings.php:237
 msgid "Unable to update. Expired product license."
 msgstr ""
 
-#: includes/Dashboard/Settings.php:235
+#: includes/Dashboard/Settings.php:238
 msgid "Unable to update. Invalid product license."
 msgstr ""
 
-#: includes/Dashboard/Settings.php:236
+#: includes/Dashboard/Settings.php:239
 msgid "An error occurred while updating licence. Please try again in a few minutes."
 msgstr ""
 
-#: includes/Dashboard/Settings.php:237
+#: includes/Dashboard/Settings.php:240
 msgid "Could not contact the server."
 msgstr ""
 
-#: includes/Dashboard/Settings.php:238
-msgid "An error occurred."
-msgstr ""
-
-#: includes/Dashboard/Settings.php:253
+#: includes/Dashboard/Settings.php:255
 msgid "Valid product license. Subscription plan updated."
 msgstr ""
 
-#: includes/Dashboard/Settings.php:323
+#: includes/Dashboard/Settings.php:317
+msgid "Upgrade feature temporarily disabled due to error loading the page. Please refresh the page and try again."
+msgstr ""
+
+#: includes/Dashboard/Settings.php:321
 msgid "Unlock more features!"
 msgstr ""
 
-#: includes/Dashboard/Settings.php:328
+#: includes/Dashboard/Settings.php:326
 msgid "Upgrade"
 msgstr ""
 
@@ -460,54 +485,54 @@ msgstr ""
 msgid "now!"
 msgstr ""
 
-#: includes/Dashboard/Templates/cancel_template.php:36
+#: includes/Dashboard/Templates/cancel_template.php:32
 msgid "Are you sure you want to unsubscribe?"
 msgstr ""
 
-#: includes/Dashboard/Templates/cancel_template.php:37
+#: includes/Dashboard/Templates/cancel_template.php:33
 msgid "Are you sure you want to cancel your subscription? If you choose to continue, when the subscription expires your plan will return to free version and you will lose all the additional features"
 msgstr ""
 
-#: includes/Dashboard/Templates/cancel_template.php:39
+#: includes/Dashboard/Templates/cancel_template.php:35
 msgid "Return to free version"
 msgstr ""
 
-#: includes/Dashboard/Templates/cancel_template.php:40
-#: includes/Dashboard/Templates/downgrade_plan_template.php:54
-#: includes/Dashboard/Templates/upgrade_plan_template.php:54
+#: includes/Dashboard/Templates/cancel_template.php:36
+#: includes/Dashboard/Templates/downgrade_plan_template.php:49
+#: includes/Dashboard/Templates/upgrade_plan_template.php:57
 msgid "Forget it"
 msgstr ""
 
-#: includes/Dashboard/Templates/cancel_template.php:46
+#: includes/Dashboard/Templates/cancel_template.php:42
 msgid "Or choose another plan"
 msgstr ""
 
-#: includes/Dashboard/Templates/cancel_template.php:61
-#: includes/Dashboard/Templates/payment_template.php:48
+#: includes/Dashboard/Templates/cancel_template.php:57
+#: includes/Dashboard/Templates/payment_template.php:44
 msgid "Per month"
 msgstr ""
 
-#: includes/Dashboard/Templates/downgrade_plan_template.php:30
+#: includes/Dashboard/Templates/downgrade_plan_template.php:25
 msgid "Subscription plan downgrade"
 msgstr ""
 
-#: includes/Dashboard/Templates/downgrade_plan_template.php:31
+#: includes/Dashboard/Templates/downgrade_plan_template.php:26
 msgid "Downgrading now, you will earn a credit that will be billed to you at the next charge"
 msgstr ""
 
-#: includes/Dashboard/Templates/downgrade_plan_template.php:40
+#: includes/Dashboard/Templates/downgrade_plan_template.php:35
 msgid " credit earnings"
 msgstr ""
 
-#: includes/Dashboard/Templates/downgrade_plan_template.php:51
+#: includes/Dashboard/Templates/downgrade_plan_template.php:46
 msgid "The subtitles already created and the minutes already used will be counted on the new subscription plan"
 msgstr ""
 
-#: includes/Dashboard/Templates/downgrade_plan_template.php:53
+#: includes/Dashboard/Templates/downgrade_plan_template.php:48
 msgid "Downgrade Now"
 msgstr ""
 
-#: includes/Dashboard/Templates/payment_template.php:33
+#: includes/Dashboard/Templates/payment_template.php:29
 msgid "Choose the right plan for your project"
 msgstr ""
 
@@ -536,22 +561,24 @@ msgid "Total length of videos"
 msgstr ""
 
 #: includes/Dashboard/Templates/plans_array.php:48
+#: build_form/index.js:1
+#: src/stripe/Components/PlanTable.js:10
 msgid "Your plan"
 msgstr ""
 
-#: includes/Dashboard/Templates/upgrade_plan_template.php:31
+#: includes/Dashboard/Templates/upgrade_plan_template.php:27
 msgid "Subscription plan upgrade"
 msgstr ""
 
-#: includes/Dashboard/Templates/upgrade_plan_template.php:32
+#: includes/Dashboard/Templates/upgrade_plan_template.php:28
 msgid "Upgrading now, for the first month you are entired to a partial refund of previous monthly subscription plan"
 msgstr ""
 
-#: includes/Dashboard/Templates/upgrade_plan_template.php:44
+#: includes/Dashboard/Templates/upgrade_plan_template.php:47
 msgid "Only for first month (Until "
 msgstr ""
 
-#: includes/Dashboard/Templates/upgrade_plan_template.php:55
+#: includes/Dashboard/Templates/upgrade_plan_template.php:58
 msgid "Upgrade Now"
 msgstr ""
 
@@ -690,6 +717,11 @@ msgstr ""
 msgid "Add transcription"
 msgstr ""
 
+#: includes/Utils/InvoiceHelper.php:49
+#: includes/Utils/InvoiceHelper.php:153
+msgid "Error. The product license key is missing."
+msgstr ""
+
 #: assets/editor/transcriptionModalScript.js:47
 msgid "Transcription of the video"
 msgstr ""
@@ -820,4 +852,265 @@ msgstr ""
 #: build/index.js:1
 #: src/block/trascriptionBlock.js:8
 msgid "Enter the transcript of your video"
+msgstr ""
+
+#: build_form/index.js:1
+#: src/stripe/Components/CardSection.js:33
+msgid "Card details"
+msgstr ""
+
+#: build_form/index.js:1
+#: src/stripe/Components/CheckoutForm.js:24
+#: src/stripe/Components/InvoiceForm.js:12
+msgid "Required"
+msgstr ""
+
+#: build_form/index.js:1
+#: src/stripe/Components/CheckoutForm.js:31
+#: src/stripe/Components/InvoiceForm.js:18
+msgid "Invalid email"
+msgstr ""
+
+#: build_form/index.js:1
+#: src/stripe/Components/CheckoutForm.js:71
+msgid "Payment Details"
+msgstr ""
+
+#: build_form/index.js:1
+#: src/stripe/Components/CheckoutForm.js:76
+msgid "editing enabled"
+msgstr ""
+
+#: build_form/index.js:1
+#: src/stripe/Components/CheckoutForm.js:77
+msgid "editing disabled"
+msgstr ""
+
+#: build_form/index.js:1
+#: src/stripe/Components/CheckoutForm.js:95
+#: src/stripe/Components/InvoiceSummary.js:39
+msgid "Email"
+msgstr ""
+
+#: build_form/index.js:1
+#: src/stripe/Components/CheckoutForm.js:99
+msgid "Card Details"
+msgstr ""
+
+#: build_form/index.js:1
+#: src/stripe/Components/CheckoutForm.js:105
+#: src/stripe/Components/CheckoutForm.js:148
+msgid "Card Holder"
+msgstr ""
+
+#: build_form/index.js:1
+#: src/stripe/Components/CheckoutForm.js:109
+msgid "Expires"
+msgstr ""
+
+#: build_form/index.js:1
+#: src/stripe/Components/CheckoutForm.js:168
+msgid "Back"
+msgstr ""
+
+#: build_form/index.js:1
+#: src/stripe/Components/CheckoutForm.js:177
+msgid "Confirm order"
+msgstr ""
+
+#: build_form/index.js:1
+#: src/stripe/Components/InvoiceForm.js:22
+msgid "Telephone number required "
+msgstr ""
+
+#: build_form/index.js:1
+#: src/stripe/Components/InvoiceForm.js:23
+#: src/stripe/Components/InvoiceForm.js:44
+#: src/stripe/Components/InvoiceForm.js:61
+msgid "Only numbers"
+msgstr ""
+
+#: build_form/index.js:1
+#: src/stripe/Components/InvoiceForm.js:25
+msgid "Prefix required "
+msgstr ""
+
+#: build_form/index.js:1
+#: src/stripe/Components/InvoiceForm.js:26
+msgid "Prefix is only numbers "
+msgstr ""
+
+#: build_form/index.js:1
+#: src/stripe/Components/InvoiceForm.js:27
+msgid "Prefix must be max 3 numbers"
+msgstr ""
+
+#: build_form/index.js:1
+#: src/stripe/Components/InvoiceForm.js:42
+msgid "Vat Code must be exactly 11 characters"
+msgstr ""
+
+#: build_form/index.js:1
+#: src/stripe/Components/InvoiceForm.js:51
+msgid "Fiscal Code must be exactly 16 characters"
+msgstr ""
+
+#: build_form/index.js:1
+#: src/stripe/Components/InvoiceForm.js:59
+msgid "Postal Code must be exactly 5 characters"
+msgstr ""
+
+#: build_form/index.js:1
+#: src/stripe/Components/InvoiceForm.js:65
+msgid "Destination Code must be exactly 7 characters"
+msgstr ""
+
+#: build_form/index.js:1
+#: src/stripe/Components/InvoiceForm.js:112
+msgid "Billing Details"
+msgstr ""
+
+#: build_form/index.js:1
+#: src/stripe/Components/InvoiceForm.js:125
+#: src/stripe/Components/InvoiceSummary.js:35
+msgid "Name"
+msgstr ""
+
+#: build_form/index.js:1
+#: src/stripe/Components/InvoiceForm.js:134
+#: src/stripe/Components/InvoiceSummary.js:71
+msgid "Lastname"
+msgstr ""
+
+#: build_form/index.js:1
+#: src/stripe/Components/InvoiceForm.js:154
+#: src/stripe/Components/InvoiceSummary.js:75
+msgid "Company Name"
+msgstr ""
+
+#: build_form/index.js:1
+#: src/stripe/Components/InvoiceForm.js:166
+#: src/stripe/Components/InvoiceSummary.js:43
+msgid "Country"
+msgstr ""
+
+#: build_form/index.js:1
+#: src/stripe/Components/InvoiceForm.js:190
+#: src/stripe/Components/InvoiceSummary.js:80
+msgid "Province"
+msgstr ""
+
+#: build_form/index.js:1
+#: src/stripe/Components/InvoiceForm.js:210
+#: src/stripe/Components/InvoiceSummary.js:88
+msgid "City"
+msgstr ""
+
+#: build_form/index.js:1
+#: src/stripe/Components/InvoiceForm.js:219
+#: src/stripe/Components/InvoiceSummary.js:55
+msgid "Address"
+msgstr ""
+
+#: build_form/index.js:1
+#: src/stripe/Components/InvoiceForm.js:232
+#: src/stripe/Components/InvoiceSummary.js:48
+msgid "Postal Code"
+msgstr ""
+
+#: build_form/index.js:1
+#: src/stripe/Components/InvoiceForm.js:248
+msgid "Vat Code"
+msgstr ""
+
+#: build_form/index.js:1
+#: src/stripe/Components/InvoiceForm.js:270
+#: src/stripe/Components/InvoiceSummary.js:93
+msgid "Fiscal Code"
+msgstr ""
+
+#: build_form/index.js:1
+#: src/stripe/Components/InvoiceForm.js:282
+msgid "Telephone"
+msgstr ""
+
+#: build_form/index.js:1
+#: src/stripe/Components/InvoiceForm.js:309
+#: src/stripe/Components/InvoiceSummary.js:102
+msgid "Destination Code"
+msgstr ""
+
+#: build_form/index.js:1
+#: src/stripe/Components/InvoiceForm.js:326
+msgid "Cancel"
+msgstr ""
+
+#: build_form/index.js:1
+#: src/stripe/Components/InvoiceForm.js:332
+msgid "Summary"
+msgstr ""
+
+#: build_form/index.js:1
+#: src/stripe/Components/InvoiceSummary.js:23
+msgid "Billing Recap"
+msgstr ""
+
+#: build_form/index.js:1
+#: src/stripe/Components/InvoiceSummary.js:61
+msgid "VAT Code"
+msgstr ""
+
+#: build_form/index.js:1
+#: src/stripe/Components/PlanTable.js:14
+#: src/stripe/Components/PlanTable.js:22
+#: src/stripe/Components/PriceTable.js:10
+msgid "Price"
+msgstr ""
+
+#: build_form/index.js:1
+#: src/stripe/Components/PriceTable.js:15
+msgid "VAT"
+msgstr ""
+
+#: build_form/index.js:1
+#: src/stripe/Components/PriceTable.js:30
+msgid "Total"
+msgstr ""
+
+#: build_form/index.js:1
+#: src/stripe/Components/InfoPriceColumn.js:34
+#: src/stripe/Components/PlanTable.js:17
+#: src/stripe/Components/PlanTable.js:28
+#: src/stripe/Components/PriceTable.js:33
+msgid "per month"
+msgstr ""
+
+#: build_form/index.js:1
+#: src/stripe/Components/Disclaimer.js:8
+msgid "When ordering within the EU an order may be exempt to VAT if a valid VAT registration number is provided."
+msgstr ""
+
+#: build_form/index.js:1
+#: src/stripe/Components/Disclaimer.js:19
+msgid "Terms and conditions"
+msgstr ""
+
+#: build_form/index.js:1
+#: src/stripe/Components/Disclaimer.js:27
+msgid "Privacy"
+msgstr ""
+
+#: build_form/index.js:1
+#: src/stripe/Components/ColumnTitle.js:11
+msgid "Subscribe to"
+msgstr ""
+
+#: build_form/index.js:1
+#: src/stripe/Components/ColumnTitle.js:11
+msgid "plan"
+msgstr ""
+
+#: build_form/index.js:1
+#: src/stripe/Components/PlanTable.js:44
+msgid "Automatic renewal"
 msgstr ""
