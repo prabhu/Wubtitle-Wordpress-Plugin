@@ -123,6 +123,11 @@ form h2 {
 	color: #304ffe;
 }
 
+.billing-det {
+	padding: 1rem;
+	color: #304ffe;
+}
+
 .form-field-container label {
 	font: 600 12px/17px "Open Sans", sans-serif;
 	color: #616161;
@@ -168,26 +173,10 @@ form h2 {
 
 .columns {
 	width: 100%;
-	display: flex;
-	flex-direction: row;
 }
 
-.main.columns {
-	height: 100vh;
-	overflow: hidden;
-}
-
-.column {
-	width: 50%;
-}
-
-
-.wrapper-form.column {
-	width: 67%;
-}
 
 .price-column {
-	width: 33%;
 	background: transparent linear-gradient(233deg, #d500f9 0%, #2962ff 99%) 0% 0% no-repeat padding-box;
 	display: flex;
 	flex-direction: column;
@@ -196,26 +185,32 @@ form h2 {
 	padding: 1rem;
 	height: 100%;
 	font: 400 14px/19px "Open Sans", sans-serif;
+	position: relative;
 }
 
 .price-name {
 	font: 600 16px/22px "Open Sans", sans-serif;
 }
 
-.price .val {
+.price-table .val {
 	font: 400 14px/18px "Days One", sans-serif;
 }
 
-.price .total.val {
+.price-table .total.val {
 	font: 400 24px/31px "Days One", sans-serif;
 }
 
-.price .valxm {
+.price-table .valxm {
 	font: 400 14px/19px "Open Sans", sans-serif;
 }
 
 table tr {
 	height: 3rem;
+}
+
+.mobile-price-info .total {
+	font: 600 16px/20px "Days One", sans-serif;
+	margin-right: 1rem;
 }
 
 .disclaimer {
@@ -230,7 +225,6 @@ table tr {
 .button-bar {
 	position: fixed;
 	display: flex;
-	width: 67%;
 	justify-content: space-between;
 	bottom: 0;
 	background-color: #fff;
@@ -264,6 +258,188 @@ table tr {
 .summary h2,
 .checkout-form h2 {
 	color: #304ffe;
+}
+
+
+.mobile-price-view {
+	display: none;
+}
+
+.mobile-price-view.opened {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	height: 100vh;
+	background: transparent linear-gradient(233deg, #d500f9 0%, #2962ff 99%) 0% 0% no-repeat padding-box;
+	z-index: 100;
+	margin-left: -1rem;
+	padding: 1rem;
+}
+
+.mobile-price-view .nav-back {
+	display: flex;
+	align-items: center;
+}
+
+.mobile-price-view .nav-back svg {
+	margin-right: 10px;
+}
+
+.mobile-price-view .nav-back span {
+	padding: 1rem;
+	padding-left: 0;
+	font: 600 16px/22px "Open Sans", sans-serif;
+}
+
+.mobile-price-view .disclaimer {
+	margin-top: auto;
+}
+
+/* Desktop */
+@media screen and (min-width: 1024px) {
+
+	.is-hidden-on-desktop {
+		display: none;
+	}
+
+	.columns {
+		display: flex;
+		flex-direction: row;
+	}
+
+	.main.columns {
+		height: 100vh;
+		overflow: hidden;
+	}
+
+	.column {
+		width: 50%;
+	}
+
+	.wrapper-form.column {
+		width: 67%;
+	}
+
+
+	.price-column {
+		width: 33%;
+	}
+
+	.button-bar {
+		width: 67%;
+	}
+
+	.mobile-price-info {
+		display: none;
+	}
+}
+
+/* Tablet */
+@media screen and (max-width: 1023px) {
+
+	.column {
+		width: 100%;
+	}
+
+	.summary .columns {
+		display: flex;
+		flex-direction: row;
+	}
+
+	.summary .column {
+		width: 50%;
+	}
+
+	.wrapper-form.column {
+		width: 100%;
+	}
+
+	.price-column {
+		width: 100%;
+	}
+
+	.button-bar {
+		width: 100%;
+	}
+
+	.wrapper-form {
+		padding-bottom: 100px;
+	}
+
+	.mobile-price-info {
+		display: block;
+		display: flex;
+		align-items: center;
+	}
+
+	.mobile-price-info .info-icon {
+		margin-left: 10px;
+	}
+
+	.price .price-table {
+		display: none;
+	}
+
+	.price-column .disclaimer {
+		display: none;
+	}
+
+	.price-column .mobile-price-view.opened .disclaimer {
+		display: block;
+	}
+}
+
+
+/* Smartphone */
+@media screen and (max-width: 767px) {
+
+	.accordion-bar {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-between;
+	}
+
+	.accordion {
+		width: 20px;
+		height: 20px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.accordion.opened {
+		transform: rotate(180deg);
+	}
+
+	.form-field-container {
+		width: 100%;
+	}
+
+	.summary {
+		border-bottom: 1px rgb(201, 201, 201) solid;
+		overflow: hidden;
+	}
+
+	.summary .columns {
+		display: block;
+	}
+
+	.summary .column {
+		width: 100%;
+	}
+
+
+	.summary.closed {
+		height: 80px;
+	}
+
+	.summary.opened {
+		height: auto;
+	}
 }
 
 .switch {
@@ -351,6 +527,7 @@ table tr {
 	position: absolute;
 	right: 1rem;
 }
+
 .error-message-container {
 	width: calc(100% - 11px);
 	background-color: #fff;
@@ -359,7 +536,6 @@ table tr {
 	border-left: 5px rgb(219, 0, 0) solid;
 	margin-left: 5px;
 }
-
 
 .error-message {
 	color: #080808;

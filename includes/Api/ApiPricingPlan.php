@@ -77,7 +77,6 @@ class ApiPricingPlan {
 		if ( 200 !== $code_response ) {
 			wp_send_json_error( $message[ $code_response ] );
 		}
-		delete_option( 'wubtitle_amount_preview' );
 		delete_option( 'wubtitle_wanted_plan_rank' );
 		wp_send_json_success();
 	}
@@ -191,11 +190,13 @@ class ApiPricingPlan {
 		if ( 200 !== $code_response ) {
 			wp_send_json_error( $message[ $code_response ] );
 		}
-		$response_body  = json_decode( wp_remote_retrieve_body( $response ) );
-		$amount_preview = $response_body->data->amountPreview;
-		update_option( 'wubtitle_amount_preview', $amount_preview );
+		$response_body = json_decode( wp_remote_retrieve_body( $response ) );
+		$response      = array(
+			'amount_preview' => $response_body->data->amountPreview,
+			'message'        => 'change_plan',
+		);
 		update_option( 'wubtitle_wanted_plan_rank', $plan_rank );
-		wp_send_json_success( 'change_plan' );
+		wp_send_json_success( $response );
 	}
 	/**
 	 * Gets the data from JavaScript and sends it to the endpoint for payment update.
@@ -238,6 +239,7 @@ class ApiPricingPlan {
 			WUBTITLE_ENDPOINT . 'stripe/customer/update',
 			array(
 				'method'  => 'POST',
+				'timeout' => 15,
 				'headers' => array(
 					'Content-Type' => 'application/json; charset=utf-8',
 					'licenseKey'   => $license_key,

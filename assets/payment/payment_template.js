@@ -13,8 +13,14 @@
 			.then((resp) => resp.json())
 			.then((response) => {
 				if (response.success) {
-					if (response.data === 'change_plan') {
-						window.opener.confirmPlanChange();
+					if (
+						response.data &&
+						response.data.message === 'change_plan'
+					) {
+						window.opener.confirmPlanChange(
+							response.data.amount_preview,
+							planRank
+						);
 						return;
 					}
 					window.opener.customStripeForm(planRank);

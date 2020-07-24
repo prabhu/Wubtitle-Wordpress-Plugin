@@ -13,7 +13,7 @@
 require WUBTITLE_DIR . 'includes/Dashboard/Templates/plans_array.php';
 $data           = get_option( 'wubtitle_expiration_date' );
 $data           = date_i18n( get_option( 'date_format' ), $data );
-$amount_preview = get_option( 'wubtitle_amount_preview' );
+$amount_preview = isset( $amount_preview ) ? number_format( (float) $amount_preview, 2 ) : 0.00;
 ?>
 <!DOCTYPE html>
 <html lang="en">
