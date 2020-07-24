@@ -1,4 +1,4 @@
-const paymentModule = (function (document) {
+(function (document) {
 	const { adminAjax, nonce } = WP_GLOBALS;
 
 	const handleChoice = (planRank) => {
@@ -65,6 +65,4 @@ const paymentModule = (function (document) {
 	return {
 		init,
 	};
-})(document);
-
-paymentModule.init();
+})(document).init();

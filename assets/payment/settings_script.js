@@ -3,28 +3,53 @@
 let BuyLicenseWindow = null;
 let UpdatePlanWindow = null;
 let CancelSubscriptionWindow = null;
-let CustomFormWindow = null;
 let wait = false;
 /* eslint-disable */
 function redirectToCallback(param) {
 	window.location.href += "&" + param;
 }
 function cancelPayment(){
-	CustomFormWindow.close();
-	showBuyLicenseWindow();
+	let CurrentWindow;
+	let template;
+	if (BuyLicenseWindow && !BuyLicenseWindow.closed) {
+		CurrentWindow = BuyLicenseWindow;
+		template = 'payment_template';
+	} else if (CancelSubscriptionWindow && !CancelSubscriptionWindow.closed) {
+		CurrentWindow = CancelSubscriptionWindow;
+		template = 'cancel_template';
+	}
+	wp.ajax
+	.send(template, {
+		type: 'POST',
+		data: {
+			_ajax_nonce: settings_object.ajaxnonce,
+			priceinfo: JSON.stringify(settings_object.infoplans),
+		},
+	})
+	.done((response) => {
+		CurrentWindow.document.body.innerHTML = '';
+		CurrentWindow.document.write(response);
+		wait = false;
+	});
 }
 function confirmPlanChange(){
-	BuyLicenseWindow.close();
-	confirmPlanChangeWindow();
+	let CurrentWindow;
+	if (BuyLicenseWindow && !BuyLicenseWindow.closed) {
+		CurrentWindow = BuyLicenseWindow;
+	} else if (CancelSubscriptionWindow && !CancelSubscriptionWindow.closed) {
+		CurrentWindow = CancelSubscriptionWindow;
+	}
+	confirmPlanChangeWindow(CurrentWindow);
 }
 //this function is used by the dialog CustomFormWindow 
 function customStripeForm(planRank){
+	let CurrentWindow;
 	if (BuyLicenseWindow && !BuyLicenseWindow.closed) {
-		BuyLicenseWindow.close();
+		CurrentWindow = BuyLicenseWindow;
 	} else if (CancelSubscriptionWindow && !CancelSubscriptionWindow.closed) {
-		CancelSubscriptionWindow.close();
+		CurrentWindow = CancelSubscriptionWindow;
 	}
-	showCustomFormWindow(planRank);
+	showCustomFormWindow(planRank, CurrentWindow);
 }
 /* eslint-enable */
 
@@ -77,36 +102,20 @@ document.addEventListener('DOMContentLoaded', function () {
 		});
 	}
 });
-const showCustomFormWindow = (planRank) => {
-	if (!CustomFormWindow || CustomFormWindow.closed) {
-		const windowFeatures = `
-            left=500,
-            top=200,
-            width=1200,
-            height=700,
-            scrollbars=yes,
-        `;
-		wp.ajax
-			.send('custom_form_template', {
-				type: 'POST',
-				data: {
-					_ajax_nonce: settings_object.ajaxnonce,
-					planRank,
-					priceinfo: JSON.stringify(settings_object.infoplans),
-				},
-			})
-			.done((response) => {
-				CustomFormWindow = window.open(
-					'',
-					'custom_form',
-					windowFeatures
-				);
-				CustomFormWindow.document.write(response);
-			});
-	} else {
-		CustomFormWindow.focus();
-		return CustomFormWindow;
-	}
+const showCustomFormWindow = (planRank, CurrentWindow) => {
+	wp.ajax
+		.send('custom_form_template', {
+			type: 'POST',
+			data: {
+				_ajax_nonce: settings_object.ajaxnonce,
+				planRank,
+				priceinfo: JSON.stringify(settings_object.infoplans),
+			},
+		})
+		.done((response) => {
+			CurrentWindow.document.body.innerHTML = '';
+			CurrentWindow.document.write(response);
+		});
 };
 const showUpdatePlanWindow = () => {
 	if (UpdatePlanWindow === null || UpdatePlanWindow.closed) {
@@ -139,6 +148,9 @@ const showUpdatePlanWindow = () => {
 	}
 };
 const showBuyLicenseWindow = () => {
+	if (CancelSubscriptionWindow && !CancelSubscriptionWindow.closed) {
+		CancelSubscriptionWindow.close();
+	}
 	if (!wait && (BuyLicenseWindow === null || BuyLicenseWindow.closed)) {
 		const windowFeatures = `
             left=500,
@@ -171,38 +183,25 @@ const showBuyLicenseWindow = () => {
 	}
 };
 
-const confirmPlanChangeWindow = () => {
-	if (BuyLicenseWindow === null || BuyLicenseWindow.closed) {
-		const windowFeatures = `
-            left=500,
-            top=200,
-            width=1200,
-            height=700,
-            scrollbars=yes,
-        `;
-		wp.ajax
-			.send('change_plan_template', {
-				type: 'POST',
-				data: {
-					_ajax_nonce: settings_object.ajaxnonce,
-					priceinfo: JSON.stringify(settings_object.infoplans),
-				},
-			})
-			.done((response) => {
-				BuyLicenseWindow = window.open(
-					'',
-					'Buy-license',
-					windowFeatures
-				);
-				BuyLicenseWindow.document.write(response);
-			});
-	} else {
-		BuyLicenseWindow.focus();
-		return BuyLicenseWindow;
-	}
+const confirmPlanChangeWindow = (CurrentWindow) => {
+	wp.ajax
+		.send('change_plan_template', {
+			type: 'POST',
+			data: {
+				_ajax_nonce: settings_object.ajaxnonce,
+				priceinfo: JSON.stringify(settings_object.infoplans),
+			},
+		})
+		.done((response) => {
+			CurrentWindow.document.body.innerHTML = '';
+			CurrentWindow.document.write(response);
+		});
 };
 
 const showCancelSubscriptionWindow = () => {
+	if (BuyLicenseWindow && !BuyLicenseWindow.closed) {
+		BuyLicenseWindow.close();
+	}
 	if (
 		!wait &&
 		(CancelSubscriptionWindow === null || CancelSubscriptionWindow.closed)
