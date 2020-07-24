@@ -101,6 +101,13 @@ document.addEventListener('DOMContentLoaded', function () {
 			reactivateFunction();
 		});
 	}
+	const prova = document.querySelector('#prova');
+	if (prova) {
+		prova.addEventListener('click', (e) => {
+			e.preventDefault();
+			reactivateFunction();
+		});
+	}
 });
 const showCustomFormWindow = (planRank, CurrentWindow) => {
 	wp.ajax
