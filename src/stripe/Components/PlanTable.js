@@ -2,7 +2,7 @@ import React from 'react';
 import { __ } from '@wordpress/i18n';
 
 const PlanTable = (props) => {
-	const { currentPlan, currentPrice, renewal } = props;
+	const { currentPlan, currentPrice, renewal, taxable, taxAmount } = props;
 
 	return (
 		<table className="price-table">
@@ -16,6 +16,28 @@ const PlanTable = (props) => {
 					{currentPrice} &euro;
 					<span className="valxm">{__('per month', 'wubtitle')}</span>
 				</td>
+			</tr>
+			<tr>
+				<td>
+					<td>{__('Price', 'wubtitle')}</td>
+				</td>
+				{taxable ? (
+					<td className="val">
+						{currentPrice} &euro;
+						<span className="valxm">
+							{__('per month', 'wubtitle')}
+						</span>
+					</td>
+				) : (
+					<td className="val">
+						<span className="cut-vat">
+							{parseFloat(currentPrice) + parseFloat(taxAmount)}
+							&euro;
+							<span className="cut-line">{/* css only */}</span>
+						</span>
+						{currentPrice} &euro;
+					</td>
+				)}
 			</tr>
 			{renewal ? (
 				<tr className="total">
