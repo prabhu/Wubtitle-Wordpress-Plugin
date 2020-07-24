@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import CheckoutForm from './Components/CheckoutForm';
 import InvoiceForm from './Components/InvoiceForm';
@@ -31,9 +31,11 @@ function App() {
 	const [isBack, setIsBack] = useState(false);
 	const [taxable, setTaxable] = useState(true);
 
-	if (invoicePreValues) {
-		setTaxable(invoicePreValues.tax);
-	}
+	useEffect(() => {
+		if (invoicePreValues) {
+			setTaxable(invoicePreValues.tax);
+		}
+	}, [invoicePreValues]);
 
 	const handleSubmit = (values) => {
 		fetch(ajaxUrl, {
