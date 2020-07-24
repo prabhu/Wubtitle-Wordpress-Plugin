@@ -1,8 +1,11 @@
-/**
- * Use the CSS tab above to style your Element's container.
- */
-import React from 'react';
+import React, { useState } from 'react';
 import { __ } from '@wordpress/i18n';
+import { ReactComponent as InfoIcon } from '../../../assets/img/info-white-18dp.svg';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import PriceTable from './PriceTable';
+import Disclaimer from './Disclaimer';
+import SubscribeName from './SubscribeName';
 
 const InfoPriceColumn = (props) => {
 	const { price, name, taxAmount, taxPercentage, taxable } = props;
@@ -10,71 +13,54 @@ const InfoPriceColumn = (props) => {
 	if (taxable) {
 		total = parseFloat(price) + parseFloat(taxAmount);
 	}
+	const [isOpen, setIsOpen] = useState(false);
 	return (
 		<div className="column price-column">
 			<div className="price">
-				<p className="price-name">
-					{__('Subscribe to', 'wubtitle')} {name}{' '}
-					{__('plan', 'wubtitle')}
+				<SubscribeName name={name} />
+				<p className="mobile-price-info is-hidden-on-desktop">
+					<span className="total">{total} &euro; </span>
+					<span className="valxm">{__('per month', 'wubtitle')}</span>
+					<InfoIcon
+						className="info-icon"
+						onClick={() => setIsOpen(!isOpen)}
+					/>
 				</p>
-				<table>
-					<tr>
-						<td>{__('Price', 'wubtitle')}</td>
-						<td className="val">{price} &euro;</td>
-					</tr>
-					<tr>
-						<td>
-							{__('VAT', 'wubtitle')} ({taxPercentage}%)
-						</td>
-						{taxable ? (
-							<td className="val">{taxAmount} &euro;</td>
-						) : (
-							<td className="val">
-								<span className="cut-vat">
-									{taxAmount} &euro;
-									<span className="cut-line">
-										{/* css only */}
-									</span>
-								</span>
-								0 &euro;
-							</td>
-						)}
-					</tr>
-					<tr className="total">
-						<td>{__('Total', 'wubtitle')}</td>
-						<td className="val">
-							{total} &euro;{' '}
-							<span className="valxm">
-								{__('per mounth', 'wubtitle')}
-							</span>
-						</td>
-					</tr>
-				</table>
+				<PriceTable
+					price={price}
+					taxPercentage={taxPercentage}
+					taxAmount={taxAmount}
+					taxable={taxable}
+					total={total}
+				/>
 			</div>
-			<div className="disclaimer">
-				<p>
-					{__(
-						'When ordering within the EU an order may be exempt to VAT if a valid VAT registration number is provided.',
-						'wubtitle'
-					)}
-				</p>
-				<p>
-					<a
-						href="https://stripe.com/checkout/terms"
-						rel="noreferrer"
-						target="_blank"
+			<Disclaimer />
+			<div
+				className={
+					isOpen ? 'mobile-price-view opened' : 'mobile-price-view'
+				}
+			>
+				<div className="top">
+					<div
+						className="nav-back"
+						onClick={() => setIsOpen(!isOpen)}
+						aria-hidden="true"
 					>
-						{__('Terms and conditions', 'wubtitle')}
-					</a>
-					<span> | </span>
-					<a
-						href="https://stripe.com/it/privacy"
-						target="_blank"
-						rel="noreferrer"
-					>
-						{__('Privacy', 'wubtitle')}
-					</a>
-				</p>
+						<span>
+							<FontAwesomeIcon icon={faArrowLeft} />
+							Subscription details
+						</span>
+					</div>
+					<SubscribeName name={name} />
+					<PriceTable
+						price={price}
+						taxPercentage={taxPercentage}
+						taxAmount={taxAmount}
+						taxable={taxable}
+						total={total}
+					/>
+				</div>
+				<Disclaimer />
 			</div>
 		</div>
 	);

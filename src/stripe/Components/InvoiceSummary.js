@@ -1,10 +1,34 @@
+import React, { useState } from 'react';
 import { __ } from '@wordpress/i18n';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
+
 export default function InvoiceSummary(props) {
 	const { invoiceValues } = props;
+	const [isOpen, setIsOpen] = useState(false);
+	const [accordionClass, setAccordionClass] = useState('closed');
+
+	const handleClick = () => {
+		setIsOpen(!isOpen);
+		if (isOpen) {
+			setAccordionClass('opened');
+		} else {
+			setAccordionClass('closed');
+		}
+	};
 
 	return (
-		<div className="summary">
-			<h2>{__('Billing Recap', 'wubtitle')}</h2>
+		<div className={`summary ${accordionClass}`}>
+			<div className="accordion-bar">
+				<h2>{__('Billing Recap', 'wubtitle')}</h2>
+				<span
+					className={`accordion is-hidden-on-desktop ${accordionClass}`}
+					onClick={handleClick}
+					aria-hidden="true"
+				>
+					<FontAwesomeIcon icon={faChevronDown} />
+				</span>
+			</div>
 			<div className="columns">
 				<div className="column">
 					<p>
