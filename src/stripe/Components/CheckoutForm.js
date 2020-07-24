@@ -43,7 +43,7 @@ export default function CheckoutForm(props) {
 		if (paymentPreValues && !changeOn) {
 			values.name = paymentPreValues.name;
 			values.email = paymentPreValues.email;
-			createSubscription(paymentPreValues.paymentMethod, values);
+			createSubscription(paymentPreValues.paymentMethodId, values);
 			return;
 		}
 

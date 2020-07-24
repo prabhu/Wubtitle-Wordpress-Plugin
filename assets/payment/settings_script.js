@@ -32,14 +32,14 @@ function cancelPayment(){
 		wait = false;
 	});
 }
-function confirmPlanChange(){
+function confirmPlanChange(amountPreview, wantedPlanRank){
 	let CurrentWindow;
 	if (BuyLicenseWindow && !BuyLicenseWindow.closed) {
 		CurrentWindow = BuyLicenseWindow;
 	} else if (CancelSubscriptionWindow && !CancelSubscriptionWindow.closed) {
 		CurrentWindow = CancelSubscriptionWindow;
 	}
-	confirmPlanChangeWindow(CurrentWindow);
+	confirmPlanChangeWindow(CurrentWindow, amountPreview, wantedPlanRank);
 }
 //this function is used by the dialog CustomFormWindow 
 function customStripeForm(planRank){
@@ -183,13 +183,19 @@ const showBuyLicenseWindow = () => {
 	}
 };
 
-const confirmPlanChangeWindow = (CurrentWindow) => {
+const confirmPlanChangeWindow = (
+	CurrentWindow,
+	amountPreview,
+	wantedPlanRank
+) => {
 	wp.ajax
 		.send('change_plan_template', {
 			type: 'POST',
 			data: {
 				_ajax_nonce: settings_object.ajaxnonce,
 				priceinfo: JSON.stringify(settings_object.infoplans),
+				amountPreview,
+				wantedPlanRank,
 			},
 		})
 		.done((response) => {
