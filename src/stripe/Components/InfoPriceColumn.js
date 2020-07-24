@@ -27,9 +27,7 @@ const InfoPriceColumn = (props) => {
 		<div className="column price-column">
 			<div className="price">
 				<ColumnTitle name={name} update={update} />
-				{update ? (
-					''
-				) : (
+				{update ? null : (
 					<p className="mobile-price-info is-hidden-on-desktop">
 						<span className="total">{total} &euro; </span>
 						<span className="valxm">

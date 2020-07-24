@@ -33,7 +33,7 @@ const PlanTable = (props) => {
 						<span className="cut-vat">
 							{parseFloat(currentPrice) + parseFloat(taxAmount)}
 							&euro;
-							<span className="cut-line">{/* css only */}</span>
+							<span className="cut-line" />
 						</span>
 						{currentPrice} &euro;
 					</td>
@@ -44,9 +44,7 @@ const PlanTable = (props) => {
 					<td>{__('Automatic renewal', 'wubtitle')}</td>
 					<td className="val">{renewal}</td>
 				</tr>
-			) : (
-				''
-			)}
+			) : null}
 		</table>
 	);
 };
