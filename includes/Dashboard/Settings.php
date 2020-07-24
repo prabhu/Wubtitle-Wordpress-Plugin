@@ -10,13 +10,22 @@
 namespace Wubtitle\Dashboard;
 
 use Wubtitle\Loader;
+use Wubtitle\Helpers;
 
 /**
  * This class describes Settings.
  */
 class Settings {
 	/**
+	 * Price info all plans.
+	 *
+	 * @var array<string>
+	 */
+	private $price_info_plans = array();
+	/**
 	 * Init class actions
+	 *
+	 * @return void
 	 */
 	public function run() {
 		add_action( 'admin_menu', array( $this, 'create_settings_menu' ) );
@@ -29,31 +38,33 @@ class Settings {
 	}
 
 	/**
-	 * Crea un nuova voce nel menu della dashbord
+	 * Create a new dashboard menu item.
+	 *
+	 * @return void
 	 */
 	public function create_settings_menu() {
 		// TODO: Cambiare $icon_url e $position (attualmente subito dopo "Impostazioni") quando verranno date indicazioni UX.
 		add_menu_page( __( 'Wubtitle Settings', 'wubtitle' ), __( 'Wubtitle', 'wubtitle' ), 'manage_options', 'wubtitle_settings', array( $this, 'render_settings_page' ), 'dashicons-format-status', 81 );
 	}
+
 	/**
-	 *  Faccio l'enqueue dello style per i settings.
+	 *  Enqueue settings style.
+	 *
+	 * @return void
 	 */
 	public function wubtitle_settings_style() {
-		wp_enqueue_style( 'wubtitle_settings_style', WUBTITLE_URL . 'src/css/settingsStyle.css', null, true );
+		wp_enqueue_style( 'wubtitle_settings_style', WUBTITLE_URL . 'assets/css/settingsStyle.css', array(), WUBTITLE_VER );
 	}
 
 	/**
-	 * Crea la pagina dei settings
+	 * Renders the setting page.
+	 *
+	 * @return void
 	 */
 	public function render_settings_page() {
-		Loader::get( 'cron' )->get_remote_data();
-		$plans        = array(
-			'plan_0'              => __( 'Free Plan', 'wubtitle' ),
-			'plan_HBBbNjLjVk3w4w' => __( 'Standard Plan', 'wubtitle' ),
-			'plan_HBBS5I9usXvwQR' => __( 'Elite Plan', 'wubtitle' ),
-		);
-		$plan_saved   = get_option( 'wubtitle_plan' );
-		$current_plan = array_key_exists( $plan_saved, $plans ) ? $plans[ $plan_saved ] : '';
+		$plans        = get_option( 'wubtitle_all_plans', array() );
+		$plan_rank    = get_option( 'wubtitle_plan_rank' );
+		$current_plan = array_key_exists( $plan_rank, $plans ) ? $plans[ $plan_rank ]['name'] : '';
 		$seconds_max  = get_option( 'wubtitle_total_seconds' );
 		$jobs_max     = get_option( 'wubtitle_total_jobs' );
 		$seconds      = get_option( 'wubtitle_seconds_done' );
@@ -68,7 +79,7 @@ class Settings {
 			<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
 			<form action="options.php" method="post">
 			<div class="form-header">
-				<img class="logo" src="<?php echo esc_url( WUBTITLE_URL . 'src/img/logo.svg' ); ?>">
+				<img class="logo" src="<?php echo esc_url( WUBTITLE_URL . 'assets/img/logo.svg' ); ?>">
 				<?php
 				settings_errors();
 				submit_button();
@@ -78,11 +89,11 @@ class Settings {
 				<h2 class="hndle ui-sortable-handle e2w-title" ><span><?php esc_html_e( 'Licensing', 'wubtitle' ); ?></span></h2>
 				<div class="inside">
 					<div class="plan-state">
-						<?php echo esc_html( $current_plan ); ?>
+						<?php echo esc_html_e( 'Plan: ', 'wubtitle' ) . esc_html( $current_plan ); ?>
 					</div>
 					<div class="plan-renewal">
 						<?php
-						$this->render_plan_renewal( $plan_saved, $wubtitle_is_canceling, $friendly_expiration_date );
+						$this->render_plan_renewal( $plan_rank, $wubtitle_is_canceling, $friendly_expiration_date );
 						?>
 					</div>
 					<p style="font-weight:400">
@@ -113,41 +124,40 @@ class Settings {
 		</form>
 		<?php
 	}
+
 	/**
-	 * Controlla se ci sono i parametri in get e da una notice all'utente.
+	 * Checks GET parameters and relative notice to the user.
+	 *
+	 * @return void
 	 */
 	public function check_notice_stripe() {
 		$message = false;
+
 		// phpcs:disable
 		if ( empty( $_GET['notices-code'] ) || isset( $_GET['settings-updated'] ) ) {
 			return;
 		}
-		switch ( $_GET['notices-code'] ) {
-			case 'payment':
-				$message = __( 'Payment successful', 'wubtitle' );
-				break;
-			case 'update':
-				$message = __( 'Payment information updated', 'wubtitle' );
-				break;
-			case 'reset':
-				$message = __( 'License key sent, check your email!', 'wubtitle' );
-				break;
-			case 'delete':
-				$message = __( 'Unsubscription successful', 'wubtitle' );
-				break;
-			case 'reactivate':
-				$message = __( 'Reactivation of the plan successful', 'wubtitle' );
-				break;
-		}
+		$notice_code = sanitize_text_field( wp_unslash( $_GET['notices-code'] ) );
+		// phpcs:enable
+
+		$notice_messages = array(
+			'payment'    => __( 'Payment successful', 'wubtitle' ),
+			'update'     => __( 'Payment information updated', 'wubtitle' ),
+			'reset'      => __( 'License key sent, check your email!', 'wubtitle' ),
+			'delete'     => __( 'Unsubscription successful', 'wubtitle' ),
+			'reactivate' => __( 'Reactivation of the plan successful', 'wubtitle' ),
+		);
+
+		$message = $notice_messages[ $notice_code ];
+
 		if ( ! $message ) {
 			return;
 		}
 		?>
-		 <div class="notice notice-success is-dismissible">
-			 <p> <?php echo esc_html( $message ); ?></p>
-		 </div>
+		<div class="notice notice-success is-dismissible">
+			<p> <?php echo esc_html( $message ); ?></p>
+		</div>
 		<?php
-		// phpcs:enable
 	}
 
 
@@ -157,11 +167,12 @@ class Settings {
 	 * @param string  $plan stripe plan code.
 	 * @param boolean $cancelling state of user plan.
 	 * @param string  $date renewal date.
+	 * @return void
 	 */
 	private function render_plan_renewal( $plan, $cancelling, $date ) {
-		if ( 'plan_0' !== $plan && ! $cancelling ) {
+		if ( '0' !== $plan && ! $cancelling ) {
 			echo esc_html( __( 'Automatic renewal: ', 'wubtitle' ) . $date );
-		} elseif ( 'plan_0' !== $plan && $cancelling ) {
+		} elseif ( '0' !== $plan && $cancelling ) {
 			echo esc_html( __( 'You requested the subscription cancellation. Your plan will be valid until  ', 'wubtitle' ) . $date );
 		}
 	}
@@ -170,6 +181,7 @@ class Settings {
 	 * Render name plan in render settengs method
 	 *
 	 * @param boolean $cancelling state of user plan.
+	 * @return void
 	 */
 	private function render_plan_update( $cancelling ) {
 		if ( ! $cancelling && ! get_option( 'wubtitle_free' ) ) {
@@ -195,7 +207,9 @@ class Settings {
 
 
 	/**
-	 * Aggiunge una nuova impostazione
+	 * Adds a new setting.
+	 *
+	 * @return void
 	 */
 	public function init_settings() {
 		register_setting(
@@ -209,7 +223,9 @@ class Settings {
 	}
 
 	/**
-	 * Check license
+	 * Checks license
+	 *
+	 * @return void
 	 */
 	public function check_license() {
 		$submitted_license = get_option( 'wubtitle_license_key' );
@@ -222,7 +238,6 @@ class Settings {
 				'INVALID' => __( 'Unable to update. Invalid product license.', 'wubtitle' ),
 				'4xx'     => __( 'An error occurred while updating licence. Please try again in a few minutes.', 'wubtitle' ),
 				'5xx'     => __( 'Could not contact the server.', 'wubtitle' ),
-				'xxx'     => __( 'An error occurred.', 'wubtitle' ),
 			);
 
 			add_settings_error(
@@ -244,9 +259,11 @@ class Settings {
 	}
 
 	/**
-	 * Chiamata ad endpoint remoto per check license key.
+	 * Remote licence key check request.
 	 *
-	 * @param string $license_key license key dell'input.
+	 * @param string $license_key input license key.
+	 *
+	 * @return array<string,mixed>
 	 */
 	private function remote_request( $license_key ) {
 		$headers = array(
@@ -260,7 +277,7 @@ class Settings {
 		);
 
 		$response = wp_remote_post(
-			ENDPOINT . 'license/check',
+			WUBTITLE_ENDPOINT . 'license/check',
 			array(
 				'method'  => 'POST',
 				'headers' => $headers,
@@ -275,25 +292,30 @@ class Settings {
 
 		$validation['verified'] = $retrieved['data']['verified'];
 
-		// xxx indica un errore da gestire con un messaggio generico, 4xx e 5xx tutti gli errori 400 o 500.
-		$validation['error'] = 'xxx';
-		if ( 200 === $status && ! $validation['verified'] ) {
-			$validation['error'] = $retrieved['data']['errorType'];
-		} elseif ( 500 <= $status && 600 > $status ) {
-			$validation['error'] = '5xx';
-		} elseif ( 400 <= $status && 500 > $status ) {
-			$validation['error'] = '4xx';
-		}
+		$helpers             = new Helpers();
+		$validation['error'] = $helpers->check_has_error( $status, $validation['verified'], $retrieved['data']['errorType'] );
 
 		return $validation;
 	}
 
 	/**
-	 * Aggiunge un nuovo campo all'impostazione precedentemente creata
+	 * This function handles the setup of wubtitle_settings fields.
+	 *
+	 * @return void
 	 */
 	public function init_settings_field() {
-		add_settings_section( 'wubtitle-main-settings', null, null, 'wubtitle-settings' );
-		if ( 'plan_HBBS5I9usXvwQR' !== get_option( 'wubtitle_plan' ) ) {
+		// phpcs:disable
+		// Report a warning because the nonce is missing, since it is a parameter of the URL of the wubtitle page, the nonce is not necessary.
+		if ( isset( $_GET['page'] ) && 'wubtitle_settings' === $_GET['page'] ) {
+			// phpcs:enable
+			$this->price_info_plans = Loader::get( 'cron' )->get_remote_data();
+		}
+		add_settings_section( 'wubtitle-main-settings', '', function(){}, 'wubtitle-settings' );
+
+		$plans    = get_option( 'wubtitle_all_plans', array() );
+		$disabled = count( $plans ) === 0 ? 'disabled' : '';
+		$message  = count( $plans ) === 0 ? __( 'Upgrade feature temporarily disabled due to error loading the page. Please refresh the page and try again.', 'wubtitle' ) : '';
+		if ( count( $plans ) === 0 || get_option( 'wubtitle_plan_rank' ) < count( $plans ) - 1 ) {
 			add_settings_field(
 				'buy-license-button',
 				__( 'Unlock more features!', 'wubtitle' ),
@@ -301,8 +323,10 @@ class Settings {
 				'wubtitle-settings',
 				'wubtitle-main-settings',
 				array(
-					'name'  => __( 'Upgrade', 'wubtitle' ),
-					'class' => 'upgrade-button',
+					'name'     => __( 'Upgrade', 'wubtitle' ),
+					'class'    => 'upgrade-button',
+					'disabled' => $disabled,
+					'message'  => $message,
 				)
 			);
 		}
@@ -323,9 +347,11 @@ class Settings {
 	}
 
 	/**
-	 * Crea un componente input da richiamare nel form
+	 * Create an input component needed in the form.
 	 *
-	 * @param array $args Parametri dell'input.
+	 * @param array<string> $args input parameters.
+	 *
+	 * @return void
 	 */
 	public function input_field( $args ) {
 		$option = '';
@@ -347,34 +373,46 @@ class Settings {
 		<?php
 	}
 	/**
-	 * Crea il bottone per fare l'upgrade del bottone.
+	 * Upgrade button.
 	 *
-	 * @param array $args Parametri dell'input.
+	 * @param array<string> $args input parameters.
+	 *
+	 * @return void
 	 */
 	public function upgrade_button( $args ) {
 		?>
-		<button id="buy-license-button" class="button-primary" >
+		<button id="buy-license-button" class="button-primary <?php echo esc_attr( $args['disabled'] ); ?>">
 			<?php echo esc_html( $args['name'] ); ?>
 		</button>
 		<p style="display:inline; margin-left:4px;"> <?php esc_html_e( 'now!', 'wubtitle' ); ?> </p>
 		<?php
+		if ( '' !== $args['disabled'] ) {
+			?>
+			<p style="color:red; margin-left:4px;"> <?php echo esc_html( $args['message'] ); ?> </p>
+			<?php
+		}
+		?>
+		<?php
 	}
 
 	/**
-	 * Includo gli script.
+	 * Enqueue scripts.
 	 *
-	 * @param string $hook valore presente nell'hook admin_enqueue_scripts.
+	 * @param string $hook value admin_enqueue_scripts hook.
+	 *
+	 * @return void
 	 */
 	public function e2w_settings_scripts( $hook ) {
 		if ( 'toplevel_page_wubtitle_settings' === $hook ) {
 			wp_enqueue_script( 'wp-util' );
-			wp_enqueue_script( 'settings_scripts', WUBTITLE_URL . '/src/payment/settings_script.js', array( 'wp-util' ), WUBTITLE_VER, true );
+			wp_enqueue_script( 'settings_scripts', WUBTITLE_URL . '/assets/payment/settings_script.js', array( 'wp-util' ), WUBTITLE_VER, true );
 			wp_localize_script(
 				'settings_scripts',
 				'settings_object',
 				array(
 					'ajax_url'  => admin_url( 'admin-ajax.php' ),
 					'ajaxnonce' => wp_create_nonce( 'itr_ajax_nonce' ),
+					'infoplans' => $this->price_info_plans,
 				)
 			);
 		}

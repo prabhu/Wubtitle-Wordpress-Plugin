@@ -10,95 +10,39 @@
 /**
  * This array describes all avaiable plans for users.
  */
-$plans = array(
-	array(
-		'stripe_code'    => 'plan_0',
-		'name'           => __( 'Free', 'wubtitle' ),
-		'price'          => 0,
-		'features'       => array(
-			__( 'Number of video', 'wubtitle' )        => __( '3', 'wubtitle' ),
-			__( 'Total length of videos', 'wubtitle' ) => __( '30 min', 'wubtitle' ),
-		),
-		'dot_list'       => array(
-			__( 'Mp4 Video format allowed', 'wubtitle' ),
-			__( 'Recognized languages: English and Italian', 'wubtitle' ),
-		),
-		'zoom'           => false,
-		'current_plan'   => true,
-		'icon'           => 'smile.svg',
-		'class_button'   => 'button-choose-plan',
-		'message_button' => __( 'Choose this plan', 'wubtitle' ),
-	),
-	array(
-		'stripe_code'    => 'plan_HBBbNjLjVk3w4w',
-		'name'           => __( 'Standard', 'wubtitle' ),
-		'price'          => 19,
-		'features'       => array(
-			__( 'Number of video', 'wubtitle' )        => __( '10', 'wubtitle' ),
-			__( 'Total length of videos', 'wubtitle' ) => __( '3 hours', 'wubtitle' ),
-		),
-		'dot_list'       => array(
-			__( 'All wordpress formats supported by wordpress', 'wubtitle' ),
-			__( 'Recognized languuages: English, Italian, German, French, Spanish and Chinese', 'wubtitle' ),
-		),
-		'zoom'           => false,
-		'current_plan'   => false,
-		'icon'           => 'fire.svg',
-		'class_button'   => 'button-choose-plan',
-		'message_button' => __( 'Choose this plan', 'wubtitle' ),
-	),
-	array(
-		'stripe_code'    => 'plan_HBBS5I9usXvwQR',
-		'name'           => __( 'Elite', 'wubtitle' ),
-		'price'          => 49,
-		'features'       => array(
-			__( 'Number of video', 'wubtitle' )        => __( '30', 'wubtitle' ),
-			__( 'Total length of videos', 'wubtitle' ) => __( '10 hours', 'wubtitle' ),
-		),
-		'dot_list'       => array(
-			__( 'All wordpress formats supported by wordpress', 'wubtitle' ),
-			__( 'Recognized languuages: English, Italian, German, French, Spanish and Chinese', 'wubtitle' ),
-		),
-		'zoom'           => false,
-		'current_plan'   => false,
-		'icon'           => 'rocket.svg',
-		'class_button'   => 'button-choose-plan',
-		'message_button' => __( 'Choose this plan', 'wubtitle' ),
-	),
-);
 
-$disable_downgrade_message = __( 'Unable this select this plan during the first month of subscription for current plan', 'wubtitle' );
-switch ( get_option( 'wubtitle_plan' ) ) {
-	case 'plan_0':
-		$plans[0]['class_button']   = 'current-plan';
-		$plans[0]['message_button'] = __( 'Your plan', 'wubtitle' );
-		break;
-	case 'plan_HBBbNjLjVk3w4w':
-		if ( get_option( 'wubtitle_is_first_month' ) ) {
-			$plans[0]['class_button']   = 'disable-downgrade';
-			$plans[0]['message_button'] = $disable_downgrade_message;
-		}
-		$plans[1]['class_button']   = 'current-plan';
-		$plans[1]['message_button'] = __( 'Your plan', 'wubtitle' );
-		break;
-	case 'plan_HBBS5I9usXvwQR':
-		if ( get_option( 'wubtitle_is_first_month' ) ) {
-			$plans[0]['class_button']   = 'disable-downgrade';
-			$plans[1]['class_button']   = 'disable-downgrade';
-			$plans[0]['message_button'] = $disable_downgrade_message;
-			$plans[1]['message_button'] = $disable_downgrade_message;
-		}
-		$plans[2]['class_button']   = 'current-plan';
-		$plans[2]['message_button'] = __( 'Your plan', 'wubtitle' );
-		break;
+wp_cache_delete( 'wubtitle_plan', 'options' );
+wp_cache_delete( 'wubtitle_plan_rank', 'options' );
+wp_cache_delete( 'wubtitle_all_plans', 'options' );
+wp_cache_delete( 'wubtitle_is_first_month', 'options' );
+
+$plans          = get_option( 'wubtitle_all_plans' );
+$current_plan   = get_option( 'wubtitle_plan' );
+$current_rank   = get_option( 'wubtitle_plan_rank' );
+$is_first_month = get_option( 'wubtitle_is_first_month' );
+
+$disable_downgrade_message = __( 'Unable to select this plan during the first month of subscription for current plan', 'wubtitle' );
+
+foreach ( $plans as $key => $plan ) {
+	$max_lenght = $plans[ $key ]['totalSeconds'] < 3600 ? date_i18n( 'i', $plans[ $key ]['totalSeconds'] ) . __( ' Minutes', 'wubtitle' ) : date_i18n( 'g', $plans[ $key ]['totalSeconds'] ) . __( ' Hours', 'wubtitle' );
+
+	$plans[ $key ]['current_plan']   = false;
+	$plans[ $key ]['zoom']           = false;
+	$plans[ $key ]['class_button']   = 'button-choose-plan';
+	$plans[ $key ]['message_button'] = __( 'Choose this plan', 'wubtitle' );
+	$plans[ $key ]['features']       = array(
+		__( 'Number of video', 'wubtitle' )        => $plans[ $key ]['totalJobs'],
+		__( 'Total length of videos', 'wubtitle' ) => $max_lenght,
+	);
+	if ( $is_first_month && $key < $current_rank ) {
+		$plans[ $key ]['class_button']   = 'disable-downgrade';
+		$plans[ $key ]['message_button'] = $disable_downgrade_message;
+	}
+	if ( $key === $current_rank + 1 ) {
+		$plans[ $key ]['zoom'] = true;
+	}
 }
 
-switch ( get_option( 'wubtitle_plan' ) ) {
-	case 'plan_0':
-		$plans[1]['zoom'] = true;
-		break;
-	case 'plan_HBBbNjLjVk3w4w':
-	case 'plan_HBBS5I9usXvwQR':
-		$plans[2]['zoom'] = true;
-		break;
-}
+$plans[ $current_rank ]['current_plan']   = true;
+$plans[ $current_rank ]['class_button']   = 'current-plan';
+$plans[ $current_rank ]['message_button'] = __( 'Your plan', 'wubtitle' );

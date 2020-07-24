@@ -15,13 +15,14 @@ namespace Wubtitle\Core\Sources;
 class YouTube implements \Wubtitle\Core\VideoSource {
 
 	/**
-	 * Effettua la chiamata all'endpoint.
+	 * Sends job to backend endpoint.
 	 *
-	 * @param string $id_video il body della richiesta da inviare.
+	 * @param string $id_video id video youtube.
+	 * @return array<string>|\WP_Error
 	 */
 	public function send_job_to_backend( $id_video ) {
 		$response = wp_remote_post(
-			ENDPOINT . 'job/create',
+			WUBTITLE_ENDPOINT . 'job/create',
 			array(
 				'method'  => 'POST',
 				'headers' => array(
@@ -42,12 +43,13 @@ class YouTube implements \Wubtitle\Core\VideoSource {
 	}
 
 	/**
-	 * Recupera la trascrizione.
+	 * Gets the trascription.
 	 *
-	 * @param string $url_subtitle url sottotitoli youtube.
+	 * @param string $url_subtitle url youtube subtitle.
 	 * @param string $id_video id video.
-	 * @param string $title_video titolo video.
-	 * @param string $from da dove parte la richiesta.
+	 * @param string $title_video video title.
+	 * @param string $from where the request starts.
+	 * @return bool|string|int|\WP_Error
 	 */
 	public function get_subtitle_to_url( $url_subtitle, $id_video, $title_video, $from = '' ) {
 		if ( empty( $url_subtitle ) ) {
@@ -55,7 +57,10 @@ class YouTube implements \Wubtitle\Core\VideoSource {
 		}
 		$url_subtitle = $url_subtitle . '&fmt=json3';
 		$response     = wp_remote_get( $url_subtitle );
-		$text         = '';
+		if ( is_wp_error( $response ) ) {
+			return false;
+		}
+		$text = '';
 		foreach ( json_decode( $response['body'] )->events as $event ) {
 			if ( isset( $event->segs ) ) {
 				foreach ( $event->segs as $seg ) {
@@ -80,10 +85,11 @@ class YouTube implements \Wubtitle\Core\VideoSource {
 	}
 
 	/**
-	 * Recupera la trascrizioni.
+	 * Gets the transcription.
 	 *
-	 * @param string $id_video id del video youtube.
-	 * @param string $from post type dal quale viene fatta la richiesta.
+	 * @param string $id_video id youtube video.
+	 * @param string $from where the request starts.
+	 * @return bool|string|int|\WP_Error
 	 */
 	public function get_subtitle( $id_video, $from ) {
 		$get_info_url = "https://www.youtube.com/get_video_info?video_id=$id_video";
@@ -110,6 +116,9 @@ class YouTube implements \Wubtitle\Core\VideoSource {
 		}
 
 		$response = wp_remote_get( $url );
+		if ( is_wp_error( $response ) ) {
+			return '';
+		}
 
 		$text = '';
 
@@ -143,28 +152,30 @@ class YouTube implements \Wubtitle\Core\VideoSource {
 
 
 	/**
-	 * Esegue la chiamata e poi recupera le trascrizioni.
+	 * Finds the url of auto-generated captions
 	 *
-	 * @param array $caption_tracks array di oggetti trascrizioni.
+	 * @param mixed $caption_tracks array of objects.
+	 * @return string
 	 */
 	public function find_url( $caption_tracks ) {
 		$url = '';
 		foreach ( $caption_tracks as  $track ) {
-			if ( isset( $track->kind ) && 'asr' === $track->kind ) {
-				// phpcs:disable
-				// phpcs segnala "Object property baseUrl is not in valid snake_case format", ma è un oggetto ottenuto da youtube.
+			// phpcs:disable
+			// phpcs reports "Object property baseUrl is not in valid snake_case format", but it is an object obtained from youtube.
+			if ( isset( $track->kind ) && isset( $track->baseUrl ) && 'asr' === $track->kind ) {
 				$url = $track->baseUrl . '&fmt=json3&xorb=2&xobt=3&xovt=3';
-				// phpcs:enable
 			}
+			// phpcs:enable
 		}
 		return $url;
 	}
 
 	/**
-	 * Esegue la chiamata e poi recupera le trascrizioni.
+	 * Calls the backend endpoint and then retrieve the transcripts.
 	 *
-	 * @param string $url_video url del video youtube.
-	 * @param string $from post type dal quale viene fatta la richiesta.
+	 * @param string $url_video url of the youtube video.
+	 * @param string $from where the request starts.
+	 * @return array<string,int|bool|string|\WP_Error>
 	 */
 	public function send_job_and_get_transcription( $url_video, $from ) {
 		$url_parts    = wp_parse_url( $url_video );

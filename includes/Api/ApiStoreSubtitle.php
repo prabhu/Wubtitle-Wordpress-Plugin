@@ -1,6 +1,6 @@
 <?php
 /**
- * Questo file crea un nuovo endpoint per lo store del file .
+ * In this file is created a new endpoint for file store
  *
  * @author     Nicola Palermo
  * @since      0.1.0
@@ -14,11 +14,13 @@ use \Firebase\JWT\JWT;
 use \download_url;
 
 /**
- * Questa classe gestisce lo store dei file vtt.
+ * This class manages file storage.
  */
 class ApiStoreSubtitle {
 	/**
 	 * Init class action.
+	 *
+	 * @return void
 	 */
 	public function run() {
 		add_action( 'rest_api_init', array( $this, 'register_store_subtitle_route' ) );
@@ -26,7 +28,9 @@ class ApiStoreSubtitle {
 	}
 
 	/**
-	 * Crea nuova rotta REST.
+	 * Creates new REST route.
+	 *
+	 * @return void
 	 */
 	public function register_store_subtitle_route() {
 		register_rest_route(
@@ -40,9 +44,10 @@ class ApiStoreSubtitle {
 	}
 
 	/**
-	 * Autenticazione JWT.
+	 * JWT authentication.
 	 *
-	 * @param array $request valori della richiesta.
+	 * @param \WP_REST_Request $request request values.
+	 * @return WP_REST_Response
 	 */
 	public function auth_and_get_subtitle( $request ) {
 		$headers        = $request->get_headers();
@@ -70,9 +75,10 @@ class ApiStoreSubtitle {
 	}
 
 	/**
-	 * Ottiene il file dei sottotitoli e lo salva, inoltre aggiunge dei post meta al video.
+	 * Gets the subtitle file, save it and add video posts meta.
 	 *
-	 * @param array $params parametri del file.
+	 * @param array<mixed> $params file parameters.
+	 * @return WP_REST_Response
 	 */
 	public function get_subtitle( $params ) {
 		if ( ! function_exists( 'download_url' ) ) {
@@ -158,14 +164,18 @@ class ApiStoreSubtitle {
 	}
 
 	/**
-	 * Genera post trascrizione.
+	 * Generates post transcription.
 	 *
-	 * @param string $transcript testo della trascrizione.
-	 * @param string $id_attachment id del video.
+	 * @param string $transcript transcription text.
+	 * @param int    $id_attachment video id.
+	 * @return void
 	 */
 	public function add_post_trascript( $transcript, $id_attachment ) {
 		$related_attachment = get_post( $id_attachment );
-		$trascript_post     = array(
+		if ( empty( $related_attachment ) ) {
+			return;
+		}
+		$trascript_post = array(
 			'post_title'   => $related_attachment->post_title,
 			'post_content' => $transcript,
 			'post_status'  => 'publish',
@@ -178,7 +188,9 @@ class ApiStoreSubtitle {
 	}
 
 	/**
-	 * Crea un nuovo endpoint per ricevere i jobs andati in errori.
+	 * Creates a new endpoint to manage filed jobs.
+	 *
+	 * @return void
 	 */
 	public function register_error_jobs_route() {
 		register_rest_route(
@@ -191,9 +203,10 @@ class ApiStoreSubtitle {
 		);
 	}
 	/**
-	 * Recupera i job falliti.
+	 * Gets failed jobs.
 	 *
-	 * @param array $request valori della richiesta.
+	 * @param \WP_REST_Request $request request values.
+	 * @return WP_REST_Response|array<array<string>>
 	 */
 	public function get_jobs_failed( $request ) {
 		$params   = $request->get_param( 'data' );

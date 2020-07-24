@@ -1,6 +1,6 @@
 <?php
 /**
- * Questo file crea un nuovo endpoint per l'autorizzazione al cambio di piano.
+ * In this file is created a new endpoint for plan change authorization.
  *
  * @author     Nicola Palermo
  * @since      1.0.0
@@ -13,11 +13,13 @@ use WP_REST_Response;
 use \Firebase\JWT\JWT;
 
 /**
- * Questa classe gestisce l'autorizzazione al cambio di piano.
+ * This class manages authorization to change plans.
  */
 class ApiAuthUpgradePlan {
 	/**
 	 * Init class action.
+	 *
+	 * @return void
 	 */
 	public function run() {
 		add_action( 'rest_api_init', array( $this, 'register_auth_plan_route' ) );
@@ -25,7 +27,9 @@ class ApiAuthUpgradePlan {
 	}
 
 	/**
-	 * Crea nuova rotta REST.
+	 * Creates new REST route
+	 *
+	 * @return void
 	 */
 	public function register_auth_plan_route() {
 		register_rest_route(
@@ -38,7 +42,9 @@ class ApiAuthUpgradePlan {
 		);
 	}
 	/**
-	 * Crea un endpoint rest per la riattivazione del piano.
+	 * Creates a rest endpoint for the reactivation plan.
+	 *
+	 * @return void
 	 */
 	public function register_reactivate_plan_route() {
 		register_rest_route(
@@ -52,9 +58,10 @@ class ApiAuthUpgradePlan {
 	}
 
 	/**
-	 * Autenticazione JWT.
+	 * JWT authentication.
 	 *
-	 * @param array $request valori della richiesta.
+	 * @param \WP_REST_Request $request request values.
+	 * @return WP_REST_Response|array<string,array<string,bool>>
 	 */
 	public function reactivate_plan( $request ) {
 		$headers        = $request->get_headers();
@@ -88,9 +95,10 @@ class ApiAuthUpgradePlan {
 	}
 
 	/**
-	 * Autenticazione JWT.
+	 * JWT Authentication.
 	 *
-	 * @param array $request valori della richiesta.
+	 * @param \WP_REST_Request $request values.
+	 * @return WP_REST_Response|array<array<string>>
 	 */
 	public function auth_and_get_plan( $request ) {
 		$headers        = $request->get_headers();
@@ -117,10 +125,14 @@ class ApiAuthUpgradePlan {
 	}
 
 	/**
-	 * Ottiene e restitutisce al backend il piano desiderato.
+	 * Gets and returns the chosen plan to backend
+	 *
+	 * @return array<array<string>>
 	 */
 	public function return_plan() {
-		$plan_to_upgrade = get_option( 'wubtitle_wanted_plan' );
+		$plan_rank       = get_option( 'wubtitle_wanted_plan_rank' );
+		$all_plans       = get_option( 'wubtitle_all_plans' );
+		$plan_to_upgrade = $all_plans[ $plan_rank ]['stripe_code'];
 
 		$data = array(
 			'data' => array(

@@ -15,6 +15,8 @@ namespace Wubtitle\Core;
 class Shortcode {
 	/**
 	 * Init class actions.
+	 *
+	 * @return void
 	 */
 	public function run() {
 		add_action( 'init', array( $this, 'register_shortcodes' ) );
@@ -22,6 +24,8 @@ class Shortcode {
 
 	/**
 	 * Register all shortcode.
+	 *
+	 * @return void
 	 */
 	public function register_shortcodes() {
 		add_shortcode( 'transcript', array( $this, 'shortcode_transcript' ) );
@@ -30,7 +34,8 @@ class Shortcode {
 	/**
 	 * Register transcript shortcode callback.
 	 *
-	 * @param array $atts parametri passati dallo shortcode.
+	 * @param array<mixed> $atts shortcode parameters.
+	 * @return mixed|void
 	 */
 	public function shortcode_transcript( $atts ) {
 		$post = get_post( $atts['id'] );

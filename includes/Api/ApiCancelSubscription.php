@@ -1,6 +1,6 @@
 <?php
 /**
- * This file implements the cancel subscription request.
+ * In this file is implemented the cancel subscription request.
  *
  * @author     Nicola Palermo
  * @since      0.1.0
@@ -17,13 +17,17 @@ use Wubtitle\Loader;
 class ApiCancelSubscription {
 	/**
 	 * Init class actions
+	 *
+	 * @return void
 	 */
 	public function run() {
 		add_action( 'wp_ajax_cancel_subscription', array( $this, 'remote_request' ) );
 	}
 
 	/**
-	 * Chiamata ad endpoint remoto per richiesta cancellazione.
+	 * Endpoint call to unsubscribe.
+	 *
+	 * @return void
 	 */
 	public function remote_request() {
 		if ( ! isset( $_POST['_ajax_nonce'] ) ) {
@@ -37,7 +41,7 @@ class ApiCancelSubscription {
 		$license_key = get_option( 'wubtitle_license_key' );
 
 		$response = wp_remote_post(
-			ENDPOINT . 'stripe/customer/unsubscribe',
+			WUBTITLE_ENDPOINT . 'stripe/customer/unsubscribe',
 			array(
 				'method'  => 'POST',
 				'headers' => array(
@@ -49,7 +53,6 @@ class ApiCancelSubscription {
 
 		$code_response = wp_remote_retrieve_response_code( $response );
 
-		// TODO: Cambiare messaggi quando saranno disponibili mockup e copy.
 		$message = array(
 			'200' => __( 'Deleted successfully', 'wubtitle' ),
 			'400' => __( 'Bad Request. Please try again in a few minutes', 'wubtitle' ),

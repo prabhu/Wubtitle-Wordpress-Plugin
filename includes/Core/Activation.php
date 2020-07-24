@@ -1,6 +1,6 @@
 <?php
 /**
- * Questo file implementa le funzioni che vengono eseguite all'attivazione del plugin.
+ * In this file is implemented the functions performed when the plugin is activated.
  *
  * @author     Alessio Catania
  * @since      0.1.0
@@ -10,18 +10,22 @@
 namespace Wubtitle\Core;
 
 /**
- * Questa classe mplementa le funzioni che vengono eseguite all'attivazione del plugin.
+ * This class implements the functions performed when the plugin is activated.
  */
 class Activation {
 	/**
 	 * Init class action.
+	 *
+	 * @return void
 	 */
 	public function run() {
 		register_activation_hook( WUBTITLE_FILE_URL, array( $this, 'wubtitle_activation_license_key' ) );
 	}
 
 	/**
-	 * All'attivazione del plugin chiama l'endpoint per ricevere la license key.
+	 * When the plugin is activated calls the endpoint to receive the license key.
+	 *
+	 * @return void
 	 */
 	public function wubtitle_activation_license_key() {
 		$site_url      = get_site_url();
@@ -32,7 +36,7 @@ class Activation {
 			),
 		);
 		$response      = wp_remote_post(
-			ENDPOINT . 'key/create',
+			WUBTITLE_ENDPOINT . 'key/create',
 			array(
 				'method'  => 'POST',
 				'headers' => array(
@@ -44,8 +48,34 @@ class Activation {
 		$code_response = wp_remote_retrieve_response_code( $response );
 		if ( 201 === $code_response ) {
 			$response_body = json_decode( wp_remote_retrieve_body( $response ) );
-			update_option( 'wubtitle_free', $response_body->data->isFree );
-			update_option( 'wubtitle_license_key', $response_body->data->licenseKey );
+			update_option( 'wubtitle_free', $response_body->data->isFree, false );
+			update_option( 'wubtitle_license_key', $response_body->data->licenseKey, false );
+			$plans          = $response_body->data->plans;
+			$wubtitle_plans = array_reduce( $plans, array( $this, 'plans_reduce' ), array() );
+			update_option( 'wubtitle_all_plans', $wubtitle_plans, false );
 		}
+	}
+	/**
+	 * Callback function array_reduce
+	 *
+	 * @param mixed $accumulator empty array.
+	 * @param mixed $item object to reduce.
+	 *
+	 * @return mixed
+	 */
+	public function plans_reduce( $accumulator, $item ) {
+		$accumulator[ $item->rank ] = array(
+			'name'         => $item->name,
+			'stripe_code'  => $item->id,
+			// phpcs:disable 
+			// warning camel case
+			'totalJobs'    => $item->totalJobs,
+			'totalSeconds' => $item->totalSeconds,
+			// phpcs:enable
+			'price'        => $item->price,
+			'dot_list'     => $item->dotlist,
+			'icon'         => $item->icon,
+		);
+		return $accumulator;
 	}
 }

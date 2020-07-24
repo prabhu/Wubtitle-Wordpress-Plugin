@@ -15,16 +15,19 @@ namespace Wubtitle\Gutenberg;
 class TranscriptionBlock {
 	/**
 	 * Init class actions.
+	 *
+	 * @return void
 	 */
 	public function run() {
 		add_action( 'init', array( $this, 'create_transcription_block' ) );
 		add_filter( 'rest_transcript_query', array( $this, 'add_parameters_query' ), 10, 2 );
 	}
 	/**
-	 * Aggiunge i parametri per il posttype transcript.
+	 * Adds the parameters used by the transcript custom post type.
 	 *
-	 * @param array  $args argomenti per la query.
-	 * @param object $request oggetto contente i parametri custom.
+	 * @param array<string>    $args argomenti per la query.
+	 * @param \WP_REST_Request $request oggetto contente i parametri custom.
+	 * @return array<string>
 	 */
 	public function add_parameters_query( $args, $request ) {
 		$url_parts    = wp_parse_url( $request->get_param( 'metaValue' ) );
@@ -38,11 +41,13 @@ class TranscriptionBlock {
 		return $args;
 	}
 	/**
-	 * Registra un nuovo block type.
+	 * Register the wubtitle block for gutenberg.
+	 *
+	 * @return void
 	 */
 	public function create_transcription_block() {
 		wp_register_script( 'trascription_block_script', WUBTITLE_URL . '/build/index.js', array( 'wp-blocks', 'wp-element', 'wp-components', 'wp-data' ), 'transcription_block', false );
-		wp_register_style( 'stylesheet_transcription_block', WUBTITLE_URL . '/src/css/transBlockStyle.css', null, 'transcript_block_style', false );
+		wp_register_style( 'stylesheet_transcription_block', WUBTITLE_URL . '/assets/css/transBlockStyle.css', array(), 'transcript_block_style' );
 
 		register_block_type(
 			'wubtitle/transcription',

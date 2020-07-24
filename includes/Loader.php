@@ -1,6 +1,6 @@
 <?php
 /**
- * Effettua il bootstrap del plugin
+ * Loads the plugin classes.
  *
  * @package Wubtitle
  */
@@ -12,40 +12,44 @@ namespace Wubtitle;
  */
 class Loader {
 	/**
-	 * L'array che contiene gli oggetti istanziati dal Loader.
+	 * Array containing Loader instantiated objects.
 	 *
-	 * @var array
+	 * @var array<string,mixed>
 	 */
 	private static $services = array();
+
 	/**
-	 * Istanzia le classi Principali
+	 * Instantiate main classes.
+	 *
+	 * @return void
 	 */
 	public static function init() {
 		load_plugin_textdomain( 'wubtitle', false, WUBTITLE_NAME . '/languages' );
 		$classes = array(
-			'gutenber'                => Gutenberg\VideoBlock::class,
-			'settings'                => Dashboard\Settings::class,
-			'request'                 => Api\ApiRequest::class,
-			'license_validation'      => Api\ApiLicenseValidation::class,
-			'custom_media_library'    => MediaLibrary\ListingSubtitles::class,
-			'subtitle'                => Core\Subtitle::class,
-			'store_subtitle'          => Api\ApiStoreSubtitle::class,
-			'extented_media_library'  => MediaLibrary\MediaLibraryExtented::class,
-			'send_pricing_plan'       => Api\ApiPricingPlan::class,
-			'payment_template'        => Dashboard\PaymentTemplate::class,
-			'activation'              => Core\Activation::class,
-			'cancel_template'         => Dashboard\CancelPage::class,
-			'cancel_subscription'     => Api\ApiCancelSubscription::class,
-			'cron'                    => Core\Cron::class,
-			'register_callback_pages' => Dashboard\RegisterStripeCallbackPages::class,
-			'api_auth_plan'           => Api\ApiAuthUpgradePlan::class,
-			'api_get_transcript'      => Api\ApiGetTranscript::class,
-			'helpers'                 => Helpers::class,
-			'extends_transcription'   => MediaLibrary\TrascriptionsExtends::class,
-			'transcript_cpt'          => Core\CustomPostTypes\Transcript::class,
-			'shortcode'               => Core\Shortcode::class,
-			'youtube_source'          => Core\Sources\YouTube::class,
-			'trascription_block'      => Gutenberg\TranscriptionBlock::class,
+			'gutenber'               => Gutenberg\VideoBlock::class,
+			'settings'               => Dashboard\Settings::class,
+			'request'                => Api\ApiRequest::class,
+			'license_validation'     => Api\ApiLicenseValidation::class,
+			'custom_media_library'   => MediaLibrary\ListingSubtitles::class,
+			'subtitle'               => Core\Subtitle::class,
+			'store_subtitle'         => Api\ApiStoreSubtitle::class,
+			'extented_media_library' => MediaLibrary\MediaLibraryExtented::class,
+			'send_pricing_plan'      => Api\ApiPricingPlan::class,
+			'payment_template'       => Dashboard\PaymentTemplate::class,
+			'activation'             => Core\Activation::class,
+			'cancel_template'        => Dashboard\CancelPage::class,
+			'cancel_subscription'    => Api\ApiCancelSubscription::class,
+			'cron'                   => Core\Cron::class,
+			'api_auth_plan'          => Api\ApiAuthUpgradePlan::class,
+			'api_get_transcript'     => Api\ApiGetTranscript::class,
+			'helpers'                => Helpers::class,
+			'extends_transcription'  => MediaLibrary\TrascriptionsExtends::class,
+			'transcript_cpt'         => Core\CustomPostTypes\Transcript::class,
+			'shortcode'              => Core\Shortcode::class,
+			'youtube_source'         => Core\Sources\YouTube::class,
+			'trascription_block'     => Gutenberg\TranscriptionBlock::class,
+			'update_manager'         => Core\Updater::class,
+			'invoice_helper'         => Utils\InvoiceHelper::class,
 		);
 
 		foreach ( $classes as $key => $class ) {
@@ -56,19 +60,23 @@ class Loader {
 			}
 		}
 	}
+
 	/**
-	 * Aggiunge l'istanza della classe al container.
+	 * Add to container class instance.
 	 *
-	 * @param string $key nome instanza.
-	 * @param class  $item instanza della classe.
+	 * @param string $key instance name.
+	 * @param mixed  $item class instance.
+	 * @return void
 	 */
 	public static function bind( $key, $item ) {
 		( self::$services )[ $key ] = $item;
 	}
+
 	/**
-	 * Cerca nel container e se esiste restituisce l'istanza di una classe.
+	 * Search in the container, then return a class instance.
 	 *
-	 * @param string $key nome instanza.
+	 * @param string $key instance name.
+	 * @return mixed|false
 	 */
 	public static function get( $key ) {
 		if ( ! isset( self::$services[ $key ] ) ) {

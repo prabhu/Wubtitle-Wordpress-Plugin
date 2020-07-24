@@ -1,11 +1,11 @@
-import { Fragment } from "@wordpress/element";
-import { __ } from "@wordpress/i18n";
-import { langExten, statusExten } from "./labels.js";
+import { Fragment } from '@wordpress/element';
+import { __ } from '@wordpress/i18n';
+import { langExten, statusExten } from './labels.js';
 
 const PendingSubtitle = ({ statusText, langText }) => (
 	<Fragment>
-		<div>{__("Status: ", "wubtitle") + statusExten[statusText]}</div>
-		<div>{__("Language: ", "wubtitle") + langExten[langText]}</div>
+		<div>{__('Status: ', 'wubtitle') + statusExten[statusText]}</div>
+		<div>{__('Language: ', 'wubtitle') + langExten[langText]}</div>
 	</Fragment>
 );
 

@@ -1,26 +1,32 @@
 <?php
 /**
  * Plugin Name:     Wubtitle
- * Plugin URI:      PLUGIN SITE HERE
- * Description:     Plugin che crea dei sottotitoli per ogni video
+ * Plugin URI:      https://github.com/CTMobi/Wubtitle-Wordpress-Plugin
+ * Description:     Automatically generates subtitle for your videos
  * Author:          CTMobi
- * Author URI:      YOUR SITE HERE
+ * Author URI:      https://www.ctmobi.it
  * Text Domain:     wubtitle
  * Domain Path:     /languages
- * Version:         1.0.0
+ * Version:         0.2.1
  *
  * @package         Wubtitle
  */
 
 // Your code starts here.
 //
-defined( 'ABSPATH' ) || exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 define( 'WUBTITLE_FILE_URL', __FILE__ );
 define( 'WUBTITLE_DIR', plugin_dir_path( __FILE__ ) );
 define( 'WUBTITLE_URL', plugin_dir_url( __FILE__ ) );
 define( 'WUBTITLE_NAME', dirname( plugin_basename( __FILE__ ) ) );
-define( 'WUBTITLE_VER', '1.0' );
-define( 'ENDPOINT', 'https://9st488q4sl.execute-api.eu-west-1.amazonaws.com/milestone3/' );
+define( 'WUBTITLE_VER', '0.2.1' );
+$endpoint = 'https://api.wubtitle.com/';
+if ( defined( 'WP_WUBTITLE_ENV' ) && 'development' === WP_WUBTITLE_ENV ) {
+	$endpoint = 'https://dev.api.wubtitle.com/';
+}
+define( 'WUBTITLE_ENDPOINT', $endpoint );
 if ( file_exists( dirname( __FILE__ ) . '/vendor/autoload.php' ) ) {
 	require_once dirname( __FILE__ ) . '/vendor/autoload.php';
 }

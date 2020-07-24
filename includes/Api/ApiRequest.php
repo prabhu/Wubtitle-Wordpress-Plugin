@@ -1,6 +1,6 @@
 <?php
 /**
- * Questo file implementa la chiamata http.
+ * In this file is implemented the request to the APIGateway.
  *
  * @author     Alessio Catania
  * @since      0.1.0
@@ -10,11 +10,13 @@
 namespace Wubtitle\Api;
 
 /**
- * Questa classe implementa la chiamata alla APIGateway,
+ * This class implements the request to the APIGateway.
  */
 class ApiRequest {
 	/**
 	 * Init class action.
+	 *
+	 * @return void
 	 */
 	public function run() {
 		add_action( 'wp_ajax_submitVideo', array( $this, 'send_request' ) );
@@ -24,16 +26,18 @@ class ApiRequest {
 	/**
 	 * Get media attachment.
 	 *
-	 * @param integer $id_attachment id del video.
+	 * @param integer $id_attachment video id.
+	 * @return mixed
 	 */
 	public function get_media_metadata( $id_attachment ) {
 		return wp_get_attachment_metadata( $id_attachment );
 	}
 
 	/**
-	 * Verifica la validazione
+	 * Checks the validation and sanitize input.
 	 *
-	 *  @param array $array post.
+	 * @param array<string> $array post.
+	 * @return array<mixed>|false
 	 */
 	public function sanitize_input( $array ) {
 		if ( ! isset( $array['id_attachment'] ) || ! isset( $array['src_attachment'] ) || ! isset( $array['lang'] ) ) {
@@ -44,9 +48,10 @@ class ApiRequest {
 		return $array;
 	}
 	/**
-	 *  Creo il body della richiesta.
+	 *  Creates body request.
 	 *
-	 * @param array $data contiene id_attachment e src_attachment.
+	 * @param array<string> $data it contains id_attachment and src_attachment.
+	 * @return false|array<mixed>
 	 */
 	public function set_body_request( $data ) {
 		$languanges = array(
@@ -79,7 +84,9 @@ class ApiRequest {
 		return $body;
 	}
 	/**
-	 * Da qui invierò la richiesta HTTP.
+	 * Sends the request to start the job.
+	 *
+	 * @return void
 	 */
 	public function send_request() {
 		$license_key = get_option( 'wubtitle_license_key' );
@@ -105,7 +112,7 @@ class ApiRequest {
 			$code_response = $this->is_successful_response( $response ) ? wp_remote_retrieve_response_code( $response ) : '500';
 
 		if ( 429 === $code_response ) {
-			$message_error = $this->get_error_message( $response );
+			$message_error = $this->get_error_message( (array) $response );
 			wp_send_json_error( $message_error );
 		}
 
@@ -123,9 +130,10 @@ class ApiRequest {
 			wp_send_json_success( $code_response );
 	}
 	/**
-	 * Verifico che la chiamata non sia andata in errore.
+	 * Checks if the request was successful.
 	 *
-	 * @param array | WP_ERROR $response risposta chiamata.
+	 * @param array<mixed>|\WP_Error $response response to the request.
+	 * @return bool
 	 */
 	private function is_successful_response( $response ) {
 		if ( ! is_wp_error( $response ) ) {
@@ -139,7 +147,9 @@ class ApiRequest {
 		return false;
 	}
 	/**
-	 * Registro post meta per lo stato.
+	 * Registers wubtitle status.
+	 *
+	 * @return void
 	 */
 	public function status_register_meta() {
 		register_post_meta(
@@ -165,14 +175,15 @@ class ApiRequest {
 		);
 	}
 	/**
-	 * Effettua la chiamata all'endpoint e ritorna la risposta.
+	 * Calls to the endpoint and return the response.
 	 *
-	 * @param array  $body contiene il body della richiesta da inviare.
-	 * @param string $license_key licenza utente.
+	 * @param array<mixed> $body body request.
+	 * @param string       $license_key user license.
+	 * @return array<string>|\WP_Error
 	 */
 	public function send_job_to_backend( $body, $license_key ) {
 		$response = wp_remote_post(
-			ENDPOINT . 'job/create',
+			WUBTITLE_ENDPOINT . 'job/create',
 			array(
 				'method'  => 'POST',
 				'headers' => array(
@@ -185,11 +196,12 @@ class ApiRequest {
 		return $response;
 	}
 	/**
-	 * Aggiorna o aggiunge l'uuid e lo stato
+	 * Updates or adds uuid, status and video lang.
 	 *
-	 * @param int    $id_attachment id dell'attachment.
-	 * @param string $lang lingua del video.
-	 * @param string $job_id uuid ricevuto dall'endpoint.
+	 * @param int    $id_attachment video id .
+	 * @param string $lang video lang.
+	 * @param string $job_id uuid jobs.
+	 * @return void
 	 */
 	public function update_uuid_status_and_lang( $id_attachment, $lang, $job_id ) {
 		update_post_meta( $id_attachment, 'wubtitle_lang_video', $lang );
@@ -197,9 +209,10 @@ class ApiRequest {
 		update_post_meta( $id_attachment, 'wubtitle_status', 'pending' );
 	}
 	/**
-	 * Crea un messaggio errore per l'errore 429 e lo ritorna.
+	 * Manages error 429.
 	 *
-	 * @param array $response risposta dell'endpoint aws.
+	 * @param array<mixed> $response aws endpoint response.
+	 * @return string
 	 */
 	public function get_error_message( $response ) {
 		$response_body = json_decode( wp_remote_retrieve_body( $response ) );

@@ -1,40 +1,46 @@
-# WP-Ear2Words
-Ear2Words è un plugin per la generazione automatica dei sottotitoli dei video caricati sui media e della trascrizione dei video caricati e dei video youtube.
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/fe8dec042ddf47a5a00fb1b7fbf814dd)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CTMobi/Wubtitle-Wordpress-Plugin&amp;utm_campaign=Badge_Grade)   [![Codacy Badge](https://app.codacy.com/project/badge/Coverage/fe8dec042ddf47a5a00fb1b7fbf814dd)](https://www.codacy.com?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=CTMobi/Wubtitle-Wordpress-Plugin&amp;utm_campaign=Badge_Coverage)
+[![Build Status](https://travis-ci.com/CTMobi/Wubtitle-Wordpress-Plugin.svg?branch=staging)](https://travis-ci.com/CTMobi/Wubtitle-Wordpress-Plugin)
 
+![Wubtitle](https://repository-images.githubusercontent.com/265305990/7c8dc700-ba14-11ea-8f3d-6fedc4bcd93d)
 
-## Funzionalità
+# Wubtitle
 
-- Generazione dei sottotitoli
-- Attivazione\Disattivazione dei sottotitoli
-- Generazione transcrizione dei video ( video nella media e video youtube )
-- Inserimento trascrizione nell'articolo tramite blocco gutenberg o finestra modale da classic editor
-- Possibilità di utilizzare lo shortcode per inserire la trascrizione nell'articolo
-- Modifica e gestione di tutte le trascrizioni
+Wubtitle is a plugin that generates:
+-   Subtitles and transcript of uploaded videos in media library
+-   Transcripts of youtube videos
 
-## Requisiti
+## Functionality
 
-* npm
-* composer
+-   Automatic subtitle generation
+-   Ability to enable or disable generated subtitles
+-   Generates video transcriptions from Wordpress Media library and from YouTube
+-   Support both Gutenberg and classic editor
+-   Editing and management of all transcriptions
 
-## Configurazione sviluppo
+## Requirements
 
-* Fai il clone del repository:
-    * con https: `git clone https://gitlab.com/ear2words/wp-ear2words.git`
-    * con ssh: `git clone git@gitlab.com:ear2words/wp-ear2words.git`
-* Installa composer e npm e eseguil il build
-    * `composer install`
-    * `npm install`
-    * `npm run build`
+-   npm
+-   composer
 
+## Development configuration
 
-## Altri comandi pipeline
+-   Clone the repository:
+    -   via https: `git clone https://github.com/CTMobi/Wubtitle-Wordpress-Plugin.git`
+    -   via ssh: `git clone git@github.com:CTMobi/Wubtitle-Wordpress-Plugin.git`
 
-* `composer phpcs`
+-   Install composer and npm, then build
+    -   `composer install`
+    -   `npm install`
+    -   `npm run build`
 
-* `composer phpmd`
+## Developer code quality commands
 
-* `composer check-php`
+-   `composer phpcs`
 
-* `composer fixphp`
+-   `composer phpmd`
 
-* `npm run fixjs`
+-   `composer check-php`
+
+-   `composer fixphp`
+
+-   `npm run fixjs`
