@@ -10,20 +10,14 @@ const PlanTable = (props) => {
 				<td>{__('Your plan', 'wubtitle')}</td>
 				<td className="val">{currentPlan}</td>
 			</tr>
-			<tr className="total">
-				<td>{__('Price', 'wubtitle')}</td>
-				<td className="val">
-					{currentPrice} &euro;
-					<span className="valxm">{__('per month', 'wubtitle')}</span>
-				</td>
-			</tr>
 			<tr>
 				<td>
 					<td>{__('Price', 'wubtitle')}</td>
 				</td>
 				{taxable ? (
 					<td className="val">
-						{currentPrice} &euro;
+						{parseFloat(currentPrice) + parseFloat(taxAmount)}{' '}
+						&euro;{' '}
 						<span className="valxm">
 							{__('per month', 'wubtitle')}
 						</span>
