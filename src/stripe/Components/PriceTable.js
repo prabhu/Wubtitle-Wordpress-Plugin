@@ -20,7 +20,7 @@ const PriceTable = (props) => {
 					<td className="val">
 						<span className="cut-vat">
 							{taxAmount} &euro;
-							<span className="cut-line">{/* css only */}</span>
+							<span className="cut-line" />
 						</span>
 						0 &euro;
 					</td>
