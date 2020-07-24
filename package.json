@@ -40,6 +40,9 @@
     "csslint": "node_modules/.bin/csslint src/ || return 0"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.30",
+    "@fortawesome/free-solid-svg-icons": "^5.14.0",
+    "@fortawesome/react-fontawesome": "^0.1.11",
     "@stripe/react-stripe-js": "^1.1.2",
     "@stripe/stripe-js": "^1.8.0",
     "@wordpress/api-fetch": "^3.18.0",
