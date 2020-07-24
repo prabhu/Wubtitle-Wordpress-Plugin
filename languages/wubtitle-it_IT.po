@@ -5,20 +5,20 @@ msgstr ""
 "Project-Id-Version: Wubtitle 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/Wubtitle-"
 "Wordpress-Plugin\n"
-"POT-Creation-Date: 2020-07-07T12:30:53+02:00\n"
-"PO-Revision-Date: 2020-07-07 12:32+0200\n"
+"POT-Creation-Date: 2020-07-24T18:34:14+02:00\n"
+"PO-Revision-Date: 2020-07-24 18:36+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it_IT\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.3.1\n"
+"X-Generator: Poedit 2.4\n"
 "X-Domain: wubtitle\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. Plugin Name of the plugin
-#: includes/Dashboard/Settings.php:40
+#: includes/Dashboard/Settings.php:47
 msgid "Wubtitle"
 msgstr ""
 
@@ -107,13 +107,15 @@ msgstr ""
 "Impossibile creare i sottotitoli. La  licenza del prodotto non è valida"
 
 #: includes/Api/ApiGetTranscript.php:80 includes/Api/ApiGetTranscript.php:226
-#: includes/Api/ApiPricingPlan.php:67 includes/Api/ApiPricingPlan.php:68
-#: includes/Api/ApiPricingPlan.php:106 includes/Api/ApiPricingPlan.php:177
-#: includes/Api/ApiPricingPlan.php:178 includes/Api/ApiPricingPlan.php:230
-#: includes/Api/ApiPricingPlan.php:231 includes/Api/ApiPricingPlan.php:272
+#: includes/Api/ApiPricingPlan.php:74 includes/Api/ApiPricingPlan.php:75
+#: includes/Api/ApiPricingPlan.php:112 includes/Api/ApiPricingPlan.php:186
+#: includes/Api/ApiPricingPlan.php:187 includes/Api/ApiPricingPlan.php:255
+#: includes/Api/ApiPricingPlan.php:256 includes/Api/ApiPricingPlan.php:297
+#: includes/Api/ApiPricingPlan.php:375 includes/Api/ApiPricingPlan.php:376
 #: includes/Api/ApiRequest.php:123
 #: includes/Core/CustomPostTypes/Transcript.php:164
-#: includes/Core/Sources/YouTube.php:206
+#: includes/Core/Sources/YouTube.php:206 includes/Utils/InvoiceHelper.php:67
+#: includes/Utils/InvoiceHelper.php:68
 msgid "Could not contact the server"
 msgstr "Impossibile contattare il server"
 
@@ -138,30 +140,49 @@ msgstr ""
 "Errore: questo video non ha ancora i sottititoli. E' necessario generarli "
 "per ottenere la trascrizione"
 
-#: includes/Api/ApiPricingPlan.php:37 includes/Api/ApiPricingPlan.php:84
-#: includes/Api/ApiPricingPlan.php:140 includes/Api/ApiPricingPlan.php:148
-#: includes/Api/ApiPricingPlan.php:203 includes/Api/ApiPricingPlan.php:248
+#: includes/Api/ApiPricingPlan.php:43 includes/Api/ApiPricingPlan.php:90
+#: includes/Api/ApiPricingPlan.php:149 includes/Api/ApiPricingPlan.php:159
+#: includes/Api/ApiPricingPlan.php:208 includes/Api/ApiPricingPlan.php:221
+#: includes/Api/ApiPricingPlan.php:273 includes/Api/ApiPricingPlan.php:330
+#: includes/Api/ApiPricingPlan.php:343 includes/Dashboard/CancelPage.php:33
+#: includes/Dashboard/PaymentTemplate.php:39
+#: includes/Dashboard/PaymentTemplate.php:80
+#: includes/Dashboard/PaymentTemplate.php:119
+#: includes/Dashboard/PaymentTemplate.php:165
+#: includes/Utils/InvoiceHelper.php:33
 msgid "An error occurred. Please try again in a few minutes."
 msgstr "Si è verificato un errore. Riprova di nuovo tra qualche minuto."
 
-#: includes/Api/ApiPricingPlan.php:49 includes/Api/ApiPricingPlan.php:90
-#: includes/Api/ApiPricingPlan.php:153 includes/Api/ApiPricingPlan.php:209
+#: includes/Api/ApiPricingPlan.php:55 includes/Api/ApiPricingPlan.php:96
 #: includes/Api/ApiRequest.php:104
 msgid "Unable to create subtitles. The product license key is missing."
 msgstr "Impossibile creare i sottotitoli. La  licenza del prodotto è assente."
 
-#: includes/Api/ApiPricingPlan.php:64 includes/Api/ApiPricingPlan.php:65
-#: includes/Api/ApiPricingPlan.php:104 includes/Api/ApiPricingPlan.php:174
-#: includes/Api/ApiPricingPlan.php:175 includes/Api/ApiPricingPlan.php:227
-#: includes/Api/ApiPricingPlan.php:228 includes/Api/ApiPricingPlan.php:270
+#: includes/Api/ApiPricingPlan.php:71 includes/Api/ApiPricingPlan.php:72
+#: includes/Api/ApiPricingPlan.php:110 includes/Api/ApiPricingPlan.php:183
+#: includes/Api/ApiPricingPlan.php:184 includes/Api/ApiPricingPlan.php:252
+#: includes/Api/ApiPricingPlan.php:253 includes/Api/ApiPricingPlan.php:295
+#: includes/Api/ApiPricingPlan.php:372 includes/Api/ApiPricingPlan.php:373
+#: includes/Utils/InvoiceHelper.php:64 includes/Utils/InvoiceHelper.php:65
 msgid "An error occurred. Please try again in a few minutes"
 msgstr "Si è verificato un errore.  Riprova di nuovo tra qualche minuto"
 
-#: includes/Api/ApiPricingPlan.php:66 includes/Api/ApiPricingPlan.php:105
-#: includes/Api/ApiPricingPlan.php:176 includes/Api/ApiPricingPlan.php:229
-#: includes/Api/ApiPricingPlan.php:271
+#: includes/Api/ApiPricingPlan.php:73 includes/Api/ApiPricingPlan.php:111
+#: includes/Api/ApiPricingPlan.php:185 includes/Api/ApiPricingPlan.php:254
+#: includes/Api/ApiPricingPlan.php:296 includes/Api/ApiPricingPlan.php:374
+#: includes/Utils/InvoiceHelper.php:66
 msgid "Access denied"
 msgstr "Accesso negato"
+
+#: includes/Api/ApiPricingPlan.php:163
+msgid "The product license key is missing."
+msgstr "Errore, la licenza del prodotto è assente."
+
+#: includes/Api/ApiPricingPlan.php:225
+msgid "Unable to update payment data. The product license key is missing."
+msgstr ""
+"Impossibile aggiornare i dati di pagamento. La licenza del prodotto è "
+"assente."
 
 #: includes/Api/ApiRequest.php:67
 msgid "Error, invalid language selected"
@@ -336,109 +357,114 @@ msgstr "Trascrizione aggiornata."
 msgid "Video Transcripts"
 msgstr "Trascrizioni video"
 
-#: includes/Dashboard/Settings.php:40
+#: includes/Dashboard/Settings.php:47
 msgid "Wubtitle Settings"
 msgstr "Impostazioni Wubtitle"
 
-#: includes/Dashboard/Settings.php:82
+#: includes/Dashboard/Settings.php:89
 msgid "Licensing"
 msgstr "Licenza"
 
-#: includes/Dashboard/Settings.php:85
+#: includes/Dashboard/Settings.php:92
 msgid "Plan: "
 msgstr "Piano: "
 
-#: includes/Dashboard/Settings.php:94
+#: includes/Dashboard/Settings.php:101
 msgid "Generated video subtitles: "
 msgstr "Sottotitoli generati: "
 
-#: includes/Dashboard/Settings.php:100
+#: includes/Dashboard/Settings.php:107
 msgid "Video time spent: "
 msgstr "Tempo video utilizzato: "
 
-#: includes/Dashboard/Settings.php:102
+#: includes/Dashboard/Settings.php:109
 msgid " hours"
 msgstr " ore"
 
-#: includes/Dashboard/Settings.php:134
+#: includes/Dashboard/Settings.php:144
 msgid "Payment successful"
 msgstr "Pagamento effettuato"
 
-#: includes/Dashboard/Settings.php:137
+#: includes/Dashboard/Settings.php:145
 msgid "Payment information updated"
 msgstr "Metodo di pagamento aggiornato"
 
-#: includes/Dashboard/Settings.php:140
+#: includes/Dashboard/Settings.php:146
 msgid "License key sent, check your email!"
 msgstr "Licenza inviata, controlla l'email!"
 
-#: includes/Dashboard/Settings.php:143
+#: includes/Dashboard/Settings.php:147
 msgid "Unsubscription successful"
 msgstr "Iscrizione annullata con successo"
 
-#: includes/Dashboard/Settings.php:146
+#: includes/Dashboard/Settings.php:148
 msgid "Reactivation of the plan successful"
 msgstr "Riattivazione del piano andato a buon fine"
 
-#: includes/Dashboard/Settings.php:171
+#: includes/Dashboard/Settings.php:174
 msgid "Automatic renewal: "
 msgstr "Rinnovo automatico: "
 
-#: includes/Dashboard/Settings.php:173
+#: includes/Dashboard/Settings.php:176
 msgid ""
 "You requested the subscription cancellation. Your plan will be valid until  "
 msgstr ""
 "Hai richiesto la cancellazione dell'abbonamento. Il tuo piano sarà valido "
 "fino al "
 
-#: includes/Dashboard/Settings.php:187
+#: includes/Dashboard/Settings.php:190
 msgid "Unsubscribe"
 msgstr "Annulla l'iscrizione"
 
-#: includes/Dashboard/Settings.php:190
+#: includes/Dashboard/Settings.php:193
 msgid "Update email or payment detail"
 msgstr "Aggiorna email o dettagli pagamento"
 
-#: includes/Dashboard/Settings.php:193
+#: includes/Dashboard/Settings.php:196
 msgid "Modify plan"
 msgstr "Modifica piano"
 
-#: includes/Dashboard/Settings.php:199
+#: includes/Dashboard/Settings.php:202
 msgid "Reactivate plan"
 msgstr "Riattiva piano"
 
-#: includes/Dashboard/Settings.php:234
+#: includes/Dashboard/Settings.php:237
 msgid "Unable to update. Expired product license."
 msgstr "Impossibile aggiornare. Licenza del prodotto scaduta."
 
-#: includes/Dashboard/Settings.php:235
+#: includes/Dashboard/Settings.php:238
 msgid "Unable to update. Invalid product license."
 msgstr "Impossibile aggiornare. Licenza del prodotto non valida."
 
-#: includes/Dashboard/Settings.php:236
+#: includes/Dashboard/Settings.php:239
 msgid ""
 "An error occurred while updating licence. Please try again in a few minutes."
 msgstr ""
 "Si è verificato un errore durante l'aggiornamento della licenza. Riprova di "
 "nuovo tra qualche minuto."
 
-#: includes/Dashboard/Settings.php:237
+#: includes/Dashboard/Settings.php:240
 msgid "Could not contact the server."
 msgstr "Impossibile contattare il server."
 
-#: includes/Dashboard/Settings.php:238
-msgid "An error occurred."
-msgstr "Si è verificato un errore."
-
-#: includes/Dashboard/Settings.php:253
+#: includes/Dashboard/Settings.php:255
 msgid "Valid product license. Subscription plan updated."
 msgstr "Licenza del prodotto valida. Piano di abbonamento aggiornato."
 
-#: includes/Dashboard/Settings.php:323
+#: includes/Dashboard/Settings.php:317
+msgid ""
+"Upgrade feature temporarily disabled due to error loading the page. Please "
+"refresh the page and try again."
+msgstr ""
+"Impossibile effettuare l'upgrade del piano di abbonamento a causa di un "
+"errore durante il caricamento della pagina. Per favore ricarica la pagina e "
+"riprova"
+
+#: includes/Dashboard/Settings.php:321
 msgid "Unlock more features!"
 msgstr "Sblocca più funzionalità!"
 
-#: includes/Dashboard/Settings.php:328
+#: includes/Dashboard/Settings.php:326
 msgid "Upgrade"
 msgstr ""
 
@@ -463,11 +489,11 @@ msgstr "Reset Licenza"
 msgid "now!"
 msgstr " "
 
-#: includes/Dashboard/Templates/cancel_template.php:36
+#: includes/Dashboard/Templates/cancel_template.php:32
 msgid "Are you sure you want to unsubscribe?"
 msgstr "Sei sicuro che vuoi annullare l'iscrizione?"
 
-#: includes/Dashboard/Templates/cancel_template.php:37
+#: includes/Dashboard/Templates/cancel_template.php:33
 msgid ""
 "Are you sure you want to cancel your subscription? If you choose to "
 "continue, when the subscription expires your plan will return to free "
@@ -477,30 +503,30 @@ msgstr ""
 "allo scadere dell'abbonamento il tuo piano tornerà alla versione gratuita e "
 "perderai tutte le funzionalità aggiuntive"
 
-#: includes/Dashboard/Templates/cancel_template.php:39
+#: includes/Dashboard/Templates/cancel_template.php:35
 msgid "Return to free version"
 msgstr "Ritorna alla versione free"
 
-#: includes/Dashboard/Templates/cancel_template.php:40
-#: includes/Dashboard/Templates/downgrade_plan_template.php:54
-#: includes/Dashboard/Templates/upgrade_plan_template.php:54
+#: includes/Dashboard/Templates/cancel_template.php:36
+#: includes/Dashboard/Templates/downgrade_plan_template.php:49
+#: includes/Dashboard/Templates/upgrade_plan_template.php:57
 msgid "Forget it"
 msgstr "Annulla"
 
-#: includes/Dashboard/Templates/cancel_template.php:46
+#: includes/Dashboard/Templates/cancel_template.php:42
 msgid "Or choose another plan"
 msgstr "O scegli un'altro piano"
 
-#: includes/Dashboard/Templates/cancel_template.php:61
-#: includes/Dashboard/Templates/payment_template.php:48
+#: includes/Dashboard/Templates/cancel_template.php:57
+#: includes/Dashboard/Templates/payment_template.php:44
 msgid "Per month"
 msgstr "Per mese"
 
-#: includes/Dashboard/Templates/downgrade_plan_template.php:30
+#: includes/Dashboard/Templates/downgrade_plan_template.php:25
 msgid "Subscription plan downgrade"
 msgstr "Modifica piano di abbonamento"
 
-#: includes/Dashboard/Templates/downgrade_plan_template.php:31
+#: includes/Dashboard/Templates/downgrade_plan_template.php:26
 msgid ""
 "Downgrading now, you will earn a credit that will be billed to you at the "
 "next charge"
@@ -508,11 +534,11 @@ msgstr ""
 "Scegliendo un piano di abbonamento inferiore, guadagnerai un credito che "
 "verrà utilizzato al pagamento successivo"
 
-#: includes/Dashboard/Templates/downgrade_plan_template.php:40
+#: includes/Dashboard/Templates/downgrade_plan_template.php:35
 msgid " credit earnings"
 msgstr " di credito"
 
-#: includes/Dashboard/Templates/downgrade_plan_template.php:51
+#: includes/Dashboard/Templates/downgrade_plan_template.php:46
 msgid ""
 "The subtitles already created and the minutes already used will be counted "
 "on the new subscription plan"
@@ -520,11 +546,11 @@ msgstr ""
 "I sottotitoli già creati e i minuti già utilizzati verranno conteggiati nel "
 "nuovo piano di abbonamento"
 
-#: includes/Dashboard/Templates/downgrade_plan_template.php:53
+#: includes/Dashboard/Templates/downgrade_plan_template.php:48
 msgid "Downgrade Now"
 msgstr "Modifica piano"
 
-#: includes/Dashboard/Templates/payment_template.php:33
+#: includes/Dashboard/Templates/payment_template.php:29
 msgid "Choose the right plan for your project"
 msgstr "Scegli il piano giusto per il tuo progetto"
 
@@ -556,15 +582,16 @@ msgstr "Numero di video"
 msgid "Total length of videos"
 msgstr "Lunghezza totale dei video"
 
-#: includes/Dashboard/Templates/plans_array.php:48
+#: includes/Dashboard/Templates/plans_array.php:48 build_form/index.js:1
+#: src/stripe/Components/PlanTable.js:10
 msgid "Your plan"
 msgstr "Il tuo piano"
 
-#: includes/Dashboard/Templates/upgrade_plan_template.php:31
+#: includes/Dashboard/Templates/upgrade_plan_template.php:27
 msgid "Subscription plan upgrade"
 msgstr "Modifica piano di abbonamento"
 
-#: includes/Dashboard/Templates/upgrade_plan_template.php:32
+#: includes/Dashboard/Templates/upgrade_plan_template.php:28
 msgid ""
 "Upgrading now, for the first month you are entired to a partial refund of "
 "previous monthly subscription plan"
@@ -573,11 +600,11 @@ msgstr ""
 "applicato uno sconto pari al credito residuo della mensilità "
 "dell'abbonamento precedente"
 
-#: includes/Dashboard/Templates/upgrade_plan_template.php:44
+#: includes/Dashboard/Templates/upgrade_plan_template.php:47
 msgid "Only for first month (Until "
 msgstr "Solo per il primo mese (Fino al "
 
-#: includes/Dashboard/Templates/upgrade_plan_template.php:55
+#: includes/Dashboard/Templates/upgrade_plan_template.php:58
 msgid "Upgrade Now"
 msgstr "Modifica piano"
 
@@ -699,6 +726,10 @@ msgstr "Tedesco "
 msgid "Add transcription"
 msgstr "Aggiungi trascrizione"
 
+#: includes/Utils/InvoiceHelper.php:49 includes/Utils/InvoiceHelper.php:153
+msgid "Error. The product license key is missing."
+msgstr "Errore, la licenza del prodotto è assente."
+
 #: assets/editor/transcriptionModalScript.js:47
 msgid "Transcription of the video"
 msgstr "Trascrizione del video"
@@ -812,3 +843,224 @@ msgstr "Trascrizione"
 #: build/index.js:1 src/block/trascriptionBlock.js:8
 msgid "Enter the transcript of your video"
 msgstr "Inserisci la trascrizione del tuo video"
+
+#: build_form/index.js:1 src/stripe/Components/CardSection.js:33
+msgid "Card details"
+msgstr "Dettagli carta"
+
+#: build_form/index.js:1 src/stripe/Components/CheckoutForm.js:24
+#: src/stripe/Components/InvoiceForm.js:12
+msgid "Required"
+msgstr "Obbligat"
+
+#: build_form/index.js:1 src/stripe/Components/CheckoutForm.js:31
+#: src/stripe/Components/InvoiceForm.js:18
+msgid "Invalid email"
+msgstr "Email non valida"
+
+#: build_form/index.js:1 src/stripe/Components/CheckoutForm.js:71
+msgid "Payment Details"
+msgstr "Dettagli di pagamento"
+
+#: build_form/index.js:1 src/stripe/Components/CheckoutForm.js:76
+msgid "editing enabled"
+msgstr "modalità modifica attivata"
+
+#: build_form/index.js:1 src/stripe/Components/CheckoutForm.js:77
+msgid "editing disabled"
+msgstr "modalità mopdifica disattivata"
+
+#: build_form/index.js:1 src/stripe/Components/CheckoutForm.js:95
+#: src/stripe/Components/InvoiceSummary.js:39
+msgid "Email"
+msgstr ""
+
+#: build_form/index.js:1 src/stripe/Components/CheckoutForm.js:99
+msgid "Card Details"
+msgstr "Dettagli carta"
+
+#: build_form/index.js:1 src/stripe/Components/CheckoutForm.js:105
+#: src/stripe/Components/CheckoutForm.js:148
+msgid "Card Holder"
+msgstr "Titolare della carta"
+
+#: build_form/index.js:1 src/stripe/Components/CheckoutForm.js:109
+msgid "Expires"
+msgstr "Scadenza"
+
+#: build_form/index.js:1 src/stripe/Components/CheckoutForm.js:168
+msgid "Back"
+msgstr "Indietro"
+
+#: build_form/index.js:1 src/stripe/Components/CheckoutForm.js:177
+msgid "Confirm order"
+msgstr "Conferma"
+
+#: build_form/index.js:1 src/stripe/Components/InvoiceForm.js:22
+msgid "Telephone number required "
+msgstr "Numero di telefono richiesto"
+
+#: build_form/index.js:1 src/stripe/Components/InvoiceForm.js:23
+#: src/stripe/Components/InvoiceForm.js:44
+#: src/stripe/Components/InvoiceForm.js:61
+msgid "Only numbers"
+msgstr "Solo numeri"
+
+#: build_form/index.js:1 src/stripe/Components/InvoiceForm.js:25
+msgid "Prefix required "
+msgstr "Prefisso obbligatorio"
+
+#: build_form/index.js:1 src/stripe/Components/InvoiceForm.js:26
+msgid "Prefix is only numbers "
+msgstr "Prefisso: solo numeri"
+
+#: build_form/index.js:1 src/stripe/Components/InvoiceForm.js:27
+msgid "Prefix must be max 3 numbers"
+msgstr "Il prefisso ha massimo 3 numeri"
+
+#: build_form/index.js:1 src/stripe/Components/InvoiceForm.js:42
+msgid "Vat Code must be exactly 11 characters"
+msgstr "La partita iva deve essere esattamente di 11 caratteri"
+
+#: build_form/index.js:1 src/stripe/Components/InvoiceForm.js:51
+msgid "Fiscal Code must be exactly 16 characters"
+msgstr "Il codice fiscale deve essere esattamente di 16 caratteri"
+
+#: build_form/index.js:1 src/stripe/Components/InvoiceForm.js:59
+msgid "Postal Code must be exactly 5 characters"
+msgstr "Il codice postale deve essere esattamente di 5 caratteri"
+
+#: build_form/index.js:1 src/stripe/Components/InvoiceForm.js:65
+msgid "Destination Code must be exactly 7 characters"
+msgstr "Codice di destinazioni deve essere esattamente di 7 caratteri"
+
+#: build_form/index.js:1 src/stripe/Components/InvoiceForm.js:112
+msgid "Billing Details"
+msgstr "Dettagli fatturazione"
+
+#: build_form/index.js:1 src/stripe/Components/InvoiceForm.js:125
+#: src/stripe/Components/InvoiceSummary.js:35
+msgid "Name"
+msgstr "Nome"
+
+#: build_form/index.js:1 src/stripe/Components/InvoiceForm.js:134
+#: src/stripe/Components/InvoiceSummary.js:71
+msgid "Lastname"
+msgstr "Cognome"
+
+#: build_form/index.js:1 src/stripe/Components/InvoiceForm.js:154
+#: src/stripe/Components/InvoiceSummary.js:75
+msgid "Company Name"
+msgstr "Nome azienda"
+
+#: build_form/index.js:1 src/stripe/Components/InvoiceForm.js:166
+#: src/stripe/Components/InvoiceSummary.js:43
+msgid "Country"
+msgstr "Nazione"
+
+#: build_form/index.js:1 src/stripe/Components/InvoiceForm.js:190
+#: src/stripe/Components/InvoiceSummary.js:80
+msgid "Province"
+msgstr "Provincia"
+
+#: build_form/index.js:1 src/stripe/Components/InvoiceForm.js:210
+#: src/stripe/Components/InvoiceSummary.js:88
+msgid "City"
+msgstr "Città"
+
+#: build_form/index.js:1 src/stripe/Components/InvoiceForm.js:219
+#: src/stripe/Components/InvoiceSummary.js:55
+msgid "Address"
+msgstr "Indirizzo"
+
+#: build_form/index.js:1 src/stripe/Components/InvoiceForm.js:232
+#: src/stripe/Components/InvoiceSummary.js:48
+msgid "Postal Code"
+msgstr "Codice postale"
+
+#: build_form/index.js:1 src/stripe/Components/InvoiceForm.js:248
+msgid "Vat Code"
+msgstr "Partita iva"
+
+#: build_form/index.js:1 src/stripe/Components/InvoiceForm.js:270
+#: src/stripe/Components/InvoiceSummary.js:93
+msgid "Fiscal Code"
+msgstr "Codice fiscale"
+
+#: build_form/index.js:1 src/stripe/Components/InvoiceForm.js:282
+msgid "Telephone"
+msgstr "Numero di telefono"
+
+#: build_form/index.js:1 src/stripe/Components/InvoiceForm.js:309
+#: src/stripe/Components/InvoiceSummary.js:102
+msgid "Destination Code"
+msgstr "Codice di destinazione"
+
+#: build_form/index.js:1 src/stripe/Components/InvoiceForm.js:326
+msgid "Cancel"
+msgstr "Annulla"
+
+#: build_form/index.js:1 src/stripe/Components/InvoiceForm.js:332
+msgid "Summary"
+msgstr "Riepilogo"
+
+#: build_form/index.js:1 src/stripe/Components/InvoiceSummary.js:23
+msgid "Billing Recap"
+msgstr "Riepilogo dati di fattura"
+
+#: build_form/index.js:1 src/stripe/Components/InvoiceSummary.js:61
+msgid "VAT Code"
+msgstr "Partita IVA"
+
+#: build_form/index.js:1 src/stripe/Components/PlanTable.js:14
+#: src/stripe/Components/PlanTable.js:22 src/stripe/Components/PriceTable.js:10
+msgid "Price"
+msgstr "Prezzo"
+
+#: build_form/index.js:1 src/stripe/Components/PriceTable.js:15
+msgid "VAT"
+msgstr "IVA"
+
+#: build_form/index.js:1 src/stripe/Components/PriceTable.js:30
+msgid "Total"
+msgstr "Totale"
+
+#: build_form/index.js:1 src/stripe/Components/InfoPriceColumn.js:34
+#: src/stripe/Components/PlanTable.js:17 src/stripe/Components/PlanTable.js:28
+#: src/stripe/Components/PriceTable.js:33
+msgid "per month"
+msgstr "per mese"
+
+#: build_form/index.js:1 src/stripe/Components/Disclaimer.js:8
+msgid ""
+"When ordering within the EU an order may be exempt to VAT if a valid VAT "
+"registration number is provided."
+msgstr ""
+"In caso di pagamento all'interno dell'UE un pagamento può essere esente da "
+"IVA se viene fornito un numero di partita IVA valido."
+
+#: build_form/index.js:1 src/stripe/Components/Disclaimer.js:19
+msgid "Terms and conditions"
+msgstr "Termini e condizioni"
+
+#: build_form/index.js:1 src/stripe/Components/Disclaimer.js:27
+msgid "Privacy"
+msgstr ""
+
+#: build_form/index.js:1 src/stripe/Components/ColumnTitle.js:11
+msgid "Subscribe to"
+msgstr "Iscrizione a"
+
+#: build_form/index.js:1 src/stripe/Components/ColumnTitle.js:11
+msgid "plan"
+msgstr "piano"
+
+#: build_form/index.js:1 src/stripe/Components/PlanTable.js:44
+msgid "Automatic renewal"
+msgstr "Rinnovo automatico: "
+
+#~ msgid "per mounth"
+#~ msgstr "per mese"
+
+#~ msgid "An error occurred."
+#~ msgstr "Si è verificato un errore."

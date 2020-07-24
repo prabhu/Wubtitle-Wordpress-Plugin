@@ -165,7 +165,7 @@ export default function CheckoutForm(props) {
 								className="cancel"
 								onClick={() => backFunction()}
 							>
-								{__('Cancel', 'wubtitle')}
+								{__('Back', 'wubtitle')}
 							</button>
 							<button
 								disabled={!stripe || loading}
