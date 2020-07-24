@@ -4,8 +4,6 @@ import { __ } from '@wordpress/i18n';
 const PlanTable = (props) => {
 	const { currentPlan, currentPrice, renewal, taxable, taxAmount } = props;
 
-	console.log(props);
-
 	return (
 		<table className="price-table">
 			<tr>
