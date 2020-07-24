@@ -1,4 +1,4 @@
-const changePlanModule = (function (document) {
+(function (document) {
 	const { adminAjax, nonce } = WP_GLOBALS;
 
 	const handleConfirm = () => {
@@ -34,7 +34,7 @@ const changePlanModule = (function (document) {
 		}
 		if (closeButton) {
 			closeButton.addEventListener('click', () => {
-				window.close();
+				window.opener.cancelPayment();
 			});
 		}
 	};
@@ -42,6 +42,4 @@ const changePlanModule = (function (document) {
 	return {
 		init,
 	};
-})(document);
-
-changePlanModule.init();
+})(document).init();

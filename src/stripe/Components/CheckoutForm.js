@@ -124,7 +124,7 @@ export default function CheckoutForm(props) {
 			>
 				{({ errors, touched }) => (
 					<Form>
-						{error && changeOn ? (
+						{(error && changeOn) || (error && !paymentPreValues) ? (
 							<div
 								className="error-message-container"
 								role="alert"
@@ -139,6 +139,9 @@ export default function CheckoutForm(props) {
 								<div className="form-field-container">
 									<label htmlFor="email">E-Mail</label>
 									<Field name="email" placeholder="Email" />
+									<p className="error-message">
+										{touched.name && errors.name}
+									</p>
 								</div>
 								<div className="form-field-container">
 									<label htmlFor="name">
