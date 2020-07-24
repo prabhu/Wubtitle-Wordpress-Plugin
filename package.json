@@ -15,7 +15,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "composer run-script check-php && npm run lint:js:src"
+      "pre-commit": "composer run-script check-php && npm run lint:js"
     }
   },
   "scripts": {
@@ -26,7 +26,7 @@
     "check-licenses": "wp-scripts check-licenses",
     "format:js": "wp-scripts format-js",
     "lint:css": "wp-scripts lint-style ./src",
-    "lint:js": "wp-scripts lint-js",
+    "lint:js": "npm run lint:js:src && npm run lint:js:assets",
     "lint:md:docs": "wp-scripts lint-md-docs",
     "lint:md:js": "wp-scripts lint-md-js",
     "lint:pkg-json": "wp-scripts lint-pkg-json",
@@ -36,6 +36,7 @@
     "test:unit": "wp-scripts test-unit-js",
     "fixjs": "eslint --fix ./src",
     "lint:js:src": "wp-scripts lint-js ./src",
+    "lint:js:assets": "wp-scripts lint-js ./assets",
     "fix:js:src": "wp-scripts lint-js --fix ./src",
     "csslint": "node_modules/.bin/csslint src/ || return 0"
   },
