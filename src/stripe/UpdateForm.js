@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import CheckoutForm from './Components/CheckoutForm';
 import InvoiceForm from './Components/InvoiceForm';
@@ -16,6 +16,7 @@ function App() {
 		invoicePreValues,
 		paymentPreValues,
 		namePlan,
+		expirationDate,
 		taxAmount,
 		taxPercentage,
 	} = WP_GLOBALS;
@@ -28,6 +29,14 @@ function App() {
 	const [error, setError] = useState(null);
 	const [invoiceValues, setInvoiceValues] = useState(null);
 	const [isBack, setIsBack] = useState(false);
+	const [taxable, setTaxable] = useState(true);
+
+	useEffect(() => {
+		if (invoicePreValues) {
+			setTaxable(invoicePreValues.tax);
+		}
+	}, [invoicePreValues]);
+
 	const handleSubmit = (values) => {
 		fetch(ajaxUrl, {
 			method: 'POST',
@@ -40,7 +49,7 @@ function App() {
 			.then((response) => {
 				if (response.success) {
 					setError(null);
-					values.tax = response.data;
+					setTaxable(response.data);
 					setInvoiceValues(values);
 					if (isBack) {
 						setIsBack(false);
@@ -85,13 +94,14 @@ function App() {
 	return (
 		<div className="main columns">
 			<InfoPriceColumn
+				update={true}
 				price={pricePlan}
 				name={namePlan}
 				taxAmount={taxAmount}
 				taxPercentage={taxPercentage}
-				taxable={invoiceValues ? invoiceValues.tax : true}
+				taxable={taxable}
+				expirationDate={expirationDate}
 			/>
-
 			<Elements stripe={stripePromise}>
 				{invoiceValues && !isBack ? (
 					<div className="wrapper-form column">

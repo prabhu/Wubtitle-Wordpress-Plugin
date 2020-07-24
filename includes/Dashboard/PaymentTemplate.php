@@ -124,6 +124,7 @@ class PaymentTemplate {
 		check_ajax_referer( 'itr_ajax_nonce', $nonce );
 		$plan_rank = get_option( 'wubtitle_plan_rank' );
 		$plans     = get_option( 'wubtitle_all_plans' );
+		$expiration_date     = get_option( 'expiration_date' );
 		if ( current_user_can( 'manage_options' ) ) {
 			ob_start();
 			$current_plan = $plans[ $plan_rank ];
@@ -139,6 +140,7 @@ class PaymentTemplate {
 					'ajaxUrl'          => admin_url( 'admin-ajax.php' ),
 					'ajaxNonce'        => wp_create_nonce( 'itr_ajax_nonce' ),
 					'namePlan'         => $current_plan['name'],
+					'expirationDate'   => $expiration_date,
 					'wubtitleEnv'      => defined( 'WP_WUBTITLE_ENV' ) ? esc_html( WP_WUBTITLE_ENV ) : '',
 					'invoicePreValues' => $data && isset( $invoice_object ) ? $invoice_object : null,
 					'paymentPreValues' => $data && isset( $payment_object ) ? $payment_object : null,
