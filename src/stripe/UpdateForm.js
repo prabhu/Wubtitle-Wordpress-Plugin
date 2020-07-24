@@ -16,6 +16,7 @@ function App() {
 		invoicePreValues,
 		paymentPreValues,
 		namePlan,
+		expirationDate,
 		taxAmount,
 		taxPercentage,
 	} = WP_GLOBALS;
@@ -28,6 +29,12 @@ function App() {
 	const [error, setError] = useState(null);
 	const [invoiceValues, setInvoiceValues] = useState(null);
 	const [isBack, setIsBack] = useState(false);
+	const [taxable, setTaxable] = useState(true);
+
+	if (invoicePreValues) {
+		setTaxable(invoicePreValues.tax);
+	}
+
 	const handleSubmit = (values) => {
 		fetch(ajaxUrl, {
 			method: 'POST',
@@ -40,7 +47,7 @@ function App() {
 			.then((response) => {
 				if (response.success) {
 					setError(null);
-					values.tax = response.data;
+					setTaxable(response.data);
 					setInvoiceValues(values);
 					if (isBack) {
 						setIsBack(false);
@@ -90,7 +97,8 @@ function App() {
 				name={namePlan}
 				taxAmount={taxAmount}
 				taxPercentage={taxPercentage}
-				taxable={invoiceValues ? invoiceValues.tax : true}
+				taxable={taxable}
+				expirationDate={expirationDate}
 			/>
 			<Elements stripe={stripePromise}>
 				{invoiceValues && !isBack ? (

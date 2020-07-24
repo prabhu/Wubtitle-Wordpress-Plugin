@@ -186,6 +186,7 @@ class InvoiceHelper {
 			'vat_code'         => $invoice_details->VatCode,
 			'fiscal_code'      => $invoice_details->FiscalCode,
 			'destination_code' => $invoice_details->DestinationCode,
+			'tax'              => $invoice_details->taxable,
 		);
 		$payment_data    = array(
 			'name'            => $payment_details->name,
