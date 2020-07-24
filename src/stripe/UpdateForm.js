@@ -19,6 +19,7 @@ function App() {
 		expirationDate,
 		taxAmount,
 		taxPercentage,
+		isTaxable,
 	} = WP_GLOBALS;
 	const stripeKey =
 		wubtitleEnv === 'development'
@@ -32,10 +33,10 @@ function App() {
 	const [taxable, setTaxable] = useState(true);
 
 	useEffect(() => {
-		if (invoicePreValues) {
-			setTaxable(invoicePreValues.tax);
+		if (isTaxable !== null) {
+			setTaxable(isTaxable);
 		}
-	}, [invoicePreValues]);
+	}, [isTaxable]);
 
 	const handleSubmit = (values) => {
 		fetch(ajaxUrl, {
