@@ -35,16 +35,17 @@ class PaymentTemplate {
 	 * @SuppressWarnings(PHPMD.UnusedLocalVariable)
 	 */
 	public function change_plan_template() {
-		if ( ! isset( $_POST['_ajax_nonce'], $_POST['priceinfo'] ) ) {
+		if ( ! isset( $_POST['_ajax_nonce'], $_POST['priceinfo'], $_POST['amountPreview'], $_POST['wantedPlanRank'] ) ) {
 			wp_send_json_error( __( 'An error occurred. Please try again in a few minutes.', 'wubtitle' ) );
 		}
 		$nonce             = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
 		$price_info_data   = sanitize_text_field( wp_unslash( $_POST['priceinfo'] ) );
+		$amount_preview    = sanitize_text_field( wp_unslash( $_POST['amountPreview'] ) );
+		$wanted_plan_rank  = sanitize_text_field( wp_unslash( $_POST['wantedPlanRank'] ) );
 		$price_info_object = json_decode( $price_info_data );
 		check_ajax_referer( 'itr_ajax_nonce', $nonce );
-		$plan_rank        = get_option( 'wubtitle_plan_rank' );
-		$wanted_plan_rank = get_option( 'wubtitle_wanted_plan_rank' );
-		$includes_file    = 'Templates/downgrade_plan_template.php';
+		$plan_rank     = get_option( 'wubtitle_plan_rank' );
+		$includes_file = 'Templates/downgrade_plan_template.php';
 		if ( $wanted_plan_rank > $plan_rank ) {
 			$includes_file = 'Templates/upgrade_plan_template.php';
 		}

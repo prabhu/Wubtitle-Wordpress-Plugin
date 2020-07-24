@@ -11,8 +11,7 @@
  * Downgrade page template.
  */
 require WUBTITLE_DIR . 'includes/Dashboard/Templates/plans_array.php';
-$amount_preview = (float) get_option( 'wubtitle_amount_preview' );
-$amount_preview = -$amount_preview;
+$amount_preview = isset( $amount_preview ) ? number_format( - (float) $amount_preview, 2 ) : 0.00;
 ?>
 <!DOCTYPE html>
 <html lang="en">
