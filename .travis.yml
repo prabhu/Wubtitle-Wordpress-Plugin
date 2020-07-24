@@ -83,7 +83,7 @@ script:
   - composer test
   - bash <(curl -Ls https://coverage.codacy.com/get.sh) || return 0
   - composer check-php
-  - npm run lint:js:src
+  - npm run lint:js
   - npm run csslint
   - npm run build
 
