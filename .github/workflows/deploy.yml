@@ -1,44 +1,23 @@
+name: Deploy to WordPress.org
 on:
   push:
-    # Sequence of patterns matched against refs/tags
     tags:
-    - '*' # Push events to matching v*, i.e. v1.0, v20.15.10
-name: Deploy
+    - "*"
 jobs:
-  build:
-    name: New release
+  tag:
+    name: New tag
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-    - name: Build
+    - uses: actions/checkout@master
+    - name: Build # Remove or modify this step as needed
       run: |
-        mkdir Wubtitle
-        git archive HEAD | tar -x -C Wubtitle/
-        cd Wubtitle/
         composer install --no-dev --prefer-dist --no-interaction
         npm ci --prefer-offline --progress=false
         npm run build
         npm ci --prefer-offline --progress=false --only=prod
         rm -rf src/ tests/ composer.json composer.lock package.json package-lock.json
-        cd ..
-        zip -r ${{ github.event.repository.name }}.zip Wubtitle
-    - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1
+    - name: WordPress Plugin Deploy
+      uses: 10up/action-wordpress-plugin-deploy@stable
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: ${{ github.ref }}
-        release_name: Release ${{ github.ref }}
-        draft: false
-        prerelease: false
-    - name: Upload release asset
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-        asset_path: ${{github.workspace}}/${{ github.event.repository.name }}.zip
-        asset_name: ${{ github.event.repository.name }}.zip
-        asset_content_type: application/zip
+        SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+        SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
