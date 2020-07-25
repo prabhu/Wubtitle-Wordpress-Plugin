@@ -11,7 +11,6 @@
 .travis.yml
 .DS_Store
 .github
-trunk/.github
 .wordpress.org
 Thumbs.db
 behat.yml
