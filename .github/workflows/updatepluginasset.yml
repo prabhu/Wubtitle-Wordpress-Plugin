@@ -9,6 +9,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - name: Build # Remove or modify this step as needed
+      run: |
+        composer install --no-dev --prefer-dist --no-interaction
+        npm ci --prefer-offline --progress=false
+        npm run build
+        npm ci --prefer-offline --progress=false --only=prod
+        rm -rf src/ tests/ composer.json composer.lock package.json package-lock.json
     - name: WordPress.org plugin asset/readme update
       uses: 10up/action-wordpress-plugin-asset-update@stable
       env:
