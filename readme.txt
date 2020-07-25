@@ -1,6 +1,6 @@
 === Wubtitle ===
 Contributors: giuseppectmobi
-Tags: subtitle, subtitles, video
+Tags: subtitle, subtitles, video, Transcription, SEO, speech-to-text
 Requires at least: 5.0
 Tested up to: 5.4
 Stable tag: trunk
@@ -8,10 +8,7 @@ Requires PHP: 7.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Wubtitle is a plugin that generates:
-
-Subtitles and transcript of uploaded videos in media library
-Transcripts of youtube videosHere is a short description of the plugin.
+Wubtitle is a plugin that generates subtitles and transcript of uploaded videos in media library and youtube videos.
 
 == Description ==
 
