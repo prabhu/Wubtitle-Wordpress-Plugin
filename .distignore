@@ -10,6 +10,8 @@
 .gitlab-ci.yml
 .travis.yml
 .DS_Store
+.github
+.wordpress.org
 Thumbs.db
 behat.yml
 bitbucket-pipelines.yml
