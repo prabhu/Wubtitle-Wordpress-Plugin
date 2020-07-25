@@ -1,6 +1,6 @@
 === Wubtitle ===
 Contributors: giuseppectmobi
-Tags: subtitle, video
+Tags: subtitle, subtitles, video
 Requires at least: 5.0
 Tested up to: 5.4
 Stable tag: trunk
@@ -28,4 +28,3 @@ Wubtitle is a plugin that generates:
 -   Generates video transcriptions from Wordpress Media library and from YouTube
 -   Support both Gutenberg and classic editor
 -   Editing and management of all transcriptions
-
