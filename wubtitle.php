@@ -1,13 +1,13 @@
 <?php
 /**
  * Plugin Name:     Wubtitle
- * Plugin URI:      https://github.com/CTMobi/Wubtitle-Wordpress-Plugin
+ * Plugin URI:      https://www.wubtitle.com
  * Description:     Automatically generates subtitle for your videos
  * Author:          CTMobi
  * Author URI:      https://www.ctmobi.it
  * Text Domain:     wubtitle
  * Domain Path:     /languages
- * Version:         0.2.4
+ * Version:         1.0.0
  *
  * @package         Wubtitle
  */
@@ -21,7 +21,7 @@ define( 'WUBTITLE_FILE_URL', __FILE__ );
 define( 'WUBTITLE_DIR', plugin_dir_path( __FILE__ ) );
 define( 'WUBTITLE_URL', plugin_dir_url( __FILE__ ) );
 define( 'WUBTITLE_NAME', dirname( plugin_basename( __FILE__ ) ) );
-define( 'WUBTITLE_VER', '0.2.4' );
+define( 'WUBTITLE_VER', '1.0.0' );
 $endpoint = 'https://api.wubtitle.com/';
 if ( defined( 'WP_WUBTITLE_ENV' ) && 'development' === WP_WUBTITLE_ENV ) {
 	$endpoint = 'https://dev.api.wubtitle.com/';
