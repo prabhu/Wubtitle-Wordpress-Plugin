@@ -83,6 +83,10 @@ class Cron {
 		$code_response = wp_remote_retrieve_response_code( $response );
 		// phpcs:disable WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 		// warning camel case.
+		if ( 401 === $code_response || 403 === $code_response ) {
+			Loader::get( 'activation' )->wubtitle_activation_license_key();
+			return;
+		}
 		if ( 200 === $code_response ) {
 			$body_response      = json_decode( wp_remote_retrieve_body( $response ) );
 			$plans              = $body_response->data->plans;
