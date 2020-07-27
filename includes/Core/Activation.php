@@ -29,10 +29,12 @@ class Activation {
 	 */
 	public function wubtitle_activation_license_key() {
 		$site_url      = get_site_url();
+		$password      = wp_generate_password();
 		$body          = array(
 			'data' => array(
 				'domainUrl' => $site_url,
 				'siteLang'  => explode( '_', get_locale(), 2 )[0],
+				'password'  => $password,
 			),
 		);
 		$response      = wp_remote_post(
@@ -47,35 +49,8 @@ class Activation {
 		);
 		$code_response = wp_remote_retrieve_response_code( $response );
 		if ( 201 === $code_response ) {
-			$response_body = json_decode( wp_remote_retrieve_body( $response ) );
-			update_option( 'wubtitle_free', $response_body->data->isFree, false );
-			update_option( 'wubtitle_license_key', $response_body->data->licenseKey, false );
-			$plans          = $response_body->data->plans;
-			$wubtitle_plans = array_reduce( $plans, array( $this, 'plans_reduce' ), array() );
-			update_option( 'wubtitle_all_plans', $wubtitle_plans, false );
+			update_option( 'wubtitle_password', $password );
 		}
 	}
-	/**
-	 * Callback function array_reduce
-	 *
-	 * @param mixed $accumulator empty array.
-	 * @param mixed $item object to reduce.
-	 *
-	 * @return mixed
-	 */
-	public function plans_reduce( $accumulator, $item ) {
-		$accumulator[ $item->rank ] = array(
-			'name'         => $item->name,
-			'stripe_code'  => $item->id,
-			// phpcs:disable 
-			// warning camel case
-			'totalJobs'    => $item->totalJobs,
-			'totalSeconds' => $item->totalSeconds,
-			// phpcs:enable
-			'price'        => $item->price,
-			'dot_list'     => $item->dotlist,
-			'icon'         => $item->icon,
-		);
-		return $accumulator;
-	}
+
 }
