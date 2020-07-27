@@ -110,10 +110,12 @@ class PaymentTemplate {
 	 * @return void
 	 */
 	public function load_update_template() {
-		$data = Loader::get( 'invoice_helper' )->get_invoice_data();
+		$data    = Loader::get( 'invoice_helper' )->get_invoice_data();
+		$taxable = true;
 		if ( $data ) {
 			$invoice_object = (object) $data['invoice_data'];
 			$payment_object = (object) $data['payment_data'];
+			$taxable        = $data['taxable'];
 		}
 		if ( ! isset( $_POST['_ajax_nonce'], $_POST['priceinfo'] ) ) {
 			wp_send_json_error( __( 'An error occurred. Please try again in a few minutes.', 'wubtitle' ) );
@@ -122,8 +124,10 @@ class PaymentTemplate {
 		$price_info_data   = sanitize_text_field( wp_unslash( $_POST['priceinfo'] ) );
 		$price_info_object = json_decode( $price_info_data );
 		check_ajax_referer( 'itr_ajax_nonce', $nonce );
-		$plan_rank = get_option( 'wubtitle_plan_rank' );
-		$plans     = get_option( 'wubtitle_all_plans' );
+		$plan_rank                = get_option( 'wubtitle_plan_rank' );
+		$plans                    = get_option( 'wubtitle_all_plans' );
+		$expiration_date          = get_option( 'wubtitle_expiration_date' );
+		$friendly_expiration_date = date_i18n( get_option( 'date_format' ), $expiration_date );
 		if ( current_user_can( 'manage_options' ) ) {
 			ob_start();
 			$current_plan = $plans[ $plan_rank ];
@@ -139,6 +143,8 @@ class PaymentTemplate {
 					'ajaxUrl'          => admin_url( 'admin-ajax.php' ),
 					'ajaxNonce'        => wp_create_nonce( 'itr_ajax_nonce' ),
 					'namePlan'         => $current_plan['name'],
+					'expirationDate'   => $friendly_expiration_date,
+					'isTaxable'        => $taxable,
 					'wubtitleEnv'      => defined( 'WP_WUBTITLE_ENV' ) ? esc_html( WP_WUBTITLE_ENV ) : '',
 					'invoicePreValues' => $data && isset( $invoice_object ) ? $invoice_object : null,
 					'paymentPreValues' => $data && isset( $payment_object ) ? $payment_object : null,

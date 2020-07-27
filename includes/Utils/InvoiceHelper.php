@@ -166,11 +166,12 @@ class InvoiceHelper {
 			return false;
 		}
 		$response_body = json_decode( wp_remote_retrieve_body( $response ) );
-		if ( ! isset( $response_body->data->invoiceDetails, $response_body->data->paymentDetails ) ) {
+		if ( ! isset( $response_body->data->invoiceDetails, $response_body->data->paymentDetails, $response_body->data->taxable ) ) {
 			return false;
 		}
 		$invoice_details = $response_body->data->invoiceDetails;
 		$payment_details = $response_body->data->paymentDetails;
+		$is_taxable      = $response_body->data->taxable;
 		$invoice_data    = array(
 			'invoice_name'     => $invoice_details->Name,
 			'invoice_email'    => $invoice_details->Email,
@@ -197,6 +198,7 @@ class InvoiceHelper {
 		return array(
 			'invoice_data' => $invoice_data,
 			'payment_data' => $payment_data,
+			'taxable'      => $is_taxable,
 		);
 	}
 }

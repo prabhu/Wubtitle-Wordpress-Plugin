@@ -83,6 +83,7 @@ function App() {
 	return (
 		<div className="main columns">
 			<InfoPriceColumn
+				update={false}
 				price={pricePlan}
 				name={namePlan}
 				taxAmount={taxAmount}

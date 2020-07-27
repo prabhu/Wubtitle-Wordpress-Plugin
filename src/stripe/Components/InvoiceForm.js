@@ -109,7 +109,7 @@ export default function CheckoutForm(props) {
 			>
 				{({ errors, touched, values }) => (
 					<Form>
-						<h2> Billing Details</h2>
+						<h2> {__('Billing Details', 'wubtitle')}</h2>
 						{error ? (
 							<div
 								className="error-message-container"

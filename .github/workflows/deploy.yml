@@ -13,16 +13,12 @@ jobs:
       uses: actions/checkout@v2
     - name: Build
       run: |
-        mkdir Wubtitle
-        git archive HEAD | tar -x -C Wubtitle/
-        cd Wubtitle/
         composer install --no-dev --prefer-dist --no-interaction
         npm ci --prefer-offline --progress=false
         npm run build
         npm ci --prefer-offline --progress=false --only=prod
-        rm -rf src/ tests/ composer.json composer.lock package.json package-lock.json
-        cd ..
-        zip -r ${{ github.event.repository.name }}.zip Wubtitle
+        rm -rf src/ tests/ composer.json composer.lock package.json package-lock.json .github .aspell.en.pws .eslintrc.json .gitattributes .stylelintrc.json phpmd.xml phpstan.neon.dist 
+        zip -r ${{ github.event.repository.name }}.zip .
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
@@ -42,3 +38,12 @@ jobs:
         asset_path: ${{github.workspace}}/${{ github.event.repository.name }}.zip
         asset_name: ${{ github.event.repository.name }}.zip
         asset_content_type: application/zip
+    - name: Prepare for wordress.org
+      run: |
+        rm ${{ github.event.repository.name }}.zip
+    - name: WordPress Plugin Deploy
+      uses: 10up/action-wordpress-plugin-deploy@stable
+      env:
+        SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
+        SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+        SLUG: wubtitle
