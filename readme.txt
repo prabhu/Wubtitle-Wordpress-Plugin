@@ -41,7 +41,14 @@ Wubtitle is a plugin that generates:
 
 == Changelog ==
 
-= 0.2.4 =
+= 1.0.1 =
+Release Date: July 27h, 2020
+
+Bugfixes:
+
+ * Fixed the deploy workflow, we need node_modules and vendor folder
+
+= 1.0.0 =
 Release Date: July 25th, 2020
 
 First public version
