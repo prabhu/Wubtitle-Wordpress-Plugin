@@ -17,25 +17,8 @@ msgstr ""
 "X-Domain: wubtitle\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#. Plugin Name of the plugin
-#: includes/Dashboard/Settings.php:47
-msgid "Wubtitle"
-msgstr ""
-
-#. Plugin URI of the plugin
-msgid "https://github.com/CTMobi/Wubtitle-Wordpress-Plugin"
-msgstr ""
-
 #. Description of the plugin
 msgid "Automatically generates subtitle for your videos"
-msgstr ""
-
-#. Author of the plugin
-msgid "CTMobi"
-msgstr ""
-
-#. Author URI of the plugin
-msgid "https://www.ctmobi.it"
 msgstr ""
 
 #: includes/Api/ApiCancelSubscription.php:34
