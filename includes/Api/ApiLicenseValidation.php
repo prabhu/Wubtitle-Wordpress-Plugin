@@ -67,24 +67,20 @@ class ApiLicenseValidation {
 	 * @return WP_REST_Response|array<mixed>
 	 */
 	public function get_init_data( $request ) {
-		$headers  = $request->get_headers();
-		$jwt      = $headers['jwt'][0];
-		$password = get_option( 'wubtitle_password' );
-		try {
-			JWT::decode( $jwt, $password, array( 'HS256' ) );
-		} catch ( \Exception $e ) {
-			$error = array(
+		$headers           = $request->get_headers();
+		$token             = $headers['token'];
+		$current_token     = get_option( 'wubtitle_token' );
+		$token_time        = get_option( 'wubtitle_token_time' );
+		$token_exipiration = $token_time + ( 60 * 5 );
+		if ( $token !== $current_token && time() > $token_exipiration ) {
+			$error    = array(
 				'errors' => array(
 					'status' => '403',
 					'title'  => 'Authentication Failed',
-					'source' => $e->getMessage(),
 				),
 			);
-
 			$response = new WP_REST_Response( $error );
-
 			$response->set_status( 403 );
-
 			return $response;
 		}
 		$params = $request->get_param( 'data' );

@@ -29,12 +29,10 @@ class Activation {
 	 */
 	public function wubtitle_activation_license_key() {
 		$site_url      = get_site_url();
-		$password      = wp_generate_password();
 		$body          = array(
 			'data' => array(
 				'domainUrl' => $site_url,
 				'siteLang'  => explode( '_', get_locale(), 2 )[0],
-				'password'  => $password,
 			),
 		);
 		$response      = wp_remote_post(
@@ -48,8 +46,10 @@ class Activation {
 			)
 		);
 		$code_response = wp_remote_retrieve_response_code( $response );
-		if ( 201 === $code_response ) {
-			update_option( 'wubtitle_password', $password );
+		if ( 200 === $code_response ) {
+			$response_body = json_decode( wp_remote_retrieve_body( $response ) );
+			update_option( 'wubtitle_token', $response_body->data->token, false );
+			update_option( 'wubtitle_token_time', time() );
 		}
 	}
 
