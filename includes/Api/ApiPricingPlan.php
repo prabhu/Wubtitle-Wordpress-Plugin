@@ -61,6 +61,7 @@ class ApiPricingPlan {
 				'timeout' => 15,
 				'headers' => array(
 					'licenseKey'   => $license_key,
+					'domainUrl'    => get_site_url(),
 					'Content-Type' => 'application/json; charset=utf-8',
 				),
 				'body'    => wp_json_encode( $body ),
@@ -102,6 +103,7 @@ class ApiPricingPlan {
 				'method'  => 'POST',
 				'headers' => array(
 					'licenseKey' => $license_key,
+					'domainUrl'  => get_site_url(),
 				),
 			)
 		);
@@ -173,6 +175,7 @@ class ApiPricingPlan {
 				'method'  => 'POST',
 				'headers' => array(
 					'licenseKey'   => $license_key,
+					'domainUrl'    => get_site_url(),
 					'Content-Type' => 'application/json; charset=utf-8',
 				),
 				'body'    => wp_json_encode( $body ),
@@ -243,6 +246,7 @@ class ApiPricingPlan {
 				'headers' => array(
 					'Content-Type' => 'application/json; charset=utf-8',
 					'licenseKey'   => $license_key,
+					'domainUrl'    => get_site_url(),
 				),
 				'body'    => wp_json_encode( $body ),
 			)
@@ -363,6 +367,7 @@ class ApiPricingPlan {
 				'headers' => array(
 					'Content-Type' => 'application/json; charset=utf-8',
 					'licenseKey'   => $license_key,
+					'domainUrl'    => get_site_url(),
 				),
 				'body'    => wp_json_encode( $body ),
 			)
