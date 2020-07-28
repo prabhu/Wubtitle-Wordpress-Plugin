@@ -80,6 +80,13 @@ const YoutubeControlPanel = (props) => {
 				},
 			})
 			.then((response) => {
+				if (!response.languages) {
+					setMessage(
+						__('Subtitles not available for this video', 'wubtitle')
+					);
+					return;
+				}
+				setMessage('');
 				setReady(true);
 				const arrayLang = response.languages.map((lang) => {
 					return {
