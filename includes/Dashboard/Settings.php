@@ -88,6 +88,7 @@ class Settings {
 			<div class="postbox">
 				<h2 class="hndle ui-sortable-handle e2w-title" ><span><?php esc_html_e( 'Licensing', 'wubtitle' ); ?></span></h2>
 				<div class="inside">
+				<?php if ( $this->price_info_plans ) : ?>
 					<div class="plan-state">
 						<?php echo esc_html_e( 'Plan: ', 'wubtitle' ) . esc_html( $current_plan ); ?>
 					</div>
@@ -109,6 +110,7 @@ class Settings {
 					esc_html_e( ' hours', 'wubtitle' );
 					?>
 					</p>
+				<?php endif; ?>
 						<?php
 						settings_fields( 'wubtitle_settings' );
 						do_settings_sections( 'wubtitle-settings' );
@@ -132,29 +134,32 @@ class Settings {
 	 */
 	public function check_notice_stripe() {
 		$message = false;
-
 		// phpcs:disable
-		if ( empty( $_GET['notices-code'] ) || isset( $_GET['settings-updated'] ) ) {
+		if ( ( empty( $_GET['notices-code'] ) && $this->price_info_plans ) || isset( $_GET['settings-updated'] ) ) {
 			return;
 		}
-		$notice_code = sanitize_text_field( wp_unslash( $_GET['notices-code'] ) );
+		$notice_code = ! empty( $_GET['notices-code'] ) ? sanitize_text_field( wp_unslash( $_GET['notices-code'] ) ) : 'invalidLicense';
 		// phpcs:enable
 
 		$notice_messages = array(
-			'payment'    => __( 'Payment successful', 'wubtitle' ),
-			'update'     => __( 'Payment information updated', 'wubtitle' ),
-			'reset'      => __( 'License key sent, check your email!', 'wubtitle' ),
-			'delete'     => __( 'Unsubscription successful', 'wubtitle' ),
-			'reactivate' => __( 'Reactivation of the plan successful', 'wubtitle' ),
+			'payment'        => __( 'Payment successful', 'wubtitle' ),
+			'update'         => __( 'Payment information updated', 'wubtitle' ),
+			'reset'          => __( 'License key sent, check your email!', 'wubtitle' ),
+			'delete'         => __( 'Unsubscription successful', 'wubtitle' ),
+			'reactivate'     => __( 'Reactivation of the plan successful', 'wubtitle' ),
+			'invalidLicense' => __( 'Invalid license or domain, the license key will be reset', 'wubtitle' ),
+
 		);
 
-		$message = $notice_messages[ $notice_code ];
+		$notice_class = 'invalidLicense' === $notice_code ? 'notice-error' : 'notice-success';
+		$message      = $notice_messages[ $notice_code ];
 
 		if ( ! $message ) {
 			return;
 		}
+
 		?>
-		<div class="notice notice-success is-dismissible">
+		<div class="notice <?php echo esc_attr( $notice_class ); ?> is-dismissible">
 			<p> <?php echo esc_html( $message ); ?></p>
 		</div>
 		<?php
@@ -229,8 +234,7 @@ class Settings {
 	 */
 	public function check_license() {
 		$submitted_license = get_option( 'wubtitle_license_key' );
-
-		$validation = $this->remote_request( $submitted_license );
+		$validation        = $this->remote_request( $submitted_license );
 
 		if ( $validation['error'] && ! $validation['verified'] ) {
 			$error_messages = array(
@@ -253,7 +257,7 @@ class Settings {
 				'wubtitle_license_key',
 				esc_attr( 'invalid_license' ),
 				__( 'Valid product license. Subscription plan updated.', 'wubtitle' ),
-				'success'
+				'error'
 			);
 		}
 	}
@@ -291,9 +295,12 @@ class Settings {
 		$validation = array();
 
 		$validation['verified'] = $retrieved['data']['verified'];
+		$validation['error']    = false;
 
-		$helpers             = new Helpers();
-		$validation['error'] = $helpers->check_has_error( $status, $validation['verified'], $retrieved['data']['errorType'] );
+		if ( ! $validation['verified'] ) {
+			$helpers             = new Helpers();
+			$validation['error'] = $helpers->check_has_error( $status, $validation['verified'], $retrieved['data']['errorType'] );
+		}
 
 		return $validation;
 	}
@@ -315,7 +322,7 @@ class Settings {
 		$plans    = get_option( 'wubtitle_all_plans', array() );
 		$disabled = count( $plans ) === 0 ? 'disabled' : '';
 		$message  = count( $plans ) === 0 ? __( 'Upgrade feature temporarily disabled due to error loading the page. Please refresh the page and try again.', 'wubtitle' ) : '';
-		if ( count( $plans ) === 0 || get_option( 'wubtitle_plan_rank' ) < count( $plans ) - 1 ) {
+		if ( count( $plans ) === 0 || ( get_option( 'wubtitle_plan_rank' ) < count( $plans ) - 1 && $this->price_info_plans ) ) {
 			add_settings_field(
 				'buy-license-button',
 				__( 'Unlock more features!', 'wubtitle' ),

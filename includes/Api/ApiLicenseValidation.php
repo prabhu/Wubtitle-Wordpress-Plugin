@@ -53,7 +53,7 @@ class ApiLicenseValidation {
 			'wubtitle/v1',
 			'/reset-user',
 			array(
-				'methods'  => 'GET',
+				'methods'  => 'POST',
 				'callback' => array( $this, 'get_init_data' ),
 			)
 		);
@@ -68,7 +68,7 @@ class ApiLicenseValidation {
 	 */
 	public function get_init_data( $request ) {
 		$headers           = $request->get_headers();
-		$token             = $headers['token'];
+		$token             = $headers['token'][0];
 		$current_token     = get_option( 'wubtitle_token' );
 		$token_time        = get_option( 'wubtitle_token_time' );
 		$token_exipiration = $token_time + ( 60 * 5 );
@@ -83,10 +83,13 @@ class ApiLicenseValidation {
 			$response->set_status( 403 );
 			return $response;
 		}
-		$params = $request->get_param( 'data' );
-		update_option( 'wubtitle_free', $params['isFree'], false );
-		update_option( 'wubtitle_license_key', $params['licenseKey'], false );
-		$plans          = $params['plans'];
+		$params = json_decode( $request->get_body() )->data;
+		// phpcs:disable WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+		// warning camel case.
+		update_option( 'wubtitle_free', $params->isFree, false );
+		update_option( 'wubtitle_license_key', $params->licenseKey, false );
+		// phpcs:enable
+		$plans          = $params->plans;
 		$wubtitle_plans = array_reduce( $plans, array( $this, 'plans_reduce' ), array() );
 		update_option( 'wubtitle_all_plans', $wubtitle_plans, false );
 
@@ -96,6 +99,9 @@ class ApiLicenseValidation {
 				'title'  => 'Success',
 			),
 		);
+
+		delete_option( 'wubtitle_token' );
+		delete_option( 'wubtitle_token_time' );
 
 		return $message;
 	}
@@ -171,7 +177,6 @@ class ApiLicenseValidation {
 			'stripe_code'  => $item->id,
 			'totalJobs'    => $item->totalJobs,
 			'totalSeconds' => $item->totalSeconds,
-			'price'        => $item->price,
 			'dot_list'     => $item->dotlist,
 			'icon'         => $item->icon,
 		);
