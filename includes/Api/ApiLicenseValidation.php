@@ -67,12 +67,11 @@ class ApiLicenseValidation {
 	 * @return WP_REST_Response|array<mixed>
 	 */
 	public function get_init_data( $request ) {
-		$headers           = $request->get_headers();
-		$token             = $headers['token'][0];
-		$current_token     = get_option( 'wubtitle_token' );
-		$token_time        = get_option( 'wubtitle_token_time' );
-		$token_exipiration = $token_time + ( 60 * 5 );
-		if ( $token !== $current_token && time() > $token_exipiration ) {
+		$headers          = $request->get_headers();
+		$token            = $headers['token'][0];
+		$current_token    = get_option( 'wubtitle_token' );
+		$token_expiration = get_option( 'wubtitle_token_time' );
+		if ( $token !== $current_token && time() > $token_expiration ) {
 			$error    = array(
 				'errors' => array(
 					'status' => '403',

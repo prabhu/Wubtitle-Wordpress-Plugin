@@ -83,10 +83,9 @@ class Cron {
 		$code_response = wp_remote_retrieve_response_code( $response );
 		// phpcs:disable WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 		// warning camel case.
-		$token_time        = get_option( 'wubtitle_token_time' );
-		$token_exipiration = $token_time + ( 60 * 5 );
+		$token_expiration = get_option( 'wubtitle_token_time' );
 		if ( 401 === $code_response || 403 === $code_response ) {
-			if ( time() > $token_exipiration ) {
+			if ( time() > $token_expiration ) {
 				Loader::get( 'activation' )->wubtitle_activation_license_key();
 			}
 			return false;
