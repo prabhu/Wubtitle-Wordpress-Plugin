@@ -255,12 +255,16 @@ class ApiPricingPlan {
 			'500' => __( 'Could not contact the server', 'wubtitle' ),
 			''    => __( 'Could not contact the server', 'wubtitle' ),
 		);
+		$response_body = json_decode( wp_remote_retrieve_body( $response ) );
 		if ( 201 !== $code_response ) {
-			$response_body = json_decode( wp_remote_retrieve_body( $response ) );
-			$message       = 402 === $code_response ? $response_body->errors->title : $message[ $code_response ];
+			$message = 402 === $code_response ? $response_body->errors->title : $message[ $code_response ];
 			wp_send_json_error( $message );
 		}
-		wp_send_json_success();
+		$data = array(
+			'status'       => $response_body->data->status,
+			'clientSecret' => $response_body->data->clientSecret,
+		);
+		wp_send_json_success( $data );
 	}
 	/**
 	 * Gets the data from JavaScript and sends it to the endpoint for license reset.
@@ -375,12 +379,16 @@ class ApiPricingPlan {
 			'500' => __( 'Could not contact the server', 'wubtitle' ),
 			''    => __( 'Could not contact the server', 'wubtitle' ),
 		);
+		$response_body = json_decode( wp_remote_retrieve_body( $response ) );
 		if ( 201 !== $code_response ) {
-			$response_body = json_decode( wp_remote_retrieve_body( $response ) );
-			$message       = 402 === $code_response ? $response_body->errors->title : $message[ $code_response ];
+			$message = 402 === $code_response ? $response_body->errors->title : $message[ $code_response ];
 			wp_send_json_error( $message );
 		}
-		wp_send_json_success();
+		$data = array(
+			'status'       => $response_body->data->status,
+			'clientSecret' => $response_body->data->clientSecret,
+		);
+		wp_send_json_success( $data );
 	}
 }
 
