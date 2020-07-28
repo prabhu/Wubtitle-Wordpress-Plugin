@@ -60,8 +60,21 @@ function App() {
 				}
 			});
 	};
+	const confirmCard = (clientSecret, stripe, paymentMethodId) => {
+		stripe
+			.confirmCardPayment(clientSecret, {
+				payment_method: paymentMethodId,
+			})
+			.then((result) => {
+				if (result.success) {
+					setError(null);
+					window.opener.redirectToCallback('notices-code=payment');
+					window.close();
+				}
+			});
+	};
 
-	const createSubscription = (paymentMethodId, values) => {
+	const createSubscription = (paymentMethodId, values, stripe) => {
 		const { name, email, lastname } = values;
 		fetch(ajaxUrl, {
 			method: 'POST',
@@ -74,6 +87,13 @@ function App() {
 		})
 			.then((resp) => resp.json())
 			.then((response) => {
+				if (response.data.status === 'requires_action') {
+					return confirmCard(
+						response.data.clientSecret,
+						stripe,
+						paymentMethodId
+					);
+				}
 				if (response.success) {
 					setError(null);
 					window.opener.redirectToCallback('notices-code=update');
