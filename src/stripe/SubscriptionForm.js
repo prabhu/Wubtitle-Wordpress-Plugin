@@ -58,7 +58,25 @@ function App() {
 	const cancelFunction = () => {
 		window.opener.cancelPayment();
 	};
-	const createSubscription = (paymentMethodId, values) => {
+
+	const confirmCard = (clientSecret, stripe, paymentMethodId) => {
+		stripe
+			.confirmCardPayment(clientSecret, {
+				payment_method: paymentMethodId,
+			})
+			.then((result) => {
+				if (result.error) {
+					setError(result.error);
+				}
+				if (result.success) {
+					setError(null);
+					window.opener.redirectToCallback('notices-code=payment');
+					window.close();
+				}
+			});
+	};
+
+	const createSubscription = async (paymentMethodId, values, stripe) => {
 		const { email } = values;
 		fetch(ajaxUrl, {
 			method: 'POST',
@@ -71,6 +89,13 @@ function App() {
 		})
 			.then((resp) => resp.json())
 			.then((response) => {
+				if (response.data.status === 'requires_action') {
+					return confirmCard(
+						response.data.clientSecret,
+						stripe,
+						paymentMethodId
+					);
+				}
 				if (response.success) {
 					setError(null);
 					window.opener.redirectToCallback('notices-code=payment');

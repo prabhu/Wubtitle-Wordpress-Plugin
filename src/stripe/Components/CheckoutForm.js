@@ -62,7 +62,7 @@ export default function CheckoutForm(props) {
 			setError(response.error.message);
 			return;
 		}
-		createSubscription(response.paymentMethod.id, values);
+		createSubscription(response.paymentMethod.id, values, stripe);
 	};
 
 	return (
