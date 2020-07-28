@@ -66,7 +66,7 @@ function App() {
 			})
 			.then((result) => {
 				if (result.error) {
-					setError(result.error);
+					setError(result.error.message);
 				}
 				if (result.success) {
 					setError(null);
