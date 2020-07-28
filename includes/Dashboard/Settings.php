@@ -189,7 +189,7 @@ class Settings {
 	 * @return void
 	 */
 	private function render_plan_update( $cancelling ) {
-		if ( ! $cancelling && ! get_option( 'wubtitle_free' ) ) {
+		if ( ! $cancelling && ! get_option( 'wubtitle_free' ) && $this->price_info_plans ) {
 			?>
 			<a href="#" id="cancel-license-button" style="text-decoration: underline; color:red; margin-right:10px;" >
 				<?php esc_html_e( 'Unsubscribe', 'wubtitle' ); ?>
@@ -252,13 +252,6 @@ class Settings {
 			);
 			remove_action( 'update_option_wubtitle_license_key', array( $this, 'check_license' ) );
 			update_option( 'wubtitle_license_key', null );
-		} elseif ( $validation['verified'] ) {
-			add_settings_error(
-				'wubtitle_license_key',
-				esc_attr( 'invalid_license' ),
-				__( 'Valid product license. Subscription plan updated.', 'wubtitle' ),
-				'error'
-			);
 		}
 	}
 
