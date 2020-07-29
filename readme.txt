@@ -41,6 +41,14 @@ Wubtitle is a plugin that generates:
 
 == Changelog ==
 
+= 1.0.2 =
+Release Date: July 29h, 2020
+
+Bugfixes:
+
+ * Fix license validation when w3 total cache is enabled
+ * Other minor bugfixes
+
 = 1.0.1 =
 Release Date: July 27h, 2020
 

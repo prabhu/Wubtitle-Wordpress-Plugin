@@ -49,7 +49,7 @@ class Activation {
 		if ( 200 === $code_response ) {
 			$response_body = json_decode( wp_remote_retrieve_body( $response ) );
 			update_option( 'wubtitle_token', $response_body->data->token, false );
-			update_option( 'wubtitle_token_time', time() + ( MINUTE_IN_SECONDS * 5 ) );
+			update_option( 'wubtitle_token_time', time() + ( MINUTE_IN_SECONDS * 5 ), false );
 		}
 	}
 

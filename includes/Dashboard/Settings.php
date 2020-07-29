@@ -251,7 +251,7 @@ class Settings {
 				'error'
 			);
 			remove_action( 'update_option_wubtitle_license_key', array( $this, 'check_license' ) );
-			update_option( 'wubtitle_license_key', null );
+			delete_option( 'wubtitle_license_key' );
 		}
 	}
 
