@@ -28,6 +28,7 @@ class ApiPricingPlan {
 		add_action( 'wp_ajax_update_payment_method', array( $this, 'update_payment_method' ) );
 		add_action( 'wp_ajax_change_plan', array( $this, 'change_plan' ) );
 		add_action( 'wp_ajax_create_subscription', array( $this, 'create_subscription' ) );
+		add_action( 'wp_ajax_confirm_subscription', array( $this, 'confirm_subscription' ) );
 	}
 	/**
 	 * Calls the backend endpoint to confirm the plan change.
@@ -333,17 +334,13 @@ class ApiPricingPlan {
 	 * @return void
 	 */
 	public function create_subscription() {
-		$site_url = get_site_url();
-		if ( ! isset( $_POST['_ajax_nonce'], $_POST['email'], $_POST['paymentMethodId'], $_POST['planId'], $_POST['invoiceObject'] ) ) {
+		if ( ! isset( $_POST['_ajax_nonce'], $_POST['invoiceObject'], $_POST['email'] ) ) {
 			wp_send_json_error( __( 'An error occurred. Please try again in a few minutes.', 'wubtitle' ) );
 		}
-		$email             = sanitize_text_field( wp_unslash( $_POST['email'] ) );
-		$payment_method_id = sanitize_text_field( wp_unslash( $_POST['paymentMethodId'] ) );
-		$plan_id           = sanitize_text_field( wp_unslash( $_POST['planId'] ) );
-		$nonce             = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
-		$invoice_data      = sanitize_text_field( wp_unslash( $_POST['invoiceObject'] ) );
-		$invoice_object    = json_decode( $invoice_data );
-		$site_url          = sanitize_text_field( wp_unslash( $site_url ) );
+		$email          = sanitize_text_field( wp_unslash( $_POST['email'] ) );
+		$nonce          = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
+		$invoice_data   = sanitize_text_field( wp_unslash( $_POST['invoiceObject'] ) );
+		$invoice_object = json_decode( $invoice_data );
 		check_ajax_referer( 'itr_ajax_nonce', $nonce );
 
 		$invoice_details = Loader::get( 'invoice_helper' )->build_invoice_array( $invoice_object );
@@ -353,18 +350,15 @@ class ApiPricingPlan {
 
 		$body = array(
 			'data' => array(
-				'email'           => $email,
-				'domainUrl'       => $site_url,
-				'siteLang'        => explode( '_', get_locale(), 2 )[0],
-				'paymentMethodId' => $payment_method_id,
-				'planId'          => $plan_id,
-				'invoiceDetails'  => $invoice_details,
+				'email'          => $email,
+				'siteLang'       => explode( '_', get_locale(), 2 )[0],
+				'invoiceDetails' => $invoice_details,
 			),
 		);
 
 		$license_key   = get_option( 'wubtitle_license_key' );
 		$response      = wp_remote_post(
-			WUBTITLE_ENDPOINT . 'stripe/checkout/create',
+			WUBTITLE_ENDPOINT . 'stripe/checkout/setup',
 			array(
 				'method'  => 'POST',
 				'timeout' => 10,
@@ -386,6 +380,58 @@ class ApiPricingPlan {
 		);
 		$response_body = json_decode( wp_remote_retrieve_body( $response ) );
 		if ( 201 !== $code_response ) {
+			$message = 402 === $code_response ? $response_body->errors->title : $message[ $code_response ];
+			wp_send_json_error( $message );
+		}
+		$client_secret = $response_body->data->clientSecret;
+		wp_send_json_success( $client_secret );
+	}
+
+	/**
+	 * Confirm stripe subscription.
+	 *
+	 * @return void
+	 */
+	public function confirm_subscription() {
+		if ( ! isset( $_POST['_ajax_nonce'], $_POST['planId'], $_POST['setupIntent'] ) ) {
+			wp_send_json_error( __( 'An error occurred. Please try again in a few minutes.', 'wubtitle' ) );
+		}
+		$plan_id      = sanitize_text_field( wp_unslash( $_POST['planId'] ) );
+		$setup_object = sanitize_text_field( wp_unslash( $_POST['setupIntent'] ) );
+		$nonce        = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
+		$setup_intent = json_decode( $setup_object )->setupIntent;
+		check_ajax_referer( 'itr_ajax_nonce', $nonce );
+		$body = array(
+			'data' => array(
+				'planId'      => $plan_id,
+				'setupIntent' => $setup_intent,
+			),
+		);
+
+		$license_key   = get_option( 'wubtitle_license_key' );
+		$response      = wp_remote_post(
+			WUBTITLE_ENDPOINT . 'stripe/checkout/confirm',
+			array(
+				'method'  => 'POST',
+				'timeout' => 10,
+				'headers' => array(
+					'Content-Type' => 'application/json; charset=utf-8',
+					'licenseKey'   => $license_key,
+					'domainUrl'    => get_site_url(),
+				),
+				'body'    => wp_json_encode( $body ),
+			)
+		);
+		$code_response = $this->is_successful_response( $response ) ? wp_remote_retrieve_response_code( $response ) : '500';
+		$message       = array(
+			'400' => __( 'An error occurred. Please try again in a few minutes', 'wubtitle' ),
+			'401' => __( 'An error occurred. Please try again in a few minutes', 'wubtitle' ),
+			'403' => __( 'Access denied', 'wubtitle' ),
+			'500' => __( 'Could not contact the server', 'wubtitle' ),
+			''    => __( 'Could not contact the server', 'wubtitle' ),
+		);
+		$response_body = json_decode( wp_remote_retrieve_body( $response ) );
+		if ( 200 !== $code_response ) {
 			$message = 402 === $code_response ? $response_body->errors->title : $message[ $code_response ];
 			wp_send_json_error( $message );
 		}
