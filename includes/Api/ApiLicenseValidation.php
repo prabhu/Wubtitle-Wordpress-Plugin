@@ -24,6 +24,7 @@ class ApiLicenseValidation {
 	 */
 	public function run() {
 		add_action( 'rest_api_init', array( $this, 'register_license_validation_route' ) );
+		add_action( 'rest_api_init', array( $this, 'register_reset_invalid_license_route' ) );
 	}
 
 	/**
@@ -40,6 +41,68 @@ class ApiLicenseValidation {
 				'callback' => array( $this, 'auth_and_get_job_list' ),
 			)
 		);
+	}
+
+	/**
+	 * Creates new REST route.
+	 *
+	 * @return void
+	 */
+	public function register_reset_invalid_license_route() {
+		register_rest_route(
+			'wubtitle/v1',
+			'/reset-user',
+			array(
+				'methods'  => 'POST',
+				'callback' => array( $this, 'get_init_data' ),
+			)
+		);
+	}
+
+
+	/**
+	 * JWT Authentication and reset user data.
+	 *
+	 * @param \WP_REST_Request $request valori della richiesta.
+	 * @return WP_REST_Response|array<mixed>
+	 */
+	public function get_init_data( $request ) {
+		$headers          = $request->get_headers();
+		$token            = $headers['token'][0];
+		$current_token    = get_option( 'wubtitle_token' );
+		$token_expiration = get_option( 'wubtitle_token_time' );
+		if ( $token !== $current_token && time() > $token_expiration ) {
+			$error    = array(
+				'errors' => array(
+					'status' => '403',
+					'title'  => 'Authentication Failed',
+				),
+			);
+			$response = new WP_REST_Response( $error );
+			$response->set_status( 403 );
+			return $response;
+		}
+		$params = json_decode( $request->get_body() )->data;
+		// phpcs:disable WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+		// warning camel case.
+		update_option( 'wubtitle_free', $params->isFree, false );
+		update_option( 'wubtitle_license_key', $params->licenseKey, false );
+		// phpcs:enable
+		$plans          = $params->plans;
+		$wubtitle_plans = array_reduce( $plans, array( $this, 'plans_reduce' ), array() );
+		update_option( 'wubtitle_all_plans', $wubtitle_plans, false );
+
+		$message = array(
+			'data' => array(
+				'status' => '200',
+				'title'  => 'Success',
+			),
+		);
+
+		delete_option( 'wubtitle_token' );
+		delete_option( 'wubtitle_token_time' );
+
+		return $message;
 	}
 
 	/**
@@ -95,5 +158,27 @@ class ApiLicenseValidation {
 			),
 		);
 		return $data;
+	}
+
+	/**
+	 * Callback function array_reduce
+	 *
+	 * @param mixed $accumulator empty array.
+	 * @param mixed $item object to reduce.
+	 *
+	 * @return mixed
+	 */
+	public function plans_reduce( $accumulator, $item ) {
+		// phpcs:disable WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
+		// warning camel case.
+		$accumulator[ $item->rank ] = array(
+			'name'         => $item->name,
+			'stripe_code'  => $item->id,
+			'totalJobs'    => $item->totalJobs,
+			'totalSeconds' => $item->totalSeconds,
+			'dot_list'     => $item->dotlist,
+			'icon'         => $item->icon,
+		);
+		return $accumulator;
 	}
 }
