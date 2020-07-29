@@ -58,7 +58,7 @@ class Cron {
 	/**
 	 * Get info from remote and DB update.
 	 *
-	 * @return array<mixed>|void
+	 * @return array<mixed>|false|void
 	 */
 	public function get_remote_data() {
 		$license_key = get_option( 'wubtitle_license_key' );
@@ -76,6 +76,7 @@ class Cron {
 				'headers' => array(
 					'Content-Type' => 'application/json; charset=utf-8',
 					'licenseKey'   => $license_key,
+					'domainUrl'    => get_site_url(),
 				),
 				'body'    => wp_json_encode( $body ),
 			)
@@ -83,6 +84,13 @@ class Cron {
 		$code_response = wp_remote_retrieve_response_code( $response );
 		// phpcs:disable WordPress.NamingConventions.ValidVariableName.UsedPropertyNotSnakeCase
 		// warning camel case.
+		$token_expiration = get_option( 'wubtitle_token_time' );
+		if ( 401 === $code_response || 403 === $code_response ) {
+			if ( time() > $token_expiration ) {
+				Loader::get( 'activation' )->wubtitle_activation_license_key();
+			}
+			return false;
+		}
 		if ( 200 === $code_response ) {
 			$body_response      = json_decode( wp_remote_retrieve_body( $response ) );
 			$plans              = $body_response->data->plans;
