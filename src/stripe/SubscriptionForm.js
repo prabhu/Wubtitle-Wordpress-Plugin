@@ -59,49 +59,98 @@ function App() {
 		window.opener.cancelPayment();
 	};
 
-	const confirmCard = (clientSecret, stripe, paymentMethodId) => {
+	const confirmPayment = (clientSecret, paymentMethod, stripe) => {
 		stripe
 			.confirmCardPayment(clientSecret, {
-				payment_method: paymentMethodId,
+				payment_method: paymentMethod,
 			})
 			.then((result) => {
-				if (result.error) {
-					setError(result.error.message);
-				}
-				if (result.success) {
+				if (result.paymentIntent.status === 'succeeded') {
 					setError(null);
 					window.opener.redirectToCallback('notices-code=payment');
 					window.close();
 				}
+				if (result.error) {
+					setError(result.error.message);
+				}
 			});
 	};
 
-	const createSubscription = async (paymentMethodId, values, stripe) => {
+	const sendPaymentMethod = (setupIntent, stripe) => {
+		fetch(ajaxUrl, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded',
+			},
+			body: `action=confirm_subscription&planId=${planId}&_ajax_nonce=${ajaxNonce}&setupIntent=${JSON.stringify(
+				setupIntent
+			)}`,
+		})
+			.then((resp) => resp.json())
+			.then((result) => {
+				if (result.success) {
+					setError(null);
+					if (result.data.status === 'requires_action') {
+						setError(null);
+						confirmPayment(
+							result.data.clientSecret,
+							setupIntent.paymentMethod,
+							stripe
+						);
+					} else {
+						window.opener.redirectToCallback(
+							'notices-code=payment'
+						);
+						window.close();
+					}
+				} else {
+					setError(result.data);
+				}
+			});
+	};
+
+	const confirmSetup = (clientSecret, cardNumber, values, stripe) => {
+		const { name, email } = values;
+		stripe
+			.confirmCardSetup(clientSecret, {
+				payment_method: {
+					type: 'card',
+					card: cardNumber,
+					billing_details: {
+						name,
+						email,
+					},
+				},
+			})
+			.then((result) => {
+				if (result.setupIntent.status === 'succeeded') {
+					setError(null);
+					sendPaymentMethod(result, stripe);
+				}
+				if (result.error) {
+					setError(result.error.message);
+				}
+			});
+	};
+
+	const createSubscription = (cardNumber, values, stripe) => {
 		const { email } = values;
 		fetch(ajaxUrl, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded',
 			},
-			body: `action=create_subscription&paymentMethodId=${paymentMethodId}&planId=${planId}&email=${email}&_ajax_nonce=${ajaxNonce}&invoiceObject=${JSON.stringify(
+			body: `action=create_subscription&email=${email}&_ajax_nonce=${ajaxNonce}&invoiceObject=${JSON.stringify(
 				invoiceValues
 			)}`,
 		})
 			.then((resp) => resp.json())
 			.then((response) => {
-				if (response.data.status === 'requires_action') {
-					return confirmCard(
-						response.data.clientSecret,
-						stripe,
-						paymentMethodId
-					);
-				}
 				if (response.success) {
-					setError(null);
-					window.opener.redirectToCallback('notices-code=payment');
-					window.close();
+					confirmSetup(response.data, cardNumber, values, stripe);
+				} else {
+					setError(response.data);
 				}
-				setError(response.data);
 			});
 	};
 
@@ -128,7 +177,6 @@ function App() {
 							error={error}
 							backFunction={backFunction}
 							paymentPreValues={null}
-							setError={setError}
 						/>
 					</div>
 				) : (

@@ -10,13 +10,7 @@ import {
 } from '@stripe/react-stripe-js';
 
 export default function CheckoutForm(props) {
-	const {
-		createSubscription,
-		backFunction,
-		error,
-		paymentPreValues,
-		setError,
-	} = props;
+	const { createSubscription, backFunction, error, paymentPreValues } = props;
 	const stripe = useStripe();
 	const elements = useElements();
 	const [loading, setLoading] = useState(false);
@@ -36,7 +30,6 @@ export default function CheckoutForm(props) {
 	});
 
 	const handleSubmit = async (values) => {
-		const { name, email } = values;
 		if (!stripe || !elements) {
 			return;
 		}
@@ -49,20 +42,8 @@ export default function CheckoutForm(props) {
 
 		setLoading(true);
 		const cardNumber = elements.getElement(CardNumberElement);
-		const response = await stripe.createPaymentMethod({
-			type: 'card',
-			card: cardNumber,
-			billing_details: {
-				name,
-				email,
-			},
-		});
 		setLoading(false);
-		if (response.error) {
-			setError(response.error.message);
-			return;
-		}
-		createSubscription(response.paymentMethod.id, values, stripe);
+		createSubscription(cardNumber, values, stripe);
 	};
 
 	return (
