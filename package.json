@@ -4,7 +4,7 @@
   "main": "",
   "author": "CTMobi",
   "devDependencies": {
-    "@wordpress/plugins": "^2.20.2",
+    "@wordpress/plugins": "^2.20.3",
     "@wordpress/scripts": "^12.1.1",
     "csslint": "^1.0.5",
     "eslint-plugin-scanjs-rules": "^0.2.1",
@@ -48,6 +48,6 @@
     "@wordpress/api-fetch": "^3.18.0",
     "@wordpress/i18n": "^3.14.0",
     "formik": "^2.1.5",
-    "yup": "^0.29.1"
+    "yup": "^0.29.2"
   }
 }
