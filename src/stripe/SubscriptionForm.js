@@ -82,7 +82,7 @@ function App() {
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded',
 			},
-			body: `action=confirm_subscription&planId=${planId}&_ajax_nonce=${ajaxNonce}&setupIntent=${JSON.stringify(
+			body: `action=confirm_subscription&actionCheckout=create&planId=${planId}&_ajax_nonce=${ajaxNonce}&setupIntent=${JSON.stringify(
 				setupIntent
 			)}`,
 		})
@@ -140,7 +140,7 @@ function App() {
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded',
 			},
-			body: `action=create_subscription&email=${email}&_ajax_nonce=${ajaxNonce}&invoiceObject=${JSON.stringify(
+			body: `action=create_subscription&actionCheckout=create&email=${email}&_ajax_nonce=${ajaxNonce}&invoiceObject=${JSON.stringify(
 				invoiceValues
 			)}`,
 		})

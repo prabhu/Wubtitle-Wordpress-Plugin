@@ -334,9 +334,10 @@ class ApiPricingPlan {
 	 * @return void
 	 */
 	public function create_subscription() {
-		if ( ! isset( $_POST['_ajax_nonce'], $_POST['invoiceObject'], $_POST['email'] ) ) {
+		if ( ! isset( $_POST['_ajax_nonce'], $_POST['invoiceObject'], $_POST['email'], $_POST['actionCheckout'] ) ) {
 			wp_send_json_error( __( 'An error occurred. Please try again in a few minutes.', 'wubtitle' ) );
 		}
+		$action         = sanitize_text_field( wp_unslash( $_POST['actionCheckout'] ) );
 		$email          = sanitize_text_field( wp_unslash( $_POST['email'] ) );
 		$nonce          = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
 		$invoice_data   = sanitize_text_field( wp_unslash( $_POST['invoiceObject'] ) );
@@ -353,6 +354,7 @@ class ApiPricingPlan {
 				'email'          => $email,
 				'siteLang'       => explode( '_', get_locale(), 2 )[0],
 				'invoiceDetails' => $invoice_details,
+				'action'         => $action,
 			),
 		);
 
@@ -393,9 +395,10 @@ class ApiPricingPlan {
 	 * @return void
 	 */
 	public function confirm_subscription() {
-		if ( ! isset( $_POST['_ajax_nonce'], $_POST['planId'], $_POST['setupIntent'] ) ) {
+		if ( ! isset( $_POST['_ajax_nonce'], $_POST['planId'], $_POST['setupIntent'], $_POST['actionCheckout'] ) ) {
 			wp_send_json_error( __( 'An error occurred. Please try again in a few minutes.', 'wubtitle' ) );
 		}
+		$action       = sanitize_text_field( wp_unslash( $_POST['actionCheckout'] ) );
 		$plan_id      = sanitize_text_field( wp_unslash( $_POST['planId'] ) );
 		$setup_object = sanitize_text_field( wp_unslash( $_POST['setupIntent'] ) );
 		$nonce        = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
@@ -405,6 +408,7 @@ class ApiPricingPlan {
 			'data' => array(
 				'planId'      => $plan_id,
 				'setupIntent' => $setup_intent,
+				'action'      => $action,
 			),
 		);
 
