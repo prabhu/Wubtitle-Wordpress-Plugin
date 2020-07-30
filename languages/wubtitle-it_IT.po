@@ -5,8 +5,8 @@ msgstr ""
 "Project-Id-Version: Wubtitle 1.0.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/Wubtitle-"
 "Wordpress-Plugin\n"
-"POT-Creation-Date: 2020-07-24T18:34:14+02:00\n"
-"PO-Revision-Date: 2020-07-24 18:36+0200\n"
+"POT-Creation-Date: 2020-07-29T20:23:21+02:00\n"
+"PO-Revision-Date: 2020-07-29 20:24+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -17,8 +17,27 @@ msgstr ""
 "X-Domain: wubtitle\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#. Plugin Name of the plugin
+#: includes/Dashboard/Settings.php:47
+#, fuzzy
+#| msgid "Subtitle"
+msgid "Wubtitle"
+msgstr "Sottotitoli"
+
+#. Plugin URI of the plugin
+msgid "https://www.wubtitle.com"
+msgstr ""
+
 #. Description of the plugin
 msgid "Automatically generates subtitle for your videos"
+msgstr ""
+
+#. Author of the plugin
+msgid "CTMobi"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://www.ctmobi.it"
 msgstr ""
 
 #: includes/Api/ApiCancelSubscription.php:34
@@ -33,31 +52,31 @@ msgstr ""
 msgid "Invalid"
 msgstr ""
 
-#: includes/Api/ApiCancelSubscription.php:57
+#: includes/Api/ApiCancelSubscription.php:58
 msgid "Deleted successfully"
 msgstr "Abbonamento cancellato"
 
-#: includes/Api/ApiCancelSubscription.php:58
+#: includes/Api/ApiCancelSubscription.php:59
 msgid "Bad Request. Please try again in a few minutes"
 msgstr "Richiesta non valida. Riprova di nuovo tra qualche minuto"
 
-#: includes/Api/ApiCancelSubscription.php:59
+#: includes/Api/ApiCancelSubscription.php:60
 msgid "Unauthorized"
 msgstr "Non autorizzato"
 
-#: includes/Api/ApiCancelSubscription.php:60
+#: includes/Api/ApiCancelSubscription.php:61
 msgid "Forbidden"
 msgstr ""
 
-#: includes/Api/ApiCancelSubscription.php:61
+#: includes/Api/ApiCancelSubscription.php:62
 msgid "Not Found"
 msgstr "Non trovato"
 
-#: includes/Api/ApiCancelSubscription.php:62
+#: includes/Api/ApiCancelSubscription.php:63
 msgid "Internal server error"
 msgstr "Impossibile contattare il server"
 
-#: includes/Api/ApiCancelSubscription.php:63
+#: includes/Api/ApiCancelSubscription.php:64
 msgid "Bad gateway"
 msgstr ""
 
@@ -90,20 +109,20 @@ msgstr ""
 "Impossibile creare i sottotitoli. La  licenza del prodotto non è valida"
 
 #: includes/Api/ApiGetTranscript.php:80 includes/Api/ApiGetTranscript.php:226
-#: includes/Api/ApiPricingPlan.php:74 includes/Api/ApiPricingPlan.php:75
-#: includes/Api/ApiPricingPlan.php:112 includes/Api/ApiPricingPlan.php:186
-#: includes/Api/ApiPricingPlan.php:187 includes/Api/ApiPricingPlan.php:255
-#: includes/Api/ApiPricingPlan.php:256 includes/Api/ApiPricingPlan.php:297
-#: includes/Api/ApiPricingPlan.php:375 includes/Api/ApiPricingPlan.php:376
+#: includes/Api/ApiPricingPlan.php:75 includes/Api/ApiPricingPlan.php:76
+#: includes/Api/ApiPricingPlan.php:114 includes/Api/ApiPricingPlan.php:189
+#: includes/Api/ApiPricingPlan.php:190 includes/Api/ApiPricingPlan.php:259
+#: includes/Api/ApiPricingPlan.php:260 includes/Api/ApiPricingPlan.php:301
+#: includes/Api/ApiPricingPlan.php:380 includes/Api/ApiPricingPlan.php:381
 #: includes/Api/ApiRequest.php:123
 #: includes/Core/CustomPostTypes/Transcript.php:164
-#: includes/Core/Sources/YouTube.php:206 includes/Utils/InvoiceHelper.php:67
-#: includes/Utils/InvoiceHelper.php:68
+#: includes/Core/Sources/YouTube.php:206 includes/Utils/InvoiceHelper.php:68
+#: includes/Utils/InvoiceHelper.php:69
 msgid "Could not contact the server"
 msgstr "Impossibile contattare il server"
 
 #: includes/Api/ApiGetTranscript.php:81 includes/Api/ApiGetTranscript.php:227
-#: includes/Api/ApiRequest.php:222
+#: includes/Api/ApiRequest.php:223
 #: includes/Core/CustomPostTypes/Transcript.php:165
 #: includes/Core/Sources/YouTube.php:207
 msgid "Error, no more video left for your subscription plan"
@@ -123,45 +142,45 @@ msgstr ""
 "Errore: questo video non ha ancora i sottititoli. E' necessario generarli "
 "per ottenere la trascrizione"
 
-#: includes/Api/ApiPricingPlan.php:43 includes/Api/ApiPricingPlan.php:90
-#: includes/Api/ApiPricingPlan.php:149 includes/Api/ApiPricingPlan.php:159
-#: includes/Api/ApiPricingPlan.php:208 includes/Api/ApiPricingPlan.php:221
-#: includes/Api/ApiPricingPlan.php:273 includes/Api/ApiPricingPlan.php:330
-#: includes/Api/ApiPricingPlan.php:343 includes/Dashboard/CancelPage.php:33
+#: includes/Api/ApiPricingPlan.php:43 includes/Api/ApiPricingPlan.php:91
+#: includes/Api/ApiPricingPlan.php:151 includes/Api/ApiPricingPlan.php:161
+#: includes/Api/ApiPricingPlan.php:211 includes/Api/ApiPricingPlan.php:224
+#: includes/Api/ApiPricingPlan.php:277 includes/Api/ApiPricingPlan.php:334
+#: includes/Api/ApiPricingPlan.php:347 includes/Dashboard/CancelPage.php:33
 #: includes/Dashboard/PaymentTemplate.php:39
 #: includes/Dashboard/PaymentTemplate.php:80
-#: includes/Dashboard/PaymentTemplate.php:119
-#: includes/Dashboard/PaymentTemplate.php:165
+#: includes/Dashboard/PaymentTemplate.php:121
+#: includes/Dashboard/PaymentTemplate.php:169
 #: includes/Utils/InvoiceHelper.php:33
 msgid "An error occurred. Please try again in a few minutes."
 msgstr "Si è verificato un errore. Riprova di nuovo tra qualche minuto."
 
-#: includes/Api/ApiPricingPlan.php:55 includes/Api/ApiPricingPlan.php:96
+#: includes/Api/ApiPricingPlan.php:55 includes/Api/ApiPricingPlan.php:97
 #: includes/Api/ApiRequest.php:104
 msgid "Unable to create subtitles. The product license key is missing."
 msgstr "Impossibile creare i sottotitoli. La  licenza del prodotto è assente."
 
-#: includes/Api/ApiPricingPlan.php:71 includes/Api/ApiPricingPlan.php:72
-#: includes/Api/ApiPricingPlan.php:110 includes/Api/ApiPricingPlan.php:183
-#: includes/Api/ApiPricingPlan.php:184 includes/Api/ApiPricingPlan.php:252
-#: includes/Api/ApiPricingPlan.php:253 includes/Api/ApiPricingPlan.php:295
-#: includes/Api/ApiPricingPlan.php:372 includes/Api/ApiPricingPlan.php:373
-#: includes/Utils/InvoiceHelper.php:64 includes/Utils/InvoiceHelper.php:65
+#: includes/Api/ApiPricingPlan.php:72 includes/Api/ApiPricingPlan.php:73
+#: includes/Api/ApiPricingPlan.php:112 includes/Api/ApiPricingPlan.php:186
+#: includes/Api/ApiPricingPlan.php:187 includes/Api/ApiPricingPlan.php:256
+#: includes/Api/ApiPricingPlan.php:257 includes/Api/ApiPricingPlan.php:299
+#: includes/Api/ApiPricingPlan.php:377 includes/Api/ApiPricingPlan.php:378
+#: includes/Utils/InvoiceHelper.php:65 includes/Utils/InvoiceHelper.php:66
 msgid "An error occurred. Please try again in a few minutes"
 msgstr "Si è verificato un errore.  Riprova di nuovo tra qualche minuto"
 
-#: includes/Api/ApiPricingPlan.php:73 includes/Api/ApiPricingPlan.php:111
-#: includes/Api/ApiPricingPlan.php:185 includes/Api/ApiPricingPlan.php:254
-#: includes/Api/ApiPricingPlan.php:296 includes/Api/ApiPricingPlan.php:374
-#: includes/Utils/InvoiceHelper.php:66
+#: includes/Api/ApiPricingPlan.php:74 includes/Api/ApiPricingPlan.php:113
+#: includes/Api/ApiPricingPlan.php:188 includes/Api/ApiPricingPlan.php:258
+#: includes/Api/ApiPricingPlan.php:300 includes/Api/ApiPricingPlan.php:379
+#: includes/Utils/InvoiceHelper.php:67
 msgid "Access denied"
 msgstr "Accesso negato"
 
-#: includes/Api/ApiPricingPlan.php:163
+#: includes/Api/ApiPricingPlan.php:165
 msgid "The product license key is missing."
 msgstr "Errore, la licenza del prodotto è assente."
 
-#: includes/Api/ApiPricingPlan.php:225
+#: includes/Api/ApiPricingPlan.php:228
 msgid "Unable to update payment data. The product license key is missing."
 msgstr ""
 "Impossibile aggiornare i dati di pagamento. La licenza del prodotto è "
@@ -193,18 +212,18 @@ msgid "Unable to create subtitles. Invalid product license"
 msgstr ""
 "Impossibile creare i sottotitoli. La  licenza del prodotto non è valida"
 
-#: includes/Api/ApiRequest.php:223
+#: includes/Api/ApiRequest.php:224
 msgid "Error, language not supported for your subscription plan"
 msgstr "Errore, lingua non supportata per il tuo piano di abbonamento"
 
-#: includes/Api/ApiRequest.php:224
+#: includes/Api/ApiRequest.php:225
 #: includes/MediaLibrary/MediaLibraryExtented.php:73
 #: includes/MediaLibrary/MediaLibraryExtented.php:200 build/index.js:1
 #: src/block/WubtitlePanel.js:92
 msgid "Unsupported video format for free plan"
 msgstr "Formato video non supportato per il piano free"
 
-#: includes/Api/ApiRequest.php:229
+#: includes/Api/ApiRequest.php:230
 msgid ""
 "Error, video length is longer than minutes available for your subscription "
 "plan (minutes left "
@@ -212,7 +231,7 @@ msgstr ""
 "Errore, la durata del video è maggiore dei minuti disponibili per il tuo "
 "piano di abbonamento (minuti rimasti "
 
-#: includes/Api/ApiRequest.php:229
+#: includes/Api/ApiRequest.php:230
 msgid ", video left "
 msgstr ", video rimasti "
 
@@ -348,91 +367,91 @@ msgstr "Impostazioni Wubtitle"
 msgid "Licensing"
 msgstr "Licenza"
 
-#: includes/Dashboard/Settings.php:92
+#: includes/Dashboard/Settings.php:93
 msgid "Plan: "
 msgstr "Piano: "
 
-#: includes/Dashboard/Settings.php:101
+#: includes/Dashboard/Settings.php:102
 msgid "Generated video subtitles: "
 msgstr "Sottotitoli generati: "
 
-#: includes/Dashboard/Settings.php:107
+#: includes/Dashboard/Settings.php:108
 msgid "Video time spent: "
 msgstr "Tempo video utilizzato: "
 
-#: includes/Dashboard/Settings.php:109
+#: includes/Dashboard/Settings.php:110
 msgid " hours"
 msgstr " ore"
 
-#: includes/Dashboard/Settings.php:144
+#: includes/Dashboard/Settings.php:145
 msgid "Payment successful"
 msgstr "Pagamento effettuato"
 
-#: includes/Dashboard/Settings.php:145
+#: includes/Dashboard/Settings.php:146
 msgid "Payment information updated"
 msgstr "Metodo di pagamento aggiornato"
 
-#: includes/Dashboard/Settings.php:146
+#: includes/Dashboard/Settings.php:147
 msgid "License key sent, check your email!"
 msgstr "Licenza inviata, controlla l'email!"
 
-#: includes/Dashboard/Settings.php:147
+#: includes/Dashboard/Settings.php:148
 msgid "Unsubscription successful"
 msgstr "Iscrizione annullata con successo"
 
-#: includes/Dashboard/Settings.php:148
+#: includes/Dashboard/Settings.php:149
 msgid "Reactivation of the plan successful"
 msgstr "Riattivazione del piano andato a buon fine"
 
-#: includes/Dashboard/Settings.php:174
+#: includes/Dashboard/Settings.php:150
+msgid "Invalid license or domain, the license key will be reset"
+msgstr "Licenza o dominio non validi, la licenza verrà resettata"
+
+#: includes/Dashboard/Settings.php:179
 msgid "Automatic renewal: "
 msgstr "Rinnovo automatico: "
 
-#: includes/Dashboard/Settings.php:176
+#: includes/Dashboard/Settings.php:181
 msgid ""
 "You requested the subscription cancellation. Your plan will be valid until  "
 msgstr ""
 "Hai richiesto la cancellazione dell'abbonamento. Il tuo piano sarà valido "
 "fino al "
 
-#: includes/Dashboard/Settings.php:190
+#: includes/Dashboard/Settings.php:195
 msgid "Unsubscribe"
 msgstr "Annulla l'iscrizione"
 
-#: includes/Dashboard/Settings.php:193
+#: includes/Dashboard/Settings.php:198
 msgid "Update email or payment detail"
 msgstr "Aggiorna email o dettagli pagamento"
 
-#: includes/Dashboard/Settings.php:196
+#: includes/Dashboard/Settings.php:201
 msgid "Modify plan"
 msgstr "Modifica piano"
 
-#: includes/Dashboard/Settings.php:202
+#: includes/Dashboard/Settings.php:207
 msgid "Reactivate plan"
 msgstr "Riattiva piano"
 
-#: includes/Dashboard/Settings.php:237
+#: includes/Dashboard/Settings.php:241
 msgid "Unable to update. Expired product license."
 msgstr "Impossibile aggiornare. Licenza del prodotto scaduta."
 
-#: includes/Dashboard/Settings.php:238
+#: includes/Dashboard/Settings.php:242
 msgid "Unable to update. Invalid product license."
 msgstr "Impossibile aggiornare. Licenza del prodotto non valida."
 
-#: includes/Dashboard/Settings.php:239
+#: includes/Dashboard/Settings.php:243
 msgid ""
 "An error occurred while updating licence. Please try again in a few minutes."
 msgstr ""
 "Si è verificato un errore durante l'aggiornamento della licenza. Riprova di "
 "nuovo tra qualche minuto."
 
-#: includes/Dashboard/Settings.php:240
+#: includes/Dashboard/Settings.php:244
 msgid "Could not contact the server."
 msgstr "Impossibile contattare il server."
-
-#: includes/Dashboard/Settings.php:255
-msgid "Valid product license. Subscription plan updated."
-msgstr "Licenza del prodotto valida. Piano di abbonamento aggiornato."
 
 #: includes/Dashboard/Settings.php:317
 msgid ""
@@ -537,7 +556,7 @@ msgstr "Modifica piano"
 msgid "Choose the right plan for your project"
 msgstr "Scegli il piano giusto per il tuo progetto"
 
-#: includes/Dashboard/Templates/plans_array.php:24
+#: includes/Dashboard/Templates/plans_array.php:25
 msgid ""
 "Unable to select this plan during the first month of subscription for "
 "current plan"
@@ -545,27 +564,27 @@ msgstr ""
 "Non è possibile selezionare questo piano durante il primo mese di "
 "abbonamento per il piano corrente"
 
-#: includes/Dashboard/Templates/plans_array.php:27
+#: includes/Dashboard/Templates/plans_array.php:28
 msgid " Minutes"
 msgstr " Minuti"
 
-#: includes/Dashboard/Templates/plans_array.php:27
+#: includes/Dashboard/Templates/plans_array.php:28
 msgid " Hours"
 msgstr " Ore"
 
-#: includes/Dashboard/Templates/plans_array.php:32
+#: includes/Dashboard/Templates/plans_array.php:33
 msgid "Choose this plan"
 msgstr "Scegli il piano"
 
-#: includes/Dashboard/Templates/plans_array.php:34
+#: includes/Dashboard/Templates/plans_array.php:35
 msgid "Number of video"
 msgstr "Numero di video"
 
-#: includes/Dashboard/Templates/plans_array.php:35
+#: includes/Dashboard/Templates/plans_array.php:36
 msgid "Total length of videos"
 msgstr "Lunghezza totale dei video"
 
-#: includes/Dashboard/Templates/plans_array.php:48 build_form/index.js:1
+#: includes/Dashboard/Templates/plans_array.php:49 build_form/index.js:1
 #: src/stripe/Components/PlanTable.js:10
 msgid "Your plan"
 msgstr "Il tuo piano"
@@ -709,7 +728,7 @@ msgstr "Tedesco "
 msgid "Add transcription"
 msgstr "Aggiungi trascrizione"
 
-#: includes/Utils/InvoiceHelper.php:49 includes/Utils/InvoiceHelper.php:153
+#: includes/Utils/InvoiceHelper.php:49 includes/Utils/InvoiceHelper.php:154
 msgid "Error. The product license key is missing."
 msgstr "Errore, la licenza del prodotto è assente."
 
@@ -725,7 +744,7 @@ msgstr "Errore, lingua non selezionata"
 #: assets/editor/transcriptionModalScript.js:137
 #: assets/editor/transcriptionModalScript.js:158
 #: assets/editor/transcriptionModalScript.js:180 build/index.js:1
-#: src/block/YoutubeControlPanel.js:92
+#: src/block/YoutubeControlPanel.js:99
 msgid "Select language"
 msgstr "Seleziona la lingua"
 
@@ -777,12 +796,12 @@ msgid "Getting transcript…"
 msgstr "Generazione trascrizione..."
 
 #: build/index.js:1 src/block/SubtitleControl.js:72
-#: src/block/YoutubeControlPanel.js:128
+#: src/block/YoutubeControlPanel.js:135
 msgid "Get Transcribe"
 msgstr "Ottieni trascrizione"
 
 #: build/index.js:1 src/block/WubtitlePanel.js:69
-#: src/block/YoutubeControlPanel.js:110
+#: src/block/YoutubeControlPanel.js:117
 msgid "Select the video language"
 msgstr "Seleziona la lingua del video"
 
@@ -803,9 +822,13 @@ msgstr "Ottieni trascrizione"
 msgid "Created"
 msgstr "Creata"
 
-#: build/index.js:1 src/block/YoutubeControlPanel.js:106
+#: build/index.js:1 src/block/YoutubeControlPanel.js:113
 msgid "Transcript status : "
 msgstr "Stato trascrizione: "
+
+#: build/index.js:1 src/block/YoutubeControlPanel.js:85
+msgid "Subtitles not available for this video"
+msgstr "Sottotitoli non disponibili per questo video"
 
 #: build/index.js:1 src/block/TranscriptionEditBlock.js:107
 msgid "Wubtitle transcriptions"
@@ -995,8 +1018,8 @@ msgstr "Riepilogo dati di fattura"
 msgid "VAT Code"
 msgstr "Partita IVA"
 
-#: build_form/index.js:1 src/stripe/Components/PlanTable.js:14
-#: src/stripe/Components/PlanTable.js:22 src/stripe/Components/PriceTable.js:10
+#: build_form/index.js:1 src/stripe/Components/PlanTable.js:15
+#: src/stripe/Components/PriceTable.js:10
 msgid "Price"
 msgstr "Prezzo"
 
@@ -1009,8 +1032,7 @@ msgid "Total"
 msgstr "Totale"
 
 #: build_form/index.js:1 src/stripe/Components/InfoPriceColumn.js:34
-#: src/stripe/Components/PlanTable.js:17 src/stripe/Components/PlanTable.js:28
-#: src/stripe/Components/PriceTable.js:33
+#: src/stripe/Components/PlanTable.js:22 src/stripe/Components/PriceTable.js:33
 msgid "per month"
 msgstr "per mese"
 
@@ -1038,9 +1060,12 @@ msgstr "Iscrizione a"
 msgid "plan"
 msgstr "piano"
 
-#: build_form/index.js:1 src/stripe/Components/PlanTable.js:44
+#: build_form/index.js:1 src/stripe/Components/PlanTable.js:38
 msgid "Automatic renewal"
 msgstr "Rinnovo automatico: "
+
+#~ msgid "Valid product license. Subscription plan updated."
+#~ msgstr "Licenza del prodotto valida. Piano di abbonamento aggiornato."
 
 #~ msgid "per mounth"
 #~ msgstr "per mese"
