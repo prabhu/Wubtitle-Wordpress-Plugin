@@ -145,7 +145,6 @@ class Settings {
 		$notice_messages = array(
 			'payment'        => __( 'Payment successful', 'wubtitle' ),
 			'update'         => __( 'Payment information updated', 'wubtitle' ),
-			'reset'          => __( 'License key sent, check your email!', 'wubtitle' ),
 			'delete'         => __( 'Unsubscription successful', 'wubtitle' ),
 			'reactivate'     => __( 'Reactivation of the plan successful', 'wubtitle' ),
 			'invalidLicense' => __( 'Invalid license or domain, the license key will be reset', 'wubtitle' ),
@@ -361,15 +360,6 @@ class Settings {
 		}
 		?>
 		<input class="regular-text" type="<?php echo esc_attr( $args['type'] ); ?>" name="<?php echo esc_attr( $args['name'] ); ?>" value="<?php echo esc_attr( $option ); ?>" placeholder="<?php echo esc_attr( $args['placeholder'] ); ?>">
-		<?php
-		if ( ! get_option( 'wubtitle_free' ) && empty( get_option( 'wubtitle_license_key' ) ) ) :
-			?>
-			<a href="#" id="reset-license" style="text-decoration: underline" >
-				<?php esc_html_e( 'Reset license key', 'wubtitle' ); ?>
-			</a>
-			<?php
-		endif;
-		?>
 		<p class="description"><?php echo esc_html( $args['description'] ); ?></p>
 		<?php
 	}

@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import * as Yup from 'yup';
 import { __ } from '@wordpress/i18n';
 import { Formik, Form, Field } from 'formik';
@@ -7,8 +6,13 @@ import provinces from '../data/provinces.json';
 import euCountries from '../data/europeanCountries.json';
 
 export default function CheckoutForm(props) {
-	const { invoicePreValues, handleSubmit, cancelFunction, error } = props;
-	const [loading, setLoading] = useState(false);
+	const {
+		invoicePreValues,
+		handleSubmit,
+		cancelFunction,
+		error,
+		loading,
+	} = props;
 	const requiredMessage = __('Required', 'wubtitle');
 
 	const DisplayingErrorMessagesSchema = Yup.lazy((values) => {
@@ -102,9 +106,7 @@ export default function CheckoutForm(props) {
 				initialValues={initValues}
 				validationSchema={DisplayingErrorMessagesSchema}
 				onSubmit={(values) => {
-					setLoading(true);
 					handleSubmit(values);
-					setLoading(false);
 				}}
 			>
 				{({ errors, touched, values }) => (
