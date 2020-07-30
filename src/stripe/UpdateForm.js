@@ -78,9 +78,11 @@ function App() {
 			.then((resp) => resp.json())
 			.then((result) => {
 				if (result.success) {
+					setLoading(false);
 					window.opener.redirectToCallback('notices-code=payment');
 					window.close();
 				} else {
+					setLoading(false);
 					setError(result.data);
 				}
 			});
@@ -108,12 +110,14 @@ function App() {
 					sendPaymentMethod(result, stripe, values);
 				}
 				if (result.error) {
+					setLoading(false);
 					setError(result.error.message);
 				}
 			});
 	};
 
 	const createSubscription = (cardNumber, values, stripe) => {
+		setLoading(true);
 		const { email } = values;
 		let actionCheckout = 'updateInvoice';
 		if (cardNumber) {
@@ -131,12 +135,14 @@ function App() {
 			.then((resp) => resp.json())
 			.then((response) => {
 				if (response.data === 'updateInvoice') {
+					setLoading(false);
 					setError(null);
 					window.opener.redirectToCallback('notices-code=update');
 					window.close();
 				} else if (response.success) {
 					confirmSetup(response.data, cardNumber, values, stripe);
 				} else {
+					setLoading(false);
 					setError(response.data);
 				}
 			});
@@ -175,6 +181,7 @@ function App() {
 							paymentPreValues={paymentPreValues}
 							error={error}
 							setError={setError}
+							loading={loading}
 						/>
 					</div>
 				) : (

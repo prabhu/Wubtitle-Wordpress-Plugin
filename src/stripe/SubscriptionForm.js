@@ -70,11 +70,13 @@ function App() {
 			})
 			.then((result) => {
 				if (result.paymentIntent.status === 'succeeded') {
+					setLoading(false);
 					setError(null);
 					window.opener.redirectToCallback('notices-code=payment');
 					window.close();
 				}
 				if (result.error) {
+					setLoading(false);
 					setError(result.error.message);
 				}
 			});
@@ -106,12 +108,14 @@ function App() {
 							stripe
 						);
 					} else {
+						setLoading(false);
 						window.opener.redirectToCallback(
 							'notices-code=payment'
 						);
 						window.close();
 					}
 				} else {
+					setLoading(false);
 					setError(result.data);
 				}
 			});
@@ -131,17 +135,22 @@ function App() {
 				},
 			})
 			.then((result) => {
-				if (result.setupIntent.status === 'succeeded') {
+				if (
+					result.setupIntent &&
+					result.setupIntent.status === 'succeeded'
+				) {
 					setError(null);
 					sendPaymentMethod(result, stripe, values);
 				}
 				if (result.error) {
+					setLoading(false);
 					setError(result.error.message);
 				}
 			});
 	};
 
 	const createSubscription = (cardNumber, values, stripe) => {
+		setLoading(true);
 		const { email } = values;
 		fetch(ajaxUrl, {
 			method: 'POST',
@@ -157,6 +166,7 @@ function App() {
 				if (response.success) {
 					confirmSetup(response.data, cardNumber, values, stripe);
 				} else {
+					setLoading(false);
 					setError(response.data);
 				}
 			});
@@ -185,6 +195,7 @@ function App() {
 							error={error}
 							backFunction={backFunction}
 							paymentPreValues={null}
+							loading={loading}
 						/>
 					</div>
 				) : (

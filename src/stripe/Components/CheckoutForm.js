@@ -10,10 +10,15 @@ import {
 } from '@stripe/react-stripe-js';
 
 export default function CheckoutForm(props) {
-	const { createSubscription, backFunction, error, paymentPreValues } = props;
+	const {
+		createSubscription,
+		backFunction,
+		error,
+		paymentPreValues,
+		loading,
+	} = props;
 	const stripe = useStripe();
 	const elements = useElements();
-	const [loading, setLoading] = useState(false);
 	const [changeOn, setChangeOn] = useState(false);
 	const requiredMessage = __('Required', 'wubtitle');
 	const DisplayingErrorMessagesSchema = Yup.lazy(() => {
@@ -41,10 +46,8 @@ export default function CheckoutForm(props) {
 			return;
 		}
 
-		setLoading(true);
 		cardNumber = elements.getElement(CardNumberElement);
 		createSubscription(cardNumber, values, stripe);
-		setLoading(false);
 	};
 
 	return (
