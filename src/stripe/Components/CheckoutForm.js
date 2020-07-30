@@ -15,11 +15,10 @@ export default function CheckoutForm(props) {
 		backFunction,
 		error,
 		paymentPreValues,
-		setError,
+		loading,
 	} = props;
 	const stripe = useStripe();
 	const elements = useElements();
-	const [loading, setLoading] = useState(false);
 	const [changeOn, setChangeOn] = useState(false);
 	const requiredMessage = __('Required', 'wubtitle');
 	const DisplayingErrorMessagesSchema = Yup.lazy(() => {
@@ -36,33 +35,19 @@ export default function CheckoutForm(props) {
 	});
 
 	const handleSubmit = async (values) => {
-		const { name, email } = values;
 		if (!stripe || !elements) {
 			return;
 		}
+		let cardNumber = null;
 		if (paymentPreValues && !changeOn) {
 			values.name = paymentPreValues.name;
 			values.email = paymentPreValues.email;
-			createSubscription(paymentPreValues.paymentMethodId, values);
+			createSubscription(cardNumber, values, stripe);
 			return;
 		}
 
-		setLoading(true);
-		const cardNumber = elements.getElement(CardNumberElement);
-		const response = await stripe.createPaymentMethod({
-			type: 'card',
-			card: cardNumber,
-			billing_details: {
-				name,
-				email,
-			},
-		});
-		setLoading(false);
-		if (response.error) {
-			setError(response.error.message);
-			return;
-		}
-		createSubscription(response.paymentMethod.id, values);
+		cardNumber = elements.getElement(CardNumberElement);
+		createSubscription(cardNumber, values, stripe);
 	};
 
 	return (
