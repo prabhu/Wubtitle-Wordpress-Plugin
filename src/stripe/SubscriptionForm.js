@@ -66,6 +66,7 @@ function App() {
 		stripe
 			.confirmCardPayment(clientSecret, {
 				payment_method: paymentMethod,
+				setup_future_usage: 'off_session',
 			})
 			.then((result) => {
 				if (result.paymentIntent.status === 'succeeded') {
