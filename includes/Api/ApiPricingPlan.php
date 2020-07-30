@@ -23,7 +23,6 @@ class ApiPricingPlan {
 	public function run() {
 		add_action( 'wp_ajax_submit_plan', array( $this, 'send_plan' ) );
 
-		add_action( 'wp_ajax_reset_license', array( $this, 'reset_license' ) );
 		add_action( 'wp_ajax_reactivate_plan', array( $this, 'reactivate_plan' ) );
 		add_action( 'wp_ajax_update_payment_method', array( $this, 'update_payment_method' ) );
 		add_action( 'wp_ajax_change_plan', array( $this, 'change_plan' ) );
@@ -271,45 +270,7 @@ class ApiPricingPlan {
 		);
 		wp_send_json_success( $data );
 	}
-	/**
-	 * Gets the data from JavaScript and sends it to the endpoint for license reset.
-	 *
-	 * @return void
-	 */
-	public function reset_license() {
-		$site_url = get_site_url();
-		if ( ! isset( $_POST['_ajax_nonce'] ) ) {
-			wp_send_json_error( __( 'An error occurred. Please try again in a few minutes.', 'wubtitle' ) );
-		}
-		$nonce    = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
-		$site_url = sanitize_text_field( wp_unslash( $site_url ) );
-		check_ajax_referer( 'itr_ajax_nonce', $nonce );
-		$body          = array(
-			'data' => array(
-				'domainUrl' => $site_url,
-			),
-		);
-		$response      = wp_remote_post(
-			WUBTITLE_ENDPOINT . 'key/fetch',
-			array(
-				'method'  => 'POST',
-				'headers' => array(
-					'Content-Type' => 'application/json; charset=utf-8',
-				),
-				'body'    => wp_json_encode( $body ),
-			)
-		);
-		$code_response = $this->is_successful_response( $response ) ? wp_remote_retrieve_response_code( $response ) : '500';
-		$message       = array(
-			'400' => __( 'An error occurred. Please try again in a few minutes', 'wubtitle' ),
-			'403' => __( 'Access denied', 'wubtitle' ),
-			'500' => __( 'Could not contact the server', 'wubtitle' ),
-		);
-		if ( 200 !== $code_response ) {
-			wp_send_json_error( $message[ $code_response ] );
-		}
-		wp_send_json_success();
-	}
+
 	/**
 	 * Checks if the request was successful.
 	 *
