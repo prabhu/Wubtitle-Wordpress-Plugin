@@ -100,7 +100,10 @@ function App() {
 				},
 			})
 			.then((result) => {
-				if (result.setupIntent.status === 'succeeded') {
+				if (
+					result.setupIntent &&
+					result.setupIntent.status === 'succeeded'
+				) {
 					setError(null);
 					sendPaymentMethod(result, stripe, values);
 				}

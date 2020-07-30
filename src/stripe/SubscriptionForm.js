@@ -95,7 +95,10 @@ function App() {
 			.then((result) => {
 				if (result.success) {
 					setError(null);
-					if (result.data.status === 'requires_action') {
+					if (
+						result.data &&
+						result.data.status === 'requires_action'
+					) {
 						setError(null);
 						confirmPayment(
 							result.data.clientSecret,
