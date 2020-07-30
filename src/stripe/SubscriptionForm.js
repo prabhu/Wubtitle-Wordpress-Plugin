@@ -24,11 +24,13 @@ function App() {
 			: 'pk_live_PvwHkJ49ry3lfXwkXIx2YKBE00S15aBYz7';
 	const stripePromise = loadStripe(stripeKey);
 
+	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState(null);
 	const [invoiceValues, setInvoiceValues] = useState(null);
 	const [isBack, setIsBack] = useState(false);
 
 	const handleSubmit = (values) => {
+		setLoading(true);
 		fetch(ajaxUrl, {
 			method: 'POST',
 			headers: {
@@ -38,6 +40,7 @@ function App() {
 		})
 			.then((resp) => resp.json())
 			.then((response) => {
+				setLoading(false);
 				if (response.success) {
 					setError(null);
 					values.tax = response.data;
@@ -58,25 +61,114 @@ function App() {
 	const cancelFunction = () => {
 		window.opener.cancelPayment();
 	};
-	const createSubscription = (paymentMethodId, values) => {
+
+	const confirmPayment = (clientSecret, paymentMethod, stripe) => {
+		stripe
+			.confirmCardPayment(clientSecret, {
+				payment_method: paymentMethod,
+				setup_future_usage: 'off_session',
+			})
+			.then((result) => {
+				if (result.paymentIntent.status === 'succeeded') {
+					setLoading(false);
+					setError(null);
+					window.opener.redirectToCallback('notices-code=payment');
+					window.close();
+				}
+				if (result.error) {
+					setLoading(false);
+					setError(result.error.message);
+				}
+			});
+	};
+
+	const sendPaymentMethod = (setupIntent, stripe, values) => {
+		const { name, email } = values;
+		fetch(ajaxUrl, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded',
+			},
+			body: `action=confirm_subscription&actionCheckout=create&name=${name}&email=${email}&planId=${planId}&_ajax_nonce=${ajaxNonce}&setupIntent=${JSON.stringify(
+				setupIntent
+			)}`,
+		})
+			.then((resp) => resp.json())
+			.then((result) => {
+				if (result.success) {
+					setError(null);
+					if (
+						result.data &&
+						result.data.status === 'requires_action'
+					) {
+						setError(null);
+						confirmPayment(
+							result.data.clientSecret,
+							setupIntent.paymentMethod,
+							stripe
+						);
+					} else {
+						setLoading(false);
+						window.opener.redirectToCallback(
+							'notices-code=payment'
+						);
+						window.close();
+					}
+				} else {
+					setLoading(false);
+					setError(result.data);
+				}
+			});
+	};
+
+	const confirmSetup = (clientSecret, cardNumber, values, stripe) => {
+		const { name, email } = values;
+		stripe
+			.confirmCardSetup(clientSecret, {
+				payment_method: {
+					type: 'card',
+					card: cardNumber,
+					billing_details: {
+						name,
+						email,
+					},
+				},
+			})
+			.then((result) => {
+				if (
+					result.setupIntent &&
+					result.setupIntent.status === 'succeeded'
+				) {
+					setError(null);
+					sendPaymentMethod(result, stripe, values);
+				}
+				if (result.error) {
+					setLoading(false);
+					setError(result.error.message);
+				}
+			});
+	};
+
+	const createSubscription = (cardNumber, values, stripe) => {
+		setLoading(true);
 		const { email } = values;
 		fetch(ajaxUrl, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded',
 			},
-			body: `action=create_subscription&paymentMethodId=${paymentMethodId}&planId=${planId}&email=${email}&_ajax_nonce=${ajaxNonce}&invoiceObject=${JSON.stringify(
+			body: `action=create_subscription&actionCheckout=create&email=${email}&_ajax_nonce=${ajaxNonce}&invoiceObject=${JSON.stringify(
 				invoiceValues
 			)}`,
 		})
 			.then((resp) => resp.json())
 			.then((response) => {
 				if (response.success) {
-					setError(null);
-					window.opener.redirectToCallback('notices-code=payment');
-					window.close();
+					confirmSetup(response.data, cardNumber, values, stripe);
+				} else {
+					setLoading(false);
+					setError(response.data);
 				}
-				setError(response.data);
 			});
 	};
 
@@ -103,7 +195,7 @@ function App() {
 							error={error}
 							backFunction={backFunction}
 							paymentPreValues={null}
-							setError={setError}
+							loading={loading}
 						/>
 					</div>
 				) : (
@@ -112,6 +204,7 @@ function App() {
 						invoicePreValues={invoiceValues}
 						error={error}
 						cancelFunction={cancelFunction}
+						loading={loading}
 					/>
 				)}
 			</Elements>
