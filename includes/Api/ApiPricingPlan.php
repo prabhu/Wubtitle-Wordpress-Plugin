@@ -28,6 +28,7 @@ class ApiPricingPlan {
 		add_action( 'wp_ajax_update_payment_method', array( $this, 'update_payment_method' ) );
 		add_action( 'wp_ajax_change_plan', array( $this, 'change_plan' ) );
 		add_action( 'wp_ajax_create_subscription', array( $this, 'create_subscription' ) );
+		add_action( 'wp_ajax_check_coupon', array( $this, 'check_coupon' ) );
 	}
 	/**
 	 * Calls the backend endpoint to confirm the plan change.
@@ -386,6 +387,59 @@ class ApiPricingPlan {
 			wp_send_json_error( $message );
 		}
 		wp_send_json_success();
+	}
+
+	/**
+	 * Check coupon code.
+	 *
+	 * @return void
+	 */
+	public function check_coupon() {
+		if ( ! isset( $_POST['_ajax_nonce'], $_POST['coupon'] ) ) {
+			wp_send_json_error( __( 'An error occurred. Please try again in a few minutes.', 'wubtitle' ) );
+		}
+		$coupon = sanitize_text_field( wp_unslash( $_POST['coupon'] ) );
+		$nonce  = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
+		check_ajax_referer( 'itr_ajax_nonce', $nonce );
+
+		$body = array(
+			'data' => array(
+				'coupon' => $coupon,
+			),
+		);
+
+		$license_key   = get_option( 'wubtitle_license_key' );
+		$response      = wp_remote_post(
+			WUBTITLE_ENDPOINT . 'stripe/checkout/coupon',
+			array(
+				'method'  => 'POST',
+				'timeout' => 10,
+				'headers' => array(
+					'Content-Type' => 'application/json; charset=utf-8',
+					'licenseKey'   => $license_key,
+					'domainUrl'    => get_site_url(),
+				),
+				'body'    => wp_json_encode( $body ),
+			)
+		);
+		$code_response = $this->is_successful_response( $response ) ? wp_remote_retrieve_response_code( $response ) : '500';
+		$message       = array(
+			'400' => __( 'An error occurred. Please try again in a few minutes', 'wubtitle' ),
+			'401' => __( 'An error occurred. Please try again in a few minutes', 'wubtitle' ),
+			'403' => __( 'Access denied', 'wubtitle' ),
+			'500' => __( 'Could not contact the server', 'wubtitle' ),
+			''    => __( 'Could not contact the server', 'wubtitle' ),
+		);
+		$response_body = json_decode( wp_remote_retrieve_body( $response ) );
+		if ( 201 !== $code_response ) {
+			$message = 402 === $code_response ? $response_body->errors->title : $message[ $code_response ];
+			wp_send_json_error( $message );
+		}
+		$data = array(
+			'message' => $response_body->data->message,
+			'price'   => $response_body->data->price,
+		);
+		wp_send_json_success( $data );
 	}
 }
 
