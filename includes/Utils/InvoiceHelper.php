@@ -191,11 +191,10 @@ class InvoiceHelper {
 			'destination_code' => $invoice_details->DestinationCode,
 		);
 		$payment_data    = array(
-			'name'            => $payment_details->name,
-			'email'           => $payment_details->email,
-			'expiration'      => $payment_details->expiration,
-			'cardNumber'      => $payment_details->cardNumber,
-			'paymentMethodId' => $payment_details->paymentMethodId,
+			'name'       => $payment_details->name,
+			'email'      => $payment_details->email,
+			'expiration' => $payment_details->expiration,
+			'cardNumber' => $payment_details->cardNumber,
 		);
 		return array(
 			'invoice_data' => $invoice_data,

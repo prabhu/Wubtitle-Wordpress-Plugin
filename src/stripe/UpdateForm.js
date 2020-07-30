@@ -28,6 +28,7 @@ function App() {
 	const stripePromise = loadStripe(stripeKey);
 
 	const [error, setError] = useState(null);
+	const [loading, setLoading] = useState(false);
 	const [invoiceValues, setInvoiceValues] = useState(null);
 	const [isBack, setIsBack] = useState(false);
 	const [taxable, setTaxable] = useState(true);
@@ -39,6 +40,7 @@ function App() {
 	}, [isTaxable]);
 
 	const handleSubmit = (values) => {
+		setLoading(true);
 		fetch(ajaxUrl, {
 			method: 'POST',
 			headers: {
@@ -48,6 +50,7 @@ function App() {
 		})
 			.then((resp) => resp.json())
 			.then((response) => {
+				setLoading(false);
 				if (response.success) {
 					setError(null);
 					setTaxable(response.data);
@@ -61,25 +64,87 @@ function App() {
 			});
 	};
 
-	const createSubscription = (paymentMethodId, values) => {
-		const { name, email, lastname } = values;
+	const sendPaymentMethod = (setupIntent, stripe, values) => {
+		const { name, email } = values;
 		fetch(ajaxUrl, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded',
 			},
-			body: `action=update_payment_method&paymentMethodId=${paymentMethodId}&email=${email}&_ajax_nonce=${ajaxNonce}&name=${name}&lastname=${lastname}&invoiceObject=${JSON.stringify(
+			body: `action=confirm_subscription&actionCheckout=updateCard&name=${name}&email=${email}&_ajax_nonce=${ajaxNonce}&setupIntent=${JSON.stringify(
+				setupIntent
+			)}`,
+		})
+			.then((resp) => resp.json())
+			.then((result) => {
+				if (result.success) {
+					setLoading(false);
+					window.opener.redirectToCallback('notices-code=payment');
+					window.close();
+				} else {
+					setLoading(false);
+					setError(result.data);
+				}
+			});
+	};
+
+	const confirmSetup = (clientSecret, cardNumber, values, stripe) => {
+		const { name, email } = values;
+		stripe
+			.confirmCardSetup(clientSecret, {
+				payment_method: {
+					type: 'card',
+					card: cardNumber,
+					billing_details: {
+						name,
+						email,
+					},
+				},
+			})
+			.then((result) => {
+				if (
+					result.setupIntent &&
+					result.setupIntent.status === 'succeeded'
+				) {
+					setError(null);
+					sendPaymentMethod(result, stripe, values);
+				}
+				if (result.error) {
+					setLoading(false);
+					setError(result.error.message);
+				}
+			});
+	};
+
+	const createSubscription = (cardNumber, values, stripe) => {
+		setLoading(true);
+		const { email } = values;
+		let actionCheckout = 'updateInvoice';
+		if (cardNumber) {
+			actionCheckout = 'updateCard';
+		}
+		fetch(ajaxUrl, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded',
+			},
+			body: `action=create_subscription&actionCheckout=${actionCheckout}&email=${email}&_ajax_nonce=${ajaxNonce}&invoiceObject=${JSON.stringify(
 				invoiceValues
 			)}`,
 		})
 			.then((resp) => resp.json())
 			.then((response) => {
-				if (response.success) {
+				if (response.data === 'updateInvoice') {
+					setLoading(false);
 					setError(null);
 					window.opener.redirectToCallback('notices-code=update');
 					window.close();
+				} else if (response.success) {
+					confirmSetup(response.data, cardNumber, values, stripe);
+				} else {
+					setLoading(false);
+					setError(response.data);
 				}
-				setError(response.data);
 			});
 	};
 
@@ -117,6 +182,7 @@ function App() {
 							paymentPreValues={paymentPreValues}
 							error={error}
 							setError={setError}
+							loading={loading}
 						/>
 					</div>
 				) : (
@@ -125,6 +191,7 @@ function App() {
 						invoicePreValues={invoiceValues || invoicePreValues}
 						error={error}
 						cancelFunction={cancelFunction}
+						loading={loading}
 					/>
 				)}
 			</Elements>

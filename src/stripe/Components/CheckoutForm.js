@@ -15,13 +15,12 @@ export default function CheckoutForm(props) {
 		backFunction,
 		error,
 		paymentPreValues,
-		setError,
 		updatePrice,
+		loading,
 	} = props;
 	const { ajaxUrl, ajaxNonce } = WP_GLOBALS;
 	const stripe = useStripe();
 	const elements = useElements();
-	const [loading, setLoading] = useState(false);
 	const [changeOn, setChangeOn] = useState(false);
 	const [coupon, setCoupon] = useState(null);
 	const [couponMessage, setCouponMessage] = useState(null);
@@ -40,37 +39,22 @@ export default function CheckoutForm(props) {
 	});
 
 	const handleSubmit = async (values) => {
-		const { name, email } = values;
 		if (!stripe || !elements) {
 			return;
 		}
+		let cardNumber = null;
 		if (paymentPreValues && !changeOn) {
 			values.name = paymentPreValues.name;
 			values.email = paymentPreValues.email;
-			createSubscription(paymentPreValues.paymentMethodId, values);
+			createSubscription(cardNumber, values, stripe);
 			return;
 		}
 
-		setLoading(true);
-		const cardNumber = elements.getElement(CardNumberElement);
-		const response = await stripe.createPaymentMethod({
-			type: 'card',
-			card: cardNumber,
-			billing_details: {
-				name,
-				email,
-			},
-		});
-		setLoading(false);
-		if (response.error) {
-			setError(response.error.message);
-			return;
-		}
-		createSubscription(response.paymentMethod.id, values);
+		cardNumber = elements.getElement(CardNumberElement);
+		createSubscription(cardNumber, values, stripe);
 	};
 
 	const checkCoupon = () => {
-		setLoading(true);
 		fetch(ajaxUrl, {
 			method: 'POST',
 			headers: {
@@ -80,7 +64,6 @@ export default function CheckoutForm(props) {
 		})
 			.then((resp) => resp.json())
 			.then((response) => {
-				setLoading(false);
 				if (response.success) {
 					setCouponMessage(response.data.message);
 					updatePrice(response.data.price);
