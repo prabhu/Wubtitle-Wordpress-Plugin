@@ -18,7 +18,7 @@ label {
 	letter-spacing: 0.025em;
 }
 
-button:hover {
+button:hover:enabled {
 	color: #fff;
 	cursor: pointer;
 	background-color: #7795f8;
@@ -232,7 +232,7 @@ table tr {
 	margin: 0 -0.5rem;
 }
 
-.button-bar button {
+.button-bar button, .coupon-button {
 	background: transparent linear-gradient(257deg, #d500f9 0%, #2962ff 99%) 0% 0% no-repeat padding-box;
 	border-radius: 16px;
 	color: #fff;
@@ -243,6 +243,11 @@ table tr {
 	outline: 0;
 	display: inline-block;
 	text-transform: uppercase;
+}
+
+.coupon-button:disabled {
+	background: #bfbfbf;
+	cursor: auto;
 }
 
 .button-bar button.cancel {
@@ -554,4 +559,16 @@ table tr {
 	margin-left: -58px;
 	position: absolute;
 	transform: rotate(-18deg) translateY(8px);
+}
+
+.flex-container {
+	display: flex;
+}
+
+.center-items {
+	align-items: center;
+}
+
+.coupon-message {
+	height: 8px;
 }
