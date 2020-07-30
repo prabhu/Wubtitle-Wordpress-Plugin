@@ -346,6 +346,9 @@ class ApiPricingPlan {
 			$message = 402 === $code_response ? $response_body->errors->title : $message[ $code_response ];
 			wp_send_json_error( $message );
 		}
+		if ( 'updateInvoice' === $action ) {
+			wp_send_json_success( 'updateInvoice' );
+		}
 		$client_secret = $response_body->data->clientSecret;
 		wp_send_json_success( $client_secret );
 	}
@@ -356,11 +359,10 @@ class ApiPricingPlan {
 	 * @return void
 	 */
 	public function confirm_subscription() {
-		if ( ! isset( $_POST['_ajax_nonce'], $_POST['planId'], $_POST['setupIntent'], $_POST['actionCheckout'], $_POST['name'], $_POST['email'] ) ) {
+		if ( ! isset( $_POST['_ajax_nonce'], $_POST['setupIntent'], $_POST['actionCheckout'], $_POST['name'], $_POST['email'] ) ) {
 			wp_send_json_error( __( 'An error occurred. Please try again in a few minutes.', 'wubtitle' ) );
 		}
 		$action       = sanitize_text_field( wp_unslash( $_POST['actionCheckout'] ) );
-		$plan_id      = sanitize_text_field( wp_unslash( $_POST['planId'] ) );
 		$name         = sanitize_text_field( wp_unslash( $_POST['name'] ) );
 		$email        = sanitize_text_field( wp_unslash( $_POST['email'] ) );
 		$setup_object = sanitize_text_field( wp_unslash( $_POST['setupIntent'] ) );
@@ -369,13 +371,19 @@ class ApiPricingPlan {
 		check_ajax_referer( 'itr_ajax_nonce', $nonce );
 		$body = array(
 			'data' => array(
-				'planId'      => $plan_id,
 				'setupIntent' => $setup_intent,
 				'action'      => $action,
 				'name'        => $name,
 				'email'       => $email,
 			),
 		);
+		if ( 'create' === $action ) {
+			if ( ! isset( $_POST['planId'] ) ) {
+				wp_send_json_error( __( 'An error occurred. Please try again in a few minutes.', 'wubtitle' ) );
+			}
+			$plan_id                = sanitize_text_field( wp_unslash( $_POST['planId'] ) );
+			$body['data']['planId'] = $plan_id;
+		}
 
 		$license_key   = get_option( 'wubtitle_license_key' );
 		$response      = wp_remote_post(
@@ -408,6 +416,9 @@ class ApiPricingPlan {
 			'status'       => $response_body->data->status,
 			'clientSecret' => $response_body->data->clientSecret,
 		);
+		if ( 'updateInvoice' === $action ) {
+			wp_send_json_success();
+		}
 		wp_send_json_success( $data );
 	}
 }

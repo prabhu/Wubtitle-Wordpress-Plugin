@@ -33,17 +33,18 @@ export default function CheckoutForm(props) {
 		if (!stripe || !elements) {
 			return;
 		}
+		let cardNumber = null;
 		if (paymentPreValues && !changeOn) {
 			values.name = paymentPreValues.name;
 			values.email = paymentPreValues.email;
-			createSubscription(paymentPreValues.paymentMethodId, values);
+			createSubscription(cardNumber, values, stripe);
 			return;
 		}
 
 		setLoading(true);
-		const cardNumber = elements.getElement(CardNumberElement);
-		setLoading(false);
+		cardNumber = elements.getElement(CardNumberElement);
 		createSubscription(cardNumber, values, stripe);
+		setLoading(false);
 	};
 
 	return (
