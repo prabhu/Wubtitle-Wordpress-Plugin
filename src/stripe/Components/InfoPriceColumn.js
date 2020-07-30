@@ -17,6 +17,7 @@ const InfoPriceColumn = (props) => {
 		taxPercentage,
 		taxable,
 		expirationDate,
+		discountedPrice,
 	} = props;
 	let total = parseFloat(price);
 	if (taxable) {
@@ -54,6 +55,7 @@ const InfoPriceColumn = (props) => {
 						taxAmount={taxAmount}
 						taxable={taxable}
 						total={total}
+						discountedPrice={discountedPrice}
 					/>
 				)}
 			</div>

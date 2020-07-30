@@ -27,6 +27,7 @@ function App() {
 	const [error, setError] = useState(null);
 	const [invoiceValues, setInvoiceValues] = useState(null);
 	const [isBack, setIsBack] = useState(false);
+	const [discountedPrice, setDiscountedPrice] = useState(false);
 
 	const handleSubmit = (values) => {
 		fetch(ajaxUrl, {
@@ -80,6 +81,14 @@ function App() {
 			});
 	};
 
+	const updatePrice = (currentPrice) => {
+		if (currentPrice) {
+			setDiscountedPrice(currentPrice);
+		} else {
+			setDiscountedPrice(false);
+		}
+	};
+
 	return (
 		<div className="main columns">
 			<InfoPriceColumn
@@ -89,6 +98,7 @@ function App() {
 				taxAmount={taxAmount}
 				taxPercentage={taxPercentage}
 				taxable={invoiceValues ? invoiceValues.tax : true}
+				discountedPrice={discountedPrice}
 			/>
 
 			<Elements stripe={stripePromise}>
@@ -104,6 +114,7 @@ function App() {
 							backFunction={backFunction}
 							paymentPreValues={null}
 							setError={setError}
+							updatePrice={updatePrice}
 						/>
 					</div>
 				) : (

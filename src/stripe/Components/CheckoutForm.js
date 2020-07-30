@@ -16,11 +16,15 @@ export default function CheckoutForm(props) {
 		error,
 		paymentPreValues,
 		setError,
+		updatePrice,
 	} = props;
+	const { ajaxUrl, ajaxNonce } = WP_GLOBALS;
 	const stripe = useStripe();
 	const elements = useElements();
 	const [loading, setLoading] = useState(false);
 	const [changeOn, setChangeOn] = useState(false);
+	const [coupon, setCoupon] = useState(null);
+	const [couponMessage, setCouponMessage] = useState(null);
 	const requiredMessage = __('Required', 'wubtitle');
 	const DisplayingErrorMessagesSchema = Yup.lazy(() => {
 		let yupObject = {};
@@ -65,8 +69,63 @@ export default function CheckoutForm(props) {
 		createSubscription(response.paymentMethod.id, values);
 	};
 
+	const checkCoupon = () => {
+		setLoading(true);
+		fetch(ajaxUrl, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded',
+			},
+			body: `action=check_coupon&_ajax_nonce=${ajaxNonce}&coupon=${coupon}`,
+		})
+			.then((resp) => resp.json())
+			.then((response) => {
+				setLoading(false);
+				if (response.success) {
+					setCouponMessage(response.data.message);
+					updatePrice(response.data.price);
+				} else {
+					setCouponMessage(response.data);
+					updatePrice(false);
+				}
+			});
+	};
+
 	return (
 		<div className="checkout-form">
+			{!paymentPreValues ? (
+				<div className="title-section">
+					<h2>{__('Coupon', 'wubtitle')}</h2>
+				</div>
+			) : null}
+			{!paymentPreValues ? (
+				<div className="fields-container flex-container">
+					<div className="form-field-container">
+						<label htmlFor="name">
+							{__('Discount Code', 'wubtitle')}
+						</label>
+						<input
+							name="coupon"
+							placeholder="Coupon"
+							value={coupon}
+							onChange={(event) => setCoupon(event.target.value)}
+						/>
+						<p className="coupon-message">{couponMessage}</p>
+					</div>
+					<div className="form-field-container flex-container center-items">
+						<button
+							className="coupon-button"
+							disabled={!coupon || loading}
+							onClick={() => checkCoupon()}
+						>
+							{loading && (
+								<i className="fa fa-refresh fa-spin loading-margin" />
+							)}
+							{__('Apply Coupon', 'wubtitle')}
+						</button>
+					</div>
+				</div>
+			) : null}
 			<div className="title-section">
 				<h2>{__('Payment Details', 'wubtitle')}</h2>
 				{paymentPreValues ? (
