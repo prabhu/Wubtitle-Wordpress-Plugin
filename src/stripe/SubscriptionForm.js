@@ -24,11 +24,13 @@ function App() {
 			: 'pk_live_PvwHkJ49ry3lfXwkXIx2YKBE00S15aBYz7';
 	const stripePromise = loadStripe(stripeKey);
 
+	const [loading, setLoading] = useState(false);
 	const [error, setError] = useState(null);
 	const [invoiceValues, setInvoiceValues] = useState(null);
 	const [isBack, setIsBack] = useState(false);
 
 	const handleSubmit = (values) => {
+		setLoading(true);
 		fetch(ajaxUrl, {
 			method: 'POST',
 			headers: {
@@ -38,6 +40,7 @@ function App() {
 		})
 			.then((resp) => resp.json())
 			.then((response) => {
+				setLoading(false);
 				if (response.success) {
 					setError(null);
 					values.tax = response.data;
@@ -186,6 +189,7 @@ function App() {
 						invoicePreValues={invoiceValues}
 						error={error}
 						cancelFunction={cancelFunction}
+						loading={loading}
 					/>
 				)}
 			</Elements>

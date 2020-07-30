@@ -28,6 +28,7 @@ function App() {
 	const stripePromise = loadStripe(stripeKey);
 
 	const [error, setError] = useState(null);
+	const [loading, setLoading] = useState(false);
 	const [invoiceValues, setInvoiceValues] = useState(null);
 	const [isBack, setIsBack] = useState(false);
 	const [taxable, setTaxable] = useState(true);
@@ -39,6 +40,7 @@ function App() {
 	}, [isTaxable]);
 
 	const handleSubmit = (values) => {
+		setLoading(true);
 		fetch(ajaxUrl, {
 			method: 'POST',
 			headers: {
@@ -48,6 +50,7 @@ function App() {
 		})
 			.then((resp) => resp.json())
 			.then((response) => {
+				setLoading(false);
 				if (response.success) {
 					setError(null);
 					setTaxable(response.data);
@@ -177,6 +180,7 @@ function App() {
 						invoicePreValues={invoiceValues || invoicePreValues}
 						error={error}
 						cancelFunction={cancelFunction}
+						loading={loading}
 					/>
 				)}
 			</Elements>
