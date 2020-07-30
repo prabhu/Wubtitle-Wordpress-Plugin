@@ -24,7 +24,6 @@ class ApiPricingPlan {
 		add_action( 'wp_ajax_submit_plan', array( $this, 'send_plan' ) );
 
 		add_action( 'wp_ajax_reactivate_plan', array( $this, 'reactivate_plan' ) );
-		add_action( 'wp_ajax_update_payment_method', array( $this, 'update_payment_method' ) );
 		add_action( 'wp_ajax_change_plan', array( $this, 'change_plan' ) );
 		add_action( 'wp_ajax_create_subscription', array( $this, 'create_subscription' ) );
 		add_action( 'wp_ajax_confirm_subscription', array( $this, 'confirm_subscription' ) );
@@ -48,7 +47,6 @@ class ApiPricingPlan {
 			'data' => array(
 				'planId' => $wanted_plan,
 			),
-			'type' => 'plan',
 		);
 		$license_key = get_option( 'wubtitle_license_key' );
 		if ( empty( $license_key ) ) {
@@ -200,75 +198,6 @@ class ApiPricingPlan {
 		);
 		update_option( 'wubtitle_wanted_plan_rank', $plan_rank );
 		wp_send_json_success( $response );
-	}
-	/**
-	 * Gets the data from JavaScript and sends it to the endpoint for payment update.
-	 *
-	 * @return void
-	 */
-	public function update_payment_method() {
-		if ( ! isset( $_POST['_ajax_nonce'], $_POST['email'], $_POST['paymentMethodId'], $_POST['name'], $_POST['lastname'], $_POST['invoiceObject'] ) ) {
-			wp_send_json_error( __( 'An error occurred. Please try again in a few minutes.', 'wubtitle' ) );
-		}
-		$nonce             = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
-		$payment_method_id = sanitize_text_field( wp_unslash( $_POST['paymentMethodId'] ) );
-		$name              = sanitize_text_field( wp_unslash( $_POST['name'] ) );
-		$lastname          = sanitize_text_field( wp_unslash( $_POST['lastname'] ) );
-		$email             = sanitize_text_field( wp_unslash( $_POST['email'] ) );
-		$invoice_data      = sanitize_text_field( wp_unslash( $_POST['invoiceObject'] ) );
-		$invoice_object    = json_decode( $invoice_data );
-		check_ajax_referer( 'itr_ajax_nonce', $nonce );
-
-		$invoice_details = Loader::get( 'invoice_helper' )->build_invoice_array( $invoice_object );
-		if ( ! $invoice_details ) {
-			wp_send_json_error( __( 'An error occurred. Please try again in a few minutes.', 'wubtitle' ) );
-		}
-		$license_key = get_option( 'wubtitle_license_key' );
-		if ( empty( $license_key ) ) {
-			wp_send_json_error( __( 'Unable to update payment data. The product license key is missing.', 'wubtitle' ) );
-		}
-		$body          = array(
-			'type' => 'payment',
-			'data' => array(
-				'email'           => $email,
-				'siteLang'        => explode( '_', get_locale(), 2 )[0],
-				'paymentMethodId' => $payment_method_id,
-				'name'            => $name,
-				'lastname'        => $lastname,
-				'invoiceDetails'  => $invoice_details,
-			),
-		);
-		$response      = wp_remote_post(
-			WUBTITLE_ENDPOINT . 'stripe/customer/update',
-			array(
-				'method'  => 'POST',
-				'timeout' => 15,
-				'headers' => array(
-					'Content-Type' => 'application/json; charset=utf-8',
-					'licenseKey'   => $license_key,
-					'domainUrl'    => get_site_url(),
-				),
-				'body'    => wp_json_encode( $body ),
-			)
-		);
-		$code_response = $this->is_successful_response( $response ) ? wp_remote_retrieve_response_code( $response ) : '500';
-		$message       = array(
-			'400' => __( 'An error occurred. Please try again in a few minutes', 'wubtitle' ),
-			'401' => __( 'An error occurred. Please try again in a few minutes', 'wubtitle' ),
-			'403' => __( 'Access denied', 'wubtitle' ),
-			'500' => __( 'Could not contact the server', 'wubtitle' ),
-			''    => __( 'Could not contact the server', 'wubtitle' ),
-		);
-		$response_body = json_decode( wp_remote_retrieve_body( $response ) );
-		if ( 201 !== $code_response ) {
-			$message = 402 === $code_response ? $response_body->errors->title : $message[ $code_response ];
-			wp_send_json_error( $message );
-		}
-		$data = array(
-			'status'       => $response_body->data->status,
-			'clientSecret' => $response_body->data->clientSecret,
-		);
-		wp_send_json_success( $data );
 	}
 
 	/**
