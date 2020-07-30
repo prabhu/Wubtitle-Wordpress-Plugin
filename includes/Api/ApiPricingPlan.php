@@ -395,11 +395,13 @@ class ApiPricingPlan {
 	 * @return void
 	 */
 	public function confirm_subscription() {
-		if ( ! isset( $_POST['_ajax_nonce'], $_POST['planId'], $_POST['setupIntent'], $_POST['actionCheckout'] ) ) {
+		if ( ! isset( $_POST['_ajax_nonce'], $_POST['planId'], $_POST['setupIntent'], $_POST['actionCheckout'], $_POST['name'], $_POST['email'] ) ) {
 			wp_send_json_error( __( 'An error occurred. Please try again in a few minutes.', 'wubtitle' ) );
 		}
 		$action       = sanitize_text_field( wp_unslash( $_POST['actionCheckout'] ) );
 		$plan_id      = sanitize_text_field( wp_unslash( $_POST['planId'] ) );
+		$name         = sanitize_text_field( wp_unslash( $_POST['name'] ) );
+		$email        = sanitize_text_field( wp_unslash( $_POST['email'] ) );
 		$setup_object = sanitize_text_field( wp_unslash( $_POST['setupIntent'] ) );
 		$nonce        = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
 		$setup_intent = json_decode( $setup_object )->setupIntent;
@@ -409,6 +411,8 @@ class ApiPricingPlan {
 				'planId'      => $plan_id,
 				'setupIntent' => $setup_intent,
 				'action'      => $action,
+				'name'        => $name,
+				'email'       => $email,
 			),
 		);
 

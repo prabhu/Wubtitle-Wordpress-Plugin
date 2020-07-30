@@ -76,13 +76,14 @@ function App() {
 			});
 	};
 
-	const sendPaymentMethod = (setupIntent, stripe) => {
+	const sendPaymentMethod = (setupIntent, stripe, values) => {
+		const { name, email } = values;
 		fetch(ajaxUrl, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded',
 			},
-			body: `action=confirm_subscription&actionCheckout=create&planId=${planId}&_ajax_nonce=${ajaxNonce}&setupIntent=${JSON.stringify(
+			body: `action=confirm_subscription&actionCheckout=create&name=${name}&email=${email}&planId=${planId}&_ajax_nonce=${ajaxNonce}&setupIntent=${JSON.stringify(
 				setupIntent
 			)}`,
 		})
@@ -125,7 +126,7 @@ function App() {
 			.then((result) => {
 				if (result.setupIntent.status === 'succeeded') {
 					setError(null);
-					sendPaymentMethod(result, stripe);
+					sendPaymentMethod(result, stripe, values);
 				}
 				if (result.error) {
 					setError(result.error.message);
