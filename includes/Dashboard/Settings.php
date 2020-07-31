@@ -110,6 +110,12 @@ class Settings {
 					esc_html_e( ' hours', 'wubtitle' );
 					?>
 					</p>
+					<p style="font-weight:400">
+					<?php
+					esc_html_e( 'The counters will be reset on: ', 'wubtitle' );
+					echo esc_html( $friendly_expiration_date );
+					?>
+					</p>
 				<?php endif; ?>
 						<?php
 						settings_fields( 'wubtitle_settings' );
