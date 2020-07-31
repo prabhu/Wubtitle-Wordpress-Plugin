@@ -76,7 +76,16 @@ class ApiPricingPlan {
 			wp_send_json_error( $message[ $code_response ] );
 		}
 		delete_option( 'wubtitle_wanted_plan_rank' );
-		wp_send_json_success();
+		$response_body = json_decode( wp_remote_retrieve_body( $response ) );
+		$status        = $response_body->data->status;
+		if ( 'requires_action' === $status ) {
+			$data = array(
+				'paymentMethod' => $response_body->data->paymentMethod,
+				'clientSecret'  => $response_body->data->clientSecret,
+			);
+		}
+		$data['status'] = $status;
+		wp_send_json_success( $data );
 	}
 	/**
 	 * Calls the endpoint for plan reactivation.
