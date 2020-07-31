@@ -25,6 +25,7 @@ function App() {
 	const stripePromise = loadStripe(stripeKey);
 
 	const [loading, setLoading] = useState(false);
+	const [coupon, setCoupon] = useState(null);
 	const [error, setError] = useState(null);
 	const [invoiceValues, setInvoiceValues] = useState(null);
 	const [isBack, setIsBack] = useState(false);
@@ -90,7 +91,7 @@ function App() {
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded',
 			},
-			body: `action=confirm_subscription&actionCheckout=create&name=${name}&email=${email}&planId=${planId}&_ajax_nonce=${ajaxNonce}&setupIntent=${JSON.stringify(
+			body: `action=confirm_subscription&actionCheckout=create&coupon=${coupon}&name=${name}&email=${email}&planId=${planId}&_ajax_nonce=${ajaxNonce}&setupIntent=${JSON.stringify(
 				setupIntent
 			)}`,
 		})
@@ -207,6 +208,8 @@ function App() {
 							paymentPreValues={null}
 							updatePrice={updatePrice}
 							loading={loading}
+							coupon={coupon}
+							setCoupon={setCoupon}
 						/>
 					</div>
 				) : (

@@ -312,6 +312,7 @@ class ApiPricingPlan {
 				wp_send_json_error( __( 'An error occurred. Please try again in a few minutes.', 'wubtitle' ) );
 			}
 			$plan_id                = sanitize_text_field( wp_unslash( $_POST['planId'] ) );
+			$body['data']['coupon'] = isset( $_POST['coupon'] ) ? sanitize_text_field( wp_unslash( $_POST['coupon'] ) ) : '';
 			$body['data']['planId'] = $plan_id;
 		}
 
