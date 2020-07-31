@@ -1,5 +1,5 @@
 (function (Stripe, document) {
-	const { adminAjax, nonce, wubtitleEnv } = WP_GLOBALS;
+	const { adminAjax, nonce, stripeKey } = WP_GLOBALS;
 	let stripe = null;
 
 	const confirmPayment = (clientSecret, paymentMethod) => {
@@ -56,10 +56,6 @@
 	const init = () => {
 		const confirmButton = document.querySelector('#confirm_changes');
 		const closeButton = document.querySelector('#forget');
-		const stripeKey =
-			wubtitleEnv === 'development'
-				? 'pk_test_lFmjf2Dz7VURTslihG0xys7m00NjW2BOPI'
-				: 'pk_live_PvwHkJ49ry3lfXwkXIx2YKBE00S15aBYz7';
 		stripe = Stripe(stripeKey);
 
 		if (confirmButton) {

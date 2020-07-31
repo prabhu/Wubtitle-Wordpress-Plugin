@@ -9,7 +9,7 @@ import { loadStripe } from '@stripe/stripe-js';
 
 function App() {
 	const {
-		wubtitleEnv,
+		stripeKey,
 		ajaxUrl,
 		ajaxNonce,
 		pricePlan,
@@ -21,12 +21,7 @@ function App() {
 		taxPercentage,
 		isTaxable,
 	} = WP_GLOBALS;
-	const stripeKey =
-		wubtitleEnv === 'development'
-			? 'pk_test_lFmjf2Dz7VURTslihG0xys7m00NjW2BOPI'
-			: 'pk_live_PvwHkJ49ry3lfXwkXIx2YKBE00S15aBYz7';
 	const stripePromise = loadStripe(stripeKey);
-
 	const [error, setError] = useState(null);
 	const [loading, setLoading] = useState(false);
 	const [invoiceValues, setInvoiceValues] = useState(null);

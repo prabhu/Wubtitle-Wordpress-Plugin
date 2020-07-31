@@ -15,12 +15,24 @@ use Wubtitle\Loader;
  * This class handles Payment Templates.
  */
 class PaymentTemplate {
+
+	/**
+	 * Stripe key.
+	 *
+	 * @var string
+	 */
+	private $stripe_key;
 	/**
 	 * Init class actions
 	 *
 	 * @return void
 	 */
 	public function run() {
+		$stripe_key = 'pk_live_PvwHkJ49ry3lfXwkXIx2YKBE00S15aBYz7';
+		if ( defined( 'WP_WUBTITLE_ENV' ) && WP_WUBTITLE_ENV ) {
+			$stripe_key = 'pk_test_lFmjf2Dz7VURTslihG0xys7m00NjW2BOPI';
+		}
+		$this->stripe_key = $stripe_key;
 		add_action( 'wp_ajax_payment_template', array( $this, 'load_payment_template' ) );
 		add_action( 'wp_ajax_update_template', array( $this, 'load_update_template' ) );
 		add_action( 'wp_ajax_change_plan_template', array( $this, 'change_plan_template' ) );
@@ -64,9 +76,9 @@ class PaymentTemplate {
 				'wubtitle_change_plan',
 				'WP_GLOBALS',
 				array(
-					'adminAjax'   => admin_url( 'admin-ajax.php' ),
-					'nonce'       => wp_create_nonce( 'itr_ajax_nonce' ),
-					'wubtitleEnv' => defined( 'WP_WUBTITLE_ENV' ) ? esc_html( WP_WUBTITLE_ENV ) : '',
+					'adminAjax' => admin_url( 'admin-ajax.php' ),
+					'nonce'     => wp_create_nonce( 'itr_ajax_nonce' ),
+					'stripeKey' => $this->stripe_key,
 				)
 			);
 			include $includes_file;
@@ -99,9 +111,8 @@ class PaymentTemplate {
 				'wubtitle_change_plan',
 				'WP_GLOBALS',
 				array(
-					'adminAjax'   => admin_url( 'admin-ajax.php' ),
-					'nonce'       => wp_create_nonce( 'itr_ajax_nonce' ),
-					'wubtitleEnv' => defined( 'WP_WUBTITLE_ENV' ) ? esc_html( WP_WUBTITLE_ENV ) : '',
+					'adminAjax' => admin_url( 'admin-ajax.php' ),
+					'nonce'     => wp_create_nonce( 'itr_ajax_nonce' ),
 				)
 			);
 			include 'Templates/payment_template.php';
@@ -152,7 +163,7 @@ class PaymentTemplate {
 					'namePlan'         => $current_plan['name'],
 					'expirationDate'   => $friendly_expiration_date,
 					'isTaxable'        => $taxable,
-					'wubtitleEnv'      => defined( 'WP_WUBTITLE_ENV' ) ? esc_html( WP_WUBTITLE_ENV ) : '',
+					'stripeKey'        => $this->stripe_key,
 					'invoicePreValues' => $data && isset( $invoice_object ) ? $invoice_object : null,
 					'paymentPreValues' => $data && isset( $payment_object ) ? $payment_object : null,
 				)
@@ -196,7 +207,7 @@ class PaymentTemplate {
 					'namePlan'      => $wanted_plan['name'],
 					'ajaxUrl'       => admin_url( 'admin-ajax.php' ),
 					'ajaxNonce'     => wp_create_nonce( 'itr_ajax_nonce' ),
-					'wubtitleEnv'   => defined( 'WP_WUBTITLE_ENV' ) ? esc_html( WP_WUBTITLE_ENV ) : '',
+					'stripeKey'     => $this->stripe_key,
 				)
 			);
 			wp_enqueue_style( 'wubtitle_style_form', WUBTITLE_URL . 'assets/css/stripeStyle.css', array(), WUBTITLE_VER );
