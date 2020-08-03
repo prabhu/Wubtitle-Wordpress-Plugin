@@ -397,13 +397,12 @@ class ApiPricingPlan {
 			''    => __( 'Could not contact the server', 'wubtitle' ),
 		);
 		$response_body = json_decode( wp_remote_retrieve_body( $response ) );
-		if ( 201 !== $code_response ) {
+		if ( 200 !== $code_response ) {
 			$message = 402 === $code_response ? $response_body->errors->title : $message[ $code_response ];
 			wp_send_json_error( $message );
 		}
 		$data = array(
-			'message' => $response_body->data->message,
-			'price'   => $response_body->data->price,
+			'price' => $response_body->data->discountedAmount,
 		);
 		wp_send_json_success( $data );
 	}

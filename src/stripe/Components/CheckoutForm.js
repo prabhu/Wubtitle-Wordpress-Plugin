@@ -26,6 +26,7 @@ export default function CheckoutForm(props) {
 	const elements = useElements();
 	const [changeOn, setChangeOn] = useState(false);
 	const [couponMessage, setCouponMessage] = useState(null);
+	const [loadingCoupon, setLoadingCoupon] = useState(false);
 	const requiredMessage = __('Required', 'wubtitle');
 	const DisplayingErrorMessagesSchema = Yup.lazy(() => {
 		let yupObject = {};
@@ -57,6 +58,7 @@ export default function CheckoutForm(props) {
 	};
 
 	const checkCoupon = () => {
+		setLoadingCoupon(true);
 		fetch(ajaxUrl, {
 			method: 'POST',
 			headers: {
@@ -66,6 +68,7 @@ export default function CheckoutForm(props) {
 		})
 			.then((resp) => resp.json())
 			.then((response) => {
+				setLoadingCoupon(false);
 				if (response.success) {
 					setCouponMessage(response.data.message);
 					updatePrice(response.data.price);
@@ -100,10 +103,10 @@ export default function CheckoutForm(props) {
 					<div className="form-field-container flex-container center-items">
 						<button
 							className="coupon-button"
-							disabled={!coupon || loading}
+							disabled={!coupon || loadingCoupon}
 							onClick={() => checkCoupon()}
 						>
-							{loading && (
+							{loadingCoupon && (
 								<i className="fa fa-refresh fa-spin loading-margin" />
 							)}
 							{__('Apply Coupon', 'wubtitle')}
