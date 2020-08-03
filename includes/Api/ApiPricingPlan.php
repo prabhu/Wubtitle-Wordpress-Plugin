@@ -399,6 +399,9 @@ class ApiPricingPlan {
 		$response_body = json_decode( wp_remote_retrieve_body( $response ) );
 		if ( 200 !== $code_response ) {
 			$message = 402 === $code_response ? $response_body->errors->title : $message[ $code_response ];
+			if ( 400 === $code_response && 'INVALID_COUPON' === $response_body->errors->title ) {
+				$message = __( 'Invalid Coupon', 'wubtitle' );
+			}
 			wp_send_json_error( $message );
 		}
 		$data = array(
