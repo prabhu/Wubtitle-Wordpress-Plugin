@@ -210,6 +210,7 @@ function App() {
 							loading={loading}
 							coupon={coupon}
 							setCoupon={setCoupon}
+							planId={planId}
 						/>
 					</div>
 				) : (

@@ -359,22 +359,24 @@ class ApiPricingPlan {
 	 * @return void
 	 */
 	public function check_coupon() {
-		if ( ! isset( $_POST['_ajax_nonce'], $_POST['coupon'] ) ) {
+		if ( ! isset( $_POST['_ajax_nonce'], $_POST['coupon'], $_POST['planId'] ) ) {
 			wp_send_json_error( __( 'An error occurred. Please try again in a few minutes.', 'wubtitle' ) );
 		}
-		$coupon = sanitize_text_field( wp_unslash( $_POST['coupon'] ) );
-		$nonce  = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
+		$coupon  = sanitize_text_field( wp_unslash( $_POST['coupon'] ) );
+		$nonce   = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
+		$plan_id = sanitize_text_field( wp_unslash( $_POST['planId'] ) );
 		check_ajax_referer( 'itr_ajax_nonce', $nonce );
 
 		$body = array(
 			'data' => array(
 				'coupon' => $coupon,
+				'planId' => $plan_id,
 			),
 		);
 
 		$license_key   = get_option( 'wubtitle_license_key' );
 		$response      = wp_remote_post(
-			WUBTITLE_ENDPOINT . 'stripe/checkout/coupon',
+			WUBTITLE_ENDPOINT . 'stripe/customer/create/preview',
 			array(
 				'method'  => 'POST',
 				'timeout' => 10,

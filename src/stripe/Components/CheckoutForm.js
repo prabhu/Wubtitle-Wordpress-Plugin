@@ -19,6 +19,7 @@ export default function CheckoutForm(props) {
 		loading,
 		coupon,
 		setCoupon,
+		planId,
 	} = props;
 	const { ajaxUrl, ajaxNonce } = WP_GLOBALS;
 	const stripe = useStripe();
@@ -61,7 +62,7 @@ export default function CheckoutForm(props) {
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded',
 			},
-			body: `action=check_coupon&_ajax_nonce=${ajaxNonce}&coupon=${coupon}`,
+			body: `action=check_coupon&_ajax_nonce=${ajaxNonce}&coupon=${coupon}&planId=${planId}`,
 		})
 			.then((resp) => resp.json())
 			.then((response) => {
