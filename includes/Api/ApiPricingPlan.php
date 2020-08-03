@@ -202,15 +202,15 @@ class ApiPricingPlan {
 			wp_send_json_error( $message[ $code_response ] );
 		}
 		$response_body = json_decode( wp_remote_retrieve_body( $response ) );
-		$response      = array(
+		$response_data = array(
 			'amount_preview' => $response_body->data->amountPreview,
-			'name'           => $response_body->data->name,
-			'email'          => $response_body->data->email,
-			'expiration'     => $response_body->data->expiration,
-			'cardNumber'     => $response_body->data->cardNumber,
+			'name'           => $response_body->data->card->name,
+			'email'          => $response_body->data->card->email,
+			'expiration'     => $response_body->data->card->expiration,
+			'cardNumber'     => $response_body->data->card->cardNumber,
 		);
 		update_option( 'wubtitle_wanted_plan_rank', $plan_rank );
-		return $response;
+		return $response_data;
 	}
 
 	/**

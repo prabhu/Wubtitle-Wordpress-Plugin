@@ -69,6 +69,7 @@ class PaymentTemplate {
 		if ( current_user_can( 'manage_options' ) ) {
 			ob_start();
 			wp_enqueue_style( 'wubtitle_font_family', 'https://fonts.googleapis.com/css?family=Days+One|Open+Sans&display=swap', array(), WUBTITLE_VER );
+			wp_enqueue_script( 'fa', 'https://kit.fontawesome.com/b78c2a4b89.js', array(), '1.0', true );
 			wp_enqueue_style( 'wubtitle_style_template', WUBTITLE_URL . 'assets/css/payment_template.css', array(), WUBTITLE_VER );
 			wp_enqueue_script( 'stripe_script', 'https://js.stripe.com/v3/', array(), WUBTITLE_VER, true );
 			wp_enqueue_script( 'wubtitle_change_plan', WUBTITLE_URL . 'assets/payment/change_plan_script.js', array(), WUBTITLE_VER, true );
