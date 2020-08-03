@@ -1,9 +1,9 @@
 === Wubtitle ===
 Contributors: giuseppectmobi
 Donate link: https://www.wubtitle.com/
-Tags: subtitle, subtitles, video, Transcription, SEO, speech-to-text
+Tags: subtitle, subtitles, video, Transcription, SEO, speech-to-text, video to text, youtube to text
 Requires at least: 5.0
-Tested up to: 5.4
+Tested up to: 5.5
 Stable tag: trunk
 Requires PHP: 7.2
 License: GPLv3
