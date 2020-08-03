@@ -91,6 +91,7 @@ class Settings {
 				<?php if ( $this->price_info_plans ) : ?>
 					<div class="plan-state">
 						<?php echo esc_html_e( 'Plan: ', 'wubtitle' ) . esc_html( $current_plan ); ?>
+						<span id="plan-name"></span>
 					</div>
 					<div class="plan-renewal">
 						<?php
