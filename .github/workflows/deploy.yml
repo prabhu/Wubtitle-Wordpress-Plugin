@@ -17,7 +17,7 @@ jobs:
         npm ci --prefer-offline --progress=false
         npm run build
         npm ci --prefer-offline --progress=false --only=prod
-        rm -rf src/ tests/ composer.json composer.lock package.json package-lock.json .github .aspell.en.pws .eslintrc.json .gitattributes .stylelintrc.json phpmd.xml phpstan.neon.dist 
+        rm -rf src/ tests/ composer.json composer.lock package.json package-lock.json .github .aspell.en.pws .eslintrc.json .gitattributes .stylelintrc.json phpmd.xml phpstan.neon.dist node_modules/.cache
         zip -r ${{ github.event.repository.name }}.zip .
     - name: Create Release
       id: create_release
