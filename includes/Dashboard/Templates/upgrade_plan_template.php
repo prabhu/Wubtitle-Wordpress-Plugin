@@ -11,11 +11,14 @@
  * Pagina per l'upgrade.
  */
 require WUBTITLE_DIR . 'includes/Dashboard/Templates/plans_array.php';
-$data           = get_option( 'wubtitle_expiration_date' );
-$new_data       = $data + DAY_IN_SECONDS;
-$data           = date_i18n( get_option( 'date_format' ), $data );
-$new_data       = date_i18n( get_option( 'date_format' ), $new_data );
-$amount_preview = isset( $amount_preview ) ? number_format( (float) $amount_preview, 2 ) : 0.00;
+$data            = get_option( 'wubtitle_expiration_date' );
+$new_data        = $data + DAY_IN_SECONDS;
+$data            = date_i18n( get_option( 'date_format' ), $data );
+$new_data        = date_i18n( get_option( 'date_format' ), $new_data );
+$amount_preview  = isset( $amount_preview ) ? number_format( (float) $amount_preview, 2 ) : 0.00;
+$taxes_preview   = isset( $taxes_preview ) ? number_format( (float) $taxes_preview, 2 ) : 0.00;
+$tax_wanted_plan = isset( $tax_wanted_plan ) ? number_format( (float) $tax_wanted_plan, 2 ) : 0.00;
+$taxable         = isset( $taxable ) ? $taxable : false;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -53,7 +56,17 @@ $amount_preview = isset( $amount_preview ) ? number_format( (float) $amount_prev
 			<p><?php esc_html_e( 'You will pay:', 'wubtitle' ); ?></p>
 			<table>
 				<tr>
-					<td><span class="price-preview"><?php echo esc_html( $amount_preview . '€' ); ?></span></td>
+					<td>
+						<span class="price-preview">
+						<?php
+						echo esc_html( $amount_preview . '€' );
+						if ( $taxable ) {
+							echo esc_html( ' +' . $taxes_preview . '€' );
+							esc_html_e( ' (vat)', 'wubtitle' );
+						}
+						?>
+						</span>
+					</td>
 					<td><?php esc_html_e( '(once)', 'wubtitle' ); ?></td>
 					<td>
 					<?php
@@ -63,7 +76,17 @@ $amount_preview = isset( $amount_preview ) ? number_format( (float) $amount_prev
 					</td>
 				</tr>
 				<tr>
-					<td><span class="price-preview"><?php echo isset( $price_info_object, $wanted_plan_rank ) ? esc_html( $price_info_object[ $wanted_plan_rank ]->price . '€' ) : ''; ?></span></td>
+					<td>
+						<span class="price-preview">
+						<?php
+						echo isset( $price_info_object, $wanted_plan_rank ) ? esc_html( $price_info_object[ $wanted_plan_rank ]->price . '€' ) : '';
+						if ( $taxable ) {
+							echo esc_html( ' +' . $tax_wanted_plan . '€' );
+							esc_html_e( ' (vat)', 'wubtitle' );
+						}
+						?>
+						</span>
+					</td>
 					<td><?php esc_html_e( '(monthly)', 'wubtitle' ); ?></td>
 					<td>
 					<?php

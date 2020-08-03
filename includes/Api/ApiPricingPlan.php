@@ -204,6 +204,8 @@ class ApiPricingPlan {
 		$response_body = json_decode( wp_remote_retrieve_body( $response ) );
 		$response_data = array(
 			'amount_preview' => $response_body->data->amountPreview,
+			'taxes_preview'  => $response_body->data->taxesPreview,
+			'taxable'        => $response_body->data->taxable,
 			'name'           => $response_body->data->card->name,
 			'email'          => $response_body->data->card->email,
 			'expiration'     => $response_body->data->card->expiration,

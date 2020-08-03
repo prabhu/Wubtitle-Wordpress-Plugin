@@ -62,6 +62,9 @@ class PaymentTemplate {
 		$email            = $wanted_plan_info['email'];
 		$expiration       = $wanted_plan_info['expiration'];
 		$card_number      = $wanted_plan_info['cardNumber'];
+		$taxes_preview    = $wanted_plan_info['taxes_preview'];
+		$taxable          = $wanted_plan_info['taxable'];
+		$tax_wanted_plan  = $price_info_object[ $wanted_plan_rank ]->taxAmount;
 		$includes_file    = 'Templates/downgrade_plan_template.php';
 		if ( $wanted_plan_rank > $plan_rank ) {
 			$includes_file = 'Templates/upgrade_plan_template.php';
