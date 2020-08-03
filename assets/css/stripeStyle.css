@@ -18,6 +18,20 @@ label {
 	letter-spacing: 0.025em;
 }
 
+.button-bar button,
+.coupon-button {
+	background: transparent linear-gradient(257deg, #d500f9 0%, #2962ff 99%) 0% 0% no-repeat padding-box;
+	border-radius: 16px;
+	color: #fff;
+	padding: 0.5rem 1rem;
+	font-family: "Days One", sans-serif;
+	white-space: nowrap;
+	border: 0;
+	outline: 0;
+	display: inline-block;
+	text-transform: uppercase;
+}
+
 button:hover:enabled {
 	color: #fff;
 	cursor: pointer;
@@ -230,19 +244,6 @@ table tr {
 	background-color: #fff;
 	padding: 1rem;
 	margin: 0 -0.5rem;
-}
-
-.button-bar button, .coupon-button {
-	background: transparent linear-gradient(257deg, #d500f9 0%, #2962ff 99%) 0% 0% no-repeat padding-box;
-	border-radius: 16px;
-	color: #fff;
-	padding: 0.5rem 1rem;
-	font-family: "Days One", sans-serif;
-	white-space: nowrap;
-	border: 0;
-	outline: 0;
-	display: inline-block;
-	text-transform: uppercase;
 }
 
 .coupon-button:disabled {
