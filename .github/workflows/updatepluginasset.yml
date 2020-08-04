@@ -15,7 +15,7 @@ jobs:
         npm ci --prefer-offline --progress=false
         npm run build
         npm ci --prefer-offline --progress=false --only=prod
-        rm -rf src/ tests/ composer.json composer.lock package.json package-lock.json .github .aspell.en.pws .eslintrc.json .gitattributes .stylelintrc.json phpmd.xml phpstan.neon.dist
+        rm -rf src/ tests/ composer.json composer.lock package.json package-lock.json .github .aspell.en.pws .eslintrc.json .gitattributes .stylelintrc.json phpmd.xml phpstan.neon.dist node_modules/.cache
     - name: WordPress.org plugin asset/readme update
       uses: 10up/action-wordpress-plugin-asset-update@stable
       env:
