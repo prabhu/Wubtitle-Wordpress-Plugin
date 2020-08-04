@@ -112,21 +112,25 @@ class ApiLicenseValidation {
 	 * @return WP_REST_Response|array<string,array<string,array<int,mixed>>>
 	 */
 	public function auth_and_get_job_list( $request ) {
-		$headers        = $request->get_headers();
+		$headers = $request->get_headers();
+		$error   = array(
+			'errors' => array(
+				'status' => '403',
+				'title'  => 'Authentication Failed',
+			),
+		);
+		if ( ! isset( $headers['jwt'] ) ) {
+			$response = new WP_REST_Response( $error );
+			$response->set_status( 403 );
+			return $response;
+		}
 		$jwt            = $headers['jwt'][0];
 		$db_license_key = get_option( 'wubtitle_license_key' );
 		try {
 			JWT::decode( $jwt, $db_license_key, array( 'HS256' ) );
 		} catch ( \Exception $e ) {
-			$error = array(
-				'errors' => array(
-					'status' => '403',
-					'title'  => 'Authentication Failed',
-					'source' => $e->getMessage(),
-				),
-			);
-
-			$response = new WP_REST_Response( $error );
+			$error['source'] = $e->getMessage();
+			$response        = new WP_REST_Response( $error );
 
 			$response->set_status( 403 );
 

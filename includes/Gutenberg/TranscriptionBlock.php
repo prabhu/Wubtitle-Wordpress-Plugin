@@ -32,6 +32,9 @@ class TranscriptionBlock {
 	public function add_parameters_query( $args, $request ) {
 		$url_parts    = wp_parse_url( $request->get_param( 'metaValue' ) );
 		$query_params = array();
+		if ( ! isset( $url_parts['query'] ) ) {
+			return $args;
+		}
 		parse_str( $url_parts['query'], $query_params );
 		$id_video = $query_params['v'];
 		if ( $request->get_param( 'metaKey' ) ) {
