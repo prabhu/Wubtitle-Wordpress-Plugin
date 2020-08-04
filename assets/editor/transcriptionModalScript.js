@@ -148,7 +148,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			);
 			const header = document.createElement('h2');
 			const textHeader = document.createTextNode(
-				wp.i18n.__('Language of trascription ', 'wubtitle')
+				wp.i18n.__('Language of trascription', 'wubtitle')
 			);
 			header.appendChild(textHeader);
 			const select = document.createElement('SELECT');
