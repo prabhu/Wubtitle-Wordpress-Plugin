@@ -44,7 +44,7 @@ $amount_preview = isset( $amount_preview ) ? number_format( (float) $amount_prev
 					?>
 					</span> <span class="new_price"> <?php echo esc_html( $amount_preview . '€' ); ?></span> </h1>
 				<img class="arrowup" src="<?php echo esc_url( WUBTITLE_URL . 'assets/img/arrowup.svg' ); ?>">
-				<p class="paragraph-center"> <?php echo esc_html( __( 'Only for first month (Until ', 'wubtitle' ) . $data . ')' ); ?> </p>
+				<p class="paragraph-center"> <?php echo esc_html( __( 'Only for first month (Until', 'wubtitle' ) . ' ' . $data . ')' ); ?> </p>
 			</div>
 			<div class="column one-quarter">
 				<img class="card_plan" src="<?php echo esc_url( WUBTITLE_URL . 'assets/img/' . $plans[ $wanted_plan_rank ]['icon'] ); ?>">

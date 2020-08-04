@@ -4,7 +4,7 @@ const langExten = {
 	it: __('Italian', 'wubtitle'),
 	en: __('English', 'wubtitle'),
 	es: __('Spanish', 'wubtitle'),
-	de: __('German ', 'wubtitle'),
+	de: __('German', 'wubtitle'),
 	zh: __('Chinese', 'wubtitle'),
 	fr: __('French', 'wubtitle'),
 };
@@ -31,7 +31,7 @@ const selectOptions = [
 	},
 	{
 		value: 'de',
-		label: __('German ', 'wubtitle'),
+		label: __('German', 'wubtitle'),
 	},
 	{
 		value: 'zh',
