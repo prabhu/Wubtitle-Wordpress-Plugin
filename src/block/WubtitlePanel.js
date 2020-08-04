@@ -64,7 +64,7 @@ const WubtitlePanel = (props) => {
 				: __('None', 'wubtitle');
 		return (
 			<Fragment>
-				<div>{__('Status: ', 'wubtitle') + status}</div>
+				<div>{__('Status:', 'wubtitle') + ' ' + status}</div>
 				<SelectControl
 					label={__('Select the video language', 'wubtitle')}
 					value={languageSelected}

@@ -32,7 +32,7 @@ $amount_preview = isset( $amount_preview ) ? number_format( - (float) $amount_pr
 			</div>
 			<?php endif; ?>
 			<div class="column one-quarter">
-				<h1 style="text-align:center; margin-top:64px;"> <span class="refund"><?php echo esc_html( $amount_preview . '€' . __( ' credit earnings', 'wubtitle' ) ); ?></span> </h1>
+				<h1 style="text-align:center; margin-top:64px;"> <span class="refund"><?php echo esc_html( $amount_preview . '€ ' . __( 'credit earnings', 'wubtitle' ) ); ?></span> </h1>
 		<img class="arrowdown" src="<?php echo esc_url( WUBTITLE_URL . 'assets/img/arrowdown.svg' ); ?>">
 			</div>
 			<?php if ( isset( $plans, $current_rank ) ) : ?>
