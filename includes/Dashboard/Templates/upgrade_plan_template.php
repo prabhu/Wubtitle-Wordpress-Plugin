@@ -29,8 +29,8 @@ $taxable         = isset( $taxable ) ? $taxable : false;
 </head>
 <body>
 	<div class="container">
-		<h1 class="title"><?php esc_html_e( 'Subscription plan upgrade', 'wubtitle' ); ?></h1>
-		<p class="paragraph-center"> <?php esc_html_e( 'Upgrading now, for the first month you are entired to a partial refund of previous monthly subscription plan', 'wubtitle' ); ?> </p>
+		<h1 class="title"><?php esc_html_e( 'Upgrade your plan', 'wubtitle' ); ?></h1>
+		<p class="paragraph-center"> <?php esc_html_e( 'Upgrading to Elite now you will be charged only for the price difference between Elite plan and your current plan with no changes to your billing period. ', 'wubtitle' ); ?> </p>
 		<div class="row margin_medium">
 			<?php if ( isset( $plans, $current_rank ) ) : ?>
 			<div class="column one-quarter">
@@ -61,13 +61,13 @@ $taxable         = isset( $taxable ) ? $taxable : false;
 						<?php
 						echo esc_html( $amount_preview . '€' );
 						if ( $taxable ) {
-							echo esc_html( ' +' . $taxes_preview . '€' );
-							esc_html_e( ' (vat)', 'wubtitle' );
+							echo esc_html( ' + ' . $taxes_preview . '€' );
+							esc_html_e( ' (VAT)', 'wubtitle' );
 						}
 						?>
 						</span>
 					</td>
-					<td><?php esc_html_e( '(once)', 'wubtitle' ); ?></td>
+					<td><?php esc_html_e( 'What you pay now (Discounted Elite Price)', 'wubtitle' ); ?></td>
 					<td>
 					<?php
 					esc_html_e( 'Until ', 'wubtitle' );
@@ -87,7 +87,7 @@ $taxable         = isset( $taxable ) ? $taxable : false;
 						?>
 						</span>
 					</td>
-					<td><?php esc_html_e( '(monthly)', 'wubtitle' ); ?></td>
+					<td><?php esc_html_e( 'What you pay monthly (Full Elite price)', 'wubtitle' ); ?></td>
 					<td>
 					<?php
 					esc_html_e( 'From ', 'wubtitle' );
