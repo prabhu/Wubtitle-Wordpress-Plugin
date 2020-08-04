@@ -110,6 +110,12 @@ class Settings {
 					esc_html_e( ' hours', 'wubtitle' );
 					?>
 					</p>
+					<p style="font-weight:400">
+					<?php
+					esc_html_e( 'The counters will be reset on: ', 'wubtitle' );
+					echo esc_html( $friendly_expiration_date );
+					?>
+					</p>
 				<?php endif; ?>
 						<?php
 						settings_fields( 'wubtitle_settings' );
@@ -135,7 +141,8 @@ class Settings {
 	public function check_notice_stripe() {
 		$message = false;
 		// phpcs:disable
-		if ( ( empty( $_GET['notices-code'] ) && $this->price_info_plans ) || isset( $_GET['settings-updated'] ) ) {
+		$page = isset( $_GET['page'] ) ? $_GET['page'] : 'none';
+		if ( ( empty( $_GET['notices-code'] ) && $this->price_info_plans ) || isset( $_GET['settings-updated'] ) || 'wubtitle_settings' !== $page ) {
 			return;
 		}
 		$notice_code = ! empty( $_GET['notices-code'] ) ? sanitize_text_field( wp_unslash( $_GET['notices-code'] ) ) : 'invalidLicense';
