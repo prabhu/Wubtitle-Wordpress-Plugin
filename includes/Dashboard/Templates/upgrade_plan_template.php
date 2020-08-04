@@ -11,14 +11,16 @@
  * Pagina per l'upgrade.
  */
 require WUBTITLE_DIR . 'includes/Dashboard/Templates/plans_array.php';
-$data            = get_option( 'wubtitle_expiration_date' );
-$new_data        = $data + DAY_IN_SECONDS;
-$data            = date_i18n( get_option( 'date_format' ), $data );
-$new_data        = date_i18n( get_option( 'date_format' ), $new_data );
-$amount_preview  = isset( $amount_preview ) ? number_format( (float) $amount_preview, 2 ) : 0.00;
-$taxes_preview   = isset( $taxes_preview ) ? number_format( (float) $taxes_preview, 2 ) : 0.00;
-$tax_wanted_plan = isset( $tax_wanted_plan ) ? number_format( (float) $tax_wanted_plan, 2 ) : 0.00;
-$taxable         = isset( $taxable ) ? $taxable : false;
+$data             = get_option( 'wubtitle_expiration_date' );
+$new_data         = $data + DAY_IN_SECONDS;
+$data             = date_i18n( get_option( 'date_format' ), $data );
+$new_data         = date_i18n( get_option( 'date_format' ), $new_data );
+$amount_preview   = isset( $amount_preview ) ? number_format( (float) $amount_preview, 2 ) : 0.00;
+$taxes_preview    = isset( $taxes_preview ) ? number_format( (float) $taxes_preview, 2 ) : 0.00;
+$tax_wanted_plan  = isset( $tax_wanted_plan ) ? number_format( (float) $tax_wanted_plan, 2 ) : 0.00;
+$taxable          = isset( $taxable ) ? $taxable : false;
+$wanted_plan_rank = isset( $wanted_plan_rank ) ? $wanted_plan_rank : 0;
+$plans            = isset( $plans ) ? $plans : array();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -30,7 +32,15 @@ $taxable         = isset( $taxable ) ? $taxable : false;
 <body>
 	<div class="container">
 		<h1 class="title"><?php esc_html_e( 'Upgrade your plan', 'wubtitle' ); ?></h1>
-		<p class="paragraph-center"> <?php esc_html_e( 'Upgrading to Elite now you will be charged only for the price difference between Elite plan and your current plan with no changes to your billing period. ', 'wubtitle' ); ?> </p>
+		<p class="paragraph-center"> 
+			<?php
+			esc_html_e( 'Upgrading to', 'wubtitle' );
+			echo esc_html( ' ' . $plans[ $wanted_plan_rank ]['name'] . ' ' );
+			esc_html_e( 'now you will be charged only for the price difference between', 'wubtitle' );
+			echo esc_html( ' ' . $plans[ $wanted_plan_rank ]['name'] . ' ' );
+			esc_html_e( 'plan and your current plan with no changes to your billing period. ', 'wubtitle' );
+			?>
+		</p>
 		<div class="row margin_medium">
 			<?php if ( isset( $plans, $current_rank ) ) : ?>
 			<div class="column one-quarter">
@@ -67,7 +77,13 @@ $taxable         = isset( $taxable ) ? $taxable : false;
 						?>
 						</span>
 					</td>
-					<td><?php esc_html_e( 'What you pay now (Discounted Elite Price)', 'wubtitle' ); ?></td>
+					<td>
+						<?php
+						esc_html_e( 'What you pay now (Discounted', 'wubtitle' );
+						echo esc_html( ' ' . $plans[ $wanted_plan_rank ]['name'] . ' ' );
+						esc_html_e( 'Price)', 'wubtitle' );
+						?>
+					</td>
 					<td>
 					<?php
 					esc_html_e( 'Until ', 'wubtitle' );
@@ -87,7 +103,13 @@ $taxable         = isset( $taxable ) ? $taxable : false;
 						?>
 						</span>
 					</td>
-					<td><?php esc_html_e( 'What you pay monthly (Full Elite price)', 'wubtitle' ); ?></td>
+					<td>
+						<?php
+						esc_html_e( 'What you pay monthly (Full', 'wubtitle' );
+						echo esc_html( ' ' . $plans[ $wanted_plan_rank ]['name'] . ' ' );
+						esc_html_e( 'price)', 'wubtitle' );
+						?>
+					</td>
 					<td>
 					<?php
 					esc_html_e( 'From ', 'wubtitle' );
