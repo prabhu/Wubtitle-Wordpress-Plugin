@@ -175,11 +175,8 @@ function App() {
 	};
 
 	const updatePrice = (currentPrice) => {
-		if (currentPrice) {
-			setDiscountedPrice(currentPrice);
-		} else {
-			setDiscountedPrice(false);
-		}
+		const newPrice = currentPrice || false;
+		setDiscountedPrice(newPrice);
 	};
 
 	return (
