@@ -176,6 +176,10 @@ const showBuyLicenseWindow = () => {
 };
 
 const confirmPlanChangeWindow = (CurrentWindow, wantedPlanRank) => {
+	if (wait) {
+		return;
+	}
+	wait = true;
 	wp.ajax
 		.send('change_plan_template', {
 			type: 'POST',
@@ -188,6 +192,7 @@ const confirmPlanChangeWindow = (CurrentWindow, wantedPlanRank) => {
 		.done((response) => {
 			CurrentWindow.document.body.innerHTML = '';
 			CurrentWindow.document.write(response);
+			wait = false;
 		});
 };
 
