@@ -2,6 +2,13 @@
 	const { adminAjax, nonce, stripeKey } = WP_GLOBALS;
 	let stripe = null;
 
+	const paymentSuccessfull = () => {
+		window.unonload = window.opener.redirectToCallback(
+			'notices-code=payment'
+		);
+		window.close();
+	};
+
 	const confirmPayment = (clientSecret, paymentMethod) => {
 		stripe
 			.confirmCardPayment(clientSecret, {
@@ -10,10 +17,7 @@
 			})
 			.then((response) => {
 				if (response.paymentIntent.status === 'succeeded') {
-					window.unonload = window.opener.redirectToCallback(
-						'notices-code=payment'
-					);
-					window.close();
+					paymentSuccessfull();
 				}
 				document.getElementById('error-message').innerHTML =
 					response.data;
@@ -41,10 +45,7 @@
 							response.paymentMethod
 						);
 					} else {
-						window.unonload = window.opener.redirectToCallback(
-							'notices-code=payment'
-						);
-						window.close();
+						paymentSuccessfull();
 					}
 				} else {
 					document.getElementById('error-message').innerHTML =
