@@ -2,8 +2,14 @@ import React from 'react';
 import { __ } from '@wordpress/i18n';
 
 const PriceTable = (props) => {
-	const { price, taxPercentage, taxAmount, total, taxable } = props;
-
+	const {
+		price,
+		taxPercentage,
+		taxAmount,
+		total,
+		taxable,
+		discountedPrice,
+	} = props;
 	return (
 		<table className="price-table">
 			<tr>
@@ -28,10 +34,25 @@ const PriceTable = (props) => {
 			</tr>
 			<tr className="total">
 				<td>{__('Total', 'wubtitle')}</td>
-				<td className="val">
-					{total} &euro;
-					<span className="valxm">{__('per month', 'wubtitle')}</span>
-				</td>
+				{discountedPrice ? (
+					<td className="val">
+						<span className="cut-vat">
+							{total} &euro;
+							<span className="cut-line" />
+						</span>
+						{parseFloat(discountedPrice)} &euro;
+						<span className="valxm">
+							{__(' per month', 'wubtitle')}
+						</span>
+					</td>
+				) : (
+					<td className="val">
+						{total} &euro;
+						<span className="valxm">
+							{__(' per month', 'wubtitle')}
+						</span>
+					</td>
+				)}
 			</tr>
 		</table>
 	);

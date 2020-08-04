@@ -167,6 +167,7 @@ function App() {
 				taxPercentage={taxPercentage}
 				taxable={taxable}
 				expirationDate={expirationDate}
+				discountedPrice={false}
 			/>
 			<Elements stripe={stripePromise}>
 				{invoiceValues && !isBack ? (
