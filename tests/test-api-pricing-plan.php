@@ -26,33 +26,37 @@ class TestApiPricingPlan extends WP_Ajax_UnitTestCase {
     }
 
    /**
-    * Effettua la chiamata senza nonce
+    * Test not user free
     */
-    public function test_negative_send_request(){
+    public function test_not_user_free(){
+      update_option( 'wubtitle_free', false );
       try {
-          $this->_handleAjax( 'submit_plan' );
+          $this->_handleAjax( 'check_plan_change' );
       } catch ( WPAjaxDieContinueException $e ) {}
 
       // Verifica che è stata lanciata l'eccezione
       $this->assertTrue( isset( $e ) );
       $response = json_decode( $this->_last_response );
-      $this->assertFalse( $response->success);
+      $expected = 'change_plan';
+      $this->assertTrue( $response->success);
+      $this->assertEqualSets($expected, $response->data);
     }
     /**
-     * Effuettua la chiamata senza nonce
+     * Fail test, license not found.
      */
      public function test_no_license_send_request(){
-       $_POST['_ajax_nonce'] = wp_create_nonce( 'itr_ajax_nonce' );
-       $_POST['pricing_plan'] = 'test';
-       try {
-           $this->_handleAjax( 'submit_plan' );
-       } catch ( WPAjaxDieContinueException $e ) {}
+       $all_plans = array(
+         'plan_test' => array(
+           'stripe_code' => 'test_code'
+         )
+       );
+       update_option( 'wubtitle_all_plans', $all_plans );
+       $result = $this->instance->send_wanted_plan_info('plan_test');
 
        // Verifica che è stata lanciata l'eccezione
-       $this->assertTrue( isset( $e ) );
-       $response = json_decode( $this->_last_response );
+       $expected = 'The product license key is missing.';
        //verifica che c'è stato un'errore
-       $this->assertFalse( $response->success);
+       $this->assertEqualSets($expected, $result);
      }
       /**
        * Verifica che il body è stato creato correttamente
