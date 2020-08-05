@@ -579,6 +579,9 @@ table tr {
 .coupon-message {
 	height: 8px;
 }
+.coupon-notice {
+	color: #ffd600;
+}
 
 .description {
 	font: 400 14px/19px "Open Sans", sans-serif;
