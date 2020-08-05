@@ -47,6 +47,7 @@
     "@stripe/stripe-js": "^1.8.0",
     "@wordpress/api-fetch": "^3.18.0",
     "@wordpress/i18n": "^3.14.0",
+    "codice-fiscale-js": "^2.3.2",
     "formik": "^2.1.5",
     "yup": "^0.29.2"
   }
