@@ -78,6 +78,8 @@ require WUBTITLE_DIR . 'includes/Dashboard/Templates/plans_array.php';
 		endforeach;
 		endif;
 		?>
+		</div>
+		</div>
 	</div>
 	<?php wp_footer(); ?>
 </body>
