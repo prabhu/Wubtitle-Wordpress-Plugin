@@ -63,74 +63,75 @@ $plans            = isset( $plans ) ? $plans : array();
 		</div>
 		<div class="container">
 		<div class="container-row">
-			<p><?php esc_html_e( 'You will pay:', 'wubtitle' ); ?></p>
-			<table>
-				<tr>
-					<td>
-						<span class="price-preview">
+				<p><?php esc_html_e( 'You will pay:', 'wubtitle' ); ?></p>
+				<table>
+					<tr>
+						<td>
+							<span class="price-preview">
+							<?php
+							echo esc_html( $amount_preview . '€' );
+							if ( $taxable ) {
+								echo esc_html( ' + ' . $taxes_preview . '€' );
+								esc_html_e( ' (VAT)', 'wubtitle' );
+							}
+							?>
+							</span>
+						</td>
+						<td>
+							<?php
+							esc_html_e( 'What you pay now (Discounted', 'wubtitle' );
+							echo esc_html( ' ' . $plans[ $wanted_plan_rank ]['name'] . ' ' );
+							esc_html_e( 'Price)', 'wubtitle' );
+							?>
+						</td>
+						<td>
 						<?php
-						echo esc_html( $amount_preview . '€' );
-						if ( $taxable ) {
-							echo esc_html( ' + ' . $taxes_preview . '€' );
-							esc_html_e( ' (VAT)', 'wubtitle' );
-						}
+						esc_html_e( 'Until ', 'wubtitle' );
+						echo esc_html( $data );
 						?>
-						</span>
-					</td>
-					<td>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<span class="price-preview">
+							<?php
+							echo isset( $price_info_object, $wanted_plan_rank ) ? esc_html( $price_info_object[ $wanted_plan_rank ]->price . '€' ) : '';
+							if ( $taxable ) {
+								echo esc_html( ' +' . $tax_wanted_plan . '€' );
+								esc_html_e( ' (vat)', 'wubtitle' );
+							}
+							?>
+							</span>
+						</td>
+						<td>
+							<?php
+							esc_html_e( 'What you pay monthly (Full', 'wubtitle' );
+							echo esc_html( ' ' . $plans[ $wanted_plan_rank ]['name'] . ' ' );
+							esc_html_e( 'price)', 'wubtitle' );
+							?>
+						</td>
+						<td>
 						<?php
-						esc_html_e( 'What you pay now (Discounted', 'wubtitle' );
-						echo esc_html( ' ' . $plans[ $wanted_plan_rank ]['name'] . ' ' );
-						esc_html_e( 'Price)', 'wubtitle' );
+						esc_html_e( 'From ', 'wubtitle' );
+						echo esc_html( $new_data );
 						?>
-					</td>
-					<td>
-					<?php
-					esc_html_e( 'Until ', 'wubtitle' );
-					echo esc_html( $data );
-					?>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						<span class="price-preview">
-						<?php
-						echo isset( $price_info_object, $wanted_plan_rank ) ? esc_html( $price_info_object[ $wanted_plan_rank ]->price . '€' ) : '';
-						if ( $taxable ) {
-							echo esc_html( ' +' . $tax_wanted_plan . '€' );
-							esc_html_e( ' (vat)', 'wubtitle' );
-						}
-						?>
-						</span>
-					</td>
-					<td>
-						<?php
-						esc_html_e( 'What you pay monthly (Full', 'wubtitle' );
-						echo esc_html( ' ' . $plans[ $wanted_plan_rank ]['name'] . ' ' );
-						esc_html_e( 'price)', 'wubtitle' );
-						?>
-					</td>
-					<td>
-					<?php
-					esc_html_e( 'From ', 'wubtitle' );
-					echo esc_html( $new_data );
-					?>
-					</td>
-				</tr>
-			</table>
-			<div class="has-tooltip">
-				<span>
-					<?php esc_html_e( 'Current Payment details', 'wubtitle' ); ?>
-				</span>
-				<i class="fas fa-info-circle"></i>
-					<div class="tooltip">
-							<p><strong><?php esc_html_e( 'Name: ', 'wubtitle' ); ?></strong> <?php echo isset( $name ) ? esc_html( $name ) : ''; ?> </p>
-							<p><strong><?php esc_html_e( 'Email: ', 'wubtitle' ); ?></strong> <?php echo isset( $email ) ? esc_html( $email ) : ''; ?> </p>
-							<p><strong><?php esc_html_e( 'Card: ', 'wubtitle' ); ?></strong> <?php echo isset( $card_number ) ? esc_html( $card_number ) : ''; ?> </p>
-							<p><strong><?php esc_html_e( 'Expiration Date: ', 'wubtitle' ); ?></strong> <?php echo isset( $expiration ) ? esc_html( $expiration ) : ''; ?> </p>
-					</div>
+						</td>
+					</tr>
+				</table>
+				<div class="has-tooltip">
+					<span>
+						<?php esc_html_e( 'Current Payment details', 'wubtitle' ); ?>
+					</span>
+					<i class="fas fa-info-circle"></i>
+						<div class="tooltip">
+								<p><strong><?php esc_html_e( 'Name: ', 'wubtitle' ); ?></strong> <?php echo isset( $name ) ? esc_html( $name ) : ''; ?> </p>
+								<p><strong><?php esc_html_e( 'Email: ', 'wubtitle' ); ?></strong> <?php echo isset( $email ) ? esc_html( $email ) : ''; ?> </p>
+								<p><strong><?php esc_html_e( 'Card: ', 'wubtitle' ); ?></strong> <?php echo isset( $card_number ) ? esc_html( $card_number ) : ''; ?> </p>
+								<p><strong><?php esc_html_e( 'Expiration Date: ', 'wubtitle' ); ?></strong> <?php echo isset( $expiration ) ? esc_html( $expiration ) : ''; ?> </p>
+						</div>
+				</div>
+				<p><?php esc_html_e( 'The subtitles already created and the minutes already used will be counted on the new subscription plan', 'wubtitle' ); ?></p>
 			</div>
-			<p><?php esc_html_e( 'The subtitles already created and the minutes already used will be counted on the new subscription plan', 'wubtitle' ); ?></p>
 		</div>
 		<div class="confirm-change-section">
 			<div class="buttons">
