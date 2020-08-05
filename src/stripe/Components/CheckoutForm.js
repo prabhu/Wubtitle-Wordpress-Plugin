@@ -71,7 +71,7 @@ export default function CheckoutForm(props) {
 				setLoadingCoupon(false);
 				if (response.success) {
 					setCouponMessage(response.data.message);
-					updatePrice(response.data.price);
+					updatePrice(response.data);
 				} else {
 					setCouponMessage(response.data);
 					updatePrice(false);

@@ -2,7 +2,7 @@ import React from 'react';
 import { __ } from '@wordpress/i18n';
 
 const PriceTable = (props) => {
-	const {
+	let {
 		price,
 		taxPercentage,
 		taxAmount,
@@ -10,11 +10,25 @@ const PriceTable = (props) => {
 		taxable,
 		discountedPrice,
 	} = props;
+	if (discountedPrice) {
+		total = taxable ? discountedPrice.newTotal : discountedPrice.price;
+		taxAmount = discountedPrice.newTax;
+	}
 	return (
 		<table className="price-table">
 			<tr>
 				<td>{__('Price', 'wubtitle')}</td>
-				<td className="val">{price} &euro;</td>
+				{discountedPrice ? (
+					<td className="val">
+						<span className="cut-vat">
+							{price} &euro;
+							<span className="cut-line" />
+						</span>
+						{parseFloat(discountedPrice.price)} &euro;
+					</td>
+				) : (
+					<td className="val">{price} &euro;</td>
+				)}
 			</tr>
 			<tr>
 				<td>
@@ -24,35 +38,21 @@ const PriceTable = (props) => {
 					<td className="val">{taxAmount} &euro;</td>
 				) : (
 					<td className="val">
-						<span className="cut-vat">
-							{taxAmount} &euro;
-							<span className="cut-line" />
+						0 &euro;{' '}
+						<span className="description">
+							{__('no Vat due for you', 'wubtitle')}
 						</span>
-						0 &euro;
 					</td>
 				)}
 			</tr>
 			<tr className="total">
 				<td>{__('Total', 'wubtitle')}</td>
-				{discountedPrice ? (
-					<td className="val">
-						<span className="cut-vat">
-							{total} &euro;
-							<span className="cut-line" />
-						</span>
-						{parseFloat(discountedPrice)} &euro;
-						<span className="valxm">
-							{__(' per month', 'wubtitle')}
-						</span>
-					</td>
-				) : (
-					<td className="val">
-						{total} &euro;
-						<span className="valxm">
-							{__(' per month', 'wubtitle')}
-						</span>
-					</td>
-				)}
+				<td className="val">
+					{total} &euro;
+					<span className="valxm">
+						{__(' per month', 'wubtitle')}
+					</span>
+				</td>
 			</tr>
 		</table>
 	);

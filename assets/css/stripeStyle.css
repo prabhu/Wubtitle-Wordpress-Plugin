@@ -579,3 +579,7 @@ table tr {
 .coupon-message {
 	height: 8px;
 }
+
+.description {
+	font: 400 14px/19px "Open Sans", sans-serif;
+}
