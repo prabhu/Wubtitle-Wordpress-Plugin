@@ -25,7 +25,7 @@ export default function CheckoutForm(props) {
 			telephone: Yup.string()
 				.required(__('Telephone number required', 'wubtitle'))
 				.matches('^[0-9]*$', __('Only numbers', 'wubtitle')),
-			prefix_telephone: Yup.string()
+			prefix: Yup.string()
 				.required(__('Prefix required', 'wubtitle'))
 				.matches('^[0-9]*$', __('Prefix is only numbers', 'wubtitle'))
 				.max(3, __('Prefix must be max 3 numbers', 'wubtitle')),
@@ -75,7 +75,7 @@ export default function CheckoutForm(props) {
 		invoice_name: '',
 		invoice_email: '',
 		invoice_lastname: '',
-		prefix_telephone: '',
+		prefix: '',
 		telephone: '',
 		company_name: '',
 		address: '',
@@ -286,9 +286,9 @@ export default function CheckoutForm(props) {
 							<div>
 								<Field
 									className="prefix-input"
-									name="prefix_telephone"
+									name="prefix"
 									placeholder="+"
-									value={prefixLimit(values.prefix_telephone)}
+									value={prefixLimit(values.prefix)}
 								/>
 								<Field
 									className="input-with-prefix"
@@ -297,9 +297,12 @@ export default function CheckoutForm(props) {
 								/>
 							</div>
 							<p className="error-message">
-								{touched.prefix_telephone &&
-									errors.prefix_telephone + '. '}
-								{touched.telephone && errors.telephone + '. '}
+								{touched.prefix &&
+									errors.prefix &&
+									errors.prefix + '. '}
+								{touched.telephone &&
+									errors.telephone &&
+									errors.telephone + '. '}
 							</p>
 						</div>
 						<div
