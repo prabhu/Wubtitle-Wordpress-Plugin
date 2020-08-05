@@ -4,6 +4,7 @@ import { Formik, Form, Field } from 'formik';
 import countries from '../data/countries.json';
 import provinces from '../data/provinces.json';
 import euCountries from '../data/europeanCountries.json';
+import CodiceFiscale from 'codice-fiscale-js';
 
 export default function CheckoutForm(props) {
 	const {
@@ -14,7 +15,6 @@ export default function CheckoutForm(props) {
 		loading,
 	} = props;
 	const requiredMessage = __('Required', 'wubtitle');
-	const CodiceFiscale = require('codice-fiscale-js');
 
 	const DisplayingErrorMessagesSchema = Yup.lazy((values) => {
 		const yupObject = {
