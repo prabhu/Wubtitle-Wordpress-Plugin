@@ -227,7 +227,7 @@ class ApiRequest {
 		if ( 'NO_AVAILABLE_MINUTES' === $reason ) {
 			// phpcs:disable
 			// camelcase object
-			$error_message['NO_AVAILABLE_MINUTES'] = __( 'Error, video length is longer than minutes available for your subscription plan (minutes left ', 'wubtitle' ) . date_i18n( 'i:s', $title_error->videoTimeLeft ) . __( ', video left ', 'wubtitle' ) . $title_error->jobsLeft . ')';
+			$error_message['NO_AVAILABLE_MINUTES'] = __( 'Error, video length is longer than minutes available for your subscription plan (minutes left', 'wubtitle' ) . ' ' . date_i18n( 'i:s', $title_error->videoTimeLeft ) . __( ', video left', 'wubtitle' ) . ' ' . $title_error->jobsLeft . ')';
 			// phpcs:enable
 		}
 		return $error_message[ $reason ];

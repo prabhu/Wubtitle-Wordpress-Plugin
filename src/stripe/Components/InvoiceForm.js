@@ -23,11 +23,11 @@ export default function CheckoutForm(props) {
 				.required(requiredMessage),
 			invoice_lastname: Yup.string().required(requiredMessage),
 			telephone: Yup.string()
-				.required(__('Telephone number required ', 'wubtitle'))
+				.required(__('Telephone number required', 'wubtitle'))
 				.matches('^[0-9]*$', __('Only numbers', 'wubtitle')),
 			prefix_telephone: Yup.string()
-				.required(__('Prefix required ', 'wubtitle'))
-				.matches('^[0-9]*$', __('Prefix is only numbers ', 'wubtitle'))
+				.required(__('Prefix required', 'wubtitle'))
+				.matches('^[0-9]*$', __('Prefix is only numbers', 'wubtitle'))
 				.max(3, __('Prefix must be max 3 numbers', 'wubtitle')),
 			address: Yup.string().required(requiredMessage),
 			city: Yup.string().required(requiredMessage),
@@ -298,8 +298,8 @@ export default function CheckoutForm(props) {
 							</div>
 							<p className="error-message">
 								{touched.prefix_telephone &&
-									errors.prefix_telephone}
-								{touched.telephone && errors.telephone}
+									errors.prefix_telephone + ' '}
+								{touched.telephone && errors.telephone + ' '}
 							</p>
 						</div>
 						<div

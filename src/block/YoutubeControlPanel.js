@@ -110,7 +110,7 @@ const YoutubeControlPanel = (props) => {
 		<InspectorControls>
 			<PanelBody title="Wubtitle">
 				<p style={{ margin: '0', marginBottom: '20px' }}>
-					{`${__('Transcript status : ', 'wubtitle')} ${status}`}
+					{`${__('Transcript status:', 'wubtitle')} ${status}`}
 				</p>
 				{props.url && langReady ? (
 					<SelectControl

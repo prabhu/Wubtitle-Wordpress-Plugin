@@ -90,7 +90,7 @@ class Settings {
 				<div class="inside">
 				<?php if ( $this->price_info_plans ) : ?>
 					<div class="plan-state">
-						<?php echo esc_html_e( 'Plan: ', 'wubtitle' ) . esc_html( $current_plan ); ?>
+						<?php echo esc_html_e( 'Plan:', 'wubtitle' ) . ' ' . esc_html( $current_plan ); ?>
 					</div>
 					<div class="plan-renewal">
 						<?php
@@ -99,21 +99,22 @@ class Settings {
 					</div>
 					<p style="font-weight:400">
 					<?php
-					esc_html_e( 'Generated video subtitles: ', 'wubtitle' );
+					esc_html_e( 'Generated video subtitles:', 'wubtitle' );
+					echo ' ';
 					echo esc_html( $jobs . '/' . $jobs_max );
 					?>
 					</p>
 					<p style="font-weight:400">
 					<?php
-					esc_html_e( 'Video time spent: ', 'wubtitle' );
-					echo esc_html( date_i18n( 'H:i:s', $seconds ) . '/' . date_i18n( 'H:i:s', $seconds_max ) );
-					esc_html_e( ' hours', 'wubtitle' );
+					esc_html_e( 'Video time spent:', 'wubtitle' );
+					echo ' ' . esc_html( date_i18n( 'H:i:s', $seconds ) . '/' . date_i18n( 'H:i:s', $seconds_max ) . ' ' );
+					esc_html_e( 'hours', 'wubtitle' );
 					?>
 					</p>
 					<p style="font-weight:400">
 					<?php
-					esc_html_e( 'The counters will be reset on: ', 'wubtitle' );
-					echo esc_html( $friendly_expiration_date );
+					esc_html_e( 'The counters will be reset on:', 'wubtitle' );
+					echo ' ' . esc_html( $friendly_expiration_date );
 					?>
 					</p>
 				<?php endif; ?>
@@ -182,9 +183,9 @@ class Settings {
 	 */
 	private function render_plan_renewal( $plan, $cancelling, $date ) {
 		if ( '0' !== $plan && ! $cancelling ) {
-			echo esc_html( __( 'Automatic renewal: ', 'wubtitle' ) . $date );
+			echo esc_html( __( 'Automatic renewal:', 'wubtitle' ) . $date ) . ' ';
 		} elseif ( '0' !== $plan && $cancelling ) {
-			echo esc_html( __( 'You requested the subscription cancellation. Your plan will be valid until  ', 'wubtitle' ) . $date );
+			echo esc_html( __( 'You requested the subscription cancellation. Your plan will be valid until', 'wubtitle' ) . $date );
 		}
 	}
 

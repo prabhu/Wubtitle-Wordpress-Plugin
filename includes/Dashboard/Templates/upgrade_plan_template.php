@@ -54,6 +54,10 @@ $plans            = isset( $plans ) ? $plans : array();
 					<span class="new_price"> <?php echo isset( $price_info_object ) ? esc_html( $price_info_object[ $wanted_plan_rank ]->price . '€' ) : ''; ?></span>
 				</h1>
 				<img class="arrowup" src="<?php echo esc_url( WUBTITLE_URL . 'assets/img/arrowup.svg' ); ?>">
+<<<<<<< HEAD
+=======
+				<p class="paragraph-center"> <?php echo esc_html( __( 'Only for first month (Until', 'wubtitle' ) . ' ' . $data . ')' ); ?> </p>
+>>>>>>> origin/staging
 			</div>
 			<div class="column one-quarter">
 				<img class="card_plan" src="<?php echo esc_url( WUBTITLE_URL . 'assets/img/' . $plans[ $wanted_plan_rank ]['icon'] ); ?>">
