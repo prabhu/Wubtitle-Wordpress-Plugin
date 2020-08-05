@@ -14,6 +14,7 @@ export default function CheckoutForm(props) {
 		loading,
 	} = props;
 	const requiredMessage = __('Required', 'wubtitle');
+	const CodiceFiscale = require('codice-fiscale-js');
 
 	const DisplayingErrorMessagesSchema = Yup.lazy((values) => {
 		const yupObject = {
@@ -48,12 +49,11 @@ export default function CheckoutForm(props) {
 					.matches('^[0-9]*$', __('Only numbers', 'wubtitle'));
 			}
 		} else if (values.country === 'IT') {
-			yupObject.fiscal_code = Yup.string()
-				.required(requiredMessage)
-				.length(
-					16,
-					__('Fiscal Code must be exactly 16 characters', 'wubtitle')
-				);
+			yupObject.fiscal_code = Yup.string().test(
+				'',
+				__('Invalid fiscal code', 'wubtitle'),
+				(value) => CodiceFiscale.check(value)
+			);
 		}
 		if (values.country === 'IT') {
 			yupObject.cap = Yup.string()
