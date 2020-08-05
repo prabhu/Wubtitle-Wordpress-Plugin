@@ -94,12 +94,11 @@ class InvoiceHelper {
 			'LastName'        => $invoice_object->invoice_lastname,
 			'Email'           => $invoice_object->invoice_email,
 			'Telephone'       => $invoice_object->telephone,
-			'TelephonePrefix' => $invoice_object->prefix,
+			'TelephonePrefix' => substr( $invoice_object->prefix, 1 ),
 			'Address'         => $invoice_object->address,
 			'City'            => $invoice_object->city,
 			'Country'         => $invoice_object->country,
 		);
-
 		if ( ! in_array( $invoice_object->country, $eu_countries, true ) ) {
 			if ( ! empty( $invoice_object->company_name ) ) {
 				$invoice_details['CompanyName'] = $invoice_object->company_name;

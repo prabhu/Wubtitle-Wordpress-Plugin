@@ -27,8 +27,11 @@ export default function CheckoutForm(props) {
 				.matches('^[0-9]*$', __('Only numbers', 'wubtitle')),
 			prefix: Yup.string()
 				.required(__('Prefix required', 'wubtitle'))
-				.matches('^[0-9]*$', __('Prefix is only numbers', 'wubtitle'))
-				.max(3, __('Prefix must be max 3 numbers', 'wubtitle')),
+				.matches(
+					'^[+][0-9]*$',
+					__('Prefix is only numbers', 'wubtitle')
+				)
+				.max(4, __('Prefix must be max 3 numbers', 'wubtitle')),
 			address: Yup.string().required(requiredMessage),
 			city: Yup.string().required(requiredMessage),
 			country: Yup.string().required(requiredMessage),
@@ -88,13 +91,19 @@ export default function CheckoutForm(props) {
 		destination_code: '0000000',
 	};
 	if (invoicePreValues) {
+		if (invoicePreValues.prefix.charAt(0) !== '+') {
+			invoicePreValues.prefix = '+' + invoicePreValues.prefix;
+		}
 		initValues = {
 			...invoicePreValues,
 		};
 	}
 
 	const prefixLimit = (prefix) => {
-		if (prefix.length > 3) {
+		if (prefix.charAt(0) !== '+') {
+			prefix = '+' + prefix;
+		}
+		if (prefix.length > 4) {
 			return prefix.substring(0, prefix.length - 1);
 		}
 		return prefix;
