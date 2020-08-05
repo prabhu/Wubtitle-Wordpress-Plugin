@@ -331,7 +331,7 @@ export default function CheckoutForm(props) {
 								{loading && (
 									<i className="fa fa-refresh fa-spin loading-margin" />
 								)}
-								{__('Summary', 'wubtitle')}
+								{__('Next', 'wubtitle')}
 							</button>
 						</div>
 					</Form>
