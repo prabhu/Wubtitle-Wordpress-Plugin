@@ -221,7 +221,7 @@ export default function CheckoutForm(props) {
 								{loading && (
 									<i className="fa fa-refresh fa-spin loading-margin" />
 								)}
-								{__('Confirm order', 'wubtitle')}
+								{__('Subscribe', 'wubtitle')}
 							</button>
 						</div>
 					</Form>
