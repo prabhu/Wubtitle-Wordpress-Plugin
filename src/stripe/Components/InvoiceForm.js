@@ -298,8 +298,8 @@ export default function CheckoutForm(props) {
 							</div>
 							<p className="error-message">
 								{touched.prefix_telephone &&
-									errors.prefix_telephone + ' '}
-								{touched.telephone && errors.telephone + ' '}
+									errors.prefix_telephone + '. '}
+								{touched.telephone && errors.telephone + '. '}
 							</p>
 						</div>
 						<div
