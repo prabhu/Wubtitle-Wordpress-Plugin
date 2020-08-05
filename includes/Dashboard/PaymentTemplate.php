@@ -15,12 +15,24 @@ use Wubtitle\Loader;
  * This class handles Payment Templates.
  */
 class PaymentTemplate {
+
+	/**
+	 * Stripe key.
+	 *
+	 * @var string
+	 */
+	private $stripe_key;
 	/**
 	 * Init class actions
 	 *
 	 * @return void
 	 */
 	public function run() {
+		$stripe_key = 'pk_live_PvwHkJ49ry3lfXwkXIx2YKBE00S15aBYz7';
+		if ( defined( 'WP_WUBTITLE_ENV' ) && WP_WUBTITLE_ENV ) {
+			$stripe_key = 'pk_test_lFmjf2Dz7VURTslihG0xys7m00NjW2BOPI';
+		}
+		$this->stripe_key = $stripe_key;
 		add_action( 'wp_ajax_payment_template', array( $this, 'load_payment_template' ) );
 		add_action( 'wp_ajax_update_template', array( $this, 'load_update_template' ) );
 		add_action( 'wp_ajax_change_plan_template', array( $this, 'change_plan_template' ) );
@@ -35,24 +47,34 @@ class PaymentTemplate {
 	 * @SuppressWarnings(PHPMD.UnusedLocalVariable)
 	 */
 	public function change_plan_template() {
-		if ( ! isset( $_POST['_ajax_nonce'], $_POST['priceinfo'], $_POST['amountPreview'], $_POST['wantedPlanRank'] ) ) {
+		if ( ! isset( $_POST['_ajax_nonce'], $_POST['priceinfo'], $_POST['wantedPlanRank'] ) ) {
 			wp_send_json_error( __( 'An error occurred. Please try again in a few minutes.', 'wubtitle' ) );
 		}
 		$nonce             = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
 		$price_info_data   = sanitize_text_field( wp_unslash( $_POST['priceinfo'] ) );
-		$amount_preview    = sanitize_text_field( wp_unslash( $_POST['amountPreview'] ) );
 		$wanted_plan_rank  = sanitize_text_field( wp_unslash( $_POST['wantedPlanRank'] ) );
 		$price_info_object = json_decode( $price_info_data );
 		check_ajax_referer( 'itr_ajax_nonce', $nonce );
-		$plan_rank     = get_option( 'wubtitle_plan_rank' );
-		$includes_file = 'Templates/downgrade_plan_template.php';
+		$plan_rank        = get_option( 'wubtitle_plan_rank' );
+		$wanted_plan_info = Loader::get( 'send_pricing_plan' )->send_wanted_plan_info( $wanted_plan_rank );
+		$amount_preview   = $wanted_plan_info['amount_preview'];
+		$name             = $wanted_plan_info['name'];
+		$email            = $wanted_plan_info['email'];
+		$expiration       = $wanted_plan_info['expiration'];
+		$card_number      = $wanted_plan_info['cardNumber'];
+		$taxes_preview    = $wanted_plan_info['taxes_preview'];
+		$taxable          = $wanted_plan_info['taxable'];
+		$tax_wanted_plan  = $price_info_object[ $wanted_plan_rank ]->taxAmount;
+		$includes_file    = 'Templates/downgrade_plan_template.php';
 		if ( $wanted_plan_rank > $plan_rank ) {
 			$includes_file = 'Templates/upgrade_plan_template.php';
 		}
 		if ( current_user_can( 'manage_options' ) ) {
 			ob_start();
 			wp_enqueue_style( 'wubtitle_font_family', 'https://fonts.googleapis.com/css?family=Days+One|Open+Sans&display=swap', array(), WUBTITLE_VER );
+			wp_enqueue_script( 'fa', 'https://kit.fontawesome.com/b78c2a4b89.js', array(), '1.0', true );
 			wp_enqueue_style( 'wubtitle_style_template', WUBTITLE_URL . 'assets/css/payment_template.css', array(), WUBTITLE_VER );
+			wp_enqueue_script( 'stripe_script', 'https://js.stripe.com/v3/', array(), WUBTITLE_VER, true );
 			wp_enqueue_script( 'wubtitle_change_plan', WUBTITLE_URL . 'assets/payment/change_plan_script.js', array(), WUBTITLE_VER, true );
 			wp_localize_script(
 				'wubtitle_change_plan',
@@ -60,6 +82,7 @@ class PaymentTemplate {
 				array(
 					'adminAjax' => admin_url( 'admin-ajax.php' ),
 					'nonce'     => wp_create_nonce( 'itr_ajax_nonce' ),
+					'stripeKey' => $this->stripe_key,
 				)
 			);
 			include $includes_file;
@@ -92,9 +115,8 @@ class PaymentTemplate {
 				'wubtitle_change_plan',
 				'WP_GLOBALS',
 				array(
-					'adminAjax'   => admin_url( 'admin-ajax.php' ),
-					'nonce'       => wp_create_nonce( 'itr_ajax_nonce' ),
-					'wubtitleEnv' => defined( 'WP_WUBTITLE_ENV' ) ? esc_html( WP_WUBTITLE_ENV ) : '',
+					'adminAjax' => admin_url( 'admin-ajax.php' ),
+					'nonce'     => wp_create_nonce( 'itr_ajax_nonce' ),
 				)
 			);
 			include 'Templates/payment_template.php';
@@ -145,7 +167,7 @@ class PaymentTemplate {
 					'namePlan'         => $current_plan['name'],
 					'expirationDate'   => $friendly_expiration_date,
 					'isTaxable'        => $taxable,
-					'wubtitleEnv'      => defined( 'WP_WUBTITLE_ENV' ) ? esc_html( WP_WUBTITLE_ENV ) : '',
+					'stripeKey'        => $this->stripe_key,
 					'invoicePreValues' => $data && isset( $invoice_object ) ? $invoice_object : null,
 					'paymentPreValues' => $data && isset( $payment_object ) ? $payment_object : null,
 				)
@@ -189,7 +211,7 @@ class PaymentTemplate {
 					'namePlan'      => $wanted_plan['name'],
 					'ajaxUrl'       => admin_url( 'admin-ajax.php' ),
 					'ajaxNonce'     => wp_create_nonce( 'itr_ajax_nonce' ),
-					'wubtitleEnv'   => defined( 'WP_WUBTITLE_ENV' ) ? esc_html( WP_WUBTITLE_ENV ) : '',
+					'stripeKey'     => $this->stripe_key,
 				)
 			);
 			wp_enqueue_style( 'wubtitle_style_form', WUBTITLE_URL . 'assets/css/stripeStyle.css', array(), WUBTITLE_VER );

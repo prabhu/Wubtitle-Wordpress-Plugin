@@ -295,3 +295,42 @@ html {
 .arrowdown {
 	width: 100%;
 }
+
+.container-row {
+	width: 820px;
+	display: block;
+	color: #fff;
+}
+
+.price-preview {
+	color: #ff0;
+	font-size: 20px;
+	font-weight: 600;
+}
+
+.container-row td {
+	padding-right: 20px;
+}
+
+.container-row p {
+	padding: 16px 0;
+}
+
+.tooltip {
+	background-color: #fff;
+	color: #000;
+	display: none;
+	overflow: hidden;
+	position: absolute;
+	transform: translate(5px, -65px);
+	border-radius: 8%;
+	padding: 16px;
+}
+
+.tooltip p {
+	padding: 4px 0;
+}
+
+.fas:hover + .tooltip {
+	display: inline-block;
+}

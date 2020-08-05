@@ -1,5 +1,28 @@
-(function (document) {
-	const { adminAjax, nonce } = WP_GLOBALS;
+(function (Stripe, document) {
+	const { adminAjax, nonce, stripeKey } = WP_GLOBALS;
+	let stripe = null;
+
+	const paymentSuccessfull = () => {
+		window.unonload = window.opener.redirectToCallback(
+			'notices-code=payment'
+		);
+		window.close();
+	};
+
+	const confirmPayment = (clientSecret, paymentMethod) => {
+		stripe
+			.confirmCardPayment(clientSecret, {
+				payment_method: paymentMethod,
+				setup_future_usage: 'off_session',
+			})
+			.then((response) => {
+				if (response.paymentIntent.status === 'succeeded') {
+					paymentSuccessfull();
+				}
+				document.getElementById('error-message').innerHTML =
+					response.data;
+			});
+	};
 
 	const handleConfirm = () => {
 		fetch(adminAjax, {
@@ -13,10 +36,17 @@
 			.then((resp) => resp.json())
 			.then((response) => {
 				if (response.success) {
-					window.unonload = window.opener.redirectToCallback(
-						'notices-code=payment'
-					);
-					window.close();
+					if (
+						response.data &&
+						response.data.status === 'requires_action'
+					) {
+						confirmPayment(
+							response.data.clientSecret,
+							response.paymentMethod
+						);
+					} else {
+						paymentSuccessfull();
+					}
 				} else {
 					document.getElementById('error-message').innerHTML =
 						response.data;
@@ -27,6 +57,8 @@
 	const init = () => {
 		const confirmButton = document.querySelector('#confirm_changes');
 		const closeButton = document.querySelector('#forget');
+		stripe = Stripe(stripeKey);
+
 		if (confirmButton) {
 			confirmButton.addEventListener('click', () => {
 				handleConfirm();
@@ -42,4 +74,4 @@
 	return {
 		init,
 	};
-})(document).init();
+})(Stripe, document).init();

@@ -8,19 +8,13 @@
 			headers: new Headers({
 				'Content-Type': 'application/x-www-form-urlencoded',
 			}),
-			body: `action=submit_plan&_ajax_nonce=${nonce}&plan_rank=${planRank}`,
+			body: `action=check_plan_change&plan_rank=${planRank}`,
 		})
 			.then((resp) => resp.json())
 			.then((response) => {
 				if (response.success) {
-					if (
-						response.data &&
-						response.data.message === 'change_plan'
-					) {
-						window.opener.confirmPlanChange(
-							response.data.amount_preview,
-							planRank
-						);
+					if (response.data === 'change_plan') {
+						window.opener.confirmPlanChange(planRank);
 						return;
 					}
 					window.opener.customStripeForm(planRank);

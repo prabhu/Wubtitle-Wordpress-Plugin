@@ -21,13 +21,12 @@ class ApiPricingPlan {
 	 * @return void
 	 */
 	public function run() {
-		add_action( 'wp_ajax_submit_plan', array( $this, 'send_plan' ) );
-
 		add_action( 'wp_ajax_reactivate_plan', array( $this, 'reactivate_plan' ) );
 		add_action( 'wp_ajax_change_plan', array( $this, 'change_plan' ) );
 		add_action( 'wp_ajax_create_subscription', array( $this, 'create_subscription' ) );
 		add_action( 'wp_ajax_check_coupon', array( $this, 'check_coupon' ) );
 		add_action( 'wp_ajax_confirm_subscription', array( $this, 'confirm_subscription' ) );
+		add_action( 'wp_ajax_check_plan_change', array( $this, 'check_plan_change' ) );
 	}
 	/**
 	 * Calls the backend endpoint to confirm the plan change.
@@ -78,7 +77,16 @@ class ApiPricingPlan {
 			wp_send_json_error( $message[ $code_response ] );
 		}
 		delete_option( 'wubtitle_wanted_plan_rank' );
-		wp_send_json_success();
+		$response_body = json_decode( wp_remote_retrieve_body( $response ) );
+		$status        = $response_body->data->status;
+		if ( 'requires_action' === $status ) {
+			$data = array(
+				'paymentMethod' => $response_body->data->paymentMethod,
+				'clientSecret'  => $response_body->data->clientSecret,
+			);
+		}
+		$data['status'] = $status;
+		wp_send_json_success( $data );
 	}
 	/**
 	 * Calls the endpoint for plan reactivation.
@@ -137,31 +145,33 @@ class ApiPricingPlan {
 		);
 	}
 	/**
-	 * Gets the data from JavaScript and sends it to the endpoint.
+	 * Check if free user.
 	 *
 	 * @return void
 	 */
-	public function send_plan() {
+	public function check_plan_change() {
 		if ( get_option( 'wubtitle_free' ) ) {
 			wp_send_json_success();
 		}
-		$site_url = get_site_url();
-		if ( ! isset( $_POST['_ajax_nonce'], $_POST['plan_rank'] ) ) {
-			wp_send_json_error( __( 'An error occurred. Please try again in a few minutes.', 'wubtitle' ) );
-		}
-		$plan_rank = sanitize_text_field( wp_unslash( $_POST['plan_rank'] ) );
-		$site_url  = sanitize_text_field( wp_unslash( $site_url ) );
-		$nonce     = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
-		check_ajax_referer( 'itr_ajax_nonce', $nonce );
+		wp_send_json_success( 'change_plan' );
+	}
+	/**
+	 * Gets the data from JavaScript and sends it to the endpoint.
+	 *
+	 * @param string $plan_rank rank of plan.
+	 * @return string|array<string>
+	 */
+	public function send_wanted_plan_info( $plan_rank ) {
+		$site_url     = get_site_url();
 		$all_plans    = get_option( 'wubtitle_all_plans' );
 		$pricing_plan = $all_plans[ $plan_rank ]['stripe_code'];
 		$body         = $this->set_body_request( $pricing_plan, $site_url );
 		if ( ! $body ) {
-			wp_send_json_error( __( 'An error occurred. Please try again in a few minutes.', 'wubtitle' ) );
+			return __( 'An error occurred. Please try again in a few minutes.', 'wubtitle' );
 		}
 		$license_key = get_option( 'wubtitle_license_key' );
 		if ( empty( $license_key ) ) {
-			wp_send_json_error( __( 'The product license key is missing.', 'wubtitle' ) );
+			return __( 'The product license key is missing.', 'wubtitle' );
 		}
 
 		$url_endpoint = WUBTITLE_ENDPOINT . 'stripe/customer/update/preview';
@@ -193,12 +203,17 @@ class ApiPricingPlan {
 			wp_send_json_error( $message[ $code_response ] );
 		}
 		$response_body = json_decode( wp_remote_retrieve_body( $response ) );
-		$response      = array(
+		$response_data = array(
 			'amount_preview' => $response_body->data->amountPreview,
-			'message'        => 'change_plan',
+			'taxes_preview'  => $response_body->data->taxesPreview,
+			'taxable'        => $response_body->data->taxable,
+			'name'           => $response_body->data->card->name,
+			'email'          => $response_body->data->card->email,
+			'expiration'     => $response_body->data->card->expiration,
+			'cardNumber'     => $response_body->data->card->cardNumber,
 		);
 		update_option( 'wubtitle_wanted_plan_rank', $plan_rank );
-		wp_send_json_success( $response );
+		return $response_data;
 	}
 
 	/**
@@ -389,16 +404,17 @@ class ApiPricingPlan {
 			)
 		);
 		$code_response = $this->is_successful_response( $response ) ? wp_remote_retrieve_response_code( $response ) : '500';
+		$response_body = json_decode( wp_remote_retrieve_body( $response ) );
 		$message       = array(
 			'400' => __( 'An error occurred. Please try again in a few minutes', 'wubtitle' ),
 			'401' => __( 'An error occurred. Please try again in a few minutes', 'wubtitle' ),
+			'402' => $response_body->errors->title,
 			'403' => __( 'Access denied', 'wubtitle' ),
 			'500' => __( 'Could not contact the server', 'wubtitle' ),
 			''    => __( 'Could not contact the server', 'wubtitle' ),
 		);
-		$response_body = json_decode( wp_remote_retrieve_body( $response ) );
 		if ( 200 !== $code_response ) {
-			$message = 402 === $code_response ? $response_body->errors->title : $message[ $code_response ];
+			$message = $message[ $code_response ];
 			if ( 400 === $code_response && 'INVALID_COUPON' === $response_body->errors->title ) {
 				$message = __( 'Invalid Coupon', 'wubtitle' );
 			}
