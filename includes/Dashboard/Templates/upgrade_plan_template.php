@@ -62,7 +62,7 @@ $plans            = isset( $plans ) ? $plans : array();
 			<?php endif; ?>
 		</div>
 		<div class="container">
-			<div class="container-row">
+		<div class="container-row">
 				<p><?php esc_html_e( 'You will pay:', 'wubtitle' ); ?></p>
 				<table>
 					<tr>
