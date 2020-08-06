@@ -32,7 +32,7 @@ class VideoBlock {
 	 * @return void
 	 */
 	public function add_subtitle_button_enqueue() {
-		wp_enqueue_script( 'add_subtitle_button-script', plugins_url( '../../build/index.js', __FILE__ ), array( 'wp-compose', 'wp-data', 'wp-element', 'wp-hooks', 'wp-api-fetch', 'wp-components', 'wp-block-editor', 'wp-edit-post', 'wp-i18n' ), WUBTITLE_VER, false );
+		wp_enqueue_script( 'add_subtitle_button-script', WUBTITLE_URL . 'build/index.js', array( 'wp-compose', 'wp-data', 'wp-element', 'wp-hooks', 'wp-api-fetch', 'wp-components', 'wp-block-editor', 'wp-edit-post', 'wp-i18n' ), WUBTITLE_VER, false );
 		wp_set_script_translations( 'add_subtitle_button-script', 'wubtitle', WUBTITLE_DIR . 'languages' );
 		wp_localize_script(
 			'add_subtitle_button-script',
