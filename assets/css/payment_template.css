@@ -64,7 +64,6 @@ html {
 	box-shadow: 0 6px 24px rgba(0, 0, 0, 0.29);
 	display: flex;
 	flex-direction: column;
-	height: 100%;
 	padding: 20px;
 	position: relative;
 	transition: transform 0.2s, box-shadow 0.2s;
@@ -333,4 +332,17 @@ html {
 
 .fas:hover + .tooltip {
 	display: inline-block;
+}
+
+@media screen and (max-width: 1023px) {
+
+	.one-quarter {
+		width: 100%;
+	}
+
+	.card,
+	.features-list {
+		max-width: 288px;
+		margin: 0 auto;
+	}
 }

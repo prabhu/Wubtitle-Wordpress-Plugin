@@ -30,7 +30,20 @@ const InfoPriceColumn = (props) => {
 				<ColumnTitle name={name} update={update} />
 				{update ? null : (
 					<p className="mobile-price-info is-hidden-on-desktop">
-						<span className="total">{total} &euro; </span>
+						{discountedPrice ? (
+							<span className="cut-vat">
+								<span className="total">
+									{total} &euro;
+									<span className="cut-line" />
+								</span>
+								<span className="total">
+									{parseFloat(discountedPrice.newTotal)}{' '}
+									&euro;
+								</span>
+							</span>
+						) : (
+							<span className="total">{total} &euro; </span>
+						)}
 						<span className="valxm">
 							{__('per month', 'wubtitle')}
 						</span>
@@ -83,6 +96,7 @@ const InfoPriceColumn = (props) => {
 						taxAmount={taxAmount}
 						taxable={taxable}
 						total={total}
+						discountedPrice={discountedPrice}
 					/>
 				</div>
 				<Disclaimer />

@@ -25,10 +25,13 @@ export default function CheckoutForm(props) {
 			telephone: Yup.string()
 				.required(__('Telephone number required', 'wubtitle'))
 				.matches('^[0-9]*$', __('Only numbers', 'wubtitle')),
-			prefix_telephone: Yup.string()
+			prefix: Yup.string()
 				.required(__('Prefix required', 'wubtitle'))
-				.matches('^[0-9]*$', __('Prefix is only numbers', 'wubtitle'))
-				.max(3, __('Prefix must be max 3 numbers', 'wubtitle')),
+				.matches(
+					'^[+][0-9]*$',
+					__('Prefix is only numbers', 'wubtitle')
+				)
+				.max(4, __('Prefix must be max 3 numbers', 'wubtitle')),
 			address: Yup.string().required(requiredMessage),
 			city: Yup.string().required(requiredMessage),
 			country: Yup.string().required(requiredMessage),
@@ -75,7 +78,7 @@ export default function CheckoutForm(props) {
 		invoice_name: '',
 		invoice_email: '',
 		invoice_lastname: '',
-		prefix_telephone: '',
+		prefix: '',
 		telephone: '',
 		company_name: '',
 		address: '',
@@ -88,13 +91,19 @@ export default function CheckoutForm(props) {
 		destination_code: '0000000',
 	};
 	if (invoicePreValues) {
+		if (invoicePreValues.prefix.charAt(0) !== '+') {
+			invoicePreValues.prefix = `+${invoicePreValues.prefix}`;
+		}
 		initValues = {
 			...invoicePreValues,
 		};
 	}
 
 	const prefixLimit = (prefix) => {
-		if (prefix.length > 3) {
+		if (prefix.charAt(0) !== '+') {
+			prefix = `+${prefix}`;
+		}
+		if (prefix.length > 4) {
 			return prefix.substring(0, prefix.length - 1);
 		}
 		return prefix;
@@ -286,9 +295,9 @@ export default function CheckoutForm(props) {
 							<div>
 								<Field
 									className="prefix-input"
-									name="prefix_telephone"
+									name="prefix"
 									placeholder="+"
-									value={prefixLimit(values.prefix_telephone)}
+									value={prefixLimit(values.prefix)}
 								/>
 								<Field
 									className="input-with-prefix"
@@ -297,9 +306,12 @@ export default function CheckoutForm(props) {
 								/>
 							</div>
 							<p className="error-message">
-								{touched.prefix_telephone &&
-									errors.prefix_telephone + ' '}
-								{touched.telephone && errors.telephone + ' '}
+								{touched.prefix &&
+									errors.prefix &&
+									`${errors.prefix}. `}
+								{touched.telephone &&
+									errors.telephone &&
+									`${errors.telephone}. `}
 							</p>
 						</div>
 						<div
@@ -331,7 +343,7 @@ export default function CheckoutForm(props) {
 								{loading && (
 									<i className="fa fa-refresh fa-spin loading-margin" />
 								)}
-								{__('Summary', 'wubtitle')}
+								{__('Next', 'wubtitle')}
 							</button>
 						</div>
 					</Form>

@@ -86,7 +86,7 @@ class InvoiceHelper {
 	public function build_invoice_array( $invoice_object ) {
 		$eu_countries_file = wp_remote_get( WUBTITLE_URL . 'build_form/europeanCountries.json' );
 		$eu_countries      = json_decode( wp_remote_retrieve_body( $eu_countries_file ) );
-		if ( ! isset( $invoice_object->invoice_name, $invoice_object->invoice_lastname, $invoice_object->invoice_email, $invoice_object->telephone, $invoice_object->prefix_telephone, $invoice_object->address, $invoice_object->city, $invoice_object->country ) ) {
+		if ( ! isset( $invoice_object->invoice_name, $invoice_object->invoice_lastname, $invoice_object->invoice_email, $invoice_object->telephone, $invoice_object->prefix, $invoice_object->address, $invoice_object->city, $invoice_object->country ) ) {
 			return false;
 		}
 		$invoice_details = array(
@@ -94,12 +94,11 @@ class InvoiceHelper {
 			'LastName'        => $invoice_object->invoice_lastname,
 			'Email'           => $invoice_object->invoice_email,
 			'Telephone'       => $invoice_object->telephone,
-			'TelephonePrefix' => $invoice_object->prefix_telephone,
+			'TelephonePrefix' => substr( $invoice_object->prefix, 1 ),
 			'Address'         => $invoice_object->address,
 			'City'            => $invoice_object->city,
 			'Country'         => $invoice_object->country,
 		);
-
 		if ( ! in_array( $invoice_object->country, $eu_countries, true ) ) {
 			if ( ! empty( $invoice_object->company_name ) ) {
 				$invoice_details['CompanyName'] = $invoice_object->company_name;
@@ -179,7 +178,7 @@ class InvoiceHelper {
 			'invoice_email'    => $invoice_details->Email,
 			'invoice_lastname' => $invoice_details->LastName,
 			'telephone'        => $invoice_details->Telephone,
-			'prefix_telephone' => $invoice_details->TelephonePrefix,
+			'prefix'           => $invoice_details->TelephonePrefix,
 			'company_name'     => $invoice_details->CompanyName,
 			'address'          => $invoice_details->Address,
 			'cap'              => $invoice_details->PostCode,

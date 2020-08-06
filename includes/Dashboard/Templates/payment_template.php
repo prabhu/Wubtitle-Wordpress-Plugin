@@ -64,18 +64,6 @@ require WUBTITLE_DIR . 'includes/Dashboard/Templates/plans_array.php';
 						<?php echo esc_html( $plan['message_button'] ); ?>
 					</div>
 				</div>
-			</div>
-				<?php
-		endforeach;
-		endif;
-		?>
-		</div>
-		<div class="row">
-		<?php
-		if ( isset( $plans ) ) :
-			foreach ( $plans as $plan ) :
-				?>
-			<div class="column one-quarter">
 				<ul class="features-list">
 					<?php
 					foreach ( $plan['dot_list'] as $dot ) :
@@ -90,6 +78,7 @@ require WUBTITLE_DIR . 'includes/Dashboard/Templates/plans_array.php';
 		endforeach;
 		endif;
 		?>
+		</div>
 		</div>
 	</div>
 	<?php wp_footer(); ?>

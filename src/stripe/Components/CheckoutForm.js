@@ -71,7 +71,7 @@ export default function CheckoutForm(props) {
 				setLoadingCoupon(false);
 				if (response.success) {
 					setCouponMessage(response.data.message);
-					updatePrice(response.data.price);
+					updatePrice(response.data);
 				} else {
 					setCouponMessage(response.data);
 					updatePrice(false);
@@ -221,7 +221,7 @@ export default function CheckoutForm(props) {
 								{loading && (
 									<i className="fa fa-refresh fa-spin loading-margin" />
 								)}
-								{__('Confirm order', 'wubtitle')}
+								{__('Subscribe', 'wubtitle')}
 							</button>
 						</div>
 					</Form>

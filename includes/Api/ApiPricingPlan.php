@@ -421,7 +421,9 @@ class ApiPricingPlan {
 			wp_send_json_error( $message );
 		}
 		$data = array(
-			'price' => $response_body->data->discountedAmount,
+			'price'    => $response_body->data->netAmount,
+			'newTax'   => $response_body->data->taxAmount,
+			'newTotal' => $response_body->data->totalAmount,
 		);
 		wp_send_json_success( $data );
 	}
