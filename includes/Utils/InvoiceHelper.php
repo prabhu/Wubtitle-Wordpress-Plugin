@@ -29,19 +29,21 @@ class InvoiceHelper {
 	 * @return void
 	 */
 	public function check_vat_code() {
-		if ( ! isset( $_POST['_ajax_nonce'], $_POST['price_plan'], $_POST['vat_code'], $_POST['country'] ) ) {
+		if ( ! isset( $_POST['_ajax_nonce'], $_POST['price_plan'], $_POST['vat_code'], $_POST['country'], $_POST['companyName'] ) ) {
 			wp_send_json_error( __( 'An error occurred. Please try again in a few minutes.', 'wubtitle' ) );
 		}
-		$nonce    = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
-		$price    = (float) sanitize_text_field( wp_unslash( $_POST['price_plan'] ) );
-		$vat_code = sanitize_text_field( wp_unslash( $_POST['vat_code'] ) );
-		$country  = sanitize_text_field( wp_unslash( $_POST['country'] ) );
+		$nonce        = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
+		$price        = (float) sanitize_text_field( wp_unslash( $_POST['price_plan'] ) );
+		$vat_code     = sanitize_text_field( wp_unslash( $_POST['vat_code'] ) );
+		$country      = sanitize_text_field( wp_unslash( $_POST['country'] ) );
+		$company_name = sanitize_text_field( wp_unslash( $_POST['companyName'] ) );
 		check_ajax_referer( 'itr_ajax_nonce', $nonce );
 		$body        = array(
 			'data' => array(
 				'vatCode'     => $vat_code,
 				'price'       => $price,
 				'countryCode' => $country,
+				'companyName' => $company_name,
 			),
 		);
 		$license_key = get_option( 'wubtitle_license_key' );
