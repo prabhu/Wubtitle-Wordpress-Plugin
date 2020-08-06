@@ -38,6 +38,11 @@ class InvoiceHelper {
 		$country      = sanitize_text_field( wp_unslash( $_POST['country'] ) );
 		$company_name = sanitize_text_field( wp_unslash( $_POST['companyName'] ) );
 		check_ajax_referer( 'itr_ajax_nonce', $nonce );
+		$eu_countries_file = wp_remote_get( WUBTITLE_URL . 'build_form/europeanCountries.json' );
+		$eu_countries      = json_decode( wp_remote_retrieve_body( $eu_countries_file ) );
+		if ( ! in_array( $country, $eu_countries, true ) ) {
+			$vat_code = '';
+		}
 		$body        = array(
 			'data' => array(
 				'vatCode'     => $vat_code,
