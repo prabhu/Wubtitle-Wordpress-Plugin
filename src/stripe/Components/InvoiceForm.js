@@ -13,7 +13,29 @@ export default function CheckoutForm(props) {
 		error,
 		loading,
 	} = props;
+	const { ajaxUrl, ajaxNonce } = WP_GLOBALS;
 	const requiredMessage = __('Required', 'wubtitle');
+	let fiscalCode;
+	let savedCheck;
+	const checkFiscalCode = async (value) => {
+		if (!value || value.length !== 16) {
+			return true;
+		}
+		if (fiscalCode && fiscalCode === value) {
+			return savedCheck;
+		}
+		fiscalCode = value;
+		let response = await fetch(ajaxUrl, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/x-www-form-urlencoded',
+			},
+			body: `action=check_fiscal_code&_ajax_nonce=${ajaxNonce}&fiscalCode=${fiscalCode}`,
+		});
+		response = await response.json();
+		savedCheck = response.data;
+		return savedCheck;
+	};
 
 	const DisplayingErrorMessagesSchema = Yup.lazy((values) => {
 		const yupObject = {
@@ -49,6 +71,19 @@ export default function CheckoutForm(props) {
 						__('Vat Code must be exactly 11 characters', 'wubtitle')
 					)
 					.matches('^[0-9]*$', __('Only numbers', 'wubtitle'));
+				yupObject.fiscal_code = Yup.string()
+					.length(
+						16,
+						__(
+							'Fiscal Code must be exactly 16 characters',
+							'wubtitle'
+						)
+					)
+					.test(
+						'is-valid-fiscalcode',
+						__('Invalid Fiscal Code', 'wubtitle'),
+						async (value) => await checkFiscalCode(value)
+					);
 			}
 		} else if (values.country === 'IT') {
 			yupObject.fiscal_code = Yup.string()
@@ -56,6 +91,11 @@ export default function CheckoutForm(props) {
 				.length(
 					16,
 					__('Fiscal Code must be exactly 16 characters', 'wubtitle')
+				)
+				.test(
+					'is-valid-fiscalcode',
+					__('Invalid Fiscal Code', 'wubtitle'),
+					async (value) => await checkFiscalCode(value)
 				);
 		}
 		if (values.country === 'IT') {
