@@ -140,11 +140,11 @@ class PaymentTemplate {
 		$nonce = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
 		$mode  = sanitize_text_field( wp_unslash( $_POST['mode'] ) );
 		check_ajax_referer( 'itr_ajax_nonce', $nonce );
-		$message = __( 'Update successfull', 'wubtitle' );
+		$message = __( 'Update successfull!', 'wubtitle' );
 		if ( 'upgrade' === $mode ) {
-			$message = __( 'Upgrade successfull', 'wubtitle' );
+			$message = __( 'Upgrade successfull!', 'wubtitle' );
 		} elseif ( 'downgrade' === $mode ) {
-			$message = __( 'Downgrade successfull', 'wubtitle' );
+			$message = __( 'Downgrade successfull!', 'wubtitle' );
 		}
 		if ( current_user_can( 'manage_options' ) ) {
 			ob_start();

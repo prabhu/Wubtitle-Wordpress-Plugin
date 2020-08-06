@@ -136,6 +136,12 @@ const showThankYouPageWindow = (CurrentWindow, mode) => {
 		});
 };
 const showUpdatePlanWindow = () => {
+	if (CancelSubscriptionWindow && !CancelSubscriptionWindow.closed) {
+		CancelSubscriptionWindow.close();
+	}
+	if (BuyLicenseWindow && !BuyLicenseWindow.closed) {
+		BuyLicenseWindow.close();
+	}
 	if (UpdatePlanWindow === null || UpdatePlanWindow.closed) {
 		const windowFeatures = `
             left=500,
@@ -168,6 +174,9 @@ const showUpdatePlanWindow = () => {
 const showBuyLicenseWindow = () => {
 	if (CancelSubscriptionWindow && !CancelSubscriptionWindow.closed) {
 		CancelSubscriptionWindow.close();
+	}
+	if (UpdatePlanWindow && !UpdatePlanWindow.closed) {
+		UpdatePlanWindow.close();
 	}
 	if (!wait && (BuyLicenseWindow === null || BuyLicenseWindow.closed)) {
 		const windowFeatures = `
@@ -225,6 +234,9 @@ const confirmPlanChangeWindow = (CurrentWindow, wantedPlanRank) => {
 const showCancelSubscriptionWindow = () => {
 	if (BuyLicenseWindow && !BuyLicenseWindow.closed) {
 		BuyLicenseWindow.close();
+	}
+	if (UpdatePlanWindow && !UpdatePlanWindow.closed) {
+		UpdatePlanWindow.close();
 	}
 	if (
 		!wait &&

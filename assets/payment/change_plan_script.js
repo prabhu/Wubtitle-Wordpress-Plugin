@@ -1,12 +1,11 @@
 (function (Stripe, document) {
 	const { adminAjax, nonce, stripeKey } = WP_GLOBALS;
 	let stripe = null;
+	let isUpgrade;
 
 	const paymentSuccessfull = () => {
-		window.unonload = window.opener.redirectToCallback(
-			'notices-code=payment'
-		);
-		window.close();
+		const message = isUpgrade ? 'upgrade' : 'downgrade';
+		window.opener.thankYouPage(message);
 	};
 
 	const confirmPayment = (clientSecret, paymentMethod) => {
@@ -36,6 +35,7 @@
 			.then((resp) => resp.json())
 			.then((response) => {
 				if (response.success) {
+					isUpgrade = response.data.isUpgrade;
 					if (
 						response.data &&
 						response.data.status === 'requires_action'
@@ -47,9 +47,6 @@
 					} else {
 						paymentSuccessfull();
 					}
-				} else {
-					document.getElementById('error-message').innerHTML =
-						response.data;
 				}
 			});
 	};

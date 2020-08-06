@@ -34,10 +34,11 @@ class ApiPricingPlan {
 	 * @return void
 	 */
 	public function change_plan() {
-		$wanted_plan_rank = get_option( 'wubtitle_wanted_plan_rank' );
-		$all_plans        = get_option( 'wubtitle_all_plans' );
-		$wanted_plan      = $all_plans[ $wanted_plan_rank ]['stripe_code'];
-
+		$wanted_plan_rank  = get_option( 'wubtitle_wanted_plan_rank' );
+		$all_plans         = get_option( 'wubtitle_all_plans' );
+		$wanted_plan       = $all_plans[ $wanted_plan_rank ]['stripe_code'];
+		$current_plan_rank = get_option( 'wubtitle_plan_rank' );
+		$is_upgrade        = $wanted_plan_rank > $current_plan_rank;
 		if ( ! isset( $_POST['_ajax_nonce'] ) || empty( $wanted_plan ) ) {
 			wp_send_json_error( __( 'An error occurred. Please try again in a few minutes.', 'wubtitle' ) );
 		}
@@ -83,6 +84,7 @@ class ApiPricingPlan {
 			$data = array(
 				'paymentMethod' => $response_body->data->paymentMethod,
 				'clientSecret'  => $response_body->data->clientSecret,
+				'isUpgrade'     => $is_upgrade,
 			);
 		}
 		$data['status'] = $status;
