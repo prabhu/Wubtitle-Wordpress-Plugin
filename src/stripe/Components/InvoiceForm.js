@@ -92,7 +92,7 @@ export default function CheckoutForm(props) {
 	};
 	if (invoicePreValues) {
 		if (invoicePreValues.prefix.charAt(0) !== '+') {
-			invoicePreValues.prefix = '+' + invoicePreValues.prefix;
+			invoicePreValues.prefix = `+${invoicePreValues.prefix}`;
 		}
 		initValues = {
 			...invoicePreValues,
@@ -101,7 +101,7 @@ export default function CheckoutForm(props) {
 
 	const prefixLimit = (prefix) => {
 		if (prefix.charAt(0) !== '+') {
-			prefix = '+' + prefix;
+			prefix = `+${prefix}`;
 		}
 		if (prefix.length > 4) {
 			return prefix.substring(0, prefix.length - 1);
@@ -308,10 +308,10 @@ export default function CheckoutForm(props) {
 							<p className="error-message">
 								{touched.prefix &&
 									errors.prefix &&
-									errors.prefix + '. '}
+									`${errors.prefix}. `}
 								{touched.telephone &&
 									errors.telephone &&
-									errors.telephone + '. '}
+									`${errors.telephone}. `}
 							</p>
 						</div>
 						<div
