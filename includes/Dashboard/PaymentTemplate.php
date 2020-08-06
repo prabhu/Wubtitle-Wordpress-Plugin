@@ -29,7 +29,7 @@ class PaymentTemplate {
 	 */
 	public function run() {
 		$stripe_key = 'pk_live_PvwHkJ49ry3lfXwkXIx2YKBE00S15aBYz7';
-		if ( defined( 'WP_WUBTITLE_ENV' ) && WP_WUBTITLE_ENV ) {
+		if ( defined( 'WP_WUBTITLE_ENV' ) && 'development' === WP_WUBTITLE_ENV ) {
 			$stripe_key = 'pk_test_lFmjf2Dz7VURTslihG0xys7m00NjW2BOPI';
 		}
 		$this->stripe_key = $stripe_key;
