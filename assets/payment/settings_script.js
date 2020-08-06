@@ -51,6 +51,18 @@ function customStripeForm(planRank){
 	}
 	showCustomFormWindow(planRank, CurrentWindow);
 }
+//this function is used by the dialog CustomFormWindow 
+function thankYouPage(mode){
+	let CurrentWindow;
+	if (BuyLicenseWindow && !BuyLicenseWindow.closed) {
+		CurrentWindow = BuyLicenseWindow;
+	} else if (CancelSubscriptionWindow && !CancelSubscriptionWindow.closed) {
+		CurrentWindow = CancelSubscriptionWindow;
+	} else if (UpdatePlanWindow && !UpdatePlanWindow.closed) {
+		CurrentWindow = UpdatePlanWindow;
+	}
+	showThankYouPageWindow(CurrentWindow, mode);
+}
 /* eslint-enable */
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -102,6 +114,20 @@ const showCustomFormWindow = (planRank, CurrentWindow) => {
 				_ajax_nonce: settings_object.ajaxnonce,
 				planRank,
 				priceinfo: JSON.stringify(settings_object.infoplans),
+			},
+		})
+		.done((response) => {
+			CurrentWindow.document.body.innerHTML = '';
+			CurrentWindow.document.write(response);
+		});
+};
+const showThankYouPageWindow = (CurrentWindow, mode) => {
+	wp.ajax
+		.send('thankyou_page', {
+			type: 'POST',
+			data: {
+				_ajax_nonce: settings_object.ajaxnonce,
+				mode,
 			},
 		})
 		.done((response) => {

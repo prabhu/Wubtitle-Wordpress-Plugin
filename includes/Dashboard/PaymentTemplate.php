@@ -37,6 +37,7 @@ class PaymentTemplate {
 		add_action( 'wp_ajax_update_template', array( $this, 'load_update_template' ) );
 		add_action( 'wp_ajax_change_plan_template', array( $this, 'change_plan_template' ) );
 		add_action( 'wp_ajax_custom_form_template', array( $this, 'load_custom_form' ) );
+		add_action( 'wp_ajax_thankyou_page', array( $this, 'load_thankyou_page' ) );
 	}
 
 
@@ -120,6 +121,45 @@ class PaymentTemplate {
 				)
 			);
 			include 'Templates/payment_template.php';
+			$html = ob_get_clean();
+			wp_send_json_success( $html );
+		}
+		$html = 'Error';
+		wp_send_json_error( $html );
+	}
+		/**
+		 * Load Thank you page
+		 *
+		 * @return void
+		 * @SuppressWarnings(PHPMD.UnusedLocalVariable)
+		 */
+	public function load_thankyou_page() {
+		if ( ! isset( $_POST['_ajax_nonce'], $_POST['mode'] ) ) {
+			wp_send_json_error( __( 'An error occurred. Please try again in a few minutes.', 'wubtitle' ) );
+		}
+		$nonce = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
+		$mode  = sanitize_text_field( wp_unslash( $_POST['mode'] ) );
+		check_ajax_referer( 'itr_ajax_nonce', $nonce );
+		$message = __( 'Update successfull', 'wubtitle' );
+		if ( 'upgrade' === $mode ) {
+			$message = __( 'Upgrade successfull', 'wubtitle' );
+		} elseif ( 'downgrade' === $mode ) {
+			$message = __( 'Downgrade successfull', 'wubtitle' );
+		}
+		if ( current_user_can( 'manage_options' ) ) {
+			ob_start();
+			wp_enqueue_style( 'wubtitle_font_family', 'https://fonts.googleapis.com/css?family=Days+One|Open+Sans&display=swap', array(), WUBTITLE_VER );
+			wp_enqueue_style( 'wubtitle_style_template', WUBTITLE_URL . 'assets/css/payment_template.css', array(), WUBTITLE_VER );
+			wp_enqueue_script( 'wubtitle_change_plan', WUBTITLE_URL . 'assets/payment/payment_template.js', array(), WUBTITLE_VER, true );
+			wp_localize_script(
+				'wubtitle_change_plan',
+				'WP_GLOBALS',
+				array(
+					'adminAjax' => admin_url( 'admin-ajax.php' ),
+					'nonce'     => wp_create_nonce( 'itr_ajax_nonce' ),
+				)
+			);
+			include 'Templates/thankyou_page.php';
 			$html = ob_get_clean();
 			wp_send_json_success( $html );
 		}
