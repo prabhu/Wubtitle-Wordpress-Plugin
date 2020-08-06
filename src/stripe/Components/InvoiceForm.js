@@ -4,7 +4,6 @@ import { Formik, Form, Field } from 'formik';
 import countries from '../data/countries.json';
 import provinces from '../data/provinces.json';
 import euCountries from '../data/europeanCountries.json';
-import CodiceFiscale from 'codice-fiscale-js';
 
 export default function CheckoutForm(props) {
 	const {
@@ -52,11 +51,12 @@ export default function CheckoutForm(props) {
 					.matches('^[0-9]*$', __('Only numbers', 'wubtitle'));
 			}
 		} else if (values.country === 'IT') {
-			yupObject.fiscal_code = Yup.string().test(
-				'',
-				__('Invalid fiscal code', 'wubtitle'),
-				(value) => CodiceFiscale.check(value)
-			);
+			yupObject.fiscal_code = Yup.string()
+				.required(requiredMessage)
+				.length(
+					16,
+					__('Fiscal Code must be exactly 16 characters', 'wubtitle')
+				);
 		}
 		if (values.country === 'IT') {
 			yupObject.cap = Yup.string()
