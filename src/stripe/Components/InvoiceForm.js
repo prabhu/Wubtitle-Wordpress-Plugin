@@ -1,11 +1,11 @@
-import { useEffect } from 'react';
 import * as Yup from 'yup';
 import { __ } from '@wordpress/i18n';
 import { Formik, Form, Field } from 'formik';
 import countries from '../data/countries.json';
 import provinces from '../data/provinces.json';
 import euCountries from '../data/europeanCountries.json';
-let FiscalCodeModule;
+import CodiceFiscale from 'codice-fiscale-js';
+
 export default function CheckoutForm(props) {
 	const {
 		invoicePreValues,
@@ -14,13 +14,8 @@ export default function CheckoutForm(props) {
 		error,
 		loading,
 	} = props;
-	useEffect(() => {
-		async function LoadModule() {
-			FiscalCodeModule = await import('codice-fiscale-js').default;
-		}
-		LoadModule();
-	}, []);
 	const requiredMessage = __('Required', 'wubtitle');
+
 	const DisplayingErrorMessagesSchema = Yup.lazy((values) => {
 		const yupObject = {
 			invoice_name: Yup.string().required(requiredMessage),
@@ -58,11 +53,9 @@ export default function CheckoutForm(props) {
 			}
 		} else if (values.country === 'IT') {
 			yupObject.fiscal_code = Yup.string().test(
-				'is-valid-fiscal-code',
+				'',
 				__('Invalid fiscal code', 'wubtitle'),
-				(value) => {
-					return FiscalCodeModule.check(value);
-				}
+				(value) => CodiceFiscale.check(value)
 			);
 		}
 		if (values.country === 'IT') {
