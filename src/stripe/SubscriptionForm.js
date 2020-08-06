@@ -69,8 +69,7 @@ function App() {
 				if (result.paymentIntent.status === 'succeeded') {
 					setLoading(false);
 					setError(null);
-					window.opener.redirectToCallback('notices-code=payment');
-					window.close();
+					window.opener.thankYouPage('upgrade');
 				}
 				if (result.error) {
 					setLoading(false);
@@ -106,10 +105,7 @@ function App() {
 						);
 					} else {
 						setLoading(false);
-						window.opener.redirectToCallback(
-							'notices-code=payment'
-						);
-						window.close();
+						window.opener.thankYouPage('upgrade');
 					}
 				} else {
 					setLoading(false);

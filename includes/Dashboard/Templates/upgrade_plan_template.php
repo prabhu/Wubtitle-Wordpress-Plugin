@@ -98,7 +98,7 @@ $plans            = isset( $plans ) ? $plans : array();
 							echo isset( $price_info_object, $wanted_plan_rank ) ? esc_html( $price_info_object[ $wanted_plan_rank ]->price . '€' ) : '';
 							if ( $taxable ) {
 								echo esc_html( ' +' . $tax_wanted_plan . '€' );
-								esc_html_e( ' (vat)', 'wubtitle' );
+								esc_html_e( ' (VAT)', 'wubtitle' );
 							}
 							?>
 							</span>

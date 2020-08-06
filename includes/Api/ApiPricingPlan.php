@@ -34,10 +34,11 @@ class ApiPricingPlan {
 	 * @return void
 	 */
 	public function change_plan() {
-		$wanted_plan_rank = get_option( 'wubtitle_wanted_plan_rank' );
-		$all_plans        = get_option( 'wubtitle_all_plans' );
-		$wanted_plan      = $all_plans[ $wanted_plan_rank ]['stripe_code'];
-
+		$wanted_plan_rank  = get_option( 'wubtitle_wanted_plan_rank' );
+		$all_plans         = get_option( 'wubtitle_all_plans' );
+		$wanted_plan       = $all_plans[ $wanted_plan_rank ]['stripe_code'];
+		$current_plan_rank = get_option( 'wubtitle_plan_rank' );
+		$is_upgrade        = $wanted_plan_rank > $current_plan_rank;
 		if ( ! isset( $_POST['_ajax_nonce'] ) || empty( $wanted_plan ) ) {
 			wp_send_json_error( __( 'An error occurred. Please try again in a few minutes.', 'wubtitle' ) );
 		}
@@ -85,7 +86,8 @@ class ApiPricingPlan {
 				'clientSecret'  => $response_body->data->clientSecret,
 			);
 		}
-		$data['status'] = $status;
+		$data['status']    = $status;
+		$data['isUpgrade'] = $is_upgrade;
 		wp_send_json_success( $data );
 	}
 	/**
@@ -327,10 +329,9 @@ class ApiPricingPlan {
 				wp_send_json_error( __( 'An error occurred. Please try again in a few minutes.', 'wubtitle' ) );
 			}
 			$plan_id                = sanitize_text_field( wp_unslash( $_POST['planId'] ) );
-			$body['data']['coupon'] = isset( $_POST['coupon'] ) ? sanitize_text_field( wp_unslash( $_POST['coupon'] ) ) : '';
+			$body['data']['coupon'] = empty( $_POST['coupon'] ) ? sanitize_text_field( wp_unslash( $_POST['coupon'] ) ) : '';
 			$body['data']['planId'] = $plan_id;
 		}
-
 		$license_key   = get_option( 'wubtitle_license_key' );
 		$response      = wp_remote_post(
 			WUBTITLE_ENDPOINT . 'stripe/checkout/confirm',

@@ -50,6 +50,12 @@
 
 		const unsubscribeButton = document.querySelector('#unsubscribeButton');
 		const closeButton = document.querySelector('#close');
+		const successButton = document.querySelector('#success-button');
+		if (successButton) {
+			successButton.addEventListener('click', () => {
+				window.opener.redirectToCallback('notices-code=payment');
+			});
+		}
 		if (unsubscribeButton) {
 			unsubscribeButton.addEventListener('click', () => {
 				handleUnsubscription();

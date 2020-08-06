@@ -346,3 +346,22 @@ html {
 		margin: 0 auto;
 	}
 }
+
+.padding-tp-large {
+	padding-top: 160px;
+}
+
+.thank-button {
+	background: #fff;
+	border-radius: 16px;
+	color: #2962ff;
+	cursor: pointer;
+	font-family: "Days One", sans-serif;
+	font-size: 12px;
+	letter-spacing: 0;
+	line-height: 12px;
+	margin-top: 35px;
+	padding: 10px;
+	text-align: center;
+	border-color: #2962ff;
+}

@@ -74,8 +74,7 @@ function App() {
 			.then((result) => {
 				if (result.success) {
 					setLoading(false);
-					window.opener.redirectToCallback('notices-code=payment');
-					window.close();
+					window.opener.thankYouPage('update');
 				} else {
 					setLoading(false);
 					setError(result.data);
@@ -132,8 +131,7 @@ function App() {
 				if (response.data === 'updateInvoice') {
 					setLoading(false);
 					setError(null);
-					window.opener.redirectToCallback('notices-code=update');
-					window.close();
+					window.opener.thankYouPage('update');
 				} else if (response.success) {
 					confirmSetup(response.data, cardNumber, values, stripe);
 				} else {
