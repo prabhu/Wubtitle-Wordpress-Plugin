@@ -20,10 +20,10 @@
 	<title>Success</title>
 </head>
 <body>
-	<div class="container" id="content">
+	<div class="container padding-tp-large" id="content">
 		<h1 class="title"><?php echo isset( $message ) ? esc_html( $message ) : ''; ?></h1>
-		<p><?php esc_html_e( 'Update Wubtitle settings page on your site backoffice to view the changes or click on the button below', 'wubtitle' ); ?></p>
-		<button id="success-button"><?php esc_html_e( 'BACK TO WUBTITLE', 'wubtitle' ); ?></button>
+		<p class="paragraph-center"><?php esc_html_e( 'Update Wubtitle settings page on your site backoffice to view the changes or click on the button below', 'wubtitle' ); ?></p>
+		<button class="thank-button" id="success-button"><?php esc_html_e( 'BACK TO WUBTITLE', 'wubtitle' ); ?></button>
 	</div>
 	<?php wp_footer(); ?>
 </body>
