@@ -84,10 +84,10 @@ class ApiPricingPlan {
 			$data = array(
 				'paymentMethod' => $response_body->data->paymentMethod,
 				'clientSecret'  => $response_body->data->clientSecret,
-				'isUpgrade'     => $is_upgrade,
 			);
 		}
-		$data['status'] = $status;
+		$data['status']    = $status;
+		$data['isUpgrade'] = $is_upgrade;
 		wp_send_json_success( $data );
 	}
 	/**
@@ -329,10 +329,9 @@ class ApiPricingPlan {
 				wp_send_json_error( __( 'An error occurred. Please try again in a few minutes.', 'wubtitle' ) );
 			}
 			$plan_id                = sanitize_text_field( wp_unslash( $_POST['planId'] ) );
-			$body['data']['coupon'] = isset( $_POST['coupon'] ) ? sanitize_text_field( wp_unslash( $_POST['coupon'] ) ) : '';
+			$body['data']['coupon'] = empty( $_POST['coupon'] ) ? sanitize_text_field( wp_unslash( $_POST['coupon'] ) ) : '';
 			$body['data']['planId'] = $plan_id;
 		}
-
 		$license_key   = get_option( 'wubtitle_license_key' );
 		$response      = wp_remote_post(
 			WUBTITLE_ENDPOINT . 'stripe/checkout/confirm',
