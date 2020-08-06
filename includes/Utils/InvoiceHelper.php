@@ -21,6 +21,7 @@ class InvoiceHelper {
 	 */
 	public function run() {
 		add_action( 'wp_ajax_check_vat_code', array( $this, 'check_vat_code' ) );
+		add_action( 'wp_ajax_check_fiscal_code', array( $this, 'check_fiscal_code' ) );
 	}
 
 	/**
@@ -29,19 +30,26 @@ class InvoiceHelper {
 	 * @return void
 	 */
 	public function check_vat_code() {
-		if ( ! isset( $_POST['_ajax_nonce'], $_POST['price_plan'], $_POST['vat_code'], $_POST['country'] ) ) {
+		if ( ! isset( $_POST['_ajax_nonce'], $_POST['price_plan'], $_POST['vat_code'], $_POST['country'], $_POST['companyName'] ) ) {
 			wp_send_json_error( __( 'An error occurred. Please try again in a few minutes.', 'wubtitle' ) );
 		}
-		$nonce    = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
-		$price    = (float) sanitize_text_field( wp_unslash( $_POST['price_plan'] ) );
-		$vat_code = sanitize_text_field( wp_unslash( $_POST['vat_code'] ) );
-		$country  = sanitize_text_field( wp_unslash( $_POST['country'] ) );
+		$nonce        = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
+		$price        = (float) sanitize_text_field( wp_unslash( $_POST['price_plan'] ) );
+		$vat_code     = sanitize_text_field( wp_unslash( $_POST['vat_code'] ) );
+		$country      = sanitize_text_field( wp_unslash( $_POST['country'] ) );
+		$company_name = sanitize_text_field( wp_unslash( $_POST['companyName'] ) );
 		check_ajax_referer( 'itr_ajax_nonce', $nonce );
+		$eu_countries_file = wp_remote_get( WUBTITLE_URL . 'build_form/europeanCountries.json' );
+		$eu_countries      = json_decode( wp_remote_retrieve_body( $eu_countries_file ) );
+		if ( ! in_array( $country, $eu_countries, true ) ) {
+			$vat_code = '';
+		}
 		$body        = array(
 			'data' => array(
 				'vatCode'     => $vat_code,
 				'price'       => $price,
 				'countryCode' => $country,
+				'companyName' => $company_name,
 			),
 		);
 		$license_key = get_option( 'wubtitle_license_key' );
@@ -74,6 +82,48 @@ class InvoiceHelper {
 		$response_body = json_decode( wp_remote_retrieve_body( $response ) );
 		$taxable       = $response_body->data->taxable;
 		wp_send_json_success( $taxable );
+	}
+
+	/**
+	 * Calls the backend endpoint to check fiscal code.
+	 *
+	 * @return void
+	 */
+	public function check_fiscal_code() {
+		if ( ! isset( $_POST['_ajax_nonce'], $_POST['fiscalCode'] ) ) {
+			wp_send_json_error( __( 'An error occurred. Please try again in a few minutes.', 'wubtitle' ) );
+		}
+		$nonce       = sanitize_text_field( wp_unslash( $_POST['_ajax_nonce'] ) );
+		$fiscal_code = sanitize_text_field( wp_unslash( $_POST['fiscalCode'] ) );
+		check_ajax_referer( 'itr_ajax_nonce', $nonce );
+		$body        = array(
+			'data' => array(
+				'fiscalCode' => $fiscal_code,
+			),
+		);
+		$license_key = get_option( 'wubtitle_license_key' );
+		if ( empty( $license_key ) ) {
+			wp_send_json_error( __( 'Error. The product license key is missing.', 'wubtitle' ) );
+		}
+		$response      = wp_remote_post(
+			WUBTITLE_ENDPOINT . '/fiscalcode/check',
+			array(
+				'method'  => 'POST',
+				'headers' => array(
+					'licenseKey'   => $license_key,
+					'domainUrl'    => get_site_url(),
+					'Content-Type' => 'application/json; charset=utf-8',
+				),
+				'body'    => wp_json_encode( $body ),
+			)
+		);
+		$code_response = wp_remote_retrieve_response_code( $response );
+		if ( 200 !== $code_response ) {
+			wp_send_json_error( __( 'An error occurred. Please try again in a few minutes', 'wubtitle' ) );
+		}
+		$response_body = json_decode( wp_remote_retrieve_body( $response ) );
+		$check         = $response_body->data->check;
+		wp_send_json_success( $check );
 	}
 
 	/**
