@@ -409,13 +409,13 @@ class ApiPricingPlan {
 		$message       = array(
 			'400' => __( 'An error occurred. Please try again in a few minutes', 'wubtitle' ),
 			'401' => __( 'An error occurred. Please try again in a few minutes', 'wubtitle' ),
-			'402' => $response_body->errors->title,
 			'403' => __( 'Access denied', 'wubtitle' ),
 			'500' => __( 'Could not contact the server', 'wubtitle' ),
 			''    => __( 'Could not contact the server', 'wubtitle' ),
 		);
 		if ( 200 !== $code_response ) {
-			$message = $message[ $code_response ];
+			$message['402'] = $response_body->errors->title;
+			$message        = $message[ $code_response ];
 			if ( 400 === $code_response && 'INVALID_COUPON' === $response_body->errors->title ) {
 				$message = __( 'Invalid Coupon', 'wubtitle' );
 			}
