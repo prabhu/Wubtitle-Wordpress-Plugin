@@ -80,12 +80,13 @@ function App() {
 
 	const sendPaymentMethod = (setupIntent, stripe, values) => {
 		const { name, email } = values;
+		const currentCoupon = coupon ? coupon : '';
 		fetch(ajaxUrl, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/x-www-form-urlencoded',
 			},
-			body: `action=confirm_subscription&actionCheckout=create&coupon=${coupon}&name=${name}&email=${email}&planId=${planId}&_ajax_nonce=${ajaxNonce}&setupIntent=${JSON.stringify(
+			body: `action=confirm_subscription&actionCheckout=create&coupon=${currentCoupon}&name=${name}&email=${email}&planId=${planId}&_ajax_nonce=${ajaxNonce}&setupIntent=${JSON.stringify(
 				setupIntent
 			)}`,
 		})
