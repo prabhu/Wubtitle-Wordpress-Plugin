@@ -94,20 +94,32 @@ No, currently we do not offer annual subscriptions.
 
 == Changelog ==
 
-= 1.0.2 =
-Release Date: July 29h, 2020
+= 1.0.3 =
+Release Date: August 7th, 2020
+
+Enhancements:
+
+* Discount code support
+* Support Stripe 3d secure payments
 
 Bugfixes:
 
- * Fix license validation when w3 total cache is enabled
- * Other minor bugfixes
+* Stability improvements
+
+= 1.0.2 =
+Release Date: July 29th, 2020
+
+Bugfixes:
+
+* Fix license validation when w3 total cache is enabled
+* Other minor bugfixes
 
 = 1.0.1 =
 Release Date: July 27h, 2020
 
 Bugfixes:
 
- * Fixed the deploy workflow, we need node_modules and vendor folder
+* Fixed the deploy workflow, we need node_modules and vendor folder
 
 = 1.0.0 =
 Release Date: July 25th, 2020
