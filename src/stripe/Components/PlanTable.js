@@ -2,7 +2,15 @@ import React from 'react';
 import { __ } from '@wordpress/i18n';
 
 const PlanTable = (props) => {
-	const { currentPlan, currentPrice, renewal, taxable, taxAmount } = props;
+	const {
+		currentPlan,
+		taxPercentage,
+		renewal,
+		taxable,
+		taxAmount,
+		price,
+		total,
+	} = props;
 
 	return (
 		<table className="price-table">
@@ -14,24 +22,31 @@ const PlanTable = (props) => {
 				<td>
 					<td>{__('Price', 'wubtitle')}</td>
 				</td>
+				<td className="val">{price} &euro;</td>
+			</tr>
+			<tr>
+				<td>
+					{__('VAT', 'wubtitle')} ({taxPercentage}%)
+				</td>
 				{taxable ? (
-					<td className="val">
-						{parseFloat(currentPrice) + parseFloat(taxAmount)}{' '}
-						&euro;{' '}
-						<span className="valxm">
-							{__('per month', 'wubtitle')}
-						</span>
-					</td>
+					<td className="val">{taxAmount} &euro;</td>
 				) : (
 					<td className="val">
-						<span className="cut-vat">
-							{parseFloat(currentPrice) + parseFloat(taxAmount)}
-							&euro;
-							<span className="cut-line" />
+						0 &euro;{' '}
+						<span className="description">
+							{__('no Vat due for you', 'wubtitle')}
 						</span>
-						{currentPrice} &euro;
 					</td>
 				)}
+			</tr>
+			<tr className="total">
+				<td>{__('Total', 'wubtitle')}</td>
+				<td className="val">
+					{total} &euro;
+					<span className="valxm">
+						{__(' per month', 'wubtitle')}
+					</span>
+				</td>
 			</tr>
 			{renewal ? (
 				<tr className="total">
