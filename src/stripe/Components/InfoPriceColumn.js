@@ -56,10 +56,12 @@ const InfoPriceColumn = (props) => {
 				{update ? (
 					<PlanTable
 						currentPlan={name}
-						currentPrice={price}
 						renewal={expirationDate}
 						taxable={taxable}
 						taxAmount={taxAmount}
+						price={price}
+						taxPercentage={taxPercentage}
+						total={total}
 					/>
 				) : (
 					<PriceTable
