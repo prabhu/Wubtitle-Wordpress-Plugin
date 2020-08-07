@@ -119,6 +119,7 @@ class ApiPricingPlan {
 		$code_response = $this->is_successful_response( $response ) ? wp_remote_retrieve_response_code( $response ) : '500';
 		$message       = array(
 			'400' => __( 'An error occurred. Please try again in a few minutes', 'wubtitle' ),
+			'401' => __( 'An error occurred while creating the transcriptions. Please try again in a few minutes', 'wubtitle' ),
 			'403' => __( 'Access denied', 'wubtitle' ),
 			'500' => __( 'Could not contact the server', 'wubtitle' ),
 		);
