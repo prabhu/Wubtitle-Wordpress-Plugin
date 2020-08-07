@@ -11,3 +11,5 @@ build/
 build_form/
 .codacy-coverage/
 reports/
+languages/*.json
+languages/*.mo
