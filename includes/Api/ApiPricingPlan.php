@@ -329,7 +329,7 @@ class ApiPricingPlan {
 				wp_send_json_error( __( 'An error occurred. Please try again in a few minutes.', 'wubtitle' ) );
 			}
 			$plan_id                = sanitize_text_field( wp_unslash( $_POST['planId'] ) );
-			$body['data']['coupon'] = empty( $_POST['coupon'] ) ? sanitize_text_field( wp_unslash( $_POST['coupon'] ) ) : '';
+			$body['data']['coupon'] = ! empty( $_POST['coupon'] ) ? sanitize_text_field( wp_unslash( $_POST['coupon'] ) ) : '';
 			$body['data']['planId'] = $plan_id;
 		}
 		$license_key   = get_option( 'wubtitle_license_key' );
@@ -409,13 +409,13 @@ class ApiPricingPlan {
 		$message       = array(
 			'400' => __( 'An error occurred. Please try again in a few minutes', 'wubtitle' ),
 			'401' => __( 'An error occurred. Please try again in a few minutes', 'wubtitle' ),
-			'402' => $response_body->errors->title,
 			'403' => __( 'Access denied', 'wubtitle' ),
 			'500' => __( 'Could not contact the server', 'wubtitle' ),
 			''    => __( 'Could not contact the server', 'wubtitle' ),
 		);
 		if ( 200 !== $code_response ) {
-			$message = $message[ $code_response ];
+			$message['402'] = $response_body->errors->title;
+			$message        = $message[ $code_response ];
 			if ( 400 === $code_response && 'INVALID_COUPON' === $response_body->errors->title ) {
 				$message = __( 'Invalid Coupon', 'wubtitle' );
 			}

@@ -27,6 +27,7 @@ class YouTube implements \Wubtitle\Core\VideoSource {
 				'method'  => 'POST',
 				'headers' => array(
 					'licenseKey'   => get_option( 'wubtitle_license_key' ),
+					'domainUrl'    => get_site_url(),
 					'Content-Type' => 'application/json; charset=utf-8',
 				),
 				'body'    => wp_json_encode(
