@@ -23,7 +23,7 @@ jobs:
     # 3. Invoke ShiftLeft Scan with the github token. Leave the workspace empty to use relative url
     - name: Build
       run: |
-        composer install --no-dev --prefer-dist --no-interaction
+        composer install --prefer-dist --no-interaction
         npm ci --prefer-offline --progress=false
         npm run build
     - name: Perform ShiftLeft Scan
