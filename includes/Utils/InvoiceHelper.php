@@ -106,7 +106,7 @@ class InvoiceHelper {
 			wp_send_json_error( __( 'Error. The product license key is missing.', 'wubtitle' ) );
 		}
 		$response      = wp_remote_post(
-			WUBTITLE_ENDPOINT . '/fiscalcode/check',
+			WUBTITLE_ENDPOINT . 'fiscalcode/check',
 			array(
 				'method'  => 'POST',
 				'headers' => array(
