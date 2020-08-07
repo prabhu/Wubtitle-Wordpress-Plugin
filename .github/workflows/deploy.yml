@@ -13,9 +13,11 @@ jobs:
       uses: actions/checkout@v2
     - name: Build
       run: |
-        composer install --no-dev --prefer-dist --no-interaction
+        composer install --prefer-dist --no-interaction
         npm ci --prefer-offline --progress=false
         npm run build
+        rm -rf vendor
+        composer install --no-dev --prefer-dist --no-interaction
         npm ci --prefer-offline --progress=false --only=prod
         rm -rf src/ tests/ composer.json composer.lock package.json package-lock.json .github .aspell.en.pws .eslintrc.json .gitattributes .stylelintrc.json phpmd.xml phpstan.neon.dist node_modules/.cache
         zip -r ${{ github.event.repository.name }}.zip .
