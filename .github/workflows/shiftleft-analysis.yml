@@ -23,6 +23,10 @@ jobs:
     # 3. Invoke ShiftLeft Scan with the github token. Leave the workspace empty to use relative url
     - name: Build
       run: |
+        curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+        chmod +x wp-cli.phar
+        sudo mv wp-cli.phar /usr/local/bin/wp
+        wp package install wp-cli/server-command
         composer install --prefer-dist --no-interaction
         npm ci --prefer-offline --progress=false
         npm run build
