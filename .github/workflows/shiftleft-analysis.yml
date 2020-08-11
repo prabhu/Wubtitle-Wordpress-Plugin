@@ -26,7 +26,7 @@ jobs:
         composer install --prefer-dist --no-interaction
         npm ci --prefer-offline --progress=false
         npm run build
-        composer dump-autoload
+        composer dump-autoload -o
     - name: Perform ShiftLeft Scan
       uses: ShiftLeftSecurity/scan-action@master
       env:
